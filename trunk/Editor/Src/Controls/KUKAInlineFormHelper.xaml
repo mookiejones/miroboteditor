@@ -1,0 +1,38 @@
+﻿<Window x:Class="miRobotEditor.Controls.KUKAInlineFormHelper"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="KUKAInlineFormHelper" Height="300" Width="300">
+    <StackPanel>
+        <Menu>
+            <MenuItem Name="DateiToolStripMenuItem" Header="_Datei"/>
+        </Menu>
+        <ToolBar HorizontalAlignment="Stretch"  VerticalAlignment="Top">
+            <Button Name="NeuToolStripButton" Content="_Neu"/>
+            <Button Name="OffnenToolStripButton" Content="O_ffnen"/>
+            <Button Name="SpeichernToolStripButton" Content="_Speichern"/>
+            <Separator/>
+            <ComboBox>
+                <ComboBoxItem Content="RollerTp"/>
+                <ComboBoxItem Content="MyTech"/>
+            </ComboBox>
+            <ComboBox>
+                <ComboBoxItem Content="On"/>
+                <ComboBoxItem Content="Off"/>
+            </ComboBox>
+            <Separator/>
+        </ToolBar>
+        <ToolBar HorizontalAlignment="Stretch"  VerticalAlignment="Top">
+            <Button Content="Static"/>
+            <Button Content="Free"/>
+            <Button Content="Name"/>
+            <Button Content="List"/>
+            <Button Content="Number"/>
+            <Button Content="Real"/>
+        </ToolBar>
+        <DataGrid Name ="DataGriView1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  CanUserResizeRows="False" HeadersVisibility="All" SelectionMode="Extended">
+            <DataGridTextColumn x:Name="Column1" IsReadOnly="True" Width="70" Header="Param"/>
+            <DataGridTextColumn x:Name="Column2" IsReadOnly="True" Header="Value"/>
+        </DataGrid>
+
+    </StackPanel>
+</Window>

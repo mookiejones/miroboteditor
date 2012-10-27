@@ -1,0 +1,66 @@
+﻿<RecentFiles>
+  <RecentFiles>
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Interfaces/f:CompletionContext.cs" caret="0" fromTop="0" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Interfaces/f:DefaultCompletionItem.cs" caret="654" fromTop="18" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Interfaces/f:IconBarMargin.cs" caret="8313" fromTop="20" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Classes/f:CodeCompletion.cs" caret="0" fromTop="0" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/f:MainWindow.xaml.cs" caret="12435" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:OutputWindow/f:OutputWindow.xaml.cs" caret="30" fromTop="1" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:AngleConverter/d:Math Library/f:Vector3D.cs" caret="248" fromTop="10" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Themes/f:TextEditor.cs" caret="0" fromTop="0" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Controls/f:ExtendedGridSplitter.cs" caret="1965" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Controls/f:KUKAInlineFormHelper.xaml.cs" caret="331" fromTop="14" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:AngleConverter/d:Robot/f:Robot.cs" caret="493" fromTop="17" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/f:SingleInstance.cs" caret="2489" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:ObjectBrowser/f:ObjectBrowserTool.xaml.cs" caret="3744" fromTop="22" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Classes/f:OutputMessages.cs" caret="1144" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Templates/f:VisualVariableItem.xaml.cs" caret="1112" fromTop="19" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Interfaces/f:IInsightWindow.cs" caret="908" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Classes/f:RecentFileList.cs" caret="18016" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Classes/f:BookmarkBase.cs" caret="4340" fromTop="11" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:ABB.cs" caret="1151" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:Fanuc.cs" caret="928" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:Kawasaki.cs" caret="1119" fromTop="32" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:LanguageBase.cs" caret="1283" fromTop="26" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:VBA.cs" caret="728" fromTop="25" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:AbstractLanguageClass.cs" caret="13" fromTop="0" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/f:App.xaml.cs" caret="3509" fromTop="14" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:AngleConverter/f:AngleConvertor.cs" caret="5789" fromTop="42" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Snippets/f:KUKA.Snippet" caret="42" fromTop="1" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Snippets/f:SnippetCollection.cs" caret="125" fromTop="5" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:Editor/f:Editor.xaml.cs" caret="38509" fromTop="32" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:KUKA.cs" caret="19931" fromTop="15" />
+  </RecentFiles>
+  <RecentEdits>
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Controls/f:DummyDoc.xaml" caret="560" fromTop="5" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:AngleConverter/d:Math Library/f:Distance3D.cs" caret="4751" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:Editor/f:Editor.xaml" caret="427" fromTop="6" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:ExplorerWindow/f:DisplayStringAttribute.cs" caret="13" fromTop="0" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:ExplorerWindow/f:DriveViewModel.cs" caret="16" fromTop="0" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:FunctionWindow/f:FunctionWindow.xaml.cs" caret="1468" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/f:ICanBeDirty.cs" caret="13" fromTop="0" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:OutputWindow/f:OutputWindow.xaml.cs" caret="1299" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Interfaces/f:ColorizeAvalonEdit.cs" caret="576" fromTop="17" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Interfaces/f:CompletionContext.cs" caret="181" fromTop="8" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Interfaces/f:DefaultCompletionItem.cs" caret="654" fromTop="18" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Interfaces/f:IconBarMargin.cs" caret="8330" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/f:MainWindow.xaml.cs" caret="2310" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/f:SingleInstance.cs" caret="12220" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Themes/f:TextEditor.cs" caret="0" fromTop="0" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Controls/f:ExtendedGridSplitter.cs" caret="10835" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:AngleConverter/d:Robot/f:Robot.cs" caret="493" fromTop="17" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:ObjectBrowser/f:ObjectBrowserTool.xaml.cs" caret="3742" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Interfaces/f:IInsightWindow.cs" caret="908" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Templates/f:VisualVariableItem.xaml.cs" caret="1112" fromTop="19" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Classes/f:RecentFileList.cs" caret="9685" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:ABB.cs" caret="845" fromTop="9" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:Fanuc.cs" caret="1076" fromTop="29" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:Kawasaki.cs" caret="1088" fromTop="31" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:LanguageBase.cs" caret="1283" fromTop="26" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:VBA.cs" caret="728" fromTop="25" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:AbstractLanguageClass.cs" caret="5962" fromTop="24" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:GUI/d:Editor/f:Editor.xaml.cs" caret="16024" fromTop="21" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Snippets/f:SnippetCollection.cs" caret="125" fromTop="5" />
+    <File id="A2DB7828-113C-4334-8676-0002887BA4FC/d:Languages/f:KUKA.cs" caret="21217" fromTop="40" />
+  </RecentEdits>
+</RecentFiles>

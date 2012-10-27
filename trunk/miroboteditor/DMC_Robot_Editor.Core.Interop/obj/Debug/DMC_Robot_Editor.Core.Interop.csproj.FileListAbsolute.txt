@@ -1,0 +1,5 @@
+C:\Work\Programming\DMC Robot Editor\DMC_Robot_Editor.Core.Interop\bin\Debug\DMC_Robot_Editor.Core.Interop.dll
+C:\Work\Programming\DMC Robot Editor\DMC_Robot_Editor.Core.Interop\bin\Debug\DMC_Robot_Editor.Core.Interop.pdb
+C:\Work\Programming\DMC Robot Editor\DMC_Robot_Editor.Core.Interop\obj\Debug\DMC_Robot_Editor.Core.Interop.csprojResolveAssemblyReference.cache
+C:\Work\Programming\DMC Robot Editor\DMC_Robot_Editor.Core.Interop\obj\Debug\DMC_Robot_Editor.Core.Interop.dll
+C:\Work\Programming\DMC Robot Editor\DMC_Robot_Editor.Core.Interop\obj\Debug\DMC_Robot_Editor.Core.Interop.pdb

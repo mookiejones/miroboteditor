@@ -1,0 +1,153 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Templates="clr-namespace:miRobotEditor.Templates"
+             x:Class="miRobotEditor.GUI.ObjectBrowser.ObjectBrowserTool"             
+    Height="Auto" Width="Auto"         
+    >
+    <Grid>
+        <TabControl IsVisibleChanged="VisibilityChanged">
+            <TabItem  Header="Functions">
+                <Templates:VisualVariableItem ItemsSource="{Binding Functions}"/>          
+            </TabItem>            
+            <TabItem  Header="Fields" >
+                <Templates:VisualVariableItem ItemsSource="{Binding Fields}"/>
+            </TabItem>
+            <TabItem Header="Files" >
+                <DataGrid ItemsSource="{Binding Files}"  AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Icon}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding File.Name}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Size">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding File.Length}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Type">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding File.Extension}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Path" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding File.FullName}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem  Header="Positions" >
+                <Templates:VisualVariableItem ItemsSource="{Binding Positions}"/>
+            </TabItem>
+            <TabItem Header="Grouped" >
+                <TabItem.Resources>
+                    <CollectionViewSource x:Key="cvsAllVariables" Source="{Binding AllVariables}">
+                        <CollectionViewSource.GroupDescriptions>
+                            <PropertyGroupDescription PropertyName="Type"/>
+                            <PropertyGroupDescription PropertyName="Path"/>
+                        </CollectionViewSource.GroupDescriptions>
+                    </CollectionViewSource>
+                </TabItem.Resources>
+                <DataGrid ItemsSource="{Binding Source={StaticResource cvsAllVariables}}" MouseDoubleClick="ON_MouseDoubleClick" AutoGenerateColumns="False" IsTextSearchCaseSensitive="True" IsTextSearchEnabled="True" SelectionMode="Single" ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}">
+                    <DataGrid.GroupStyle>
+                        <GroupStyle HidesIfEmpty="True">
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FullName}"/>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Margin" Value="0,0,0,5"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                <Expander IsExpanded="False"  >
+                                                    <Expander.Header>
+                                                        <DockPanel>
+                                                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0" Width="Auto" HorizontalAlignment="Left" TextAlignment="Left"/>
+
+                                                            <TextBlock Text="Items:=" HorizontalAlignment="Right" TextAlignment="Left"/>
+                                                            <TextBlock Text="{Binding ItemCount}"  HorizontalAlignment="Right" TextAlignment="Right"/>
+
+                                                        </DockPanel>
+                                                    </Expander.Header>
+                                                    <ItemsPresenter />
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <DockPanel Background="LightBlue">
+                                        <TextBlock Text="{Binding Name}" Foreground="Blue" Margin="30,0,0,0" Width="Auto"/>
+                                        <TextBlock Text="{Binding ItemCount}" Foreground="Blue" HorizontalAlignment="Right" TextAlignment="Right"/>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </DataGrid.GroupStyle>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="16">
+                            <DataGridTemplateColumn.CellTemplate >
+                                <DataTemplate>
+                                    <Image Source="{Binding Icon}" Width="16" Height="16"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Name" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Type" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Type}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Path" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Value" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Value}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

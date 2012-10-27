@@ -1,0 +1,139 @@
+C:\Work\Programming\DMC Robot Editor\CREATOR\bin\Debug\CREATOR.exe
+C:\Work\Programming\DMC Robot Editor\CREATOR\bin\Debug\CREATOR.pdb
+C:\Work\Programming\DMC Robot Editor\CREATOR\bin\Debug\ICSharpCode.AvalonEdit.dll
+C:\Work\Programming\DMC Robot Editor\CREATOR\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.csprojResolveAssemblyReference.cache
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\Editor.g.cs
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\Regex\RegexWindow.g.cs
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\ServoReader\KUKAServoReader.g.cs
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\MainWindow.g.cs
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\App.g.cs
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\CREATOR_MarkupCompile.cache
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\CREATOR_MarkupCompile.lref
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\Editor.baml
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\Regex\RegexWindow.baml
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\ServoReader\KUKAServoReader.baml
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\MainWindow.baml
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.g.resources
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.PaintableRichTextBox.Form1.resources
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.Properties.Resources.resources
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.csproj.GenerateResource.Cache
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.exe
+C:\Work\Programming\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\CREATOR.exe
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\CREATOR.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\ICSharpCode.AvalonEdit.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\Editor.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\Regex\RegexWindow.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\ServoReader\KUKAServoReader.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\MainWindow.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\App.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR_MarkupCompile.cache
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR_MarkupCompile.lref
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\Editor.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\Regex\RegexWindow.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\ServoReader\KUKAServoReader.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\MainWindow.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.g.resources
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.PaintableRichTextBox.Form1.resources
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.Properties.Resources.resources
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.csproj.GenerateResource.Cache
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.exe
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.csprojResolveAssemblyReference.cache
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\UserControl1.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\UserControl1.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.Themes.Aero.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.Themes.VS2010.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.xml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.Themes.Aero.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.Themes.VS2010.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\es\AvalonDock.resources.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\fr\AvalonDock.resources.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\it\AvalonDock.resources.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\_AvalonDock.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\_AvalonDock.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.exe
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\XMLReader\XMLReader.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\UserControl1.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\XMLReader\XMLReader.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\_AvalonDock.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\Editor.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\Regex\RegexWindow.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\ServoReader\KUKAServoReader.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\MainWindow.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\UserControl1.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\App.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR_Content.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR_MarkupCompile.cache
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR_MarkupCompile.lref
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\XMLReader\XMLFile1.xml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\CREATOR.exe
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\CREATOR.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.Themes.Aero.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.Themes.VS2010.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\ICSharpCode.AvalonEdit.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.xml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.Themes.Aero.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\AvalonDock.Themes.VS2010.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\es\AvalonDock.resources.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\fr\AvalonDock.resources.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\bin\Debug\it\AvalonDock.resources.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\_AvalonDock.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\Editor.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\Regex\RegexWindow.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\ServoReader\KUKAServoReader.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\MainWindow.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.g.resources
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.Properties.Resources.resources
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\CREATOR\obj\Debug\CREATOR.csproj.GenerateResource.Cache
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\CREATOR.exe
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\CREATOR.pdb
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\XMLReader\XMLFile1.xml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\CREATOR.exe
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\CREATOR.pdb
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\AvalonDock.dll
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\AvalonDock.Themes.Aero.dll
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\AvalonDock.Themes.VS2010.dll
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\ICSharpCode.AvalonEdit.dll
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\AvalonDock.pdb
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\AvalonDock.xml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\AvalonDock.Themes.Aero.pdb
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\AvalonDock.Themes.VS2010.pdb
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\es\AvalonDock.resources.dll
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\fr\AvalonDock.resources.dll
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\bin\Debug\it\AvalonDock.resources.dll
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\CREATOR.csprojResolveAssemblyReference.cache
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\XMLReader\XMLReader.baml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\UserControl1.baml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\XMLReader\XMLReader.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\_AvalonDock.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\Editor.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\Regex\RegexWindow.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\ServoReader\KUKAServoReader.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\MainWindow.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\UserControl1.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\App.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\CREATOR_Content.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\CREATOR_MarkupCompile.cache
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\CREATOR_MarkupCompile.lref
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\_AvalonDock.baml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\Editor.baml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\Regex\RegexWindow.baml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\ServoReader\KUKAServoReader.baml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\MainWindow.baml
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\CREATOR.g.resources
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\CREATOR.Properties.Resources.resources
+C:\Programming\DMC Robot Editor Backup\miRobotEditor\CREATOR\obj\Debug\CREATOR.csproj.GenerateResource.Cache

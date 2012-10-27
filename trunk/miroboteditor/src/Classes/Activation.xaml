@@ -1,0 +1,13 @@
+﻿<Window x:Class="miRobotEditor.Classes.Activation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Activation" Height="313" Width="495">
+    <Grid>
+        <TextBox Name="txtProductID" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" Width="284" />
+        <TextBox Name="TextBoxActivationId" Margin="169,190" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" Height="22" Width="284" />
+        <TextBox Name="TextBoxProductID" Margin="169,149" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" Height="22" Width="284" />
+        <Button Name="btnActivate"   Margin="242,171,149,77" Width="88" Height="27" />
+        <Button Name="btnCancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="284" />
+        <ProgressBar Name="ProgressBar1" VerticalAlignment="Bottom" Height="22" Width="284"/>
+    </Grid>
+</Window>

@@ -1,0 +1,74 @@
+﻿    
+                <MenuItem Header="_Open" Click="OpenFile"/>
+                <MenuItem Header="_Save"/>
+                <MenuItem Header="Save _As"/>
+                <MenuItem Header="E_xit"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Undo"/>
+                <MenuItem Header="Redo"/>                
+                <Separator/>
+                <MenuItem Header="Cut"/>
+                <MenuItem Header="Copy"/>
+                <MenuItem Header="Cut"/>
+                <MenuItem Header="Delete"/>
+                <Separator/>
+                <MenuItem Header="Find and Replace">
+                    <MenuItem Header="Quick Find"/>
+                    <MenuItem Header="Quick Replace"/>
+                    <MenuItem Header="Find in Files"/>
+                    <MenuItem Header="Replace in Files"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Go To..."/>
+                <MenuItem Header="Advanced">
+                    <MenuItem Header="Make Uppercase"/>
+                    <MenuItem Header="Make Lowercase"/>
+                    <Separator/>
+                    <MenuItem Header="View Whitespace"/>
+                    <MenuItem Header="Wordwrap"/>
+                    <Separator/>
+                    <MenuItem Header="Comment Selection"/>
+                    <MenuItem Header="Uncomment Selection"/>
+                    <Separator/>
+                    <MenuItem Header="Increase Line Indent"/>
+                    <MenuItem Header="Decrease Line Indent"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="View _as">
+                    <MenuItem Header="ABB"/>
+                    <MenuItem Header="KUKA"/>
+                    <MenuItem Header="Fanuc"/>
+                    <MenuItem Header="Nachi"/>
+                    <MenuItem Header="Kawasaki"/>
+                </MenuItem>                
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Options"/>
+            </MenuItem>
+            <MenuItem Header="Window">
+                <MenuItem Header="Split"/>
+                <Separator/>
+                <MenuItem Header="_Float"/>
+                <MenuItem Header="Float _All"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_View Help"/>
+                <MenuItem Header="Report a _Bug"/>
+                <MenuItem Header="_About"/>
+            </MenuItem>
+            <MenuItem Name="mnuRobot"/>                
+            <MenuItem Name="mnuKUKA" Header="KUKA" Visibility="Hidden">
+                <MenuItem Header="KUKA Test"/>
+            </MenuItem>
+            <MenuItem Header="Fanuc" Visibility="Hidden">
+
+            </MenuItem>
+            <MenuItem Name="mnuABB" Header="ABB" Visibility="Hidden">
+                <MenuItem Header="ABB Test"/>
+            </MenuItem>
+            <MenuItem Header="Kawasaki" Visibility="Hidden">
+            </MenuItem>
+            <MenuItem Header="Nachi" Visibility="Hidden">
+            </MenuItem>

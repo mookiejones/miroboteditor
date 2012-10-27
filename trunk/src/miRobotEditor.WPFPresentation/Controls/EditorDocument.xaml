@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="miRobotEditor.WPFPresentation.Controls.EditorDocument"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:miRobotEditor.WPFPresentation.Controls" mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Color x:Key="Focus"/>
+        <Color x:Key="UnFocus"/>
+        <RoutedUICommand x:Key="Reload" Text="Reload File"/>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding   CanExecute="CanReload" Executed="ExecuteReload" Command="{StaticResource Reload}" />
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{StaticResource Reload}"/>
+    </UserControl.InputBindings>
+    <Grid >
+        <Grid.Resources>
+            <Style TargetType="{x:Type  Controls:EditorControl}">
+                <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            </Style>
+        </Grid.Resources>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Controls:EditorControl  x:Name="data" ReloadFile="ReloadFile" IsVisibleChanged="Is_VisibleChanged"   TextChanged="TextChanged"  Grid.Row="2" BorderThickness="1"/>
+            <Controls:ExtendedGridSplitterControl  x:Name="grid" Grid.Row="1" HorizontalAlignment="Stretch" Height="20" CollapseMode="Previous"  Loaded="grid_Loaded" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Center"/>
+            <Controls:EditorControl x:Name="source" ReloadFile="ReloadFile" Grid.Row="0" IsVisibleChanged="Is_VisibleChanged" TextChanged="TextChanged"  />
+        </Grid>
+    </Grid>
+</UserControl>

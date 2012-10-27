@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+                    xmlns:Controls="clr-namespace:miRobotEditor.Controls"
+                    xmlns:Classes="clr-namespace:miRobotEditor.Classes">
+        <Classes:IndentationStrategy x:Key="indent"/>
+    <Style TargetType="{x:Type ae:TextArea}">
+        <Setter Property="IndentationStrategy" Value="{StaticResource indent}"/>
+    </Style>
+    <Style x:Key="TextEditorStyle" TargetType="{x:Type ae:TextEditor}">
+        <Setter Property="Options" Value="{StaticResource options}"/>
+        <Setter Property="ShowLineNumbers" Value="True"/>
+        <Setter Property="OverridesDefaultStyle"  Value="true" />
+        <Setter Property="AllowDrop" Value="True"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Header="Open all Folds" IsCheckable="False" Command="{x:Static Controls:Editor.OpenAllFolds}">
+                        <Image Source="{DynamicResource expandfolds}" />
+                    </MenuItem>
+                    <MenuItem Header="Close all Folds" IsCheckable="False" Command="{x:Static Controls:Editor.CloseAllFolds}">
+                        <Image Source="{DynamicResource collapsefolds}" />
+                    </MenuItem>
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ae:TextEditor}">
+                    <ScrollViewer x:Name="PART_ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CanContentScroll="True" Content="{Binding TextArea, RelativeSource={RelativeSource TemplatedParent}}" Focusable="False" HorizontalContentAlignment="Left" HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}" Padding="{TemplateBinding Padding}" VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" VerticalContentAlignment="Top"/>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WordWrap" Value="True">
+                            <Setter Property="HorizontalScrollBarVisibility" TargetName="PART_ScrollViewer" Value="Disabled"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

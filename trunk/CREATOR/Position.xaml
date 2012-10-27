@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="CREATOR.Position"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d" 
+ d:DesignWidth="150">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}" >
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="TextAlignment"  Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="TextAlignment"  Value="Left"/>
+            <Setter Property="Padding"  Value="5,0"/>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical">
+            <TextBlock  Text="X"   />
+            <TextBox  Text="{Binding X}" />           
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock  Padding="5,0" Text="Y"   />
+            <TextBox  Text="{Binding Y}" TextAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock  Padding="5,0" Text="Z"   />
+            <TextBox  Text="{Binding Z}" TextAlignment="Center"/>
+        </StackPanel>
+    </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <TextBlock  Padding="5,0" Text="A"   />
+                <TextBox  Text="{Binding A}" TextAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock  Padding="5,0" Text="B"   />
+                <TextBox  Text="{Binding B}" TextAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock  Padding="5,0" Text="C"   />
+                <TextBox  Text="{Binding C}" TextAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+    </StackPanel>
+</UserControl>
+
+    
+    
