@@ -1,0 +1,53 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:CREATOR"
+        xmlns:avalondock="http://avalondock.codeplex.com" x:Class="CREATOR._AvalonDock"
+    
+        Title="_AvalonDock"  Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Menu IsMainMenu="True" Grid.Row="0">
+            <MenuItem Header="AddDocument" Click="AddDocument"/>
+        </Menu>
+            <avalondock:DockingManager Grid.Row="1" Name="dock" AllowMixedOrientation="True">
+                <avalondock:LayoutRoot PropertyChanged="LayoutRoot_PropertyChanged">    
+                <avalondock:LayoutPanel Orientation="Vertical">
+                <avalondock:LayoutPanel Orientation="Horizontal">
+                    <avalondock:LayoutAnchorablePane>
+                            <avalondock:LayoutAnchorable Title="Left">
+                                <local:UserControl1 />
+                            </avalondock:LayoutAnchorable>
+                    </avalondock:LayoutAnchorablePane>
+                        <avalondock:LayoutDocumentPaneGroup>
+                            <avalondock:LayoutDocumentPane x:Name="docs">
+                                <avalondock:LayoutDocument ContentId="Document1" Title="Document1"/>
+                            </avalondock:LayoutDocumentPane>
+                        </avalondock:LayoutDocumentPaneGroup>
+                        <avalondock:LayoutAnchorablePaneGroup DockWidth="100">
+                            <avalondock:LayoutAnchorablePane>
+                                <avalondock:LayoutAnchorable ContentId="TExt1" Title="Text1">
+                                    <TextBox Text="Hello"/>
+                                </avalondock:LayoutAnchorable>
+                                <avalondock:LayoutAnchorable ContentId="TExt1" Title="Text1">
+                                    <TextBox Text="Hello"/>
+                                </avalondock:LayoutAnchorable>
+                            </avalondock:LayoutAnchorablePane>
+                            
+                        </avalondock:LayoutAnchorablePaneGroup>
+                    </avalondock:LayoutPanel>
+                    <avalondock:LayoutAnchorablePaneGroup>
+                        <avalondock:LayoutAnchorablePane>
+                            <avalondock:LayoutAnchorable>
+                                <TextBox>Hello again</TextBox>
+                            </avalondock:LayoutAnchorable>
+                        </avalondock:LayoutAnchorablePane>
+                    </avalondock:LayoutAnchorablePaneGroup>
+               </avalondock:LayoutPanel>
+            </avalondock:LayoutRoot>
+        </avalondock:DockingManager>
+    </Grid>
+</Window>

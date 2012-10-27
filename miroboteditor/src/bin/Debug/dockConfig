@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LayoutRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RootPanel Orientation="Vertical">
+    <LayoutPanel Orientation="Horizontal" DockHeight="0.806201550387597*" DocMinWidth="300">
+      <LayoutAnchorablePane DockWidth="191">
+        <LayoutAnchorable CanHide="False" AutoHideWidth="300" AutoHideMinWidth="300" AutoHideMinHeight="100" Title="File Explorer" IsSelected="True" ContentId="Explorer" FloatingWidth="300" CanClose="False" />
+      </LayoutAnchorablePane>
+      <LayoutDocumentPaneGroup Orientation="Horizontal">
+        <LayoutDocumentPane>
+          <LayoutDocument Title="InitDoc" IsSelected="True" IsLastFocusedDocument="True" ContentId="InitDoc" LastActivationTimeStamp="10/02/2012 14:49:29" />
+        </LayoutDocumentPane>
+      </LayoutDocumentPaneGroup>
+      <LayoutAnchorablePane DockWidth="209">
+        <LayoutAnchorable AutoHideMinWidth="300" AutoHideMinHeight="100" Title="Functions" IsSelected="True" ContentId="Functions" />
+        <LayoutAnchorable AutoHideMinWidth="219" AutoHideMinHeight="100" Title="Angle Converter" ContentId="_angleconverter" />
+      </LayoutAnchorablePane>
+    </LayoutPanel>
+    <LayoutAnchorablePane DockHeight="200">
+      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="200" Title="Output" IsSelected="True" ContentId="Output" FloatingHeight="200" />
+      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="200" Title="Notes" ContentId="notes" FloatingHeight="200" CanClose="False" />
+    </LayoutAnchorablePane>
+  </RootPanel>
+  <TopSide />
+  <RightSide />
+  <LeftSide />
+  <BottomSide />
+  <FloatingWindows />
+  <Hidden />
+</LayoutRoot>

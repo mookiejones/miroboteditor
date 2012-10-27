@@ -1,0 +1,272 @@
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.exe
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\bin\Debug\Resources\Editor.ico
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\bin\Debug\Tracking\Changes.html
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.exe.config
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC_Robot_Editor.Globals.dll
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\bin\Debug\ICSharpCode.AvalonEdit.dll
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC_Robot_Editor.Globals.pdb
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.csprojResolveAssemblyReference.cache
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\App.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Classes\Activation.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\CustomToolTip.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\FindAndReplaceForm.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\GotoDialog.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmNotes.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmReverse.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAInlineFormHelper.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAKFDDialog.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\ShiftBox.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\SnippetPad.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\DialogNew.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\frmBlockEdit.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\AttributeViewer.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmKUKAIOPoints.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSplashScreen.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSystemFunctions.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmUpdateChecker.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ExplorerWindow\ExplorerWindow.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\FunctionWindow\FunctionWindow.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\AdjustST.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\DummyDoc.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\ExplorerWindow.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\ObjectBrowser.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\App.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Classes\Activation.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\CustomToolTip.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Editor.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\DummyDoc.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\FindAndReplaceForm.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\GotoDialog.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmNotes.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmReverse.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAInlineFormHelper.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAKFDDialog.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\ShiftBox.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\SnippetPad.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\DialogNew.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\frmBlockEdit.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\AttributeViewer.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmKUKAIOPoints.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmShift.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSplashScreen.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSystemFunctions.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmUpdateChecker.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\AngleConverter\frmAngleConvertor.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\Dialogs\About\About.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\EditorDoc\EditorDoc.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ExplorerWindow\ExplorerWindow.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\FunctionWindow\FunctionWindow.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\KUKA\frmAdjustST.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ObjectBrowser\frmObjectBrowser.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\MainWindow.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor_Content.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor_MarkupCompile.cache
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor_MarkupCompile.lref
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Editor.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\DummyDoc.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmShift.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\AngleConverter\frmAngleConvertor.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\Dialogs\About\About.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\EditorDoc\EditorDoc.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\KUKA\frmAdjustST.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ObjectBrowser\frmObjectBrowser.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\MainWindow.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\ExtendedGridSplitter.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\Generic.baml
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.g.resources
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC_Robot_Editor.Controls.Unfinished.KUKA.frmObjectBrowser.resources
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.csproj.GenerateResource.Cache
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.exe
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.pdb
+C:\Work\Programming\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.csprojResolveAssemblyReference.cache
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\App.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Classes\Activation.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\CustomToolTip.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\FindAndReplaceForm.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\GotoDialog.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmNotes.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmReverse.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAInlineFormHelper.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAKFDDialog.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\ShiftBox.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\SnippetPad.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\DialogNew.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\frmBlockEdit.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\AttributeViewer.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmKUKAIOPoints.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSplashScreen.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSystemFunctions.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmUpdateChecker.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ExplorerWindow\ExplorerWindow.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\FunctionWindow\FunctionWindow.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\AdjustST.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\DummyDoc.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\ExplorerWindow.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\ObjectBrowser.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\App.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Classes\Activation.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\CustomToolTip.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Editor.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\DummyDoc.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\FindAndReplaceForm.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\GotoDialog.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmNotes.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmReverse.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAInlineFormHelper.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAKFDDialog.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\ShiftBox.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\SnippetPad.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\DialogNew.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\frmBlockEdit.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\AttributeViewer.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmKUKAIOPoints.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmShift.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSplashScreen.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSystemFunctions.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmUpdateChecker.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\AngleConverter\frmAngleConvertor.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\Dialogs\About\About.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\EditorDoc\EditorDoc.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ExplorerWindow\ExplorerWindow.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\FunctionWindow\FunctionWindow.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\KUKA\frmAdjustST.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ObjectBrowser\frmObjectBrowser.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\MainWindow.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor_Content.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor_MarkupCompile.cache
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor_MarkupCompile.lref
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Editor.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\DummyDoc.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmShift.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\AngleConverter\frmAngleConvertor.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\Dialogs\About\About.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\EditorDoc\EditorDoc.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\KUKA\frmAdjustST.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ObjectBrowser\frmObjectBrowser.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\MainWindow.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\ExtendedGridSplitter.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\Generic.baml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.g.resources
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC_Robot_Editor.Controls.Unfinished.KUKA.frmObjectBrowser.resources
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.csproj.GenerateResource.Cache
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.exe.config
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\Tracking\Changes.html
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.exe
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC_Robot_Editor.Globals.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\ICSharpCode.AvalonEdit.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\RecentFileListLib.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC_Robot_Editor.Globals.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\RecentFileListLib.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.exe
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.pdb
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\JetBrains.Annotations.dll
+C:\Work\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\JetBrains.Annotations.xml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\Tracking\Changes.html
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.exe.config
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.exe.manifest
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.application
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.exe
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC Robot Editor.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\AvalonDock.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\AvalonDock.Themes.Aero.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\AvalonDock.Themes.VS2010.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC_Robot_Editor.Globals.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\ICSharpCode.AvalonEdit.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\RecentFileListLib.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\TaskDialog.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\DMC_Robot_Editor.Globals.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\AvalonDock.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\AvalonDock.xml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\AvalonDock.Themes.Aero.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\AvalonDock.Themes.VS2010.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\RecentFileListLib.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\TaskDialog.xml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\es\AvalonDock.resources.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\fr\AvalonDock.resources.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\bin\Debug\it\AvalonDock.resources.dll
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.csprojResolveAssemblyReference.cache
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\App.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Classes\Activation.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\CustomToolTip.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\FindAndReplaceForm.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\GotoDialog.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmNotes.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmReverse.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAInlineFormHelper.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAKFDDialog.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\ShiftBox.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\SnippetPad.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\DialogNew.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\frmBlockEdit.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\AttributeViewer.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmKUKAIOPoints.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSplashScreen.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSystemFunctions.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmUpdateChecker.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ExplorerWindow\ExplorerWindow.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\OutputWindow\OutputWindow.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\AdjustST.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\ExplorerWindow.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\ObjectBrowser.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\App.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Classes\Activation.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\CustomToolTip.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\DummyDoc.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\FindAndReplaceForm.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\GotoDialog.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmNotes.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\frmReverse.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAInlineFormHelper.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\KUKAKFDDialog.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\ShiftBox.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\SnippetPad.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\DialogNew.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\Unfinished\KUKA\frmBlockEdit.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\AttributeViewer.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmKUKAIOPoints.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmShift.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSplashScreen.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmSystemFunctions.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmUpdateChecker.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\AngleConverter\frmAngleConvertor.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\Dialogs\About\About.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\EditorDoc\EditorDoc.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ExplorerWindow\ExplorerWindow.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\FunctionWindow\FunctionWindow.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\KUKA\frmAdjustST.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ObjectBrowser\frmObjectBrowser.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\OutputWindow\OutputWindow.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\MainWindow.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor_Content.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor_MarkupCompile.cache
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor_MarkupCompile.lref
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\DummyDoc.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Forms\frmShift.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\AngleConverter\frmAngleConvertor.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\Dialogs\About\About.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\EditorDoc\EditorDoc.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\FunctionWindow\FunctionWindow.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\KUKA\frmAdjustST.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\ObjectBrowser\frmObjectBrowser.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\MainWindow.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\ExtendedGridSplitter.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Themes\Generic.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.g.resources
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC_Robot_Editor.Controls.Unfinished.KUKA.frmObjectBrowser.resources
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.csproj.GenerateResource.Cache
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.exe.manifest
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.application
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.exe
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\DMC Robot Editor.pdb
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\xmlReader.baml
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\Controls\xmlReader.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\Editor\Editor.g.cs
+C:\Programming\DMC Robot Editor Backup\DMC Robot Editor\DMC Robot Editor\obj\Debug\GUI\Editor\Editor.baml
