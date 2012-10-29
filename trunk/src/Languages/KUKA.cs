@@ -504,28 +504,11 @@ namespace miRobotEditor.Languages
 
         public SnippetCollection Snippets()
         {
-            var snippet = new Snippet
-                              {
-                                  
-                              }
-            var loopCounter = new SnippetReplaceableTextElement { Text = "i" };
-            var snippet = new Snippet
-            {
-                Elements =
-                                      {
-                                          new SnippetTextElement {Text = "for "},
-                                          new SnippetReplaceableTextElement {Text = "item"},
-                                          new SnippetTextElement {Text = " in range("},
-                                          new SnippetReplaceableTextElement {Text = "from"},
-                                          new SnippetTextElement {Text = ", "},
-                                          new SnippetReplaceableTextElement {Text = "to"},
-                                          new SnippetTextElement {Text = ", "},
-                                          new SnippetReplaceableTextElement {Text = "step"},
-                                          new SnippetTextElement {Text = "):backN\t"},
-                                          new SnippetSelectionElement()
-                                      }
-            };
-            snippet.Insert(TextArea);
+        	var sc = new SnippetCollection();
+        	sc.Add(forSnippet);
+        	
+        	return sc;
+
         }
         private Snippet forSnippet
         {
@@ -547,7 +530,7 @@ namespace miRobotEditor.Languages
                                           new SnippetSelectionElement()
                                       }
                 };
-                snippet.Insert(TextArea);
+             
                 return snippet;
             }
         }
