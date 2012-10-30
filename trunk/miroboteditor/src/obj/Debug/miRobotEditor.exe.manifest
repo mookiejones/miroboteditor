@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Properties\Resources\Editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="miRobotEditor" version="1.0.0.40750" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="miRobotEditor" version="1.0.0.18698" language="neutral" processorArchitecture="msil" />
     <commandLine file="miRobotEditor.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -140,13 +140,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1420288">
-      <assemblyIdentity name="miRobotEditor" version="1.0.0.40750" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="miRobotEditor" version="1.0.0.18698" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>GIc05DZDB10Zc1aryQwBNEsEQe0=</dsig:DigestValue>
+        <dsig:DigestValue>gFipwnhiSUVB+BVPUR4mF/gs1lw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -158,7 +158,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>E7kIpsQPZLDZhbwk1FPWgBaSHI0=</dsig:DigestValue>
+        <dsig:DigestValue>ueOjbcz49eSH16MawRgRuBvT80Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

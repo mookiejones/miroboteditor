@@ -9,11 +9,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.Editing;
-using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit.Rendering;
-using ICSharpCode.AvalonEdit.Search;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -34,10 +29,6 @@ using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Shell;
-using miRobotEditor.Classes;
-using miRobotEditor.Common.ResourceAccess;
-using miRobotEditor.Controls;
-using miRobotEditor.Converters;
 
 
 namespace miRobotEditor {

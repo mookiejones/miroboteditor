@@ -16,3 +16,10 @@ C:\Programming\DMC Robot Editor Backup\miRobotEditor - Copy\DMC_Robot_Editor.Cor
 C:\Programming\DMC Robot Editor Backup\miRobotEditor - Copy\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Globals.csproj.GenerateResource.Cache
 C:\Programming\DMC Robot Editor Backup\miRobotEditor - Copy\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Globals.dll
 C:\Programming\DMC Robot Editor Backup\miRobotEditor - Copy\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Globals.pdb
+C:\Programming\git\trunk\miroboteditor\DMC_Robot_Editor.Core.Interop\bin\Debug\miRobotEditor.Globals.dll
+C:\Programming\git\trunk\miroboteditor\DMC_Robot_Editor.Core.Interop\bin\Debug\miRobotEditor.Globals.pdb
+C:\Programming\git\trunk\miroboteditor\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Globals.csprojResolveAssemblyReference.cache
+C:\Programming\git\trunk\miroboteditor\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Globals.Properties.Resources.resources
+C:\Programming\git\trunk\miroboteditor\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Globals.csproj.GenerateResource.Cache
+C:\Programming\git\trunk\miroboteditor\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Globals.dll
+C:\Programming\git\trunk\miroboteditor\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Globals.pdb
