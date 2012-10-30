@@ -12,7 +12,7 @@ DEBUG;TRACE
 
 39542518531
 1-550120235
-206-411242645
+2091445812621
 22-1065530617
 App.xaml;Controls\CustomToolTip.xaml;GUI\Editor\Editor.xaml;Controls\DummyDoc.xaml;Controls\FindAndReplaceForm.xaml;Controls\GotoDialog.xaml;Controls\frmNotes.xaml;Controls\frmReverse.xaml;Controls\KUKAInlineFormHelper.xaml;Controls\KUKAKFDDialog.xaml;Controls\ShiftBox.xaml;Controls\SnippetPad.xaml;Controls\Unfinished\KUKA\DialogNew.xaml;Controls\Unfinished\KUKA\frmBlockEdit.xaml;Controls\xmlReader.xaml;Forms\AttributeViewer.xaml;Forms\frmKUKAIOPoints.xaml;Forms\frmShift.xaml;Forms\frmSplashScreen.xaml;Forms\frmSystemFunctions.xaml;Forms\frmUpdateChecker.xaml;GUI\AngleConverter\frmAngleConvertor.xaml;GUI\Dialogs\About\About.xaml;GUI\ExplorerWindow\ExplorerWindow.xaml;GUI\FunctionWindow\FunctionWindow.xaml;GUI\KUKA\frmAdjustST.xaml;GUI\ObjectBrowser\ObjectBrowserTool.xaml;GUI\OutputWindow\OutputWindow.xaml;MainWindow.xaml;Templates\VisualVariableItem.xaml;Themes\AdjustST.xaml;Themes\Colors.xaml;Themes\DockBrushes.xaml;Themes\DockControlTheme.xaml;Themes\ExplorerWindow.xaml;Themes\ExtendedGridSplitter.xaml;Themes\Generic.xaml;Themes\StatusBar.xaml;Themes\Styles.xaml;
 

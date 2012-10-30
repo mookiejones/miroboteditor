@@ -207,3 +207,4 @@ C:\Programming\git\trunk\src\obj\Debug\miRobotEditorOld.csproj.GenerateResource.
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.exe.manifest
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.application
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.pdb
+C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.Controls.ExplorerControl.FileExplorerControl.resources

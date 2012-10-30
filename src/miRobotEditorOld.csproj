@@ -138,6 +138,11 @@
     <Compile Include="Commands\AbstractMenuCommand.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\EditorCommands.cs" />
+    <Compile Include="Controls\ExplorerControl\ExplorerClass.cs" />
+    <Compile Include="Controls\ExplorerControl\FileExplorerControl.cs" />
+    <Compile Include="Controls\ExplorerControl\FileExplorerControl.Designer.cs">
+      <DependentUpon>FileExplorerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SplineBorder.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GUI\Editor\TextEditorOptions.cs" />
@@ -555,6 +560,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Controls\ExplorerControl\FileExplorerControl.resx">
+      <DependentUpon>FileExplorerControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Unfinished\KUKA\frmObjectBrowser.resx">
       <DependentUpon>frmObjectBrowser.cs</DependentUpon>
     </EmbeddedResource>
@@ -705,6 +713,7 @@
   <ItemGroup>
     <Folder Include="Controls\ErrorProvider\" />
     <Folder Include="Controls\KUKA\" />
+    <Folder Include="Controls\ExplorerControl" />
     <Folder Include="GUI\Document\" />
     <Folder Include="GUI\KUKA\AdjustST\" />
     <Folder Include="GUI\Printing\" />
