@@ -1,3 +1,6 @@
 C:\Programming\DMC Robot Editor Backup\miRobotEditor\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Core.csprojResolveAssemblyReference.cache
 C:\Programming\DMC Robot Editor Backup\miRobotEditor\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Core.Properties.Resources.resources
 C:\Programming\DMC Robot Editor Backup\miRobotEditor\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Core.csproj.GenerateResource.Cache
+C:\Programming\git\trunk\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Core.csprojResolveAssemblyReference.cache
+C:\Programming\git\trunk\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Core.Properties.Resources.resources
+C:\Programming\git\trunk\DMC_Robot_Editor.Core.Interop\obj\Debug\miRobotEditor.Core.csproj.GenerateResource.Cache

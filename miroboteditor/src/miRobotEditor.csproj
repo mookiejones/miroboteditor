@@ -508,7 +508,6 @@
     <EmbeddedResource Include="Controls\Unfinished\KUKA\frmObjectBrowser.resx">
       <DependentUpon>frmObjectBrowser.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Snippets\KUKA.Snippet" />
     <Resource Include="Resources\comment.png" />
     <Resource Include="Resources\exit.png" />

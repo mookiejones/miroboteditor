@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
-using miRobotEditor.Controls;
 
 namespace miRobotEditor.Classes
 {
