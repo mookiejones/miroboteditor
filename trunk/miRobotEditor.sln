@@ -1,19 +1,10 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.3
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miRobotEditorOld", "src\miRobotEditorOld.csproj", "{A2DB7828-113C-4334-8676-0002887BA4FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CREATOR", "CREATOR\CREATOR.csproj", "{E2B0F9F1-47E5-49CF-9103-0C49CA48637E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miRobotEditor.Core", "DMC_Robot_Editor.Core.Interop\miRobotEditor.Core.csproj", "{ADC9748E-E12E-4BD7-9D70-416F91B29797}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotEditor", "RobotEditor\RobotEditor.csproj", "{BC1A5E71-B58F-4A2D-8697-29A01F155FE0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miRobotEditor.WPFPresentation", "src\miRobotEditor.WPFPresentation\miRobotEditor.WPFPresentation.csproj", "{FAE92A28-677D-43EC-AFAA-7DC9F02FF0A3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainApplication", "src\MainApplication\MainApplication.csproj", "{E2F0D338-3448-41C6-B699-F46110E6419E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{328D3693-CB48-4D35-B852-01591E31620A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,37 +26,8 @@ Global
 		{E2B0F9F1-47E5-49CF-9103-0C49CA48637E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2B0F9F1-47E5-49CF-9103-0C49CA48637E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E2B0F9F1-47E5-49CF-9103-0C49CA48637E}.Release|x86.ActiveCfg = Release|Any CPU
-		{ADC9748E-E12E-4BD7-9D70-416F91B29797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADC9748E-E12E-4BD7-9D70-416F91B29797}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADC9748E-E12E-4BD7-9D70-416F91B29797}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{ADC9748E-E12E-4BD7-9D70-416F91B29797}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADC9748E-E12E-4BD7-9D70-416F91B29797}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ADC9748E-E12E-4BD7-9D70-416F91B29797}.Release|x86.ActiveCfg = Release|Any CPU
-		{BC1A5E71-B58F-4A2D-8697-29A01F155FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC1A5E71-B58F-4A2D-8697-29A01F155FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC1A5E71-B58F-4A2D-8697-29A01F155FE0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BC1A5E71-B58F-4A2D-8697-29A01F155FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC1A5E71-B58F-4A2D-8697-29A01F155FE0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC1A5E71-B58F-4A2D-8697-29A01F155FE0}.Release|x86.ActiveCfg = Release|Any CPU
-		{FAE92A28-677D-43EC-AFAA-7DC9F02FF0A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAE92A28-677D-43EC-AFAA-7DC9F02FF0A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAE92A28-677D-43EC-AFAA-7DC9F02FF0A3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FAE92A28-677D-43EC-AFAA-7DC9F02FF0A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAE92A28-677D-43EC-AFAA-7DC9F02FF0A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAE92A28-677D-43EC-AFAA-7DC9F02FF0A3}.Release|x86.ActiveCfg = Release|Any CPU
-		{E2F0D338-3448-41C6-B699-F46110E6419E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2F0D338-3448-41C6-B699-F46110E6419E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2F0D338-3448-41C6-B699-F46110E6419E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E2F0D338-3448-41C6-B699-F46110E6419E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2F0D338-3448-41C6-B699-F46110E6419E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2F0D338-3448-41C6-B699-F46110E6419E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{ADC9748E-E12E-4BD7-9D70-416F91B29797} = {328D3693-CB48-4D35-B852-01591E31620A}
-		{FAE92A28-677D-43EC-AFAA-7DC9F02FF0A3} = {328D3693-CB48-4D35-B852-01591E31620A}
-		{E2F0D338-3448-41C6-B699-F46110E6419E} = {328D3693-CB48-4D35-B852-01591E31620A}
 	EndGlobalSection
 EndGlobal
