@@ -29,7 +29,7 @@
         ([eE][+-]?[0-9]+)? # optional exponent
       </Rule>
     <Rule color="Declarations">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
-
+	
     <!-- Mark previous rule-->
     <Rule color="MethodCall">
       \b
@@ -89,7 +89,7 @@
         <Word>UNTIL</Word>
         <Word>WHEN</Word>
         <Word>while</Word>
-        <Word>ElseIf</Word>
+        <Word>Else</Word>
         <Word>IF</Word>
         <Word>THEN</Word>
         <Word>DO</Word>
@@ -169,7 +169,7 @@
         <Word>null</Word>
 
        </Keywords>
-
+		
   	<Keywords color = "Declarations">
   		    <Word>GLOBAL</Word>
          <Word>END</Word>

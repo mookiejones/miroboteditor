@@ -36,8 +36,8 @@ namespace miRobotEditor.Controls.ExplorerControl
 		private void InitializeComponent()
 		{
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.explorerClass1 = new miRobotEditor.Controls.ExplorerControl.ExplorerClass();
 			this.cmbFilter = new System.Windows.Forms.ComboBox();
+			this.explorerClass1 = new miRobotEditor.Controls.ExplorerControl.ExplorerClass();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -51,14 +51,6 @@ namespace miRobotEditor.Controls.ExplorerControl
 			this.panel1.Size = new System.Drawing.Size(150, 150);
 			this.panel1.TabIndex = 1;
 			// 
-			// explorerClass1
-			// 
-			this.explorerClass1.HideSelection = false;
-			this.explorerClass1.Location = new System.Drawing.Point(0, 27);
-			this.explorerClass1.Name = "explorerClass1";
-			this.explorerClass1.Size = new System.Drawing.Size(150, 123);
-			this.explorerClass1.TabIndex = 1;
-			// 
 			// cmbFilter
 			// 
 			this.cmbFilter.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -67,6 +59,18 @@ namespace miRobotEditor.Controls.ExplorerControl
 			this.cmbFilter.Name = "cmbFilter";
 			this.cmbFilter.Size = new System.Drawing.Size(150, 21);
 			this.cmbFilter.TabIndex = 5;
+			// 
+			// explorerClass1
+			// 
+			this.explorerClass1.HideSelection = false;
+			this.explorerClass1.Location = new System.Drawing.Point(0, 27);
+			this.explorerClass1.Name = "explorerClass1";
+			this.explorerClass1.Size = new System.Drawing.Size(150, 123);
+			this.explorerClass1.TabIndex = 1;
+			this.explorerClass1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.RaiseAfterSelect);
+			this.explorerClass1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.RaiseMouseClick);
+			this.explorerClass1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.RaiseDoubleClick);
+			this.explorerClass1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RaiseKeyUp);
 			// 
 			// FileExplorerControl
 			// 
