@@ -33,7 +33,7 @@ namespace miRobotEditor.Classes
             var st = new StackTrace();
             string stackIndent = "";
             
-            for (int i = 0; i < st.FrameCount; i++)
+            for (int i = 0; i < st.FrameCount; )
             {
                 try
                 {

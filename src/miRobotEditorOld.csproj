@@ -139,6 +139,7 @@
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\EditorCommands.cs" />
     <Compile Include="Controls\ExplorerControl\ExplorerClass.cs" />
+    <Compile Include="Controls\ExplorerControl\ExplorerControlWPF.cs" />
     <Compile Include="Controls\ExplorerControl\FileExplorerControl.cs" />
     <Compile Include="Controls\ExplorerControl\FileExplorerControl.Designer.cs">
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
