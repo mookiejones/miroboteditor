@@ -142,6 +142,7 @@
 					<MenuItem
 						x:Name="mnuReloadFile"
 						Header="Reload"
+						CommandTarget="{Binding ElementName=_activeEditor}"
 						Command="{Binding ctrl:DummyDoc.Reload}" />
 					<Separator />
 					<MenuItem
@@ -680,7 +681,7 @@
 							</ad:LayoutDocumentPane>
 						</ad:LayoutDocumentPaneGroup>
 						<ad:LayoutAnchorablePaneGroup
-							DockWidth="300">
+							DockWidth="250">
 							<ad:LayoutAnchorablePane>
 								<ad:LayoutAnchorable
 									Title="Functions"
@@ -692,7 +693,7 @@
 								<ad:LayoutAnchorable
 									Title="Angle Converter"
 									CanAutoHide="True">
-									<AngleConverter:frmAngleConverter
+									<AngleConverter:AngleConverterWPF
 										x:Name="_angleconverter"
 										VerticalAlignment="Top" />
 								</ad:LayoutAnchorable>
@@ -753,6 +754,10 @@
 					<Setter
 						Property="VerticalAlignment"
 						Value="Center" />
+				<Style.Triggers>
+					<Trigger Property="IsEnabled" Value="True">
+					<Setter Property="FontWeight" Value="ExtraBold"/>					
+					</Trigger></Style.Triggers>
 				</Style>
 			</StatusBar.Resources>
 			<StatusBar.ItemsPanel>
@@ -826,7 +831,7 @@
 			<StatusBarItem
 				Grid.Column="8">
 				<TextBlock
-					Text="CAPS"
+					Text="CAPS"					
 					ToolTip="Caps Lock"
 					IsEnabled="{Binding IsCapsPressed}"
 					TextAlignment="Center" />

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="miRobotEditor.GUI.AngleConverter.AngleConverterWPF" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter"
+	Width="200" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<UserControl.Resources>		
+		<Style
+			TargetType="{x:Type TextBox}"
+			x:Key="DoubleStyle">
+			<Setter
+				Property="HorizontalAlignment"
+				Value="Stretch" />
+			<Setter
+				Property="TextAlignment"
+				Value="Center" />
+			<Setter
+				Property="Margin"
+				Value="1,0,1,0" />
+			<Setter
+				Property="VerticalAlignment"
+				Value="Stretch" />
+			<Setter
+				Property="Width"
+				Value="Auto" />
+		</Style>
+	</UserControl.Resources>
+	<Grid
+		HorizontalAlignment="Stretch">
+		<GroupBox
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Top">
+			<Grid>
+				<Grid.Resources>
+					<Style
+						TargetType="GroupBox">
+						<Setter
+							Property="Height"
+							Value="80" />
+						<Setter
+							Property="Width"
+							Value="200" />
+						<Setter
+							Property="HorizontalAlignment"
+							Value="Center" />
+						<Setter
+							Property="VerticalAlignment"
+							Value="Center" />
+					</Style>
+				</Grid.Resources>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="35*" />
+					<RowDefinition
+						Height="35*" />
+					<RowDefinition
+						Height="30*" />
+				</Grid.RowDefinitions>
+				<GroupBox
+					Grid.Row="0"
+					Header="Input">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition
+								Height="10*" />
+							<RowDefinition
+								Height="55*" />
+							<RowDefinition
+								Height="35*" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition
+								Width="{Binding InWidth, Mode=TwoWay}" />
+							<ColumnDefinition
+								Width="{Binding InWidth}" />
+							<ColumnDefinition
+								Width="{Binding InWidth}" />
+							<ColumnDefinition
+								Width="{Binding InWidth}" />
+						</Grid.ColumnDefinitions>
+						<TextBlock
+							HorizontalAlignment="Stretch"
+							Grid.Row="1"
+							Grid.Column="0"
+							VerticalAlignment="Top"
+							Text="Format" />
+						<ComboBox
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Top"
+							Grid.Column="1"
+							Grid.ColumnSpan="3"
+							Grid.Row="1"
+							DisplayMemberPath="ValueCartesianString"
+							SelectedValuePath="ValueCartesianEnum"
+							IsSynchronizedWithCurrentItem="True"
+							SelectedIndex="{Binding Path=InputItem}"
+							ItemsSource="{Binding Path=InputConvention}"
+							IsReadOnly="True" />
+						<TextBox
+							Style="{StaticResource DoubleStyle}"
+							Text="{Binding Path=In1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							Grid.Column="0"
+							Grid.Row="2"
+							TextAlignment="Center" />
+						<TextBox
+							Style="{StaticResource DoubleStyle}"
+							Text="{Binding Path=In2, Mode=TwoWay, BindsDirectlyToSource=true, UpdateSourceTrigger=PropertyChanged}"
+							Grid.Column="1"
+							Grid.Row="2" />
+						<TextBox
+							Style="{StaticResource DoubleStyle}"
+							Text="{Binding Path=In3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							Grid.Column="2"
+							Grid.Row="2" />
+						<TextBox
+							x:Name="tbIn4"
+							Style="{StaticResource DoubleStyle}"
+							Text="{Binding Path=In4,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							Grid.Column="3"
+							Grid.Row="2"
+							Visibility="{Binding In4Visible}" />
+					</Grid>
+				</GroupBox>
+				<GroupBox
+					x:Name="groupBox"
+					Grid.Row="1"
+					Header="Output">
+					<Grid
+						x:Name="OutGrid">
+						<Grid.RowDefinitions>
+							<RowDefinition
+								Height="10*" />
+							<RowDefinition
+								Height="55*" />
+							<RowDefinition
+								Height="35*" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition
+								Width="{Binding OutWidth}" />
+							<ColumnDefinition
+								Width="{Binding OutWidth}" />
+							<ColumnDefinition
+								Width="{Binding OutWidth}" />
+							<ColumnDefinition
+								Width="{Binding OutWidth}" />
+						</Grid.ColumnDefinitions>
+						<TextBlock
+							HorizontalAlignment="Center"
+							Grid.Row="1"
+							Grid.Column="0"
+							VerticalAlignment="Top"
+							Text="Format" />
+						<ComboBox
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Top"
+							Grid.Column="1"
+							Grid.ColumnSpan="3"
+							Grid.Row="1"
+							DisplayMemberPath="ValueCartesianString"
+							SelectedValuePath="ValueCartesianEnum"
+							IsSynchronizedWithCurrentItem="True"
+							SelectedIndex="{Binding Path=OutputItem}"
+							ItemsSource="{Binding Path=OutputConvention}"
+							IsReadOnly="True" />
+						<TextBox
+							Style="{StaticResource DoubleStyle}"
+							Text="{Binding Out1, Mode=TwoWay, StringFormat=\{0:F2\}, UpdateSourceTrigger=PropertyChanged}"
+							Grid.Row="2"
+							Grid.Column="0"
+							IsReadOnly="True" />
+						<TextBox
+							Style="{StaticResource DoubleStyle}"
+							Text="{Binding Out2, Mode=TwoWay, StringFormat=\{0:F2\}, UpdateSourceTrigger=PropertyChanged}"
+							Grid.Row="2"
+							Grid.Column="1"
+							IsReadOnly="True" />
+						<TextBox
+							Style="{StaticResource DoubleStyle}"
+							Text="{Binding Out3, Mode=TwoWay, StringFormat=\{0:F2\}, UpdateSourceTrigger=PropertyChanged}"
+							Grid.Row="2"
+							Grid.Column="2"
+							IsReadOnly="True" />
+						<TextBox
+							x:Name="tbOut4"
+							Style="{StaticResource DoubleStyle}"
+							Text="{Binding Out4, Mode=TwoWay, StringFormat=\{0:F2\}, UpdateSourceTrigger=PropertyChanged}"
+							Grid.Row="2"
+							Grid.Column="3"
+							IsReadOnly="True"
+							Visibility="{Binding Out4Visible}" />
+					</Grid>
+				</GroupBox>
+				<TextBox
+					x:Name="txtMatrix"
+					IsReadOnly="True"
+					TextAlignment="Center"
+					Text="{Binding Path=Matrix, Mode=TwoWay}"
+					Grid.Row="2"
+					VerticalAlignment="Center"
+					Height="79"
+					Grid.ColumnSpan="4"
+					SpellCheck.IsEnabled="False" />
+			</Grid>
+		</GroupBox>
+	</Grid>
+</UserControl>

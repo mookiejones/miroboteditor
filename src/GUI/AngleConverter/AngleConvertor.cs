@@ -17,7 +17,7 @@ namespace miRobotEditor.GUI.AngleConverter
             /// </summary>
             private bool IsConverting; 
           
-            private double in1, in2, in3, in4, out1, out2, out3, out4;
+            private double in1 = 0.0f, in2 = 0.0f, in3 = 0.0f, in4=0.0f, out1=0.0f, out2=0.0f, out3=0.0f, out4=0.0f;
             private string _inWidth, _outWidth;
             private CartesianItems _inputconvention = new CartesianItems();
             private CartesianItems _outputconvention = new CartesianItems();
@@ -110,6 +110,7 @@ namespace miRobotEditor.GUI.AngleConverter
             {               
                     in1 = value;
                     NotifyPropertyChanged("In1");              
+
             }
         }
         public double In2
@@ -132,7 +133,6 @@ namespace miRobotEditor.GUI.AngleConverter
                 if (Math.Abs(in3 - value) > EPSILON)
                 {
                     
-                    NotifyPropertyChanging("In3");
                     in3 = value;
                     NotifyPropertyChanged("In3");
                 }
