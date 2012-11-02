@@ -384,7 +384,7 @@ namespace miRobotEditor
             switch (name)
             {
                 case "Angle Converter":
-                    tool.Content = new GUI.AngleConverter.frmAngleConverter { VerticalContentAlignment = VerticalAlignment.Top, MaxWidth = 250 };
+                    tool.Content = new GUI.AngleConverter.AngleConverterWPF { VerticalContentAlignment = VerticalAlignment.Top, MaxWidth = 250 };
                     tool.AutoHideMinWidth = 219;
                     break;
                 case "Functions":
@@ -580,7 +580,7 @@ namespace miRobotEditor
             IsCapsPressed = GetKeyState((int) VKeyStates.CapsKey)!=0;
             IsInsPressed = GetKeyState((int)VKeyStates.InsKey) != 0;
             IsNumPressed = GetKeyState((int)VKeyStates.NumKey) != 0;
-            IsScrollPressed = GetKeyState((int)VKeyStates.ScrollKey) != 0;
+            IsScrollPressed = GetKeyState((int)VKeyStates.ScrollKey) != 0;            
         }
 
         private enum VKeyStates

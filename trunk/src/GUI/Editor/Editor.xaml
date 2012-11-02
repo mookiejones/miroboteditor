@@ -11,7 +11,7 @@
              d:DesignWidth="300" 
              TextChanged="Text_Changed"
              IsVisibleChanged="RaiseUpdate"        
-    
+    		FontSize="14"
 	         ShowLineNumbers="True"
              MouseHover="Mouse_Hover" AllowDrop="True" 
             PreviewMouseWheel="EditorPreviewMouseWheel" GotFocus="TextEditor_GotFocus" 

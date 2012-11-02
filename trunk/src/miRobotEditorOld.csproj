@@ -146,9 +146,29 @@
     </Compile>
     <Compile Include="Controls\SplineBorder.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GUI\AngleConverter\AngleConverterWPF.xaml.cs">
+      <DependentUpon>AngleConverterWPF.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GUI\DummyDoc\DummyDoc.xaml.cs">
+      <DependentUpon>DummyDoc.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Editor\TextEditorOptions.cs" />
+    <Compile Include="GUI\Notes\frmNotes.xaml.cs">
+      <DependentUpon>frmNotes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IconBarMargin.cs" />
     <Compile Include="ISingleInstanceApp.cs" />
+    <Compile Include="Language Specific\KFDAssistant.xaml.cs">
+      <DependentUpon>KFDAssistant.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Language Specific\KUKAInlineFormHelper.xaml.cs">
+      <DependentUpon>KUKAInlineFormHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Language Specific\KUKAKFDDialog.xaml.cs">
+      <DependentUpon>KUKAKFDDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Pads\ClipboardPad.cs" />
     <Compile Include="Snippets\SnippetCollection.cs" />
@@ -206,7 +226,6 @@
     </Compile>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="GUI\AngleConverter\AngleConvertor.cs" />
-    <Compile Include="GUI\AngleConverter\frmAngleConverter.cs" />
     <Compile Include="GUI\AngleConverter\Math Library\Circle2D.cs" />
     <Compile Include="GUI\AngleConverter\Math Library\Circle3D.cs" />
     <Compile Include="GUI\AngleConverter\Math Library\Distance3D.cs" />
@@ -331,17 +350,8 @@
     <Compile Include="Controls\GotoDialog.xaml.cs">
       <DependentUpon>GotoDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\frmNotes.xaml.cs">
-      <DependentUpon>frmNotes.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\frmReverse.xaml.cs">
       <DependentUpon>frmReverse.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\KUKAInlineFormHelper.xaml.cs">
-      <DependentUpon>KUKAInlineFormHelper.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\KUKAKFDDialog.xaml.cs">
-      <DependentUpon>KUKAKFDDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ShiftBox.xaml.cs">
       <DependentUpon>ShiftBox.xaml</DependentUpon>
@@ -408,11 +418,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\Editor\Editor.xaml">
+    <Page Include="GUI\AngleConverter\AngleConverterWPF.xaml" />
+    <Page Include="GUI\DummyDoc\DummyDoc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\DummyDoc.xaml">
+    <Page Include="GUI\Editor\Editor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -424,19 +435,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\frmNotes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\frmReverse.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\KUKAInlineFormHelper.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\KUKAKFDDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -491,10 +490,6 @@
     <Compile Include="GUI\Editor\Editor.xaml.cs">
       <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\DummyDoc.xaml.cs">
-      <DependentUpon>DummyDoc.xaml</DependentUpon>
-    </Compile>
-    <Page Include="GUI\AngleConverter\frmAngleConvertor.xaml" />
     <Page Include="GUI\Dialogs\About\About.xaml" />
     <Page Include="GUI\ExplorerWindow\ExplorerWindow.xaml" />
     <Page Include="GUI\FunctionWindow\FunctionWindow.xaml">
@@ -502,11 +497,24 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\KUKA\frmAdjustST.xaml" />
+    <Page Include="GUI\Notes\frmNotes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\ObjectBrowser\ObjectBrowserTool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\OutputWindow\OutputWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Language Specific\KFDAssistant.xaml" />
+    <Page Include="Language Specific\KUKAInlineFormHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Language Specific\KUKAKFDDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -717,7 +725,10 @@
     <Folder Include="Controls\ExplorerControl" />
     <Folder Include="GUI\Document\" />
     <Folder Include="GUI\KUKA\AdjustST\" />
+    <Folder Include="GUI\DummyDoc" />
+    <Folder Include="GUI\Notes" />
     <Folder Include="GUI\Printing\" />
+    <Folder Include="Language Specific" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

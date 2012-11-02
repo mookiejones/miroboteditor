@@ -104,11 +104,13 @@ namespace miRobotEditor.Controls
 
         public  void ExecuteReload(object sender, ExecutedRoutedEventArgs e)
         {
-            Load(_file);
+            Load(_file);           
         }
 
         public void Load(FileInfo file)
         {
+        	
+      
             _file = file;
 
             FileLanguage = AbstractLanguageClass.GetRobotType(_file);
@@ -136,6 +138,8 @@ namespace miRobotEditor.Controls
             // Select Original File
             TextBox = source.File == file ? source : data;
             grid.IsAnimated = true;
+           
+            
         }
 
         private void ReloadFile(object sender, EventArgs e)
