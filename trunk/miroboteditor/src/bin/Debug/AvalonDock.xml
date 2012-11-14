@@ -115,10 +115,21 @@
             Background Dependency Property
             </summary>
         </member>
+        <member name="F:AvalonDock.Controls.LayoutAutoHideWindowControl.AnchorableStyleProperty">
+            <summary>
+            AnchorableStyle Dependency Property
+            </summary>
+        </member>
         <member name="P:AvalonDock.Controls.LayoutAutoHideWindowControl.Background">
             <summary>
             Gets or sets the Background property.  This dependency property 
             indicates background of the autohide childwindow.
+            </summary>
+        </member>
+        <member name="P:AvalonDock.Controls.LayoutAutoHideWindowControl.AnchorableStyle">
+            <summary>
+            Gets or sets the AnchorableStyle property. This dependency property 
+            indicates the style to apply to the LayoutAnchorableControl hosted in this auto hide window.
             </summary>
         </member>
         <member name="T:Standard.HCF">
@@ -1342,10 +1353,28 @@
             Provides derived classes an opportunity to handle changes to the Model property.
             </summary>
         </member>
+        <member name="F:AvalonDock.Controls.LayoutAnchorableControl.LayoutItemPropertyKey">
+            <summary>
+            LayoutItem Read-Only Dependency Property
+            </summary>
+        </member>
+        <member name="M:AvalonDock.Controls.LayoutAnchorableControl.SetLayoutItem(AvalonDock.Controls.LayoutItem)">
+            <summary>
+            Provides a secure method for setting the LayoutItem property.  
+            This dependency property indicates the LayoutItem attached to this tag item.
+            </summary>
+            <param name="value">The new value for the property.</param>
+        </member>
         <member name="P:AvalonDock.Controls.LayoutAnchorableControl.Model">
             <summary>
             Gets or sets the Model property.  This dependency property 
             indicates the model attached to this view.
+            </summary>
+        </member>
+        <member name="P:AvalonDock.Controls.LayoutAnchorableControl.LayoutItem">
+            <summary>
+            Gets the LayoutItem property.  This dependency property 
+            indicates the LayoutItem attached to this tag item.
             </summary>
         </member>
         <member name="F:AvalonDock.Controls.MenuItemEx.IconTemplateProperty">
@@ -3356,10 +3385,28 @@
             Provides derived classes an opportunity to handle changes to the Model property.
             </summary>
         </member>
+        <member name="F:AvalonDock.Controls.LayoutDocumentControl.LayoutItemPropertyKey">
+            <summary>
+            LayoutItem Read-Only Dependency Property
+            </summary>
+        </member>
+        <member name="M:AvalonDock.Controls.LayoutDocumentControl.SetLayoutItem(AvalonDock.Controls.LayoutItem)">
+            <summary>
+            Provides a secure method for setting the LayoutItem property.  
+            This dependency property indicates the LayoutItem attached to this tag item.
+            </summary>
+            <param name="value">The new value for the property.</param>
+        </member>
         <member name="P:AvalonDock.Controls.LayoutDocumentControl.Model">
             <summary>
             Gets or sets the Model property.  This dependency property 
             indicates the model attached to this view.
+            </summary>
+        </member>
+        <member name="P:AvalonDock.Controls.LayoutDocumentControl.LayoutItem">
+            <summary>
+            Gets the LayoutItem property.  This dependency property 
+            indicates the LayoutItem attached to this tag item.
             </summary>
         </member>
         <member name="T:Standard.Win32Error">
