@@ -8,11 +8,11 @@
                 <ResourceDictionary Source="/Themes\Generic.xaml" />
                 <ResourceDictionary Source="Themes/ExtendedGridSplitter.xaml" />
                 <ResourceDictionary Source="Themes/AdjustST.xaml" />
-                <ResourceDictionary Source="Themes/ExplorerWindow.xaml" />
+           <!--         <ResourceDictionary Source="Themes/ExplorerWindow.xaml" /> -->
                 <ResourceDictionary Source="Themes/Colors.xaml" />
                 <ResourceDictionary Source="Themes/StatusBar.xaml" />
                 <ResourceDictionary Source="Themes/Styles.xaml" />
-           <!--         <ResourceDictionary Source="Themes/DockControlTheme.xaml" /> -->
+              <!--     <ResourceDictionary Source="Themes/DockControlTheme.xaml" /> -->
             </ResourceDictionary.MergedDictionaries>                       
         </ResourceDictionary>
 
