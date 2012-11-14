@@ -96,13 +96,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock">
-      <HintPath>..\packages\AvalonDock.2.0.1618\lib\net40\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\AvalonDock.2.0.1691\lib\net40\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="AvalonDock.Themes.Aero">
-      <HintPath>..\packages\AvalonDock.2.0.1618\lib\net40\AvalonDock.Themes.Aero.dll</HintPath>
+      <HintPath>..\packages\AvalonDock.2.0.1691\lib\net40\AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="AvalonDock.Themes.Expression">
+      <HintPath>..\packages\AvalonDock.2.0.1691\lib\net40\AvalonDock.Themes.Expression.dll</HintPath>
     </Reference>
     <Reference Include="AvalonDock.Themes.VS2010">
-      <HintPath>..\packages\AvalonDock.2.0.1618\lib\net40\AvalonDock.Themes.VS2010.dll</HintPath>
+      <HintPath>..\packages\AvalonDock.2.0.1691\lib\net40\AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\packages\AvalonEdit.4.2.0.8783\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -153,6 +156,8 @@
     <Compile Include="GUI\DummyDoc\DummyDoc.xaml.cs">
       <DependentUpon>DummyDoc.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Editor\BracketHighlightRenderer.cs" />
+    <Compile Include="GUI\Editor\IDocument.cs" />
     <Compile Include="GUI\Editor\TextEditorOptions.cs" />
     <Compile Include="GUI\Notes\frmNotes.xaml.cs">
       <DependentUpon>frmNotes.xaml</DependentUpon>
@@ -161,6 +166,10 @@
     <Compile Include="ISingleInstanceApp.cs" />
     <Compile Include="Language Specific\KFDAssistant.xaml.cs">
       <DependentUpon>KFDAssistant.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Language Specific\KUKADatSort.xaml.cs">
+      <DependentUpon>KUKADatSort.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Language Specific\KUKAInlineFormHelper.xaml.cs">
@@ -358,18 +367,6 @@
     </Compile>
     <Compile Include="Converters\DoubleToStringConverter.cs" />
     <Compile Include="Converters\WidthConverter.cs" />
-    <Compile Include="Controls\Unfinished\KUKA\DialogNew.xaml.cs">
-      <DependentUpon>DialogNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Unfinished\KUKA\frmBlockEdit.xaml.cs">
-      <DependentUpon>frmBlockEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Unfinished\KUKA\frmObjectBrowser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\Unfinished\KUKA\frmObjectBrowser.Designer.cs">
-      <DependentUpon>frmObjectBrowser.cs</DependentUpon>
-    </Compile>
     <Compile Include="Enums\TYPLANGUAGE.cs" />
     <Compile Include="Forms\AttributeViewer.xaml.cs">
       <DependentUpon>AttributeViewer.xaml</DependentUpon>
@@ -447,14 +444,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Unfinished\KUKA\DialogNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Unfinished\KUKA\frmBlockEdit.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\xmlReader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -510,6 +499,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Language Specific\KFDAssistant.xaml" />
+    <Page Include="Language Specific\KUKADatSort.xaml" />
     <Page Include="Language Specific\KUKAInlineFormHelper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -572,20 +562,17 @@
     <EmbeddedResource Include="Controls\ExplorerControl\FileExplorerControl.resx">
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Unfinished\KUKA\frmObjectBrowser.resx">
-      <DependentUpon>frmObjectBrowser.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="miRobotEditor.pfx" />
     <None Include="Snippets\KUKA.Snippet" />
-    <Resource Include="Resources\comment.png" />
-    <Resource Include="Resources\exit.png" />
+    <EmbeddedResource Include="Resources\comment.png" />
+    <EmbeddedResource Include="Resources\exit.png" />
     <Resource Include="Resources\print_preview.png" />
     <Resource Include="Resources\print.png" />
     <Resource Include="Resources\line_numbers.png" />
     <Resource Include="Resources\select_all.png" />
     <Resource Include="Resources\redo.png" />
-    <Resource Include="Resources\copy.png" />
-    <Resource Include="Resources\cut.png" />
+    <EmbeddedResource Include="Resources\copy.png" />
+    <EmbeddedResource Include="Resources\cut.png" />
     <Resource Include="Resources\paste.png" />
     <Resource Include="Resources\save.png" />
     <Resource Include="Resources\save_all.png" />
@@ -630,14 +617,14 @@
     <Resource Include="Tracking\todo.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\close.png" />
+    <EmbeddedResource Include="Resources\close.png" />
     <Resource Include="Resources\search.png" />
     <Resource Include="Resources\new_edit_find_replace.png" />
     <Resource Include="Resources\vxevent_icon.png" />
     <Resource Include="Resources\Editor.ico" />
-    <Resource Include="Resources\error.png" />
-    <Resource Include="Resources\_new.png" />
-    <Resource Include="Resources\binoculars.png" />
+    <EmbeddedResource Include="Resources\error.png" />
+    <EmbeddedResource Include="Resources\_new.png" />
+    <EmbeddedResource Include="Resources\binoculars.png" />
     <Resource Include="Properties\Resources\_new.png" />
     <Resource Include="Properties\Resources\binoculars.png" />
     <Resource Include="Properties\Resources\close.png" />
@@ -668,11 +655,11 @@
     </Resource>
     <Resource Include="Properties\Resources\vxstruct_icon.png" />
     <Resource Include="Properties\Resources\vxvaluetype_icon.png" />
-    <Resource Include="Resources\editdelete.png" />
+    <EmbeddedResource Include="Resources\editdelete.png" />
     <Resource Include="Resources\folder.png" />
     <Resource Include="Resources\refresh_yellow.png" />
-    <Resource Include="Resources\collapsefolds.png" />
-    <Resource Include="Resources\decreaseIndent.png" />
+    <EmbeddedResource Include="Resources\collapsefolds.png" />
+    <EmbeddedResource Include="Resources\decreaseIndent.png" />
     <Resource Include="Resources\expandfolds.png" />
     <Resource Include="Resources\increaseindent.png" />
     <Resource Include="Resources\lineendings.png" />
@@ -721,7 +708,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\ErrorProvider\" />
-    <Folder Include="Controls\KUKA\" />
     <Folder Include="Controls\ExplorerControl" />
     <Folder Include="GUI\Document\" />
     <Folder Include="GUI\KUKA\AdjustST\" />

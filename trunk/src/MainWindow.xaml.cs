@@ -605,12 +605,14 @@ namespace miRobotEditor
 
         #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
+    
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        	if (PropertyChanged!=null)
+        		PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
+
         }
+    	
+		public event PropertyChangedEventHandler PropertyChanged;
     }
 }
