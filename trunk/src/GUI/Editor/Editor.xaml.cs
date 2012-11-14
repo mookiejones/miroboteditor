@@ -617,6 +617,11 @@ namespace miRobotEditor.GUI.Editor
             completionWindow.CompletionList.SelectItem(currentword);
             if (completionWindow.CompletionList.SelectedItem != null)
             completionWindow.Show();
+            
+             if (IsModified)
+            RaiseUpdate(null,new DependencyPropertyChangedEventArgs());
+            
+         
         }
 
 

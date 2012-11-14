@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:explorer="clr-namespace:miRobotEditor.GUI.ExplorerWindow"
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="300">
+             d:DesignHeight="550" d:DesignWidth="300">	
     <Grid>
     	<Grid.RowDefinitions>
 	    	<RowDefinition Height="25"/>
@@ -17,7 +17,16 @@
         <TreeView Grid.Row="1" Height="Auto"  Name="directoryView"  DataContext="{Binding FileExplorerViewModel}" ItemsSource="{Binding Drives}"
     					HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
 						VirtualizingStackPanel.IsVirtualizing="True"
-						VirtualizingStackPanel.VirtualizationMode="Recycling">
+						VirtualizingStackPanel.VirtualizationMode="Recycling"
+    					>
+         <!-- 	 	<TreeView.Resources>
+        	<ResourceDictionary>
+       	<ResourceDictionary.MergedDictionaries>
+        		<ResourceDictionary Source="ResourceDictionaries/ExplorerWindowDictionary.xaml" />
+        		</ResourceDictionary.MergedDictionaries>
+        		</ResourceDictionary>
+        	</TreeView.Resources>  -->
+        	
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="_Copy" Command="ApplicationCommands.Copy" />

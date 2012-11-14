@@ -143,7 +143,6 @@ C:\Programming\git\trunk\src\obj\Debug\Themes\AdjustST.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\Colors.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\DockBrushes.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\DockControlTheme.baml
-C:\Programming\git\trunk\src\obj\Debug\Themes\ExplorerWindow.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\StatusBar.baml
 C:\Programming\git\trunk\src\obj\Debug\App.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Controls\CustomToolTip.g.cs
@@ -207,3 +206,5 @@ C:\Programming\git\trunk\src\obj\Debug\Language Specific\KFDAssistant.baml
 C:\Programming\git\trunk\src\obj\Debug\Language Specific\KFDAssistant.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Language Specific\KUKADatSort.baml
 C:\Programming\git\trunk\src\obj\Debug\Language Specific\KUKADatSort.g.cs
+C:\Programming\git\trunk\src\obj\Debug\ResourceDictionaries\ExplorerWindowDictionary.baml
+C:\Programming\git\trunk\src\obj\Debug\Themes\ExplorerWindow.baml

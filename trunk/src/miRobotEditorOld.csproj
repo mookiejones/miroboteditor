@@ -509,6 +509,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml" />
+    <Page Include="ResourceDictionaries\ExplorerWindowDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Templates\VisualVariableItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -529,10 +533,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\ExplorerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Page Include="Themes\ExplorerWindow.xaml" />
     <Page Include="Themes\ExtendedGridSplitter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -715,6 +716,7 @@
     <Folder Include="GUI\Notes" />
     <Folder Include="GUI\Printing\" />
     <Folder Include="Language Specific" />
+    <Folder Include="ResourceDictionaries" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
