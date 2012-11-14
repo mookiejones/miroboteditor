@@ -27,9 +27,7 @@ namespace miRobotEditor.GUI.ExplorerWindow
 							{
 								((DirectoryViewModel)child).LoadChilds(true);
 							}
-						}
-				
-
+						}				
 				}
 			}
 		}
@@ -68,8 +66,6 @@ namespace miRobotEditor.GUI.ExplorerWindow
                     var directoryInfo = new DirectoryInfo(directory);
                     Childs.Add(new DirectoryViewModel(directory, directoryInfo.Name, true));
                 }
-
-
 
                 foreach (string file in Directory.GetFiles(Name))
                 {

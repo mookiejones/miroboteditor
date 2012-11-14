@@ -159,10 +159,33 @@ namespace miRobotEditor.GUI.Editor
             DataContext = this;
         }
         #endregion
-
+		
+        MyBracketSearcher bracketSearcher = new MyBracketSearcher();
+        BracketHighlightRenderer bracketRenderer;
+        #region CaretPositionChanged - Bracket Highlighting
+		/// <summary>
+		/// Highlights matching brackets.
+		/// </summary>
+		void HighlightBrackets(object sender, EventArgs e)
+		{
+			/*
+			 * Special case: ITextEditor.Language guarantees that it never returns null.
+			 * In this case however it can be null, since this code may be called while the document is loaded.
+			 * ITextEditor.Language gets set in CodeEditorAdapter.FileNameChanged, which is called after
+			 * loading of the document has finished.
+			 * */
+			
+			
+					var bracketSearchResult = bracketSearcher.SearchBracket(Document ,this.TextArea.Caret.Offset);
+						this.bracketRenderer.SetHighlight(bracketSearchResult);
+		}
+		
+		
+		#endregion
         void Caret_PositionChanged(object sender, EventArgs e)
         {
             var s = sender as ICSharpCode.AvalonEdit.Editing.Caret;
+            
             UpdateLineTransformers();
             if (s != null)
             {
@@ -170,6 +193,9 @@ namespace miRobotEditor.GUI.Editor
                 StatusBar.Instance.Column =  s.Column.ToString(CultureInfo.InvariantCulture);
             }
             StatusBar.Instance.Offset = CaretOffset.ToString(CultureInfo.InvariantCulture);
+            
+            
+            HighlightBrackets(sender,e);
         }
 
         /// <summary>
@@ -182,6 +208,11 @@ namespace miRobotEditor.GUI.Editor
             var textEditorOptions = Options as TextEditorOptions;
             if (textEditorOptions != null && textEditorOptions.HighlightCurrentLine)
             TextArea.TextView.BackgroundRenderers.Add(new XBackgroundRenderer(Document.GetLineByOffset(CaretOffset)));
+          if (bracketRenderer==null)
+          bracketRenderer = new BracketHighlightRenderer(this.TextArea.TextView);
+          else
+          TextArea.TextView.BackgroundRenderers.Add(bracketRenderer);
+            
         }
 
 
@@ -640,7 +671,6 @@ namespace miRobotEditor.GUI.Editor
             var d = Document.GetLineByOffset(start);
             TextArea.Caret.BringCaretToView();
             CaretOffset = d.Offset;
-//            ScrollTo(d.LineNumber, 0);
                 JumpTo(d.LineNumber,0);
             if (_foldingManager != null)
             {
@@ -681,18 +711,13 @@ namespace miRobotEditor.GUI.Editor
 
         public void JumpTo(int line, int column)
         {
-            // closes Debugger popup on debugger step
-       //     TryCloseExistingPopup(true);
-
-
-            // the adapter sets the caret position and takes care of scrolling
-      //      this.Adapter.JumpTo(line, column);
             Focus();
             ScrollTo(line, column);
 
             if (TextEditorOptions.Instance.EnableAnimations)
                 Dispatcher.BeginInvoke(DispatcherPriority.Background, (Action)DisplayCaretHighlightAnimation);
         }
+        
         void DisplayCaretHighlightAnimation()
         {
 

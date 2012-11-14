@@ -14,7 +14,6 @@ namespace miRobotEditor.GUI.ExplorerWindow
 
 		    try
 		    {
-
 		        var i = Icon.ExtractAssociatedIcon(fullPath);
 		        ImageName = i.ToBitmap();
 		       //   ImageName = "../../Resources/files.png";
@@ -23,13 +22,6 @@ namespace miRobotEditor.GUI.ExplorerWindow
 		    {
                 ImageName = "../../Resources/files.png";
 		    }
-				
-
-          
-
-		
-				
-			
 		}
 	}
 

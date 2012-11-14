@@ -24,8 +24,6 @@ namespace miRobotEditor.GUI.ExplorerWindow
 
 				FileExplorerViewModel.Instance.SelectedItem = FullPath;
               
-             
-				
 			}
 		}
 		#endregion

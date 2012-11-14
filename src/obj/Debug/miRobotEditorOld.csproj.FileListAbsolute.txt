@@ -128,8 +128,6 @@ C:\Programming\git\trunk\src\obj\Debug\Controls\GotoDialog.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\frmReverse.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\ShiftBox.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\SnippetPad.baml
-C:\Programming\git\trunk\src\obj\Debug\Controls\Unfinished\KUKA\DialogNew.baml
-C:\Programming\git\trunk\src\obj\Debug\Controls\Unfinished\KUKA\frmBlockEdit.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\xmlReader.baml
 C:\Programming\git\trunk\src\obj\Debug\Forms\AttributeViewer.baml
 C:\Programming\git\trunk\src\obj\Debug\Forms\frmKUKAIOPoints.baml
@@ -155,8 +153,6 @@ C:\Programming\git\trunk\src\obj\Debug\Controls\GotoDialog.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Controls\frmReverse.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Controls\ShiftBox.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Controls\SnippetPad.g.cs
-C:\Programming\git\trunk\src\obj\Debug\Controls\Unfinished\KUKA\DialogNew.g.cs
-C:\Programming\git\trunk\src\obj\Debug\Controls\Unfinished\KUKA\frmBlockEdit.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Controls\xmlReader.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Forms\AttributeViewer.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Forms\frmKUKAIOPoints.g.cs
@@ -192,7 +188,6 @@ C:\Programming\git\trunk\src\obj\Debug\Themes\ExtendedGridSplitter.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\Generic.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\Styles.baml
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.g.resources
-C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.Controls.Unfinished.KUKA.frmObjectBrowser.resources
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditorOld.csproj.GenerateResource.Cache
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.exe.manifest
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.application
@@ -210,3 +205,5 @@ C:\Programming\git\trunk\src\obj\Debug\GUI\AngleConverter\AngleConverterWPF.baml
 C:\Programming\git\trunk\src\obj\Debug\GUI\DummyDoc\DummyDoc.baml
 C:\Programming\git\trunk\src\obj\Debug\Language Specific\KFDAssistant.baml
 C:\Programming\git\trunk\src\obj\Debug\Language Specific\KFDAssistant.g.cs
+C:\Programming\git\trunk\src\obj\Debug\Language Specific\KUKADatSort.baml
+C:\Programming\git\trunk\src\obj\Debug\Language Specific\KUKADatSort.g.cs

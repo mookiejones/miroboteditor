@@ -106,7 +106,7 @@ namespace miRobotEditor
             Classes.OutputMessages.AddError(e.Exception);
          //   MessageBox.Show(e.Exception.Message);
             e.Handled = true;
-            throw e.Exception;
+         //   throw e.Exception;
 
         }
     }
