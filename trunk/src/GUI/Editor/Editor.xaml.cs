@@ -598,7 +598,6 @@ namespace miRobotEditor.GUI.Editor
         }
 
         #region Code Completion
-
         private CompletionWindow completionWindow;
 
         private void TextArea_TextEntered(object sender, TextCompositionEventArgs e)

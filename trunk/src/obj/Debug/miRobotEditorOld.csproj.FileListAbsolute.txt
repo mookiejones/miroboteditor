@@ -208,3 +208,7 @@ C:\Programming\git\trunk\src\obj\Debug\Language Specific\KUKADatSort.baml
 C:\Programming\git\trunk\src\obj\Debug\Language Specific\KUKADatSort.g.cs
 C:\Programming\git\trunk\src\obj\Debug\ResourceDictionaries\ExplorerWindowDictionary.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\ExplorerWindow.baml
+C:\Programming\git\trunk\src\obj\Debug\GUI\Options\Options.baml
+C:\Programming\git\trunk\src\obj\Debug\GUI\Options\Options.g.cs
+C:\Programming\git\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.baml
+C:\Programming\git\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.g.cs
