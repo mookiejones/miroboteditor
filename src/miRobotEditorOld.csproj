@@ -162,6 +162,10 @@
     <Compile Include="GUI\Notes\frmNotes.xaml.cs">
       <DependentUpon>frmNotes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Options\Options.xaml.cs">
+      <DependentUpon>Options.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interfaces\IconBarMargin.cs" />
     <Compile Include="ISingleInstanceApp.cs" />
     <Compile Include="Language Specific\KFDAssistant.xaml.cs">
@@ -179,6 +183,10 @@
       <DependentUpon>KUKAKFDDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="Pads\ArchiveInfo\ArchiveInfo.xaml.cs">
+      <DependentUpon>ArchiveInfo.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Pads\ClipboardPad.cs" />
     <Compile Include="Snippets\SnippetCollection.cs" />
     <Compile Include="Templates\VisualVariableItem.xaml.cs">
@@ -494,6 +502,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Options\Options.xaml" />
     <Page Include="GUI\OutputWindow\OutputWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -509,6 +518,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml" />
+    <Page Include="Pads\ArchiveInfo\ArchiveInfo.xaml" />
     <Page Include="ResourceDictionaries\ExplorerWindowDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -713,9 +723,11 @@
     <Folder Include="GUI\Document\" />
     <Folder Include="GUI\KUKA\AdjustST\" />
     <Folder Include="GUI\DummyDoc" />
+    <Folder Include="GUI\Options" />
     <Folder Include="GUI\Notes" />
     <Folder Include="GUI\Printing\" />
     <Folder Include="Language Specific" />
+    <Folder Include="Pads\ArchiveInfo" />
     <Folder Include="ResourceDictionaries" />
   </ItemGroup>
   <ItemGroup>

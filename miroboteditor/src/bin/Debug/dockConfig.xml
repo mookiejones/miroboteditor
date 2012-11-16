@@ -9,13 +9,15 @@
       </LayoutAnchorablePaneGroup>
       <LayoutDocumentPaneGroup Orientation="Horizontal">
         <LayoutDocumentPane>
-          <LayoutDocument Title="InitDoc" ContentId="document" LastActivationTimeStamp="11/14/2012 12:48:55" />
-          <LayoutDocument Title="inventory.src" IsSelected="True" IsLastFocusedDocument="True" ContentId="\\10.20.5.197\krc\ROBOTER\KRC\R1\Program\TPLogistics\inventory" LastActivationTimeStamp="11/14/2012 12:49:02" Description="inventory.src" />
+          <LayoutDocument Title="InitDoc" ContentId="document" LastActivationTimeStamp="11/14/2012 14:08:31" />
+          <LayoutDocument Title="motionTech.src" ContentId="\\10.20.5.197\krc\ROBOTER\KRC\R1\Program\TPLogistics\motionTech" LastActivationTimeStamp="11/14/2012 14:14:48" Description="motionTech.src" />
+          <LayoutDocument Title="pickplace.src" IsSelected="True" IsLastFocusedDocument="True" ContentId="\\10.20.5.197\krc\ROBOTER\KRC\R1\Program\TPLogistics\pickplace" LastActivationTimeStamp="11/14/2012 14:26:37" Description="pickplace.src" />
+          <LayoutDocument Title="Process.src" ContentId="\\10.20.5.197\krc\ROBOTER\KRC\R1\Program\TPLogistics\Process" LastActivationTimeStamp="11/14/2012 14:23:22" Description="Process.src" />
         </LayoutDocumentPane>
       </LayoutDocumentPaneGroup>
       <LayoutAnchorablePaneGroup Orientation="Horizontal" DockWidth="250">
         <LayoutAnchorablePane>
-          <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Functions" IsSelected="True" ContentId="Functions" />
+          <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Functions" IsSelected="True" ContentId="Functions" LastActivationTimeStamp="11/14/2012 14:23:22" />
           <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Angle Converter" ContentId="_angleconverter" />
         </LayoutAnchorablePane>
       </LayoutAnchorablePaneGroup>
@@ -24,7 +26,7 @@
       <LayoutAnchorablePane DockHeight="200">
         <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Output Window" ContentId="Output" />
         <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Notes" ContentId="notes" CanClose="False" />
-        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Object Browser" IsSelected="True" ContentId="objectBrowser" CanClose="False" LastActivationTimeStamp="11/14/2012 12:48:54" />
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Object Browser" IsSelected="True" ContentId="objectBrowser" CanClose="False" LastActivationTimeStamp="11/14/2012 14:08:30" />
       </LayoutAnchorablePane>
     </LayoutAnchorablePaneGroup>
   </RootPanel>
