@@ -403,6 +403,9 @@ namespace miRobotEditor
                 case "Notes":
                     tool.Content = new frmNotes();
                     break;
+                case "ArchiveInfo":
+                    tool.Content= new Pads.ArchiveInfo();
+                    break;
                 default:
                     OutputMessages.Add("Not Implemented",name,null);
                     break;
@@ -479,9 +482,9 @@ namespace miRobotEditor
 
         private void ImportRobot(object sender, ExecutedRoutedEventArgs e)
         {
-            objectBrowser.ShowWizard("Backup Folder");
-           
+            objectBrowser.ShowWizard("Backup Folder");           
             AddTool("Object Browser");
+            AddTool("ArchiveInfo");
         }
 
         [Localizable(false)]

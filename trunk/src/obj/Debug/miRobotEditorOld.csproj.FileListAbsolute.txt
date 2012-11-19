@@ -130,7 +130,6 @@ C:\Programming\git\trunk\src\obj\Debug\Controls\ShiftBox.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\SnippetPad.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\xmlReader.baml
 C:\Programming\git\trunk\src\obj\Debug\Forms\AttributeViewer.baml
-C:\Programming\git\trunk\src\obj\Debug\Forms\frmKUKAIOPoints.baml
 C:\Programming\git\trunk\src\obj\Debug\Forms\frmSplashScreen.baml
 C:\Programming\git\trunk\src\obj\Debug\Forms\frmSystemFunctions.baml
 C:\Programming\git\trunk\src\obj\Debug\Forms\frmUpdateChecker.baml
@@ -154,7 +153,6 @@ C:\Programming\git\trunk\src\obj\Debug\Controls\ShiftBox.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Controls\SnippetPad.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Controls\xmlReader.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Forms\AttributeViewer.g.cs
-C:\Programming\git\trunk\src\obj\Debug\Forms\frmKUKAIOPoints.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Forms\frmShift.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Forms\frmSplashScreen.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Forms\frmSystemFunctions.g.cs
@@ -212,3 +210,4 @@ C:\Programming\git\trunk\src\obj\Debug\GUI\Options\Options.baml
 C:\Programming\git\trunk\src\obj\Debug\GUI\Options\Options.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.baml
 C:\Programming\git\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.g.cs
+C:\Programming\git\trunk\src\obj\Debug\Pads\ArchiveInfo\IOListBox.baml

@@ -1,22 +1,13 @@
 ﻿using System;
-
+using System.Windows.Input;
 namespace miRobotEditor.Commands
 {
     public abstract class AbstractMenuCommand : AbstractCommand, IMenuCommand
     {
-        bool isEnabled = true;
-
-        public virtual bool IsEnabled
-        {
-            get
-            {
-                return isEnabled;
-            }
-            set
-            {
-                isEnabled = value;
-            }
-        }
+      
+		private bool _isenabled = true;
+		public virtual bool IsEnabled{get{return _isenabled;}set{_isenabled=value;}}
+	
     }
     public abstract class AbstractCommand : ICommand
     {
@@ -53,29 +44,20 @@ namespace miRobotEditor.Commands
         }
 
         public event EventHandler OwnerChanged;
+    	
+		public event EventHandler CanExecuteChanged;
+    	
+		public void Execute(object parameter)
+		{
+			throw new NotImplementedException();
+		}
+    	
+		public bool CanExecute(object parameter)
+		{
+			throw new NotImplementedException();
+		}
     }
-    public interface ICommand
-    {
 
-        /// <summary>
-        /// Returns the owner of the command.
-        /// </summary>
-        object Owner
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Invokes the command.
-        /// </summary>
-        void Run();
-
-        /// <summary>
-        /// Is called when the Owner property is changed.
-        /// </summary>
-        event EventHandler OwnerChanged;
-    }
     public interface IMenuCommand : ICommand
     {
         bool IsEnabled

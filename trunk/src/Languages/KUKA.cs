@@ -54,14 +54,7 @@ namespace miRobotEditor.Languages
             return fi.GetFileInfo(text);
         }
 
-        #region Properties
-        public Forms.frmKUKAIOPoints IO
-        {
-            get;
-            set;
-        }
-        #endregion
-
+      
         internal override string SourceFile
         {
             get { throw new NotImplementedException(); }
@@ -80,13 +73,7 @@ namespace miRobotEditor.Languages
             }
         }
 
-        #region KUKA_IO Form
-        public Forms.frmKUKAIOPoints GetIO(string filename)
-        {
-            IO = new Forms.frmKUKAIOPoints(filename);
-            return IO;
-        }
-        #endregion
+     
 
 
         /*        public new bool ContextPromptBeforeOpen(ILexemLine lexemLine)

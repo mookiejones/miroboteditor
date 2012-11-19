@@ -15,7 +15,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace miRobotEditor.Pads.ArchiveInfo
+namespace miRobotEditor.Pads
 {
 	/// <summary>
 	/// Interaction logic for ArchiveInfo.xaml
@@ -25,6 +25,25 @@ namespace miRobotEditor.Pads.ArchiveInfo
 		public ArchiveInfo()
 		{
 			InitializeComponent();
+		}
+		
+		void ListView_TargetUpdated(object sender, DataTransferEventArgs e)
+		{
+			var view = (sender as ListView).View as GridView;
+ 			 AutoResizeGridViewColumns(view);
+		}
+		static void AutoResizeGridViewColumns(GridView view)
+		{
+		  if (view == null || view.Columns.Count < 1) return;
+		  // Simulates column auto sizing
+		  foreach (var column in view.Columns)
+		  {
+		 	// Forcing change
+			 if (double.IsNaN(column.Width))
+		   		column.Width = 1;
+		 	
+			 column.Width = double.NaN;
+		  }
 		}
 	}
 }
