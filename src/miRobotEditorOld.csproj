@@ -110,6 +110,9 @@
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\packages\AvalonEdit.4.2.0.8783\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>..\TestWindow\bin\Debug\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="RecentFileListLib">
       <HintPath>..\..\..\..\..\Users\cberman\Downloads\RecentFileList_src\RecentFileList\RecentFileListLib\bin\Release\RecentFileListLib.dll</HintPath>
@@ -141,6 +144,7 @@
     <Compile Include="Commands\AbstractMenuCommand.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\EditorCommands.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Controls\ExplorerControl\ExplorerClass.cs" />
     <Compile Include="Controls\ExplorerControl\ExplorerControlWPF.cs" />
     <Compile Include="Controls\ExplorerControl\FileExplorerControl.cs" />
@@ -168,6 +172,7 @@
     </Compile>
     <Compile Include="Interfaces\IconBarMargin.cs" />
     <Compile Include="ISingleInstanceApp.cs" />
+    <Compile Include="Language Specific\FileInfo.cs" />
     <Compile Include="Language Specific\KFDAssistant.xaml.cs">
       <DependentUpon>KFDAssistant.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -187,6 +192,7 @@
       <DependentUpon>ArchiveInfo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Pads\ArchiveInfo\ArchiveInfoHelper.cs" />
     <Compile Include="Pads\ClipboardPad.cs" />
     <Compile Include="Snippets\SnippetCollection.cs" />
     <Compile Include="Templates\VisualVariableItem.xaml.cs">
@@ -379,9 +385,6 @@
     <Compile Include="Forms\AttributeViewer.xaml.cs">
       <DependentUpon>AttributeViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmKUKAIOPoints.xaml.cs">
-      <DependentUpon>frmKUKAIOPoints.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmShift.xaml.cs">
       <DependentUpon>frmShift.xaml</DependentUpon>
     </Compile>
@@ -460,10 +463,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\frmKUKAIOPoints.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Forms\frmShift.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -519,6 +518,9 @@
     </Page>
     <Page Include="MainWindow.xaml" />
     <Page Include="Pads\ArchiveInfo\ArchiveInfo.xaml" />
+    <Page Include="Pads\ArchiveInfo\IOListBox.xaml">
+      <DependentUpon>ArchiveInfoHelper.cs</DependentUpon>
+    </Page>
     <Page Include="ResourceDictionaries\ExplorerWindowDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
