@@ -182,7 +182,9 @@ namespace miRobotEditor.GUI.Editor
 		
 		
 		#endregion
-        void Caret_PositionChanged(object sender, EventArgs e)
+		
+  
+		void Caret_PositionChanged(object sender, EventArgs e)
         {
             var s = sender as ICSharpCode.AvalonEdit.Editing.Caret;
             
@@ -317,23 +319,23 @@ namespace miRobotEditor.GUI.Editor
         private void FindBookmarkMembers()
         {
             // Return if FileLanguage doesnt exist yet
-            if (DummyDoc.ActiveEditor.FileLanguage == null) return;
+            if (DummyDoc.Instance.FileLanguage == null) return;
             iconBarManager.Bookmarks.Clear();
 
-            FindMatches(DummyDoc.ActiveEditor.FileLanguage.MethodRegex, Global.imgMethod);
+            FindMatches(DummyDoc.Instance.FileLanguage.MethodRegex, Global.imgMethod);
 
-            FindMatches(DummyDoc.ActiveEditor.FileLanguage.StructRegex, Global.imgStruct);
+            FindMatches(DummyDoc.Instance.FileLanguage.StructRegex, Global.imgStruct);
 
-            FindMatches(DummyDoc.ActiveEditor.FileLanguage.FieldRegex, Global.imgField);
+            FindMatches(DummyDoc.Instance.FileLanguage.FieldRegex, Global.imgField);
 
-            FindMatches(DummyDoc.ActiveEditor.FileLanguage.SignalRegex, Global.imgSignal);
+            FindMatches(DummyDoc.Instance.FileLanguage.SignalRegex, Global.imgSignal);
 
-            FindMatches(DummyDoc.ActiveEditor.FileLanguage.EnumRegex, Global.imgEnum);
+            FindMatches(DummyDoc.Instance.FileLanguage.EnumRegex, Global.imgEnum);
 
-            FindMatches(DummyDoc.ActiveEditor.FileLanguage.XYZRegex, Global.imgXYZ);
+            FindMatches(DummyDoc.Instance.FileLanguage.XYZRegex, Global.imgXYZ);
 
 
-            if (DummyDoc.ActiveEditor.FileLanguage is Languages.KUKA)
+            if (DummyDoc.Instance.FileLanguage is Languages.KUKA)
                 FindMatches(new Regex("DECL [a-zA-Z0-9_$]+", (RegexOptions) 3), Global.imgValue);
 
             //TODO Create Icon for XYZ      		
@@ -445,7 +447,7 @@ namespace miRobotEditor.GUI.Editor
         private void ExecuteToggleComment(object sender, ExecutedRoutedEventArgs e)
         {
             //No point in commenting if I dont know the Language
-            if (DummyDoc.ActiveEditor.FileLanguage == null) return;
+            if (DummyDoc.Instance.FileLanguage == null) return;
 
             // Get Comment to insert
             DocumentLine start = Document.GetLineByOffset(SelectionStart);
@@ -459,8 +461,8 @@ namespace miRobotEditor.GUI.Editor
                     Parent.FileLanguage.IsLineCommented(currentline);
 
                     // Had to put in comment offset for Fanuc 
-                    if (!DummyDoc.ActiveEditor.FileLanguage.IsLineCommented(currentline))
-                        Document.Insert(DummyDoc.ActiveEditor.FileLanguage.CommentOffset(currentline) + line.Offset, Parent.FileLanguage.CommentChar);
+                    if (!DummyDoc.Instance.FileLanguage.IsLineCommented(currentline))
+                        Document.Insert(DummyDoc.Instance.FileLanguage.CommentOffset(currentline) + line.Offset, Parent.FileLanguage.CommentChar);
                     else
                     {
                         string replacestring = Parent.FileLanguage.CommentReplaceString(currentline);
@@ -472,8 +474,8 @@ namespace miRobotEditor.GUI.Editor
 
         private void CanToggleComment(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (DummyDoc.ActiveEditor.FileLanguage != null)
-                e.CanExecute = !String.IsNullOrEmpty(DummyDoc.ActiveEditor.FileLanguage.CommentChar);
+            if (DummyDoc.Instance.FileLanguage != null)
+                e.CanExecute = !String.IsNullOrEmpty(DummyDoc.Instance.FileLanguage.CommentChar);
         }
 
         private void CanReplace(object sender, CanExecuteRoutedEventArgs e)
@@ -1101,7 +1103,7 @@ namespace miRobotEditor.GUI.Editor
             if (File!=null)
             StatusBar.Instance.Name = File.FullName;
 
-            switch (DummyDoc.ActiveEditor.FileLanguage.RobotType)
+            switch (DummyDoc.Instance.FileLanguage.RobotType)
             {
                 case TYPLANGUAGE.Fanuc:
                 case TYPLANGUAGE.ABB:

@@ -30,7 +30,8 @@ namespace miRobotEditor.Languages
         {         
             FoldingStrategy = new RegionFoldingStrategy();
         }
-
+		
+        
 
         #region Private Members
 
@@ -536,8 +537,27 @@ namespace miRobotEditor.Languages
         public override string CommentChar {get{return ";";}}
         public override Regex SignalRegex { get { return new Regex("Signal",ro); } }
 
-        public override Regex XYZRegex { get { return new Regex(@"^[DECL ]*(E6POS|E6AXIS|FRAME) ([\w\d_\$]+)", ro); } }
+        public override Regex XYZRegex { get { return new Regex(@"^[DECL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)", ro); } }
         #endregion
+        
+        public static string GetDatFileName(string filename)
+        {
+        	return filename.Substring(0,filename.LastIndexOf('.')) + ".dat";
+        }
+        public static List<string> GetModuleFileNames(string filename)
+        {
+        	string rootname = filename.Substring(0,filename.LastIndexOf('.'));
+        	var result = new List<string>();
+        	
+        	if (File.Exists(rootname + ".src"))
+        		result.Add(rootname + ".src");
+        	
+        	if (File.Exists(rootname + ".dat"))
+        		result.Add(rootname + ".dat");
+        	
+        	return result;
+        	
+        }
     }
     }
 

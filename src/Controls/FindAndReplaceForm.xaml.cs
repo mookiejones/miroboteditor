@@ -57,12 +57,12 @@ namespace miRobotEditor.Controls
         private void FindNext(object sender, RoutedEventArgs e)
         {
 
-            DummyDoc.ActiveEditor.TextBox.FindText();
+            DummyDoc.Instance.TextBox.FindText();
         }
 
         private void Replace(object sender, RoutedEventArgs e)
         {
-            DummyDoc.ActiveEditor.TextBox.ReplaceText();
+            DummyDoc.Instance.TextBox.ReplaceText();
         }
 
         private void ReplaceAll(object sender, RoutedEventArgs e)

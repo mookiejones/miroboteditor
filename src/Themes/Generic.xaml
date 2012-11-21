@@ -6,14 +6,11 @@
     xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:Options="clr-namespace:miRobotEditor.GUI">   
 
   
-
-
-    
     <rkc:ResourceKeyConverter x:Key="ResourceKeyConverter" />
     <converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
-
-    <BitmapImage x:Key="folder_open" UriSource="/Resources\folder_open.png"/>
-    <BitmapImage x:Key="new_file" UriSource="/Resources\_new.png"/>
+	<BitmapImage x:Key="new_file" UriSource="/Images\_new.png"/>
+	<BitmapImage x:Key="folder_open" UriSource="/Images\folder_open.png"/>
+   
     <BitmapImage x:Key="save_all" UriSource="/Resources\save_all.png"/>
     <BitmapImage x:Key="save" UriSource="/Resources\save.png"/>
     <BitmapImage x:Key="cut" UriSource="/Resources\cut.png"/>

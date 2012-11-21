@@ -11,6 +11,7 @@ namespace miRobotEditor.Classes
         private string _path;
         private string _value;
         private string _type;
+        private string _declaration;
         private int _offset;
         private string _comment;
         public BitmapImage Icon { get { return _icon; } set { _icon = value; OnPropertyChanged("Icon"); } }
@@ -19,6 +20,7 @@ namespace miRobotEditor.Classes
         public string Path { get { return _path; } set { _path = value; OnPropertyChanged("Path"); } }
         public string Value { get { return _value; } set { _value = value; OnPropertyChanged("Value"); } }
         public string Type { get { return _type; } set { _type = value; OnPropertyChanged("Type"); } }
+         public string Declaration { get { return _declaration; } set { _declaration = value; OnPropertyChanged("Declaration"); } }
         public int Offset { get { return _offset; } set { _offset = value; OnPropertyChanged("Offset"); } }
 
         public static List<IVariable> GetVariables(string filename,Regex regex, string iconpath)

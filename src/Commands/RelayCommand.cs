@@ -59,7 +59,13 @@ public class RelayCommand : ICommand
     #endregion // ICommand Members
 	
 	public event EventHandler OwnerChanged;
-	
+	  protected virtual void OnOwnerChanged(EventArgs e)
+        {
+            if (OwnerChanged != null)
+            {
+                OwnerChanged(this, e);
+            }
+        }
 	public object Owner {
 		get {
 			throw new NotImplementedException();

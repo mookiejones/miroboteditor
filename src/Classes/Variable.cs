@@ -11,6 +11,6 @@ namespace miRobotEditor.Classes
         public string Value { get; set; }
         public int Offset { get; set; }
         public string Comment { get; set; }
-
+		public string Declaration { get; set; }
     }
 }

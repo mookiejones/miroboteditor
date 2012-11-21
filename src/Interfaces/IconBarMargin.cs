@@ -34,6 +34,7 @@ namespace miRobotEditor
         }
 
         #region OnTextViewChanged
+        
         /// <inheritdoc/>
         protected override void OnTextViewChanged(TextView oldTextView, TextView newTextView)
         {
@@ -262,7 +263,11 @@ namespace miRobotEditor
                 }
                 if (e.ChangedButton == MouseButton.Left && TextView != null)
                 {
-                    // no bookmark on the line: create a new breakpoint
+                	// no bookmark on the line: create a new breakpoint
+                	Interfaces.ITextEditor textEditor = TextView.Services.GetService(typeof(Interfaces.ITextEditor)) as Interfaces.ITextEditor;
+                	if (textEditor!=null){}
+                	
+                	
                     //		ITextEditor textEditor = TextView.Services.GetService(typeof(ITextEditor)) as ITextEditor;
                     //		if (textEditor != null) {
                     //			DebuggerService.ToggleBreakpointAt(textEditor, line, typeof(BreakpointBookmark));

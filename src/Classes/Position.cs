@@ -11,6 +11,7 @@ namespace miRobotEditor.Classes
         private string _path;
         private string _value;
         private string _comment;
+        private string _declaration;
 
         private string _type;
         private int _offset;
@@ -21,11 +22,12 @@ namespace miRobotEditor.Classes
         public string Type { get { return _type; } set { _type = value; OnPropertyChanged("Type"); } }
         public int Offset { get { return _offset; } set { _offset = value; OnPropertyChanged("Offset"); } }
         public string Comment { get { return _comment; } set { _comment = value; OnPropertyChanged("Comment"); } }
+        public string Declaration { get { return _declaration; } set { _declaration = value; OnPropertyChanged("Declaration"); } }
         public List<IVariable> GetPositions(string filename)
         {
             var _result = new List<IVariable>();
             BitmapImage icon = Utilities.LoadBitmap(Global.imgXYZ);
-            var m = VariableHelper.FindMatches(DummyDoc.ActiveEditor.FileLanguage.XYZRegex, filename);
+            var m = VariableHelper.FindMatches(DummyDoc.Instance.FileLanguage.XYZRegex, filename);
 
             while (m.Success)
             {

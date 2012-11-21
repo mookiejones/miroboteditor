@@ -5,20 +5,26 @@ using miRobotEditor.Controls;
 
 namespace miRobotEditor.Classes
 {
-    class ObjectBrowserModel
+	class ObjectBrowserModel:ViewModelBase
     {
-        private static ObjectBrowserModel _instance = new ObjectBrowserModel();
-        public static ObjectBrowserModel Instance
-        {
-            get { return _instance; }
-            set { _instance = value;}
-        }
-
+		
+    	private static ObjectBrowserModel _instance;
+    	public static ObjectBrowserModel Instance
+    	{
+    		get{if (_instance==null)_instance=new ObjectBrowserModel();return _instance;}
+    		set{_instance=value;}
+    	}
+    	
         #region Members
-       public List<IVariable> Functions { get; set; }
-       public List<IVariable> Fields { get; set; }
-       public List<IVariable> Positions { get; set; }
-       public List<IVariable> AllVariables { get; set; }
+        private List<IVariable> _functions;
+        private List<IVariable> _fields;
+        private List<IVariable> _positions;
+        private List<IVariable> _allvariables;
+        
+        public List<IVariable> Functions { get{return _functions;} set{_functions=value;OnPropertyChanged("Functions"); }}
+       public List<IVariable> Fields { get{return _fields;} set{_fields=value;OnPropertyChanged("Fields"); }}
+       public List<IVariable> Positions { get{return _positions;} set{_positions=value;OnPropertyChanged("Positions"); }}
+       public List<IVariable> AllVariables  { get{return _allvariables;} set{_allvariables=value;OnPropertyChanged("AllVariables"); }}
 
         public ObservableCollection<FileModel> Files { get; set; }
         #endregion
@@ -53,18 +59,31 @@ namespace miRobotEditor.Classes
             Initialize();
             RootPath = new DirectoryInfo(directory);
             GetFiles(RootPath.FullName);
-
+			
             AllVariables.AddRange(Functions);
             AllVariables.AddRange(Fields);
             AllVariables.AddRange(Positions);
 
             Instance = this;
         }
-
+        
+        
+        //
+        public List<IVariable> GetVarForFile(string filename)
+        {
+        	List<IVariable> result = new List<IVariable>();
+        	 var Robot = DummyDoc.Instance.FileLanguage;
+        	 
+        //	result.AddRange(VariableBase.GetVariables(filename, Robot.MethodRegex, Global.imgMethod));
+            result.AddRange(VariableBase.GetVariables(filename, Robot.XYZRegex, Global.imgXYZ));
+            result.AddRange(VariableBase.GetVariables(filename, Robot.FieldRegex, Global.imgField));
+            
+            return result;
+        }
 
         private void GetVariables(string filename)
         {
-            var Robot = DummyDoc.ActiveEditor.FileLanguage;
+            var Robot = DummyDoc.Instance.FileLanguage;
 
             Functions.AddRange(VariableBase.GetVariables(filename, Robot.MethodRegex, Global.imgMethod));
             Positions.AddRange(VariableBase.GetVariables(filename, Robot.XYZRegex, Global.imgXYZ));
@@ -80,7 +99,7 @@ namespace miRobotEditor.Classes
                     foreach (string f in Directory.GetFiles(d))
                     {
                         var info = new FileInfo(f);
-                        var backup = DummyDoc.ActiveEditor.FileLanguage.GetFile(info);
+                        var backup = DummyDoc.Instance.FileLanguage.GetFile(info);
                         if (backup != null)
                         {
                             GetVariables(f);

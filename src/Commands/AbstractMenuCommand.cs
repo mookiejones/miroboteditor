@@ -42,7 +42,13 @@ namespace miRobotEditor.Commands
                 OwnerChanged(this, e);
             }
         }
-
+		protected virtual void OnCanExecuteChanged(EventArgs e)
+        {
+            if (CanExecuteChanged != null)
+            {
+                CanExecuteChanged(this, e);
+            }
+        }
         public event EventHandler OwnerChanged;
     	
 		public event EventHandler CanExecuteChanged;

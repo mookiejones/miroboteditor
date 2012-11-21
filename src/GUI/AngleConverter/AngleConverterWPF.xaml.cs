@@ -22,11 +22,16 @@ namespace miRobotEditor.GUI.AngleConverter
 	/// </summary>
 	public partial class AngleConverterWPF : UserControl
 	{
-		private AngleConvertor Value = new AngleConvertor();
+		private static AngleConverterWPF _instance;
+		public static AngleConverterWPF Instance
+		{
+			get{if (_instance == null) _instance=new AngleConverterWPF(); return _instance;}
+			set{_instance=value;}
+		}
 		public AngleConverterWPF()
 		{
+			Instance=this;
 			InitializeComponent();
-			this.DataContext=Value;
 			
 		}
 	}

@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace miRobotEditor.GUI.AngleConverter
 {
-    public class AngleConvertor : INotifyPropertyChanged,INotifyPropertyChanging, IDataErrorInfo
+    public class AngleConvertor : Classes.ViewModelBase
     {
         #region Private Members
             private string _matrix = String.Empty;
@@ -34,7 +34,7 @@ namespace miRobotEditor.GUI.AngleConverter
                     if (_out4Visible != value)
                     {
                         _out4Visible = value;
-                        NotifyPropertyChanged("Out4Visible");
+                        OnPropertyChanged("Out4Visible");
                     }
                 }
             }
@@ -162,11 +162,9 @@ namespace miRobotEditor.GUI.AngleConverter
             get { return out1; }
             set
             {
-                if (IsDoubleValid(out1,value))
-                {
+          
                     out1 = value;
                     NotifyPropertyChanged("Out1");
-                }
             }
         }
 
@@ -175,12 +173,10 @@ namespace miRobotEditor.GUI.AngleConverter
             get { return out2; }
             set
             {
-                if (IsDoubleValid(out2 ,value))
-                {
+          
                     out2 = value;
                     NotifyPropertyChanged("Out2");
-                }
-
+           
               }
         }
         public double Out3
@@ -188,11 +184,10 @@ namespace miRobotEditor.GUI.AngleConverter
             get { return out3; }
             set
             {
-                if (IsDoubleValid(out3,value))
-                {
+             
                     out3 = value;
                     NotifyPropertyChanged("Out3");
-                }
+             
             }
         }
         public double Out4
@@ -200,15 +195,14 @@ namespace miRobotEditor.GUI.AngleConverter
             get { return out4; }
             set
             {
-                if (IsDoubleValid(out4 ,value))
-                {
+             
                     out4 = value;
                     NotifyPropertyChanged("Out4");
-                }
+              
             }
         }
-        public CartesianItems InputConvention { get { return _inputconvention; } set { _inputconvention = value; NotifyPropertyChanging("InputConvention"); } }
-        public CartesianItems OutputConvention { get { return _outputconvention; } set { _outputconvention = value; NotifyPropertyChanging("OutputConvention"); } }
+        public CartesianItems InputConvention { get { return _inputconvention; } set { _inputconvention = value; OnPropertyChanged("InputConvention"); } }
+        public CartesianItems OutputConvention { get { return _outputconvention; } set { _outputconvention = value; OnPropertyChanged("OutputConvention"); } }
 
         public string Matrix
         {
@@ -216,7 +210,7 @@ namespace miRobotEditor.GUI.AngleConverter
             set
             {
                 _matrix = value;
-                NotifyPropertyChanging("Matrix");
+                OnPropertyChanged("Matrix");
             }
         }
 
@@ -394,34 +388,10 @@ namespace miRobotEditor.GUI.AngleConverter
             public string ValueCartesianString {get;set;}
         }
 
-        #region INotifyPropertyChanging Members
-
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        #endregion
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-
-        public void NotifyPropertyChanging(string propertyname)
-        {
-
-            OnPropertyChanging(new PropertyChangingEventArgs(propertyname));
-        }
-
-
-        protected virtual void OnPropertyChanging(PropertyChangingEventArgs e)
-        {
-            if (PropertyChanging != null)
-            {
-                PropertyChanging(this, e);
-            }
-        }
 
         public void NotifyPropertyChanged(string propertyName)
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            OnPropertyChanged(propertyName);
             Convert();
         }
     }

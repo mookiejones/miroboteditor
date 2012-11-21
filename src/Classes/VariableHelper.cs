@@ -96,31 +96,26 @@ namespace miRobotEditor.Classes
 
         }
 
-        public class ViewModel:INotifyPropertyChanged
+
+        public class VariableBase : ViewModelBase,IVariable
         {
-            public event PropertyChangedEventHandler PropertyChanged;
+        	private BitmapImage _icon = null;
+        	private string _name = string.Empty;
+        	private string _type = string.Empty;
+        	private string _path = string.Empty;
+        	private string _value = string.Empty;
+        	private string _comment = string.Empty;
+        	private string _declaration = string.Empty;
+        	private int _offset = -1;
+        	public BitmapImage Icon { get{return _icon;} set{_icon = value;OnPropertyChanged("Icon");} }
+        	public string Name { get{return _name;} set{_name=value;OnPropertyChanged("Name");} }
+            public string Type { get{return _type;} set{_type=value;OnPropertyChanged("Type");} }
+            public string Path { get{return _path;} set{_path=value;OnPropertyChanged("Path");} }
+            public string Value { get{return _value;} set{_value=value;OnPropertyChanged("Value");} }
+            public int Offset { get{return _offset;} set{_offset=value;OnPropertyChanged("Offset");} }
+            public string Comment { get{return _comment;} set{_comment=value;OnPropertyChanged("Comment");} }
+            public string Declaration { get{return _declaration;} set{_declaration=value;OnPropertyChanged("Declaration");} }
 
-            protected virtual void OnPropertyChanged(string propertyName)
-            {
-                PropertyChangedEventHandler handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        
-        
-
-       
-
-        public class VariableBase : IVariable
-        {
-            public BitmapImage Icon { get; set; }
-            public string Name { get; set; }
-            public string Type { get; set; }
-            public string Path { get; set; }
-            public string Value { get; set;}
-            public int Offset { get; set; }
-            public string Comment { get; set; }
         }
 
         

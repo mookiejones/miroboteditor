@@ -96,16 +96,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock">
-      <HintPath>..\packages\AvalonDock.2.0.1691\lib\net40\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="AvalonDock.Themes.Aero">
-      <HintPath>..\packages\AvalonDock.2.0.1691\lib\net40\AvalonDock.Themes.Aero.dll</HintPath>
+      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.Aero.dll</HintPath>
     </Reference>
     <Reference Include="AvalonDock.Themes.Expression">
-      <HintPath>..\packages\AvalonDock.2.0.1691\lib\net40\AvalonDock.Themes.Expression.dll</HintPath>
+      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.Expression.dll</HintPath>
     </Reference>
     <Reference Include="AvalonDock.Themes.VS2010">
-      <HintPath>..\packages\AvalonDock.2.0.1691\lib\net40\AvalonDock.Themes.VS2010.dll</HintPath>
+      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\packages\AvalonEdit.4.2.0.8783\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -151,6 +151,10 @@
     <Compile Include="Controls\ExplorerControl\FileExplorerControl.Designer.cs">
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListFromFileBox.xaml.cs">
+      <DependentUpon>ListFromFileBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controls\SplineBorder.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GUI\AngleConverter\AngleConverterWPF.xaml.cs">
@@ -172,6 +176,11 @@
     </Compile>
     <Compile Include="Interfaces\IconBarMargin.cs" />
     <Compile Include="ISingleInstanceApp.cs" />
+    <Compile Include="Language Specific\DatCleanControl.xaml.cs">
+      <DependentUpon>DatCleanControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Language Specific\DatCleanHelper.cs" />
     <Compile Include="Language Specific\FileInfo.cs" />
     <Compile Include="Language Specific\KFDAssistant.xaml.cs">
       <DependentUpon>KFDAssistant.xaml</DependentUpon>
@@ -194,6 +203,12 @@
     </Compile>
     <Compile Include="Pads\ArchiveInfo\ArchiveInfoHelper.cs" />
     <Compile Include="Pads\ClipboardPad.cs" />
+    <Compile Include="Services\AnalyticsMonitorService.cs" />
+    <Compile Include="Services\LoggingService.cs" />
+    <Compile Include="Services\MenuService.cs" />
+    <Compile Include="Services\ServiceManager.cs" />
+    <Compile Include="Services\TextWriterLoggingService.cs" />
+    <Compile Include="Services\VariableService.cs" />
     <Compile Include="Snippets\SnippetCollection.cs" />
     <Compile Include="Templates\VisualVariableItem.xaml.cs">
       <DependentUpon>VisualVariableItem.xaml</DependentUpon>
@@ -426,6 +441,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ListFromFileBox.xaml" />
     <Page Include="GUI\AngleConverter\AngleConverterWPF.xaml" />
     <Page Include="GUI\DummyDoc\DummyDoc.xaml">
       <SubType>Designer</SubType>
@@ -506,6 +522,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Language Specific\DatCleanControl.xaml" />
     <Page Include="Language Specific\KFDAssistant.xaml" />
     <Page Include="Language Specific\KUKADatSort.xaml" />
     <Page Include="Language Specific\KUKAInlineFormHelper.xaml">
@@ -537,14 +554,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\DockBrushes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\DockControlTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\ExplorerWindow.xaml" />
     <Page Include="Themes\ExtendedGridSplitter.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -554,6 +563,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\MenuDictionary.xaml" />
     <Page Include="Themes\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -575,6 +585,8 @@
     <EmbeddedResource Include="Controls\ExplorerControl\FileExplorerControl.resx">
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
     </EmbeddedResource>
+    <Resource Include="Images\_new.png" />
+    <Resource Include="Images\folder_open.png" />
     <None Include="miRobotEditor.pfx" />
     <None Include="Snippets\KUKA.Snippet" />
     <EmbeddedResource Include="Resources\comment.png" />
@@ -590,11 +602,11 @@
     <Resource Include="Resources\save.png" />
     <Resource Include="Resources\save_all.png" />
     <Resource Include="Resources\new.png" />
-    <Resource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </Resource>
+    </EmbeddedResource>
     <None Include="app.config" />
     <EmbeddedResource Include="Controls\SyntaxHighlighting\ABBHighlight.xshd" />
     <EmbeddedResource Include="Controls\SyntaxHighlighting\KUKAHighlight.xshd" />
@@ -615,7 +627,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="Resources\folder_open.png" />
     <Resource Include="Resources\vxenum_icon.png" />
     <Resource Include="Resources\vxfield_icon.png" />
     <Resource Include="Resources\vxmethod_icon.png" />
@@ -636,7 +647,6 @@
     <Resource Include="Resources\vxevent_icon.png" />
     <Resource Include="Resources\Editor.ico" />
     <EmbeddedResource Include="Resources\error.png" />
-    <EmbeddedResource Include="Resources\_new.png" />
     <EmbeddedResource Include="Resources\binoculars.png" />
     <Resource Include="Properties\Resources\_new.png" />
     <Resource Include="Properties\Resources\binoculars.png" />
@@ -729,6 +739,7 @@
     <Folder Include="GUI\Notes" />
     <Folder Include="GUI\Printing\" />
     <Folder Include="Language Specific" />
+    <Folder Include="Services" />
     <Folder Include="Pads\ArchiveInfo" />
     <Folder Include="ResourceDictionaries" />
   </ItemGroup>

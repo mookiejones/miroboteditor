@@ -28,7 +28,7 @@ namespace miRobotEditor
     {
         public static readonly RoutedCommand ImportCommand = new RoutedCommand("ImportCommand",typeof(MainWindow));
         public static MainWindow Instance { get; set; }
-
+	
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +48,10 @@ namespace miRobotEditor
             DataContext = this;
             Instance = this;
         }
+        
+        
+       
+        
         /// <summary>
         /// Makes a call GUI threadsafe without waiting for the returned value.
         /// </summary>
@@ -93,23 +97,7 @@ namespace miRobotEditor
         	}        	
         }
 
-        private void SwitchRobotMenu()
-        {
-            mnuRobot.Items.Clear();
-            if (DummyDoc.ActiveEditor.FileLanguage != null)
-                switch (DummyDoc.ActiveEditor.FileLanguage.RobotType)
-            {
-                case  Enums.TYPLANGUAGE.KUKA:
-                    mnuRobot = mnuKUKA;
-                    mnuRobot.Items.Add(KUKA.MenuItems);
-                    break;
-                case  Enums.TYPLANGUAGE.ABB:
-                    mnuRobot.Visibility = Visibility.Visible;
-                    mnuRobot.Visibility =Visibility.Visible;
-                    mnuABB.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
+        
 
         [Localizable(false)]
         private IEnumerable<string> GetFileName()
@@ -124,10 +112,10 @@ namespace miRobotEditor
                           };
             // Set filter for file extension and default file extension
 
-            if (DummyDoc.ActiveEditor._file!=null)
+            if (DummyDoc.Instance.File!=null)
 
-                if (DummyDoc.ActiveEditor._file.Directory != null && DummyDoc.ActiveEditor._file.Directory.Exists)
-            ofd.InitialDirectory = DummyDoc.ActiveEditor._file.DirectoryName;
+                if (DummyDoc.Instance.File.Directory != null && DummyDoc.Instance.File.Directory.Exists)
+            ofd.InitialDirectory = DummyDoc.Instance.File.DirectoryName;
 
             // Display OpenFileDialog by calling ShowDialog method
             var result = ofd.ShowDialog();
@@ -147,7 +135,7 @@ namespace miRobotEditor
             {
                 var editor = sender as Editor; 
                 
-                if (DummyDoc.ActiveEditor != null)
+                if (DummyDoc.Instance != null)
                 {
                     if ((editor.Parent.FileLanguage == null) | editor.Parent.FileLanguage is LanguageBase)
                         Functions.Clear();
@@ -175,9 +163,9 @@ namespace miRobotEditor
             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             
             if (docpane != null)
-                foreach (var doc in docpane.Children.Select(t => t.Content as DummyDoc).Where(doc => doc._file !=null))
+                foreach (var doc in docpane.Children.Select(t => t.Content as DummyDoc).Where(doc => doc.File !=null))
                 {
-                    Properties.Settings.Default.OpenDocuments += doc._file.FullName + ';';
+                    Properties.Settings.Default.OpenDocuments += doc.File.FullName + ';';
                 }
 
             Properties.Settings.Default.Save();
@@ -207,19 +195,19 @@ namespace miRobotEditor
                 switch (selected.Header.ToString())
                 {
                     case "ABB":
-                        DummyDoc.ActiveEditor.FileLanguage = DummyDoc.ActiveEditor.FileLanguage as  ABB;
+                        DummyDoc.Instance.FileLanguage = DummyDoc.Instance.FileLanguage as  ABB;
                         break;
                     case "KUKA":
-                        DummyDoc.ActiveEditor.FileLanguage = new KUKA();
+                        DummyDoc.Instance.FileLanguage = new KUKA();
                         break;
                     case "Fanuc":
-                        DummyDoc.ActiveEditor.FileLanguage = DummyDoc.ActiveEditor.FileLanguage as Fanuc;
+                        DummyDoc.Instance.FileLanguage = DummyDoc.Instance.FileLanguage as Fanuc;
                         break;
                     case "Kawasaki":
-                        DummyDoc.ActiveEditor.FileLanguage = DummyDoc.ActiveEditor.FileLanguage as Kawasaki;
+                        DummyDoc.Instance.FileLanguage = DummyDoc.Instance.FileLanguage as Kawasaki;
                         break;
                 }
-            DummyDoc.ActiveEditor.TextBox.UpdateVisualText();
+            DummyDoc.Instance.TextBox.UpdateVisualText();
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -255,7 +243,7 @@ namespace miRobotEditor
             if (docpane == null) return null;
             // If _file is open in another window, then select the file.
             if (file!=null)            
-            foreach (LayoutContent t in from t in docpane.Children let edit = t.Content as DummyDoc where edit != null && edit._file != null where file.FullName.Substring(0, file.FullName.Length - file.Extension.Length) == t.ContentId select t)
+            foreach (LayoutContent t in from t in docpane.Children let edit = t.Content as DummyDoc where edit != null && edit.File != null where file.FullName.Substring(0, file.FullName.Length - file.Extension.Length) == t.ContentId select t)
             {
                 t.IsActive = true;
                 SendMessage("File allready Opened", filename);
@@ -290,7 +278,7 @@ namespace miRobotEditor
                 {
                     doc.Title = file.Name;
                     doc.Description = file.Name;
-                    doc.IconSource = DummyDoc.ActiveEditor.FileLanguage.GetFile(file).Icon;
+                    doc.IconSource = DummyDoc.Instance.FileLanguage.GetFile(file).Icon;
                 }
                 // Add file to Recent list
                 RecentFileList.InsertFile(filename);
@@ -305,11 +293,11 @@ namespace miRobotEditor
 
             doc.IsActive = true;
 
-            DummyDoc.ActiveEditor = document;
+            DummyDoc.Instance = document;
             //        doc.IsSelectedChanged += doc_IsSelectedChanged;
-            DummyDoc.ActiveEditor.TextUpdated += UpdateFunctions;
+            DummyDoc.Instance.TextUpdated += UpdateFunctions;
             SendMessage("File Opened",filename);
-            return DummyDoc.ActiveEditor;
+            return DummyDoc.Instance;
         }
 
         private void AddNewFile(object sender, RoutedEventArgs e)
@@ -444,15 +432,14 @@ namespace miRobotEditor
 
             if (!(parent is DummyDoc))
                 return;
-                DummyDoc.ActiveEditor = parent as DummyDoc;
+                DummyDoc.Instance = parent as DummyDoc;
 
-            if ((DummyDoc.ActiveEditor.TextBox!=null)&&(DummyDoc.ActiveEditor.TextBox.File!=null))
-                SetTitle(DummyDoc.ActiveEditor.TextBox.File.FullName);
+            if ((DummyDoc.Instance.TextBox!=null)&&(DummyDoc.Instance.TextBox.File!=null))
+                SetTitle(DummyDoc.Instance.TextBox.File.FullName);
 
-            SwitchRobotMenu();
-
-            if (DummyDoc.ActiveEditor.TextBox != null)
-                UpdateFunctions(DummyDoc.ActiveEditor.TextBox, new FunctionEventArgs(DummyDoc.ActiveEditor.TextBox.Text));
+          
+            if (DummyDoc.Instance.TextBox != null)
+                UpdateFunctions(DummyDoc.Instance.TextBox, new FunctionEventArgs(DummyDoc.Instance.TextBox.Text));
 
             
         }
@@ -476,8 +463,8 @@ namespace miRobotEditor
         
         private void CanImport(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (!(DummyDoc.ActiveEditor.FileLanguage is LanguageBase) | (DummyDoc.ActiveEditor.FileLanguage is Fanuc) |
-                            (DummyDoc.ActiveEditor.FileLanguage is Kawasaki) | DummyDoc.ActiveEditor.FileLanguage == null);
+            e.CanExecute = (!(DummyDoc.Instance.FileLanguage is LanguageBase) | (DummyDoc.Instance.FileLanguage is Fanuc) |
+                            (DummyDoc.Instance.FileLanguage is Kawasaki) | DummyDoc.Instance.FileLanguage == null);
         }
 
         private void ImportRobot(object sender, ExecutedRoutedEventArgs e)
@@ -508,7 +495,7 @@ namespace miRobotEditor
 
         private void CanClose(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = DummyDoc.ActiveEditor != null;
+            e.CanExecute = DummyDoc.Instance != null;
         }
 
         private void CloseWindow(object sender, ExecutedRoutedEventArgs e)
@@ -518,7 +505,7 @@ namespace miRobotEditor
             {
                 foreach (LayoutContent c in docpane.Children)
                 {
-                    if (c.Content.Equals(DummyDoc.ActiveEditor))
+                    if (c.Content.Equals(DummyDoc.Instance))
                     {
                         docpane.Children.Remove(c);
                         return;
@@ -615,6 +602,13 @@ namespace miRobotEditor
         		PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
 
         }
+        
+		void CleanDat(object sender, RoutedEventArgs e)
+		{
+			Language_Specific.DatCleanControl dcc = new miRobotEditor.Language_Specific.DatCleanControl();
+			dcc.ShowDialog();
+			Output.Add("Add","Need to Put Clean Dat to Command");
+		}
     	
 		public event PropertyChangedEventHandler PropertyChanged;
     }
