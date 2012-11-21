@@ -17,17 +17,39 @@ using miRobotEditor.Controls;
 using miRobotEditor.Enums;
 using miRobotEditor.Forms;
 using miRobotEditor.GUI.Editor;
-
+using System.Windows.Controls;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
-    public abstract class AbstractLanguageClass 
+    public abstract class AbstractLanguageClass :ViewModelBase
     {
-
+    	
+    	private MenuItem _robotmenuitems;
+    	public System.Windows.Controls.MenuItem RobotMenuItems
+    	{
+    		get
+    		{
+    			return _robotmenuitems;
+    		}
+    		set{_robotmenuitems=value;OnPropertyChanged("RobotMenuItems");}
+    	}
+    	
+    	private MenuItem GetMenuItems()
+    	{
+    		var rd= new System.Windows.ResourceDictionary();
+        		rd.Source= new Uri("/miRobotEditor;component/Themes/MenuDictionary.xaml",UriKind.RelativeOrAbsolute);
+        		System.Windows.Controls.MenuItem i = rd[this.RobotType + "Menu"] as System.Windows.Controls.MenuItem;
+        		
+        		if (i == null)
+        			i = new System.Windows.Controls.MenuItem();
+        		
+        		return i;
+    	}
+    	
         public Editor SourceDocument { get; set; }
         public Editor DataDocument { get; set; }
 
-       public AbstractLanguageClass Instance { get; set; }
+       	public static AbstractLanguageClass Instance { get; set; }
 
         public abstract FileModel GetFile(FileInfo file);
 
@@ -53,10 +75,10 @@ namespace miRobotEditor.Languages
         public IList<ICompletionData> CompletionList (string currentWord,IList<ICompletionData> data )
         {
 
-            for (var i = 0; i < DummyDoc.ActiveEditor.TextBox.SyntaxHighlighting.MainRuleSet.Rules.Count;i++)
+            for (var i = 0; i < DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules.Count;i++)
             {
 
-                var parseString = DummyDoc.ActiveEditor.TextBox.SyntaxHighlighting.MainRuleSet.Rules[i].Regex.ToString();
+                var parseString = DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules[i].Regex.ToString();
 
                 int start = parseString.IndexOf(">") +1;
                 int end = parseString.LastIndexOf(")");
@@ -124,6 +146,8 @@ namespace miRobotEditor.Languages
         internal string SourceName { get; private set; }
         protected AbstractLanguageClass()
         {
+        	Instance=this;
+        	RobotMenuItems=GetMenuItems();
         }
 
         protected AbstractLanguageClass(FileInfo file)
@@ -142,7 +166,9 @@ namespace miRobotEditor.Languages
                 using (var reader = new StreamReader(Path.Combine(_file.Directory.FullName, DataName)))
                     DataText += reader.ReadToEnd();
 
-                    RawText = SourceText + DataText;		
+                    RawText = SourceText + DataText;	
+					Instance=this;        
+					RobotMenuItems=GetMenuItems();					
         }
 
 
@@ -485,7 +511,7 @@ namespace miRobotEditor.Languages
                 double xf = Convert.ToDouble(m.Groups[3].Value) + shiftvalX;
                 double yf = Convert.ToDouble(m.Groups[4].Value) + shiftvalY;
                 double zf = Convert.ToDouble(m.Groups[5].Value) + shiftvalZ;
-                switch (DummyDoc.ActiveEditor.FileLanguage.RobotType)
+                switch (DummyDoc.Instance.FileLanguage.RobotType)
                 {
                     case TYPLANGUAGE.KUKA:
                         doc.ReplaceAll();

@@ -19,12 +19,22 @@ namespace miRobotEditor.GUI.ObjectBrowser
     public partial class ObjectBrowserTool : UserControl
     {
        
+    	public static ObjectBrowserTool _instance;
+    	public static ObjectBrowserTool Instance
+    	{
+    		get
+    		{
+    			if (_instance==null)
+    				_instance = new ObjectBrowserTool();
+    			return _instance;
+    		}
+    		set{_instance=value;}
+    	}
 
         public ObjectBrowserTool()
         {
-            InitializeComponent();
-            DataContext = new ObjectBrowserModel();
-
+            InitializeComponent();           
+			Instance=this;
         }
 
 
@@ -61,8 +71,8 @@ namespace miRobotEditor.GUI.ObjectBrowser
             var fbd = new FolderBrowserDialog();
             fbd.Description = "Select Root Directory for Instance";
 
-            if (DummyDoc.ActiveEditor._file.Directory != null && DummyDoc.ActiveEditor._file.Directory.Exists)
-            fbd.SelectedPath = DummyDoc.ActiveEditor._file.DirectoryName;
+            if (DummyDoc.Instance.File.Directory != null && DummyDoc.Instance.File.Directory.Exists)
+            fbd.SelectedPath = DummyDoc.Instance.File.DirectoryName;
 
             var result = fbd.ShowDialog();
 

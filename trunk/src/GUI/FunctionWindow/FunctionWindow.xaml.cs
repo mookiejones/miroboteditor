@@ -149,15 +149,15 @@ namespace miRobotEditor.GUI.FunctionWindow
 
         private void DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if ((liItems.SelectedItem == null) | (DummyDoc.ActiveEditor == null))
+            if ((liItems.SelectedItem == null) | (DummyDoc.Instance == null))
                 return;
             var item = liItems.SelectedItem as FunctionItem;
             if (item != null)
             {
-                DummyDoc.ActiveEditor.TextBox.SelectText(item.Text);
+                DummyDoc.Instance.TextBox.SelectText(item.Text);
 
-                var d = DummyDoc.ActiveEditor.TextBox.Document.GetLineByOffset(item.Offset);
-                DummyDoc.ActiveEditor.TextBox.JumpTo(d.LineNumber, 0);
+                var d = DummyDoc.Instance.TextBox.Document.GetLineByOffset(item.Offset);
+                DummyDoc.Instance.TextBox.JumpTo(d.LineNumber, 0);
 
             }
 

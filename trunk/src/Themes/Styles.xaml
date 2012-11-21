@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:avalondock="http://avalondock.codeplex.com"
                     xmlns:Controls="clr-namespace:miRobotEditor.Controls">
-    <Style x:Key="DataGridStyle"  TargetType="DataGrid">
+ 	    <Style x:Key="DataGridStyle"  TargetType="DataGrid">
         <Setter Property="RowBackground" Value="#FFFFFF" />
         <Setter Property="AlternatingRowBackground" Value="#EBEBED" />
         <Setter Property="RowHeight" Value="18" />
@@ -294,5 +294,5 @@
                 <Setter Property="Foreground" Value="#637ACC"/>
             </Trigger>
         </Style.Triggers>
-    </Style>
+    </Style> 
 </ResourceDictionary>

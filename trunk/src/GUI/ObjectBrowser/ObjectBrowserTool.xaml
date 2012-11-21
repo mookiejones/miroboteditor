@@ -2,9 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Templates="clr-namespace:miRobotEditor.Templates"
+			xmlns:ctrl="clr-namespace:miRobotEditor.Classes"
              x:Class="miRobotEditor.GUI.ObjectBrowser.ObjectBrowserTool"             
     Height="Auto" Width="Auto"         
     >
+	<UserControl.DataContext>
+		<ctrl:ObjectBrowserModel/>
+	</UserControl.DataContext>
     <Grid>
         <TabControl IsVisibleChanged="VisibilityChanged">
             <TabItem  Header="Functions">
@@ -84,7 +88,6 @@
                                                     <Expander.Header>
                                                         <DockPanel>
                                                             <TextBlock Text="{Binding Name}" Margin="5,0,0,0" Width="Auto" HorizontalAlignment="Left" TextAlignment="Left"/>
-
                                                             <TextBlock Text="Items:=" HorizontalAlignment="Right" TextAlignment="Left"/>
                                                             <TextBlock Text="{Binding ItemCount}"  HorizontalAlignment="Right" TextAlignment="Right"/>
 

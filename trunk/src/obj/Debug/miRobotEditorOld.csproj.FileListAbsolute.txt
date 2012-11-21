@@ -120,7 +120,6 @@ C:\Programming\DMC Robot Editor Backup\miRobotEditor\miRobotEditor\src\bin\Debug
 C:\Programming\SVN\svn\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.exe.config
 C:\Programming\SVN\svn\trunk\src\obj\Debug\miRobotEditor.exe
 C:\Programming\SVN\svn\trunk\src\obj\Debug\miRobotEditor.pdb
-C:\Programming\git\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache
 C:\Programming\git\trunk\src\obj\Debug\App.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\CustomToolTip.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\FindAndReplaceForm.baml
@@ -140,8 +139,6 @@ C:\Programming\git\trunk\src\obj\Debug\GUI\OutputWindow\OutputWindow.baml
 C:\Programming\git\trunk\src\obj\Debug\Templates\VisualVariableItem.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\AdjustST.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\Colors.baml
-C:\Programming\git\trunk\src\obj\Debug\Themes\DockBrushes.baml
-C:\Programming\git\trunk\src\obj\Debug\Themes\DockControlTheme.baml
 C:\Programming\git\trunk\src\obj\Debug\Themes\StatusBar.baml
 C:\Programming\git\trunk\src\obj\Debug\App.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Controls\CustomToolTip.g.cs
@@ -211,3 +208,10 @@ C:\Programming\git\trunk\src\obj\Debug\GUI\Options\Options.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.baml
 C:\Programming\git\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.g.cs
 C:\Programming\git\trunk\src\obj\Debug\Pads\ArchiveInfo\IOListBox.baml
+C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.Properties.Resources.resources
+C:\Programming\git\trunk\src\obj\Debug\Controls\ListFromFileBox.baml
+C:\Programming\git\trunk\src\obj\Debug\Controls\ListFromFileBox.g.cs
+C:\Programming\git\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache
+C:\Programming\git\trunk\src\obj\Debug\Language Specific\DatCleanControl.g.cs
+C:\Programming\git\trunk\src\obj\Debug\Language Specific\DatCleanControl.baml
+C:\Programming\git\trunk\src\obj\Debug\Themes\MenuDictionary.baml

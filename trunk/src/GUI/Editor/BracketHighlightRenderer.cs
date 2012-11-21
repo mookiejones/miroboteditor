@@ -80,8 +80,8 @@ namespace miRobotEditor.GUI.Editor
 			if (borderPen == null)
 				this.UpdateColors(DefaultBackground,DefaultBackground);
 			
-			if (geometry != null) {	drawingContext.DrawGeometry(backgroundBrush, borderPen, geometry);
-			}
+			if (geometry != null) 
+				drawingContext.DrawGeometry(backgroundBrush, borderPen, geometry);
 		}
 		
 		public static void ApplyCustomizationsToRendering(BracketHighlightRenderer renderer, IEnumerable<Color> customizations)

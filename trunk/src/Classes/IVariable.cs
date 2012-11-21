@@ -10,6 +10,7 @@ namespace miRobotEditor.Classes
         string Path { get; set; }
         string Value { get; set; }
         string Comment { get; set; }
+        string Declaration{get;set;}
         int Offset { get; set; }
 
     }

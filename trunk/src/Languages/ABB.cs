@@ -16,9 +16,7 @@ namespace miRobotEditor.Languages
     [Localizable(false)]
     public class ABB : AbstractLanguageClass
     {
-        //TODO Set Correct Types for loaddata and tooldata 
-
-
+        
         public ABB()
         {
             FoldingStrategy = new RegionFoldingStrategy();

@@ -25,13 +25,13 @@ namespace miRobotEditor.Classes
         public int Offset { get; set; }
         public string Path { get; set; }
         public string Comment { get; set; }
-
+        public string Declaration{get;set;}
         public List<Function> GetFunctions(string filename)
         {
 
             var result = new List<Function>();
             BitmapImage icon = Utilities.LoadBitmap(Global.imgMethod);
-            var m = VariableHelper.FindMatches(DummyDoc.ActiveEditor.FileLanguage.MethodRegex, filename);
+            var m = VariableHelper.FindMatches(DummyDoc.Instance.FileLanguage.MethodRegex, filename);
 
             while (m.Success)
             {

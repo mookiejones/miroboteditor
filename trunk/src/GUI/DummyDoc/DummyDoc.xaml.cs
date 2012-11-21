@@ -29,8 +29,9 @@ namespace miRobotEditor.Controls
 
         public AbstractLanguageClass FileLanguage { get; set; }
         private static DummyDoc _instance;
-     
-        public static DummyDoc ActiveEditor
+     	
+        
+        public static DummyDoc Instance
         {
             get { return _instance ?? (_instance = new DummyDoc()); }
             set { _instance = value; }
@@ -44,8 +45,10 @@ namespace miRobotEditor.Controls
 
         #region Properties
 
-        public FileInfo _file { get; private set; }
-
+    
+       private FileInfo _file;
+       public FileInfo File {get{return _file;}set{_file = value;}}
+		
         public Editor Source
         {
             get { return source; }
@@ -84,7 +87,7 @@ namespace miRobotEditor.Controls
                 switch (value)
                 {
                     case true:
-                        Data.Load(_file.DirectoryName + "\\" + FileLanguage.DataName);
+                        Data.Load(File.DirectoryName + "\\" + FileLanguage.DataName);
                         Data.Visibility = Visibility.Visible;
                         grid.Visibility = Visibility.Visible;
                         Grid.SetRow(grid, 1);
@@ -99,21 +102,21 @@ namespace miRobotEditor.Controls
         }
         public void CanReload(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute =(( _file!=null)&&(_file.Exists)) ;
+            e.CanExecute =(( File!=null)&&(File.Exists)) ;
         }
 
         public  void ExecuteReload(object sender, ExecutedRoutedEventArgs e)
         {
-            Load(_file);           
+            Load(File);           
         }
 
         public void Load(FileInfo file)
         {
         	
       
-            _file = file;
+            File = file;
 
-            FileLanguage = AbstractLanguageClass.GetRobotType(_file);
+            FileLanguage = AbstractLanguageClass.GetRobotType(File);
             grid.IsAnimated = false;
             //TODO Set Icon For File
 
@@ -122,13 +125,13 @@ namespace miRobotEditor.Controls
 
 
             if ((FileLanguage is KUKA) && (!String.IsNullOrEmpty(FileLanguage.SourceText)) && (FileLanguage.SourceName != null))
-                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => Source.Load(_file.DirectoryName + "\\" + FileLanguage.SourceName)));
+                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => Source.Load(File.DirectoryName + "\\" + FileLanguage.SourceName)));
             else
-                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => Source.Load(_file.FullName)));
+                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => Source.Load(File.FullName)));
             if ((FileLanguage is KUKA) && (!String.IsNullOrEmpty(FileLanguage.DataText)) && (Source.Text!=FileLanguage.DataText))
             {
                 Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => ShowGrid = true));
-                Dispatcher.Invoke(DispatcherPriority.Normal,new Action(() => Data.Load(_file.DirectoryName + "\\" + FileLanguage.DataName)));
+                Dispatcher.Invoke(DispatcherPriority.Normal,new Action(() => Data.Load(File.DirectoryName + "\\" + FileLanguage.DataName)));
             }
             else
             {
@@ -169,7 +172,7 @@ namespace miRobotEditor.Controls
             if (sender is Editor)
             {
                 TextBox = sender as Editor;
-                FileLanguage=AbstractLanguageClass.GetRobotType(_file);
+                FileLanguage=AbstractLanguageClass.GetRobotType(File);
             }
         }
 

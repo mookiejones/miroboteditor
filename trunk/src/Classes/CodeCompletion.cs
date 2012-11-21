@@ -37,7 +37,7 @@ namespace miRobotEditor.Classes
 
         public void Complete(TextArea textArea, ISegment completionSegment,  EventArgs insertionRequestEventArgs)
         {
-            var currentWord = DummyDoc.ActiveEditor.TextBox.FindWord();
+            var currentWord = DummyDoc.Instance.TextBox.FindWord();
             var offs = completionSegment.Offset - currentWord.Length;
             // Create New AnchorSegment 
             textArea.Document.Replace(offs,currentWord.Length,Text);

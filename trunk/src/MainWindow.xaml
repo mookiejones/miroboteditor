@@ -95,6 +95,12 @@
 							</DataTrigger>
 						</Style.Triggers>
 					</Style>
+					<Style x:Key="ThemeMenuItemStyle" TargetType="MenuItem">
+			           <Setter Property="Header" Value="{Binding Name}"></Setter>
+			           <Setter Property="Command" Value="{Binding ActivateCommand}"/>
+			           <Setter Property="IsChecked" Value="{Binding IsActive}" />
+			           <Setter Property="IsCheckable" Value="True"/>
+					</Style>
 				</Menu.Resources>
 				<MenuItem
 					x:Name="mnuFile"
@@ -495,30 +501,17 @@
 				</MenuItem>
 				<MenuItem
 					x:Name="mnuRobot"
-					Header="Robot">
-					<MenuItem
-						x:Name="mnuKUKA"
-						Header="KUKA"
-						Visibility="Collapsed">
-						<MenuItem
-							Header="KUKA Test" />
-					</MenuItem>
-					<MenuItem
-						Header="Fanuc"
-						Visibility="Collapsed" />
-					<MenuItem
-						x:Name="mnuABB"
-						Header="ABB"
-						Visibility="Collapsed">
-						<MenuItem
-							Header="ABB Test" />
-					</MenuItem>
-					<MenuItem
-						Header="Kawasaki"
-						Visibility="Collapsed" />
-					<MenuItem
-						Header="Nachi"
-						Visibility="Collapsed" />
+					Header="Robot" >
+				<MenuItem Header="KUKA">
+				<MenuItem Header="CleanDat" Click="CleanDat" />
+				<MenuItem Header="RenamePositions"/>
+				<MenuItem Header="ReverseOrder"/>
+				<MenuItem Header="PositionTransformation"/>
+				<MenuItem Header="Mirror"/>
+				<MenuItem Header="Adjust Status/Turn"/>
+				<MenuItem Header="Sort DataList"/>
+				<MenuItem Header="View I/O List"/>
+			</MenuItem>
 				</MenuItem>
 				<MenuItem
 					x:Name="Help"
