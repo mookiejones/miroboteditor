@@ -380,7 +380,7 @@ namespace miRobotEditor
                     tool.AutoHideMinWidth = 300;
                     break;
                 case "Explorer":
-                    tool.Content = new GUI.ExplorerWindow.ExplorerWindow();
+                    tool.Content = new GUI.ExplorerControl.FileExplorerControl();
                     break;
                 case "Object Browser":                    
                     tool.Content = new GUI.ObjectBrowser.ObjectBrowserTool();
@@ -393,6 +393,10 @@ namespace miRobotEditor
                     break;
                 case "ArchiveInfo":
                     tool.Content= new Pads.ArchiveInfo();
+                    break;
+                case "CleanDat":
+                    tool.Content = new Language_Specific.DatCleanControl();                    
+                    tool.AutoHideMinWidth = Language_Specific.DatCleanControl.Instance.Width;                    
                     break;
                 default:
                     OutputMessages.Add("Not Implemented",name,null);
@@ -605,9 +609,9 @@ namespace miRobotEditor
         
 		void CleanDat(object sender, RoutedEventArgs e)
 		{
-			Language_Specific.DatCleanControl dcc = new miRobotEditor.Language_Specific.DatCleanControl();
-			dcc.ShowDialog();
-			Output.Add("Add","Need to Put Clean Dat to Command");
+		//	Language_Specific.DatCleanControl dcc = new miRobotEditor.Language_Specific.DatCleanControl();
+		//	dcc.ShowDialog();
+		//	Output.Add("Add","Need to Put Clean Dat to Command");
 		}
     	
 		public event PropertyChangedEventHandler PropertyChanged;

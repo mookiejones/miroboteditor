@@ -10,7 +10,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace miRobotEditor.Controls.ExplorerControl
+namespace miRobotEditor.GUI.ExplorerControl
 {
 	
 	
@@ -20,6 +20,8 @@ namespace miRobotEditor.Controls.ExplorerControl
 	public partial class FileExplorerControl : UserControl
 	{
 		
+		
+		
 		#region Events
 		public new event  TreeNodeMouseClickEventHandler OnDoubleClick;
 		public new event TreeNodeMouseClickEventHandler OnMouseClick;
@@ -27,7 +29,16 @@ namespace miRobotEditor.Controls.ExplorerControl
 		public event TreeViewEventHandler OnAfterSelect;
 		#endregion
 		public static FileExplorerControl Instance{get;set;}
-		public String Filter{get {return cmbFilter.SelectedText;}}
+		
+		public String Filter
+		{
+			get
+			{
+				if (String.IsNullOrEmpty(cmbFilter.SelectedText))
+					return "*.*";
+				return cmbFilter.SelectedText;
+			}
+		}
 		
 		public FileExplorerControl()
 		{
@@ -36,6 +47,7 @@ namespace miRobotEditor.Controls.ExplorerControl
 			//
 			InitializeComponent();
 			Instance = this;
+			explorer.ShowTree();
 			
 
 		}

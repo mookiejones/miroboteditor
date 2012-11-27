@@ -20,11 +20,26 @@ namespace miRobotEditor.Language_Specific
 	/// <summary>
 	/// Interaction logic for DatCleanControl.xaml
 	/// </summary>
-	public partial class DatCleanControl : Window
+	public partial class DatCleanControl : UserControl
 	{
+		private static DatCleanControl _instance;
+		public static DatCleanControl Instance
+		{
+			get{
+				if (_instance == null)
+					_instance=new DatCleanControl();
+				
+				return _instance;}
+		}
 		public DatCleanControl()
 		{
 			InitializeComponent();
+			_instance=this;
 		}
+		
+		
+		
+		
 	}
+	
 }

@@ -33,8 +33,6 @@ namespace miRobotEditor.Language_Specific
 	
 		private void getlistItems()
 		{			
-						
-			
 			var result = new System.Collections.Generic.List<IVariable>();
 			result.AddRange(Classes.ObjectBrowserModel.Instance.GetVarForFile(Languages.KUKA.GetDatFileName(filename)));
 			
@@ -72,6 +70,23 @@ namespace miRobotEditor.Language_Specific
 			}
 		}
 		public void CleanDat(){throw new NotImplementedException();}
+		
+		public static RelayCommand _checked;
+		public static ICommand CheckedCMD
+		{
+			get
+			{
+				if (_checked==null)
+					_checked=new Commands.RelayCommand(param=>Instance.Checked(),param=>true);
+				
+				return _checked as ICommand;
+			}
+		}
+		public void Checked()
+		{
+			throw new NotImplementedException();
+		}
+		
 		public static RelayCommand _deletevartype;
 		public static ICommand DeleteVarTypeCMD
 		{
@@ -118,7 +133,11 @@ namespace miRobotEditor.Language_Specific
 				return _invertselection as ICommand;
 			}
 		}
-		void SelectAll(){}
+		void SelectAll()
+		{
+			
+			
+		}
 		void InvertSelection(){throw new NotImplementedException();}
 		#endregion
 		private int nItemsSelected = 0;
