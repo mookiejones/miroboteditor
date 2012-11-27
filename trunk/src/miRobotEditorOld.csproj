@@ -137,6 +137,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\BookmarkBase.cs" />
@@ -145,10 +148,13 @@
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\EditorCommands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Controls\ExplorerControl\ExplorerClass.cs" />
-    <Compile Include="Controls\ExplorerControl\ExplorerControlWPF.cs" />
-    <Compile Include="Controls\ExplorerControl\FileExplorerControl.cs" />
-    <Compile Include="Controls\ExplorerControl\FileExplorerControl.Designer.cs">
+    <Compile Include="GUI\ExplorerControl\ExplorerClass.cs" />
+    <Compile Include="GUI\ExplorerControl\ExplorerControlWPF.xaml.cs">
+      <DependentUpon>ExplorerControlWPF.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GUI\ExplorerControl\FileExplorerControl.cs" />
+    <Compile Include="GUI\ExplorerControl\FileExplorerControl.Designer.cs">
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListFromFileBox.xaml.cs">
@@ -298,21 +304,6 @@
     <Compile Include="GUI\AngleConverter\Robot\RobotBaseAndToolCalibration.cs" />
     <Compile Include="GUI\Dialogs\About\About.cs" />
     <Compile Include="GUI\Dialogs\IconConverter.cs" />
-    <Compile Include="GUI\ExplorerWindow\BooleanToHiddenVisibility.cs" />
-    <Compile Include="GUI\ExplorerWindow\BooleanToVisualVisibility.cs" />
-    <Compile Include="GUI\ExplorerWindow\TrueToFalse.cs" />
-    <Compile Include="GUI\ExplorerWindow\DirectoryViewModel.cs" />
-    <Compile Include="GUI\ExplorerWindow\DriveViewModel.cs" />
-    <Compile Include="GUI\ExplorerWindow\EnumDisplayEntry.cs" />
-    <Compile Include="GUI\ExplorerWindow\EnumDisplayer.cs" />
-    <Compile Include="GUI\ExplorerWindow\DisplayStringAttribute.cs" />
-    <Compile Include="GUI\ExplorerWindow\ExplorerWindow.cs" />
-    <Compile Include="GUI\ExplorerWindow\FileExplorerDemo.cs" />
-    <Compile Include="GUI\ExplorerWindow\FileExplorerViewModel.cs" />
-    <Compile Include="GUI\ExplorerWindow\FileViewModel.cs" />
-    <Compile Include="GUI\ExplorerWindow\ItemViewModel.cs" />
-    <Compile Include="GUI\ExplorerWindow\ObservableCollectionEx.cs" />
-    <Compile Include="GUI\ExplorerWindow\ViewModelBase.cs" />
     <Compile Include="GUI\FunctionWindow\FunctionWindow.xaml.cs">
       <DependentUpon>FunctionWindow.xaml</DependentUpon>
     </Compile>
@@ -503,7 +494,7 @@
       <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
     <Page Include="GUI\Dialogs\About\About.xaml" />
-    <Page Include="GUI\ExplorerWindow\ExplorerWindow.xaml" />
+    <Page Include="GUI\ExplorerControl\ExplorerControlWPF.xaml" />
     <Page Include="GUI\FunctionWindow\FunctionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -582,7 +573,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Controls\ExplorerControl\FileExplorerControl.resx">
+    <EmbeddedResource Include="GUI\ExplorerControl\FileExplorerControl.resx">
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
     </EmbeddedResource>
     <Resource Include="Images\_new.png" />
@@ -731,7 +722,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\ErrorProvider\" />
-    <Folder Include="Controls\ExplorerControl" />
+    <Folder Include="GUI\ExplorerControl" />
     <Folder Include="GUI\Document\" />
     <Folder Include="GUI\KUKA\AdjustST\" />
     <Folder Include="GUI\DummyDoc" />

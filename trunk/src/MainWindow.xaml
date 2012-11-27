@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window xmlns:output="clr-namespace:miRobotEditor.GUI.OutputWindow"  xmlns:explorer="clr-namespace:miRobotEditor.GUI.ExplorerWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ad="http://avalondock.codeplex.com" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:fct="clr-namespace:miRobotEditor.GUI.FunctionWindow" xmlns:obj="clr-namespace:miRobotEditor.GUI.ObjectBrowser" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:ctrl="clr-namespace:miRobotEditor.Controls" xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter" xmlns:Editor="clr-namespace:miRobotEditor.GUI.Editor"
+<Window xmlns:output="clr-namespace:miRobotEditor.GUI.OutputWindow"  xmlns:explorer="clr-namespace:miRobotEditor.GUI.ExplorerControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ad="http://avalondock.codeplex.com" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:fct="clr-namespace:miRobotEditor.GUI.FunctionWindow" xmlns:obj="clr-namespace:miRobotEditor.GUI.ObjectBrowser" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:ctrl="clr-namespace:miRobotEditor.Controls" xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter" xmlns:Editor="clr-namespace:miRobotEditor.GUI.Editor"
 	mc:Ignorable="d"
 	x:Class="miRobotEditor.MainWindow"
 	WindowState="Maximized"
@@ -503,7 +503,7 @@
 					x:Name="mnuRobot"
 					Header="Robot" >
 				<MenuItem Header="KUKA">
-				<MenuItem Header="CleanDat" Click="CleanDat" />
+				<MenuItem Header="CleanDat" Click="AddTool" />
 				<MenuItem Header="RenamePositions"/>
 				<MenuItem Header="ReverseOrder"/>
 				<MenuItem Header="PositionTransformation"/>
@@ -657,8 +657,8 @@
 						Orientation="Horizontal">
 						<ad:LayoutAnchorablePaneGroup DockWidth="300">
 						<ad:LayoutAnchorablePane>
-							<ad:LayoutAnchorable Title="Explorer" CanAutoHide="True" CanClose="True">
-							<explorer:ExplorerWindow x:Name="_explorer"/>
+							<ad:LayoutAnchorable Title="Explorer" CanAutoHide="True" CanClose="True">	
+									<explorer:ExplorerControlWPF x:Name="_explorer"/>
 							</ad:LayoutAnchorable>
 							</ad:LayoutAnchorablePane>
 						</ad:LayoutAnchorablePaneGroup>
