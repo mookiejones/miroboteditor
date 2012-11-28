@@ -215,3 +215,98 @@ C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.application
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.exe
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.pdb
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache
+C:\Programming\editor\miroboteditor\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.exe.config
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.pdb
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\App.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\CustomToolTip.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ListFromFileBox.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\FindAndReplaceForm.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\GotoDialog.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\frmReverse.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ShiftBox.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\SnippetPad.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\xmlReader.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\AttributeViewer.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmSplashScreen.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmSystemFunctions.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmUpdateChecker.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Dialogs\About\About.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\FunctionWindow\FunctionWindow.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Notes\frmNotes.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Options\Options.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\OutputWindow\OutputWindow.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KFDAssistant.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKADatSort.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAInlineFormHelper.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAKFDDialog.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\IOListBox.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\ResourceDictionaries\ExplorerWindowDictionary.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Templates\VisualVariableItem.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\AdjustST.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Colors.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExplorerWindow.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\MenuDictionary.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\StatusBar.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\App.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\CustomToolTip.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ListFromFileBox.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\AngleConverter\AngleConverterWPF.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\DummyDoc\DummyDoc.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Editor\Editor.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\FindAndReplaceForm.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\GotoDialog.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\frmReverse.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ShiftBox.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\SnippetPad.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\xmlReader.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\AttributeViewer.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmShift.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmSplashScreen.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmSystemFunctions.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmUpdateChecker.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Dialogs\About\About.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ExplorerControl\ExplorerControlWPF.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\FunctionWindow\FunctionWindow.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\KUKA\frmAdjustST.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Notes\frmNotes.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ObjectBrowser\ObjectBrowserTool.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Options\Options.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\OutputWindow\OutputWindow.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\DatCleanControl.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KFDAssistant.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKADatSort.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAInlineFormHelper.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAKFDDialog.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Templates\VisualVariableItem.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor_Content.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor_MarkupCompile.cache
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor_MarkupCompile.lref
+C:\Programming\editor\miroboteditor\trunk\miRobotEditor\src\bin\Debug\Tracking\Changes.html
+C:\Programming\editor\miroboteditor\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.exe.manifest
+C:\Programming\editor\miroboteditor\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.application
+C:\Programming\editor\miroboteditor\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.exe
+C:\Programming\editor\miroboteditor\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.pdb
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\AngleConverter\AngleConverterWPF.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\DummyDoc\DummyDoc.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Editor\Editor.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmShift.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ExplorerControl\ExplorerControlWPF.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\KUKA\frmAdjustST.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ObjectBrowser\ObjectBrowserTool.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\DatCleanControl.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExtendedGridSplitter.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Generic.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Styles.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.g.resources
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.GUI.ExplorerControl.FileExplorerControl.resources
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.Properties.Resources.resources
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditorOld.csproj.GenerateResource.Cache
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe.manifest
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.application

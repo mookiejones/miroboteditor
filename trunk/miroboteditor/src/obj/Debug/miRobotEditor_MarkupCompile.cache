@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-C:\Programming\git\trunk\miroboteditor\src\obj\Debug\
+C:\Programming\editor\miroboteditor\trunk\miroboteditor\src\obj\Debug\
 miRobotEditor
 none
 false
@@ -13,7 +13,7 @@ DEBUG;TRACE
 40-1582633941
 1-550120235
 156-1265430959
-221249175141
+221311925693
 App.xaml;Classes\Activation.xaml;Controls\CustomToolTip.xaml;GUI\Editor\Editor.xaml;Controls\DummyDoc.xaml;Controls\FindAndReplaceForm.xaml;Controls\GotoDialog.xaml;Controls\frmNotes.xaml;Controls\frmReverse.xaml;Controls\KUKAInlineFormHelper.xaml;Controls\KUKAKFDDialog.xaml;Controls\ShiftBox.xaml;Controls\SnippetPad.xaml;Controls\Unfinished\KUKA\DialogNew.xaml;Controls\Unfinished\KUKA\frmBlockEdit.xaml;Controls\xmlReader.xaml;Forms\AttributeViewer.xaml;Forms\frmKUKAIOPoints.xaml;Forms\frmShift.xaml;Forms\frmSplashScreen.xaml;Forms\frmSystemFunctions.xaml;Forms\frmUpdateChecker.xaml;GUI\AngleConverter\frmAngleConvertor.xaml;GUI\Dialogs\About\About.xaml;GUI\EditorDoc\EditorDoc.xaml;GUI\ExplorerWindow\ExplorerWindow.xaml;GUI\FunctionWindow\FunctionWindow.xaml;GUI\KUKA\frmAdjustST.xaml;GUI\ObjectBrowser\frmObjectBrowser.xaml;GUI\OutputWindow\OutputWindow.xaml;MainWindow.xaml;Themes\AdjustST.xaml;Themes\Colors.xaml;Themes\Editor.Xaml;Themes\ExplorerWindow.xaml;Themes\ExtendedGridSplitter.xaml;Themes\Generic.xaml;Themes\ObjectBrowser.xaml;Themes\StatusBar.xaml;Themes\TempCanvas.xaml;
 
 False

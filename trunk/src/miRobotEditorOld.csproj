@@ -148,12 +148,16 @@
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\EditorCommands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="GUI\ExplorerControl\ExplorerClass.cs" />
+    <Compile Include="GUI\ExplorerControl\ExplorerClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GUI\ExplorerControl\ExplorerControlWPF.xaml.cs">
       <DependentUpon>ExplorerControlWPF.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GUI\ExplorerControl\FileExplorerControl.cs" />
+    <Compile Include="GUI\ExplorerControl\FileExplorerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="GUI\ExplorerControl\FileExplorerControl.Designer.cs">
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
     </Compile>
@@ -722,17 +726,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\ErrorProvider\" />
-    <Folder Include="GUI\ExplorerControl" />
     <Folder Include="GUI\Document\" />
     <Folder Include="GUI\KUKA\AdjustST\" />
-    <Folder Include="GUI\DummyDoc" />
-    <Folder Include="GUI\Options" />
-    <Folder Include="GUI\Notes" />
     <Folder Include="GUI\Printing\" />
-    <Folder Include="Language Specific" />
-    <Folder Include="Services" />
-    <Folder Include="Pads\ArchiveInfo" />
-    <Folder Include="ResourceDictionaries" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
