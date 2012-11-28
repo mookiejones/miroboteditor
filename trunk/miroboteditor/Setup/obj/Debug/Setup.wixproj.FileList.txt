@@ -1,6 +1,0 @@
-C:\Work\Programming\DMC Robot Editor\Setup\bin\Debug\Setup.msi
-C:\Work\Programming\DMC Robot Editor\Setup\bin\Debug\Setup.wixpdb
-obj\\Debug\Dialog1.wixobj
-obj\\Debug\Files.wixobj
-obj\\Debug\Setup.wixobj
-obj\\Debug\obj\Debug\Product.Generated.wixobj
