@@ -8,11 +8,13 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace miRobotEditor.GUI.ExplorerControl
 {
 	
+
 	
 	/// <summary>
 	/// Description of FileExplorerControl.
@@ -21,23 +23,29 @@ namespace miRobotEditor.GUI.ExplorerControl
 	{
 		
 		
-		
+			
 		#region Events
-		public new event  TreeNodeMouseClickEventHandler OnDoubleClick;
+		public event FileSelectedEventHandler FileSelected
+		{
+			add{explorer.OnFileSelected+= value;}
+			remove{explorer.OnFileSelected-=value;}
+		}
 		public new event TreeNodeMouseClickEventHandler OnMouseClick;
 		public new  event KeyEventHandler OnKeyUp;
 		public event TreeViewEventHandler OnAfterSelect;
 		#endregion
 		public static FileExplorerControl Instance{get;set;}
 		
+		private string _filter = "*.*";
 		public String Filter
 		{
 			get
 			{
-				if (String.IsNullOrEmpty(cmbFilter.SelectedText))
+				if (String.IsNullOrEmpty(_filter))
 					return "*.*";
-				return cmbFilter.SelectedText;
+				return _filter;
 			}
+			set {_filter=value;}
 		}
 		
 		public FileExplorerControl()
@@ -49,16 +57,8 @@ namespace miRobotEditor.GUI.ExplorerControl
 			Instance = this;
 			explorer.ShowTree();
 			
-
 		}
-		
-		
-	
-		
-	
-		
-		
-		
+
 		void RaiseAfterSelect(object sender, TreeViewEventArgs e)
 		{
 			if (OnAfterSelect!=null)
@@ -77,10 +77,47 @@ namespace miRobotEditor.GUI.ExplorerControl
 				OnMouseClick(sender,e);
 		}
 		
-		void RaiseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+		
+		
+		void Copy_File(object sender, EventArgs e)
 		{
-			if (OnDoubleClick!=null)
-				OnDoubleClick(sender,e);
+			// TODO: Implement CopyFile
+		}
+		
+		void Cut_File(object sender, EventArgs e)
+		{
+			// TODO: Implement Cut_File
+		}
+
+		void Paste_File(object sender, EventArgs e)
+		{
+			// TODO: Implement Cut_File
+		}
+
+		void Delete_File(object sender, EventArgs e)
+		{			
+			// TODO: Implement Cut_File
+		}
+		
+		void Refresh(object sender, EventArgs e)
+		{
+			if (explorer.SelectedNode!=null)
+			{
+				explorer.SelectedNode.Nodes.Clear();
+				var r = explorer.SelectedNode.Tag.ToString();
+				explorer.FillTreeNode(explorer.SelectedNode,explorer.SelectedNode.Tag.ToString());
+			}
+			// TODO: Implement Refresh
+		}
+		
+		void ContextOpening(object sender, CancelEventArgs e)
+		{
+			
+			var enabled =  !(String.IsNullOrEmpty(explorer.SelectedFile) && String.IsNullOrEmpty(explorer.SelectedDirectory));
+			mnuCopy.Enabled=enabled;
+			mnuCut.Enabled=enabled;
+			mnuDelete.Enabled=enabled;
+			mnuPaste.Enabled=enabled;					
 		}
 	}
 }

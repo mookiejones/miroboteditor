@@ -231,8 +231,6 @@ namespace miRobotEditor.Classes
         /// <returns></returns>
         public static BitmapImage LoadBitmap(string fileName)
         {
-            // TODO: add some kind of cache to avoid reloading the image whenever the
-            // VisualLine is reconstructed
             try
             {
 

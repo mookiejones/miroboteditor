@@ -325,8 +325,6 @@ namespace miRobotEditor.Controls
                 if (_elementVerticalGridSplitterButton != null)
                     _elementVerticalGridSplitterButton.Visibility = Visibility.Visible;
 
-                //TODO:  Add in error handling if current template does not include an existing ScaleTransform.
-
                 // Rotate the direction that the handle is facing depending on the CollapseMode.
                 if (collapseMode == GridSplitterCollapseMode.Previous)
                 {

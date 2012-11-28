@@ -338,8 +338,6 @@ namespace miRobotEditor.GUI.Editor
             if (DummyDoc.Instance.FileLanguage is Languages.KUKA)
                 FindMatches(new Regex("DECL [a-zA-Z0-9_$]+", (RegexOptions) 3), Global.imgValue);
 
-            //TODO Create Icon for XYZ      		
-            //TODO Create Icon For SignalRegex
             //      		FindMatches(FileLanguage.XYZRegex,
         }
 
