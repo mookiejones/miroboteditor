@@ -126,7 +126,6 @@ C:\Programming\git\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.exe.manifest
 C:\Programming\git\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.application
 C:\Programming\git\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.exe
 C:\Programming\git\trunk\miRobotEditor\src\bin\Debug\miRobotEditor.pdb
-C:\Programming\git\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache
 C:\Programming\git\trunk\src\obj\Debug\App.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\CustomToolTip.baml
 C:\Programming\git\trunk\src\obj\Debug\Controls\ListFromFileBox.baml
@@ -215,3 +214,4 @@ C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.exe.manifest
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.application
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.exe
 C:\Programming\git\trunk\src\obj\Debug\miRobotEditor.pdb
+C:\Programming\git\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache

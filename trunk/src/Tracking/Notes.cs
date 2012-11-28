@@ -4,10 +4,7 @@
     {
         //TODO: Class bg of KRC Editor is FormCrypt
         //  Class C is AdjustForm
-        
-        //TODO If you use InsightWindow, just set its Content property to whatever WPF content you want to display.
- 
-  
+          
         //TODO Change FunctionWindow to Highlight Current Function
 
         // Background

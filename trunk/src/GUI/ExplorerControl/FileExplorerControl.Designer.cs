@@ -36,51 +36,113 @@ namespace miRobotEditor.GUI.ExplorerControl
 		[System.Diagnostics.DebuggerStepThrough]
 		private void InitializeComponent()
 		{
-			this.panel1 = new System.Windows.Forms.Panel();
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileExplorerControl));
+			this.ctxFileExplorer = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.mnuCopy = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuCut = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuPaste = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuDelete = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuRefresh = new System.Windows.Forms.ToolStripMenuItem();
+			this.imgList = new System.Windows.Forms.ImageList(this.components);
 			this.explorer = new miRobotEditor.GUI.ExplorerControl.ExplorerClass();
-			this.cmbFilter = new System.Windows.Forms.ComboBox();
-			this.panel1.SuspendLayout();
+			this.ctxFileExplorer.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// panel1
+			// ctxFileExplorer
 			// 
-			this.panel1.Controls.Add(this.explorer);
-			this.panel1.Controls.Add(this.cmbFilter);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(0, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(150, 150);
-			this.panel1.TabIndex = 1;
+			this.ctxFileExplorer.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.mnuCopy,
+									this.mnuCut,
+									this.mnuPaste,
+									this.mnuDelete,
+									this.mnuRefresh});
+			this.ctxFileExplorer.Name = "contextMenuStrip1";
+			this.ctxFileExplorer.Size = new System.Drawing.Size(114, 114);
+			this.ctxFileExplorer.Opening += new System.ComponentModel.CancelEventHandler(this.ContextOpening);
+			// 
+			// mnuCopy
+			// 
+			this.mnuCopy.Image = ((System.Drawing.Image)(resources.GetObject("mnuCopy.Image")));
+			this.mnuCopy.Name = "mnuCopy";
+			this.mnuCopy.Size = new System.Drawing.Size(113, 22);
+			this.mnuCopy.Text = "&Copy";
+			this.mnuCopy.Click += new System.EventHandler(this.Copy_File);
+			// 
+			// mnuCut
+			// 
+			this.mnuCut.Image = ((System.Drawing.Image)(resources.GetObject("mnuCut.Image")));
+			this.mnuCut.Name = "mnuCut";
+			this.mnuCut.Size = new System.Drawing.Size(113, 22);
+			this.mnuCut.Text = "&Cut";
+			this.mnuCut.Click += new System.EventHandler(this.Cut_File);
+			// 
+			// mnuPaste
+			// 
+			this.mnuPaste.Image = ((System.Drawing.Image)(resources.GetObject("mnuPaste.Image")));
+			this.mnuPaste.Name = "mnuPaste";
+			this.mnuPaste.Size = new System.Drawing.Size(113, 22);
+			this.mnuPaste.Text = "&Paste";
+			this.mnuPaste.Click += new System.EventHandler(this.Paste_File);
+			// 
+			// mnuDelete
+			// 
+			this.mnuDelete.Image = ((System.Drawing.Image)(resources.GetObject("mnuDelete.Image")));
+			this.mnuDelete.Name = "mnuDelete";
+			this.mnuDelete.Size = new System.Drawing.Size(113, 22);
+			this.mnuDelete.Text = "&Delete";
+			this.mnuDelete.Click += new System.EventHandler(this.Delete_File);
+			// 
+			// mnuRefresh
+			// 
+			this.mnuRefresh.Name = "mnuRefresh";
+			this.mnuRefresh.Size = new System.Drawing.Size(113, 22);
+			this.mnuRefresh.Text = "Refresh";
+			this.mnuRefresh.Click += new System.EventHandler(this.Refresh);
+			// 
+			// imgList
+			// 
+			this.imgList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgList.ImageStream")));
+			this.imgList.TransparentColor = System.Drawing.Color.Transparent;
+			this.imgList.Images.SetKeyName(0, "folder.png");
+			this.imgList.Images.SetKeyName(1, "folderOpen.png");
+			this.imgList.Images.SetKeyName(2, "drive.png");
+			this.imgList.Images.SetKeyName(3, "cd.png");
+			this.imgList.Images.SetKeyName(4, "desktop.png");
+			this.imgList.Images.SetKeyName(5, "pendrive.png");
+			this.imgList.Images.SetKeyName(6, "file.png");
 			// 
 			// explorer
 			// 
+			this.explorer.ContextMenuStrip = this.ctxFileExplorer;
 			this.explorer.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.explorer.HideSelection = false;
-			this.explorer.Location = new System.Drawing.Point(0, 21);
+			this.explorer.ImageIndex = 0;
+			this.explorer.ImageList = this.imgList;
+			this.explorer.Location = new System.Drawing.Point(0, 0);
 			this.explorer.Name = "explorer";
-			this.explorer.Size = new System.Drawing.Size(150, 129);
-			this.explorer.TabIndex = 6;
-			// 
-			// cmbFilter
-			// 
-			this.cmbFilter.Dock = System.Windows.Forms.DockStyle.Top;
-			this.cmbFilter.FormattingEnabled = true;
-			this.cmbFilter.Location = new System.Drawing.Point(0, 0);
-			this.cmbFilter.Name = "cmbFilter";
-			this.cmbFilter.Size = new System.Drawing.Size(150, 21);
-			this.cmbFilter.TabIndex = 5;
+			this.explorer.SelectedDirectory = null;
+			this.explorer.SelectedFile = null;
+			this.explorer.SelectedImageIndex = 0;
+			this.explorer.Size = new System.Drawing.Size(150, 150);
+			this.explorer.TabIndex = 7;
 			// 
 			// FileExplorerControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.explorer);
 			this.Name = "FileExplorerControl";
-			this.panel1.ResumeLayout(false);
+			this.ctxFileExplorer.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.ToolStripMenuItem mnuRefresh;
+		private System.Windows.Forms.ImageList imgList;
+		private System.Windows.Forms.ToolStripMenuItem mnuDelete;
+		private System.Windows.Forms.ToolStripMenuItem mnuPaste;
+		private System.Windows.Forms.ToolStripMenuItem mnuCut;
+		private System.Windows.Forms.ToolStripMenuItem mnuCopy;
+		private System.Windows.Forms.ContextMenuStrip ctxFileExplorer;
 		private miRobotEditor.GUI.ExplorerControl.ExplorerClass explorer;
-		private System.Windows.Forms.ComboBox cmbFilter;
-		private System.Windows.Forms.Panel panel1;
 	}
 }

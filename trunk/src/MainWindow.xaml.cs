@@ -380,7 +380,7 @@ namespace miRobotEditor
                     tool.AutoHideMinWidth = 300;
                     break;
                 case "Explorer":
-                    tool.Content = new GUI.ExplorerControl.FileExplorerControl();
+                    tool.Content = new GUI.ExplorerControl.ExplorerControlWPF();
                     break;
                 case "Object Browser":                    
                     tool.Content = new GUI.ObjectBrowser.ObjectBrowserTool();

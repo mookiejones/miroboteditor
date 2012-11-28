@@ -337,7 +337,7 @@ namespace miRobotEditor.Languages
                         //                     startOffsets.Push(offs + text.Length);
                         if (text.ToLower().StartsWith(endFold) && startOffsets.Count > 0)
                         {
-                            //TODO this is Wrong!!!!!!
+                            //FIXME this is Wrong!!!!!!
                             // Might Be for EndFolds
                             bool valid;
                             if (endFold.ToLower() == "end")

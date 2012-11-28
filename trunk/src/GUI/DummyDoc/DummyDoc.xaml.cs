@@ -121,8 +121,6 @@ namespace miRobotEditor.Controls
             //TODO Set Icon For File
 
             //TODO Get Files Based in language 
-            //TODO Possibly set as content
-
 
             if ((FileLanguage is KUKA) && (!String.IsNullOrEmpty(FileLanguage.SourceText)) && (FileLanguage.SourceName != null))
                 Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => Source.Load(File.DirectoryName + "\\" + FileLanguage.SourceName)));
