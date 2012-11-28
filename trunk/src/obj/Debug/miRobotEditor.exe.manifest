@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Properties\Resources\Editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="miRobotEditor" version="1.0.0.26868" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="miRobotEditor" version="1.0.0.30737" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
     <commandLine file="miRobotEditor.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -223,14 +223,38 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1455616">
-      <assemblyIdentity name="miRobotEditor" version="1.0.0.26868" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1456128">
+      <assemblyIdentity name="miRobotEditor" version="1.0.0.30737" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>3zOH9etopLHNTzQqM/bi//ilJfk=</dsig:DigestValue>
+        <dsig:DigestValue>SWz4l3g6IVEGW5SoWrcYASvHCzM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RecentFileListLib.dll" size="16896">
+      <assemblyIdentity name="RecentFileListLib" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>D3nE9h9jILYNtGLLnr5yyrSopDc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TaskDialog.dll" size="20480">
+      <assemblyIdentity name="TaskDialog" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>htj1arlGv3dKLDBiAqgJ4LcWB0I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

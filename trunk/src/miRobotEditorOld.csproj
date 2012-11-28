@@ -47,7 +47,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\miRobotEditor\src\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -115,7 +115,7 @@
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="RecentFileListLib">
-      <HintPath>..\..\..\..\..\Users\cberman\Downloads\RecentFileList_src\RecentFileList\RecentFileListLib\bin\Release\RecentFileListLib.dll</HintPath>
+      <HintPath>..\Libraries\RecentFileListLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -130,9 +130,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="TaskDialog, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Users\cberman\Downloads\TaskDialogForWinForms_src\TaskDialog\bin\Release\TaskDialog.dll</HintPath>
+    <Reference Include="TaskDialog">
+      <HintPath>..\Libraries\TaskDialog.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -148,6 +147,7 @@
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\EditorCommands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="GUI\AngleConverter\EnumToInt32Converter.cs" />
     <Compile Include="GUI\ExplorerControl\ExplorerClass.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -720,6 +720,7 @@
     <Resource Include="Images\PinRestore_Black.png" />
     <Resource Include="Images\PinRestore_Dark.png" />
     <Resource Include="Images\VTabGroup.png" />
+    <None Include="Images\editor.ico" />
     <Content Include="Tracking\Changes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

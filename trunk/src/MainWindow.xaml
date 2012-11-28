@@ -7,8 +7,8 @@
 	Title="miRobotEditor"
 	Loaded="WindowLoaded"
 	AllowDrop="True"
-	Background="{DynamicResource InactiveWindowBrush}"
-	Icon="pack://siteoforigin:,,,/Resources/Editor.ico"
+	Background="#EFEFF2"
+	Icon="Properties/Resources/Editor.ico"
 	Drop="DropFiles"
 	DragEnter="onDragEnter"
 	PreviewKeyUp="ManageKeys">
