@@ -22,9 +22,18 @@ namespace TestWindow
 	/// </summary>
 	public partial class Window1 : Window
 	{
+		
 		public Window1()
 		{
 			InitializeComponent();
+		}
+		
+		void LoadArchiveClick(object sender, RoutedEventArgs e)
+		{	
+			//miRobotEditor.Pads.ArchiveInfo.ArchiveInfoHelper helper = new miRobotEditor.Pads.ArchiveInfo.ArchiveInfoHelper();
+		//	this.DataContext=miRobotEditor.Pads.ArchiveInfo.ArchiveInfoHelper.Instance;
+			
+		//	this.DataContext = new miRobotEditor.Pads.ArchiveInfo.ArchiveInfoHelper(this);			
 		}
 	}
 }
