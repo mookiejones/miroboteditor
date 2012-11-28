@@ -13,7 +13,7 @@ DEBUG;TRACE
 43485509270
 1-550120235
 208398232401
-25-200346109
+25-728668923
 App.xaml;Controls\CustomToolTip.xaml;Controls\ListFromFileBox.xaml;GUI\AngleConverter\AngleConverterWPF.xaml;GUI\DummyDoc\DummyDoc.xaml;GUI\Editor\Editor.xaml;Controls\FindAndReplaceForm.xaml;Controls\GotoDialog.xaml;Controls\frmReverse.xaml;Controls\ShiftBox.xaml;Controls\SnippetPad.xaml;Controls\xmlReader.xaml;Forms\AttributeViewer.xaml;Forms\frmShift.xaml;Forms\frmSplashScreen.xaml;Forms\frmSystemFunctions.xaml;Forms\frmUpdateChecker.xaml;GUI\Dialogs\About\About.xaml;GUI\ExplorerControl\ExplorerControlWPF.xaml;GUI\FunctionWindow\FunctionWindow.xaml;GUI\KUKA\frmAdjustST.xaml;GUI\Notes\frmNotes.xaml;GUI\ObjectBrowser\ObjectBrowserTool.xaml;GUI\Options\Options.xaml;GUI\OutputWindow\OutputWindow.xaml;Language Specific\DatCleanControl.xaml;Language Specific\KFDAssistant.xaml;Language Specific\KUKADatSort.xaml;Language Specific\KUKAInlineFormHelper.xaml;Language Specific\KUKAKFDDialog.xaml;MainWindow.xaml;Pads\ArchiveInfo\ArchiveInfo.xaml;Pads\ArchiveInfo\IOListBox.xaml;ResourceDictionaries\ExplorerWindowDictionary.xaml;Templates\VisualVariableItem.xaml;Themes\AdjustST.xaml;Themes\Colors.xaml;Themes\ExplorerWindow.xaml;Themes\ExtendedGridSplitter.xaml;Themes\Generic.xaml;Themes\MenuDictionary.xaml;Themes\StatusBar.xaml;Themes\Styles.xaml;
 
 False
