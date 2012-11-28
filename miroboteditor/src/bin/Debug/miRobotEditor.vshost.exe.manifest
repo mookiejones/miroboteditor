@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
   <asmv1:assemblyIdentity name="miRobotEditor.exe" version="1.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="Properties\Resources\Editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="miRobotEditor" version="1.0.0.18572" publicKeyToken="88C111393D51043F" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="miRobotEditor" version="1.0.0.26320" language="neutral" processorArchitecture="msil" />
     <commandLine file="miRobotEditor.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,134 +43,86 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AvalonDock.dll" size="417792">
-      <assemblyIdentity name="AvalonDock" version="2.0.1618.0" publicKeyToken="96637CF0D3EEFDFB" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AvalonDock.dll" size="410112">
+      <assemblyIdentity name="AvalonDock" version="2.0.1433.0" publicKeyToken="96637CF0D3EEFDFB" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>hzHK0OvvN/ibz+2P8wN912Dh0EU=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="de\AvalonDock.resources.dll" size="5120">
-      <assemblyIdentity name="AvalonDock.resources" version="2.0.1618.0" publicKeyToken="96637CF0D3EEFDFB" language="de" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Etz63KuVkmMwGctgc+rTIuruSYU=</dsig:DigestValue>
+        <dsig:DigestValue>7oKouX0s4Youe1fwMuGxj+AZbiA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="es\AvalonDock.resources.dll" size="5120">
-      <assemblyIdentity name="AvalonDock.resources" version="2.0.1618.0" publicKeyToken="96637CF0D3EEFDFB" language="es" processorArchitecture="msil" />
+      <assemblyIdentity name="AvalonDock.resources" version="2.0.1433.0" publicKeyToken="96637CF0D3EEFDFB" language="es" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>BExSVF2j94R9uc9fRvNfR5eld9I=</dsig:DigestValue>
+        <dsig:DigestValue>0cp3lsiuKhWpO6H5VPeaCyFu6kc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="fr\AvalonDock.resources.dll" size="5120">
-      <assemblyIdentity name="AvalonDock.resources" version="2.0.1618.0" publicKeyToken="96637CF0D3EEFDFB" language="fr" processorArchitecture="msil" />
+      <assemblyIdentity name="AvalonDock.resources" version="2.0.1433.0" publicKeyToken="96637CF0D3EEFDFB" language="fr" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Fj1NkHDTVN5uiDSSU9Rimp7OqfQ=</dsig:DigestValue>
+        <dsig:DigestValue>Th5L28axqzUidycTmx9E8z/fKAY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="it\AvalonDock.resources.dll" size="5120">
-      <assemblyIdentity name="AvalonDock.resources" version="2.0.1618.0" publicKeyToken="96637CF0D3EEFDFB" language="it" processorArchitecture="msil" />
+      <assemblyIdentity name="AvalonDock.resources" version="2.0.1433.0" publicKeyToken="96637CF0D3EEFDFB" language="it" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>fzDook4ZQnvpd3GXIr0wKKwuSKk=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pt-BR\AvalonDock.resources.dll" size="5120">
-      <assemblyIdentity name="AvalonDock.resources" version="2.0.1618.0" publicKeyToken="96637CF0D3EEFDFB" language="pt-BR" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>jhEyMnoFJyWOil3rqmjpTxrLXpY=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ru\AvalonDock.resources.dll" size="5632">
-      <assemblyIdentity name="AvalonDock.resources" version="2.0.1618.0" publicKeyToken="96637CF0D3EEFDFB" language="ru" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>MM/foNLQPFVl8wbSBixTmJ98DC4=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="sv\AvalonDock.resources.dll" size="5120">
-      <assemblyIdentity name="AvalonDock.resources" version="2.0.1618.0" publicKeyToken="96637CF0D3EEFDFB" language="sv" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>OGSqJa7+64sfgOfFEYKjkRl87Wk=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="zh-Hans\AvalonDock.resources.dll" size="5120">
-      <assemblyIdentity name="AvalonDock.resources" version="2.0.1618.0" publicKeyToken="96637CF0D3EEFDFB" language="zh-Hans" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>ywGwLPIK1j8R1V0V4DbQKPPAlww=</dsig:DigestValue>
+        <dsig:DigestValue>bffzSHpmlfM/BIlJMdeYIaD9ejo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AvalonDock.Themes.Aero.dll" size="86016">
-      <assemblyIdentity name="AvalonDock.Themes.Aero" version="2.0.1618.0" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="AvalonDock.Themes.Aero" version="2.0.1433.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>BEX5qS2o6CAh8XRuWjJDPHCPnaE=</dsig:DigestValue>
+        <dsig:DigestValue>uq/dhm1k7xnnn3gLdBE2lMIb1mA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AvalonDock.Themes.VS2010.dll" size="86016">
-      <assemblyIdentity name="AvalonDock.Themes.VS2010" version="2.0.1618.0" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="AvalonDock.Themes.VS2010" version="2.0.1433.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>KxGTkILxQwTdavBuZ30l5+ANLTA=</dsig:DigestValue>
+        <dsig:DigestValue>l22COkFG+Qky1urkzyI9goKe5Xc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CollapsingGridSplitter.dll" size="34816">
+      <assemblyIdentity name="CollapsingGridSplitter" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>hu+D80nsTWK9YUwu/cSZV0Yel7A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -187,14 +139,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1553408">
-      <assemblyIdentity name="miRobotEditor" version="1.0.0.18572" publicKeyToken="88C111393D51043F" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1420288">
+      <assemblyIdentity name="miRobotEditor" version="1.0.0.26320" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>1fixPZGvvo/2lQK5PxeCoVjIk7o=</dsig:DigestValue>
+        <dsig:DigestValue>4MjQgp/zRVmcyzENpMDvg6CZ44o=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.Globals.dll" size="10240">
+      <assemblyIdentity name="miRobotEditor.Globals" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>f4eiEbiRVNhkrphbEfY77zRzNXw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
