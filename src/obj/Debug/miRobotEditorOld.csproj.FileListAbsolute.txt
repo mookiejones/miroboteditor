@@ -239,6 +239,8 @@ C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Expres
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.VS2010.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ICSharpCode.AvalonEdit.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Ionic.Zip.Reduced.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\RecentFileListLib.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\TaskDialog.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.pdb
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.xml
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Aero.pdb
@@ -257,7 +259,6 @@ C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\zh-Hans\AvalonDock.resou
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\App.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\CustomToolTip.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ListFromFileBox.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\FindAndReplaceForm.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\GotoDialog.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\frmReverse.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ShiftBox.baml
@@ -271,13 +272,13 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Dialogs\About\About.
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\FunctionWindow\FunctionWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Notes\frmNotes.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Options\Options.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\OutputWindow\OutputWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KFDAssistant.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKADatSort.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAInlineFormHelper.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAKFDDialog.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\IOListBox.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\ResourceDictionaries\ExplorerWindowDictionary.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\ResourceDictionaries\LocalizedStrings\en-us.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Templates\VisualVariableItem.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\AdjustST.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Colors.baml
@@ -324,10 +325,12 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor_MarkupComp
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\AngleConverter\AngleConverterWPF.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\DummyDoc\DummyDoc.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Editor\Editor.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\FindAndReplaceForm.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmShift.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ExplorerControl\ExplorerControlWPF.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\KUKA\frmAdjustST.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ObjectBrowser\ObjectBrowserTool.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\OutputWindow\OutputWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\DatCleanControl.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.baml
@@ -342,6 +345,3 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe.manife
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.application
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.pdb
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\RecentFileListLib.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\TaskDialog.dll
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache

@@ -68,11 +68,12 @@ namespace miRobotEditor.GUI.ObjectBrowser
         #region
         private string GetDirectory()
         {
-            var fbd = new FolderBrowserDialog();
-            fbd.Description = "Select Root Directory for Instance";
+            var fbd = new FolderBrowserDialog {Description = "Select Root Directory for Instance"};
 
-            if (DummyDoc.Instance.File.Directory != null && DummyDoc.Instance.File.Directory.Exists)
-            fbd.SelectedPath = DummyDoc.Instance.File.DirectoryName;
+            var dir = Path.GetDirectoryName(DummyDoc.Instance.FileName);
+
+            if (dir != null && Directory.Exists(dir))
+            fbd.SelectedPath = dir;
 
             var result = fbd.ShowDialog();
 

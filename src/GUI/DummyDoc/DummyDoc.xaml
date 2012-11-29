@@ -2,8 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:miRobotEditor.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Editor="clr-namespace:miRobotEditor.GUI.Editor" mc:Ignorable="d" x:Name="document" x:Class="miRobotEditor.Controls.DummyDoc"
-        IsVisibleChanged="Is_VisibleChanged" >
+        xmlns:GUI="clr-namespace:miRobotEditor.GUI"
+        mc:Ignorable="d" x:Name="document" x:Class="miRobotEditor.GUI.DummyDoc"
+        IsVisibleChanged="OnIsVisibleChanged" >
     <UserControl.Resources>
         <Color x:Key="UnFocus"/>
         <RoutedUICommand x:Key="Reload" Text="Reload File"/>
@@ -16,7 +17,7 @@
     </UserControl.InputBindings>
         <Grid >
         <Grid.Resources>
-            <Style TargetType="{x:Type Editor:Editor}">
+            <Style TargetType="{x:Type GUI:Editor}">
                 <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -29,9 +30,9 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Editor:Editor  x:Name="data" ReloadFile="ReloadFile" IsVisibleChanged="Is_VisibleChanged"   TextChanged="TextChanged" UpdateFunctions="raiseupdated" Grid.Row="2" BorderThickness="1"/>        	
-            <local:ExtendedGridSplitter  x:Name="grid" Grid.Row="1" HorizontalAlignment="Stretch" Height="20" CollapseMode="Previous" UnfocusColor="{StaticResource UnFocus}" FocusColor="{Binding Robot.FocusColor}" Loaded="grid_Loaded" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Center"/>
-            <Editor:Editor x:Name="source" ReloadFile="ReloadFile" Grid.Row="0" IsVisibleChanged="Is_VisibleChanged" TextChanged="TextChanged"  UpdateFunctions="raiseupdated" />
+            <GUI:Editor  x:Name="data"  ReloadFile="ReloadFile" IsVisibleChanged="OnIsVisibleChanged"   TextChanged="TextChanged" UpdateFunctions="Raiseupdated" Grid.Row="2" BorderThickness="1"/>        	
+            <local:ExtendedGridSplitter  x:Name="grid" Grid.Row="1" HorizontalAlignment="Stretch" Height="20" CollapseMode="Previous" UnfocusColor="{StaticResource UnFocus}" FocusColor="{Binding Robot.FocusColor}" Loaded="GridLoaded" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Center"/>
+            <GUI:Editor x:Name="source" ReloadFile="ReloadFile" Grid.Row="0" IsVisibleChanged="OnIsVisibleChanged" TextChanged="TextChanged"  UpdateFunctions="Raiseupdated" />
         </Grid>
     </Grid>
 </UserControl>

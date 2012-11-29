@@ -16,13 +16,7 @@ namespace miRobotEditor.Classes
         [Localizable(false)]
         public static void Add(string title, string description, BitmapImage icon )
         {
-            try
-            {
                 Messages.Add(new OutputWindowMessage {Title = title, Icon = icon, Description = description});
-            }
-            catch
-            {
-            }
         }
 
         [Localizable(false)]
@@ -33,7 +27,7 @@ namespace miRobotEditor.Classes
             var st = new StackTrace();
             string stackIndent = "";
             
-            for (int i = 0; i < st.FrameCount; )
+            for (var i = 0; i < st.FrameCount; )
             {
                 try
                 {
@@ -53,7 +47,7 @@ namespace miRobotEditor.Classes
                                                                                       Icon = null
 
                                                                                   });
-                                                                 using (var writer = new StreamWriter(Global.logFile, true))
+                                                                 using (var writer = new StreamWriter(Global.LogFile, true))
                                                                  {
                                                                      writer.Write(sb.ToString());
                                                                  }

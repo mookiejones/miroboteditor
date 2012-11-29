@@ -4,32 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-             xmlns:Editor="clr-namespace:miRobotEditor.GUI.Editor"
-             x:Class="miRobotEditor.GUI.Editor.Editor" 	           
+             xmlns:Editor="clr-namespace:miRobotEditor.GUI"
+             x:Class="miRobotEditor.GUI.Editor" 	           
              mc:Ignorable="d" 
              d:DesignHeight="300"
              d:DesignWidth="300" 
-             TextChanged="Text_Changed"
+             TextChanged="EditorTextChanged"
              IsVisibleChanged="RaiseUpdate"        
-    		FontSize="14"
-	         ShowLineNumbers="True"
-             MouseHover="Mouse_Hover" AllowDrop="True" 
-            PreviewMouseWheel="EditorPreviewMouseWheel" GotFocus="TextEditor_GotFocus" 
-    Options="{DynamicResource options}"  >
-
-        <avalonedit:TextEditor.CommandBindings>
-        <CommandBinding Command="Replace" CanExecute="CanReplace" Executed="ReplaceExecuted"/>
-        <CommandBinding Command="Save" CanExecute="CanSave" Executed="ExecuteSave"/>
-        <CommandBinding Command="SaveAs" CanExecute="CanSaveAs" Executed="ExecuteSaveAs"/>
-        <CommandBinding Command="{x:Static Editor:Editor.Goto}" CanExecute="CanGoto" Executed="ExecuteGoto"/>
-        <CommandBinding Command="{x:Static Editor:Editor.ToggleComment}" CanExecute="CanToggleComment" Executed="ExecuteToggleComment"/>
-        <CommandBinding Command="{x:Static Editor:Editor.ToggleFolding}" CanExecute="CanToggleFolding" Executed="ExecuteToggleFolding"/>
-        <CommandBinding Command="{x:Static Editor:Editor.ToggleAllFolding}" CanExecute="CanToggleAllFolding" Executed="ExecuteToggleAllFolding"/>
-        <CommandBinding Command="{x:Static Editor:Editor.OpenAllFolds}" CanExecute="CanOpenAllFolds" Executed="ExecuteOpenAllFolds"/>
-        <CommandBinding Command="{x:Static Editor:Editor.CloseAllFolds}" CanExecute="CanCloseAllFolds" Executed="ExecuteCloseAllFolds"/>
-        <CommandBinding Command="{x:Static Editor:Editor.IncreaseIndent}" CanExecute="CanIncreaseIndent" Executed="ExecuteIncreaseIndent"/>
-        <CommandBinding Command="{x:Static Editor:Editor.DecreaseIndent}" CanExecute="CanDecreaseIndent" Executed="ExecuteDecreaseIndent"/>
-        <CommandBinding Command="{x:Static Editor:Editor.ShowDefinitions}" CanExecute="CanShowDefinitions" Executed="ExecuteShowDefinitions"/>
+    		 FontSize="14"	        
+             MouseHover="Mouse_OnHover"
+            AllowDrop="True" 
+            ShowLineNumbers="True"
+            PreviewMouseWheel="EditorPreviewMouseWheel" GotFocus="TextEditorGotFocus"
+            Options="{StaticResource TextOptions}">   
+    <avalonedit:TextEditor.CommandBindings>
+        <CommandBinding CanExecute="CanToggleComment" Executed="ExecuteToggleComment"/>
+        <CommandBinding CanExecute="CanReplace" Executed="ReplaceExecuted"/>
+        <CommandBinding CanExecute="CanSave" Executed="ExecuteSave"/>
+        <CommandBinding CanExecute="CanSaveAs" Executed="ExecuteSaveAs"/>
+        <CommandBinding CanExecute="CanGoto" Executed="ExecuteGoto"/>
+        <CommandBinding CanExecute="CanToggleFolding" Executed="ExecuteToggleFolding"/>
+        <CommandBinding CanExecute="CanToggleAllFolding" Executed="ExecuteToggleAllFolding"/>
+        <CommandBinding CanExecute="CanOpenAllFolds" Executed="ExecuteOpenAllFolds"/>
+        <CommandBinding CanExecute="CanCloseAllFolds" Executed="ExecuteCloseAllFolds"/>
+        <CommandBinding CanExecute="CanIncreaseIndent" Executed="ExecuteIncreaseIndent"/>
+        <CommandBinding CanExecute="CanDecreaseIndent" Executed="ExecuteDecreaseIndent"/>
+        <CommandBinding CanExecute="CanShowDefinitions" Executed="ExecuteShowDefinitions"/>
     </avalonedit:TextEditor.CommandBindings>
     <avalonedit:TextEditor.InputBindings>
         <KeyBinding Command="{x:Static Editor:Editor.Goto}" Key="G" Modifiers="Control"/>

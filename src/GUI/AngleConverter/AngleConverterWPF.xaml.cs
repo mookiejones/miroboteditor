@@ -5,34 +5,27 @@
  * Time: 7:16 AM
  * 
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace miRobotEditor.GUI.AngleConverter
 {
 	/// <summary>
 	/// Interaction logic for AngleConverterWPF.xaml
 	/// </summary>
-	public partial class AngleConverterWPF : UserControl
+	public partial class AngleConverterWpf : UserControl
 	{
-		private static AngleConverterWPF _instance;
-		public static AngleConverterWPF Instance
+		private static AngleConverterWpf _instance;
+		public static AngleConverterWpf Instance
 		{
-			get{if (_instance == null) _instance=new AngleConverterWPF(); return _instance;}
-			set{_instance=value;}
+			get { return _instance ?? (_instance = new AngleConverterWpf()); }
+		    set{_instance=value;}
 		}
-		public AngleConverterWPF()
+		public AngleConverterWpf()
 		{
 			Instance=this;
 			InitializeComponent();
 			
-		}
+		}    
 	}
 }

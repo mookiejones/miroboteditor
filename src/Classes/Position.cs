@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using miRobotEditor.Controls;
+using miRobotEditor.GUI;
 
 namespace miRobotEditor.Classes
 {
@@ -25,22 +26,24 @@ namespace miRobotEditor.Classes
         public string Declaration { get { return _declaration; } set { _declaration = value; OnPropertyChanged("Declaration"); } }
         public List<IVariable> GetPositions(string filename)
         {
-            var _result = new List<IVariable>();
-            BitmapImage icon = Utilities.LoadBitmap(Global.imgXYZ);
+            var result = new List<IVariable>();
+            BitmapImage icon = Utilities.LoadBitmap(Global.ImgXyz);
             var m = VariableHelper.FindMatches(DummyDoc.Instance.FileLanguage.XYZRegex, filename);
 
             while (m.Success)
             {
-                var p = new Position();
-                p.Icon = icon;
-                p.Path = filename;
-                p.Offset = m.Index;
-                p.Type = m.Groups[1].ToString();
-                p.Name = m.Groups[2].ToString();
-                _result.Add(p);
+                var p = new Position
+                            {
+                                Icon = icon,
+                                Path = filename,
+                                Offset = m.Index,
+                                Type = m.Groups[1].ToString(),
+                                Name = m.Groups[2].ToString()
+                            };
+                result.Add(p);
                 m = m.NextMatch();
             }
-            return _result;
+            return result;
         }
      
     }

@@ -12,20 +12,26 @@ using System.Windows.Media.Imaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Highlighting;
 using miRobotEditor.Classes;
-using miRobotEditor.Controls;
 using miRobotEditor.Enums;
 using miRobotEditor.Forms;
-using miRobotEditor.GUI.Editor;
+using miRobotEditor.GUI;
 using System.Windows.Controls;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
     public abstract class AbstractLanguageClass :ViewModelBase
     {
+        private string _filename;
+        public string FileName
+        {
+            get { return _filename; }
+            set { _filename = value;OnPropertyChanged("FileName"); }
+        }
     	
     	private MenuItem _robotmenuitems;
-    	public System.Windows.Controls.MenuItem RobotMenuItems
+    	public MenuItem RobotMenuItems
     	{
     		get
     		{
@@ -36,14 +42,12 @@ namespace miRobotEditor.Languages
     	
     	private MenuItem GetMenuItems()
     	{
-    		var rd= new System.Windows.ResourceDictionary();
-        		rd.Source= new Uri("/miRobotEditor;component/Themes/MenuDictionary.xaml",UriKind.RelativeOrAbsolute);
-        		System.Windows.Controls.MenuItem i = rd[this.RobotType + "Menu"] as System.Windows.Controls.MenuItem;
-        		
-        		if (i == null)
-        			i = new System.Windows.Controls.MenuItem();
-        		
-        		return i;
+    		var rd= new System.Windows.ResourceDictionary
+    		            {Source = new Uri("/miRobotEditor;component/Themes/MenuDictionary.xaml", UriKind.RelativeOrAbsolute)};
+    	    var i = rd[RobotType + "Menu"] as MenuItem ??
+        		        new MenuItem();
+
+    	    return i;
     	}
     	
         public Editor SourceDocument { get; set; }
@@ -51,7 +55,7 @@ namespace miRobotEditor.Languages
 
        	public static AbstractLanguageClass Instance { get; set; }
 
-        public abstract FileModel GetFile(FileInfo file);
+        public abstract FileModel GetFile(string filename);
 
         public ObservableCollection<VariableItem> Functions;
         public ObservableCollection<VariableItem> GetMatches(Regex matchstring, string file, BitmapImage image, string type)
@@ -74,17 +78,15 @@ namespace miRobotEditor.Languages
 
         public IList<ICompletionData> CompletionList (string currentWord,IList<ICompletionData> data )
         {
-
-            for (var i = 0; i < DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules.Count;i++)
+            foreach (HighlightingRule t1 in DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules)
             {
+                var parseString = t1.Regex.ToString();
 
-                var parseString = DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules[i].Regex.ToString();
+                var start = parseString.IndexOf(">", StringComparison.Ordinal) +1;
+                var end = parseString.LastIndexOf(")", StringComparison.Ordinal);
+                parseString = parseString.Substring(start, end - start);
 
-                int start = parseString.IndexOf(">") +1;
-                int end = parseString.LastIndexOf(")");
-                  parseString = parseString.Substring(start, end - start);
-
-                 string[] spl = parseString.Split('|');
+                string[] spl = parseString.Split('|');
                 foreach (string t in spl)
                 {
                     if (String.IsNullOrEmpty(t)) continue;
@@ -107,40 +109,40 @@ namespace miRobotEditor.Languages
                 }
             }
 
-          
+
             return data;
         }
-        public static AbstractLanguageClass GetRobotType( FileInfo file)
-        {
-            if (file != null)
-            {
-                switch (file.Extension.ToLower())
-                {
-                    case ".as":
-                    case ".pg":
-                        return  new Kawasaki(file);
-                    case ".rt":
-                    case ".src":
-                    case ".dat":
-                    case ".sub":
-                        return  new KUKA(file);
-                    case ".mod":
-                    case ".prg":
-                        return  new ABB(file);
-                    case ".bas":
-                        return  new VBA(file);
-                    case ".ls":
-                        return new Fanuc(file);
-                    default:
-                        return new LanguageBase(file);
-                }
-            }
-            else
-            {
-                return new LanguageBase();
-            }
 
+        public static AbstractLanguageClass GetRobotType( string file)
+        {
+            if (!String.IsNullOrEmpty(file))
+            {
+                var extension = Path.GetExtension(file);
+                if (extension != null)
+                    switch (extension.ToLower())
+                    {
+                        case ".as":
+                        case ".pg":
+                            return  new Kawasaki(file);
+                        case ".rt":
+                        case ".src":
+                        case ".dat":
+                        case ".sub":
+                            return  new KUKA(file);
+                        case ".mod":
+                        case ".prg":
+                            return  new ABB(file);
+                        case ".bas":
+                            return  new VBA(file);
+                        case ".ls":
+                            return new Fanuc(file);
+                        default:
+                            return new LanguageBase(file);
+                    }
+            }
+            return new LanguageBase();
         }
+
         #region Constructors
         internal string DataName{get; private set;}
         internal string SourceName { get; private set; }
@@ -150,20 +152,21 @@ namespace miRobotEditor.Languages
         	RobotMenuItems=GetMenuItems();
         }
 
-        protected AbstractLanguageClass(FileInfo file)
+        protected AbstractLanguageClass(string filename)
         {
-            _file = file;
-            SourceName = Path.GetFileNameWithoutExtension(_file.FullName) + ".src"; 
-            DataName = Path.GetFileNameWithoutExtension(_file.FullName) + ".dat";
+            var directory = Path.GetDirectoryName(filename);
+            var dirExists = Directory.Exists(filename);
+            SourceName = Path.GetFileNameWithoutExtension(filename) + ".src";
+            DataName = Path.GetFileNameWithoutExtension(filename) + ".dat";
 
-            if (File.Exists(Path.Combine(_file.Directory.FullName, SourceName)))
-                using (var reader = new StreamReader(Path.Combine(_file.Directory.FullName, SourceName)))
+            if (dirExists && File.Exists(Path.Combine(directory, SourceName)))
+                using (var reader = new StreamReader(Path.Combine(directory, SourceName)))
                     SourceText += reader.ReadToEnd();
 
 
 
-            if (File.Exists(Path.Combine(_file.Directory.FullName, DataName)))
-                using (var reader = new StreamReader(Path.Combine(_file.Directory.FullName, DataName)))
+            if (dirExists && File.Exists(Path.Combine(directory, DataName)))
+                using (var reader = new StreamReader(Path.Combine(directory, DataName)))
                     DataText += reader.ReadToEnd();
 
                     RawText = SourceText + DataText;	
@@ -205,7 +208,7 @@ namespace miRobotEditor.Languages
             get { return String.Concat(RobotType.ToString(), "Snippets.xml"); }
         }
 
-        internal FileInfo _file { get; set; }
+        internal string Filename { get; set; }
 
         protected string ConfigFilePath
         {
@@ -256,26 +259,24 @@ namespace miRobotEditor.Languages
         	Match m = rgx.Match(text);
 			if (m.Success)
 			{
-				return  m.Groups[1].ToString() + m.Groups[3].ToString();
+				return  m.Groups[1] + m.Groups[3].ToString();
 			}
 			return text;			
         }
         
         public virtual int CommentOffset(string text)
         {
-        // Create Result Regex
-        	Regex rgx=new Regex(@"(^[\s]+)");
-        		
-        	if (rgx!=null)
-        	{
-        		Match m = rgx.Match(text);
-        			if (m.Success)
-        				return m.Groups[1].Length;
-        				//return m.Groups[1].ToString()+ m.Groups[2].ToString();
-        	}			
-					
-        	
-        	return 0;
+        //TODO Create Result Regex
+        	var rgx=new Regex(@"(^[\s]+)");
+            {
+                var m = rgx.Match(text);
+                if (m.Success)
+                    return m.Groups[1].Length;
+                //return m.Groups[1].ToString()+ m.Groups[2].ToString();
+            }
+
+
+            return 0;
         }
 
 
@@ -440,7 +441,6 @@ namespace miRobotEditor.Languages
 
         internal void PositionVariables(string source, string data)
         {
-            string regex = KUKA.PositionRegex;
             // Get Positions
         }
 
@@ -492,10 +492,9 @@ namespace miRobotEditor.Languages
             }
 
             // get divisible value for progress update
-            Double increment;
             Double prog = 0;
 
-            increment = (count > 0) ? 100/count : count;
+            double increment = (count > 0) ? 100/count : count;
 
             int i = 0;
             // doc.SuspendLayout();

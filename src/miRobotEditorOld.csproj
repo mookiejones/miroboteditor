@@ -148,6 +148,7 @@
     <Compile Include="Commands\EditorCommands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="GUI\AngleConverter\EnumToInt32Converter.cs" />
+    <Compile Include="GUI\DummyDoc\DummyDocViewModel.cs" />
     <Compile Include="GUI\ExplorerControl\ExplorerClass.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -273,7 +274,7 @@
       <DependentUpon>xmlReader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="GUI\AngleConverter\AngleConvertor.cs" />
+    <Compile Include="GUI\AngleConverter\AngleConverterViewModel.cs" />
     <Compile Include="GUI\AngleConverter\Math Library\Circle2D.cs" />
     <Compile Include="GUI\AngleConverter\Math Library\Circle3D.cs" />
     <Compile Include="GUI\AngleConverter\Math Library\Distance3D.cs" />
@@ -430,7 +431,6 @@
     <Compile Include="Languages\ShiftClass.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SingleInstance.cs" />
-    <Compile Include="Themes\TextEditor.cs" />
     <Compile Include="Tracking\Notes.cs" />
     <Page Include="Controls\CustomToolTip.xaml">
       <SubType>Designer</SubType>
@@ -537,6 +537,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ResourceDictionaries\LocalizedStrings\en-us.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Templates\VisualVariableItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -580,25 +584,11 @@
     <EmbeddedResource Include="GUI\ExplorerControl\FileExplorerControl.resx">
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <Resource Include="Images\_new.png" />
     <Resource Include="Images\folder_open.png" />
     <None Include="miRobotEditor.pfx" />
     <None Include="Snippets\KUKA.Snippet" />
-    <EmbeddedResource Include="Resources\comment.png" />
-    <EmbeddedResource Include="Resources\exit.png" />
-    <Resource Include="Resources\print_preview.png" />
-    <Resource Include="Resources\print.png" />
-    <Resource Include="Resources\line_numbers.png" />
-    <Resource Include="Resources\select_all.png" />
-    <Resource Include="Resources\redo.png" />
-    <EmbeddedResource Include="Resources\copy.png" />
-    <EmbeddedResource Include="Resources\cut.png" />
-    <Resource Include="Resources\paste.png" />
-    <Resource Include="Resources\save.png" />
-    <Resource Include="Resources\save_all.png" />
-    <Resource Include="Resources\new.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -622,7 +612,33 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\fileexplorer.png" />
+    <Resource Include="Tracking\todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\_new.png" />
+    <Resource Include="Resources\binoculars.png" />
+    <Resource Include="Resources\close.png" />
+    <Resource Include="Resources\Copy.png" />
+    <Resource Include="Resources\Cut.png" />
+    <Resource Include="Properties\Resources\Editor.ico" />
+    <Resource Include="Resources\error.png" />
+    <Resource Include="Resources\exit.png" />
+    <Resource Include="Resources\folder_open.png" />
+    <Resource Include="Resources\line_numbers.png" />
+    <Resource Include="Resources\new_edit_find_replace.png" />
+    <Resource Include="Resources\paste.png" />
+    <Resource Include="Resources\Print.png" />
+    <Resource Include="Resources\print_preview.png" />
+    <Resource Include="Resources\Redo.png" />
+    <Resource Include="Resources\Save.png" />
+    <Resource Include="Resources\save_all.png" />
+    <Resource Include="Resources\search.png" />
+    <Resource Include="Resources\select_all.png" />
     <Resource Include="Resources\vxenum_icon.png" />
+    <Resource Include="Resources\vxevent_icon.png" />
     <Resource Include="Resources\vxfield_icon.png" />
     <Resource Include="Resources\vxmethod_icon.png" />
     <Resource Include="Resources\vxmodule_icon.png" />
@@ -631,96 +647,28 @@
     </Resource>
     <Resource Include="Resources\vxstruct_icon.png" />
     <Resource Include="Resources\vxvaluetype_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Tracking\todo.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\close.png" />
-    <Resource Include="Resources\search.png" />
-    <Resource Include="Resources\new_edit_find_replace.png" />
-    <Resource Include="Resources\vxevent_icon.png" />
-    <Resource Include="Resources\Editor.ico" />
-    <EmbeddedResource Include="Resources\error.png" />
-    <EmbeddedResource Include="Resources\binoculars.png" />
-    <Resource Include="Properties\Resources\_new.png" />
-    <Resource Include="Properties\Resources\binoculars.png" />
-    <Resource Include="Properties\Resources\close.png" />
-    <Resource Include="Properties\Resources\Copy.png" />
-    <Resource Include="Properties\Resources\Cut.png" />
-    <Resource Include="Properties\Resources\Editor.ico" />
-    <Resource Include="Properties\Resources\error.png" />
-    <Resource Include="Properties\Resources\exit.png" />
-    <Resource Include="Properties\Resources\folder_open.png" />
-    <Resource Include="Properties\Resources\line_numbers.png" />
-    <Resource Include="Properties\Resources\new.png" />
-    <Resource Include="Properties\Resources\new_edit_find_replace.png" />
-    <Resource Include="Properties\Resources\paste.png" />
-    <Resource Include="Properties\Resources\Print.png" />
-    <Resource Include="Properties\Resources\print_preview.png" />
-    <Resource Include="Properties\Resources\Redo.png" />
-    <Resource Include="Properties\Resources\Save.png" />
-    <Resource Include="Properties\Resources\save_all.png" />
-    <Resource Include="Properties\Resources\search.png" />
-    <Resource Include="Properties\Resources\select_all.png" />
-    <Resource Include="Properties\Resources\vxenum_icon.png" />
-    <Resource Include="Properties\Resources\vxevent_icon.png" />
-    <Resource Include="Properties\Resources\vxfield_icon.png" />
-    <Resource Include="Properties\Resources\vxmethod_icon.png" />
-    <Resource Include="Properties\Resources\vxmodule_icon.png" />
-    <Resource Include="Properties\Resources\vxproperty_icon.png">
-      <DependentUpon>vxmodule_icon.png</DependentUpon>
-    </Resource>
-    <Resource Include="Properties\Resources\vxstruct_icon.png" />
-    <Resource Include="Properties\Resources\vxvaluetype_icon.png" />
-    <EmbeddedResource Include="Resources\editdelete.png" />
-    <Resource Include="Resources\folder.png" />
-    <Resource Include="Resources\refresh_yellow.png" />
-    <EmbeddedResource Include="Resources\collapsefolds.png" />
-    <EmbeddedResource Include="Resources\decreaseIndent.png" />
     <Resource Include="Resources\expandfolds.png" />
-    <Resource Include="Resources\increaseindent.png" />
-    <Resource Include="Resources\lineendings.png" />
-    <Resource Include="Resources\togglefolding.png" />
-    <Resource Include="Resources\showspaces.png" />
-    <Resource Include="Properties\Resources\expandfolds.png" />
-    <Resource Include="Images\DockAnchorableBottom.png" />
-    <Resource Include="Images\DockAnchorableLeft.png" />
-    <Resource Include="Images\DockAnchorableRight.png" />
-    <Resource Include="Images\DockAnchorableTop.png" />
-    <Resource Include="Images\DockDocumentAsAnchorableBottom.png" />
-    <Resource Include="Images\DockDocumentAsAnchorableLeft.png" />
-    <Resource Include="Images\DockDocumentAsAnchorableRight.png" />
-    <Resource Include="Images\DockDocumentAsAnchorableTop.png" />
-    <Resource Include="Images\DockDocumentBottom.png" />
-    <Resource Include="Images\DockDocumentInside.png" />
-    <Resource Include="Images\DockDocumentLeft.png" />
-    <Resource Include="Images\DockDocumentRight.png" />
-    <Resource Include="Images\DockDocumentTop.png" />
-    <Resource Include="Images\DockPaneEmpty.png" />
-    <Resource Include="Images\DockPaneLargeEmpty.png" />
     <Resource Include="Images\HTabGroup.png" />
     <Resource Include="Images\Locked.png" />
-    <Resource Include="Images\PinAutoHide.png" />
-    <Resource Include="Images\PinAutoHide_Black.png" />
-    <Resource Include="Images\PinAutoHide_Dark.png" />
-    <Resource Include="Images\PinClose.png" />
-    <Resource Include="Images\PinClose_Black.png" />
-    <Resource Include="Images\PinClose_Dark.png" />
-    <Resource Include="Images\PinDocMenu.png" />
-    <Resource Include="Images\PinDocMenu_Black.png" />
-    <Resource Include="Images\PinDocMenu_Dark.png" />
-    <Resource Include="Images\PinMaximize.png" />
-    <Resource Include="Images\PinMaximize_Black.png" />
-    <Resource Include="Images\PinMaximize_Dark.png" />
-    <Resource Include="Images\PinMenu.png" />
-    <Resource Include="Images\PinMenu_Black.png" />
-    <Resource Include="Images\PinMenu_Dark.png" />
-    <Resource Include="Images\PinRestore.png" />
-    <Resource Include="Images\PinRestore_Black.png" />
-    <Resource Include="Images\PinRestore_Dark.png" />
-    <Resource Include="Images\VTabGroup.png" />
     <None Include="Images\editor.ico" />
+    <Resource Include="Resources\objectbrowser.png" />
+    <Resource Include="Resources\newfile.png" />
+    <Resource Include="Resources\stock_notes.png" />
+    <Resource Include="Resources\decreaseIndent.png" />
+    <Resource Include="Resources\editdelete.png" />
+    <Resource Include="Resources\folder.png" />
+    <Resource Include="Resources\increaseindent.png" />
+    <Resource Include="Resources\lineendings.png" />
+    <Resource Include="Resources\showspaces.png" />
+    <Resource Include="Resources\togglefolding.png" />
+    <Resource Include="Resources\desktop.png" />
+    <Resource Include="Resources\splash.png" />
+    <Resource Include="Resources\collapsefolds.png" />
+    <Resource Include="Resources\comment.png" />
+    <Resource Include="Resources\refresh_yellow.png" />
+    <Resource Include="Resources\spsfile.png" />
+    <Resource Include="Resources\srcfile.png" />
+    <Resource Include="Resources\vxXYZ_icon.png" />
     <Content Include="Tracking\Changes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

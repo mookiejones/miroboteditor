@@ -1,38 +1,37 @@
 ﻿using System;
-using System.Windows;
 
 namespace miRobotEditor.Forms
 {
     /// <summary>
     /// Interaction logic for frmSystemFunctions.xaml
     /// </summary>
-    public partial class frmSystemFunctions : Window,IDisposable
+    public partial class FrmSystemFunctions : IDisposable
     {
-        public frmSystemFunctions()
+        public FrmSystemFunctions()
         {
             InitializeComponent();
         }
 
         public bool Structures
         {
-            get { return (bool)ckStructures.IsChecked; }
+            get { return ckStructures.IsChecked != null && (bool)ckStructures.IsChecked; }
         }
         public bool Variables
         {
-            get { return (bool)ckVariables.IsChecked; }
+            get { return ckVariables.IsChecked != null && (bool)ckVariables.IsChecked; }
         }
         public bool Programs
         {
-            get { return (bool)ckPrograms.IsChecked; }
+            get { return ckPrograms.IsChecked != null && (bool)ckPrograms.IsChecked; }
         }
         public bool Functions
         {
-            get { return (bool)ckFunctions.IsChecked; }
+            get { return ckFunctions.IsChecked != null && (bool)ckFunctions.IsChecked; }
         }
 
-        public void Dispose()
+        void IDisposable.Dispose()
         {
-            Dispose();
+            ((IDisposable) this).Dispose();
         }
     }
 }

@@ -8,7 +8,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-namespace miRobotEditor.GUI.Editor
+namespace miRobotEditor.GUI
 {
 	/// <summary>
 	/// A document representing a source code file for refactoring.

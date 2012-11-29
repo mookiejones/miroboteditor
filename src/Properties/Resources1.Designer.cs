@@ -22,7 +22,7 @@ namespace miRobotEditor.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace miRobotEditor.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("miRobotEditor.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace miRobotEditor.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,264 +60,146 @@ namespace miRobotEditor.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap _new {
-            get {
-                object obj = ResourceManager.GetObject("_new", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to {0}ms to parse shift.
         /// </summary>
-        internal static string AbstractRobotClass_ShiftProgram__0_ms_to_parse_shift {
+        public static string AbstractRobotClass_ShiftProgram__0_ms_to_parse_shift {
             get {
                 return ResourceManager.GetString("AbstractRobotClass_ShiftProgram__0_ms_to_parse_shift", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap binoculars {
+        /// <summary>
+        ///   Looks up a localized string similar to _Cancel.
+        /// </summary>
+        public static string Cancel {
             get {
-                object obj = ResourceManager.GetObject("binoculars", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap close {
-            get {
-                object obj = ResourceManager.GetObject("close", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap collapsefolds {
-            get {
-                object obj = ResourceManager.GetObject("collapsefolds", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap decreaseIndent {
-            get {
-                object obj = ResourceManager.GetObject("decreaseIndent", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to https://sites.google.com/site/dmcautomation/home/software/dmc-robot-editor.
         /// </summary>
-        internal static string DownloadsPage {
+        public static string DownloadsPage {
             get {
                 return ResourceManager.GetString("DownloadsPage", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap editdelete {
-            get {
-                object obj = ResourceManager.GetObject("editdelete", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Icon editor {
+        public static System.Drawing.Icon editor {
             get {
                 object obj = ResourceManager.GetObject("editor", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap error {
+        /// <summary>
+        ///   Looks up a localized string similar to Find _All.
+        /// </summary>
+        public static string FindAll {
             get {
-                object obj = ResourceManager.GetObject("error", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("FindAll", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap expandfolds {
+        /// <summary>
+        ///   Looks up a localized string similar to Find _Next.
+        /// </summary>
+        public static string FindNext {
             get {
-                object obj = ResourceManager.GetObject("expandfolds", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("FindNext", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap folder {
+        /// <summary>
+        ///   Looks up a localized string similar to Find _Previous.
+        /// </summary>
+        public static string FindPrevious {
             get {
-                object obj = ResourceManager.GetObject("folder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("FindPrevious", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap folder_open {
+        /// <summary>
+        ///   Looks up a localized string similar to Find What:.
+        /// </summary>
+        public static string FindWhat {
             get {
-                object obj = ResourceManager.GetObject("folder_open", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap increaseindent {
-            get {
-                object obj = ResourceManager.GetObject("increaseindent", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("FindWhat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to KUKA vxWorks File (*.rt)|*.rt.
         /// </summary>
-        internal static string KUKA_SystemFileName_KUKA_VxWorks_File__vxWorks_rt_VxWorks_Debug__vxWorks_rt_vxWorks_debug {
+        public static string KUKA_SystemFileName_KUKA_VxWorks_File__vxWorks_rt_VxWorks_Debug__vxWorks_rt_vxWorks_debug {
             get {
                 return ResourceManager.GetString("KUKA_SystemFileName_KUKA_VxWorks_File__vxWorks_rt_VxWorks_Debug__vxWorks_rt_vxWor" +
                         "ks_debug", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap lineendings {
+        /// <summary>
+        ///   Looks up a localized string similar to Match case.
+        /// </summary>
+        public static string MatchCase {
             get {
-                object obj = ResourceManager.GetObject("lineendings", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("MatchCase", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap new_edit_find_replace {
+        /// <summary>
+        ///   Looks up a localized string similar to Match whole word.
+        /// </summary>
+        public static string MatchWholeWord {
             get {
-                object obj = ResourceManager.GetObject("new_edit_find_replace", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("MatchWholeWord", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap redo {
+        /// <summary>
+        ///   Looks up a localized string similar to _Replace.
+        /// </summary>
+        public static string Replace {
             get {
-                object obj = ResourceManager.GetObject("redo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("Replace", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap refresh_yellow {
+        /// <summary>
+        ///   Looks up a localized string similar to Replace A_ll.
+        /// </summary>
+        public static string ReplaceAll {
             get {
-                object obj = ResourceManager.GetObject("refresh_yellow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ReplaceAll", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap save {
+        /// <summary>
+        ///   Looks up a localized string similar to Replace With:.
+        /// </summary>
+        public static string ReplaceWith {
             get {
-                object obj = ResourceManager.GetObject("save", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ReplaceWith", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap save_all {
+        /// <summary>
+        ///   Looks up a localized string similar to Use Regular Expressions.
+        /// </summary>
+        public static string UseRegularExpressions {
             get {
-                object obj = ResourceManager.GetObject("save_all", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap search {
-            get {
-                object obj = ResourceManager.GetObject("search", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap select_all {
-            get {
-                object obj = ResourceManager.GetObject("select_all", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap showspaces {
-            get {
-                object obj = ResourceManager.GetObject("showspaces", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap togglefolding {
-            get {
-                object obj = ResourceManager.GetObject("togglefolding", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap vxconstant_icon {
-            get {
-                object obj = ResourceManager.GetObject("vxconstant_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap vxenum_icon {
-            get {
-                object obj = ResourceManager.GetObject("vxenum_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap vxevent_icon {
-            get {
-                object obj = ResourceManager.GetObject("vxevent_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap vxfield_icon {
-            get {
-                object obj = ResourceManager.GetObject("vxfield_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap vxmethod_icon {
-            get {
-                object obj = ResourceManager.GetObject("vxmethod_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap vxmodule_icon {
-            get {
-                object obj = ResourceManager.GetObject("vxmodule_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap vxproperty_icon {
-            get {
-                object obj = ResourceManager.GetObject("vxproperty_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap vxstruct_icon {
-            get {
-                object obj = ResourceManager.GetObject("vxstruct_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap vxvaluetype_icon {
-            get {
-                object obj = ResourceManager.GetObject("vxvaluetype_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("UseRegularExpressions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to www.DMCEngineering.com.
         /// </summary>
-        internal static string Website {
+        public static string Website {
             get {
                 return ResourceManager.GetString("Website", resourceCulture);
-            }
-        }
-        
-        internal static System.Drawing.Bitmap zip {
-            get {
-                object obj = ResourceManager.GetObject("zip", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

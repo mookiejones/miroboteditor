@@ -26,9 +26,9 @@ namespace miRobotEditor.Languages
             get { return new List<string> { "*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd" }; }
         }
 
-        public VBA(FileInfo file)
-        {
-            _file = file;
+        //TODO Need to test this
+        public VBA(string file):base(file)
+        {           
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
@@ -145,9 +145,9 @@ namespace miRobotEditor.Languages
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
 
-        public override FileModel GetFile(FileInfo file)
+        public override FileModel GetFile(string filename)
         {
-            return new FileModel {File=file};
+            return new FileModel { FileName = filename };
         }
     }
     }

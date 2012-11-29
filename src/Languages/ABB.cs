@@ -22,7 +22,7 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        public ABB(FileInfo file) : base(file)
+        public ABB(string file) : base(file)
         {
             FoldingStrategy = new RegionFoldingStrategy();
         }
@@ -173,13 +173,13 @@ namespace miRobotEditor.Languages
             return doc.GetText(start, end);
         }
 
-        public override FileModel GetFile(FileInfo file)
+        public override FileModel GetFile(string filename)
         {
-            switch (file.Extension)
+            switch (Path.GetExtension(filename))
             {
                 case ".prg":
                 case ".mod":
-                    return new FileModel {File = file};
+                    return new FileModel {FileName = filename};
             }
             return null;
         }
