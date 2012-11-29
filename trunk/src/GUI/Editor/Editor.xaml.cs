@@ -143,7 +143,7 @@ namespace miRobotEditor.GUI.Editor
         {
            
             Parent = null;
-            InitializeComponent();
+        //    InitializeComponent();
             RegisterSyntaxHighlighting();
 
             iconBarMargin = new IconBarMargin(iconBarManager = new IconBarManager());
