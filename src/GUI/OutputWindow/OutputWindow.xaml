@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Classes="clr-namespace:miRobotEditor.Classes"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
-    <DataGrid x:Name="dataGrid" ItemsSource="{Binding Messages, Source={StaticResource OutputMessages}}" AutoGenerateColumns="False"  ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}">
+    <UserControl.DataContext>
+        <Classes:OutputMessages />
+    </UserControl.DataContext>
+    <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=Messages}" AutoGenerateColumns="False"  ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}">
         <DataGrid.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="_Clear Items" Click="ClearItems">
