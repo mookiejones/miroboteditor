@@ -12,8 +12,8 @@ namespace miRobotEditor.Converters
 
             switch ((AngleConvertor.CartesianEnum)value)
             {
-                case AngleConvertor.CartesianEnum.ABB_Quaternion:
-                case AngleConvertor.CartesianEnum.Axis_Angle:
+                case AngleConvertor.CartesianEnum.AbbQuaternion:
+                case AngleConvertor.CartesianEnum.AxisAngle:
                     return "25*";
                 default:
                     return "33*";
