@@ -10,14 +10,32 @@
 		<ctrl:ObjectBrowserModel/>
 	</UserControl.DataContext>
     <Grid>
-        <TabControl IsVisibleChanged="VisibilityChanged">
-            <TabItem  Header="Functions">
+        <TabControl IsVisibleChanged="VisibilityChanged">        
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\..\Resources\vxmethod_icon.png"/>
+                        <TextBlock Text="Functions" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Templates:VisualVariableItem ItemsSource="{Binding Functions}"/>          
             </TabItem>            
-            <TabItem  Header="Fields" >
+            <TabItem   >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\..\Resources\vxfield_icon.png"/>
+                        <TextBlock Text="Fields" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Templates:VisualVariableItem ItemsSource="{Binding Fields}"/>
             </TabItem>
-            <TabItem Header="Files" >
+            <TabItem  >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\..\Resources\fileexplorer.png"/>
+                        <TextBlock Text="Files" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <DataGrid ItemsSource="{Binding Files}"  AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
@@ -58,7 +76,13 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem  Header="Positions" >
+            <TabItem >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\..\Resources\fileexplorer.png"/>
+                        <TextBlock Text="Positions" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Templates:VisualVariableItem ItemsSource="{Binding Positions}"/>
             </TabItem>
             <TabItem Header="Grouped" >
