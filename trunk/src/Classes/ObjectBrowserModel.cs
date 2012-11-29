@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using miRobotEditor.Controls;
+using miRobotEditor.GUI;
 
 namespace miRobotEditor.Classes
 {
@@ -11,8 +11,8 @@ namespace miRobotEditor.Classes
     	private static ObjectBrowserModel _instance;
     	public static ObjectBrowserModel Instance
     	{
-    		get{if (_instance==null)_instance=new ObjectBrowserModel();return _instance;}
-    		set{_instance=value;}
+    		get { return _instance ?? (_instance = new ObjectBrowserModel()); }
+    	    set{_instance=value;}
     	}
     	
         #region Members
@@ -71,23 +71,23 @@ namespace miRobotEditor.Classes
         //
         public List<IVariable> GetVarForFile(string filename)
         {
-        	List<IVariable> result = new List<IVariable>();
-        	 var Robot = DummyDoc.Instance.FileLanguage;
+        	var result = new List<IVariable>();
+        	 var language = DummyDoc.Instance.FileLanguage;
         	 
         //	result.AddRange(VariableBase.GetVariables(filename, Robot.MethodRegex, Global.imgMethod));
-            result.AddRange(VariableBase.GetVariables(filename, Robot.XYZRegex, Global.imgXYZ));
-            result.AddRange(VariableBase.GetVariables(filename, Robot.FieldRegex, Global.imgField));
+            result.AddRange(VariableBase.GetVariables(filename, language.XYZRegex, Global.ImgXyz));
+            result.AddRange(VariableBase.GetVariables(filename, language.FieldRegex, Global.ImgField));
             
             return result;
         }
 
         private void GetVariables(string filename)
         {
-            var Robot = DummyDoc.Instance.FileLanguage;
+            var language = DummyDoc.Instance.FileLanguage;
 
-            Functions.AddRange(VariableBase.GetVariables(filename, Robot.MethodRegex, Global.imgMethod));
-            Positions.AddRange(VariableBase.GetVariables(filename, Robot.XYZRegex, Global.imgXYZ));
-            Fields.AddRange(VariableBase.GetVariables(filename, Robot.FieldRegex, Global.imgField));
+            Functions.AddRange(VariableBase.GetVariables(filename, language.MethodRegex, Global.ImgMethod));
+            Positions.AddRange(VariableBase.GetVariables(filename, language.XYZRegex, Global.ImgXyz));
+            Fields.AddRange(VariableBase.GetVariables(filename, language.FieldRegex, Global.ImgField));
         }
 
         //TODO Move this to FileLanguage Classes along with variables
@@ -98,8 +98,7 @@ namespace miRobotEditor.Classes
                 {
                     foreach (string f in Directory.GetFiles(d))
                     {
-                        var info = new FileInfo(f);
-                        var backup = DummyDoc.Instance.FileLanguage.GetFile(info);
+                        var backup = DummyDoc.Instance.FileLanguage.GetFile(f);
                         if (backup != null)
                         {
                             GetVariables(f);

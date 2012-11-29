@@ -14,7 +14,7 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 
 
-namespace miRobotEditor.GUI.Editor
+namespace miRobotEditor.GUI
 {
 	public class BracketHighlightRenderer : IBackgroundRenderer
 	{

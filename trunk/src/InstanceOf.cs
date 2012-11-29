@@ -1,5 +1,5 @@
 ﻿using miRobotEditor.Controls;
-using miRobotEditor.GUI.Editor;
+using miRobotEditor.GUI;
 
 namespace miRobotEditor
 {

@@ -14,9 +14,9 @@ namespace miRobotEditor.Languages
     [Localizable(false)]
     public class Kawasaki : AbstractLanguageClass
     {
-        public Kawasaki(FileInfo file)
+        public Kawasaki(string file)
         {
-            _file = file;
+            Filename = file;
             FoldingStrategy = new RegionFoldingStrategy();
         }
         public Kawasaki()
@@ -144,9 +144,9 @@ namespace miRobotEditor.Languages
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
 
 
-        public override FileModel GetFile(FileInfo file)
+        public override FileModel GetFile(string filename)
         {
-            return new FileModel {File=file};
+            return new FileModel { FileName = filename };
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window xmlns:output="clr-namespace:miRobotEditor.GUI.OutputWindow"  xmlns:explorer="clr-namespace:miRobotEditor.GUI.ExplorerControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ad="http://avalondock.codeplex.com" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:fct="clr-namespace:miRobotEditor.GUI.FunctionWindow" xmlns:obj="clr-namespace:miRobotEditor.GUI.ObjectBrowser" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:ctrl="clr-namespace:miRobotEditor.Controls" xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter" xmlns:Editor="clr-namespace:miRobotEditor.GUI.Editor"
+<Window xmlns:output="clr-namespace:miRobotEditor.GUI.OutputWindow"  xmlns:explorer="clr-namespace:miRobotEditor.GUI.ExplorerControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ad="http://avalondock.codeplex.com" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:fct="clr-namespace:miRobotEditor.GUI.FunctionWindow" xmlns:obj="clr-namespace:miRobotEditor.GUI.ObjectBrowser" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:ctrl="clr-namespace:miRobotEditor.Controls" xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter" xmlns:GUI="clr-namespace:miRobotEditor.GUI"
 	mc:Ignorable="d"
 	x:Class="miRobotEditor.MainWindow"
 	WindowState="Maximized"
@@ -12,7 +12,7 @@
 	Drop="DropFiles"
 	DragEnter="onDragEnter"
 	PreviewKeyUp="ManageKeys">
-	<Window.Resources>
+	<Window.Resources>        
 		<RoutedCommand
 			x:Key="ImportCommand" />
 		<RoutedCommand
@@ -94,15 +94,9 @@
 									Value="0.30" />
 							</DataTrigger>
 						</Style.Triggers>
-					</Style>
-					<Style x:Key="ThemeMenuItemStyle" TargetType="MenuItem">
-			           <Setter Property="Header" Value="{Binding Name}"></Setter>
-			           <Setter Property="Command" Value="{Binding ActivateCommand}"/>
-			           <Setter Property="IsChecked" Value="{Binding IsActive}" />
-			           <Setter Property="IsCheckable" Value="True"/>
-					</Style>
+					</Style>					
 				</Menu.Resources>
-				<MenuItem
+				<MenuItem 
 					x:Name="mnuFile"
 					Header="_File">
 					<MenuItem
@@ -110,18 +104,16 @@
 						Header="_New"
 						Click="AddNewFile">
 						<MenuItem.Icon>
-							<Image
-								Source="{StaticResource new_file}" />
-						</MenuItem.Icon>
-					</MenuItem>
+                            <Image Source="Resources/newfile.png" />                            
+                        </MenuItem.Icon>
+					</MenuItem>                   
 					<MenuItem
 						x:Name="mnuOpen"
 						Header="_Open"
 						CommandTarget="{Binding ElementName=_activeEditor.TextBox}"
 						Click="OpenFile">
 						<MenuItem.Icon>
-							<Image
-								Source="{StaticResource folder_open}" />
+							<Image Source="Resources\folder_open.png" />
 						</MenuItem.Icon>
 					</MenuItem>
 					<MenuItem
@@ -131,7 +123,7 @@
 						Command="ApplicationCommands.Save">
 						<MenuItem.Icon>
 							<Image
-								Source="{StaticResource save}" />
+								Source="Resources\Save.png" />
 						</MenuItem.Icon>
 					</MenuItem>
 					<MenuItem
@@ -149,7 +141,7 @@
 						x:Name="mnuReloadFile"
 						Header="Reload"
 						CommandTarget="{Binding ElementName=_activeEditor}"
-						Command="{Binding ctrl:DummyDoc.Reload}" />
+						Command="{Binding GUI:DummyDoc.Reload}" />
 					<Separator />
 					<MenuItem
 						x:Name="mnuImport"
@@ -218,8 +210,7 @@
 						CommandTarget="{Binding ElementName=_activeEditor.TextBox}"
 						Command="ApplicationCommands.Redo">
 						<MenuItem.Icon>
-							<Image
-								Source="{DynamicResource redo}" />
+							<Image Source="{DynamicResource redo}" />
 						</MenuItem.Icon>
 					</MenuItem>
 					<Separator />
@@ -286,7 +277,7 @@
 						<MenuItem
 							Header="View Whitespace"
 							IsCheckable="True"
-							IsChecked="{Binding ShowSpaces, Source={StaticResource options}}" />
+							IsChecked="{Binding ShowSpaces, Source={StaticResource TextOptions}}" />
 						<MenuItem
 							Header="Wordwrap"
 							IsChecked="{Binding WordWrap, ElementName=_activeEditor.TextBox}" />
@@ -381,23 +372,23 @@
 						Header="Folding">
 						<MenuItem
 							Header="_Open All Folds"
-							Command="Editor:Editor.OpenAllFolds"
+							Command="GUI:Editor.OpenAllFolds"
 							CommandTarget="{Binding ElementName=_activeEditor.TextBox}" />
 						<MenuItem
 							Header="_Close All Folds"
-							Command="Editor:Editor.CloseAllFolds"
+							Command="GUI:Editor.CloseAllFolds"
 							CommandTarget="{Binding ElementName=_activeEditor.TextBox}" />
 						<MenuItem
 							Header="Toggle Current Fold"
-							Command="Editor:Editor.ToggleFolding"
+							Command="GUI:Editor.ToggleFolding"
 							CommandTarget="{Binding ElementName=_activeEditor.TextBox}" />
 						<MenuItem
 							Header="Toggle All Folds"
-							Command="Editor:Editor.ToggleAllFolding"
+							Command="GUI:Editor.ToggleAllFolding"
 							CommandTarget="{Binding ElementName=_activeEditor.TextBox}" />
 						<MenuItem
 							Header="Show Definitions Only"
-							Command="Editor:Editor.ShowDefinitions"
+							Command="GUI:Editor.ShowDefinitions"
 							CommandTarget="{Binding ElementName=_activeEditor.TextBox}" />
 					</MenuItem>
 				</MenuItem>
@@ -407,15 +398,15 @@
 					<MenuItem
 						Header="View Whitespace"
 						IsCheckable="true"
-						IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True,  Source={StaticResource options}}" />
+						IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True,  Source={StaticResource TextOptions}}" />
 					<MenuItem
 						Header="View EOL"
 						IsCheckable="true"
-						IsChecked="{Binding ShowEndOfLine, Source={StaticResource options}}" />
+						IsChecked="{Binding ShowEndOfLine, Source={StaticResource TextOptions}}" />
 					<MenuItem
 						Header="View Tabs"
 						IsCheckable="true"
-						IsChecked="{Binding ShowTabs, Source={StaticResource options}}" />
+						IsChecked="{Binding ShowTabs, Source={StaticResource TextOptions}}" />
 					<MenuItem
 						Header="Wordwrap"
 						Command="{Binding WordWrap, ElementName=_activeEditor.TextBox}"
@@ -607,37 +598,37 @@
 						ToolTip="Formatting Options">
 						<ToggleButton
 							ToolTip="Show Folds"
-							IsChecked="{Binding EnableFolding, Source={StaticResource options}}">
+							IsChecked="{Binding EnableFolding, Source={StaticResource TextOptions}}">
 							<Image
-								Source="{DynamicResource showfolds}" />
+								Source="Resources\togglefolding.png" />
 						</ToggleButton>
 						<Button
 							ToolTip="Expand Folds"
 							CommandTarget="{Binding ElementName=_activeEditor.TextBox}"
-							Command="Editor:Editor.OpenAllFolds">
+							Command="GUI:Editor.OpenAllFolds">
 							<Image
-								Source="{DynamicResource expandfolds}" />
+								Source="Resources\expandfolds.png" />
 						</Button>
 						<Button
 							ToolTip="Collapse Folds"
 							CommandTarget="{Binding ElementName=_activeEditor.TextBox}"
-							Command="Editor:Editor.CloseAllFolds">
+							Command="GUI:Editor.CloseAllFolds">
 							<Image
-								Source="{DynamicResource collapsefolds}" />
+								Source="Resources\collapsefolds.png" />
 						</Button>
 						<Button
 							ToolTip="Decrease Indent"
 							CommandTarget="{Binding ElementName=_activeEditor.TextBox}"
-							Command="Editor:Editor.DecreaseIndent">
+							Command="GUI:Editor.DecreaseIndent">
 							<Image
-								Source="{DynamicResource decreaseindent}" />
+								Source="Resources\decreaseindent.png" />
 						</Button>
 						<Button
 							ToolTip="Increase Indent"
 							CommandTarget="{Binding ElementName=_activeEditor.TextBox}"
-							Command="Editor:Editor.IncreaseIndent">
+							Command="GUI:Editor.IncreaseIndent">
 							<Image
-								Source="{DynamicResource increaseindent}" />
+								Source="Resources\increaseindent.png" />
 						</Button>
 					</ToolBar>
 				</ToolBarTray>
@@ -664,9 +655,13 @@
 						</ad:LayoutAnchorablePaneGroup>
 						<ad:LayoutDocumentPaneGroup>
 							<ad:LayoutDocumentPane>
-								<ad:LayoutDocument
-									Title="InitDoc">
-									<ctrl:DummyDoc
+                                <ad:LayoutDocument
+									Title="InitDoc" >
+                                    <ad:LayoutDocument.IconSource>
+                                        <BitmapImage  UriSource="/miRobotEditor;component/Resources/vxmethod_icon.png"/>
+                                    </ad:LayoutDocument.IconSource>
+                                 
+									<GUI:DummyDoc
 										Width="Auto"
 										Height="Auto"
 										TextUpdated="UpdateFunctions" />
@@ -686,7 +681,7 @@
 								<ad:LayoutAnchorable
 									Title="Angle Converter"
 									CanAutoHide="True">
-									<AngleConverter:AngleConverterWPF
+									<AngleConverter:AngleConverterWpf
 										x:Name="_angleconverter"
 										VerticalAlignment="Top" />
 								</ad:LayoutAnchorable>
@@ -700,7 +695,7 @@
 								Title="Output Window"
 								CanAutoHide="True"
 								x:Name="OutputHandler"
-								IconSource="Properties/Resources/error.png">
+								IconSource="Resources\error.png">
 								<output:OutputWindow
 									x:Name="Output"
 									Width="Auto"
@@ -710,18 +705,20 @@
 								Title="Notes"
 								CanAutoHide="True"
 								CanClose="False"
-								IconSource="Resources/new.png">
+                                IconSource="Resources\stock_notes.png"
+								>                               
 								<ctrl:frmNotes
 									x:Name="notes"
 									Width="Auto"
 									Height="Auto" />
 							</ad:LayoutAnchorable>
+                            
 							<ad:LayoutAnchorable
 								Title="Object Browser"
 								x:Name="tabObjectBrowser"
 								CanAutoHide="True"
 								CanClose="False"
-								IconSource="Resources/new.png"
+								IconSource="Resources\objectbrowser.png"
 								IsVisible="False"
 								CanHide="True">
 								<obj:ObjectBrowserTool

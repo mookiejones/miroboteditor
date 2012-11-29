@@ -14,16 +14,15 @@ namespace miRobotEditor.Languages
     public class LanguageBase : AbstractLanguageClass
     {
     	public LanguageBase(){}
-    	public LanguageBase(FileInfo file):base(file)
-    	{
-    		_file = file;
+    	public LanguageBase(string file):base(file)
+    	{    		
     	}
 
 
-        
-        public override FileModel GetFile(FileInfo file)
+
+        public override FileModel GetFile(string filename)
         {
-            return new FileModel { File = file };
+            return new FileModel { FileName = filename };
         }
     	#region Properties
         /// <summary>
@@ -55,10 +54,10 @@ namespace miRobotEditor.Languages
         internal override string FoldTitle(FoldingSection section, ICSharpCode.AvalonEdit.Document.TextDocument doc)
         {
             if (doc == null) throw new ArgumentNullException("doc");
-            string[] s = Regex.Split(section.Title, "æ");
+            var s = Regex.Split(section.Title, "æ");
 
-            int start = section.StartOffset + s[0].Length;
-            int end = section.Length - (s[0].Length + s[1].Length);
+            var start = section.StartOffset + s[0].Length;
+            var end = section.Length - (s[0].Length + s[1].Length);
 
 
             return doc.GetText(start, end);

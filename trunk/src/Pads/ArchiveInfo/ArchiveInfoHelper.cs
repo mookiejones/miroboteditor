@@ -138,13 +138,13 @@ namespace miRobotEditor.Pads
                 if (File.Exists(IOFilename))
                 {
                     string connectionString = String.Format("{0}{1};", "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=", IOFilename);
-                    using (OleDbConnection c = new System.Data.OleDb.OleDbConnection(connectionString))
+                    using (var c = new OleDbConnection(connectionString))
                     {
 
                         c.Open();
-                        using (OleDbCommand command = new OleDbCommand(cmdText, c))
+                        using (var command = new OleDbCommand(cmdText, c))
                         {
-                            using (OleDbDataReader reader = command.ExecuteReader())
+                            using (var reader = command.ExecuteReader())
                             {
 
                                 string temp = string.Empty;

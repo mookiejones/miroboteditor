@@ -9,13 +9,13 @@ namespace miRobotEditor.GUI.AngleConverter
     {
         public object Convert(object value, Type targetType,  object parameter, CultureInfo culture)
         {
-            return (Int32)(AngleConvertor.CartesianEnum)value;           
+            return (Int32)(AngleConvertorViewModel.CartesianEnum)value;           
             // Do the conversion from bool to visibility
         }
 
         public object ConvertBack(object value, Type targetType,  object parameter, CultureInfo culture)
         {
-           return (AngleConvertor.CartesianEnum)Enum.Parse(typeof(AngleConvertor.CartesianEnum), ((Int32)value).ToString());            
+           return (AngleConvertorViewModel.CartesianEnum)Enum.Parse(typeof(AngleConvertorViewModel.CartesianEnum), ((Int32)value).ToString());            
         }
     }
 }

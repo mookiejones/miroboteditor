@@ -17,20 +17,20 @@ using miRobotEditor.Core;
 using Pen = System.Windows.Media.Pen;
 using System.Windows;
 
-namespace miRobotEditor
+namespace miRobotEditor.Interfaces
 {
     /// <summary>
     /// Icon bar: contains breakpoints and other icons.
     /// </summary>
     public class IconBarMargin : AbstractMargin, IDisposable
     {
-        readonly IBookmarkMargin manager;
+        readonly IBookmarkMargin _manager;
 
         public IconBarMargin(IBookmarkMargin manager)
         {
             if (manager == null)
                 throw new ArgumentNullException("manager");
-            this.manager = manager;
+            this._manager = manager;
         }
 
         #region OnTextViewChanged
@@ -41,13 +41,13 @@ namespace miRobotEditor
             if (oldTextView != null)
             {
                 oldTextView.VisualLinesChanged -= OnRedrawRequested;
-                manager.RedrawRequested -= OnRedrawRequested;
+                _manager.RedrawRequested -= OnRedrawRequested;
             }
             base.OnTextViewChanged(oldTextView, newTextView);
             if (newTextView != null)
             {
                 newTextView.VisualLinesChanged += OnRedrawRequested;
-                manager.RedrawRequested += OnRedrawRequested;
+                _manager.RedrawRequested += OnRedrawRequested;
             }
             InvalidateVisual();
         }
@@ -96,7 +96,7 @@ namespace miRobotEditor
             {
                 // create a dictionary line number => first bookmark
                 var bookmarkDict = new Dictionary<int, IBookmark>();
-                foreach (IBookmark bm in manager.Bookmarks)
+                foreach (IBookmark bm in _manager.Bookmarks)
                 {
                     int line = bm.LineNumber;
                     IBookmark existingBookmark;
@@ -161,7 +161,7 @@ namespace miRobotEditor
         IBookmark GetBookmarkFromLine(int line)
         {
             IBookmark result = null;
-            foreach (IBookmark bm in manager.Bookmarks)
+            foreach (IBookmark bm in _manager.Bookmarks)
             {
                 if (bm.LineNumber == line)
                 {

@@ -14,9 +14,8 @@ namespace miRobotEditor.Languages
     [Localizable(false)]
     public class Fanuc : AbstractLanguageClass
     {
-    	public Fanuc(FileInfo file):base(file)
-        {
-            _file = file;
+    	public Fanuc(string file):base(file)
+        {           
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
@@ -193,9 +192,9 @@ namespace miRobotEditor.Languages
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
-        public override FileModel GetFile(FileInfo file)
+        public override FileModel GetFile(string filename)
         {
-            return new FileModel { File = file };
+            return new FileModel { FileName = filename };
         }
     }
 }

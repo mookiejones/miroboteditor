@@ -10,6 +10,8 @@ using miRobotEditor.Classes;
 using System.Windows.Input;
 using miRobotEditor.Commands;
 using System.Collections.ObjectModel;
+using miRobotEditor.GUI;
+
 namespace miRobotEditor.Language_Specific
 {
 	
@@ -18,9 +20,9 @@ namespace miRobotEditor.Language_Specific
 	/// <summary>
 	/// Description of DatCleanHelper.
 	/// </summary>
-	public class DatCleanHelper:Classes.ViewModelBase
+	public class DatCleanHelper:ViewModelBase
 	{		
-		private string filename;
+		private readonly string _filename;
 		private System.Collections.Generic.List<IVariable> _listItems;
 		public System.Collections.Generic.List<IVariable> ListItems
 		{
@@ -34,7 +36,7 @@ namespace miRobotEditor.Language_Specific
 		private void getlistItems()
 		{			
 			var result = new System.Collections.Generic.List<IVariable>();
-			result.AddRange(Classes.ObjectBrowserModel.Instance.GetVarForFile(Languages.KUKA.GetDatFileName(filename)));
+			result.AddRange(Classes.ObjectBrowserModel.Instance.GetVarForFile(Languages.KUKA.GetDatFileName(_filename)));
 			
 			_listItems  = result;
 		}
@@ -190,7 +192,7 @@ namespace miRobotEditor.Language_Specific
 		public DatCleanHelper()
 		{
 			Instance=this;
-			filename=Controls.DummyDoc.Instance.File.FullName;
+			_filename=DummyDoc.Instance.FileName;
 		}
 		
 		

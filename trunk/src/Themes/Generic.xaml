@@ -3,13 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:miRobotEditor.Converters"
     xmlns:rkc="clr-namespace:miRobotEditor.Common.ResourceAccess"
-    xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:Options="clr-namespace:miRobotEditor.GUI">
+  >
 
     <rkc:ResourceKeyConverter x:Key="ResourceKeyConverter" />
     <converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
 	<BitmapImage x:Key="new_file" UriSource="/Resources\newfile.png"/>
-	<BitmapImage x:Key="folder_open" UriSource="/Images\folder_open.png"/>
-   
+	<BitmapImage x:Key="folder_open" UriSource="/Images\folder_open.png"/>   
     <BitmapImage x:Key="save_all" UriSource="/Resources\save_all.png"/>
     <BitmapImage x:Key="save" UriSource="/Resources\save.png"/>
     <BitmapImage x:Key="cut" UriSource="/Resources\cut.png"/>
@@ -32,15 +31,6 @@
     <BitmapImage x:Key="showspaces" UriSource="/Resources/showspaces.png"/>
     <BitmapImage x:Key="showeol" UriSource="/Resources/lineendings.png"/>
     <BitmapImage x:Key="increaseindent" UriSource="/Resources/increaseindent.png"/>
-    <BitmapImage x:Key="decreaseindent" UriSource="/Resources/decreaseIndent.png"/>
+    <BitmapImage x:Key="decreaseindent" UriSource="/Resources/decreaseIndent.png"/>  
     
-    <Options:TextEditorOptions x:Key="options"  
-                                ShowSpaces="True" 
-                                RequireControlModifierForHyperlinkClick="True"
-                                EnableRectangularSelection="True"
-                                EnableEmailHyperlinks="True"
-                                EnableHyperlinks="True"
-                                ShowTabs="True" 
-                                ShowEndOfLine="True" 
-                                ConvertTabsToSpaces="True"/>
 </ResourceDictionary>

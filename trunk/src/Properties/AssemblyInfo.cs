@@ -7,7 +7,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("miRobotEditor")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Editor For Industrial Robots")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DMC Automation")]
 [assembly: AssemblyProduct("DMC FileLanguage Editor")]

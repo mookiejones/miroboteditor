@@ -4,10 +4,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
-using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.Classes;
-using miRobotEditor.GUI.Editor;
+using miRobotEditor.GUI;
 using miRobotEditor.Properties;
 using ICSharpCode.AvalonEdit;
 using Microsoft.Win32;
@@ -26,7 +25,7 @@ namespace miRobotEditor.Languages
         /// Constructor
         /// </summary>
         /// <param name="file">Filename for opening</param>
-        public KUKA(System.IO.FileInfo file):base(file)
+        public KUKA(string file):base(file)
         {         
             FoldingStrategy = new RegionFoldingStrategy();
         }
@@ -219,7 +218,7 @@ namespace miRobotEditor.Languages
             {
 
                 var sb = new System.Text.StringBuilder();
-                using (var frm = new Forms.frmSystemFunctions())
+                using (var frm = new Forms.FrmSystemFunctions())
                 {
 
                     frm.ShowDialog();
@@ -241,9 +240,9 @@ namespace miRobotEditor.Languages
                            if (result == true)
                            {
 
-                               if (!File.Exists(ofd.FileName)) return null;
+                               if (!System.IO.File.Exists(ofd.FileName)) return null;
 
-                               File.Copy(ofd.FileName, "c:\\Temp.rt", true);
+                               System.IO.File.Copy(ofd.FileName, "c:\\Temp.rt", true);
                                _functionFile = "c:\\Temp.rt";
                                if (frm.Structures)
                                {
@@ -468,21 +467,21 @@ namespace miRobotEditor.Languages
         
         const RegexOptions ro = (int)RegexOptions.IgnoreCase+RegexOptions.Multiline;
 
-        public override FileModel GetFile(System.IO.FileInfo file)
+        public override FileModel GetFile(string filename)
         {
-            switch (file.Extension)
+            switch (Path.GetExtension(filename))
             {
                 case ".src":
                     GetInfo();
-                       return new FileModel {File = file, Icon = Utilities.LoadBitmap(Global.imgSRC)};
+                    return new FileModel { FileName = filename, Icon = Utilities.LoadBitmap(Global.ImgSrc) };
                 case ".dat":
                         GetInfo();
-                        return new FileModel {File = file, Icon = Utilities.LoadBitmap(Global.imgDAT)};
+                        return new FileModel { FileName = filename, Icon = Utilities.LoadBitmap(Global.ImgDat) };
                 case ".sub":
                 case ".sps":
                 case ".kfd":
                     GetInfo();
-                    return new FileModel {File = file, Icon = Utilities.LoadBitmap(Global.imgSPS)};
+                    return new FileModel { FileName = filename, Icon = Utilities.LoadBitmap(Global.ImgSps) };
             }
             return null;
         }
@@ -549,10 +548,10 @@ namespace miRobotEditor.Languages
         	string rootname = filename.Substring(0,filename.LastIndexOf('.'));
         	var result = new List<string>();
         	
-        	if (File.Exists(rootname + ".src"))
+        	if (System.IO.File.Exists(rootname + ".src"))
         		result.Add(rootname + ".src");
         	
-        	if (File.Exists(rootname + ".dat"))
+        	if (System.IO.File.Exists(rootname + ".dat"))
         		result.Add(rootname + ".dat");
         	
         	return result;

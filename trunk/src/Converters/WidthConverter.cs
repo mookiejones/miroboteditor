@@ -10,10 +10,10 @@ namespace miRobotEditor.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
 
-            switch ((AngleConvertor.CartesianEnum)value)
+            switch ((AngleConvertorViewModel.CartesianEnum)value)
             {
-                case AngleConvertor.CartesianEnum.AbbQuaternion:
-                case AngleConvertor.CartesianEnum.AxisAngle:
+                case AngleConvertorViewModel.CartesianEnum.AbbQuaternion:
+                case AngleConvertorViewModel.CartesianEnum.AxisAngle:
                     return "25*";
                 default:
                     return "33*";

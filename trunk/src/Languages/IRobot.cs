@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using miRobotEditor.Controls;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Folding;
+using miRobotEditor.GUI;
+
 namespace miRobotEditor.Languages
 {
     public interface IRobot

@@ -1,8 +1,10 @@
 ﻿<Application x:Class="miRobotEditor.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StartupUri="MainWindow.xaml"
-              DispatcherUnhandledException="APP_DispatcherUnhandledException"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:GUI="clr-namespace:miRobotEditor.GUI" StartupUri="MainWindow.xaml"
+              DispatcherUnhandledException="AppDispatcherUnhandledException"
              >
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Themes\Generic.xaml" />
@@ -13,9 +15,18 @@
                 <ResourceDictionary Source="Themes/StatusBar.xaml" />
                 <ResourceDictionary Source="Themes/Styles.xaml" />
         		<ResourceDictionary Source="Themes/MenuDictionary.xaml" />
-            </ResourceDictionary.MergedDictionaries>                       
+            </ResourceDictionary.MergedDictionaries>     
+            <GUI:TextEditorOptions  x:Key="TextOptions"  
+                                ShowSpaces="True" 
+                                RequireControlModifierForHyperlinkClick="True"
+                                EnableRectangularSelection="True"
+                                EnableEmailHyperlinks="True"
+                                EnableHyperlinks="True"
+                                ShowTabs="True" 
+                                ShowEndOfLine="True" 
+                                ConvertTabsToSpaces="True" EnableFolding="True" AllowScrollBelowDocument="False" />
         </ResourceDictionary>
-
+        
     </Application.Resources>
    
 </Application>

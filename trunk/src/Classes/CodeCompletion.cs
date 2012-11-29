@@ -4,6 +4,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using miRobotEditor.Controls;
+using miRobotEditor.GUI;
 
 namespace miRobotEditor.Classes
 {

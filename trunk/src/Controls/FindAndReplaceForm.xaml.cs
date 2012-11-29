@@ -1,5 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
+using miRobotEditor.Commands;
+using miRobotEditor.GUI;
 
 namespace miRobotEditor.Controls
 {
@@ -16,17 +19,99 @@ namespace miRobotEditor.Controls
         }
 
       
+        
+
+    }
+
+    public class FindReplaceViewModel : Classes.ViewModelBase
+    {
+
+        #region  Commands
+        private static RelayCommand _findpreviouscommand;
+        public static ICommand FindPreviousCommand
+        {
+            get {
+                return _findpreviouscommand ??
+                       (_findpreviouscommand = new RelayCommand(param => FindPrevious(), param => true));
+            }
+        }
+        private static RelayCommand _findnextcommand;
+        public static ICommand FindNextCommand
+        {
+            get { return _findnextcommand ?? (_findnextcommand = new RelayCommand(param => FindNext(), param => true)); }
+        }
+        private static RelayCommand _replacecommand;
+        public static ICommand ReplaceCommand
+        {
+            get {
+                return _replacecommand ??
+                       (_replacecommand = new RelayCommand(param => Instance.Replace(), param => true));
+            }
+        }
+        private static RelayCommand _replaceallcommand;
+        public static ICommand ReplaceAllCommand
+        {
+            get {
+                return _replaceallcommand ??
+                       (_replaceallcommand = new RelayCommand(param => Instance.ReplaceAll(), param => true));
+            }
+        }
+        private static RelayCommand _highlightallcommand;
+        public static ICommand HighlightAllCommand
+        {
+            get {
+                return _highlightallcommand ??
+                       (_highlightallcommand = new RelayCommand(param => Instance.HighlightAll(), param => true));
+            }
+        }
+        private static RelayCommand _findallcommand;
+        public static ICommand FindAllCommand
+        {
+            get {
+                return _findallcommand ??
+                       (_findallcommand = new RelayCommand(param => Instance.FindAll(), param => true));
+            }
+        }
+        #endregion
+
+        private static FindReplaceViewModel _instance;
+        public static FindReplaceViewModel Instance
+        {
+            get { return _instance ?? (_instance = new FindReplaceViewModel()); }
+            set { _instance = value; }
+        }
 
         #region Properties
-     
+
+
+        private bool _useregex;
+        public bool UseRegex
+        {
+            get { return _useregex; }
+            set { _useregex = value;OnPropertyChanged("UseRegex"); }
+        }
+        private bool _matchcase;
+
+        public bool MatchCase
+        {
+            get { return _matchcase; }
+            set { _matchcase = value; OnPropertyChanged("MatchCase"); }
+        }
+        private bool _matchwholeword;
+
+        public bool MatchWholeWord
+        {
+            get { return _matchwholeword; }
+            set { _matchwholeword = value; OnPropertyChanged("MatchWholeWord"); }
+        }
 
         public Regex RegexPattern
         {
             get
             {
-                var pattern = UseRegex.IsChecked == false ? Regex.Escape(LookFor) : LookFor;
-                int options = MatchCase.IsChecked == true? 0 :  1;
-                return new Regex(pattern,(RegexOptions)options);
+                var pattern = UseRegex == false ? Regex.Escape(LookFor) : LookFor;
+                int options = MatchCase ? 0 : 1;
+                return new Regex(pattern, (RegexOptions)options);
             }
         }
 
@@ -34,48 +119,64 @@ namespace miRobotEditor.Controls
         {
             get
             {
-                if (UseRegex.IsChecked == false)
+                if (UseRegex == false)
                     return Regex.Escape(LookFor);
                 return LookFor;
             }
         }
-        public string LookFor { get; set; }
-        public string ReplaceWith { get; set; }
-        public string SearchResult { get; set; }
+
+        private string _lookfor = string.Empty;
+
+        public string LookFor
+        {
+            get { return _lookfor; }
+            set
+            {
+                _lookfor = value;
+                OnPropertyChanged("LookFor");
+            }
+        }
+
+        private string _replacewith = string.Empty;
+        public string ReplaceWith
+        {
+            get { return _replacewith; }
+            set { _replacewith = value;OnPropertyChanged("ReplaceWith"); }
+        }
+
+        private string _searchresult = string.Empty;
+        public string SearchResult
+        {
+            get { return _searchresult; }
+            set { _searchresult = value;OnPropertyChanged("SearchResult"); }
+        }
         #endregion
 
-        public FindAndReplaceForm()
-        {
-            InitializeComponent();           
-            DataContext = this;
-        }
-        
-        private void FindPrevious(object sender, RoutedEventArgs e)
+        private static void FindPrevious()
         {
             throw new System.NotImplementedException();
         }
-        private void FindNext(object sender, RoutedEventArgs e)
+        private static void FindNext()
         {
-
             DummyDoc.Instance.TextBox.FindText();
         }
 
-        private void Replace(object sender, RoutedEventArgs e)
+        private void Replace()
         {
             DummyDoc.Instance.TextBox.ReplaceText();
         }
 
-        private void ReplaceAll(object sender, RoutedEventArgs e)
+        private void ReplaceAll()
         {
             throw new System.NotImplementedException();
         }
 
-        private void HighlightAll(object sender, RoutedEventArgs e)
+        private void HighlightAll()
         {
             throw new System.NotImplementedException();
         }
 
-        private void FindAll(object sender, RoutedEventArgs e)
+        private void FindAll()
         {
             throw new System.NotImplementedException();
         }

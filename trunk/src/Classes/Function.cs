@@ -9,7 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using miRobotEditor.Controls;
+using miRobotEditor.GUI;
 using Color = System.Windows.Media.Color;
 
 namespace miRobotEditor.Classes
@@ -30,7 +30,7 @@ namespace miRobotEditor.Classes
         {
 
             var result = new List<Function>();
-            BitmapImage icon = Utilities.LoadBitmap(Global.imgMethod);
+            BitmapImage icon = Utilities.LoadBitmap(Global.ImgMethod);
             var m = VariableHelper.FindMatches(DummyDoc.Instance.FileLanguage.MethodRegex, filename);
 
             while (m.Success)
@@ -60,7 +60,7 @@ namespace miRobotEditor.Classes
         /// <summary>
         /// XML Configuration File For Docking Manager
         /// </summary>
-        public const string dockConfig = "dockConfig.xml";
+        public const string DockConfig = "dockConfig.xml";
 
         /// <summary>
         /// Used to help prevent from freezing when network directory doesnt exist
@@ -81,6 +81,7 @@ namespace miRobotEditor.Classes
                 }
                 catch
                 {
+                    return false;
                 }
             }
             return false;
@@ -92,52 +93,53 @@ namespace miRobotEditor.Classes
         /// <summary>
         /// Log File
         /// </summary>
-        public const string logFile = "logFile.txt";
+        public const string LogFile = "logFile.txt";
+
 
         /// <summary>
         /// Constant Variable Image
         /// </summary>
-        public const string imgConst = @"C:\Programming\Images\programicons\vxconstant_icon.png";
+        public const string ImgConst = "..\\..\\Resources\\vxconstant_icon.png";
         /// <summary>
         /// Struct Variable Image
         /// </summary>
-        public const string imgStruct = @"C:\Programming\Images\programicons\vxstruct_icon.png";
+        public const string ImgStruct = "..\\..\\Resources\\vxstruct_icon.png";
         /// <summary>
         /// Method Variable Image
         /// </summary>
-        public const string imgMethod = @"C:\Programming\Images\programicons\vxmethod_icon.png";
+        public const string ImgMethod = "..\\..\\Resources\\vxmethod_icon.png";
         /// <summary>
         /// Enum Variable Image
         /// </summary>
-        public const string imgEnum = @"C:\Programming\Images\programicons\vxenum_icon.png";
+        public const string ImgEnum = "..\\..\\Resources\\vxenum_icon.png";
         /// <summary>
         /// Field Variable Image
         /// </summary>
-        public const string imgField = @"C:\Programming\Images\programicons\vxfield_icon.png";
+        public const string ImgField = "..\\..\\Resources\\vxfield_icon.png";
         /// <summary>
         /// Value Variable Image
         /// </summary>
-        public const string imgValue = @"C:\Programming\Images\programicons\vxvaluetype_icon.png";
+        public const string ImgValue = "..\\..\\Resources\\vxvaluetype_icon.png";
         /// <summary>
         /// Signal Variable Image
         /// </summary>
-        public const string imgSignal = @"C:\Programming\Images\programicons\vxevent_icon.png";
+        public const string ImgSignal = "..\\..\\Resources\\vxevent_icon.png";
         /// <summary>
         /// XYZ Position Variable Image
         /// </summary>
-        public const string imgXYZ = @"C:\Programming\Images\programicons\vxXYZ_icon.png";
+        public const string ImgXyz = "..\\..\\Resources\\vxXYZ_icon.png";
         /// <summary>
         /// Source File Image
         /// </summary>
-        public const string imgSRC = @"C:\Programming\Images\programicons\srcfile.png";
+        public const string ImgSrc = "..\\..\\Resources\\srcfile.png";
         /// <summary>
         /// Dat File Image
         /// </summary>
-        public const string imgDAT = @"C:\Programming\Images\programicons\datfile.png";
+        public const string ImgDat = "..\\..\\Resources\\datfile.png";
         /// <summary>
         /// SPS File Image
         /// </summary>
-        public const string imgSPS = @"C:\Programming\Images\programicons\spsfile.png";
+        public const string ImgSps = "..\\..\\Resources\\spsfile.png";
 
         /// <summary>
         /// Write To Log
@@ -145,7 +147,7 @@ namespace miRobotEditor.Classes
         /// <param name="message"></param>
         public static void WriteLog(string message)
         {
-            logWriter.WriteLog(message);
+            LogWriter.WriteLog(message);
         }
 
         /// <summary>
@@ -166,7 +168,7 @@ namespace miRobotEditor.Classes
         {
             Console.WriteLine(message);
             TraceWriter.Trace(message);
-            logWriter.WriteLog(message, showmessage ? Colors.Red : Colors.Gray);
+            LogWriter.WriteLog(message, showmessage ? Colors.Red : Colors.Gray);
 
             if (showmessage)
                 MessageBox.Show(message);
@@ -180,11 +182,11 @@ namespace miRobotEditor.Classes
         /// <summary>
         /// Write Trace Message
         /// </summary>
-        /// <param name="Message"></param>
+        /// <param name="message"></param>
         [Localizable(false), System.Diagnostics.DebuggerStepThrough]
-        public static void Trace(string Message)
+        public static void Trace(string message)
         {
-            System.Diagnostics.Trace.WriteLine(String.Format("{0} : {1}", DateTime.Now.ToString(CultureInfo.InvariantCulture), Message));
+            System.Diagnostics.Trace.WriteLine(String.Format("{0} : {1}", DateTime.Now.ToString(CultureInfo.InvariantCulture), message));
         }
     }
     public static class Utilities
@@ -236,7 +238,8 @@ namespace miRobotEditor.Classes
 
                 if (File.Exists(fileName))
                 {
-                    var bitmap = new BitmapImage(new Uri(fileName));
+                    var fi = new FileInfo(fileName);
+                    var bitmap = new BitmapImage(new Uri(fi.FullName));
                     bitmap.Freeze();
                     return bitmap;
                 }
@@ -256,13 +259,13 @@ namespace miRobotEditor.Classes
     /// <summary>
     /// Class for Writing To LogFile
     /// </summary>
-    public sealed class logWriter
+    public sealed class LogWriter
     {
         /// <summary>
         /// Constructor
         /// </summary>
         [Localizable(false)]
-        public logWriter()
+        public LogWriter()
         {
             // Delete Current log
             File.Delete(String.Format("{0}{1}", Application.StartupPath, @"\KRC Editor.log"));

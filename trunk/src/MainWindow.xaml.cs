@@ -11,7 +11,7 @@ using AvalonDock;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
 using miRobotEditor.Controls;
-using miRobotEditor.GUI.Editor;
+using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 using Application = System.Windows.Application;
 using MenuItem = System.Windows.Controls.MenuItem;
@@ -28,9 +28,26 @@ namespace miRobotEditor
     {
         public static readonly RoutedCommand ImportCommand = new RoutedCommand("ImportCommand",typeof(MainWindow));
         public static MainWindow Instance { get; set; }
-	
+
+        public static readonly DependencyProperty TextOptionProperty = DependencyProperty.Register("TextOptions",
+                                                                                                   typeof (
+                                                                                                       TextEditorOptions
+                                                                                                       ),
+                                                                                                   typeof (MainWindow));
+        #region DependencyProperties
+  
+        public TextEditorOptions TextOptions
+        {
+            get { return TextEditorOptions.Instance; }
+            set { TextEditorOptions.Instance=value;;
+            }
+        }
+       
+        
+        #endregion
         public MainWindow()
         {
+            
             InitializeComponent();
             // Check for updates
            // var checker = new Forms.FrmUpdateChecker();
@@ -47,6 +64,7 @@ namespace miRobotEditor
             RecentFileList.MenuClick += (s, e) => OpenFile(e.Filepath);
             DataContext = this;
             Instance = this;
+           
         }
         
         
@@ -59,6 +77,7 @@ namespace miRobotEditor
         {
      //       SynchronizingObject.BeginInvoke(method, emptyObjectArray);
         }
+
         public static void CallLater(TimeSpan delay, Action method)
         {
             var delayMilliseconds = (int)delay.TotalMilliseconds;
@@ -89,9 +108,9 @@ namespace miRobotEditor
 
         private void ProcessArgs()
         {
-        	string[] args = Environment.GetCommandLineArgs();
+        	var args = Environment.GetCommandLineArgs();
         	
-        	for (int i = 1; i < args.Length;i++)
+        	for (var i = 1; i < args.Length;i++)
         	{
         		OpenFile(args[i]);
         	}        	
@@ -112,10 +131,11 @@ namespace miRobotEditor
                           };
             // Set filter for file extension and default file extension
 
-            if (DummyDoc.Instance.File!=null)
+            var dir = Path.GetDirectoryName(DummyDoc.Instance.FileName);
+            
 
-                if (DummyDoc.Instance.File.Directory != null && DummyDoc.Instance.File.Directory.Exists)
-            ofd.InitialDirectory = DummyDoc.Instance.File.DirectoryName;
+               
+            ofd.InitialDirectory = Directory.Exists(dir)?dir:String.Empty;
 
             // Display OpenFileDialog by calling ShowDialog method
             var result = ofd.ShowDialog();
@@ -130,25 +150,16 @@ namespace miRobotEditor
         //TODO Add Function Items For ABB
         private void UpdateFunctions(object sender, FunctionEventArgs e)
         {
-            
-            if (sender is Editor)
+            if (!(sender is Editor)) return;
+            if (DummyDoc.Instance == null) return;
+            if ((DummyDoc.Instance.FileLanguage == null) | DummyDoc.Instance.FileLanguage is LanguageBase)
+                Functions.Clear();
+            else
             {
-                var editor = sender as Editor; 
-                
-                if (DummyDoc.Instance != null)
-                {
-                    if ((editor.Parent.FileLanguage == null) | editor.Parent.FileLanguage is LanguageBase)
-                        Functions.Clear();
-                    else
-                    {
-                        Functions.Clear();
-                        Functions.UpdateFunctions(e.Text, editor.Parent.FileLanguage.FunctionItems);
-                    }
-
-                }
+                Functions.Clear();
+                Functions.UpdateFunctions(e.Text, DummyDoc.Instance.FileLanguage.FunctionItems);
             }
         }
-
 
 
         /// <summary>
@@ -163,9 +174,9 @@ namespace miRobotEditor
             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             
             if (docpane != null)
-                foreach (var doc in docpane.Children.Select(t => t.Content as DummyDoc).Where(doc => doc.File !=null))
+                foreach (var doc in docpane.Children.Select(t => t.Content as DummyDoc).Where(doc => doc.FileName !=null))
                 {
-                    Properties.Settings.Default.OpenDocuments += doc.File.FullName + ';';
+                    Properties.Settings.Default.OpenDocuments += doc.FileName + ';';
                 }
 
             Properties.Settings.Default.Save();
@@ -234,16 +245,17 @@ namespace miRobotEditor
                 if (!File.Exists(filename))
                     return null;
 
+
+            var ext = Path.GetExtension(filename);
+            var f = Path.GetFileName(filename);
+
             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
-
-            FileInfo file = null;
-            if (!String.IsNullOrEmpty(filename))
-             file = new FileInfo(filename);
-
+        
+           
             if (docpane == null) return null;
             // If _file is open in another window, then select the file.
-            if (file!=null)            
-            foreach (LayoutContent t in from t in docpane.Children let edit = t.Content as DummyDoc where edit != null && edit.File != null where file.FullName.Substring(0, file.FullName.Length - file.Extension.Length) == t.ContentId select t)
+            if (File.Exists(filename))
+            foreach (var t in from t in docpane.Children let edit = t.Content as DummyDoc where edit != null && edit.FileName != null where Path.GetFileNameWithoutExtension(filename)  == t.ContentId select t)
             {
                 t.IsActive = true;
                 SendMessage("File allready Opened", filename);
@@ -257,36 +269,35 @@ namespace miRobotEditor
             var doc = new LayoutDocument { Description = filename,Content=document };
             docpane.Children.Add(doc);
                 
+
             if (File.Exists(filename))
             {
-                if (file != null)
-                {
-                    doc.ContentId = file.FullName.Substring(0, file.FullName.Length - file.Extension.Length);
-                    document.Load(file);
+
+                    doc.ContentId = Path.GetFileNameWithoutExtension(filename);
+                    document.Load(filename);
 
                     // Can Throw an Error for $Config.Dat because it doesnt like the character
                     try
                     {
-                        document.Name = file.Name.Substring(0, file.Name.Length - file.Extension.Length);
+                        document.Name = doc.ContentId;
                     }
                     catch
                     {
                     }
-                }
-                document.Host = doc;
-                if (file != null)
-                {
-                    doc.Title = file.Name;
-                    doc.Description = file.Name;
-                    doc.IconSource = DummyDoc.Instance.FileLanguage.GetFile(file).Icon;
-                }
+                
+                    document.Host = doc;
+                
+                    doc.Title = Path.GetFileNameWithoutExtension(filename);
+                    doc.Description = filename;
+                    doc.IconSource = DummyDoc.Instance.FileLanguage.GetFile(filename).Icon;
+                    doc.ToolTip = filename;
+                
                 // Add file to Recent list
                 RecentFileList.InsertFile(filename);
-                if (filename != null)
-                {
+               
                     System.Windows.Shell.JumpList.AddToRecentCategory(filename);
                     SetTitle(filename);
-                }
+                
             }
             else
                 doc.Title = "Document" + docpane.Children.Count;
@@ -350,15 +361,15 @@ namespace miRobotEditor
                      args.Content = prevContent.Content;
              };
 
-            if (File.Exists(Global.dockConfig))
-                using (var stream = new StreamReader(Global.dockConfig))
+            if (File.Exists(Global.DockConfig))
+                using (var stream = new StreamReader(Global.DockConfig))
               serializer.Deserialize(stream);
         } 
 
         private void SaveLayout()
         {           
             var serializer = new XmlLayoutSerializer(dockManager);
-            using (var stream = new StreamWriter(Global.dockConfig))
+            using (var stream = new StreamWriter(Global.DockConfig))
                 serializer.Serialize(stream);
         }
         #endregion
@@ -372,7 +383,7 @@ namespace miRobotEditor
             switch (name)
             {
                 case "Angle Converter":
-                    tool.Content = new GUI.AngleConverter.AngleConverterWPF { VerticalContentAlignment = VerticalAlignment.Top, MaxWidth = 250 };
+                    tool.Content = new GUI.AngleConverter.AngleConverterWpf { VerticalContentAlignment = VerticalAlignment.Top, MaxWidth = 250 };
                     tool.AutoHideMinWidth = 219;
                     break;
                 case "Functions":
@@ -438,8 +449,8 @@ namespace miRobotEditor
                 return;
                 DummyDoc.Instance = parent as DummyDoc;
 
-            if ((DummyDoc.Instance.TextBox!=null)&&(DummyDoc.Instance.TextBox.File!=null))
-                SetTitle(DummyDoc.Instance.TextBox.File.FullName);
+            if ((DummyDoc.Instance.TextBox!=null)&&(DummyDoc.Instance.TextBox.FileName!=null))
+                SetTitle(DummyDoc.Instance.TextBox.FileName);
 
           
             if (DummyDoc.Instance.TextBox != null)
