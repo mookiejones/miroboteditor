@@ -233,22 +233,22 @@ namespace miRobotEditor.GUI.AngleConverter
            
                 switch (InputItem)
                 {
-                    case CartesianEnum.Euler_ZYZ:
+                    case CartesianEnum.EulerZyz:
                         rotationMatrix = RotationMatrix3D.FromEulerZYZ(In1, In2, In3);
                         break;
-                    case CartesianEnum.Roll_Pitch_Yaw:
+                    case CartesianEnum.RollPitchYaw:
                         rotationMatrix = RotationMatrix3D.FromRPY(In1, In2, In3);
                         break;
-                    case CartesianEnum.ABB_Quaternion:
+                    case CartesianEnum.AbbQuaternion:
                         _rotationMatrix = new Quaternion(In2, In3, In4, In1);
                         rotationMatrix = rotationMatrix as RotationMatrix3D;
                         nValuesNeeded = 4;
                         break;
-                    case CartesianEnum.Axis_Angle:
+                    case CartesianEnum.AxisAngle:
                         rotationMatrix = RotationMatrix3D.RotateAroundVector(new Vector3D(In1, In2, In3), In4);
                         nValuesNeeded = 4;
                         break;
-                    case CartesianEnum.Kuka_ABC:
+                    case CartesianEnum.KukaAbc:
                         rotationMatrix = RotationMatrix3D.FromABC(In1, In2, In3);
                         break;
                 }
@@ -258,18 +258,18 @@ namespace miRobotEditor.GUI.AngleConverter
                 nValuesNeeded = 3;
             switch (OutputItem)
                 {
-                    case CartesianEnum.Kuka_ABC: aBC = rotationMatrix.ABC; break;
-                    case CartesianEnum.Euler_ZYZ: aBC = rotationMatrix.EulerZYZ; break;
-                    case CartesianEnum.Roll_Pitch_Yaw: aBC = rotationMatrix.RPY; break;
-                    case CartesianEnum.Alpha_Beta_Gamma: aBC = rotationMatrix.ABG; break;
-                    case CartesianEnum.ABB_Quaternion:
+                    case CartesianEnum.KukaAbc: aBC = rotationMatrix.ABC; break;
+                    case CartesianEnum.EulerZyz: aBC = rotationMatrix.EulerZYZ; break;
+                    case CartesianEnum.RollPitchYaw: aBC = rotationMatrix.RPY; break;
+                    case CartesianEnum.AlphaBetaGamma: aBC = rotationMatrix.ABG; break;
+                    case CartesianEnum.AbbQuaternion:
                         _rotationMatrix = (Quaternion)rotationMatrix;
                         aBC = _rotationMatrix.Vector;
                         scalar = _rotationMatrix.Scalar;
                         nValuesNeeded = 4;
                         break;
 
-                    case CartesianEnum.Axis_Angle:
+                    case CartesianEnum.AxisAngle:
                         aBC = rotationMatrix.RotationAxis();
                         scalar = rotationMatrix.RotationAngle();
                         nValuesNeeded = 4;
@@ -288,7 +288,7 @@ namespace miRobotEditor.GUI.AngleConverter
                 {
                     switch (OutputItem)
                     {
-                        case CartesianEnum.ABB_Quaternion:
+                        case CartesianEnum.AbbQuaternion:
                             WriteValues(aBC, scalar, true);
                             break;
                         default:
@@ -359,27 +359,27 @@ namespace miRobotEditor.GUI.AngleConverter
         #endregion
         }
 
-        public class CartesianItems :List<CartesianTypes>
+        public class CartesianItems :System.Collections.ObjectModel.ObservableCollection<CartesianTypes>
         {
             public CartesianItems()
             {
-                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.ABB_Quaternion, ValueCartesianString = "ABB Quaternion" });
-                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.Roll_Pitch_Yaw, ValueCartesianString = "Roll-Pitch-Yaw" });
-                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.Axis_Angle, ValueCartesianString = "Axis Angle" });
-                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.Kuka_ABC, ValueCartesianString = "Kuka ABC" });
-                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.Euler_ZYZ, ValueCartesianString = "Euler ZYZ" });
-                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.Alpha_Beta_Gamma, ValueCartesianString = "Alpha-Beta-Gamma"});
+                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.AbbQuaternion, ValueCartesianString = "ABB Quaternion" });
+                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.RollPitchYaw, ValueCartesianString = "Roll-Pitch-Yaw" });
+                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.AxisAngle, ValueCartesianString = "Axis Angle" });
+                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.KukaAbc, ValueCartesianString = "Kuka ABC" });
+                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.EulerZyz, ValueCartesianString = "Euler ZYZ" });
+                Add(new CartesianTypes { ValueCartesianEnum = CartesianEnum.AlphaBetaGamma, ValueCartesianString = "Alpha-Beta-Gamma"});
 
             }
         }
         public enum CartesianEnum
         {
-            ABB_Quaternion = 0,
-            Roll_Pitch_Yaw=1,            
-            Axis_Angle=2,
-            Kuka_ABC=3,
-            Euler_ZYZ=4,
-            Alpha_Beta_Gamma=5,
+            AbbQuaternion = 0,
+            RollPitchYaw=1,            
+            AxisAngle=2,
+            KukaAbc=3,
+            EulerZyz=4,
+            AlphaBetaGamma=5,
         }
 
         public class CartesianTypes

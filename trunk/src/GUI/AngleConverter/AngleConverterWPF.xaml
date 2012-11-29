@@ -30,13 +30,13 @@
             <Setter Property="DisplayMemberPath" Value="ValueCartesianString"/>
             <Setter Property="IsSynchronizedWithCurrentItem" Value="True"/>
             <Setter Property="SelectedValuePath" Value="ValueCartesianEnum"/>
-
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="Grid.Column" Value="1"/>
             <Setter Property="Grid.ColumnSpan" Value="3"/>
             <Setter Property="Grid.Row" Value="1"/>
         </Style>
         <ColumnDefinition x:Key="ColumnWidth" Width="1*"/>
+        <AngleConverter:EnumtoInt32 x:Key="EnumtoInt32" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <AngleConverter:AngleConvertor/>
@@ -102,7 +102,7 @@
 							Text="Format" />
                         <ComboBox											
 							ItemsSource="{Binding InputConvention}"	
-							SelectedIndex="{Binding InputItem, FallbackValue=0}"
+							SelectedIndex="{Binding InputItem, Converter={StaticResource EnumtoInt32}, FallbackValue=0}"
                             />
                         <TextBox
 							Style="{StaticResource DoubleStyle}"
@@ -159,7 +159,7 @@
 							Grid.Column="0"
 							VerticalAlignment="Top"
 							Text="Format" />
-                        <ComboBox ItemsSource="{Binding OutputConvention}"	SelectedIndex="{Binding FallbackValue=0, Mode=OneWay, Source={StaticResource DoubleToStringConverter}}"/>
+                        <ComboBox ItemsSource="{Binding OutputConvention}"	SelectedIndex="{Binding FallbackValue=0, Path=OutputItem, Converter={StaticResource EnumtoInt32}}"/>
                         <TextBox
 							Style="{StaticResource DoubleStyle}"
 							Text="{Binding Out1, Mode=TwoWay, StringFormat=\{0:F2\}, UpdateSourceTrigger=PropertyChanged}"
