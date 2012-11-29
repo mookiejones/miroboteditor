@@ -36,8 +36,7 @@ namespace miRobotEditor.GUI.OutputWindow
             OutputMessages.Messages.Add(msg);
         }
         public OutputWindow()
-        {
-            InitializeComponent();
+        {           
             DataContext = this;
         }
 
