@@ -3,13 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:miRobotEditor.Converters"
     xmlns:rkc="clr-namespace:miRobotEditor.Common.ResourceAccess"
-    xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter"
     xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:Options="clr-namespace:miRobotEditor.GUI">
 
-    <AngleConverter:EnumtoInt32 x:Key="EnumAngleConverter"/>
     <rkc:ResourceKeyConverter x:Key="ResourceKeyConverter" />
     <converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
-	<BitmapImage x:Key="new_file" UriSource="/Images\_new.png"/>
+	<BitmapImage x:Key="new_file" UriSource="/Resources\newfile.png"/>
 	<BitmapImage x:Key="folder_open" UriSource="/Images\folder_open.png"/>
    
     <BitmapImage x:Key="save_all" UriSource="/Resources\save_all.png"/>
@@ -45,7 +43,4 @@
                                 ShowTabs="True" 
                                 ShowEndOfLine="True" 
                                 ConvertTabsToSpaces="True"/>
-
-    <Classes:OutputMessages x:Key="OutputMessages" />
-                 
 </ResourceDictionary>
