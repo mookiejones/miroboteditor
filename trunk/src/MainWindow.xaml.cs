@@ -284,7 +284,7 @@ namespace miRobotEditor
                     catch
                     {
                     }
-                
+                    
                     document.Host = doc;
                 
                     doc.Title = Path.GetFileNameWithoutExtension(filename);
@@ -344,7 +344,7 @@ namespace miRobotEditor
         private void SendMessage(string title, string description)
         {
             var img = (BitmapImage)Application.Current.Resources.MergedDictionaries[0]["error"];          
-            Output.Add(img, title, description);
+            MessageViewModel.Instance.Add(title,description,img);
         }
 
         #region AvalonDock.DockingManager
@@ -397,7 +397,7 @@ namespace miRobotEditor
                     tool.Content = new GUI.ObjectBrowser.ObjectBrowserTool();
                     break;
                 case "Output Window":
-                    tool.Content = new GUI.OutputWindow.OutputWindow();
+                    tool.Content = new MessageWindow();
                     break;
                 case "Notes":
                     tool.Content = new frmNotes();
@@ -410,18 +410,15 @@ namespace miRobotEditor
                     tool.AutoHideMinWidth = Language_Specific.DatCleanControl.Instance.Width;                    
                     break;
                 default:
-                    OutputMessages.Add("Not Implemented",name,null);
+                    MessageViewModel.Instance.Add("Not Implemented", name, null);
                     break;
             }
 
             // Does Content Exist Allready?
-            foreach (LayoutAnchorable dd in dockManager.Layout.Descendents().OfType<LayoutAnchorable>())
+            foreach (var dd in dockManager.Layout.Descendents().OfType<LayoutAnchorable>().Where(dd => dd.Title == tool.Title))
             {
-                if (dd.Title == tool.Title)
-                {
-                    dd.IsActive = true;
-                    return;
-                }
+                dd.IsActive = true;
+                return;
             }
             var group = new LayoutAnchorGroup();
             group.Children.Add(tool);
@@ -496,7 +493,7 @@ namespace miRobotEditor
          
             foreach (string t in files)
             {
-                Output.Add(null,"File Dropped", String.Format("Opening:={0}",t));
+                MessageViewModel.Instance.Add("File Dropped", String.Format("Opening:={0}", t), null);
                 OpenFile(t);
             }
            

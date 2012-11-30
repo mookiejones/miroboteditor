@@ -44,14 +44,10 @@ namespace miRobotEditor.GUI
         private class XBackgroundRenderer:IBackgroundRenderer
         {
             private readonly DocumentLine _line;
-
-
             public XBackgroundRenderer(DocumentLine line)
             {
-               
                 _line=line;
             }
-
             public void Draw(TextView textView, DrawingContext drawingContext)
             {
                 textView.EnsureVisualLines();
@@ -136,7 +132,9 @@ namespace miRobotEditor.GUI
 
         public Editor()
         {           
-            InitializeComponent();
+//            InitializeComponent();
+            this.Options = TextEditorOptions.Instance;
+            this.ShowLineNumbers = true;
             RegisterSyntaxHighlighting();            
             _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
             TextArea.LeftMargins.Insert(0, _iconBarMargin);
@@ -152,10 +150,11 @@ namespace miRobotEditor.GUI
         }
         #endregion
 
+       
+        #region CaretPositionChanged - Bracket Highlighting
+
         readonly MyBracketSearcher _bracketSearcher = new MyBracketSearcher();
         BracketHighlightRenderer _bracketRenderer;
-
-        #region CaretPositionChanged - Bracket Highlighting
 
 		/// <summary>
 		/// Highlights matching brackets.
@@ -207,8 +206,7 @@ namespace miRobotEditor.GUI
           if (_bracketRenderer==null)
           _bracketRenderer = new BracketHighlightRenderer(TextArea.TextView);
           else
-          TextArea.TextView.BackgroundRenderers.Add(_bracketRenderer);
-            
+          TextArea.TextView.BackgroundRenderers.Add(_bracketRenderer);            
         }
 
 
@@ -302,7 +300,6 @@ namespace miRobotEditor.GUI
                 var d = Document.GetLineByOffset(m.Index);
                 AddBookMark(d.LineNumber, imgPath);
                 m = m.NextMatch();
-
             }
         }
 
@@ -318,20 +315,13 @@ namespace miRobotEditor.GUI
 
             FindMatches(DummyDoc.Instance.FileLanguage.MethodRegex, Global.ImgMethod);
             FindMatches(DummyDoc.Instance.FileLanguage.StructRegex, Global.ImgStruct);
-
             FindMatches(DummyDoc.Instance.FileLanguage.FieldRegex, Global.ImgField);
-
             FindMatches(DummyDoc.Instance.FileLanguage.SignalRegex, Global.ImgSignal);
-
             FindMatches(DummyDoc.Instance.FileLanguage.EnumRegex, Global.ImgEnum);
-
             FindMatches(DummyDoc.Instance.FileLanguage.XYZRegex, Global.ImgXyz);
-
 
             if (DummyDoc.Instance.FileLanguage is Languages.KUKA)
                 FindMatches(new Regex("DECL [a-zA-Z0-9_$]+", (RegexOptions) 3), Global.ImgValue);
-
-            //      		FindMatches(FileLanguage.XYZRegex,
         }
 
         #region Editor.Bindings
@@ -398,7 +388,7 @@ namespace miRobotEditor.GUI
             }
             catch(Exception ex)
             {
-                OutputMessages.AddError(ex);
+                MessageViewModel.Instance.AddError(ex);
             }
 
         }
@@ -426,7 +416,7 @@ namespace miRobotEditor.GUI
             }
             catch (Exception ex)
             {
-                OutputMessages.AddError(ex);
+                MessageViewModel.Instance.AddError(ex);
             }
         }
 
@@ -527,7 +517,7 @@ namespace miRobotEditor.GUI
                 var p = DummyDoc.Instance.Host as LayoutDocument;
                 if (p != null) p.Title = Path.GetFileNameWithoutExtension(FileName);
                 MainWindow.Instance.RecentFileList.InsertFile(FileName);
-                OutputMessages.Messages.Add(new OutputWindowMessage { Title = "_file Saved", Description = FileName, Icon = null });
+                MessageViewModel.Instance.Messages.Add(new OutputWindowMessage { Title = "_file Saved", Description = FileName, Icon = null });
             }
         }
 
@@ -545,14 +535,12 @@ namespace miRobotEditor.GUI
     
         protected override void OnOptionChanged(PropertyChangedEventArgs e)
         {
-     
             switch (e.PropertyName)
             {
                 case "EnableFolding":
                     UpdateFolds();
                     break;
             }
-
             base.OnOptionChanged(e);
         }
 
@@ -673,7 +661,7 @@ namespace miRobotEditor.GUI
             catch (Exception ex)
             {
 
-               OutputMessages.AddError(ex);
+                MessageViewModel.Instance.AddError(ex);
             }
         }
         public void FindText()

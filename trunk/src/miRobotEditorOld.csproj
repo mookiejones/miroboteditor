@@ -148,7 +148,6 @@
     <Compile Include="Commands\EditorCommands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="GUI\AngleConverter\EnumToInt32Converter.cs" />
-    <Compile Include="GUI\DummyDoc\DummyDocViewModel.cs" />
     <Compile Include="GUI\ExplorerControl\ExplorerClass.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -212,7 +211,7 @@
       <DependentUpon>ArchiveInfo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Pads\ArchiveInfo\ArchiveInfoHelper.cs" />
+    <Compile Include="Pads\ArchiveInfo\ArchiveInfoViewModel.cs" />
     <Compile Include="Pads\ClipboardPad.cs" />
     <Compile Include="Services\AnalyticsMonitorService.cs" />
     <Compile Include="Services\LoggingService.cs" />
@@ -242,8 +241,8 @@
     <Compile Include="Classes\IVariable.cs" />
     <Compile Include="Classes\LineColorizer.cs" />
     <Compile Include="Classes\ObjectBrowserModel.cs" />
-    <Compile Include="Classes\OutputMessages.cs" />
-    <Compile Include="Classes\OutputWindowMessage.cs" />
+    <Compile Include="GUI\MessageWindow\MessageViewModel.cs" />
+    <Compile Include="GUI\MessageWindow\OutputWindowMessage.cs" />
     <Compile Include="Classes\Position.cs" />
     <Compile Include="Classes\RecentFileList.cs" />
     <Compile Include="Classes\StatusBar.cs" />
@@ -319,8 +318,8 @@
     <Compile Include="GUI\ObjectBrowser\ObjectBrowserTool.xaml.cs">
       <DependentUpon>ObjectBrowserTool.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\OutputWindow\OutputWindow.xaml.cs">
-      <DependentUpon>OutputWindow.xaml</DependentUpon>
+    <Compile Include="GUI\MessageWindow\MessageWindow.xaml.cs">
+      <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\XMLConfig.cs" />
     <Compile Include="InstanceOf.cs" />
@@ -513,7 +512,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Options\Options.xaml" />
-    <Page Include="GUI\OutputWindow\OutputWindow.xaml">
+    <Page Include="GUI\MessageWindow\MessageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -531,7 +530,7 @@
     <Page Include="MainWindow.xaml" />
     <Page Include="Pads\ArchiveInfo\ArchiveInfo.xaml" />
     <Page Include="Pads\ArchiveInfo\IOListBox.xaml">
-      <DependentUpon>ArchiveInfoHelper.cs</DependentUpon>
+      <DependentUpon>ArchiveInfoViewModel.cs</DependentUpon>
     </Page>
     <Page Include="ResourceDictionaries\ExplorerWindowDictionary.xaml">
       <SubType>Designer</SubType>

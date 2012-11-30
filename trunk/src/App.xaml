@@ -16,15 +16,7 @@
                 <ResourceDictionary Source="Themes/Styles.xaml" />
         		<ResourceDictionary Source="Themes/MenuDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>     
-            <GUI:TextEditorOptions  x:Key="TextOptions"  
-                                ShowSpaces="True" 
-                                RequireControlModifierForHyperlinkClick="True"
-                                EnableRectangularSelection="True"
-                                EnableEmailHyperlinks="True"
-                                EnableHyperlinks="True"
-                                ShowTabs="True" 
-                                ShowEndOfLine="True" 
-                                ConvertTabsToSpaces="True" EnableFolding="True" AllowScrollBelowDocument="False" />
+            
         </ResourceDictionary>
         
     </Application.Resources>

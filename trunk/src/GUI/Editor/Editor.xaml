@@ -16,7 +16,7 @@
             AllowDrop="True" 
             ShowLineNumbers="True"
             PreviewMouseWheel="EditorPreviewMouseWheel" GotFocus="TextEditorGotFocus"
-            Options="{StaticResource TextOptions}">   
+            >   
     <avalonedit:TextEditor.CommandBindings>
         <CommandBinding CanExecute="CanToggleComment" Executed="ExecuteToggleComment"/>
         <CommandBinding CanExecute="CanReplace" Executed="ReplaceExecuted"/>

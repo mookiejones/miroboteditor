@@ -30,10 +30,10 @@ namespace TestWindow
 		
 		void LoadArchiveClick(object sender, RoutedEventArgs e)
 		{	
-			//miRobotEditor.Pads.ArchiveInfo.ArchiveInfoHelper helper = new miRobotEditor.Pads.ArchiveInfo.ArchiveInfoHelper();
-		//	this.DataContext=miRobotEditor.Pads.ArchiveInfo.ArchiveInfoHelper.Instance;
+			//miRobotEditor.Pads.ArchiveInfo.ArchiveInfoViewModel helper = new miRobotEditor.Pads.ArchiveInfo.ArchiveInfoViewModel();
+		//	this.DataContext=miRobotEditor.Pads.ArchiveInfo.ArchiveInfoViewModel.Instance;
 			
-		//	this.DataContext = new miRobotEditor.Pads.ArchiveInfo.ArchiveInfoHelper(this);			
+		//	this.DataContext = new miRobotEditor.Pads.ArchiveInfo.ArchiveInfoViewModel(this);			
 		}
 	}
 }
