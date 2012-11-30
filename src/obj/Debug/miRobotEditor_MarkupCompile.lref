@@ -1,4 +1,4 @@
-﻿C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 
 FC:\Programming\editor\miroboteditor\trunk\src\App.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\GUI\AngleConverter\AngleConverterWPF.xaml;;
@@ -9,7 +9,7 @@ FC:\Programming\editor\miroboteditor\trunk\src\Forms\frmShift.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\GUI\ExplorerControl\ExplorerControlWPF.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\GUI\KUKA\frmAdjustST.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\GUI\ObjectBrowser\ObjectBrowserTool.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\OutputWindow\OutputWindow.xaml;;
+FC:\Programming\editor\miroboteditor\trunk\src\GUI\MessageWindow\MessageWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Language Specific\DatCleanControl.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\MainWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Pads\ArchiveInfo\ArchiveInfo.xaml;;

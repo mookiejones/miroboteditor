@@ -309,7 +309,6 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\KUKA\frmAdjustST.g.c
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Notes\frmNotes.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ObjectBrowser\ObjectBrowserTool.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Options\Options.g.cs
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\OutputWindow\OutputWindow.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\DatCleanControl.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KFDAssistant.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKADatSort.g.cs
@@ -330,7 +329,6 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmShift.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ExplorerControl\ExplorerControlWPF.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\KUKA\frmAdjustST.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ObjectBrowser\ObjectBrowserTool.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\OutputWindow\OutputWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\DatCleanControl.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.baml
@@ -345,3 +343,5 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe.manife
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.application
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.pdb
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\MessageWindow\MessageWindow.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\MessageWindow\MessageWindow.baml

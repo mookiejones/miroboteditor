@@ -5,12 +5,10 @@ using System.IO;
 using System.Windows.Input;
 using System.Windows.Threading;
 using miRobotEditor.Languages;
-
+using miRobotEditor.Classes;
+using System.ComponentModel;
 namespace miRobotEditor.GUI
 {
-    using Classes;
-    using System.ComponentModel;
-
     /// <summary>
     /// Document Editor
     /// </summary>
@@ -19,6 +17,7 @@ namespace miRobotEditor.GUI
     {
         public object Host { get; set; }
         private string _title;
+
         public string Title
         {
             get { return _title; }
@@ -62,11 +61,12 @@ namespace miRobotEditor.GUI
 
         public DummyDoc()
         {
-            InitializeComponent();
-            DataContext = this;
+            Instance = this;
+
+            InitializeComponent();            
             ShowGrid = false;
             FileLanguage = new LanguageBase();
-            Instance = this;           
+            DataContext = this;
         }
 
         
@@ -95,6 +95,7 @@ namespace miRobotEditor.GUI
                 }
             }
         }
+     
         public void CanReload(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = File.Exists(FileName);
@@ -133,7 +134,6 @@ namespace miRobotEditor.GUI
             TextBox = source.FileName == filename ? source : data;
             grid.IsAnimated = true;
            
-            
         }
 
         private void ReloadFile(object sender, EventArgs e)

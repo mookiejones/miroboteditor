@@ -38,7 +38,7 @@ namespace miRobotEditor.GUI.Dialogs.About
             }
             catch (Exception ex)
             {
-                OutputMessages.Messages.Add(new OutputWindowMessage().Add("Error In About Window",ex.ToString(),null));
+                MessageViewModel.Instance.Messages.Add(new OutputWindowMessage().Add("Error In About Window",ex.ToString(),null));
             }
         }
     }

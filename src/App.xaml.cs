@@ -103,7 +103,7 @@ namespace miRobotEditor
         void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            Classes.OutputMessages.AddError(e.Exception);
+            Classes.MessageViewModel.Instance.AddError(e.Exception);
          //   MessageBox.Show(e.Exception.Message);
             e.Handled = true;
          //   throw e.Exception;

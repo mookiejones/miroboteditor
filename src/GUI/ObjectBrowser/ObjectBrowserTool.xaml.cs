@@ -86,7 +86,7 @@ namespace miRobotEditor.GUI.ObjectBrowser
             string dir = GetDirectory();
             if (!Directory.Exists(dir))
             {
-                OutputMessages.Add("Directory not valid", String.Format("{0} Doesnt Exist or None Selected", dir), null);
+                MessageViewModel.Instance.Add("Directory not valid", String.Format("{0} Doesnt Exist or None Selected", dir), null);
                 return;
             }
 
