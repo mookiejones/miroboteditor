@@ -2674,4 +2674,7 @@
     <value>Use Regular Expressions</value>
     <comment>FindAndReplaceForm</comment>
   </data>
+  <data name="CheckEnvironment" xml:space="preserve">
+    <value>This version of {0} requires .Net 4.0. Your are using:{1}</value>
+  </data>
 </root>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using ICSharpCode.AvalonEdit.Indentation.CSharp;
 
@@ -30,7 +31,7 @@ namespace miRobotEditor.Classes
             /// this property can be used to identify the type of block statement (if, while, switch)
             /// at the position of the '{'.
             /// </summary>
-            public string LastWord;
+            [Localizable(false)] public string LastWord;
 
             /// <summary>
             /// The type of bracket that opened this block (, [ or {
@@ -92,19 +93,19 @@ namespace miRobotEditor.Classes
             }
         }
 
-        private StringBuilder wordBuilder;
-        private Stack<Block> blocks; // blocks contains all blocks outside of the current
-        private Block block; // block is the current block
+        private StringBuilder _wordBuilder;
+        private Stack<Block> _blocks; // blocks contains all blocks outside of the current
+        private Block _block; // block is the current block
 
-        private bool inString;
-        private bool inChar;
-        private bool verbatim;
-        private bool escape;
+        private bool _inString;
+        private bool _inChar;
+        private bool _verbatim;
+        private bool _escape;
 
-        private bool lineComment;
-        private bool blockComment;
+        private bool _lineComment;
+        private bool _blockComment;
 
-        private char lastRealChar; // last non-comment char
+        private char _lastRealChar; // last non-comment char
 
         public void Reformat(IDocumentAccessor doc, IndentationSettings set)
         {
@@ -118,9 +119,9 @@ namespace miRobotEditor.Classes
 
         public void Init()
         {
-            wordBuilder = new StringBuilder();
-            blocks = new Stack<Block>();
-            block = new Block
+            _wordBuilder = new StringBuilder();
+            _blocks = new Stack<Block>();
+            _block = new Block
                         {
                             InnerIndent = "",
                             OuterIndent = "",
@@ -132,20 +133,21 @@ namespace miRobotEditor.Classes
                             StartLine = 0
                         };
 
-            inString = false;
-            inChar = false;
-            verbatim = false;
-            escape = false;
+            _inString = false;
+            _inChar = false;
+            _verbatim = false;
+            _escape = false;
 
-            lineComment = false;
-            blockComment = false;
+            _lineComment = false;
+            _blockComment = false;
 
-            lastRealChar = ' '; // last non-comment char
+            _lastRealChar = ' '; // last non-comment char
         }
 
+        [Localizable(false)]
         public void Step(IDocumentAccessor doc, IndentationSettings set)
         {
-            string line = doc.Text;
+            var line = doc.Text;
             if (set.LeaveEmptyLines && line.Length == 0) return; // leave empty lines empty
             line = line.TrimStart();
 
@@ -153,11 +155,11 @@ namespace miRobotEditor.Classes
             if (line.Length == 0)
             {
                 // Special treatment for empty lines:
-                if (blockComment || (inString && verbatim))
+                if (_blockComment || (_inString && _verbatim))
                     return;
-                indent.Append(block.InnerIndent);
-                indent.Append(Repeat(set.IndentString, block.OneLineBlock));
-                if (block.Continuation)
+                indent.Append(_block.InnerIndent);
+                indent.Append(Repeat(set.IndentString, _block.OneLineBlock));
+                if (_block.Continuation)
                     indent.Append(set.IndentString);
                 if (doc.Text != null && doc.Text != indent.ToString())
                     doc.Text = indent.ToString();
@@ -167,32 +169,32 @@ namespace miRobotEditor.Classes
             if (TrimEnd(doc))
                 line = doc.Text.TrimStart();
 
-            Block oldBlock = block;
-            bool startInComment = blockComment;
-            bool startInString = (inString && verbatim);
+            var oldBlock = _block;
+            var startInComment = _blockComment;
+            var startInString = (_inString && _verbatim);
 
             #region Parse char by char
 
-            lineComment = false;
-            inChar = false;
-            escape = false;
-            if (!verbatim) inString = false;
+            _lineComment = false;
+            _inChar = false;
+            _escape = false;
+            if (!_verbatim) _inString = false;
 
-            lastRealChar = '\n';
+            _lastRealChar = '\n';
 
-            char c = ' ';
-            char nextchar = line[0];
-            for (int i = 0; i < line.Length; i++)
+            var c = ' ';
+            var nextchar = line[0];
+            for (var i = 0; i < line.Length; i++)
             {
-                if (lineComment) break; // cancel parsing current line
+                if (_lineComment) break; // cancel parsing current line
 
-                char lastchar = c;
+                var lastchar = c;
                 c = nextchar;
                 nextchar = i + 1 < line.Length ? line[i + 1] : '\n';
 
-                if (escape)
+                if (_escape)
                 {
-                    escape = false;
+                    _escape = false;
                     continue;
                 }
 
@@ -201,79 +203,79 @@ namespace miRobotEditor.Classes
                 switch (c)
                 {
                     case '/':
-                        if (blockComment && lastchar == '*')
-                            blockComment = false;
-                        if (!inString && !inChar)
+                        if (_blockComment && lastchar == '*')
+                            _blockComment = false;
+                        if (!_inString && !_inChar)
                         {
-                            if (!blockComment && nextchar == '/')
-                                lineComment = true;
-                            if (!lineComment && nextchar == '*')
-                                blockComment = true;
+                            if (!_blockComment && nextchar == '/')
+                                _lineComment = true;
+                            if (!_lineComment && nextchar == '*')
+                                _blockComment = true;
                         }
                         break;
                     case '#':
-                        if (!(inChar || blockComment || inString))
-                            lineComment = true;
+                        if (!(_inChar || _blockComment || _inString))
+                            _lineComment = true;
                         break;
                     case '"':
-                        if (!(inChar || lineComment || blockComment))
+                        if (!(_inChar || _lineComment || _blockComment))
                         {
-                            inString = !inString;
-                            if (!inString && verbatim)
+                            _inString = !_inString;
+                            if (!_inString && _verbatim)
                             {
                                 if (nextchar == '"')
                                 {
-                                    escape = true; // skip escaped quote
-                                    inString = true;
+                                    _escape = true; // skip escaped quote
+                                    _inString = true;
                                 }
                                 else
                                 {
-                                    verbatim = false;
+                                    _verbatim = false;
                                 }
                             }
-                            else if (inString && lastchar == '@')
+                            else if (_inString && lastchar == '@')
                             {
-                                verbatim = true;
+                                _verbatim = true;
                             }
                         }
                         break;
                     case '\'':
-                        if (!(inString || lineComment || blockComment))
+                        if (!(_inString || _lineComment || _blockComment))
                         {
-                            inChar = !inChar;
+                            _inChar = !_inChar;
                         }
                         break;
                     case '\\':
-                        if ((inString && !verbatim) || inChar)
-                            escape = true; // skip next character
+                        if ((_inString && !_verbatim) || _inChar)
+                            _escape = true; // skip next character
                         break;
                 }
 
                 #endregion
 
-                if (lineComment || blockComment || inString || inChar)
+                if (_lineComment || _blockComment || _inString || _inChar)
                 {
-                    if (wordBuilder.Length > 0)
-                        block.LastWord = wordBuilder.ToString();
-                    wordBuilder.Length = 0;
+                    if (_wordBuilder.Length > 0)
+                        _block.LastWord = _wordBuilder.ToString();
+                    _wordBuilder.Length = 0;
                     continue;
                 }
 
                 if (!Char.IsWhiteSpace(c) && c != '[' && c != '/')
                 {
-                    if (block.Bracket == '{')
-                        block.Continuation = true;
+                    if (_block.Bracket == '{')
+                        _block.Continuation = true;
                 }
 
                 if (Char.IsLetterOrDigit(c))
                 {
-                    wordBuilder.Append(c);
+                    _wordBuilder.Append(c);
                 }
                 else
                 {
-                    if (wordBuilder.Length > 0)
-                        block.LastWord = wordBuilder.ToString();
-                    wordBuilder.Length = 0;
+                    if (_wordBuilder.Length > 0)
+                        _block.LastWord = _wordBuilder.ToString();
+                    _wordBuilder.Length = 0;
                 }
 
                 #region Push/Pop the blocks
@@ -281,12 +283,12 @@ namespace miRobotEditor.Classes
                 switch (c)
                 {
                     case '{':
-                        block.ResetOneLineBlock();
-                        blocks.Push(block);
-                        block.StartLine = doc.LineNumber;
-                        if (block.LastWord == "switch")
+                        _block.ResetOneLineBlock();
+                        _blocks.Push(_block);
+                        _block.StartLine = doc.LineNumber;
+                        if (_block.LastWord == "switch")
                         {
-                            block.Indent(set.IndentString + set.IndentString);
+                            _block.Indent(set.IndentString + set.IndentString);
                             /* oldBlock refers to the previous line, not the previous block
                              * The block we want is not available anymore because it was never pushed.
                              * } else if (oldBlock.OneLineBlock) {
@@ -302,59 +304,59 @@ namespace miRobotEditor.Classes
                         }
                         else
                         {
-                            block.Indent(set);
+                            _block.Indent(set);
                         }
-                        block.Bracket = '{';
+                        _block.Bracket = '{';
                         break;
                     case '}':
-                        while (block.Bracket != '{')
+                        while (_block.Bracket != '{')
                         {
-                            if (blocks.Count == 0) break;
-                            block = blocks.Pop();
+                            if (_blocks.Count == 0) break;
+                            _block = _blocks.Pop();
                         }
-                        if (blocks.Count == 0) break;
-                        block = blocks.Pop();
-                        block.Continuation = false;
-                        block.ResetOneLineBlock();
+                        if (_blocks.Count == 0) break;
+                        _block = _blocks.Pop();
+                        _block.Continuation = false;
+                        _block.ResetOneLineBlock();
                         break;
                     case '(':
                     case '[':
-                        blocks.Push(block);
-                        if (block.StartLine == doc.LineNumber)
-                            block.InnerIndent = block.OuterIndent;
+                        _blocks.Push(_block);
+                        if (_block.StartLine == doc.LineNumber)
+                            _block.InnerIndent = _block.OuterIndent;
                         else
-                            block.StartLine = doc.LineNumber;
-                        block.Indent(Repeat(set.IndentString, oldBlock.OneLineBlock) +
+                            _block.StartLine = doc.LineNumber;
+                        _block.Indent(Repeat(set.IndentString, oldBlock.OneLineBlock) +
                                      (oldBlock.Continuation ? set.IndentString : "") +
                                      (i == line.Length - 1 ? set.IndentString : new String(' ', i + 1)));
-                        block.Bracket = c;
+                        _block.Bracket = c;
                         break;
                     case ')':
-                        if (blocks.Count == 0) break;
-                        if (block.Bracket == '(')
+                        if (_blocks.Count == 0) break;
+                        if (_block.Bracket == '(')
                         {
-                            block = blocks.Pop();
-                            if (IsSingleStatementKeyword(block.LastWord))
-                                block.Continuation = false;
+                            _block = _blocks.Pop();
+                            if (IsSingleStatementKeyword(_block.LastWord))
+                                _block.Continuation = false;
                         }
                         break;
                     case ']':
-                        if (blocks.Count == 0) break;
-                        if (block.Bracket == '[')
-                            block = blocks.Pop();
+                        if (_blocks.Count == 0) break;
+                        if (_block.Bracket == '[')
+                            _block = _blocks.Pop();
                         break;
                     case ';':
                     case ',':
-                        block.Continuation = false;
-                        block.ResetOneLineBlock();
+                        _block.Continuation = false;
+                        _block.ResetOneLineBlock();
                         break;
                     case ':':
-                        if (block.LastWord == "case"
+                        if (_block.LastWord == "case"
                             || line.StartsWith("case ", StringComparison.Ordinal)
-                            || line.StartsWith(block.LastWord + ":", StringComparison.Ordinal))
+                            || line.StartsWith(_block.LastWord + ":", StringComparison.Ordinal))
                         {
-                            block.Continuation = false;
-                            block.ResetOneLineBlock();
+                            _block.Continuation = false;
+                            _block.ResetOneLineBlock();
                         }
                         break;
                 }
@@ -362,7 +364,7 @@ namespace miRobotEditor.Classes
                 if (!Char.IsWhiteSpace(c))
                 {
                     // register this char as last char
-                    lastRealChar = c;
+                    _lastRealChar = c;
                 }
 
                 #endregion
@@ -370,9 +372,9 @@ namespace miRobotEditor.Classes
 
             #endregion
 
-            if (wordBuilder.Length > 0)
-                block.LastWord = wordBuilder.ToString();
-            wordBuilder.Length = 0;
+            if (_wordBuilder.Length > 0)
+                _block.LastWord = _wordBuilder.ToString();
+            _wordBuilder.Length = 0;
 
             if (startInString) return;
             if (startInComment && line[0] != '*') return;
@@ -403,24 +405,24 @@ namespace miRobotEditor.Classes
             {
                 oldBlock.Continuation = true;
             }
-            else if (lastRealChar == ':' && indent.Length >= set.IndentString.Length)
+            else if (_lastRealChar == ':' && indent.Length >= set.IndentString.Length)
             {
-                if (block.LastWord == "case" || line.StartsWith("case ", StringComparison.Ordinal) ||
-                    line.StartsWith(block.LastWord + ":", StringComparison.Ordinal))
+                if (_block.LastWord == "case" || line.StartsWith("case ", StringComparison.Ordinal) ||
+                    line.StartsWith(_block.LastWord + ":", StringComparison.Ordinal))
                     indent.Remove(indent.Length - set.IndentString.Length, set.IndentString.Length);
             }
-            else if (lastRealChar == ')')
+            else if (_lastRealChar == ')')
             {
-                if (IsSingleStatementKeyword(block.LastWord))
+                if (IsSingleStatementKeyword(_block.LastWord))
                 {
-                    block.OneLineBlock++;
+                    _block.OneLineBlock++;
                 }
             }
-            else if (lastRealChar == 'e' && block.LastWord == "else")
+            else if (_lastRealChar == 'e' && _block.LastWord == "else")
             {
-                block.OneLineBlock = Math.Max(1, block.PreviousOneLineBlock);
-                block.Continuation = false;
-                oldBlock.OneLineBlock = block.OneLineBlock - 1;
+                _block.OneLineBlock = Math.Max(1, _block.PreviousOneLineBlock);
+                _block.Continuation = false;
+                oldBlock.OneLineBlock = _block.OneLineBlock - 1;
             }
 
             if (doc.IsReadOnly)
@@ -429,17 +431,15 @@ namespace miRobotEditor.Classes
                 // indentation if possible (=if the current statement is not a multiline
                 // statement).
                 if (!oldBlock.Continuation && oldBlock.OneLineBlock == 0 &&
-                    oldBlock.StartLine == block.StartLine &&
-                    block.StartLine < doc.LineNumber && lastRealChar != ':')
+                    oldBlock.StartLine == _block.StartLine &&
+                    _block.StartLine < doc.LineNumber && _lastRealChar != ':')
                 {
                     // use indent StringBuilder to get the indentation of the current line
                     indent.Length = 0;
                     line = doc.Text; // get untrimmed line
-                    for (int i = 0; i < line.Length; ++i)
+                    foreach (var t in line.TakeWhile(Char.IsWhiteSpace))
                     {
-                        if (!Char.IsWhiteSpace(line[i]))
-                            break;
-                        indent.Append(line[i]);
+                        indent.Append(t);
                     }
                     // /* */ multiline comments have an extra space - do not count it
                     // for the block's indentation.
@@ -447,7 +447,7 @@ namespace miRobotEditor.Classes
                     {
                         indent.Length -= 1;
                     }
-                    block.InnerIndent = indent.ToString();
+                    _block.InnerIndent = indent.ToString();
                 }
                 return;
             }
@@ -478,8 +478,8 @@ namespace miRobotEditor.Classes
                 return string.Empty;
             if (count == 1)
                 return text;
-            StringBuilder b = new StringBuilder(text.Length*count);
-            for (int i = 0; i < count; i++)
+            var b = new StringBuilder(text.Length*count);
+            for (var i = 0; i < count; i++)
                 b.Append(text);
             return b.ToString();
         }
@@ -501,9 +501,10 @@ namespace miRobotEditor.Classes
             }
         }
 
+        [Localizable(false)]
         private static bool TrimEnd(IDocumentAccessor doc)
         {
-            string line = doc.Text;
+            var line = doc.Text;
             if (!Char.IsWhiteSpace(line[line.Length - 1])) return false;
 
             // one space after an empty comment is allowed

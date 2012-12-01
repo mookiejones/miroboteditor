@@ -5,19 +5,11 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
 {
     public class Robot
     {
-        private readonly ModelType _type;
         private readonly Collection<double> _jointPositions;
-        private TransformationMatrix3D toolframe;
+        private TransformationMatrix3D _toolframe;
 
         public Robot()
         {
-            Joints = new Collection<Joint>();
-            _jointPositions = new Collection<double>();
-        }
-
-        public Robot(ModelType type)
-        {
-            _type = type;
             Joints = new Collection<Joint>();
             _jointPositions = new Collection<double>();
         }
@@ -63,11 +55,11 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
         {
             get
             {
-                return toolframe;
+                return _toolframe;
             }
             set
             {
-                toolframe = new TransformationMatrix3D(value);
+                _toolframe = new TransformationMatrix3D(value);
             }
         }     
     }

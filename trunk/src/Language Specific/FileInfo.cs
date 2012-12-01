@@ -7,38 +7,35 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.AccessControl;
 using System.IO;
+using miRobotEditor.Classes;
 namespace miRobotEditor.Pads
 {
   /// <summary>
     /// Wrapper for fileinfo for kuka robot
     /// </summary>
-    public class FileInfo :miRobotEditor.Classes.ViewModelBase
+    public class FileInfo :ViewModelBase
     {
-        private System.IO.FileInfo fi;
-        private Boolean visible = false;
-        private FileType filetype = FileType.NONE;
-        private string comment = string.Empty;
+        private readonly System.IO.FileInfo _fi;
+      private readonly FileType _filetype = FileType.NONE;
+        private string _comment = string.Empty;
         public string Comment
         {
-            get { return comment; }
-            set { comment = value; OnPropertyChanged("Comment"); }
+            get { return _comment; }
+            set { _comment = value; OnPropertyChanged("Comment"); }
         }
         public string DirectoryName
         {
-            get { return fi.DirectoryName; }
+            get { return _fi.DirectoryName; }
         }
         
-        public System.IO.DirectoryInfo Directory
+        public DirectoryInfo Directory
         {
-            get { return fi.Directory; }
+            get { return _fi.Directory; }
         }
        
        
@@ -49,8 +46,8 @@ namespace miRobotEditor.Pads
         /// <returns>true if the current file is read only; otherwise, false</returns>
         public bool IsReadOnly
         {
-            get { return fi.IsReadOnly; }
-            set { fi.IsReadOnly = value; OnPropertyChanged("IsReadOnly");} 
+            get { return _fi.IsReadOnly; }
+            set { _fi.IsReadOnly = value; OnPropertyChanged("IsReadOnly");} 
         }
        
      
@@ -58,10 +55,10 @@ namespace miRobotEditor.Pads
        ///  Gets the size, in bytes, of the current file.
        /// </summary>
        /// <returns>The size of the current file in bytes.</returns>
-       /// <exception cref="System.IOException"
+       /// <exception cref="IOException"></exception>
         public long Length
         {
-            get { return fi.Length; }
+            get { return _fi.Length; }
         }
         
         /// <summary>
@@ -69,7 +66,7 @@ namespace miRobotEditor.Pads
         /// </summary>
         public string Size
         {
-        	get{return Length.ToString();}
+        	get{return Length.ToString(CultureInfo.InvariantCulture);}
         }
         
        
@@ -79,7 +76,7 @@ namespace miRobotEditor.Pads
         ///<returns>The name of the file.</returns>
         public string Name
         {
-            get { return fi.Name; }
+            get { return _fi.Name; }
         }
 
         
@@ -88,9 +85,9 @@ namespace miRobotEditor.Pads
         /// by this instance of teh System.IO.FileInfo
         /// </summary>
         /// <returns>A New StreamWriter</returns>
-        public System.IO.StreamWriter AppendText()
+        public StreamWriter AppendText()
         {
-            return fi.AppendText();
+            return _fi.AppendText();
         }
         //
         // Summary:
@@ -134,7 +131,7 @@ namespace miRobotEditor.Pads
         //     the volume.
         public System.IO.FileInfo CopyTo(string destFileName)
         {
-            return fi.CopyTo(destFileName);
+            return _fi.CopyTo(destFileName);
         }
         
         
@@ -150,7 +147,7 @@ namespace miRobotEditor.Pads
         ///  the file exists and overwrite is false, an System.IO.IOException is thrown.</returns>
         public System.IO.FileInfo CopyTo(string destFileName, bool overwrite)
         {
-            return fi.CopyTo(destFileName, overwrite);
+            return _fi.CopyTo(destFileName, overwrite);
         }
         
         
@@ -158,9 +155,9 @@ namespace miRobotEditor.Pads
         /// Creates a file
         /// </summary>
         /// <returns>A new file</returns>
-        public System.IO.FileStream Create()
+        public FileStream Create()
         {
-            return fi.Create();
+            return _fi.Create();
         }
 
         
@@ -168,9 +165,9 @@ namespace miRobotEditor.Pads
         /// Creates a System.IO.StreamWriter that writes a new text file.
         /// </summary>
         /// <returns>A new StreamWriter</returns>
-        public System.IO.StreamWriter CreateText()
+        public StreamWriter CreateText()
         {
-            return fi.CreateText();
+            return _fi.CreateText();
         }
         
        
@@ -181,7 +178,7 @@ namespace miRobotEditor.Pads
         [ComVisible(false)]
         public void Decrypt()
         {
-            fi.Decrypt();
+            _fi.Decrypt();
         }
         
     
@@ -191,7 +188,7 @@ namespace miRobotEditor.Pads
         [SecuritySafeCritical]
         public  void Delete()
         {
-            fi.Delete();
+            _fi.Delete();
         }
                 
         /// <summary>
@@ -200,7 +197,7 @@ namespace miRobotEditor.Pads
         [ComVisible(false)]
         public void Encrypt()
         {
-            fi.Encrypt();
+            _fi.Encrypt();
         }
         
        
@@ -212,7 +209,7 @@ namespace miRobotEditor.Pads
         /// access control rules for the current file.</returns>
         public FileSecurity GetAccessControl()
         {
-            return fi.GetAccessControl();
+            return _fi.GetAccessControl();
         }
         
       
@@ -226,7 +223,7 @@ namespace miRobotEditor.Pads
         /// <returns>A System.Security.AccessControl.FileSecurity object that encapsulates the access control rules for the current file.</returns>
         public FileSecurity GetAccessControl(AccessControlSections includeSections)
         {
-            return fi.GetAccessControl(includeSections);
+            return _fi.GetAccessControl(includeSections);
         }
         
         
@@ -237,7 +234,7 @@ namespace miRobotEditor.Pads
         [SecuritySafeCritical]
         public void MoveTo(string destFileName)
         {
-            fi.MoveTo(destFileName);
+            _fi.MoveTo(destFileName);
         }
         
         //
@@ -264,9 +261,9 @@ namespace miRobotEditor.Pads
         //
         //   System.IO.IOException:
         //     The file is already open.
-        public System.IO.FileStream Open(FileMode mode)
+        public FileStream Open(FileMode mode)
         {
-            return fi.Open(mode);
+            return _fi.Open(mode);
         }
         //
         // Summary:
@@ -306,9 +303,9 @@ namespace miRobotEditor.Pads
         //
         //   System.IO.IOException:
         //     The file is already open.
-        public System.IO.FileStream Open(FileMode mode, FileAccess access)
+        public FileStream Open(FileMode mode, FileAccess access)
         {
-            return fi.Open(mode, access);
+            return _fi.Open(mode, access);
         }
         //
         // Summary:
@@ -353,7 +350,7 @@ namespace miRobotEditor.Pads
         //
         //   System.IO.IOException:
         //     The file is already open.
-        public System.IO.FileStream Open(FileMode mode, FileAccess access, FileShare share)
+        public FileStream Open(FileMode mode, FileAccess access, FileShare share)
         {
             return Open(mode, access, share);
         }
@@ -375,7 +372,7 @@ namespace miRobotEditor.Pads
         //     The file is already open.
         public FileStream OpenRead()
         {
-            return fi.OpenRead();
+            return _fi.OpenRead();
         }
         //
         // Summary:
@@ -400,7 +397,7 @@ namespace miRobotEditor.Pads
         [SecuritySafeCritical]
         public StreamReader OpenText()
         {
-            return fi.OpenText();
+            return _fi.OpenText();
         }
         //
         // Summary:
@@ -419,7 +416,7 @@ namespace miRobotEditor.Pads
         //     is invalid, such as being on an unmapped drive.
         public FileStream OpenWrite()
         {
-            return fi.OpenWrite();
+            return _fi.OpenWrite();
         }
         //
         // Summary:
@@ -457,7 +454,7 @@ namespace miRobotEditor.Pads
         [ComVisible(false)]
         public System.IO.FileInfo Replace(string destinationFileName, string destinationBackupFileName)
         {
-            return fi.Replace(destinationFileName, destinationBackupFileName);
+            return _fi.Replace(destinationFileName, destinationBackupFileName);
         }
         //
         // Summary:
@@ -499,7 +496,7 @@ namespace miRobotEditor.Pads
         [ComVisible(false)]
         public System.IO.FileInfo Replace(string destinationFileName, string destinationBackupFileName, bool ignoreMetadataErrors)
         {
-            return fi.Replace(destinationFileName, destinationBackupFileName, ignoreMetadataErrors);
+            return _fi.Replace(destinationFileName, destinationBackupFileName, ignoreMetadataErrors);
         }
 
         
@@ -527,7 +524,7 @@ namespace miRobotEditor.Pads
         //     The current operating system is not Microsoft Windows 2000 or later.
         public void SetAccessControl(FileSecurity fileSecurity)
         {
-            fi.SetAccessControl(fileSecurity);
+            _fi.SetAccessControl(fileSecurity);
         }
 
 
@@ -540,34 +537,31 @@ namespace miRobotEditor.Pads
         public override string ToString()
         {
         	
-            System.Windows.MessageBox.Show(fi.ToString(), "fi (FileInfo).ToString()");
-            return fi.ToString();
+            System.Windows.MessageBox.Show(_fi.ToString(), "fi (FileInfo).ToString()");
+            return _fi.ToString();
         }
 
 
         public string Filetype
         {
-            get { return filetype.ToString(); }
-        }
-        public Boolean Visible
-        {
-            get { return visible; }
-            set { visible = value; }
+            get { return _filetype.ToString(); }
         }
 
-        public FileInfo(String path)
+      public bool Visible { get; set; }
+
+      public FileInfo(String path)
         {
-            fi = new System.IO.FileInfo(path);
-            this.filetype = getFileType(path);
+            _fi = new System.IO.FileInfo(path);
+            _filetype = GetFileType();
         }
 
-        private FileType getFileType(string path)
+        private FileType GetFileType()
         {
             //If File doesnt have an extension return as None
-            if (String.IsNullOrEmpty(fi.Extension)) return FileType.NONE;
+            if (String.IsNullOrEmpty(_fi.Extension)) return FileType.NONE;
             try
             {
-                switch (fi.Extension.Substring(1))
+                switch (_fi.Extension.Substring(1))
                 {
                     case "src":
                         return FileType.SRC;
@@ -576,19 +570,21 @@ namespace miRobotEditor.Pads
                     case "ini":
                         return FileType.INI;
                     case "kfd":
-                        return FileType.KFD;
+                        return FileType.KFD;                   
+                    case "sps":
+                        return FileType.SPS;
                     default:
                         return FileType.NONE;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(String.Format("Error with {0} \r\n {1}", fi.Extension, ex.ToString()));
+                Console.WriteLine("Error with {0} \r\n {1}", _fi.Extension, ex);
             }
 
             return FileType.NONE ;
         }
 
-            enum FileType {SRC,DAT,INI,KFD,SPS,NONE};
+            enum FileType{SRC,DAT,INI,KFD,SPS,NONE};
     }
 }

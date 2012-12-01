@@ -7,8 +7,6 @@
  */
 using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace miRobotEditor.GUI.ExplorerControl
@@ -35,9 +33,11 @@ namespace miRobotEditor.GUI.ExplorerControl
 		public event TreeViewEventHandler OnAfterSelect;
 		#endregion
 		public static FileExplorerControl Instance{get;set;}
-		
-		private string _filter = "*.*";
-		public String Filter
+
+	    [Localizable(false)] private string _filter = "*.*";
+
+	    [Localizable(false)]
+	    public String Filter
 		{
 			get
 			{
@@ -76,38 +76,34 @@ namespace miRobotEditor.GUI.ExplorerControl
 			if (OnMouseClick!=null)
 				OnMouseClick(sender,e);
 		}
-		
-		
-		
-		void Copy_File(object sender, EventArgs e)
+       
+		void CopyFile(object sender, EventArgs e)
 		{
 			// TODO: Implement CopyFile
 		}
 		
-		void Cut_File(object sender, EventArgs e)
+		void CutFile(object sender, EventArgs e)
 		{
 			// TODO: Implement Cut_File
 		}
 
-		void Paste_File(object sender, EventArgs e)
+		void PasteFile(object sender, EventArgs e)
 		{
 			// TODO: Implement Cut_File
 		}
 
-		void Delete_File(object sender, EventArgs e)
+		void DeleteFile(object sender, EventArgs e)
 		{			
 			// TODO: Implement Cut_File
 		}
 		
 		void Refresh(object sender, EventArgs e)
 		{
-			if (explorer.SelectedNode!=null)
-			{
-				explorer.SelectedNode.Nodes.Clear();
-				var r = explorer.SelectedNode.Tag.ToString();
-				explorer.FillTreeNode(explorer.SelectedNode,explorer.SelectedNode.Tag.ToString());
-			}
-			// TODO: Implement Refresh
+		    if (explorer.SelectedNode == null) return;
+
+		    explorer.SelectedNode.Nodes.Clear();
+		    explorer.FillTreeNode(explorer.SelectedNode,explorer.SelectedNode.Tag.ToString());
+		    // TODO: Implement Refresh
 		}
 		
 		void ContextOpening(object sender, CancelEventArgs e)
@@ -119,5 +115,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 			mnuDelete.Enabled=enabled;
 			mnuPaste.Enabled=enabled;					
 		}
+
+        
 	}
 }

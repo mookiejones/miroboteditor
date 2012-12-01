@@ -12,8 +12,8 @@ using System.Windows.Media.Imaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using ICSharpCode.AvalonEdit.Highlighting;
 using miRobotEditor.Classes;
+using miRobotEditor.Controls;
 using miRobotEditor.Enums;
 using miRobotEditor.Forms;
 using miRobotEditor.GUI;
@@ -65,7 +65,7 @@ namespace miRobotEditor.Languages
             // Dont Include Empty Values
             if (String.IsNullOrEmpty(matchstring.ToString())) return null;
 
-            Match m = matchstring.Match(file.ToLower());
+            var m = matchstring.Match(file.ToLower());
             while (m.Success)
             {
                 var item = new VariableItem {Icon = image, Location = file, Type = type};
@@ -78,7 +78,7 @@ namespace miRobotEditor.Languages
 
         public IList<ICompletionData> CompletionList (string currentWord,IList<ICompletionData> data )
         {
-            foreach (HighlightingRule t1 in DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules)
+            foreach (var t1 in DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules)
             {
                 var parseString = t1.Regex.ToString();
 
@@ -86,8 +86,8 @@ namespace miRobotEditor.Languages
                 var end = parseString.LastIndexOf(")", StringComparison.Ordinal);
                 parseString = parseString.Substring(start, end - start);
 
-                string[] spl = parseString.Split('|');
-                foreach (string t in spl)
+                var spl = parseString.Split('|');
+                foreach (var t in spl)
                 {
                     if (String.IsNullOrEmpty(t)) continue;
                     
@@ -98,7 +98,7 @@ namespace miRobotEditor.Languages
                 }
                 Console.WriteLine();
                 //TODO Get Info from ObjectBrowser and Add to List
-                foreach (IVariable va in ObjectBrowserModel.Instance.AllVariables)
+                foreach (var va in ObjectBrowserViewModel.Instance.AllVariables)
                 {
                     if ((va.Type != "def")&&(va.Type!="deffct"))
                     {
@@ -154,19 +154,19 @@ namespace miRobotEditor.Languages
 
         protected AbstractLanguageClass(string filename)
         {
-            var directory = Path.GetDirectoryName(filename);
-            var dirExists = Directory.Exists(filename);
+            var dir = Path.GetDirectoryName(filename);
+            var dirExists = dir != null && Directory.Exists(dir);
             SourceName = Path.GetFileNameWithoutExtension(filename) + ".src";
             DataName = Path.GetFileNameWithoutExtension(filename) + ".dat";
 
-            if (dirExists && File.Exists(Path.Combine(directory, SourceName)))
-                using (var reader = new StreamReader(Path.Combine(directory, SourceName)))
+            if (dirExists && File.Exists(Path.Combine(dir, SourceName)))
+                using (var reader = new StreamReader(Path.Combine(dir, SourceName)))
                     SourceText += reader.ReadToEnd();
 
 
 
-            if (dirExists && File.Exists(Path.Combine(directory, DataName)))
-                using (var reader = new StreamReader(Path.Combine(directory, DataName)))
+            if (dirExists && File.Exists(Path.Combine(dir, DataName)))
+                using (var reader = new StreamReader(Path.Combine(dir, DataName)))
                     DataText += reader.ReadToEnd();
 
                     RawText = SourceText + DataText;	
@@ -229,7 +229,7 @@ namespace miRobotEditor.Languages
 
         #region Abstract Properties
 
-        internal abstract TYPLANGUAGE RobotType { get; }
+        internal abstract Typlanguage RobotType { get; }
         protected abstract string ShiftRegex { get; }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace miRobotEditor.Languages
         {
         	var pattern = String.Format("^([ ]*)([{0}]*)([^\r\n]*)",CommentChar);
 			var rgx = new Regex(pattern);		 
-        	Match m = rgx.Match(text);
+        	var m = rgx.Match(text);
 			if (m.Success)
 			{
 				return  m.Groups[1] + m.Groups[3].ToString();
@@ -304,19 +304,18 @@ namespace miRobotEditor.Languages
 
         #region Folding Section
 
-        public static IEnumerable<LanguageFold> CreateFoldingHelper(ITextSource document, string startFold, string endFold,
-                                                                 bool defaultclosed)
+        public static IEnumerable<LanguageFold> CreateFoldingHelper(ITextSource document, string startFold, string endFold, bool defaultclosed)
         {
             var newFoldings = new List<LanguageFold>();
             var startOffsets = new Stack<int>();
             var doc = (document as TextDocument);
 
-            for (int i = 0; i < ((TextDocument) document).Lines.Count - 1; i++)
+            for (var i = 0; i < ((TextDocument) document).Lines.Count - 1; i++)
             {
                 var textDocument = document as TextDocument;
                 if (textDocument != null)
                 {
-                    DocumentLine seg = textDocument.Lines[i];
+                    var seg = textDocument.Lines[i];
                     int offs, end = document.TextLength;
                     char c;
                     for (offs = seg.Offset; offs < end && ((c = document.GetCharAt(offs)) == ' ' || c == '\t'); offs++)
@@ -326,12 +325,12 @@ namespace miRobotEditor.Languages
                     if (offs == end)
                         break;
 
-                    int spacecount = offs - seg.Offset;
+                    var spacecount = offs - seg.Offset;
 
                     //now offs points to the non-whitespace char on the line
                     if (document.GetCharAt(offs) != ' ')
                     {
-                        string text = document.GetText(offs, seg.Length - spacecount);
+                        var text = document.GetText(offs, seg.Length - spacecount);
 
                         if (text.ToLower().StartsWith(startFold))
                             startOffsets.Push(offs);
@@ -347,7 +346,7 @@ namespace miRobotEditor.Languages
                                     valid = true;
                                 else
                                 {
-                                    char[] ee = text.ToCharArray(endFold.Length, 1);
+                                    var ee = text.ToCharArray(endFold.Length, 1);
                                     valid = !char.IsLetterOrDigit(ee[0]);
                                 }
                             }
@@ -356,11 +355,8 @@ namespace miRobotEditor.Languages
                             if (valid)
                             {
                                 //Add a new folder to the list
-                                int start = startOffsets.Pop();
-
-                                var nf = new LanguageFold(start, offs + text.Length,
-                                                       doc.GetText(start + startFold.Length + 1,
-                                                                   offs - start - endFold.Length))
+                                var start = startOffsets.Pop();
+                                var nf = new LanguageFold(start, offs + text.Length,doc.GetText(start + startFold.Length + 1,offs - start - endFold.Length))
                                              {
                                                  Name = String.Format("{0}æ{1}", startFold, endFold),
                                                  DefaultClosed = defaultclosed
@@ -400,11 +396,19 @@ namespace miRobotEditor.Languages
         public abstract Regex StructRegex{get;}
         public abstract Regex SignalRegex { get; }
 
+        public  string ExtractXYZ(string positionstring)
+        {
+            var p = new PositionBase(positionstring);
+            return p.ExtractFromMatch();
+        }
+
+// ReSharper disable UnusedMember.Local
         private static GroupCollection GetMatchCollection(string text, string matchstring)
+// ReSharper restore UnusedMember.Local
         {
 
             var r = new Regex(matchstring, RegexOptions.IgnoreCase);
-            Match m = r.Match(text);
+            var m = r.Match(text);
             return m.Success ? m.Groups : null;
         }
 
@@ -413,7 +417,7 @@ namespace miRobotEditor.Languages
             var result = new Collection<string>();
 
             var r = new Regex(matchstring, RegexOptions.IgnoreCase);
-            Match m = r.Match(text);
+            var m = r.Match(text);
             while (m.Success)
             {
                 result.Add(m.Groups[2].ToString());
@@ -425,9 +429,9 @@ namespace miRobotEditor.Languages
         protected static Collection<LanguageFold> AddInternalVariables(string text, string regex)
         {
             var Return = new Collection<LanguageFold>();
-            Collection<string> result = GetMatches(text, regex);
+            var result = GetMatches(text, regex);
 
-            for (int i = 0; i < result.Count - 1; i++)
+            for (var i = 0; i < result.Count - 1; i++)
             {
                 Return.Add(new LanguageFold {StartOffset = Convert.ToInt32(result[i]), Name = "UserDefined"});
             }
@@ -470,15 +474,15 @@ namespace miRobotEditor.Languages
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            double shiftvalX = Convert.ToDouble(shift.DiffX);
-            double shiftvalY = Convert.ToDouble(shift.DiffY);
-            double shiftvalZ = Convert.ToDouble(shift.DiffZ);
+            var shiftvalX = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.X);
+            var shiftvalY = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Y);
+            var shiftvalZ = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Z);
 
 
             var r = new Regex(ShiftRegex, RegexOptions.IgnoreCase);
 
-            MatchCollection matches = r.Matches(doc.Text);
-            int count = matches.Count;
+            var matches = r.Matches(doc.Text);
+            var count = matches.Count;
             splash.Maximum = count;
 
             var splashthread = new Thread(SplashScreen.ShowSplashScreen) {IsBackground = true};
@@ -496,7 +500,7 @@ namespace miRobotEditor.Languages
 
             double increment = (count > 0) ? 100/count : count;
 
-            int i = 0;
+            
             // doc.SuspendLayout();
             foreach (Match m in r.Matches(doc.Text))
             {
@@ -504,18 +508,21 @@ namespace miRobotEditor.Languages
                 SplashScreen.UpdateStatusTextWithStatus(
                     string.Format("Shifting Program. Progress:= {0}",
                                   ((int) prog).ToString(CultureInfo.InvariantCulture)), TypeOfMessage.Success);
-                i++;
+               
                 prog = prog + increment;
 
-                double xf = Convert.ToDouble(m.Groups[3].Value) + shiftvalX;
-                double yf = Convert.ToDouble(m.Groups[4].Value) + shiftvalY;
-                double zf = Convert.ToDouble(m.Groups[5].Value) + shiftvalZ;
+// ReSharper disable UnusedVariable
+                var xf = Convert.ToDouble(m.Groups[3].Value) + shiftvalX;
+
+                var yf = Convert.ToDouble(m.Groups[4].Value) + shiftvalY;
+                var zf = Convert.ToDouble(m.Groups[5].Value) + shiftvalZ;
+// ReSharper restore UnusedVariable
                 switch (DummyDoc.Instance.FileLanguage.RobotType)
                 {
-                    case TYPLANGUAGE.KUKA:
+                    case Typlanguage.KUKA:
                         doc.ReplaceAll();
                         break;
-                    case TYPLANGUAGE.ABB:
+                    case Typlanguage.ABB:
                         doc.ReplaceAll();
                         break;
                 }

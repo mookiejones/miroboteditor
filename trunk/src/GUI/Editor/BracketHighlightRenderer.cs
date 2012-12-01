@@ -18,10 +18,10 @@ namespace miRobotEditor.GUI
 {
 	public class BracketHighlightRenderer : IBackgroundRenderer
 	{
-		BracketSearchResult result;
-		Pen borderPen;
-		Brush backgroundBrush;
-		TextView textView;
+		BracketSearchResult _result;
+		Pen _borderPen;
+		Brush _backgroundBrush;
+	    readonly TextView _textView;
 		
 		public static readonly Color DefaultBackground = Color.FromArgb(100, 0, 0, 255);
 		public static readonly Color DefaultBorder = Color.FromArgb(52, 0, 0, 255);
@@ -30,10 +30,9 @@ namespace miRobotEditor.GUI
 		
 		public void SetHighlight(BracketSearchResult result)
 		{
-			if (this.result != result) {
-				this.result = result;
-				textView.InvalidateLayer(this.Layer);
-			}
+		    if (_result == result) return;
+		    _result = result;
+		    _textView.InvalidateLayer(Layer);
 		}
 		
 		public BracketHighlightRenderer(TextView textView)
@@ -41,18 +40,18 @@ namespace miRobotEditor.GUI
 			if (textView == null)
 				throw new ArgumentNullException("textView");
 			
-			this.textView = textView;
+			_textView = textView;
 			
-			this.textView.BackgroundRenderers.Add(this);
+			_textView.BackgroundRenderers.Add(this);
 		}
 
 		void UpdateColors(Color background, Color foreground)
 		{
-			this.borderPen = new Pen(new SolidColorBrush(foreground), 1);
-			this.borderPen.Freeze();
+			_borderPen = new Pen(new SolidColorBrush(foreground), 1);
+			_borderPen.Freeze();
 
-			this.backgroundBrush = new SolidColorBrush(background);
-			this.backgroundBrush.Freeze();
+			_backgroundBrush = new SolidColorBrush(background);
+			_backgroundBrush.Freeze();
 		}
 		
 		public KnownLayer Layer {
@@ -61,33 +60,30 @@ namespace miRobotEditor.GUI
 			}
 		}
 		
-		public void Draw(TextView textView, DrawingContext drawingContext)
+		public void Draw(TextView textview, DrawingContext drawingContext)
 		{
-			if (this.result == null)
+			if (_result == null)
 				return;
 			
-			BackgroundGeometryBuilder builder = new BackgroundGeometryBuilder();
-			
-			builder.CornerRadius = 1;
-			builder.AlignToMiddleOfPixels = true;
-			
-			builder.AddSegment(textView, new TextSegment() { StartOffset = result.OpeningBracketOffset, Length = result.OpeningBracketLength });
+			var builder = new BackgroundGeometryBuilder {CornerRadius = 1, AlignToMiddleOfPixels = true};
+
+		    builder.AddSegment(textview, new TextSegment { StartOffset = _result.OpeningBracketOffset, Length = _result.OpeningBracketLength });
 			builder.CloseFigure(); // prevent connecting the two segments
-			builder.AddSegment(textView, new TextSegment() { StartOffset = result.ClosingBracketOffset, Length = result.ClosingBracketLength });
+			builder.AddSegment(textview, new TextSegment { StartOffset = _result.ClosingBracketOffset, Length = _result.ClosingBracketLength });
 			
-			Geometry geometry = builder.CreateGeometry();
+			var geometry = builder.CreateGeometry();
 			
-			if (borderPen == null)
-				this.UpdateColors(DefaultBackground,DefaultBackground);
+			if (_borderPen == null)
+				UpdateColors(DefaultBackground,DefaultBackground);
 			
 			if (geometry != null) 
-				drawingContext.DrawGeometry(backgroundBrush, borderPen, geometry);
+				drawingContext.DrawGeometry(_backgroundBrush, _borderPen, geometry);
 		}
 		
 		public static void ApplyCustomizationsToRendering(BracketHighlightRenderer renderer, IEnumerable<Color> customizations)
 		{
 			renderer.UpdateColors(DefaultBackground, DefaultBorder);
-			foreach (Color color in customizations) {
+			foreach (var color in customizations) {
 				//if (color.Name == BracketHighlight) {
 				renderer.UpdateColors(color,color);
 //					renderer.UpdateColors(color.Background ?? Colors.Blue, color.Foreground ?? Colors.Blue);
@@ -107,14 +103,14 @@ namespace miRobotEditor.GUI
 		/// Searches for a matching bracket from the given offset to the start of the document.
 		/// </summary>
 		/// <returns>A BracketSearchResult that contains the positions and lengths of the brackets. Return null if there is nothing to highlight.</returns>
-		BracketSearchResult SearchBracket(ICSharpCode.AvalonEdit.Document.TextDocument document, int offset);
+		BracketSearchResult SearchBracket(TextDocument document, int offset);
 	}
 	
 	public class DefaultBracketSearcher : IBracketSearcher
 	{
 		public static readonly DefaultBracketSearcher DefaultInstance = new DefaultBracketSearcher();
 		
-		public BracketSearchResult SearchBracket(ICSharpCode.AvalonEdit.Document.TextDocument document, int offset)
+		public BracketSearchResult SearchBracket(TextDocument document, int offset)
 		{
 			return null;
 		}
@@ -136,10 +132,10 @@ namespace miRobotEditor.GUI
 		public BracketSearchResult(int openingBracketOffset, int openingBracketLength,
 		                           int closingBracketOffset, int closingBracketLength)
 		{
-			this.OpeningBracketOffset = openingBracketOffset;
-			this.OpeningBracketLength = openingBracketLength;
-			this.ClosingBracketOffset = closingBracketOffset;
-			this.ClosingBracketLength = closingBracketLength;
+			OpeningBracketOffset = openingBracketOffset;
+			OpeningBracketLength = openingBracketLength;
+			ClosingBracketOffset = closingBracketOffset;
+			ClosingBracketLength = closingBracketLength;
 		}
 	}
 
@@ -149,23 +145,23 @@ namespace miRobotEditor.GUI
 	/// </summary>
 	public class MyBracketSearcher : IBracketSearcher
 	{
-		string openingBrackets = "([{";
-		string closingBrackets = ")]}";
-		
-		public BracketSearchResult SearchBracket(ICSharpCode.AvalonEdit.Document.TextDocument document, int offset)
+	    private const string OpeningBrackets = "([{";
+	    private const string ClosingBrackets = ")]}";
+
+	    public BracketSearchResult SearchBracket(TextDocument document, int offset)
 		{
 			
 			
 			if (offset > 0) {
-				char c = document.GetCharAt(offset - 1);
-				int index = openingBrackets.IndexOf(c);
-				int otherOffset = -1;
+				var c = document.GetCharAt(offset - 1);
+				var index = OpeningBrackets.IndexOf(c);
+				var otherOffset = -1;
 				if (index > -1)
-					otherOffset = SearchBracketForward(document, offset, openingBrackets[index], closingBrackets[index]);
+					otherOffset = SearchBracketForward(document, offset, OpeningBrackets[index], ClosingBrackets[index]);
 				
-				index = closingBrackets.IndexOf(c);
+				index = ClosingBrackets.IndexOf(c);
 				if (index > -1)
-					otherOffset = SearchBracketBackward(document, offset - 2, openingBrackets[index], closingBrackets[index]);
+					otherOffset = SearchBracketBackward(document, offset - 2, OpeningBrackets[index], ClosingBrackets[index]);
 				
 				if (otherOffset > -1)
 					return new BracketSearchResult(Math.Min(offset - 1, otherOffset), 1,
@@ -176,9 +172,9 @@ namespace miRobotEditor.GUI
 		}
 		
 		#region SearchBracket helper functions
-		static int ScanLineStart(ICSharpCode.AvalonEdit.Document.TextDocument document, int offset)
+		static int ScanLineStart(ITextSource document, int offset)
 		{
-			for (int i = offset - 1; i > 0; --i) {
+			for (var i = offset - 1; i > 0; --i) {
 				if (document.GetCharAt(i) == '\n')
 					return i + 1;
 			}
@@ -192,13 +188,14 @@ namespace miRobotEditor.GUI
 		/// 2 = String<br/>
 		/// Block comments and multiline strings are not supported.
 		/// </summary>
-		static int GetStartType(ICSharpCode.AvalonEdit.Document.TextDocument document, int linestart, int offset)
+		static int GetStartType(ITextSource document, int linestart, int offset)
 		{
-			bool inString = false;
-			bool inChar = false;
-			bool verbatim = false;
-			int result = 0;
-			for(int i = linestart; i < offset; i++) {
+			var inString = false;
+			var inChar = false;
+            var verbatim = false;
+            var result = 0;
+            for (var i = linestart; i < offset; i++)
+            {
 				switch (document.GetCharAt(i)) {
 					case '/':
 						if (!inString && !inChar && i + 1 < document.TextLength) {
@@ -237,7 +234,7 @@ namespace miRobotEditor.GUI
 		#endregion
 		
 		#region SearchBracketBackward
-		int SearchBracketBackward(ICSharpCode.AvalonEdit.Document.TextDocument document, int offset, char openBracket, char closingBracket)
+		int SearchBracketBackward(TextDocument document, int offset, char openBracket, char closingBracket)
 		{
 			
 			
@@ -245,30 +242,30 @@ namespace miRobotEditor.GUI
 			// this method parses a c# document backwards to find the matching bracket
 			
 			// first try "quick find" - find the matching bracket if there is no string/comment in the way
-			int quickResult = QuickSearchBracketBackward(document, offset, openBracket, closingBracket);
+			var quickResult = QuickSearchBracketBackward(document, offset, openBracket, closingBracket);
 			if (quickResult >= 0) return quickResult;
 			
 			// we need to parse the line from the beginning, so get the line start position
-			int linestart = ScanLineStart(document, offset + 1);
+			var linestart = ScanLineStart(document, offset + 1);
 			
 			// we need to know where offset is - in a string/comment or in normal code?
 			// ignore cases where offset is in a block comment
-			int starttype = GetStartType(document, linestart, offset + 1);
+			var starttype = GetStartType(document, linestart, offset + 1);
 			if (starttype == 1) {
 				return -1; // start position is in a comment
 			}
 			
 			// I don't see any possibility to parse a C# document backwards...
 			// We have to do it forwards and push all bracket positions on a stack.
-			Stack<int> bracketStack = new Stack<int>();
-			bool  blockComment = false;
-			bool  lineComment  = false;
-			bool  inChar       = false;
-			bool  inString     = false;
-			bool  verbatim     = false;
+			var bracketStack = new Stack<int>();
+            var blockComment = false;
+            var lineComment = false;
+            var inChar = false;
+            var inString = false;
+            var verbatim = false;
 			
-			for(int i = 0; i <= offset; ++i) {
-				char ch = document.GetCharAt(i);
+			for(var i = 0; i <= offset; ++i) {
+				var ch = document.GetCharAt(i);
 				switch (ch) {
 					case '\r':
 					case '\n':
@@ -330,39 +327,39 @@ namespace miRobotEditor.GUI
 						break;
 				}
 			}
-			if (bracketStack.Count > 0) return (int)bracketStack.Pop();
+			if (bracketStack.Count > 0) return bracketStack.Pop();
 			return -1;
 		}
 		#endregion
 		
 		#region SearchBracketForward
-		int SearchBracketForward(ICSharpCode.AvalonEdit.Document.TextDocument document, int offset, char openBracket, char closingBracket)
+		int SearchBracketForward(TextDocument document, int offset, char openBracket, char closingBracket)
 		{
-			bool inString = false;
-			bool inChar   = false;
-			bool verbatim = false;
+			var inString = false;
+			var inChar   = false;
+			var verbatim = false;
 			
-			bool lineComment  = false;
-			bool blockComment = false;
+			var lineComment  = false;
+			var blockComment = false;
 			
 			if (offset < 0) return -1;
 			
 			// first try "quick find" - find the matching bracket if there is no string/comment in the way
-			int quickResult = QuickSearchBracketForward(document, offset, openBracket, closingBracket);
+			var quickResult = QuickSearchBracketForward(document, offset, openBracket, closingBracket);
 			if (quickResult >= 0) return quickResult;
 			
 			// we need to parse the line from the beginning, so get the line start position
-			int linestart = ScanLineStart(document, offset);
+			var linestart = ScanLineStart(document, offset);
 			
 			// we need to know where offset is - in a string/comment or in normal code?
 			// ignore cases where offset is in a block comment
-			int starttype = GetStartType(document, linestart, offset);
+			var starttype = GetStartType(document, linestart, offset);
 			if (starttype != 0) return -1; // start position is in a comment/string
 			
-			int brackets = 1;
+			var brackets = 1;
 			
 			while (offset < document.TextLength) {
-				char ch = document.GetCharAt(offset);
+				var ch = document.GetCharAt(offset);
 				switch (ch) {
 					case '\r':
 					case '\n':
@@ -431,12 +428,12 @@ namespace miRobotEditor.GUI
 		}
 		#endregion
 		
-		int QuickSearchBracketBackward(ICSharpCode.AvalonEdit.Document.TextDocument document, int offset, char openBracket, char closingBracket)
+		int QuickSearchBracketBackward(ITextSource document, int offset, char openBracket, char closingBracket)
 		{
-			int brackets = -1;
+			var brackets = -1;
 			// first try "quick find" - find the matching bracket if there is no string/comment in the way
-			for (int i = offset; i >= 0; --i) {
-				char ch = document.GetCharAt(i);
+			for (var i = offset; i >= 0; --i) {
+				var ch = document.GetCharAt(i);
 				if (ch == openBracket) {
 					++brackets;
 					if (brackets == 0) return i;
@@ -454,12 +451,12 @@ namespace miRobotEditor.GUI
 			return -1;
 		}
 		
-		int QuickSearchBracketForward(ICSharpCode.AvalonEdit.Document.TextDocument document, int offset, char openBracket, char closingBracket)
+		int QuickSearchBracketForward(ITextSource document, int offset, char openBracket, char closingBracket)
 		{
-			int brackets = 1;
+			var brackets = 1;
 			// try "quick find" - find the matching bracket if there is no string/comment in the way
-			for (int i = offset; i < document.TextLength; ++i) {
-				char ch = document.GetCharAt(i);
+			for (var i = offset; i < document.TextLength; ++i) {
+				var ch = document.GetCharAt(i);
 				if (ch == openBracket) {
 					++brackets;
 				} else if (ch == closingBracket) {

@@ -226,6 +226,7 @@ namespace miRobotEditor.Classes
 
             return bitSrc;
         }
+
         /// <summary>
         /// Load Bitmap and Convert to Bitmap Image
         /// </summary>

@@ -1,8 +1,17 @@
-﻿namespace miRobotEditor.Languages
+﻿using System;
+using System.Collections.Generic;
+
+namespace miRobotEditor.Languages
 {
-    class IPosition
+    public interface IPosition
     {
-        public string Scope { get; set; }
-        public string Name { get; set; }
+         string RawValue { get; set; }
+         string Scope { get; set; }
+         string Name { get; set; }
+         string Type { get; set; }
+         List<PositionValue>PositionalValues{get;set;}
+         void ParseValues();
+         string ExtractFromMatch();
+       
     }
 }

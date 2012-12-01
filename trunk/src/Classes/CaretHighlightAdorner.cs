@@ -13,29 +13,29 @@ namespace miRobotEditor.Classes
     /// </summary>
     sealed class CaretHighlightAdorner : Adorner
     {
-        readonly Pen pen;
-        readonly RectangleGeometry geometry;
+        readonly Pen _pen;
+        readonly RectangleGeometry _geometry;
 
         public CaretHighlightAdorner(TextArea textArea)
             : base(textArea.TextView)
         {
-            Rect min = textArea.Caret.CalculateCaretRectangle();
+            var min = textArea.Caret.CalculateCaretRectangle();
             min.Offset(-textArea.TextView.ScrollOffset);
 
-            Rect max = min;
-            double size = Math.Max(min.Width, min.Height) * 0.25;
+            var max = min;
+            var size = Math.Max(min.Width, min.Height) * 0.25;
             max.Inflate(size, size);
 
-            pen = new Pen(TextBlock.GetForeground(textArea.TextView).Clone(), 1);
+            _pen = new Pen(TextBlock.GetForeground(textArea.TextView).Clone(), 1);
 
-            geometry = new RectangleGeometry(min, 2, 2);
-            geometry.BeginAnimation(RectangleGeometry.RectProperty, new RectAnimation(min, max, new Duration(TimeSpan.FromMilliseconds(300))) { AutoReverse = true });
-            pen.Brush.BeginAnimation(Brush.OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromMilliseconds(200))) { BeginTime = TimeSpan.FromMilliseconds(450) });
+            _geometry = new RectangleGeometry(min, 2, 2);
+            _geometry.BeginAnimation(RectangleGeometry.RectProperty, new RectAnimation(min, max, new Duration(TimeSpan.FromMilliseconds(300))) { AutoReverse = true });
+            _pen.Brush.BeginAnimation(Brush.OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromMilliseconds(200))) { BeginTime = TimeSpan.FromMilliseconds(450) });
         }
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-            drawingContext.DrawGeometry(null, pen, geometry);
+            drawingContext.DrawGeometry(null, _pen, _geometry);
         }
     }
 }

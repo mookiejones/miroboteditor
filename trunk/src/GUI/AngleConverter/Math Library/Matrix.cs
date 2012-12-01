@@ -1,15 +1,41 @@
+using System.ComponentModel;
+
 namespace ISTUK.MathLibrary
 {
     using System;
     using System.Collections.ObjectModel;
     using System.Globalization;
 
-    [Serializable]
+    [Localizable(false),Serializable]
     public class Matrix : IFormattable
     {
-        private int columns;
-        private double[,] elements;
-        private int rows;
+        protected bool Equals(Matrix other)
+        {
+            return _columns == other._columns && Equals(_elements, other._elements) && _rows == other._rows;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((Matrix) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = _columns;
+                hashCode = (hashCode*397) ^ (_elements != null ? _elements.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ _rows;
+                return hashCode;
+            }
+        }
+
+        private int _columns;
+        private double[,] _elements;
+        private int _rows;
 
         public Matrix()
         {
@@ -32,24 +58,20 @@ namespace ISTUK.MathLibrary
             {
                 for (var j = 0; j < Columns; j++)
                 {
-                    elements[i, j] = mat[i,j];
+                    _elements[i, j] = mat[i,j];
                 }
             }
         }
 
         public Matrix(string str)
         {
-            int startIndex = str.IndexOf('[') + 1;
-            int num2 = str.LastIndexOf(']');
-            bool flag = false;
-            if (str.Substring(num2 + 1).Trim().StartsWith("'"))
-            {
-                flag = true;
-            }
-            string[] strArray = str.Substring(startIndex, num2 - startIndex).Split(new char[] { ';' });
-            string[] strArray2 = strArray[0].Split(new char[] { ',' });
-            int length = strArray.Length;
-            int rows = strArray2.Length;
+            var startIndex = str.IndexOf('[') + 1;
+            var num2 = str.LastIndexOf(']');
+            var flag = str.Substring(num2 + 1).Trim().StartsWith("'");
+            var strArray = str.Substring(startIndex, num2 - startIndex).Split(new[] { ';' });
+            var strArray2 = strArray[0].Split(new[] { ',' });
+            var length = strArray.Length;
+            var rows = strArray2.Length;
             if ((length <= 0) || (rows <= 0))
             {
                 throw new MatrixException("String does not contain a valid matrix");
@@ -59,14 +81,14 @@ namespace ISTUK.MathLibrary
                 SetSize(rows, length);
                 for (var i = 0; i < Columns; i++)
                 {
-                    string[] strArray3 = strArray[i].Split(new char[] { ',' });
+                    var strArray3 = strArray[i].Split(new[] { ',' });
                     if (strArray3.Length != length)
                     {
                         throw new MatrixException("Matrix does not contain columns that are of equal lengths");
                     }
                     for (var j = 0; j < length; j++)
                     {
-                        string str3 = strArray3[j];
+                        var str3 = strArray3[j];
                         try
                         {
                             this[i, j] = Convert.ToDouble(str3, CultureInfo.InvariantCulture);
@@ -81,16 +103,16 @@ namespace ISTUK.MathLibrary
             else
             {
                 SetSize(length, rows);
-                for (int k = 0; k < Rows; k++)
+                for (var k = 0; k < Rows; k++)
                 {
-                    string[] strArray4 = strArray[k].Split(new char[] { ',' });
+                    var strArray4 = strArray[k].Split(new[] { ',' });
                     if (strArray4.Length != rows)
                     {
                         throw new MatrixException("Matrix does not contain rows that are of equal lengths");
                     }
-                    for (int m = 0; m < rows; m++)
+                    for (var m = 0; m < rows; m++)
                     {
-                        string str4 = strArray4[m];
+                        var str4 = strArray4[m];
                         try
                         {
                             this[k, m] = Convert.ToDouble(str4);
@@ -156,14 +178,14 @@ namespace ISTUK.MathLibrary
             {
                 for (var j = 0; j < columns; j++)
                 {
-                    this.elements[i,j] = elements[j + (i * columns)];
+                    _elements[i,j] = elements[j + (i * columns)];
                 }
             }
         }
 
         public void AddColumn(int column1, int column2)
         {
-            Vector column = GetColumn(column2);
+            var column = GetColumn(column2);
             for (var i = 0; i < Rows; i++)
             {
                 Matrix matrix;
@@ -175,7 +197,7 @@ namespace ISTUK.MathLibrary
 
         public void AddColumnTimesScalar(int column1, int column2, double scalar)
         {
-            Vector column = GetColumn(column2);
+            var column = GetColumn(column2);
             for (var i = 0; i < Rows; i++)
             {
                 Matrix matrix;
@@ -187,7 +209,7 @@ namespace ISTUK.MathLibrary
 
         public void AddRow(int row1, int row2)
         {
-            Vector row = GetRow(row2);
+            var row = GetRow(row2);
             for (var i = 0; i < Columns; i++)
             {
                 Matrix matrix;
@@ -199,7 +221,7 @@ namespace ISTUK.MathLibrary
 
         public void AddRowTimesScalar(int row1, int row2, double scalar)
         {
-            Vector row = GetRow(row2);
+            var row = GetRow(row2);
             for (var i = 0; i < Columns; i++)
             {
                 Matrix matrix;
@@ -215,7 +237,7 @@ namespace ISTUK.MathLibrary
             {
                 throw new MatrixException("Cannot augment matrices with different number of rows");
             }
-            Matrix matrix = new Matrix(Rows, Columns + mat.Columns);
+            var matrix = new Matrix(Rows, Columns + mat.Columns);
             for (var i = 0; i < Columns; i++)
             {
                 matrix.SetColumn(i, GetColumn(i));
@@ -229,18 +251,15 @@ namespace ISTUK.MathLibrary
 
         public double ConditionNumber()
         {
-            ISTUK.MathLibrary.SVD svd = new ISTUK.MathLibrary.SVD(this);
+            var svd = new SVD(this);
             return svd.ConditionNumber;
         }
 
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
+      
 
         public Vector GetColumn(int column)
         {
-            Vector vector = new Vector(Rows);
+            var vector = new Vector(Rows);
             for (var i = 0; i < Rows; i++)
             {
                 vector[i] = this[i, column];
@@ -248,14 +267,11 @@ namespace ISTUK.MathLibrary
             return vector;
         }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+       
 
         public Vector GetRow(int row)
         {
-            Vector vector = new Vector(Columns);
+            var vector = new Vector(Columns);
             for (var i = 0; i < Columns; i++)
             {
                 vector[i] = this[row, i];
@@ -302,10 +318,11 @@ namespace ISTUK.MathLibrary
             return true;
         }
 
+        private const double EPSILON = 0.0001;
         public bool IsRowEchelon()
         {
-            bool flag = false;
-            int columns = -1;
+            var flag = false;
+            var columns = -1;
             for (var i = 0; i < Rows; i++)
             {
                 if (flag && !IsRowZero(i))
@@ -321,13 +338,13 @@ namespace ISTUK.MathLibrary
                 {
                     for (var j = 0; j < Columns; j++)
                     {
-                        if (this[i, j] != 0.0)
+                        if (Math.Abs(this[i, j] - 0.0) > EPSILON)
                         {
                             if (j <= columns)
                             {
                                 return false;
                             }
-                            if (this[i, j] != 1.0)
+                            if (Math.Abs(this[i, j] - 1.0) > EPSILON)
                             {
                                 return false;
                             }
@@ -354,11 +371,10 @@ namespace ISTUK.MathLibrary
 
         public double MakeRowEchelon()
         {
-            double num = 1.0;
+            var num = 1.0;
             for (var i = 0; i < Rows; i++)
             {
-                int num7;
-                int num3 = -1;
+                var num3 = -1;
                 for (var j = 0; j < Columns; j++)
                 {
                     if (!IsColumnZeroBelowRow(j, i))
@@ -371,8 +387,8 @@ namespace ISTUK.MathLibrary
                 {
                     return num;
                 }
-                double naN = double.NaN;
-                for (int k = i; k < Rows; k++)
+                var naN = double.NaN;
+                for (var k = i; k < Rows; k++)
                 {
                     if (Math.Abs(this[k, num3]) > 1E-05)
                     {
@@ -385,17 +401,17 @@ namespace ISTUK.MathLibrary
                         break;
                     }
                 }
-                if (naN != 1.0)
+                if (Math.Abs(naN - 1.0) > EPSILON)
                 {
                     MultiplyRow(i, 1.0 / naN);
                     num *= naN;
                 }
             Label_00CE:
-                num7 = -1;
-                double num8 = double.NaN;
-                for (int m = i + 1; m < Rows; m++)
+                var num7 = -1;
+                var num8 = double.NaN;
+                for (var m = i + 1; m < Rows; m++)
                 {
-                    if (this[m, num3] != 0.0)
+                    if (Math.Abs(this[m, num3] - 0.0) > EPSILON)
                     {
                         num7 = m;
                         num8 = this[m, num3];
@@ -435,7 +451,7 @@ namespace ISTUK.MathLibrary
 
         public static Matrix NaN(int rows, int columns)
         {
-            Matrix matrix = new Matrix(rows, columns);
+            var matrix = new Matrix(rows, columns);
             matrix.SetSize(rows, columns);
             for (var i = 0; i < rows; i++)
             {
@@ -453,7 +469,7 @@ namespace ISTUK.MathLibrary
             {
                 throw new MatrixException("Matrices are not the same size");
             }
-            Matrix matrix = new Matrix(lhs.Rows, lhs.Columns);
+            var matrix = new Matrix(lhs.Rows, lhs.Columns);
             for (var i = 0; i < lhs.Rows; i++)
             {
                 for (var j = 0; j < lhs.Columns; j++)
@@ -469,7 +485,7 @@ namespace ISTUK.MathLibrary
             {
                 throw new MatrixException("Matrices are not the same size");
             }
-            Matrix matrix = new Matrix(lhs.Rows, lhs.Columns);
+            var matrix = new Matrix(lhs.Rows, lhs.Columns);
             for (var i = 0; i < lhs.Rows; i++)
             {
                 for (var j = 0; j < lhs.Columns; j++)
@@ -482,7 +498,7 @@ namespace ISTUK.MathLibrary
 
         public static Matrix operator +(Matrix mat, double scalar)
         {
-            Matrix matrix = new Matrix(mat);
+            var matrix = new Matrix(mat);
             for (var i = 0; i < matrix.Rows; i++)
             {
                 for (var j = 0; j < matrix.Columns; j++)
@@ -497,7 +513,7 @@ namespace ISTUK.MathLibrary
         }
         public static Matrix Add(Matrix mat, double scalar)
         {
-            Matrix matrix = new Matrix(mat);
+            var matrix = new Matrix(mat);
             for (var i = 0; i < matrix.Rows; i++)
             {
                 for (var j = 0; j < matrix.Columns; j++)
@@ -517,26 +533,26 @@ namespace ISTUK.MathLibrary
         }
         public static Matrix Divide(Matrix mat, double scalar)
         {
-            if (scalar == 0.0)
+            if (Math.Abs(scalar - 0.0) < EPSILON)
             {
                 throw new DivideByZeroException();
             }
-            return (Matrix)(mat * (1.0 / scalar));
+            return mat * (1.0 / scalar);
         }
         public static Matrix operator /(Matrix mat, double scalar)
         {
-            if (scalar == 0.0)
+            if (Math.Abs(scalar - 0.0) < EPSILON)
             {
                 throw new DivideByZeroException();
             }
-            return (Matrix) (mat * (1.0 / scalar));
+            return mat * (1.0 / scalar);
         }
 
         public static bool operator ==(Matrix m1, Matrix m2)
         {
             try
             {
-                if ((m1.Rows != m2.Rows) || (m1.Columns != m2.Columns))
+                if (m1.Rows != m2.Rows || (m1.Columns != m2.Columns))
                 {
                     return false;
                 }
@@ -544,7 +560,7 @@ namespace ISTUK.MathLibrary
                 {
                     for (var j = 0; j < m1.Columns; j++)
                     {
-                        if (m1[i, j] != m2[i, j])
+                        if (Math.Abs(m1[i, j] - m2[i, j]) > EPSILON)
                         {
                             return false;
                         }
@@ -569,13 +585,13 @@ namespace ISTUK.MathLibrary
             {
                 throw new MatrixException("Matrices are not compatible for multiplication");
             }
-            Matrix matrix = new Matrix(lhs.Rows, rhs.Columns);
+            var matrix = new Matrix(lhs.Rows, rhs.Columns);
             for (var i = 0; i < matrix.Rows; i++)
             {
                 for (var j = 0; j < matrix.Columns; j++)
                 {
-                    double num3 = 0.0;
-                    for (int k = 0; k < lhs.Columns; k++)
+                    var num3 = 0.0;
+                    for (var k = 0; k < lhs.Columns; k++)
                     {
                         num3 += lhs[i, k] * rhs[k, j];
                     }
@@ -587,7 +603,7 @@ namespace ISTUK.MathLibrary
 
         public static Matrix operator *(Matrix mat, double scalar)
         {
-            Matrix matrix = new Matrix(mat.Rows, mat.Columns);
+            var matrix = new Matrix(mat.Rows, mat.Columns);
             for (var i = 0; i < mat.Rows; i++)
             {
                 for (var j = 0; j < mat.Columns; j++)
@@ -599,7 +615,7 @@ namespace ISTUK.MathLibrary
         }
         public static Matrix Multiply(Matrix mat, double scalar)
         {
-            Matrix matrix = new Matrix(mat.Rows, mat.Columns);
+            var matrix = new Matrix(mat.Rows, mat.Columns);
             for (var i = 0; i < mat.Rows; i++)
             {
                 for (var j = 0; j < mat.Columns; j++)
@@ -611,11 +627,11 @@ namespace ISTUK.MathLibrary
         }
         public static Matrix operator *(double scalar, Matrix mat)
         {
-            return (Matrix) (mat * scalar);
+            return mat * scalar;
         }
         public static Matrix Multiply(double scalar, Matrix mat)
         {
-            return (Matrix)(mat * scalar);
+            return mat * scalar;
         }
         public static Matrix operator -(Matrix lhs, Matrix rhs)
         {
@@ -623,7 +639,7 @@ namespace ISTUK.MathLibrary
             {
                 throw new MatrixException("Matrices are not the same size");
             }
-            Matrix matrix = new Matrix(lhs.Rows, lhs.Columns);
+            var matrix = new Matrix(lhs.Rows, lhs.Columns);
             for (var i = 0; i < lhs.Rows; i++)
             {
                 for (var j = 0; j < lhs.Columns; j++)
@@ -639,7 +655,7 @@ namespace ISTUK.MathLibrary
             {
                 throw new MatrixException("Matrices are not the same size");
             }
-            Matrix matrix = new Matrix(lhs.Rows, lhs.Columns);
+            var matrix = new Matrix(lhs.Rows, lhs.Columns);
             for (var i = 0; i < lhs.Rows; i++)
             {
                 for (var j = 0; j < lhs.Columns; j++)
@@ -651,7 +667,7 @@ namespace ISTUK.MathLibrary
         }
         public static Matrix operator -(Matrix mat, double scalar)
         {
-            Matrix matrix = new Matrix(mat);
+            var matrix = new Matrix(mat);
             for (var i = 0; i < matrix.Rows; i++)
             {
                 for (var j = 0; j < matrix.Columns; j++)
@@ -666,7 +682,7 @@ namespace ISTUK.MathLibrary
         }
         public static Matrix Subtract(Matrix mat, double scalar)
         {
-            Matrix matrix = new Matrix(mat);
+            var matrix = new Matrix(mat);
             for (var i = 0; i < matrix.Rows; i++)
             {
                 for (var j = 0; j < matrix.Columns; j++)
@@ -682,7 +698,7 @@ namespace ISTUK.MathLibrary
 
         public static Matrix operator -(Matrix mat)
         {
-            Matrix matrix = new Matrix(mat);
+            var matrix = new Matrix(mat);
             for (var i = 0; i < mat.Rows; i++)
             {
                 for (var j = 0; j < mat.Columns; j++)
@@ -694,7 +710,7 @@ namespace ISTUK.MathLibrary
         }
         public static Matrix Negate(Matrix mat)
         {
-            Matrix matrix = new Matrix(mat);
+            var matrix = new Matrix(mat);
             for (var i = 0; i < mat.Rows; i++)
             {
                 for (var j = 0; j < mat.Columns; j++)
@@ -706,7 +722,7 @@ namespace ISTUK.MathLibrary
         }
         public Matrix PseudoInverse()
         {
-            ISTUK.MathLibrary.SVD svd = new ISTUK.MathLibrary.SVD(this);
+            var svd = new SVD(this);
             Matrix matrix = new SquareMatrix(Columns);
             for (var i = 0; i < svd.W.Rows; i++)
             {
@@ -718,16 +734,16 @@ namespace ISTUK.MathLibrary
             return ((svd.V * matrix) * svd.U.Transpose());
         }
 
-        public ISTUK.MathLibrary.QRDecomposition QRDecomposition()
+        public QRDecomposition QRDecomposition()
         {
-            return new ISTUK.MathLibrary.QRDecomposition(this);
+            return new QRDecomposition(this);
         }
 
         public int Rank()
         {
-            Matrix matrix = new Matrix(this);
+            var matrix = new Matrix(this);
             matrix.MakeRowEchelon();
-            int num = 0;
+            var num = 0;
             for (var i = 0; i < matrix.Rows; i++)
             {
                 if (!matrix.IsRowZero(i))
@@ -762,17 +778,17 @@ namespace ISTUK.MathLibrary
             }
         }
 
-        protected void SetSize(int _rows, int _columns)
-        {
-            rows = _rows;
-            columns = _columns;
+        protected void SetSize(int rows, int columns)
+        {            
+            _rows = rows;
+            _columns = columns;
 //            throw new NotImplementedException();
-           elements = new double[_rows,_columns];
+           _elements = new double[rows,columns];
         }
 
         public Matrix SubMatrix(int firstRow, int lastRow, int firstColumn, int lastColumn)
         {
-            Matrix matrix = new Matrix((lastRow - firstRow) + 1, (lastColumn - firstColumn) + 1);
+            var matrix = new Matrix((lastRow - firstRow) + 1, (lastColumn - firstColumn) + 1);
             for (var i = firstRow; i <= lastRow; i++)
             {
                 for (var j = firstColumn; j <= lastColumn; j++)
@@ -783,23 +799,23 @@ namespace ISTUK.MathLibrary
             return matrix;
         }
 
-        public ISTUK.MathLibrary.SVD SVD()
+        public SVD SVD()
         {
-            return new ISTUK.MathLibrary.SVD(this);
+            return new SVD(this);
         }
 
         public void SwapColumns(int column1, int column2)
         {
-            Vector column = GetColumn(column1);
-            Vector vec = GetColumn(column2);
+            var column = GetColumn(column1);
+            var vec = GetColumn(column2);
             SetColumn(column1, vec);
             SetColumn(column2, column);
         }
 
         public void SwapRows(int row1, int row2)
         {
-            Vector row = GetRow(row1);
-            Vector vec = GetRow(row2);
+            var row = GetRow(row1);
+            var vec = GetRow(row2);
             SetRow(row1, vec);
             SetRow(row2, row);
         }
@@ -816,16 +832,8 @@ namespace ISTUK.MathLibrary
 
             return ToString(format,null);
         }
-        private string Splitmatrix()
-        {
-            var sb = new System.Text.StringBuilder();
-            string start = ToString(); 
 
-
-
-            return sb.ToString();
-        }
-    public virtual string ToString(string format, IFormatProvider formatProvider)
+        public virtual string ToString(string format, IFormatProvider formatProvider)
     {
         var sb = new System.Text.StringBuilder();
         if (format == null)
@@ -858,7 +866,7 @@ namespace ISTUK.MathLibrary
          sb.Append("[");
          for (var i = 0; i < Rows; i++)
          {
-             for (int m = 0; m < Columns; m++)
+             for (var m = 0; m < Columns; m++)
              {
                  sb.Append(this[i, m].ToString("F5"));
                  if ((m + 1) < Columns)
@@ -869,7 +877,7 @@ namespace ISTUK.MathLibrary
                  sb.Append(";" + Environment.NewLine);
          }
          
-         return (sb.ToString() + "]");
+         return (sb + "]");
      }
 
     public Matrix Transpose()
@@ -889,7 +897,7 @@ namespace ISTUK.MathLibrary
         {
             get
             {
-                return columns;
+                return _columns;
             }
             set
             {
@@ -902,11 +910,11 @@ namespace ISTUK.MathLibrary
 
         get
             {
-                return elements[row,column];
+                return _elements[row,column];
             }
             set
             {
-                elements[row,column] = value;
+                _elements[row,column] = value;
             }
         }
 
@@ -914,7 +922,7 @@ namespace ISTUK.MathLibrary
         {
             get
             {
-                return rows;
+                return _rows;
             }
             set
             {

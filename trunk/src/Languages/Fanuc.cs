@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using System.IO;
 using System.Collections.ObjectModel;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -47,7 +46,7 @@ namespace miRobotEditor.Languages
 
             return doc.GetText(start, end);
         }
-        internal override Enums.TYPLANGUAGE RobotType { get { return Enums.TYPLANGUAGE.Fanuc; } }
+        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.Fanuc; } }
 
         internal override IList<ICompletionData> CodeCompletion
         {

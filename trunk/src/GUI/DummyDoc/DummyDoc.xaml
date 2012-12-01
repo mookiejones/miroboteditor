@@ -29,10 +29,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-
             <GUI:Editor  x:Name="data"  ReloadFile="ReloadFile" IsVisibleChanged="OnIsVisibleChanged"   TextChanged="TextChanged" UpdateFunctions="Raiseupdated" Grid.Row="2" BorderThickness="1"/>        	
             <local:ExtendedGridSplitter  x:Name="grid" Grid.Row="1" HorizontalAlignment="Stretch" Height="20" CollapseMode="Previous" UnfocusColor="{StaticResource UnFocus}" FocusColor="{Binding Robot.FocusColor}" Loaded="GridLoaded" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Center"/>
-            <GUI:Editor x:Name="source" ReloadFile="ReloadFile" Grid.Row="0" IsVisibleChanged="OnIsVisibleChanged" TextChanged="TextChanged"  UpdateFunctions="Raiseupdated" />
+            <GUI:Editor x:Name="source" ReloadFile="ReloadFile" Grid.Row="0" IsVisibleChanged="OnIsVisibleChanged" TextChanged="TextChanged"  UpdateFunctions="Raiseupdated" BorderThickness="1" />
         </Grid>
     </Grid>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿<Window x:Class="miRobotEditor.Controls.frmReverse"
+﻿<Window x:Class="miRobotEditor.Controls.FrmReverse"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Reverse Order" Height="232" Width="300">

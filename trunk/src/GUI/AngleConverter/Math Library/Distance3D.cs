@@ -4,19 +4,20 @@ namespace ISTUK.MathLibrary
 
     public static class Distance3D
     {
-        enum TYP3D { Point3d, Line3d, Plane3d, Circle3d, Sphere3d,None }
+        enum TYP3D { Point3D, Line3D, Plane3D, Circle3D, Sphere3D,None }
+
         private static TYP3D getType(IGeometricElement3D geo)
         {
             if (geo is Point3D)
-                return TYP3D.Point3d;
+                return TYP3D.Point3D;
             if(geo is Line3D)
-                return TYP3D.Line3d;
+                return TYP3D.Line3D;
             if(geo is Plane3D)
-                return TYP3D.Plane3d;
+                return TYP3D.Plane3D;
             if (geo is Circle3D)
-                return TYP3D.Circle3d;
+                return TYP3D.Circle3D;
             if (geo is Sphere3D)
-                return TYP3D.Sphere3d;
+                return TYP3D.Sphere3D;
 
 
             return TYP3D.None;
@@ -25,79 +26,79 @@ namespace ISTUK.MathLibrary
         {
             if (e1 is Point3D)
             {
-                Point3D E1 = e1 as Point3D;
+                var point3D = e1 as Point3D;
                 switch (getType(e2))
                 {
-                    case TYP3D.Point3d:
-                        return PointToPoint(E1, e2 as Point3D);
-                    case TYP3D.Line3d:
-                        return PointToLine(e2 as Line3D, E1);
-                    case TYP3D.Plane3d:
-                        return PointToPlane(e2 as Plane3D, E1);
-                    case TYP3D.Circle3d:
-                        return PointToCircle(e2 as Circle3D, E1);
-                    case TYP3D.Sphere3d:
-                        return PointToSphere(e2 as Sphere3D, E1);
+                    case TYP3D.Point3D:
+                        return PointToPoint(point3D, e2 as Point3D);
+                    case TYP3D.Line3D:
+                        return PointToLine(e2 as Line3D, point3D);
+                    case TYP3D.Plane3D:
+                        return PointToPlane(e2 as Plane3D, point3D);
+                    case TYP3D.Circle3D:
+                        return PointToCircle(e2 as Circle3D, point3D);
+                    case TYP3D.Sphere3D:
+                        return PointToSphere(e2 as Sphere3D, point3D);
                 }
 
             }
             else if (e1 is Line3D)
             {
-                Line3D E1 = e1 as Line3D;
+                var line3D = e1 as Line3D;
                 switch (getType(e2))
                 {
-                    case TYP3D.Point3d:
-                        return PointToLine(E1, e2 as Point3D);
-                    case TYP3D.Line3d:
-                        return LineToLine(E1, e2 as Line3D);
-                    case TYP3D.Plane3d:
-                    case TYP3D.Sphere3d:
+                    case TYP3D.Point3D:
+                        return PointToLine(line3D, e2 as Point3D);
+                    case TYP3D.Line3D:
+                        return LineToLine(line3D, e2 as Line3D);
+                    case TYP3D.Plane3D:
+                    case TYP3D.Sphere3D:
                         throw new NotImplementedException();
-                    case TYP3D.Circle3d:
-                        return LineToCircle(e2 as Circle3D, E1);
+                    case TYP3D.Circle3D:
+                        return LineToCircle(e2 as Circle3D, line3D);
                 }
 
             }
             else if (e1 is Plane3D)
             {
-                Plane3D E1 = e1 as Plane3D;
+                var plane3D = e1 as Plane3D;
                 switch (getType(e2))
                 {
-                    case TYP3D.Point3d:
-                        return PointToPlane(E1, e2 as Point3D);
-                    case TYP3D.Line3d:
-                    case TYP3D.Plane3d:
-                    case TYP3D.Circle3d:
-                    case TYP3D.Sphere3d:
+                    case TYP3D.Point3D:
+                        return PointToPlane(plane3D, e2 as Point3D);
+                    case TYP3D.Line3D:
+                    case TYP3D.Plane3D:
+                    case TYP3D.Circle3D:
+                    case TYP3D.Sphere3D:
                         throw new NotImplementedException();
                 }
 
             }
             else if (e1 is Circle3D)
             {
-                Circle3D E1 = e1 as Circle3D;
+                var circle3D = e1 as Circle3D;
                 switch (getType(e2))
                 {
-                    case TYP3D.Point3d:
-                        return PointToCircle(E1, e2 as Point3D);
-                    case TYP3D.Line3d:
-                    case TYP3D.Plane3d:
-                    case TYP3D.Circle3d:
-                    case TYP3D.Sphere3d:
+                    case TYP3D.Point3D:
+                        return PointToCircle(circle3D, e2 as Point3D);
+                    case TYP3D.Line3D:
+                    case TYP3D.Plane3D:
+                    case TYP3D.Circle3D:
+                    case TYP3D.Sphere3D:
                         throw new NotImplementedException();
                 }
             }
             else if (e1 is Sphere3D)
             {
-                Sphere3D E1 = e1 as Sphere3D;
+                var sphere3D = e1 as Sphere3D;
                 switch (getType(e2))
                 {
-                    case TYP3D.Point3d:
-                        return PointToSphere(E1, e2 as Point3D);
-                    case TYP3D.Line3d:
-                    case TYP3D.Plane3d:
-                    case TYP3D.Circle3d:
-                    case TYP3D.Sphere3d:
+                    case TYP3D.Point3D:
+                        return PointToSphere(sphere3D, e2 as Point3D);
+                    case TYP3D.Line3D:
+                    case TYP3D.Plane3D:
+                    case TYP3D.Circle3D:
+                    case TYP3D.Sphere3D:
                         throw new NotImplementedException();
                 }
                 throw new NotImplementedException();
@@ -118,7 +119,7 @@ namespace ISTUK.MathLibrary
         public static double LineToLine(Line3D line1, Line3D line2)
         {
             Point3D pointd;
-            var pointd2 = new Point3D();
+            Point3D pointd2;
             return LineToLine(line1, line2, out pointd, out pointd2);
         }
 
@@ -127,19 +128,19 @@ namespace ISTUK.MathLibrary
             double num7;
             double num8;
             double num9;
-            Point3D origin = line1.Origin;
-            Point3D pointd2 = line2.Origin;
-            Vector3D direction = line1.Direction;
-            Vector3D vectord2 = line2.Direction;
-            var vectord3 = (Vector3D) (origin - pointd2);
-            double num = Vector.Dot(-direction, vectord2);
-            double num2 = Vector.Dot(vectord3, direction);
-            double num3 = vectord3.Length() * vectord3.Length();
-            double num4 = Math.Abs((double) (1.0 - (num * num)));
+            var origin = line1.Origin;
+            var pointd2 = line2.Origin;
+            var direction = line1.Direction;
+            var vectord2 = line2.Direction;
+            var vectord3 = origin - pointd2;
+            var num = Vector.Dot(-direction, vectord2);
+            var num2 = Vector.Dot(vectord3, direction);
+            var num3 = vectord3.Length() * vectord3.Length();
+            var num4 = Math.Abs(1.0 - (num * num));
             if (num4 > 1E-05)
             {
-                double num5 = Vector.Dot(-vectord3, vectord2);
-                double num6 = 1.0 / num4;
+                var num5 = Vector.Dot(-vectord3, vectord2);
+                var num6 = 1.0 / num4;
                 num7 = ((num * num5) - num2) * num6;
                 num8 = ((num * num2) - num5) * num6;
                 num9 = ((num7 * ((num7 + (num * num8)) + (2.0 * num2))) + (num8 * (((num * num7) + num8) + (2.0 * num5)))) + num3;
@@ -150,8 +151,8 @@ namespace ISTUK.MathLibrary
                 num8 = 0.0;
                 num9 = (num2 * num7) + num3;
             }
-            closestPoint1 = origin + new Vector3D((Matrix) (num7 * direction));
-            closestPoint2 = pointd2 + new Vector3D((Matrix) (num8 * vectord2));
+            closestPoint1 = origin + new Vector3D(num7 * direction);
+            closestPoint2 = pointd2 + new Vector3D(num8 * vectord2);
             return Math.Sqrt(num9);
         }
 
@@ -162,24 +163,24 @@ namespace ISTUK.MathLibrary
 
         public static double PointToCircle(Circle3D circle, Point3D point)
         {
-            Plane3D plane = new Plane3D(circle.Origin, circle.Normal);
-            Point3D pointd = Project3D.PointOntoPlane(plane, point);
+            var plane = new Plane3D(circle.Origin, circle.Normal);
+            var pointd = Project3D.PointOntoPlane(plane, point);
             Between(point, pointd);
-            Vector3D vectord = (Vector3D) (circle.Origin - pointd);
+            var vectord = circle.Origin - pointd;
             vectord.Normalise();
             //Point3D pointd2 = circle.Origin + ((Point3D) (vectord * circle.Radius));
-            Point3D pointd2 = new Point3D();
+            var pointd2 = new Point3D();
             return PointToPoint(point, pointd2);
         }
 
         public static double PointToLine(Line3D line, Point3D point)
         {
-            return Vector3D.Cross(line.Direction, (Vector) (line.Origin - point)).Length();
+            return Vector3D.Cross(line.Direction, line.Origin - point).Length();
         }
 
         public static double PointToPlane(Plane3D plane, Point3D point)
         {
-            return Vector.Dot(plane.Normal, (Vector) (point - plane.Point));
+            return Vector.Dot(plane.Normal, point - plane.Point);
         }
 
         public static double PointToPoint(Point3D p1, Point3D p2)

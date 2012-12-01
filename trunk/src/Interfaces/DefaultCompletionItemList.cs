@@ -6,10 +6,10 @@ namespace miRobotEditor
 {
     public class DefaultCompletionItemList : ICompletionItemList
     {
-        readonly List<ICompletionItem> items = new List<ICompletionItem>();
+        readonly List<ICompletionItem> _items = new List<ICompletionItem>();
 		
         public List<ICompletionItem> Items {
-            get { return items; }
+            get { return _items; }
         }
 		
         /// <inheritdoc />
@@ -23,11 +23,9 @@ namespace miRobotEditor
         public void SortItems()	// PERF this is called twice
         {
             // the user might use method names is his language, so sort using CurrentCulture
-            items.Sort((a,b) => {
-                                    int r = string.Compare(a.Text, b.Text, StringComparison.CurrentCultureIgnoreCase);
-                                    if (r != 0)
-                                        return r;
-                                    return string.Compare(a.Text, b.Text, StringComparison.CurrentCulture);
+            _items.Sort((a,b) => {
+                                    var r = string.Compare(a.Text, b.Text, StringComparison.CurrentCultureIgnoreCase);
+                                    return r != 0 ? r : string.Compare(a.Text, b.Text, StringComparison.CurrentCulture);
             });
         }
 		
@@ -38,7 +36,7 @@ namespace miRobotEditor
         public ICompletionItem SuggestedItem { get; set; }
 		
         IEnumerable<ICompletionItem> ICompletionItemList.Items {
-            get { return items; }
+            get { return _items; }
         }
 		
         /// <summary>

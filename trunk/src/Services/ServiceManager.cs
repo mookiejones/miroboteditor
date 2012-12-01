@@ -6,6 +6,7 @@
  * 
  */
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Diagnostics;
 namespace miRobotEditor.Services
@@ -16,17 +17,17 @@ namespace miRobotEditor.Services
 	/// </summary>
 	public abstract class ServiceManager : IServiceProvider
 	{
-		volatile static ServiceManager instance = new DefaultServiceManager();
+		volatile static ServiceManager _instance = new DefaultServiceManager();
 		
 		/// <summary>
 		/// Gets the static ServiceManager instance.
 		/// </summary>
 		public static ServiceManager Instance {
-			get { return instance; }
+			get { return _instance; }
 			set {
 				if (value == null)
 					throw new ArgumentNullException();
-				instance = value;
+				_instance = value;
 			}
 		}
 		
@@ -48,7 +49,7 @@ namespace miRobotEditor.Services
 		/// </summary>
 		public object GetRequiredService(Type serviceType)
 		{
-			object service = GetService(serviceType);
+			var service = GetService(serviceType);
 			if (service == null)
 				throw new ServiceNotFoundException();
 			return service;
@@ -79,8 +80,10 @@ namespace miRobotEditor.Services
 	
 	sealed class DefaultServiceManager : ServiceManager
 	{
-		static ILoggingService loggingService = new TextWriterLoggingService(new DebugTextWriter());
-		static IMessageService messageService = new TextWriterMessageService(Console.Out);
+// ReSharper disable InconsistentNaming
+		static readonly ILoggingService loggingService = new TextWriterLoggingService(new DebugTextWriter());
+		static readonly IMessageService messageService = new TextWriterMessageService(Console.Out);
+// ReSharper restore InconsistentNaming
 		
 		public override ILoggingService LoggingService {
 			get { return loggingService; }
@@ -92,12 +95,9 @@ namespace miRobotEditor.Services
 		
 		public override object GetService(Type serviceType)
 		{
-			if (serviceType == typeof(ILoggingService))
+		    if (serviceType == typeof(ILoggingService))
 				return loggingService;
-			else if (serviceType == typeof(IMessageService))
-				return messageService;
-			else
-				return null;
+		    return serviceType == typeof(IMessageService) ? messageService : null;
 		}
 	}
 	public interface ILoggingService
@@ -211,7 +211,7 @@ namespace miRobotEditor.Services
 		
 		public override void Write(char value)
 		{
-			Debug.Write(value.ToString());
+			Debug.Write(value);
 		}
 		
 		public override void Write(char[] buffer, int index, int count)
@@ -241,72 +241,73 @@ namespace miRobotEditor.Services
 	/// IMessageService implementation that writes messages to a text writer.
 	/// User input is not implemented by this service.
 	/// </summary>
+	[Localizable(false)]
 	public class TextWriterMessageService : IMessageService
 	{
-		readonly TextWriter writer;
+		readonly TextWriter _writer;
 		
 		public TextWriterMessageService(TextWriter writer)
 		{
 			if (writer == null)
 				throw new ArgumentNullException("writer");
-			this.writer = writer;
+			_writer = writer;
 		}
 		
 		public void ShowError(string message)
 		{
-			writer.WriteLine(message);
+			_writer.WriteLine(message);
 		}
 		
 		public void ShowException(Exception ex, string message)
 		{
 			if (message != null) {
-				writer.WriteLine(message);
+				_writer.WriteLine(message);
 			}
 			if (ex != null) {
-				writer.WriteLine(ex.ToString());
+				_writer.WriteLine(ex.ToString());
 			}
 		}
 		
 		public void ShowWarning(string message)
 		{
-			writer.WriteLine(message);
+			_writer.WriteLine(message);
 		}
-		
-		public bool AskQuestion(string question, string caption)
+
+	    public bool AskQuestion(string question, string caption)
 		{
-			writer.WriteLine(caption + ": " + question);
+			_writer.WriteLine(caption + ": " + question);
 			return false;
 		}
 		
 		public int ShowCustomDialog(string caption, string dialogText, int acceptButtonIndex, int cancelButtonIndex, params string[] buttontexts)
 		{
-			writer.WriteLine(caption + ": " + dialogText);
+			_writer.WriteLine(caption + ": " + dialogText);
 			return cancelButtonIndex;
 		}
 		
 		public string ShowInputBox(string caption, string dialogText, string defaultValue)
 		{
-			writer.WriteLine(caption + ": " + dialogText);
+			_writer.WriteLine(caption + ": " + dialogText);
 			return defaultValue;
 		}
 		
 		public void ShowMessage(string message, string caption)
 		{
-			writer.WriteLine(caption + ": " + message);
+			_writer.WriteLine(caption + ": " + message);
 		}
 		
 		public void InformSaveError(string fileName, string message, string dialogName, Exception exceptionGot)
 		{
-			writer.WriteLine(dialogName + ": " + message + " (" + fileName + ")");
+			_writer.WriteLine(dialogName + ": " + message + " (" + fileName + ")");
 			if (exceptionGot != null)
-				writer.WriteLine(exceptionGot.ToString());
+				_writer.WriteLine(exceptionGot.ToString());
 		}
 		
 		public ChooseSaveErrorResult ChooseSaveError(string fileName, string message, string dialogName, Exception exceptionGot, bool chooseLocationEnabled)
 		{
-			writer.WriteLine(dialogName + ": " + message + " (" + fileName + ")");
+			_writer.WriteLine(dialogName + ": " + message + " (" + fileName + ")");
 			if (exceptionGot != null)
-				writer.WriteLine(exceptionGot.ToString());
+				_writer.WriteLine(exceptionGot.ToString());
 			return ChooseSaveErrorResult.Ignore;
 		}
 	}

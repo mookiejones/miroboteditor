@@ -5,15 +5,8 @@
  * Time: 10:30
  * 
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace miRobotEditor.Language_Specific
 {
@@ -25,11 +18,7 @@ namespace miRobotEditor.Language_Specific
 		private static DatCleanControl _instance;
 		public static DatCleanControl Instance
 		{
-			get{
-				if (_instance == null)
-					_instance=new DatCleanControl();
-				
-				return _instance;}
+			get { return _instance ?? (_instance = new DatCleanControl()); }
 		}
 		public DatCleanControl()
 		{

@@ -13,18 +13,18 @@ namespace miRobotEditor.Interfaces
 	/// </summary>
 	public class IconBarManager : IBookmarkMargin
 	{
-	    readonly ObservableCollection<IBookmark> bookmarks = new ObservableCollection<IBookmark>();
+	    readonly ObservableCollection<IBookmark> _bookmarks = new ObservableCollection<IBookmark>();
 		
 		public IconBarManager()
 		{
-			bookmarks.CollectionChanged += bookmarks_CollectionChanged;
+			_bookmarks.CollectionChanged += BookmarksCollectionChanged;
 		}
 		
 		public IList<IBookmark> Bookmarks {
-			get { return bookmarks; }
+			get { return _bookmarks; }
 		}
 		
-		void bookmarks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void BookmarksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			Redraw();
 		}
@@ -82,11 +82,5 @@ namespace miRobotEditor.Interfaces
 	//			bookmarks.Add(new ClassMemberBookmark(e, document));
 	//		}
 //		}
-		
-		static bool IsClassMemberBookmark(IBookmark b)
-		{
-			throw new NotImplementedException();
-			//return b is ClassMemberBookmark || b is ClassBookmark;
-		}
 	}
 }

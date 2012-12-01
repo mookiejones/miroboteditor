@@ -11,7 +11,7 @@ namespace miRobotEditor.Commands
     }
     public abstract class AbstractCommand : ICommand
     {
-        object owner;
+        object _owner;
 
         /// <summary>
         /// Returns the owner of the command.
@@ -20,11 +20,11 @@ namespace miRobotEditor.Commands
         {
             get
             {
-                return owner;
+                return _owner;
             }
             set
             {
-                owner = value;
+                _owner = value;
                 OnOwnerChanged(EventArgs.Empty);
             }
         }

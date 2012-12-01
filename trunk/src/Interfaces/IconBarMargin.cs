@@ -30,7 +30,7 @@ namespace miRobotEditor.Interfaces
         {
             if (manager == null)
                 throw new ArgumentNullException("manager");
-            this._manager = manager;
+            _manager = manager;
         }
 
         #region OnTextViewChanged
@@ -91,55 +91,52 @@ namespace miRobotEditor.Interfaces
                                     new Point(renderSize.Width - 0.5, 0),
                                     new Point(renderSize.Width - 0.5, renderSize.Height));
 
-            TextView textView = TextView;
-            if (textView != null && textView.VisualLinesValid)
+            var textView = TextView;
+            if (textView == null || !textView.VisualLinesValid) return;
+            // create a dictionary line number => first bookmark
+            var bookmarkDict = new Dictionary<int, IBookmark>();
+            foreach (var bm in _manager.Bookmarks)
             {
-                // create a dictionary line number => first bookmark
-                var bookmarkDict = new Dictionary<int, IBookmark>();
-                foreach (IBookmark bm in _manager.Bookmarks)
-                {
-                    int line = bm.LineNumber;
-                    IBookmark existingBookmark;
-                    if (!bookmarkDict.TryGetValue(line, out existingBookmark) || bm.ZOrder > existingBookmark.ZOrder)
-                        bookmarkDict[line] = bm;
-                }
-                Size pixelSize = PixelSnapHelpers.GetPixelSize(this);
-                foreach (VisualLine line in textView.VisualLines)
-                {
-                    int lineNumber = line.FirstDocumentLine.LineNumber;
-                    IBookmark bm;
-                    if (bookmarkDict.TryGetValue(lineNumber, out bm))
-                    {
-                        double lineMiddle = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextMiddle) - textView.VerticalOffset;
-                        var rect = new Rect(0, PixelSnapHelpers.Round(lineMiddle - 8, pixelSize.Height), 16, 16);
-                        if (dragDropBookmark == bm && dragStarted)
-                            drawingContext.PushOpacity(0.5);
-                        drawingContext.DrawImage((bm.Image ?? BookmarkBase.defaultBookmarkImage).Bitmap, rect);
-                        if (dragDropBookmark == bm && dragStarted)
-                            drawingContext.Pop();
-                    }
-                }
-                if (dragDropBookmark != null && dragStarted)
-                {
-                    var rect = new Rect(0, PixelSnapHelpers.Round(dragDropCurrentPoint - 8, pixelSize.Height), 16, 16);
-                    drawingContext.DrawImage((dragDropBookmark.Image ?? BookmarkBase.defaultBookmarkImage).ImageSource, rect);
-                }
+                var line = bm.LineNumber;
+                IBookmark existingBookmark;
+                if (!bookmarkDict.TryGetValue(line, out existingBookmark) || bm.ZOrder > existingBookmark.ZOrder)
+                    bookmarkDict[line] = bm;
+            }
+            var pixelSize = PixelSnapHelpers.GetPixelSize(this);
+            foreach (var line in textView.VisualLines)
+            {
+                var lineNumber = line.FirstDocumentLine.LineNumber;
+                IBookmark bm;
+
+                if (!bookmarkDict.TryGetValue(lineNumber, out bm)) continue;
+                var lineMiddle = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextMiddle) - textView.VerticalOffset;
+                var rect = new Rect(0, PixelSnapHelpers.Round(lineMiddle - 8, pixelSize.Height), 16, 16);
+                if (_dragDropBookmark == bm && _dragStarted)
+                    drawingContext.PushOpacity(0.5);
+                drawingContext.DrawImage((bm.Image ?? BookmarkBase.defaultBookmarkImage).Bitmap, rect);
+                if (_dragDropBookmark == bm && _dragStarted)
+                    drawingContext.Pop();
+            }
+            if (_dragDropBookmark != null && _dragStarted)
+            {
+                var rect = new Rect(0, PixelSnapHelpers.Round(_dragDropCurrentPoint - 8, pixelSize.Height), 16, 16);
+                drawingContext.DrawImage((_dragDropBookmark.Image ?? BookmarkBase.defaultBookmarkImage).ImageSource, rect);
             }
         }
 
-        IBookmark dragDropBookmark; // bookmark being dragged (!=null if drag'n'drop is active)
-        double dragDropStartPoint;
-        double dragDropCurrentPoint;
-        bool dragStarted; // whether drag'n'drop operation has started (mouse was moved minimum distance)
+        IBookmark _dragDropBookmark; // bookmark being dragged (!=null if drag'n'drop is active)
+        double _dragDropStartPoint;
+        double _dragDropCurrentPoint;
+        bool _dragStarted; // whether drag'n'drop operation has started (mouse was moved minimum distance)
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             CancelDragDrop();
             base.OnMouseDown(e);
-            int line = GetLineFromMousePosition(e);
+            var line = GetLineFromMousePosition(e);
             if (!e.Handled && line > 0)
             {
-                IBookmark bm = GetBookmarkFromLine(line);
+                var bm = GetBookmarkFromLine(line);
                 if (bm != null)
                 {
                     bm.MouseDown(e);
@@ -161,7 +158,7 @@ namespace miRobotEditor.Interfaces
         IBookmark GetBookmarkFromLine(int line)
         {
             IBookmark result = null;
-            foreach (IBookmark bm in _manager.Bookmarks)
+            foreach (var bm in _manager.Bookmarks)
             {
                 if (bm.LineNumber == line)
                 {
@@ -180,34 +177,34 @@ namespace miRobotEditor.Interfaces
 
         void StartDragDrop(IBookmark bm, MouseEventArgs e)
         {
-            dragDropBookmark = bm;
-            dragDropStartPoint = dragDropCurrentPoint = e.GetPosition(this).Y;
+            _dragDropBookmark = bm;
+            _dragDropStartPoint = _dragDropCurrentPoint = e.GetPosition(this).Y;
             if (TextView != null)
             {
                 var area = TextView.Services.GetService(typeof(TextArea)) as TextArea;
                 if (area != null)
-                    area.PreviewKeyDown += TextArea_PreviewKeyDown;
+                    area.PreviewKeyDown += TextAreaPreviewKeyDown;
             }
         }
 
         void CancelDragDrop()
         {
-            if (dragDropBookmark != null)
+            if (_dragDropBookmark != null)
             {
-                dragDropBookmark = null;
-                dragStarted = false;
+                _dragDropBookmark = null;
+                _dragStarted = false;
                 if (TextView != null)
                 {
                     var area = TextView.Services.GetService(typeof(TextArea)) as TextArea;
                     if (area != null)
-                        area.PreviewKeyDown -= TextArea_PreviewKeyDown;
+                        area.PreviewKeyDown -= TextAreaPreviewKeyDown;
                 }
                 ReleaseMouseCapture();
                 InvalidateVisual();
             }
         }
 
-        void TextArea_PreviewKeyDown(object sender, KeyEventArgs e)
+        void TextAreaPreviewKeyDown(object sender, KeyEventArgs e)
         {
             // any key press cancels drag'n'drop
             CancelDragDrop();
@@ -229,11 +226,11 @@ namespace miRobotEditor.Interfaces
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            if (dragDropBookmark != null)
+            if (_dragDropBookmark != null)
             {
-                dragDropCurrentPoint = e.GetPosition(this).Y;
-                if (Math.Abs(dragDropCurrentPoint - dragDropStartPoint) > SystemParameters.MinimumVerticalDragDistance)
-                    dragStarted = true;
+                _dragDropCurrentPoint = e.GetPosition(this).Y;
+                if (Math.Abs(_dragDropCurrentPoint - _dragDropStartPoint) > SystemParameters.MinimumVerticalDragDistance)
+                    _dragStarted = true;
                 InvalidateVisual();
             }
         }
@@ -241,20 +238,20 @@ namespace miRobotEditor.Interfaces
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
-            int line = GetLineFromMousePosition(e);
-            if (!e.Handled && dragDropBookmark != null)
+            var line = GetLineFromMousePosition(e);
+            if (!e.Handled && _dragDropBookmark != null)
             {
-                if (dragStarted)
+                if (_dragStarted)
                 {
                     if (line != 0)
-                        dragDropBookmark.Drop(line);
+                        _dragDropBookmark.Drop(line);
                     e.Handled = true;
                 }
                 CancelDragDrop();
             }
             if (!e.Handled && line != 0)
             {
-                IBookmark bm = GetBookmarkFromLine(line);
+                var bm = GetBookmarkFromLine(line);
                 if (bm != null)
                 {
                     bm.MouseUp(e);
@@ -264,7 +261,7 @@ namespace miRobotEditor.Interfaces
                 if (e.ChangedButton == MouseButton.Left && TextView != null)
                 {
                 	// no bookmark on the line: create a new breakpoint
-                	Interfaces.ITextEditor textEditor = TextView.Services.GetService(typeof(Interfaces.ITextEditor)) as Interfaces.ITextEditor;
+                	var textEditor = TextView.Services.GetService(typeof(ITextEditor)) as ITextEditor;
                 	if (textEditor!=null){}
                 	
                 	

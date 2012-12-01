@@ -3,19 +3,15 @@ namespace ISTUK.MathLibrary
     using System;
     using System.Collections.ObjectModel;
 
+#pragma warning disable 660,661
     public sealed class Vector3D : Vector, IGeometricElement3D, IFormattable
+#pragma warning restore 660,661
     {
         public Vector3D() : base(3)
         {
         }
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+
+  
         public Vector3D(Matrix mat) : base(3)
         {
             if ((mat.Rows != 1) && (mat.Columns != 1))
@@ -40,14 +36,14 @@ namespace ISTUK.MathLibrary
             }
         }
 
-        public Vector3D(double x, double y, double Z) : base(3, new double[] { x, y, Z })
+        public Vector3D(double x, double y, double z) : base(3, new[] { x, y, z })
         {
         }
 
         public static double Angle(Vector vec1, Vector vec2)
         {
-            double num = Vector.Dot(vec1, vec2);
-            double num2 = vec1.Length() * vec2.Length();
+            var num = Dot(vec1, vec2);
+            var num2 = vec1.Length() * vec2.Length();
             return ((Math.Acos(num / num2) * 180.0) / Math.PI);
         }
 
@@ -62,12 +58,12 @@ namespace ISTUK.MathLibrary
 
         public static Vector3D NaN()
         {
-            return new Vector3D(Matrix.NaN(3, 1));
+            return new Vector3D(NaN(3, 1));
         }
 
         public new Vector3D Normalised()
         {
-            return new Vector3D((Matrix) (this / base.Length()));
+            return new Vector3D((Matrix) (this / Length()));
         }
         
         public static Vector3D operator +(Vector3D v1, Vector3D v2)
@@ -91,7 +87,7 @@ namespace ISTUK.MathLibrary
         {
             return new Point3D(vec);
         }
-        public static Point3D ToPoint3d(Vector3D vec)
+        public static Point3D ToPoint3D(Vector3D vec)
         {
             return new Point3D(vec);
         }
@@ -106,10 +102,10 @@ namespace ISTUK.MathLibrary
         }
         public static Collection<Vector3D> operator *(Collection<TransformationMatrix3D> transforms, Vector3D vector)
         {
-            Collection<Vector3D> list = new Collection<Vector3D>();
-            foreach (TransformationMatrix3D matrixd in transforms)
+            var list = new Collection<Vector3D>();
+            foreach (var matrixd in transforms)
             {
-                list.Add((Vector3D) (matrixd * vector));
+                list.Add(matrixd * vector);
             }
             return list;
         }

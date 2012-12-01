@@ -7,10 +7,12 @@ namespace ISTUK.MathLibrary
         public Vector() : base(0, 0)
         {
         }
+// ReSharper disable RedundantOverridenMember
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
         }
+// ReSharper restore RedundantOverridenMember
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -59,7 +61,7 @@ namespace ISTUK.MathLibrary
 
         public double Length()
         {
-            double d = 0.0;
+            var d = 0.0;
             for (var i = 0; i < Size; i++)
             {
                 d += this[i] * this[i];
@@ -69,7 +71,7 @@ namespace ISTUK.MathLibrary
 
         public void Normalise()
         {
-            double num = Length();
+            var num = Length();
             for (var i = 0; i < Size; i++)
             {
                 Vector vector;
@@ -80,7 +82,7 @@ namespace ISTUK.MathLibrary
 
         public Vector Normalised()
         {
-            return new Vector((Matrix) (this / Length()));
+            return new Vector(this / Length());
         }
 
         public static Vector operator +(Vector v1, Vector v2)
@@ -90,24 +92,24 @@ namespace ISTUK.MathLibrary
 
         public static Vector operator +(Vector vec, double scalar)
         {
-            return new Vector((Matrix) (vec + scalar));
+            return new Vector(vec + scalar);
         }
         public static Vector Add(Vector vec, double scalar)
         {
-            return new Vector((Matrix)(vec + scalar));
+            return new Vector(vec + scalar);
         }
         public static Vector operator +(double scalar, Vector vec)
         {
-            return new Vector((Matrix) (vec + scalar));
+            return new Vector(vec + scalar);
         }
 
         public static Vector operator /(Vector vec, double scalar)
         {
-            return new Vector((Matrix) (vec / scalar));
+            return new Vector(vec / scalar);
         }
         public static Vector Divide(Vector vec, double scalar)
         {
-            return new Vector((Matrix)(vec / scalar));
+            return new Vector(vec / scalar);
         }
         public static Vector operator *(Matrix mat, Vector vec)
         {
@@ -116,15 +118,15 @@ namespace ISTUK.MathLibrary
 
         public static Vector operator *(Vector vec, double scalar)
         {
-            return new Vector((Matrix) (vec * scalar));
+            return new Vector(vec * scalar);
         }
         public static Vector Multiply(Vector vec, double scalar)
         {
-            return new Vector((Matrix)(vec * scalar));
+            return new Vector(vec * scalar);
         }
         public static Vector operator *(double scalar, Vector vec)
         {
-            return new Vector((Matrix) (scalar * vec));
+            return new Vector(scalar * vec);
         }
 
         public static Vector operator -(Vector v1, Vector v2)
@@ -150,7 +152,7 @@ namespace ISTUK.MathLibrary
         }
         public static Vector operator -(Vector vec, double scalar)
         {
-            return new Vector((Matrix) (vec - scalar));
+            return new Vector(vec - scalar);
         }
 
         public static Vector operator -(Vector v)
@@ -177,11 +179,11 @@ namespace ISTUK.MathLibrary
         {
             get
             {
-                return base.Rows;
+                return Rows;
             }
             set
             {
-                base.SetSize(value, 1);
+                SetSize(value, 1);
             }
         }
     }

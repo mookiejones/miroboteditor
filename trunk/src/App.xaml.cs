@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -37,25 +38,27 @@ namespace miRobotEditor
         }
     }
 
-    static bool CheckEnvironment()
+        [Localizable(false)]
+        static bool CheckEnvironment()
     {
         // Safety check: our setup already checks that .NET 4 is installed, but we manually check the .NET version in case SharpDevelop is
         // used on another machine than it was installed on (e.g. "SharpDevelop on USB stick")
         if (Environment.Version < new Version(4, 0, 30319))
-        {
-            MessageBox.Show(String.Format("This version of {0} requires .Net 4.0. Your are using:{1}", Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
+        {            
+            MessageBox.Show(String.Format(miRobotEditor.Properties.Resources.CheckEnvironment, Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
             return false;
         }
         // Work around a WPF issue when %WINDIR% is set to an incorrect path
-        string windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows, Environment.SpecialFolderOption.DoNotVerify);
+        var windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows, Environment.SpecialFolderOption.DoNotVerify);
         if (Environment.GetEnvironmentVariable("WINDIR") != windir)
         {
             Environment.SetEnvironmentVariable("WINDIR", windir);
         }
         return true;
     }
-			    
-	protected override void OnStartup(StartupEventArgs e)
+
+        [Localizable(false)]
+        protected override void OnStartup(StartupEventArgs e)
 	{
 	//if (e.Args.Length > 0)
 	//{

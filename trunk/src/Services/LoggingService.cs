@@ -6,6 +6,7 @@
  * 
  */
 using System;
+using System.ComponentModel;
 
 namespace miRobotEditor.Services
 {
@@ -14,7 +15,7 @@ namespace miRobotEditor.Services
 	/// </summary>
 	public static class LoggingService
 	{
-		public static void Debug(object message)
+		public static void Debug([Localizable(false)] object message)
 		{
 			ServiceManager.Instance.LoggingService.Debug(message);
 		}

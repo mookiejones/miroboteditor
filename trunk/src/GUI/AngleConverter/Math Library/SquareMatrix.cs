@@ -16,9 +16,9 @@ namespace ISTUK.MathLibrary
                 throw new MatrixException("Matrix is not square. Cannot cast to a SquareMatrix");
             }
             Size = mat.Rows;
-            for (var i = 0; i < base.Rows; i++)
+            for (var i = 0; i < Rows; i++)
             {
-                for (var j = 0; j < base.Columns; j++)
+                for (var j = 0; j < Columns; j++)
                 {
                     base[i, j] = mat[i, j];
                 }
@@ -39,8 +39,8 @@ namespace ISTUK.MathLibrary
 
         public double Determinant()
         {
-            SquareMatrix matrix = new SquareMatrix(this);
-            double num = matrix.MakeRowEchelon();
+            var matrix = new SquareMatrix(this);
+            var num = matrix.MakeRowEchelon();
             for (var i = 0; i < Size; i++)
             {
                 if (matrix.IsRowZero(i))
@@ -53,7 +53,7 @@ namespace ISTUK.MathLibrary
 
         public static SquareMatrix Identity(int size)
         {
-            SquareMatrix matrix = new SquareMatrix(size);
+            var matrix = new SquareMatrix(size);
             for (var i = 0; i < size; i++)
             {
                 matrix[i, i] = 1.0;
@@ -63,10 +63,10 @@ namespace ISTUK.MathLibrary
 
         public SquareMatrix Inverse()
         {
-            Matrix matrix = base.Augment(Identity(Size));
+            var matrix = Augment(Identity(Size));
             matrix.MakeRowEchelon();
-            SquareMatrix matrix2 = new SquareMatrix(Size);
-            SquareMatrix matrix3 = new SquareMatrix(Size);
+            var matrix2 = new SquareMatrix(Size);
+            var matrix3 = new SquareMatrix(Size);
             for (var i = 0; i < Size; i++)
             {
                 matrix2.SetColumn(i, matrix.GetColumn(i));
@@ -83,7 +83,7 @@ namespace ISTUK.MathLibrary
             {
                 for (var m = k - 1; m >= 0; m--)
                 {
-                    double scalar = -matrix2[m, k];
+                    var scalar = -matrix2[m, k];
                     matrix2.AddRowTimesScalar(m, k, scalar);
                     matrix3.AddRowTimesScalar(m, k, scalar);
                 }
@@ -93,9 +93,9 @@ namespace ISTUK.MathLibrary
 
         public bool IsRotationMatrix()
         {
-            if (!base.IsNaN())
+            if (!IsNaN())
             {
-                if (Math.Abs((double) (Determinant() - 1.0)) > 0.001)
+                if (Math.Abs(Determinant() - 1.0) > 0.001)
                 {
                     return false;
                 }
@@ -105,7 +105,7 @@ namespace ISTUK.MathLibrary
                 {
                     for (var j = 0; j < Size; j++)
                     {
-                        if (Math.Abs((double) (matrix[i, j] - matrix2[i, j])) > 0.001)
+                        if (Math.Abs(matrix[i, j] - matrix2[i, j]) > 0.001)
                         {
                             return false;
                         }
@@ -115,27 +115,28 @@ namespace ISTUK.MathLibrary
             return true;
         }
 
-        public void LUDecomposition(out SquareMatrix L, out SquareMatrix U)
+        private const double EPSILON = 0.0001;
+        public void LUDecomposition(out SquareMatrix l, out SquareMatrix u)
         {
-            L = new SquareMatrix(Size);
-            U = new SquareMatrix(Size);
-            if (base[0, 0] == 0.0)
+            l = new SquareMatrix(Size);
+            u = new SquareMatrix(Size);
+            if (Math.Abs(base[0, 0] - 0.0) < EPSILON)
             {
                 throw new MatrixException("Unable to decompose matrix");
             }
-            L.SetColumn(0, base.GetColumn(0));
-            U.SetRow(0, base.GetRow(0));
-            U.MultiplyRow(0, 1.0 / base[0, 0]);
+            l.SetColumn(0, GetColumn(0));
+            u.SetRow(0, GetRow(0));
+            u.MultiplyRow(0, 1.0 / base[0, 0]);
             for (var i = 1; i < Size; i++)
             {
-                Vector[] vectorArray = new Vector[Size];
-                Vector[] vectorArray2 = new Vector[Size];
+                var vectorArray = new Vector[Size];
+                var vectorArray2 = new Vector[Size];
                 for (var j = 1; j < Size; j++)
                 {
                     vectorArray[j] = new Vector(i);
                     vectorArray2[j] = new Vector(i);
-                    Vector row = L.GetRow(j);
-                    Vector column = U.GetColumn(j);
+                    var row = l.GetRow(j);
+                    var column = u.GetColumn(j);
                     for (var m = 0; m < i; m++)
                     {
                         vectorArray[j][m] = row[m];
@@ -144,18 +145,18 @@ namespace ISTUK.MathLibrary
                 }
                 for (var k = i; k < Size; k++)
                 {
-                    L[k, i] = base[k, i] - Vector.Dot(vectorArray[k], vectorArray2[i]);
+                    l[k, i] = base[k, i] - Vector.Dot(vectorArray[k], vectorArray2[i]);
                     if (k == i)
                     {
-                        U[i, k] = 1.0;
+                        u[i, k] = 1.0;
                     }
                     else
                     {
-                        if (L[i, i] == 0.0)
+                        if (Math.Abs(l[i, i] - 0.0) < EPSILON)
                         {
                             throw new MatrixException("Unable to decompose matrix");
                         }
-                        U[i, k] = (base[i, k] - Vector.Dot(vectorArray[i], vectorArray2[k])) / L[i, i];
+                        u[i, k] = (base[i, k] - Vector.Dot(vectorArray[i], vectorArray2[k])) / l[i, i];
                     }
                 }
             }
@@ -163,14 +164,14 @@ namespace ISTUK.MathLibrary
 
         public SquareMatrix Minor(int i, int j)
         {
-            SquareMatrix matrix = new SquareMatrix(Size - 1);
-            int num = 0;
-            for (var k = 0; k < base.Rows; k++)
+            var matrix = new SquareMatrix(Size - 1);
+            var num = 0;
+            for (var k = 0; k < Rows; k++)
             {
                 if (k != i)
                 {
-                    int num3 = 0;
-                    for (var m = 0; m < base.Columns; m++)
+                    var num3 = 0;
+                    for (var m = 0; m < Columns; m++)
                     {
                         if (m != j)
                         {
@@ -186,7 +187,7 @@ namespace ISTUK.MathLibrary
 
         public static SquareMatrix NaN(int size)
         {
-            return new SquareMatrix(Matrix.NaN(size, size));
+            return new SquareMatrix( NaN(size, size));
         }
 
         //public static SquareMatrix operator *(SquareMatrix lhs, SquareMatrix rhs)
@@ -214,7 +215,7 @@ namespace ISTUK.MathLibrary
 
         public double Trace()
         {
-            double num = 0.0;
+            var num = 0.0;
             for (var i = 0; i < Size; i++)
             {
                 num += base[i, i];
@@ -231,11 +232,11 @@ namespace ISTUK.MathLibrary
         {
             get
             {
-                return base.Rows;
+                return Rows;
             }
             set
             {
-                base.SetSize(value, value);
+                SetSize(value, value);
             }
         }
     }

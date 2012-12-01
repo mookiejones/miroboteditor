@@ -25,19 +25,19 @@ namespace miRobotEditor.Classes
             IndentationString = options.IndentationString; 
         }
 
-        private string indentationString = "\t";
+        private string _indentationString = "\t";
 
         /// <summary>
         /// Gets/Sets the indentation string.
         /// </summary>
         public string IndentationString
         {
-            get { return indentationString; }
+            get { return _indentationString; }
             set
             {
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException("Indentation string must not be null or empty");
-                indentationString = value;
+                _indentationString = value;
             }
         }
 
@@ -56,7 +56,7 @@ namespace miRobotEditor.Classes
             r.Reformat(document, settings);
         }
 
-        public void UnIndentLine(TextDocument document,DocumentLine Line)
+        public void UnIndentLine(TextDocument document,DocumentLine line)
         {
             
         }
@@ -64,11 +64,11 @@ namespace miRobotEditor.Classes
         /// <inheritdoc cref="IIndentationStrategy.IndentLine"/>
         public override void IndentLine(TextDocument document, DocumentLine line)
         {
-            int lineNr = line.LineNumber;
+            var lineNr = line.LineNumber;
             var acc = new TextDocumentAccessor(document, lineNr, lineNr);
             Indent(acc, false);
 
-            string t = acc.Text;
+            var t = acc.Text;
             if (t.Length == 0)
             {
                 // use AutoIndentation for new lines in comments / verbatim strings.

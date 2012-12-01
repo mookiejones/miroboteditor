@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.IO;
@@ -15,6 +16,8 @@ namespace miRobotEditor.GUI
     [Localizable(false)]
     public partial class DummyDoc : UserControl, INotifyPropertyChanged
     {
+
+
         public object Host { get; set; }
         private string _title;
 
@@ -55,6 +58,7 @@ namespace miRobotEditor.GUI
 
 
         public Editor TextBox { get; set; }
+
 
         #endregion
 

@@ -82,13 +82,13 @@ namespace miRobotEditor.Classes
         {
             using (var t = new StreamReader(filename))
             {
-                string Text = t.ReadToEnd();
+                var text = t.ReadToEnd();
 
 
                 // Dont Include Empty Values
                 if (String.IsNullOrEmpty(matchstring.ToString())) return null;
 
-                Match m = matchstring.Match(Text.ToLower());
+                var m = matchstring.Match(text.ToLower());
                 return m;
 
             }
@@ -99,7 +99,7 @@ namespace miRobotEditor.Classes
 
         public class VariableBase : ViewModelBase,IVariable
         {
-        	private BitmapImage _icon = null;
+        	private BitmapImage _icon;
         	private string _name = string.Empty;
         	private string _type = string.Empty;
         	private string _path = string.Empty;

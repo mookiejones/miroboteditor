@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using ICSharpCode.AvalonEdit;
@@ -18,12 +17,7 @@ namespace miRobotEditor.GUI
 
         public static TextEditorOptions Instance
         {
-            get
-            {
-                if (_instance == null)
-                    _instance = new TextEditorOptions();
-                return _instance;
-            }
+            get { return _instance ?? (_instance = new TextEditorOptions()); }
             set { _instance = value; }
         }
 

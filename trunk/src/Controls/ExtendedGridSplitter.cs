@@ -13,12 +13,12 @@ namespace miRobotEditor.Controls
     /// An updated version of the standard ExtendedGridSplitter control that includes a centered handle
     /// which allows complete collapsing and expanding of the appropriate grid column or row.
     /// </summary>
-    [Localizable(false),TemplatePart(Name = ELEMENT_HORIZONTAL_HANDLE_NAME, Type = typeof(ToggleButton))]
-    [TemplatePart(Name = ELEMENT_LABEL_NAME, Type = typeof(ToggleButton))]
-    [TemplatePart(Name = ELEMENT_SWITCHARROW_HANDLE_NAME, Type = typeof(ToggleButton))]
-    [TemplatePart(Name = ELEMENT_VERTICAL_HANDLE_NAME, Type = typeof(ToggleButton))]
-    [TemplatePart(Name = ELEMENT_HORIZONTAL_TEMPLATE_NAME, Type = typeof(FrameworkElement))]
-    [TemplatePart(Name = ELEMENT_VERTICAL_TEMPLATE_NAME, Type = typeof(FrameworkElement))]
+    [Localizable(false),TemplatePart(Name = ElementHorizontalHandleName, Type = typeof(ToggleButton))]
+    [TemplatePart(Name = ElementLabelName, Type = typeof(ToggleButton))]
+    [TemplatePart(Name = ElementSwitcharrowHandleName, Type = typeof(ToggleButton))]
+    [TemplatePart(Name = ElementVerticalHandleName, Type = typeof(ToggleButton))]
+    [TemplatePart(Name = ElementHorizontalTemplateName, Type = typeof(FrameworkElement))]
+    [TemplatePart(Name = ElementVerticalTemplateName, Type = typeof(FrameworkElement))]
     public class ExtendedGridSplitter : GridSplitter
     {
         public static bool Animating = false;
@@ -26,13 +26,13 @@ namespace miRobotEditor.Controls
 
         #region TemplateParts
 
-        private const string ELEMENT_LABEL_NAME = "LabelHandle";
-        private const string ELEMENT_SWITCHARROW_HANDLE_NAME = "SwitchArrows";
-        private const string ELEMENT_HORIZONTAL_HANDLE_NAME = "HorizontalGridSplitterHandle";
-        private const string ELEMENT_VERTICAL_HANDLE_NAME = "VerticalGridSplitterHandle";
-        private const string ELEMENT_HORIZONTAL_TEMPLATE_NAME = "HorizontalTemplate";
-        private const string ELEMENT_VERTICAL_TEMPLATE_NAME = "VerticalTemplate";
-        private const string ELEMENT_GRIDSPLITTER_BACKGROUND = "GridSplitterBackground";
+        private const string ElementLabelName = "LabelHandle";
+        private const string ElementSwitcharrowHandleName = "SwitchArrows";
+        private const string ElementHorizontalHandleName = "HorizontalGridSplitterHandle";
+        private const string ElementVerticalHandleName = "VerticalGridSplitterHandle";
+        private const string ElementHorizontalTemplateName = "HorizontalTemplate";
+        private const string ElementVerticalTemplateName = "VerticalTemplate";
+        private const string ElementGridsplitterBackground = "GridSplitterBackground";
 
         private ToggleButton _elementHorizontalGridSplitterButton;
         private ToggleButton _elementVerticalGridSplitterButton;
@@ -216,7 +216,7 @@ namespace miRobotEditor.Controls
         private GridCollapseDirection _gridCollapseDirection = GridCollapseDirection.Auto;
         private GridLength _savedGridLength;
         private double _savedActualValue;
-        private const double _animationTimeMillis = 200;
+        private const double AnimationTimeMillis = 200;
 
         #endregion
 
@@ -243,24 +243,24 @@ namespace miRobotEditor.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            _elementSwitchWindowsButton = GetTemplateChild(ELEMENT_SWITCHARROW_HANDLE_NAME) as ToggleButton;
-            _elementHorizontalGridSplitterButton = GetTemplateChild(ELEMENT_HORIZONTAL_HANDLE_NAME) as ToggleButton;
-            _elementVerticalGridSplitterButton = GetTemplateChild(ELEMENT_VERTICAL_HANDLE_NAME) as ToggleButton;
-            _elementGridSplitterBackground = GetTemplateChild(ELEMENT_GRIDSPLITTER_BACKGROUND) as Rectangle;
+            _elementSwitchWindowsButton = GetTemplateChild(ElementSwitcharrowHandleName) as ToggleButton;
+            _elementHorizontalGridSplitterButton = GetTemplateChild(ElementHorizontalHandleName) as ToggleButton;
+            _elementVerticalGridSplitterButton = GetTemplateChild(ElementVerticalHandleName) as ToggleButton;
+            _elementGridSplitterBackground = GetTemplateChild(ElementGridsplitterBackground) as Rectangle;
 
 
             // Wire up the Checked and Unchecked events of the HorizontalGridSplitterHandle.
             if (_elementHorizontalGridSplitterButton != null)
             {
-                _elementHorizontalGridSplitterButton.Checked += GridSplitterButton_Checked;
-                _elementHorizontalGridSplitterButton.Unchecked += GridSplitterButton_Unchecked;
+                _elementHorizontalGridSplitterButton.Checked += GridSplitterButtonChecked;
+                _elementHorizontalGridSplitterButton.Unchecked += GridSplitterButtonUnchecked;
             }
 
             // Wire up the Checked and Unchecked events of the VerticalGridSplitterHandle.
             if (_elementVerticalGridSplitterButton != null)
             {
-                _elementVerticalGridSplitterButton.Checked += GridSplitterButton_Checked;
-                _elementVerticalGridSplitterButton.Unchecked += GridSplitterButton_Unchecked;
+                _elementVerticalGridSplitterButton.Checked += GridSplitterButtonChecked;
+                _elementVerticalGridSplitterButton.Unchecked += GridSplitterButtonUnchecked;
             }
 
             // Set default direction since we don't have all the components layed out yet.
@@ -545,7 +545,7 @@ namespace miRobotEditor.Controls
         /// <param name="e">Contains event arguments.</param>
         protected virtual void OnCollapsed(EventArgs e)
         {
-            EventHandler<EventArgs> handler = Collapsed;
+            var handler = Collapsed;
             if (handler != null)
             {
                 handler(this, e);
@@ -558,7 +558,7 @@ namespace miRobotEditor.Controls
         /// <param name="e">Contains event arguments.</param>
         protected virtual void OnExpanded(EventArgs e)
         {
-            EventHandler<EventArgs> handler = Expanded;
+            var handler = Expanded;
             if (handler != null)
             {
                 handler(this, e);
@@ -571,7 +571,7 @@ namespace miRobotEditor.Controls
         /// </summary>
         /// <param name="sender">An instance of the ToggleButton that fired the event.</param>
         /// <param name="e">Contains event arguments for the routed event that fired.</param>
-        private void GridSplitterButton_Checked(object sender, RoutedEventArgs e)
+        private void GridSplitterButtonChecked(object sender, RoutedEventArgs e)
         {
             if (IsCollapsed != true)
             {
@@ -597,7 +597,7 @@ namespace miRobotEditor.Controls
         /// </summary>
         /// <param name="sender">An instance of the ToggleButton that fired the event.</param>
         /// <param name="e">Contains event arguments for the routed event that fired.</param>
-        private void GridSplitterButton_Unchecked(object sender, RoutedEventArgs e)
+        private void GridSplitterButtonUnchecked(object sender, RoutedEventArgs e)
         {
             if (IsCollapsed)
             {
@@ -622,7 +622,7 @@ namespace miRobotEditor.Controls
 
         #region Property for animating rows
 
-        private RowDefinition AnimatingRow;
+        private RowDefinition _animatingRow;
 
 #pragma warning disable 169
         private static readonly DependencyProperty RowHeightAnimationProperty =
@@ -638,14 +638,14 @@ namespace miRobotEditor.Controls
         {
             var extendedGridSplitter = d as ExtendedGridSplitter;
             if (extendedGridSplitter != null)
-                extendedGridSplitter.AnimatingRow.Height = new GridLength((double)e.NewValue);
+                extendedGridSplitter._animatingRow.Height = new GridLength((double)e.NewValue);
         }
 
         #endregion
 
         #region Property for animating columns
 
-        private ColumnDefinition AnimatingColumn;
+        private ColumnDefinition _animatingColumn;
 
 #pragma warning disable 169
         private static readonly DependencyProperty ColWidthAnimationProperty =
@@ -661,7 +661,7 @@ namespace miRobotEditor.Controls
         {
             var extendedGridSplitter = d as ExtendedGridSplitter;
             if (extendedGridSplitter != null)
-                extendedGridSplitter.AnimatingColumn.Width = new GridLength((double)e.NewValue);
+                extendedGridSplitter._animatingColumn.Width = new GridLength((double)e.NewValue);
         }
 
         #endregion
@@ -676,7 +676,7 @@ namespace miRobotEditor.Controls
             double currentValue;
 
             // Setup the animation and StoryBoard
-            var gridLengthAnimation = new DoubleAnimation { Duration = new Duration(TimeSpan.FromMilliseconds(_animationTimeMillis)) };
+            var gridLengthAnimation = new DoubleAnimation { Duration = new Duration(TimeSpan.FromMilliseconds(AnimationTimeMillis)) };
             var sb = new Storyboard();
 
             // Add the animation to the StoryBoard
@@ -685,20 +685,20 @@ namespace miRobotEditor.Controls
             if (_gridCollapseDirection == GridCollapseDirection.Rows)
             {
                 // Specify the target RowDefinition and property (Height) that will be altered by the animation.
-                AnimatingRow = (RowDefinition)definition;
+                _animatingRow = (RowDefinition)definition;
                 Storyboard.SetTarget(gridLengthAnimation, this);
                 Storyboard.SetTargetProperty(gridLengthAnimation, new PropertyPath("RowHeightAnimation"));
 
-                currentValue = AnimatingRow.ActualHeight;
+                currentValue = _animatingRow.ActualHeight;
             }
             else
             {
                 // Specify the target ColumnDefinition and property (Width) that will be altered by the animation.
-                AnimatingColumn = (ColumnDefinition)definition;
+                _animatingColumn = (ColumnDefinition)definition;
                 Storyboard.SetTarget(gridLengthAnimation, this);
                 Storyboard.SetTargetProperty(gridLengthAnimation, new PropertyPath("ColWidthAnimation"));
 
-                currentValue = AnimatingColumn.ActualWidth;
+                currentValue = _animatingColumn.ActualWidth;
             }
 
             gridLengthAnimation.From = currentValue;
@@ -718,7 +718,7 @@ namespace miRobotEditor.Controls
             double currentValue;
 
             // Setup the animation and StoryBoard
-            var gridLengthAnimation = new DoubleAnimation { Duration = new Duration(TimeSpan.FromMilliseconds(_animationTimeMillis)) };
+            var gridLengthAnimation = new DoubleAnimation { Duration = new Duration(TimeSpan.FromMilliseconds(AnimationTimeMillis)) };
             var sb = new Storyboard();
 
             // Add the animation to the StoryBoard
@@ -727,20 +727,20 @@ namespace miRobotEditor.Controls
             if (_gridCollapseDirection == GridCollapseDirection.Rows)
             {
                 // Specify the target RowDefinition and property (Height) that will be altered by the animation.
-                AnimatingRow = (RowDefinition)definition;
+                _animatingRow = (RowDefinition)definition;
                 Storyboard.SetTarget(gridLengthAnimation, this);
                 Storyboard.SetTargetProperty(gridLengthAnimation, new PropertyPath("RowHeightAnimation"));
 
-                currentValue = AnimatingRow.ActualHeight;
+                currentValue = _animatingRow.ActualHeight;
             }
             else
             {
                 // Specify the target ColumnDefinition and property (Width) that will be altered by the animation.
-                AnimatingColumn = (ColumnDefinition)definition;
+                _animatingColumn = (ColumnDefinition)definition;
                 Storyboard.SetTarget(gridLengthAnimation, this);
                 Storyboard.SetTargetProperty(gridLengthAnimation, new PropertyPath("ColWidthAnimation"));
 
-                currentValue = AnimatingColumn.ActualWidth;
+                currentValue = _animatingColumn.ActualWidth;
             }
             gridLengthAnimation.From = currentValue;
             gridLengthAnimation.To = _savedActualValue;

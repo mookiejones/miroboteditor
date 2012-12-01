@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Window xmlns:explorer="clr-namespace:miRobotEditor.GUI.ExplorerControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ad="http://avalondock.codeplex.com" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:fct="clr-namespace:miRobotEditor.GUI.FunctionWindow" xmlns:obj="clr-namespace:miRobotEditor.GUI.ObjectBrowser" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:ctrl="clr-namespace:miRobotEditor.Controls" xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter" xmlns:GUI="clr-namespace:miRobotEditor.GUI"
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window xmlns:explorer="clr-namespace:miRobotEditor.GUI.ExplorerControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ad="http://avalondock.codeplex.com" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:ctrl="clr-namespace:miRobotEditor.Controls" xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter" xmlns:GUI="clr-namespace:miRobotEditor.GUI"
 	mc:Ignorable="d"
 	x:Class="miRobotEditor.MainWindow"
 	WindowState="Maximized"
@@ -647,7 +647,7 @@
 						<ad:LayoutAnchorablePaneGroup DockWidth="300">
 						<ad:LayoutAnchorablePane>
 							<ad:LayoutAnchorable Title="Explorer" CanAutoHide="True" CanClose="True">	
-									<explorer:ExplorerControlWPF x:Name="_explorer"/>
+									<explorer:FileExplorerWindow x:Name="_explorer"/>
 							</ad:LayoutAnchorable>
 							</ad:LayoutAnchorablePane>
 						</ad:LayoutAnchorablePaneGroup>
@@ -668,7 +668,7 @@
 									Title="Functions"
 									CanAutoHide="True"
 									CanClose="True">
-									<fct:FunctionWindow
+									<GUI:FunctionWindow
 										x:Name="Functions" />
 								</ad:LayoutAnchorable>
 								<ad:LayoutAnchorable
@@ -699,12 +699,11 @@
 								CanClose="False"
                                 IconSource="Resources\stock_notes.png"
 								>                               
-								<ctrl:frmNotes
+								<ctrl:NotesWindow
 									x:Name="notes"
 									Width="Auto"
 									Height="Auto" />
 							</ad:LayoutAnchorable>
-                            
 							<ad:LayoutAnchorable
 								Title="Object Browser"
 								x:Name="tabObjectBrowser"
@@ -713,12 +712,22 @@
 								IconSource="Resources\objectbrowser.png"
 								IsVisible="False"
 								CanHide="True">
-								<obj:ObjectBrowserTool
+								<GUI:ObjectBrowserWindow
 									x:Name="objectBrowser"
 									Width="Auto"
 									Height="Auto" />
 							</ad:LayoutAnchorable>
-						</ad:LayoutAnchorablePane>
+                            <ad:LayoutAnchorable
+								Title="Locals"
+								CanAutoHide="True"
+								CanClose="False"
+								IsVisible="False"
+								CanHide="True">
+                                <GUI:LocalVariableWindow
+									Width="Auto"
+									Height="Auto" />
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
 					</ad:LayoutAnchorablePaneGroup>
 				</ad:LayoutPanel>
 			</ad:LayoutRoot>

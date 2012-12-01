@@ -15,7 +15,7 @@ namespace miRobotEditor.GUI.AngleConverter
 
         public object ConvertBack(object value, Type targetType,  object parameter, CultureInfo culture)
         {
-           return (AngleConvertorViewModel.CartesianEnum)Enum.Parse(typeof(AngleConvertorViewModel.CartesianEnum), ((Int32)value).ToString());            
+           return (AngleConvertorViewModel.CartesianEnum)Enum.Parse(typeof(AngleConvertorViewModel.CartesianEnum), ((Int32)value).ToString(CultureInfo.InvariantCulture));            
         }
     }
 }

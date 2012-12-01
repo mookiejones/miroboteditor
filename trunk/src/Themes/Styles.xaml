@@ -68,8 +68,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderGlassEffect" >
-    	
+    <Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderGlassEffect" >    	
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="#EEEEEE"/>
         <Setter Property="Padding" Value="7,0,7,0"/>

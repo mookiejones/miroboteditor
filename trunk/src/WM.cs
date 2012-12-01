@@ -2,7 +2,9 @@ namespace miRobotEditor
 {
     internal enum WM
     {
+// ReSharper disable InconsistentNaming
         NULL = 0x0000,
+
         CREATE = 0x0001,
         DESTROY = 0x0002,
         MOVE = 0x0003,
@@ -115,5 +117,6 @@ namespace miRobotEditor
         // It's relatively safe to reuse.
         TRAYMOUSEMESSAGE = 0x800, //WM_USER + 1024
         APP = 0x8000,
+        // ReSharper restore InconsistentNaming
     }
 }

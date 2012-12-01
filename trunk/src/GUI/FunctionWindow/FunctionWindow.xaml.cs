@@ -6,9 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using miRobotEditor.Classes;
-using miRobotEditor.Controls;
 
-namespace miRobotEditor.GUI.FunctionWindow
+namespace miRobotEditor.GUI
 {
     /// <summary>
     /// Interaction logic for FunctionPanel.xaml
@@ -29,9 +28,9 @@ namespace miRobotEditor.GUI.FunctionWindow
 
         
 
-        public void UpdateFunctions(object Data)
+        public void UpdateFunctions(object data)
         {
-            var fi = Data as FunctionInfo;
+            var fi = data as FunctionInfo;
             if (fi != null) UpdateFunctions(fi.Values, fi.Items);
         }
 
@@ -56,9 +55,9 @@ namespace miRobotEditor.GUI.FunctionWindow
             if ((liItems.Items != null))
             {
                 Clear();
-                foreach (string t in items)
+                foreach (var t in items)
                 {
-                    AddItems(getMatches(values, t));
+                    AddItems(GetMatches(values, t));
                 }
             }
             liItems.InvalidateVisual();
@@ -73,29 +72,29 @@ namespace miRobotEditor.GUI.FunctionWindow
             }
         }
 
-        private static Collection<FunctionItem> getMatches(string Text, string matchstring)
+        private static Collection<FunctionItem> GetMatches(string text, string matchstring)
         {
 
-            var Result = new Collection<FunctionItem>();
+            var result = new Collection<FunctionItem>();
 
             var r = new Regex(matchstring, RegexOptions.IgnoreCase);
-            var m = r.Match(Text);
+            var m = r.Match(text);
             while (m.Success)
             {
                 var g = m.Groups[1];
-                var text = g.ToString();
+                var s = g.ToString();
                 var returns = m.Groups[3].ToString();
                 var name = m.Groups[4].ToString();
                 var parameters = m.Groups[5].ToString();
-                Result.Add(new FunctionItem(text, name, returns, parameters,m.Index));
+                result.Add(new FunctionItem(s, name, returns, parameters,m.Index));
                 m = m.NextMatch();
             }
-            return Result;
+            return result;
         }
 
       
 
-        private FunctionItem currentItem;
+        private FunctionItem _currentitem;
 
 
         
@@ -105,15 +104,15 @@ namespace miRobotEditor.GUI.FunctionWindow
             throw new NotImplementedException();
         }
 
-        private void liItems_ToolTipOpening(object sender, ToolTipEventArgs e)
+        private void LiItemsToolTipOpening(object sender, ToolTipEventArgs e)
         {
-            if (currentItem != null)
-                liItems.ToolTip = currentItem.Tooltip;
+            if (_currentitem != null)
+                liItems.ToolTip = _currentitem.Tooltip;
         }
 
         private void SelectedItemChanged(object sender, SelectionChangedEventArgs e)
         {
-            currentItem = liItems.SelectedItem as FunctionItem;
+            _currentitem = liItems.SelectedItem as FunctionItem;
         }
 
         internal sealed class FunctionInfo
@@ -128,7 +127,7 @@ namespace miRobotEditor.GUI.FunctionWindow
             }
         }
 
-        private void ListBox_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        private void ListBoxMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             for (var i = 0; i < liItems.Items.Count; i++)
             {

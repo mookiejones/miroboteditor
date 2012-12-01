@@ -19,8 +19,8 @@
         <TextBlock x:Name="Description"  HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding Description, BindsDirectlyToSource=True, NotifyOnSourceUpdated=True}" VerticalAlignment="Top" Height="20" d:LayoutOverrides="Margin"/>
         <TextBox  x:Name="EnteredText"  TabIndex="1" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="{Binding EnteredText}"  Height="25" d:LayoutOverrides="Margin"/>
         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Margin="5" >
-        <Button x:Name="btnOK"  Click="OKButtonClick" Content="_OK" HorizontalAlignment="Right"  VerticalAlignment="Stretch" Width="75" Margin="5,0"  />
-        <Button x:Name="btnCancel" Click="cancelButtonClick" Content="_Cancel" HorizontalAlignment="Right"   VerticalAlignment="Stretch" Width="75" Margin="5,0" />
+        <Button x:Name="btnOK"  Click="OkButtonClick" Content="_OK" HorizontalAlignment="Right"  VerticalAlignment="Stretch" Width="75" Margin="5,0"  />
+        <Button x:Name="btnCancel" Click="CancelButtonClick" Content="_Cancel" HorizontalAlignment="Right"   VerticalAlignment="Stretch" Width="75" Margin="5,0" />
         </StackPanel>
     </StackPanel>
 </Window>

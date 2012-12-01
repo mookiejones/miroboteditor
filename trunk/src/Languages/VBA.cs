@@ -3,7 +3,6 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using System.IO;
 using System.Collections.ObjectModel;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
@@ -32,7 +31,7 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        internal override Enums.TYPLANGUAGE RobotType { get { return Enums.TYPLANGUAGE.VBA; } }
+        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.VBA; } }
 
         internal override string SourceFile
         {

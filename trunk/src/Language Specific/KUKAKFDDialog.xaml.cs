@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,14 +15,15 @@ namespace miRobotEditor.Controls
             InitializeComponent();
         }
 
-        public int num
+        public int Num
         {
             get;
             private set;
         }
-       
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+
+        [Localizable(false)]
+        private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             Width = 592;
 
@@ -44,7 +46,7 @@ namespace miRobotEditor.Controls
 
         private void Selected(object sender, RoutedEventArgs e)
         {
-            num = Convert.ToInt32((sender as Button).Tag);
+            Num = Convert.ToInt32((sender as Button).Tag);
         }
     }
 }
