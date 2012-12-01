@@ -18,7 +18,7 @@ namespace miRobotEditor
 	public class BookmarkImage:IImage
 	{
 		
-		private readonly IImage baseImage = null;
+		private readonly IImage _baseimage = null;
 		
 		private readonly BitmapImage _bitmap;
 		
@@ -29,7 +29,7 @@ namespace miRobotEditor
 		
 		public System.Windows.Media.ImageSource ImageSource {
 			get {
-				return baseImage.ImageSource;
+				return _baseimage.ImageSource;
 			}
 		}
 		
@@ -41,7 +41,7 @@ namespace miRobotEditor
 		
 		public System.Drawing.Icon Icon {
 			get {
-				return baseImage.Icon;
+				return _baseimage.Icon;
 			}
 		}
 	}

@@ -16,7 +16,7 @@ namespace miRobotEditor.Forms
         /// <summary>
         /// To ensure splash screen is closed using the API and not by keyboard or any other things
         /// </summary>
-        bool _closeSplashScreenFlag = false;
+        bool _closeSplashScreenFlag;
 
         /// <summary>
         /// Base constructor
@@ -146,7 +146,7 @@ namespace miRobotEditor.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SplashScreen_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void SplashScreenClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (_closeSplashScreenFlag == false)
                 e.Cancel = true;
@@ -167,24 +167,24 @@ namespace miRobotEditor.Forms
     /// </summary>
     public static class SplashScreen
     {
-        static FrmSplashScreen sf = null;
+        static FrmSplashScreen _sf;
 
         /// <summary>
         /// Displays the splashscreen
         /// </summary>
         public static void ShowSplashScreen()
         {
-            if (sf == null)
+            if (_sf == null)
             {
-                sf = new FrmSplashScreen();
-                sf.ShowSplashScreen();
+                _sf = new FrmSplashScreen();
+                _sf.ShowSplashScreen();
             }
         }
         public static void UpdateProgress(int value)
         {
-            if (sf != null)
+            if (_sf != null)
             {
-                sf.UpdateProgress(value);
+                _sf.UpdateProgress(value);
             }
         }
         /// <summary>
@@ -192,10 +192,10 @@ namespace miRobotEditor.Forms
         /// </summary>
         public static void CloseSplashScreen()
         {
-            if (sf != null)
+            if (_sf != null)
             {
-                sf.CloseSplashScreen();
-                sf = null;
+                _sf.CloseSplashScreen();
+                _sf = null;
             }
         }
 
@@ -205,8 +205,8 @@ namespace miRobotEditor.Forms
         /// <param name="text">Message</param>
         public static void UpdateStatusText(string text)
         {
-            if (sf != null)
-                sf.UpdateStatusText(text);
+            if (_sf != null)
+                _sf.UpdateStatusText(text);
         }
 
         /// <summary>
@@ -217,8 +217,8 @@ namespace miRobotEditor.Forms
         public static void UpdateStatusTextWithStatus(string text, TypeOfMessage tom)
         {
 
-            if (sf != null)
-                sf.UpdateStatusTextWithStatus(text, tom);
+            if (_sf != null)
+                _sf.UpdateStatusTextWithStatus(text, tom);
         }
     }
     }

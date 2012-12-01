@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
+using miRobotEditor.GUI;
 
 namespace miRobotEditor.Classes
 {
@@ -25,24 +26,28 @@ namespace miRobotEditor.Classes
 
         public static List<IVariable> GetVariables(string filename,Regex regex, string iconpath)
         {
-            var _result = new List<IVariable>();
-            BitmapImage icon = Utilities.LoadBitmap(iconpath);
+            var result = new List<IVariable>();
+            var icon = Utilities.LoadBitmap(iconpath);
+            var lang = DummyDoc.Instance.FileLanguage;
             var m = VariableHelper.FindMatches(regex, filename);
+            var isxyz = System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath).Contains("XYZ");
             while (m.Success)
             {
-                var p = new Position();
-                p.Icon = icon;
-                p.Path = filename;
-                p.Offset = m.Index;
-                p.Type = m.Groups[1].ToString();
-                p.Name = m.Groups[2].ToString();
-                p.Value = m.Groups[3].ToString();
-                p.Comment = m.Groups[4].ToString();
-                _result.Add(p);
+                var p = new Position
+                            {
+                                Icon = icon,
+                                Path = filename,
+                                Offset = m.Index,
+                                Type = m.Groups[1].ToString(),
+                                Name = m.Groups[2].ToString(),
+                                Value = isxyz?lang.ExtractXYZ(m.ToString()):m.Groups[3].ToString(),
+                                Comment = m.Groups[4].ToString()
+                            };
+                result.Add(p);
                 m = m.NextMatch();
             }
 
-            return _result;
+            return result;
         }
     }
 }

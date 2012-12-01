@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Text;
 
 namespace miRobotEditor.Classes
@@ -7,6 +8,7 @@ namespace miRobotEditor.Classes
     /// Represents a directory path or filename.
     /// The equality operator is overloaded to compare for path equality (case insensitive, normalizing paths with '..\')
     /// </summary>
+    [Localizable(false)]
     public sealed class FileName : IEquatable<FileName>
     {
         readonly string _normalizedFileName;
@@ -40,7 +42,7 @@ namespace miRobotEditor.Classes
                 break;
             }
 
-            char outputSeparator = isWeb ? '/' : System.IO.Path.DirectorySeparatorChar;
+            var outputSeparator = isWeb ? '/' : System.IO.Path.DirectorySeparatorChar;
 
             var result = new StringBuilder();
             if (isWeb == false && fileName.StartsWith(@"\\") || fileName.StartsWith("//"))
@@ -52,53 +54,52 @@ namespace miRobotEditor.Classes
             {
                 i = 0;
             }
-            int segmentStartPos = i;
+            var segmentStartPos = i;
             for (; i <= fileName.Length; i++)
             {
-                if (i == fileName.Length || fileName[i] == '/' || fileName[i] == '\\')
+                if (i != fileName.Length && fileName[i] != '/' && fileName[i] != '\\') continue;
+
+                var segmentLength = i - segmentStartPos;
+                switch (segmentLength)
                 {
-                    int segmentLength = i - segmentStartPos;
-                    switch (segmentLength)
-                    {
-                        case 0:
-                            // ignore empty segment (if not in web mode)
-                            // On unix, don't ignore empty segment if i==0
-                            if (isWeb || (i == 0 && Environment.OSVersion.Platform == PlatformID.Unix))
-                            {
-                                result.Append(outputSeparator);
-                            }
-                            break;
-                        case 1:
-                            // ignore /./ segment, but append other one-letter segments
-                            if (fileName[segmentStartPos] != '.')
-                            {
-                                if (result.Length > 0) result.Append(outputSeparator);
-                                result.Append(fileName[segmentStartPos]);
-                            }
-                            break;
-                        case 2:
-                            if (fileName[segmentStartPos] == '.' && fileName[segmentStartPos + 1] == '.')
-                            {
-                                // remove previous segment
-                                int j;
-                                for (j = result.Length - 1; j >= 0 && result[j] != outputSeparator; j--)
-                                {
-                                }
-                                if (j > 0)
-                                {
-                                    result.Length = j;
-                                }
-                                break;
-                            }
-                            // append normal segment
-                            goto default;
-                        default:
+                    case 0:
+                        // ignore empty segment (if not in web mode)
+                        // On unix, don't ignore empty segment if i==0
+                        if (isWeb || (i == 0 && Environment.OSVersion.Platform == PlatformID.Unix))
+                        {
+                            result.Append(outputSeparator);
+                        }
+                        break;
+                    case 1:
+                        // ignore /./ segment, but append other one-letter segments
+                        if (fileName[segmentStartPos] != '.')
+                        {
                             if (result.Length > 0) result.Append(outputSeparator);
-                            result.Append(fileName, segmentStartPos, segmentLength);
+                            result.Append(fileName[segmentStartPos]);
+                        }
+                        break;
+                    case 2:
+                        if (fileName[segmentStartPos] == '.' && fileName[segmentStartPos + 1] == '.')
+                        {
+                            // remove previous segment
+                            int j;
+                            for (j = result.Length - 1; j >= 0 && result[j] != outputSeparator; j--)
+                            {
+                            }
+                            if (j > 0)
+                            {
+                                result.Length = j;
+                            }
                             break;
-                    }
-                    segmentStartPos = i + 1; // remember start position for next segment
+                        }
+                        // append normal segment
+                        goto default;
+                    default:
+                        if (result.Length > 0) result.Append(outputSeparator);
+                        result.Append(fileName, segmentStartPos, segmentLength);
+                        break;
                 }
+                segmentStartPos = i + 1; // remember start position for next segment
             }
             if (isWeb == false)
             {

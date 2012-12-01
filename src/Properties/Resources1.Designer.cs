@@ -79,6 +79,15 @@ namespace miRobotEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This version of {0} requires .Net 4.0. Your are using:{1}.
+        /// </summary>
+        public static string CheckEnvironment {
+            get {
+                return ResourceManager.GetString("CheckEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://sites.google.com/site/dmcautomation/home/software/dmc-robot-editor.
         /// </summary>
         public static string DownloadsPage {

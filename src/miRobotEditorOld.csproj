@@ -147,12 +147,13 @@
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\EditorCommands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Controls\ShiftViewModel.cs" />
     <Compile Include="GUI\AngleConverter\EnumToInt32Converter.cs" />
     <Compile Include="GUI\ExplorerControl\ExplorerClass.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GUI\ExplorerControl\ExplorerControlWPF.xaml.cs">
-      <DependentUpon>ExplorerControlWPF.xaml</DependentUpon>
+    <Compile Include="GUI\ExplorerControl\FileExplorerWindow.xaml.cs">
+      <DependentUpon>FileExplorerWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GUI\ExplorerControl\FileExplorerControl.cs">
@@ -177,8 +178,11 @@
     <Compile Include="GUI\Editor\BracketHighlightRenderer.cs" />
     <Compile Include="GUI\Editor\IDocument.cs" />
     <Compile Include="GUI\Editor\TextEditorOptions.cs" />
-    <Compile Include="GUI\Notes\frmNotes.xaml.cs">
-      <DependentUpon>frmNotes.xaml</DependentUpon>
+    <Compile Include="GUI\LocalVariableWindow\LocalVariableWindow.xaml.cs">
+      <DependentUpon>LocalVariableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Notes\NotesWindow.xaml.cs">
+      <DependentUpon>NotesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Options\Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>
@@ -240,7 +244,7 @@
     <Compile Include="Classes\IOutputMessages.cs" />
     <Compile Include="Classes\IVariable.cs" />
     <Compile Include="Classes\LineColorizer.cs" />
-    <Compile Include="Classes\ObjectBrowserModel.cs" />
+    <Compile Include="GUI\ObjectBrowser\ObjectBrowserViewModel.cs" />
     <Compile Include="GUI\MessageWindow\MessageViewModel.cs" />
     <Compile Include="GUI\MessageWindow\OutputWindowMessage.cs" />
     <Compile Include="Classes\Position.cs" />
@@ -315,8 +319,8 @@
     <Compile Include="GUI\KUKA\AdjustST.cs" />
     <Compile Include="GUI\KUKA\frmAdjustST.cs" />
     <Compile Include="GUI\KUKA\ToolItems.cs" />
-    <Compile Include="GUI\ObjectBrowser\ObjectBrowserTool.xaml.cs">
-      <DependentUpon>ObjectBrowserTool.xaml</DependentUpon>
+    <Compile Include="GUI\ObjectBrowser\ObjectBrowserWindow.xaml.cs">
+      <DependentUpon>ObjectBrowserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\MessageWindow\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
@@ -497,17 +501,23 @@
       <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
     <Page Include="GUI\Dialogs\About\About.xaml" />
-    <Page Include="GUI\ExplorerControl\ExplorerControlWPF.xaml" />
+    <Page Include="GUI\ExplorerControl\FileExplorerWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GUI\FunctionWindow\FunctionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\KUKA\frmAdjustST.xaml" />
-    <Page Include="GUI\Notes\frmNotes.xaml">
+    <Page Include="GUI\LocalVariableWindow\LocalVariableWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\ObjectBrowser\ObjectBrowserTool.xaml">
+    <Page Include="GUI\Notes\NotesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\ObjectBrowser\ObjectBrowserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -677,6 +687,7 @@
     <Folder Include="GUI\Document\" />
     <Folder Include="GUI\KUKA\AdjustST\" />
     <Folder Include="GUI\Printing\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

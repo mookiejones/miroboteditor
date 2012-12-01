@@ -3,7 +3,6 @@ using System.ComponentModel;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
-using miRobotEditor.Controls;
 using miRobotEditor.GUI;
 
 namespace miRobotEditor.Classes
@@ -31,6 +30,7 @@ namespace miRobotEditor.Classes
             get { return Text; }
         }
 
+        [Localizable(false)]
         public object Description
         {
             get { return "Description for " + Text; }

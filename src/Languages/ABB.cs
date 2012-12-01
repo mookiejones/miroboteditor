@@ -43,9 +43,9 @@ namespace miRobotEditor.Languages
         }
 
 
-        internal override TYPLANGUAGE RobotType
+        internal override Typlanguage RobotType
         {
-            get { return TYPLANGUAGE.ABB; }
+            get { return Typlanguage.ABB; }
         }
 
         internal override string SourceFile

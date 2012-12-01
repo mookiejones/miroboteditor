@@ -1,4 +1,6 @@
-﻿namespace miRobotEditor.Classes
+﻿using System.ComponentModel;
+
+namespace miRobotEditor.Classes
 {
     /// <summary>
     /// Abstract base class for an AvalonDock pane view-model.
@@ -8,25 +10,26 @@
         /// <summary>
         /// Set to 'true' when the pane is visible.
         /// </summary>
-        private bool isVisible = true;
+        private bool _isVisible = true;
 
         /// <summary>
         /// Set to 'true' when the pane is visible.
         /// </summary>
+        [Localizable(false)]
         public bool IsVisible
         {
             get
             {
-                return isVisible;
+                return _isVisible;
             }
             set
             {
-                if (isVisible == value)
+                if (_isVisible == value)
                 {
                     return;
                 }
 
-                isVisible = value;
+                _isVisible = value;
 
                 OnPropertyChanged("IsVisible");
             }

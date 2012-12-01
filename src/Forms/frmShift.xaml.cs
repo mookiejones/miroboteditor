@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using miRobotEditor.Classes;
+using miRobotEditor.Controls;
 
 namespace miRobotEditor.Forms
 {
@@ -8,22 +10,16 @@ namespace miRobotEditor.Forms
     /// </summary>
     public partial class FrmShift : Window
     {
-
+        private static FrmShift _instance;
+        public static FrmShift Instance
+        {
+            get { return _instance ?? (_instance = new FrmShift()); }
+            set { _instance = value; }
+        }
         public FrmShift()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
-
-        public Decimal OldX { get; private set; }
-        public Decimal OldY { get; private set; }
-        public Decimal OldZ { get; private set; }
-        public Decimal NewX { get; private set; }
-        public Decimal NewY { get; private set; }
-        public Decimal NewZ { get; private set; }
-        public Decimal DiffX { get; private set; }
-        public Decimal DiffY { get; private set; }
-        public Decimal DiffZ { get; private set; }
-
-       
     }
+
 }

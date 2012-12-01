@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using System.IO;
 using System.Collections.ObjectModel;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -41,7 +40,7 @@ namespace miRobotEditor.Languages
         	get{return new List<string> { ".as", ".prg" };}
         }
 
-        internal override Enums.TYPLANGUAGE RobotType { get { return Enums.TYPLANGUAGE.KAWASAKI; } }
+        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.KAWASAKI; } }
 
         internal override IList<ICompletionData> CodeCompletion
         {

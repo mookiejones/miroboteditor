@@ -5,7 +5,7 @@
  * Time: 10:44 AM
  * 
  */
-using System;
+
 using System.Collections.Generic;
 using miRobotEditor.Classes;
 namespace miRobotEditor.Services
@@ -20,7 +20,7 @@ namespace miRobotEditor.Services
 	
 	private static List<IVariable> GetVariables()
 	{
-		List<IVariable> result = new List<IVariable>();
+		var result = new List<IVariable>();
 		
 		return result;
 	}

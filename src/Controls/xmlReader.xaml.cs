@@ -5,9 +5,9 @@ namespace miRobotEditor.Controls
     /// <summary>
     /// Interaction logic for xmlReader.xaml
     /// </summary>
-    public partial class xmlReader : Window
+    public partial class XmlReader : Window
     {
-        public xmlReader()
+        public XmlReader()
         {
             InitializeComponent();
         }

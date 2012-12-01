@@ -6,6 +6,7 @@
  * 
  */
 using System;
+using System.ComponentModel;
 
 namespace miRobotEditor.Services
 {
@@ -21,6 +22,7 @@ namespace miRobotEditor.Services
 	/// <summary>
 	/// Description of AnalyticsMonitor.
 	/// </summary>
+	[Localizable(false)]
 	public static class AnalyticsMonitorService
 	{
 	
@@ -31,7 +33,7 @@ namespace miRobotEditor.Services
 		{
 			if (exception == null)
 				throw new ArgumentNullException("exception");
-				IAnalyticsMonitor monitor = ServiceManager.Instance.GetService<IAnalyticsMonitor>();
+				var monitor = ServiceManager.Instance.GetService<IAnalyticsMonitor>();
 			if (monitor != null) {
 				monitor.TrackException(exception);
 			}
@@ -63,12 +65,11 @@ namespace miRobotEditor.Services
 			else
 				LoggingService.Debug("Activated feature '" + featureName + "'");
 			
-			IAnalyticsMonitor monitor = ServiceManager.Instance.GetService<IAnalyticsMonitor>();
+			var monitor = ServiceManager.Instance.GetService<IAnalyticsMonitor>();
 			if (monitor != null) {
 				return monitor.TrackFeature(featureName, activationMethod) ?? DummyFeature.Instance;
-			} else {
-				return DummyFeature.Instance;
 			}
+		    return DummyFeature.Instance;
 		}
 		
 		sealed class DummyFeature : IAnalyticsMonitorTrackedFeature
@@ -92,10 +93,7 @@ namespace miRobotEditor.Services
 		{
 			if (featureClass == null)
 				throw new ArgumentNullException("featureClass");
-			if (featureName != null)
-				return TrackFeature(featureClass.FullName + "/" + featureName, activationMethod);
-			else
-				return TrackFeature(featureClass.FullName, activationMethod);
+			return featureName != null ? TrackFeature(featureClass.FullName + "/" + featureName, activationMethod) : TrackFeature(featureClass.FullName, activationMethod);
 		}
 	}
 		/// <summary>

@@ -11,6 +11,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
@@ -100,9 +101,9 @@ namespace miRobotEditor
             commandLineArgs = GetCommandLineArgs(uniqueName);
 
             // Build unique application Id and the IPC channel name.
-            string applicationIdentifier = uniqueName + Environment.UserName;
+            var applicationIdentifier = uniqueName + Environment.UserName;
 
-            string channelName = String.Concat(applicationIdentifier, Delimiter, ChannelNameSuffix);
+            var channelName = String.Concat(applicationIdentifier, Delimiter, ChannelNameSuffix);
 
             // Create mutex based on unique application Id to check if this is the first instance of the application. 
             bool firstInstance;
@@ -160,10 +161,10 @@ namespace miRobotEditor
                 // As a workaround commandline arguments can be written to a shared location before 
                 // the app is launched and the app can obtain its commandline arguments from the 
                 // shared location               
-                string appFolderPath = Path.Combine(
+                var appFolderPath = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), uniqueApplicationName);
 
-                string cmdLinePath = Path.Combine(appFolderPath, "cmdline.txt");
+                var cmdLinePath = Path.Combine(appFolderPath, "cmdline.txt");
                 if (File.Exists(cmdLinePath))
                 {
                     try
@@ -193,10 +194,10 @@ namespace miRobotEditor
         /// Creates a remote service for communication.
         /// </summary>
         /// <param name="channelName">Application's IPC channel name.</param>
+        [Localizable(false)]
         private static void CreateRemoteService(string channelName)
         {
-            BinaryServerFormatterSinkProvider serverProvider = new BinaryServerFormatterSinkProvider();
-            serverProvider.TypeFilterLevel = TypeFilterLevel.Full;
+            var serverProvider = new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full};
             IDictionary props = new Dictionary<string, string>();
 
             props["name"] = channelName;
@@ -210,7 +211,7 @@ namespace miRobotEditor
             ChannelServices.RegisterChannel(channel, true);
 
             // Expose the remote service with the REMOTE_SERVICE_NAME
-            IPCRemoteService remoteService = new IPCRemoteService();
+            var remoteService = new IPCRemoteService();
             RemotingServices.Marshal(remoteService, RemoteServiceName);
         }
 
@@ -223,12 +224,13 @@ namespace miRobotEditor
         /// <param name="args">
         /// Command line arguments for the second instance, passed to the first instance to take appropriate action.
         /// </param>
+        [Localizable(false)]
         private static void SignalFirstInstance(string channelName, IList<string> args)
         {
             var secondInstanceChannel = new IpcClientChannel();
             ChannelServices.RegisterChannel(secondInstanceChannel, true);
 
-            string remotingServiceUrl = IpcProtocol + channelName + "/" + RemoteServiceName;
+            var remotingServiceUrl = IpcProtocol + channelName + "/" + RemoteServiceName;
 
             // Obtain a reference to the remoting service exposed by the server i.e the first instance of the application
             var firstInstanceRemoteServiceReference = (IPCRemoteService)RemotingServices.Connect(typeof(IPCRemoteService), remotingServiceUrl);

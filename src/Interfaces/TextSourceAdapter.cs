@@ -6,13 +6,13 @@ namespace miRobotEditor.Interfaces
 {
     public class TextSourceAdapter : ITextBuffer
     {
-        internal readonly ITextSource textSource;
+        internal readonly ITextSource TextSource;
 
         public TextSourceAdapter(ITextSource textSource)
         {
             if (textSource == null)
                 throw new ArgumentNullException("textSource");
-            this.textSource = textSource;
+            TextSource = textSource;
         }
 
         public virtual ITextBufferVersion Version
@@ -25,7 +25,7 @@ namespace miRobotEditor.Interfaces
         /// </summary>
         public virtual ITextBuffer CreateSnapshot()
         {
-            return new TextSourceAdapter(textSource.CreateSnapshot());
+            return new TextSourceAdapter(TextSource.CreateSnapshot());
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace miRobotEditor.Interfaces
         /// </summary>
         public ITextBuffer CreateSnapshot(int offset, int length)
         {
-            return new TextSourceAdapter(textSource.CreateSnapshot(offset, length));
+            return new TextSourceAdapter(TextSource.CreateSnapshot(offset, length));
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace miRobotEditor.Interfaces
         /// </summary>
         public System.IO.TextReader CreateReader()
         {
-            return textSource.CreateReader();
+            return TextSource.CreateReader();
         }
 
         /// <summary>
@@ -50,17 +50,17 @@ namespace miRobotEditor.Interfaces
         /// </summary>
         public System.IO.TextReader CreateReader(int offset, int length)
         {
-            return textSource.CreateSnapshot(offset, length).CreateReader();
+            return TextSource.CreateSnapshot(offset, length).CreateReader();
         }
 
         public int TextLength
         {
-            get { return textSource.TextLength; }
+            get { return TextSource.TextLength; }
         }
 
         public string Text
         {
-            get { return textSource.Text; }
+            get { return TextSource.Text; }
         }
 
         /// <summary>
@@ -68,18 +68,18 @@ namespace miRobotEditor.Interfaces
         /// </summary>
         public event EventHandler TextChanged
         {
-            add { textSource.TextChanged += value; }
-            remove { textSource.TextChanged -= value; }
+            add { TextSource.TextChanged += value; }
+            remove { TextSource.TextChanged -= value; }
         }
 
         public char GetCharAt(int offset)
         {
-            return textSource.GetCharAt(offset);
+            return TextSource.GetCharAt(offset);
         }
 
         public string GetText(int offset, int length)
         {
-            return textSource.GetText(offset, length);
+            return TextSource.GetText(offset, length);
         }
     }
 }

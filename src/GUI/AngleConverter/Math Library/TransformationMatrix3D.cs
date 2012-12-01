@@ -20,7 +20,7 @@ namespace ISTUK.MathLibrary
             {
                 throw new MatrixException("Matrix is not the correct size to convert to a TransformationMatrix3D");
             }
-            SquareMatrix matrix = new SquareMatrix(3);
+            var matrix = new SquareMatrix(3);
             for (var i = 0; i < 3; i++)
             {
                 for (var k = 0; k < 3; k++)
@@ -83,7 +83,7 @@ namespace ISTUK.MathLibrary
 
         public static TransformationMatrix3D Identity()
         {
-            TransformationMatrix3D matrixd = new TransformationMatrix3D();
+            var matrixd = new TransformationMatrix3D();
             for (var i = 0; i < 4; i++)
             {
                 matrixd[i, i] = 1.0;
@@ -98,52 +98,53 @@ namespace ISTUK.MathLibrary
 
         public static TransformationMatrix3D NaN()
         {
-            return new TransformationMatrix3D(SquareMatrix.NaN(4));
+            return new TransformationMatrix3D(NaN(4));
         }
 
         public static Collection<Point3D> operator *(TransformationMatrix3D transform, Collection<Point3D> points)
         {
-            Collection<Point3D> list = new Collection<Point3D>();
-            foreach (Point3D pointd in points)
+            var list = new Collection<Point3D>();
+            foreach (var pointd in points)
             {
-                list.Add((Point3D) (transform * pointd));
+                list.Add(transform * pointd);
             }
             return list;
         }
         public static Collection<Point3D> Multiply(TransformationMatrix3D transform, Collection<Point3D> points)
         {
-            Collection<Point3D> list = new Collection<Point3D>();
-            foreach (Point3D pointd in points)
+            var list = new Collection<Point3D>();
+            foreach (var pointd in points)
             {
-                list.Add((Point3D)(transform * pointd));
+                list.Add(transform * pointd);
             }
             return list;
         }
         public static Collection<Vector3D> operator *(TransformationMatrix3D transform, Collection<Vector3D> vectors)
         {
-            Collection<Vector3D> list = new Collection<Vector3D>();
-            foreach (Vector3D vectord in vectors)
+            var list = new Collection<Vector3D>();
+            foreach (var vectord in vectors)
             {
-                list.Add((Vector3D) (transform * vectord));
+                list.Add(transform * vectord);
             }
             return list;
         }
 
         public static Point3D operator *(TransformationMatrix3D mat, Point3D pt)
         {
-            Vector3D vectord = new Vector3D(pt.X, pt.Y, pt.Z);
-            Vector3D vectord2 = (Vector3D) (mat * vectord);
+            var vectord = new Vector3D(pt.X, pt.Y, pt.Z);
+            var vectord2 = mat * vectord;
             return new Point3D(vectord2.X, vectord2.Y, vectord2.Z);
         }
 
         public static TransformationMatrix3D operator *(TransformationMatrix3D m1, TransformationMatrix3D m2)
         {
-            return new TransformationMatrix3D(m1 * m2);
+            var result = new TransformationMatrix3D(m1*m2);
+            return result;
         }
 
         public static Vector3D operator *(TransformationMatrix3D mat, Vector3D vec)
         {
-            Vector vector = new Vector(4, new double[] { vec[0], vec[1], vec[2], 1.0 });
+            var vector = new Vector(4, new[] { vec[0], vec[1], vec[2], 1.0 });
             Matrix matrix = mat * vector;
             return new Vector3D(matrix[0, 0], matrix[1, 0], matrix[2, 0]);
         }
@@ -158,38 +159,38 @@ namespace ISTUK.MathLibrary
           
             if (format.ToUpperInvariant().StartsWith("RPY"))
             {
-                Vector3D translation = Translation;
-                Vector3D rPY = Rotation.RPY;
-                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { translation.X, translation.Y, translation.Z, rPY.X, rPY.Y, rPY.Z });
+                var translation = Translation;
+                var rpy = Rotation.RPY;
+                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { translation.X, translation.Y, translation.Z, rpy.X, rpy.Y, rpy.Z });
             }
             if (format.ToUpperInvariant().StartsWith("ABC"))
             {
-                Vector3D vectord3 = Translation;
-                Vector3D aBC = Rotation.ABC;
-                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { vectord3.X, vectord3.Y, vectord3.Z, aBC.X, aBC.Y, aBC.Z });
+                var vectord3 = Translation;
+                var abc = Rotation.ABC;
+                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { vectord3.X, vectord3.Y, vectord3.Z, abc.X, abc.Y, abc.Z });
             }
             if (format.ToUpperInvariant().StartsWith("QUATERNION"))
             {
-                Vector3D vectord5 = Translation;
-                Quaternion rotation = (Quaternion) Rotation;
+                var vectord5 = Translation;
+                var rotation = (Quaternion) Rotation;
                 return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}", new object[] { vectord5.X, vectord5.Y, vectord5.Z, rotation.X, rotation.Y, rotation.Z, rotation.W });
             }
             if (format.ToUpperInvariant().StartsWith("ABBQUATERNION"))
             {
-                Vector3D vectord6 = Translation;
-                Quaternion quaternion2 = (Quaternion) Rotation;
+                var vectord6 = Translation;
+                var quaternion2 = (Quaternion) Rotation;
                 return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}", new object[] { vectord6.X, vectord6.Y, vectord6.Z, quaternion2.W, quaternion2.X, quaternion2.Y, quaternion2.Z });
             }
             if (format.ToUpperInvariant().StartsWith("ABG"))
             {
-                Vector3D vectord7 = Translation;
-                Vector3D aBG = Rotation.ABG;
-                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { vectord7.X, vectord7.Y, vectord7.Z, aBG.X, aBG.Y, aBG.Z });
+                var vectord7 = Translation;
+                var abg = Rotation.ABG;
+                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { vectord7.X, vectord7.Y, vectord7.Z, abg.X, abg.Y, abg.Z });
             }
             if (format.ToUpperInvariant().StartsWith("EULERZYZ"))
             {
-                Vector3D vectord9 = Translation;
-                Vector3D eulerZYZ = Rotation.EulerZYZ;
+                var vectord9 = Translation;
+                var eulerZYZ = Rotation.EulerZYZ;
                 return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { vectord9.X, vectord9.Y, vectord9.Z, eulerZYZ.X, eulerZYZ.Y, eulerZYZ.Z });
             }
             return base.ToString(format, formatProvider);
@@ -199,7 +200,7 @@ namespace ISTUK.MathLibrary
         {
             get
             {
-                RotationMatrix3D matrixd = new RotationMatrix3D();
+                var matrixd = new RotationMatrix3D();
                 for (var i = 0; i < 3; i++)
                 {
                     for (var j = 0; j < 3; j++)

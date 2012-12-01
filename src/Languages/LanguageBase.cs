@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.CodeCompletion;
-using System.IO;
 using System.Text.RegularExpressions;
 using miRobotEditor.Classes;
 
@@ -65,7 +64,7 @@ namespace miRobotEditor.Languages
 
         public System.Windows.Forms.ToolStripItem[] AddMenuItems() { return null; }
 
-        internal override Enums.TYPLANGUAGE RobotType { get { return Enums.TYPLANGUAGE.None; } }
+        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.None; } }
 
         internal override Collection<string> FunctionItems
         {

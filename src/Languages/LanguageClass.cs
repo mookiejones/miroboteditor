@@ -2,7 +2,6 @@
 {
     public class LanguageClass
     {
-        private static AbstractLanguageClass _instance;
-        public static AbstractLanguageClass Instance { get { return _instance; } set { _instance = value; } }
+        public static AbstractLanguageClass Instance { get; set; }
     }
 }

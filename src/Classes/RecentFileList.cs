@@ -56,8 +56,8 @@ namespace miRobotEditor.Classes
 
 		public event EventHandler<MenuClickEventArgs> MenuClick;
 
-		Separator _Separator;
-		List<RecentFile> _RecentFiles;
+		Separator _separator;
+		List<RecentFile> _recentFiles;
 
 		public RecentFileList()
 		{
@@ -69,6 +69,7 @@ namespace miRobotEditor.Classes
 			MenuItemFormatTenPlus = "{0}:  {2}";
 
 			Loaded += ( s, e ) => HookFileMenu();
+		    Instance = this;
 		}
 
 		void HookFileMenu()
@@ -76,19 +77,19 @@ namespace miRobotEditor.Classes
 			var parent = Parent as MenuItem;
 			if ( parent == null ) throw new ApplicationException( "Parent must be a MenuItem" );
 
-			if ( FileMenu ==parent) return;
+			if (Equals(FileMenu, parent)) return;
 
-			if ( FileMenu != null ) FileMenu.SubmenuOpened -= _FileMenu_SubmenuOpened;
+			if ( FileMenu != null ) FileMenu.SubmenuOpened -= FileMenuSubmenuOpened;
 
 			FileMenu = parent;
-			FileMenu.SubmenuOpened += _FileMenu_SubmenuOpened;
+			FileMenu.SubmenuOpened += FileMenuSubmenuOpened;
 		}
 
 		public List<string> RecentFiles { get { return Persister.RecentFiles( MaxNumberOfFiles ); } }
 		public void RemoveFile( string filepath ) { Persister.RemoveFile( filepath, MaxNumberOfFiles ); }
 		public void InsertFile( string filepath ) { Persister.InsertFile( filepath, MaxNumberOfFiles ); }
 
-		void _FileMenu_SubmenuOpened( object sender, RoutedEventArgs e )
+		void FileMenuSubmenuOpened( object sender, RoutedEventArgs e )
 		{
 			SetMenuItems();
 		}
@@ -104,45 +105,45 @@ namespace miRobotEditor.Classes
 
 		void RemoveMenuItems()
 		{
-			if ( _Separator != null ) FileMenu.Items.Remove( _Separator );
+			if ( _separator != null ) FileMenu.Items.Remove( _separator );
 
-			if ( _RecentFiles != null )
-				foreach ( RecentFile r in _RecentFiles )
+			if ( _recentFiles != null )
+				foreach ( var r in _recentFiles )
 					if ( r.MenuItem != null )
 						FileMenu.Items.Remove( r.MenuItem );
 
-			_Separator = null;
-			_RecentFiles = null;
+			_separator = null;
+			_recentFiles = null;
 		}
 
 		void InsertMenuItems()
 		{
-			if ( _RecentFiles == null ) return;
-			if ( _RecentFiles.Count == 0 ) return;
+			if ( _recentFiles == null ) return;
+			if ( _recentFiles.Count == 0 ) return;
 
-			int iMenuItem = FileMenu.Items.IndexOf( this );
-			foreach ( RecentFile r in _RecentFiles )
+			var iMenuItem = FileMenu.Items.IndexOf( this );
+			foreach ( var r in _recentFiles )
 			{
-				string header = GetMenuItemText( r.Number + 1, r.Filepath, r.DisplayPath );
+				var header = GetMenuItemText( r.Number + 1, r.Filepath, r.DisplayPath );
 
 				r.MenuItem = new MenuItem { Header = header };
-				r.MenuItem.Click += MenuItem_Click;
+				r.MenuItem.Click += MenuItemClick;
 
 				FileMenu.Items.Insert( ++iMenuItem, r.MenuItem );
 			}
 
-			_Separator = new Separator();
-			FileMenu.Items.Insert( ++iMenuItem, _Separator );
+			_separator = new Separator();
+			FileMenu.Items.Insert( ++iMenuItem, _separator );
 		}
 
 		string GetMenuItemText( int index, string filepath, string displaypath )
 		{
-			GetMenuItemTextDelegate delegateGetMenuItemText = GetMenuItemTextHandler;
+			var delegateGetMenuItemText = GetMenuItemTextHandler;
 			if ( delegateGetMenuItemText != null ) return delegateGetMenuItemText( index, filepath );
 
-			string format = ( index < 10 ? MenuItemFormatOneToNine : MenuItemFormatTenPlus );
+			var format = ( index < 10 ? MenuItemFormatOneToNine : MenuItemFormatTenPlus );
 
-			string shortPath = ShortenPathname( displaypath, MaxPathLength );
+			var shortPath = ShortenPathname( displaypath, MaxPathLength );
 
 			return String.Format( format, index, filepath, shortPath );
 		}
@@ -171,15 +172,15 @@ namespace miRobotEditor.Classes
 			if ( pathname.Length <= maxLength )
 				return pathname;
 
-			string root = Path.GetPathRoot( pathname );
+			var root = Path.GetPathRoot( pathname );
 			if ( root != null && root.Length > 3 )
 				root += Path.DirectorySeparatorChar;
 
 	        if (root != null)
 	        {
-	            string[] elements = pathname.Substring( root.Length ).Split( Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar );
+	            var elements = pathname.Substring( root.Length ).Split( Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar );
 
-	            int filenameIndex = elements.GetLength( 0 ) - 1;
+	            var filenameIndex = elements.GetLength( 0 ) - 1;
 
 	            if ( elements.GetLength( 0 ) == 1 ) // pathname is just a root and filename
 	            {
@@ -197,7 +198,7 @@ namespace miRobotEditor.Classes
 	            {
 	                root += "...\\";
 
-	                int len = elements[ filenameIndex ].Length;
+	                var len = elements[ filenameIndex ].Length;
 	                if ( len < 6 )
 	                    return root + elements[ filenameIndex ];
 
@@ -217,20 +218,18 @@ namespace miRobotEditor.Classes
 	            }
 	            else
 	            {
-	                int len = 0;
-	                int begin = 0;
+	                var len = 0;
+	                var begin = 0;
 
-	                for ( int i = 0 ; i < filenameIndex ; i++ )
+	                for ( var i = 0 ; i < filenameIndex ; i++ )
 	                {
-	                    if ( elements[ i ].Length > len )
-	                    {
-	                        begin = i;
-	                        len = elements[ i ].Length;
-	                    }
+	                    if (elements[i].Length <= len) continue;
+	                    begin = i;
+	                    len = elements[ i ].Length;
 	                }
 
-	                int totalLength = pathname.Length - len + 3;
-	                int end = begin + 1;
+	                var totalLength = pathname.Length - len + 3;
+	                var end = begin + 1;
 
 	                while ( totalLength > maxLength )
 	                {
@@ -249,14 +248,14 @@ namespace miRobotEditor.Classes
 
 	                // assemble final string
 
-	                for ( int i = 0 ; i < begin ; i++ )
+	                for ( var i = 0 ; i < begin ; i++ )
 	                {
 	                    root += elements[ i ] + '\\';
 	                }
 
 	                root += "...\\";
 
-	                for ( int i = end ; i < filenameIndex ; i++ )
+	                for ( var i = end ; i < filenameIndex ; i++ )
 	                {
 	                    root += elements[ i ] + '\\';
 	                }
@@ -269,16 +268,16 @@ namespace miRobotEditor.Classes
 
 		void LoadRecentFiles()
 		{
-			_RecentFiles = LoadRecentFilesCore();
+			_recentFiles = LoadRecentFilesCore();
 		}
 
 		List<RecentFile> LoadRecentFilesCore()
 		{
-			List<string> list = RecentFiles;
+			var list = RecentFiles;
 
 			var files = new List<RecentFile>( list.Count );
 
-			int i = 0;
+			var i = 0;
 		    files.AddRange(list.Select(filepath => new RecentFile(i++, filepath)));
 
 		    return files;
@@ -294,7 +293,12 @@ namespace miRobotEditor.Classes
 			{
 				get
 				{
-					return Path.Combine(Path.GetDirectoryName( Filepath ), Path.GetFileNameWithoutExtension( Filepath ) );
+                    //TODO I think i want to show the filename for this
+                    var dir = Path.GetDirectoryName(Filepath);
+				    var f = Path.GetFileNameWithoutExtension(Filepath);
+// ReSharper disable AssignNullToNotNullAttribute
+					return Path.Combine(dir, f );
+// ReSharper restore AssignNullToNotNullAttribute
 				}
 			}
 
@@ -315,7 +319,7 @@ namespace miRobotEditor.Classes
 			}
 		}
 
-		void MenuItem_Click( object sender, EventArgs e )
+		void MenuItemClick( object sender, EventArgs e )
 		{
 			var menuItem = sender as MenuItem;
 
@@ -324,7 +328,7 @@ namespace miRobotEditor.Classes
 
 		protected virtual void OnMenuClick( MenuItem menuItem )
 		{
-			string filepath = GetFilepath( menuItem );
+			var filepath = GetFilepath( menuItem );
 
             
 			if ( String.IsNullOrEmpty( filepath ) ) return;
@@ -336,7 +340,7 @@ namespace miRobotEditor.Classes
                 return;
             }
 
-			EventHandler<MenuClickEventArgs> dMenuClick = MenuClick;
+			var dMenuClick = MenuClick;
 			if ( dMenuClick != null ) dMenuClick( menuItem, new MenuClickEventArgs( filepath ) );
 		}
         
@@ -351,31 +355,34 @@ namespace miRobotEditor.Classes
 
 		string GetFilepath( MenuItem menuItem )
 		{
-			foreach ( RecentFile r in _RecentFiles )
-				if ( r.MenuItem.Equals( menuItem ))
-					return r.Filepath;
+		    foreach (var r in _recentFiles.Where(r => r.MenuItem.Equals( menuItem )))
+		        return r.Filepath;
 
-			return String.Empty;
+		    return String.Empty;
 		}
 
-		//-----------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------
 
 		static class ApplicationAttributes
 		{
-			static readonly Assembly _Assembly;
+			static readonly Assembly Assembly;
 
+// ReSharper disable InconsistentNaming
 			static readonly AssemblyTitleAttribute _Title;
 			static readonly AssemblyCompanyAttribute _Company;
 			static readonly AssemblyCopyrightAttribute _Copyright;
 			static readonly AssemblyProductAttribute _Product;
+            static readonly Version _Version;
+// ReSharper restore InconsistentNaming
 
-		    private static string Title { get; set; }
 			public static string CompanyName { get; private set; }
-		    private static string Copyright { get; set; }
 			public static string ProductName { get; private set; }
 
-			static readonly Version _Version;
+// ReSharper disable UnusedAutoPropertyAccessor.Local
+            private static string Copyright { get; set; }
+            private static string Title { get; set; }			
 		    private static string Version { get; set; }
+// ReSharper restore UnusedAutoPropertyAccessor.Local
 
 			static ApplicationAttributes()
 			{
@@ -387,15 +394,15 @@ namespace miRobotEditor.Classes
 					ProductName = String.Empty;
 					Version = String.Empty;
 
-					_Assembly = Assembly.GetEntryAssembly();
+					Assembly = Assembly.GetEntryAssembly();
 
-					if ( _Assembly != null )
+					if ( Assembly != null )
 					{
-						object[] attributes = _Assembly.GetCustomAttributes( false );
+						var attributes = Assembly.GetCustomAttributes( false );
 
-						foreach ( object attribute in attributes )
+						foreach ( var attribute in attributes )
 						{
-							Type type = attribute.GetType();
+							var type = attribute.GetType();
 
 							if ( type == typeof( AssemblyTitleAttribute ) ) _Title = ( AssemblyTitleAttribute ) attribute;
 							if ( type == typeof( AssemblyCompanyAttribute ) ) _Company = ( AssemblyCompanyAttribute ) attribute;
@@ -403,7 +410,7 @@ namespace miRobotEditor.Classes
 							if ( type == typeof( AssemblyProductAttribute ) ) _Product = ( AssemblyProductAttribute ) attribute;
 						}
 
-						_Version = _Assembly.GetName().Version;
+						_Version = Assembly.GetName().Version;
 					}
 
 					if ( _Title != null ) Title = _Title.Title;
@@ -412,8 +419,10 @@ namespace miRobotEditor.Classes
 					if ( _Product != null ) ProductName = _Product.Product;
 					if ( _Version != null ) Version = _Version.ToString();
 				}
-				catch
-				{ }
+				catch (Exception ex)
+				{
+				    MessageViewModel.Instance.AddError(ex);
+				}
 			}
 		}
 
@@ -442,20 +451,18 @@ namespace miRobotEditor.Classes
 
 			public List<string> RecentFiles( int max )
 			{
-				RegistryKey k = Registry.CurrentUser.OpenSubKey( RegistryKey ) ?? Registry.CurrentUser.CreateSubKey( RegistryKey );
+				var k = Registry.CurrentUser.OpenSubKey( RegistryKey ) ?? Registry.CurrentUser.CreateSubKey( RegistryKey );
 
 			    var list = new List<string>( max );
 
-				for ( int i = 0 ; i < max ; i++ )
+				for ( var i = 0 ; i < max ; i++ )
 				{
-				    if (k != null)
-				    {
-				        var filename = ( string ) k.GetValue( Key( i ) );
+				    if (k == null) continue;
+				    var filename = ( string ) k.GetValue( Key( i ) );
 
-				        if ( String.IsNullOrEmpty( filename ) ) break;
+				    if ( String.IsNullOrEmpty( filename ) ) break;
 
-				        list.Add( filename );
-				    }
+				    list.Add( filename );
 				}
 
 				return list;
@@ -463,20 +470,20 @@ namespace miRobotEditor.Classes
 
 			public void InsertFile( string filepath, int max )
 			{
-				RegistryKey k = Registry.CurrentUser.OpenSubKey( RegistryKey );
+				var k = Registry.CurrentUser.OpenSubKey( RegistryKey );
 				if ( k == null ) Registry.CurrentUser.CreateSubKey( RegistryKey );
 				k = Registry.CurrentUser.OpenSubKey( RegistryKey, true );
 
 				RemoveFile( filepath, max );
 
-				for ( int i = max - 2 ; i >= 0 ; i-- )
+				for ( var i = max - 2 ; i >= 0 ; i-- )
 				{
-					string sThis = Key( i );
-					string sNext = Key( i + 1 );
+					var sThis = Key( i );
+					var sNext = Key( i + 1 );
 
 				    if (k != null)
 				    {
-				        object oThis = k.GetValue( sThis );
+				        var oThis = k.GetValue( sThis );
 				        if ( oThis == null ) continue;
 
 				        k.SetValue( sNext, oThis );
@@ -488,10 +495,10 @@ namespace miRobotEditor.Classes
 
 			public void RemoveFile( string filepath, int max )
 			{
-				RegistryKey k = Registry.CurrentUser.OpenSubKey( RegistryKey );
+				var k = Registry.CurrentUser.OpenSubKey( RegistryKey );
 				if ( k == null ) return;
 
-				for ( int i = 0 ; i < max ; i++ )
+				for ( var i = 0 ; i < max ; i++ )
 				{
 again:
 					var s = ( string ) k.GetValue( Key( i ) );
@@ -505,17 +512,17 @@ again:
 
 			void RemoveFile( int index, int max )
 			{
-				RegistryKey k = Registry.CurrentUser.OpenSubKey( RegistryKey, true );
+				var k = Registry.CurrentUser.OpenSubKey( RegistryKey, true );
 				if ( k == null ) return;
 
 				k.DeleteValue( Key( index ), false );
 
-				for ( int i = index ; i < max - 1 ; i++ )
+				for ( var i = index ; i < max - 1 ; i++ )
 				{
-					string sThis = Key( i );
-					string sNext = Key( i + 1 );
+					var sThis = Key( i );
+					var sNext = Key( i + 1 );
 
-					object oNext = k.GetValue( sNext );
+					var oNext = k.GetValue( sNext );
 					if ( oNext == null ) break;
 
 					k.SetValue( sThis, oNext );
@@ -568,7 +575,7 @@ again:
 
 			void Update( string filepath, bool insert, int max )
 			{
-				List<string> old = Load( max );
+				var old = Load( max );
 
 				var list = new List<string>( old.Count + 1 );
 
@@ -581,42 +588,42 @@ again:
 
 			void CopyExcluding( IEnumerable<string> source, string exclude, List<string> target, int max )
 			{
-				foreach ( string s in source )
-					if ( !String.IsNullOrEmpty( s ) )
-						if ( !s.Equals( exclude, StringComparison.OrdinalIgnoreCase ) )
-							if ( target.Count < max )
-								target.Add( s );
+			    foreach (var s in from s in source where !String.IsNullOrEmpty( s ) where !s.Equals( exclude, StringComparison.OrdinalIgnoreCase ) where target.Count < max select s)
+			        target.Add( s );
 			}
 
-			class SmartStream : IDisposable
+		    class SmartStream : IDisposable
 			{
-			    readonly bool _IsStreamOwned = true;
-				Stream _Stream;
+			    readonly bool _isStreamOwned = true;
+				Stream _stream;
 
-				public Stream Stream { get { return _Stream; } }
+				public Stream Stream { get { return _stream; } }
 
 				public static implicit operator Stream( SmartStream me ) { return me.Stream; }
 
 				public SmartStream( string filepath, FileMode mode )
 				{
-					_IsStreamOwned = true;
+					_isStreamOwned = true;
 
-					Directory.CreateDirectory(Path.GetDirectoryName( filepath ) );
+				    var dir = Path.GetDirectoryName(filepath);
+// ReSharper disable AssignNullToNotNullAttribute
+					Directory.CreateDirectory(dir);
+// ReSharper restore AssignNullToNotNullAttribute
 
-					_Stream = File.Open( filepath, mode );
+					_stream = File.Open( filepath, mode );
 				}
 
 				public SmartStream( Stream stream )
 				{
-					_IsStreamOwned = false;
-					_Stream = stream;
+					_isStreamOwned = false;
+					_stream = stream;
 				}
 
 				public void Dispose()
 				{
-					if ( _IsStreamOwned && _Stream != null ) _Stream.Dispose();
+					if ( _isStreamOwned && _stream != null ) _stream.Dispose();
 
-					_Stream = null;
+					_stream = null;
 				}
 			}
 
@@ -635,7 +642,7 @@ again:
 
 				using ( var ms = new MemoryStream() )
 				{
-					using ( SmartStream ss = OpenStream( FileMode.OpenOrCreate ) )
+					using ( var ss = OpenStream( FileMode.OpenOrCreate ) )
 					{
 						if ( ss.Stream.Length == 0 ) return list;
 
@@ -644,7 +651,7 @@ again:
 						var buffer = new byte[ 1 << 20 ];
 						for ( ; ; )
 						{
-							int bytes = ss.Stream.Read( buffer, 0, buffer.Length );
+							var bytes = ss.Stream.Read( buffer, 0, buffer.Length );
 							if ( bytes == 0 ) break;
 							ms.Write( buffer, 0, bytes );
 						}
@@ -715,7 +722,7 @@ again:
 
 						x.WriteStartElement( "RecentFiles" );
 
-						foreach ( string filepath in list )
+						foreach ( var filepath in list )
 						{
 							x.WriteStartElement( "RecentFile" );
 							x.WriteAttributeString( "Filepath", filepath );
@@ -728,7 +735,7 @@ again:
 
 						x.Flush();
 
-						using ( SmartStream ss = OpenStream( FileMode.Create ) )
+						using ( var ss = OpenStream( FileMode.Create ) )
 						{
 							ss.Stream.SetLength( 0 );
 
@@ -737,7 +744,7 @@ again:
 							var buffer = new byte[ 1 << 20 ];
 							for ( ; ; )
 							{
-								int bytes = ms.Read( buffer, 0, buffer.Length );
+								var bytes = ms.Read( buffer, 0, buffer.Length );
 								if ( bytes == 0 ) break;
 								ss.Stream.Write( buffer, 0, bytes );
 							}

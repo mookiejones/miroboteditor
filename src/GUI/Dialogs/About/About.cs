@@ -16,7 +16,7 @@ namespace miRobotEditor.GUI.Dialogs.About
         public About( )
         {
             InitializeComponent();
-            string localUrl = Properties.Resources.Website;
+            var localUrl = Properties.Resources.Website;
             Hyperlink.NavigateUri = new Uri(localUrl);
             HyperlinkText.Text = localUrl;
         }
@@ -29,10 +29,10 @@ namespace miRobotEditor.GUI.Dialogs.About
 
         private void HandleLinkClick(object sender, RequestNavigateEventArgs e)
         {
-            Hyperlink hyperlink = (Hyperlink)sender;
+            var hyperlink = (Hyperlink)sender;
             try
             {
-                string fileName = hyperlink.NavigateUri.ToString();
+                var fileName = hyperlink.NavigateUri.ToString();
                 Process.Start(new ProcessStartInfo(fileName));
                 e.Handled = true;
             }

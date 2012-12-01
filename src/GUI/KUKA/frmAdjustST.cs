@@ -5,9 +5,9 @@ namespace miRobotEditor.GUI.KUKA
     /// <summary>
     /// Interaction logic for frmAdjustST.xaml
     /// </summary>
-    public partial class frmAdjustST : Window
+    public partial class FrmAdjustST : Window
     {
-        public frmAdjustST()
+        public FrmAdjustST()
         {
             InitializeComponent();
         }

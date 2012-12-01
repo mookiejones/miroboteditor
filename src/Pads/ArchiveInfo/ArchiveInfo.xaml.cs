@@ -5,15 +5,8 @@
  * Time: 6:44 AM
  * 
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace miRobotEditor.Pads
 {
@@ -27,11 +20,14 @@ namespace miRobotEditor.Pads
 			InitializeComponent();
 		}
 		
-		void ListView_TargetUpdated(object sender, DataTransferEventArgs e)
+/*
+		void ListViewTargetUpdated(object sender, DataTransferEventArgs e)
 		{
 			var view = (sender as ListView).View as GridView;
  			 AutoResizeGridViewColumns(view);
 		}
+*/
+/*
 		static void AutoResizeGridViewColumns(GridView view)
 		{
 		  if (view == null || view.Columns.Count < 1) return;
@@ -45,5 +41,6 @@ namespace miRobotEditor.Pads
 			 column.Width = double.NaN;
 		  }
 		}
+*/
 	}
 }

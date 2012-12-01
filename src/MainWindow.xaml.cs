@@ -39,7 +39,7 @@ namespace miRobotEditor
         public TextEditorOptions TextOptions
         {
             get { return TextEditorOptions.Instance; }
-            set { TextEditorOptions.Instance=value;;
+            set { TextEditorOptions.Instance=value;
             }
         }
        
@@ -135,7 +135,7 @@ namespace miRobotEditor
             
 
                
-            ofd.InitialDirectory = Directory.Exists(dir)?dir:String.Empty;
+            ofd.InitialDirectory = dir != null && Directory.Exists(dir)?dir:String.Empty;
 
             // Display OpenFileDialog by calling ShowDialog method
             var result = ofd.ShowDialog();
@@ -143,7 +143,7 @@ namespace miRobotEditor
             Properties.Settings.Default.Filter = ofd.FilterIndex;
            
             // Get the selected file name and display in a TextBox
-            return result==true ? ofd.FileNames : new string[]{String.Empty};
+            return result==true ? ofd.FileNames : new[]{String.Empty};
         }
 
         #region Function Window Section
@@ -245,8 +245,7 @@ namespace miRobotEditor
                 if (!File.Exists(filename))
                     return null;
 
-
-            var ext = Path.GetExtension(filename);
+           
             var f = Path.GetFileName(filename);
 
             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
@@ -255,7 +254,7 @@ namespace miRobotEditor
             if (docpane == null) return null;
             // If _file is open in another window, then select the file.
             if (File.Exists(filename))
-            foreach (var t in from t in docpane.Children let edit = t.Content as DummyDoc where edit != null && edit.FileName != null where Path.GetFileNameWithoutExtension(filename)  == t.ContentId select t)
+            foreach (var t in from t in docpane.Children let edit = t.Content as DummyDoc where edit != null && edit.FileName != null where f  == t.ContentId select t)
             {
                 t.IsActive = true;
                 SendMessage("File allready Opened", filename);
@@ -273,7 +272,7 @@ namespace miRobotEditor
             if (File.Exists(filename))
             {
 
-                    doc.ContentId = Path.GetFileNameWithoutExtension(filename);
+                    doc.ContentId = f;
                     document.Load(filename);
 
                     // Can Throw an Error for $Config.Dat because it doesnt like the character
@@ -281,23 +280,26 @@ namespace miRobotEditor
                     {
                         document.Name = doc.ContentId;
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        MessageViewModel.Instance.AddError(ex);
                     }
                     
                     document.Host = doc;
                 
-                    doc.Title = Path.GetFileNameWithoutExtension(filename);
+                    doc.Title = f;
                     doc.Description = filename;
                     doc.IconSource = DummyDoc.Instance.FileLanguage.GetFile(filename).Icon;
                     doc.ToolTip = filename;
                 
                 // Add file to Recent list
                 RecentFileList.InsertFile(filename);
-               
+
+                if (filename != null)
+                {
                     System.Windows.Shell.JumpList.AddToRecentCategory(filename);
                     SetTitle(filename);
-                
+                }
             }
             else
                 doc.Title = "Document" + docpane.Children.Count;
@@ -320,7 +322,7 @@ namespace miRobotEditor
         private void OpenFile(object sender, RoutedEventArgs e)
         {
             var fn = GetFileName();
-            foreach (string f in fn)
+            foreach (var f in fn)
             {
                 if (File.Exists(f))
                     OpenFile(f);
@@ -348,7 +350,9 @@ namespace miRobotEditor
         }
 
         #region AvalonDock.DockingManager
+// ReSharper disable UnusedMember.Local
         private void LoadLayout()
+// ReSharper restore UnusedMember.Local
         {
           var currentContentsList = dockManager.Layout.Descendents().OfType<LayoutContent>().Where(c => c.ContentId != null).ToArray();
           
@@ -387,20 +391,20 @@ namespace miRobotEditor
                     tool.AutoHideMinWidth = 219;
                     break;
                 case "Functions":
-                    tool.Content = new GUI.FunctionWindow.FunctionWindow();
+                    tool.Content = new FunctionWindow();
                     tool.AutoHideMinWidth = 300;
                     break;
                 case "Explorer":
-                    tool.Content = new GUI.ExplorerControl.ExplorerControlWPF();
+                    tool.Content = new GUI.ExplorerControl.FileExplorerWindow();
                     break;
                 case "Object Browser":                    
-                    tool.Content = new GUI.ObjectBrowser.ObjectBrowserTool();
+                    tool.Content = new ObjectBrowserWindow();
                     break;
                 case "Output Window":
                     tool.Content = new MessageWindow();
                     break;
                 case "Notes":
-                    tool.Content = new frmNotes();
+                    tool.Content = new NotesWindow();
                     break;
                 case "ArchiveInfo":
                     tool.Content= new Pads.ArchiveInfo();
@@ -491,7 +495,7 @@ namespace miRobotEditor
         {
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
          
-            foreach (string t in files)
+            foreach (var t in files)
             {
                 MessageViewModel.Instance.Add("File Dropped", String.Format("Opening:={0}", t), null);
                 OpenFile(t);
@@ -499,7 +503,9 @@ namespace miRobotEditor
            
         }
 
-        private void onDragEnter(object sender, DragEventArgs e)
+// ReSharper disable InconsistentNaming
+        public void onDragEnter(object sender, DragEventArgs e)
+// ReSharper restore InconsistentNaming
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effects = DragDropEffects.Copy;
 
@@ -512,18 +518,13 @@ namespace miRobotEditor
 
         private void CloseWindow(object sender, ExecutedRoutedEventArgs e)
         {
-             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();           
-            if (docpane != null)
+             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
+            if (docpane == null) return;
+            
+            foreach (var c in docpane.Children.Where(c => c.Content.Equals(DummyDoc.Instance)))
             {
-                foreach (LayoutContent c in docpane.Children)
-                {
-                    if (c.Content.Equals(DummyDoc.Instance))
-                    {
-                        docpane.Children.Remove(c);
-                        return;
-                    }
-                }
-
+                docpane.Children.Remove(c);
+                return;
             }
         }
 
@@ -615,7 +616,7 @@ namespace miRobotEditor
 
         }
         
-		void CleanDat(object sender, RoutedEventArgs e)
+		public void CleanDat(object sender, RoutedEventArgs e)
 		{
 		//	Language_Specific.DatCleanControl dcc = new miRobotEditor.Language_Specific.DatCleanControl();
 		//	dcc.ShowDialog();

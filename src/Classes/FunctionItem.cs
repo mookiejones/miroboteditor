@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using System.Text;
 
 namespace miRobotEditor.Classes
 {
@@ -15,6 +16,7 @@ namespace miRobotEditor.Classes
 
         public int Offset { get; set; }
 
+        [Localizable(false)]
         public string Tooltip
         {
             get

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Windows.Data;
 namespace miRobotEditor.Common.ResourceAccess
 {
+    [Localizable(false)]
     public class ResourceKeyConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -18,14 +20,14 @@ namespace miRobotEditor.Common.ResourceAccess
             {
                 return null;
             }
-            string @string = indexedResourceAccessor.GetString(this, text, new object[0]);
+            var @string = indexedResourceAccessor.GetString(this, text, new object[0]);
             if (values.Length == 2)
             {
                 return @string;
             }
             if (@string.Contains("{0}"))
             {
-                object[] array = new object[values.Length - 2];
+                var array = new object[values.Length - 2];
                 Array.Copy(values, 2, array, 0, array.Length);
                 return string.Format(CultureInfo.InvariantCulture, @string, array);
             }

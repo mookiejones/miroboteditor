@@ -6,6 +6,7 @@
  * 
  */
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Collections.Generic;
 namespace miRobotEditor.GUI
@@ -233,46 +234,47 @@ namespace miRobotEditor.GUI
 		
 		public Location(int column, int line)
 		{
-			x = column;
-			y = line;
+			_x = column;
+			_y = line;
 		}
 		
-		int x, y;
+		int _x, _y;
 		
 		public int X {
-			get { return x; }
-			set { x = value; }
+			get { return _x; }
+			set { _x = value; }
 		}
 		
 		public int Y {
-			get { return y; }
-			set { y = value; }
+			get { return _y; }
+			set { _y = value; }
 		}
 		
 		public int Line {
-			get { return y; }
-			set { y = value; }
+			get { return Y; }
+			set { Y = value; }
 		}
 		
 		public int Column {
-			get { return x; }
-			set { x = value; }
+			get { return X; }
+			set { X = value; }
 		}
 		
 		public bool IsEmpty {
 			get {
-				return x <= 0 && y <= 0;
+				return X <= 0 && Y <= 0;
 			}
 		}
-		
-		public override string ToString()
+
+	    [Localizable(false)]
+	    public override string ToString()
 		{
-			return string.Format("(Line {1}, Col {0})", this.x, this.y);
+			return string.Format("(Line {1}, Col {0})", X, Y);
 		}
 		
 		public override int GetHashCode()
 		{
-			return unchecked (87 * x.GetHashCode() ^ y.GetHashCode());
+			return unchecked (87 * X.GetHashCode() ^ Y.GetHashCode());
 		}
 		
 		public override bool Equals(object obj)
@@ -288,35 +290,29 @@ namespace miRobotEditor.GUI
 		
 		public static bool operator ==(Location a, Location b)
 		{
-			return a.x == b.x && a.y == b.y;
+			return a.X == b.X && a.Y == b.Y;
 		}
 		
 		public static bool operator !=(Location a, Location b)
 		{
-			return a.x != b.x || a.y != b.y;
+			return a.X != b._x || a.Y != b._y;
 		}
 		
 		public static bool operator <(Location a, Location b)
 		{
-			if (a.y < b.y)
+		    if (a.Y < b._y)
 				return true;
-			else if (a.y == b.y)
-				return a.x < b.x;
-			else
-				return false;
+		    return a.Y == b._y && a.X < b._x;
 		}
-		
-		public static bool operator >(Location a, Location b)
-		{
-			if (a.y > b.y)
+
+	    public static bool operator >(Location a, Location b)
+	    {
+	        if (a.Y > b._y)
 				return true;
-			else if (a.y == b.y)
-				return a.x > b.x;
-			else
-				return false;
-		}
-		
-		public static bool operator <=(Location a, Location b)
+	        return a.Y == b._y && a.X > b._x;
+	    }
+
+	    public static bool operator <=(Location a, Location b)
 		{
 			return !(a > b);
 		}
@@ -328,12 +324,9 @@ namespace miRobotEditor.GUI
 		
 		public int CompareTo(Location other)
 		{
-			if (this == other)
+		    if (this == other)
 				return 0;
-			if (this < other)
-				return -1;
-			else
-				return 1;
+		    return this < other ? -1 : 1;
 		}
 	}
 		/// <summary>
@@ -449,9 +442,9 @@ namespace miRobotEditor.GUI
 		/// </summary>
 		public TextChangeEventArgs(int offset, string removedText, string insertedText)
 		{
-			this.Offset = offset;
-			this.RemovedText = removedText ?? string.Empty;
-			this.InsertedText = insertedText ?? string.Empty;
+			Offset = offset;
+			RemovedText = removedText ?? string.Empty;
+			InsertedText = insertedText ?? string.Empty;
 		}
 	}
 }

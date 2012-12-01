@@ -26,23 +26,21 @@ namespace miRobotEditor.Controls
         private int _selectedLine;
         
 
-        private void cancelButtonClick(object sender, RoutedEventArgs e)
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void OKButtonClick(object sender, RoutedEventArgs e)
+        private void OkButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
-               if ( int.TryParse(EnteredText.Text, out _selectedLine))
-                {
+                if (!int.TryParse(EnteredText.Text, out _selectedLine)) return;
 
-                    var d = Editor.Document.GetLineByNumber(_selectedLine);
-                    Editor.CaretOffset = d.Offset;
-                    Editor.TextArea.Caret.BringCaretToView();
-                    Editor.ScrollToLine(_selectedLine);
-                }
+                var d = Editor.Document.GetLineByNumber(_selectedLine);
+                Editor.CaretOffset = d.Offset;
+                Editor.TextArea.Caret.BringCaretToView();
+                Editor.ScrollToLine(_selectedLine);
             }
             finally
             {
@@ -60,7 +58,7 @@ namespace miRobotEditor.Controls
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }

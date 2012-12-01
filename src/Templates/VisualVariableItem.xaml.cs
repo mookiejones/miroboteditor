@@ -36,22 +36,15 @@ namespace miRobotEditor.Templates
         public T TryFindParent<T>(DependencyObject child) where T : DependencyObject
         {
             //get parent item
-            DependencyObject parentObject = GetParentObject(child);
+            var parentObject = GetParentObject(child);
 
             //we've reached the end of the tree
             if (parentObject == null) return null;
 
             //check if the parent matches the type we're looking for
-            T parent = parentObject as T;
-            if (parent != null)
-            {
-                return parent;
-            }
-            else
-            {
-                //use recursion to proceed with next level
-                return TryFindParent<T>(parentObject);
-            }
+            var parent = parentObject as T;
+            return parent ?? TryFindParent<T>(parentObject);
+            //use recursion to proceed with next level
         }
 
         /// <summary>
@@ -68,21 +61,21 @@ namespace miRobotEditor.Templates
             if (child == null) return null;
 
             //handle content elements separately
-            ContentElement contentElement = child as ContentElement;
+            var contentElement = child as ContentElement;
             if (contentElement != null)
             {
-                DependencyObject parent = ContentOperations.GetParent(contentElement);
+                var parent = ContentOperations.GetParent(contentElement);
                 if (parent != null) return parent;
 
-                FrameworkContentElement fce = contentElement as FrameworkContentElement;
+                var fce = contentElement as FrameworkContentElement;
                 return fce != null ? fce.Parent : null;
             }
 
             //also try searching for parent in framework elements (such as DockPanel, etc)
-            FrameworkElement frameworkElement = child as FrameworkElement;
+            var frameworkElement = child as FrameworkElement;
             if (frameworkElement != null)
             {
-                DependencyObject parent = frameworkElement.Parent;
+                var parent = frameworkElement.Parent;
                 if (parent != null) return parent;
             }
 

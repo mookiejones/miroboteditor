@@ -14,27 +14,27 @@ namespace miRobotEditor.Services
 	/// </summary>
 	public class TextWriterLoggingService : ILoggingService
 	{
-		readonly TextWriter writer;
+		readonly TextWriter _writer;
 		
 		public TextWriterLoggingService(TextWriter writer)
 		{
 			if (writer == null)
 				throw new ArgumentNullException("writer");
-			this.writer = writer;
-			this.IsFatalEnabled = true;
-			this.IsErrorEnabled = true;
-			this.IsWarnEnabled = true;
-			this.IsInfoEnabled = true;
-			this.IsDebugEnabled = true;
+			_writer = writer;
+			IsFatalEnabled = true;
+			IsErrorEnabled = true;
+			IsWarnEnabled = true;
+			IsInfoEnabled = true;
+			IsDebugEnabled = true;
 		}
 		
 		void Write(object message, Exception exception)
 		{
 			if (message != null) {
-				writer.WriteLine(message.ToString());
+				_writer.WriteLine(message.ToString());
 			}
 			if (exception != null) {
-				writer.WriteLine(exception.ToString());
+				_writer.WriteLine(exception.ToString());
 			}
 		}
 		

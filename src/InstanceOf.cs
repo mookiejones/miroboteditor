@@ -1,5 +1,4 @@
-﻿using miRobotEditor.Controls;
-using miRobotEditor.GUI;
+﻿using miRobotEditor.GUI;
 
 namespace miRobotEditor
 {
@@ -8,18 +7,18 @@ namespace miRobotEditor
     /// </summary>
     class InstanceOf
     {
-        private static Editor _IEditor;
+        private static Editor _ieditor;
         public static Editor IEditor
         {
-            get { return _IEditor ?? (_IEditor = new Editor()); }
-            set { _IEditor = value; }
+            get { return _ieditor ?? (_ieditor = new Editor()); }
+            set { _ieditor = value; }
         }
 
-        private static DummyDoc _IDocument;
+        private static DummyDoc _idocument;
         public static DummyDoc IDocument
         {
-            get { return _IDocument ?? (_IDocument = new DummyDoc()); }
-            set { _IDocument = value; }
+            get { return _idocument ?? (_idocument = new DummyDoc()); }
+            set { _idocument = value; }
         }
     }
 }

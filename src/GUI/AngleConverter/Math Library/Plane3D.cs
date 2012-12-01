@@ -1,8 +1,11 @@
+using System.ComponentModel;
+
 namespace ISTUK.MathLibrary
 {
     using System;
     using System.Collections.ObjectModel;
 
+    [Localizable(false)]
     public sealed class Plane3D : IGeometricElement3D
     {
 
@@ -23,8 +26,8 @@ namespace ISTUK.MathLibrary
             var fitd = new LeastSquaresFit3D();
             var points = new Collection<Point3D> { p1, p2, p3};
             Point = fitd.Centroid(points);
-            var vectord = (Vector3D) (p2 - p1);
-            var vectord2 = (Vector3D) (p3 - p1);
+            var vectord = p2 - p1;
+            var vectord2 = p3 - p1;
             Normal = new Vector3D(Vector3D.Cross(vectord, vectord2).Normalised());
         }
 

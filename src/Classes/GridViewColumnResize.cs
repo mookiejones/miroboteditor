@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -10,6 +11,7 @@ namespace miRobotEditor.Classes
     /// <summary>
     /// Static class used to attach to wpf control
     /// </summary>
+    [Localizable(false)]
     public static class GridViewColumnResize
     {
         #region DependencyProperties
@@ -60,7 +62,7 @@ namespace miRobotEditor.Classes
             var element = dependencyObject as GridViewColumn;
             if (element != null)
             {
-                GridViewColumnResizeBehavior behavior = GetOrCreateBehavior(element);
+                var behavior = GetOrCreateBehavior(element);
                 behavior.Width = e.NewValue as string;
             }
             else
@@ -75,7 +77,7 @@ namespace miRobotEditor.Classes
             var element = dependencyObject as ListView;
             if (element != null)
             {
-                ListViewResizeBehavior behavior = GetOrCreateBehavior(element);
+                var behavior = GetOrCreateBehavior(element);
                 behavior.Enabled = (bool)e.NewValue;
             }
             else
@@ -178,7 +180,7 @@ namespace miRobotEditor.Classes
                 }
                 else
                 {
-                    double width = allowedSpace * (Percentage / totalPercentage);
+                    var width = allowedSpace * (Percentage / totalPercentage);
                     _element.Width = width;
                 }
             }
@@ -238,14 +240,14 @@ namespace miRobotEditor.Classes
             {
                 if (Enabled)
                 {
-                    double totalWidth = _element.ActualWidth;
+                    var totalWidth = _element.ActualWidth;
                     var gv = _element.View as GridView;
                     if (gv != null)
                     {
-                        double allowedSpace = totalWidth - GetAllocatedSpace(gv);
+                        var allowedSpace = totalWidth - GetAllocatedSpace(gv);
                         allowedSpace = allowedSpace - Margin;
-                        double totalPercentage = GridViewColumnResizeBehaviors(gv).Sum(x => x.Percentage);
-                        foreach (GridViewColumnResizeBehavior behavior in GridViewColumnResizeBehaviors(gv))
+                        var totalPercentage = GridViewColumnResizeBehaviors(gv).Sum(x => x.Percentage);
+                        foreach (var behavior in GridViewColumnResizeBehaviors(gv))
                         {
                             behavior.SetWidth(allowedSpace, totalPercentage);
                         }
@@ -255,21 +257,13 @@ namespace miRobotEditor.Classes
 
             private static IEnumerable<GridViewColumnResizeBehavior> GridViewColumnResizeBehaviors(GridView gv)
             {
-                foreach (GridViewColumn t in gv.Columns)
-                {
-                    var gridViewColumnResizeBehavior =
-                        t.GetValue(GridViewColumnResizeBehaviorProperty) as GridViewColumnResizeBehavior;
-                    if (gridViewColumnResizeBehavior != null)
-                    {
-                        yield return gridViewColumnResizeBehavior;
-                    }
-                }
+                return gv.Columns.Select(t => t.GetValue(GridViewColumnResizeBehaviorProperty)).OfType<GridViewColumnResizeBehavior>();
             }
 
             private static double GetAllocatedSpace(GridView gv)
             {
                 double totalWidth = 0;
-                foreach (GridViewColumn t in gv.Columns)
+                foreach (var t in gv.Columns)
                 {
                     var gridViewColumnResizeBehavior =
                         t.GetValue(GridViewColumnResizeBehaviorProperty) as GridViewColumnResizeBehavior;

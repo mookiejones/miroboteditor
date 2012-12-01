@@ -34,12 +34,12 @@ namespace miRobotEditor.Languages
 
         #region Private Members
 
-        readonly FileInfo fi = new FileInfo();
+        readonly FileInfo _fi = new FileInfo();
 
         #endregion
 
 
-        internal override Enums.TYPLANGUAGE RobotType { get { return Enums.TYPLANGUAGE.KUKA; } }
+        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.KUKA; } }
 
        public KUKA()
         {
@@ -51,7 +51,7 @@ namespace miRobotEditor.Languages
 
         public FileInfo GetFileInfo(string text)
         {
-            return fi.GetFileInfo(text);
+            return _fi.GetFileInfo(text);
         }
 
       
@@ -148,6 +148,7 @@ namespace miRobotEditor.Languages
   
         #endregion
 
+/*
         private static Editor GetPointsFromArray(Editor editor, Collection<string> points)
         {
             if (points == null) throw new ArgumentNullException("points");
@@ -157,37 +158,44 @@ namespace miRobotEditor.Languages
             }
             return editor;
         }
+*/
 
-        private static Collection<string> GetPositionFromFile(int lineNumber, ITextEditorComponent editor)
+        //TODO Find out where this is used
+        private static Collection<string> GetPositionFromFile(int line, ITextEditorComponent editor)
         {
-            var Points = new Collection<string>();
+            var points = new Collection<string>();
             while (true)
             {
-                Points.Add(editor.Document.Lines[lineNumber].ToString());
+                points.Add(editor.Document.Lines[line].ToString());
                 /*   if (!editor.Lines[LineNumber].ToUpperInvariant().IndexOf(";ENDFOLD", StringComparison.OrdinalIgnoreCase).Equals(-1))
                    { 
                        return Points;
                    }*/
-                lineNumber++;
+                line++;
             }
+/*
+            return points;
+*/
+// ReSharper disable FunctionNeverReturns
         }
+// ReSharper restore FunctionNeverReturns
 
         public static Editor ReversePath(Editor editor)
         {
-            var Points = new Collection<Collection<string>>();
-            for ( int i = 0; i <=(editor.Document.Lines.Count - 1);i++)
+            var points = new Collection<Collection<string>>();
+            for ( var i = 0; i <=(editor.Document.Lines.Count - 1);i++)
             {                
                    if ((editor.Document.Lines[i].ToString().ToUpperInvariant().IndexOf(";FOLD LIN", StringComparison.OrdinalIgnoreCase) > -1) | (editor.Document.Lines[i].ToString().ToUpperInvariant().IndexOf(";FOLD PTP", StringComparison.OrdinalIgnoreCase) > -1))
                  {
-                     Points.Add(GetPositionFromFile(i, editor));
+                     points.Add(GetPositionFromFile(i, editor));
                  }
             }
             editor.Text = string.Empty;
-            for (var b = Points.Count - 1; b >= 0; b--)
+            for (var b = points.Count - 1; b >= 0; b--)
             {
-                for (var j = 0; j < Points[b].Count; j++)
+                for (var j = 0; j < points[b].Count; j++)
                 {
-                    Collection<string> l = Points[b];
+                    var l = points[b];
                     editor.AppendText(l[j] + "\r\n");
                 }
             }
@@ -214,7 +222,9 @@ namespace miRobotEditor.Languages
                 return RemoveFromFile(filename, "((?<!_)STRUC [\\w\\s,\\[\\]]*)");
             }
 
+// ReSharper disable MemberHidesStaticFromOuterClass
             public static string GetSystemFunctions()
+// ReSharper restore MemberHidesStaticFromOuterClass
             {
 
                 var sb = new System.Text.StringBuilder();
@@ -240,9 +250,9 @@ namespace miRobotEditor.Languages
                            if (result == true)
                            {
 
-                               if (!System.IO.File.Exists(ofd.FileName)) return null;
+                               if (!File.Exists(ofd.FileName)) return null;
 
-                               System.IO.File.Copy(ofd.FileName, "c:\\Temp.rt", true);
+                               File.Copy(ofd.FileName, "c:\\Temp.rt", true);
                                _functionFile = "c:\\Temp.rt";
                                if (frm.Structures)
                                {
@@ -295,7 +305,7 @@ namespace miRobotEditor.Languages
                 {
                     line = r.ReadToEnd();
                     var rgx = new Regex(matchString, RegexOptions.IgnoreCase);
-                    MatchCollection matchs = rgx.Matches(line);
+                    var matchs = rgx.Matches(line);
                     if (matchs.Count > 0)
                     {
                         foreach (Match match in matchs)
@@ -303,7 +313,7 @@ namespace miRobotEditor.Languages
                     }
                 }
                 var regex = new Regex(matchString);
-                string result = regex.Replace(line, String.Empty);
+                var result = regex.Replace(line, String.Empty);
 
                 using (var outfile = new StreamWriter(functionfile))
                 {
@@ -319,7 +329,7 @@ namespace miRobotEditor.Languages
                 using (var r = new StreamReader(functionFile))
                 {
                     // Read each line until EOF
-                    string line = r.ReadToEnd();
+                    var line = r.ReadToEnd();
 
                     var rgx = new Regex(matchString, RegexOptions.IgnoreCase);
                     var matchs = rgx.Matches(line);
@@ -340,9 +350,11 @@ namespace miRobotEditor.Languages
             private const string PARAM = "&PARAM";
             private const string ACCESS = "&ACCESS";
             private const string USER = "&USER";           
-            private string access = String.Empty;
+            private string _access = String.Empty;
 
+// ReSharper disable InconsistentNaming
             internal string user = String.Empty;
+// ReSharper restore InconsistentNaming
             public string Comment { get; private set; }           
             public string Version { get; private set; }
             public bool Visible { get; private set; }          
@@ -357,12 +369,12 @@ namespace miRobotEditor.Languages
             }
             public FileInfo GetFileInfo()
             {
-                access = getinfo(ACCESS);
-                Comment = getinfo(COMMENT);
-                Version = getinfo(VERSION);
-                getinfo(PARAM);
-                user = getinfo(USER);
-                Visible = access.IndexOf("V", StringComparison.Ordinal) > -1;
+                _access = Getinfo(ACCESS);
+                Comment = Getinfo(COMMENT);
+                Version = Getinfo(VERSION);
+                Getinfo(PARAM);
+                user = Getinfo(USER);
+                Visible = _access.IndexOf("V", StringComparison.Ordinal) > -1;
                 return this;
             }
 
@@ -371,10 +383,10 @@ namespace miRobotEditor.Languages
                 _text = text;
                 return GetFileInfo();
             }
-            private string getinfo(string Lookfor)
+            private string Getinfo(string lookfor)
             {
-                int length = Lookfor.Length;
-                int found = _text.IndexOf(Lookfor, StringComparison.Ordinal);
+                var length = lookfor.Length;
+                var found = _text.IndexOf(lookfor, StringComparison.Ordinal);
                 if (found > -1)
                     return _text.Substring(found + length, _text.IndexOf("\n", found, StringComparison.Ordinal) - found - length);
 
@@ -444,13 +456,13 @@ namespace miRobotEditor.Languages
             get
             {
                 //Add to main menu
-                var MainItem = new MenuItem {Header = "KUKA"};
+                var mainItem = new MenuItem {Header = "KUKA"};
 
                 //Add to a sub item
                 var newMenuItem2 = new MenuItem {Header = "Test 456"};
-                MainItem.Items.Add(newMenuItem2);
+                mainItem.Items.Add(newMenuItem2);
 
-                return MainItem;
+                return mainItem;
             }
         }
 
@@ -465,7 +477,7 @@ namespace miRobotEditor.Languages
             get { return System.Windows.Media.Colors.Gray; }
         }
         
-        const RegexOptions ro = (int)RegexOptions.IgnoreCase+RegexOptions.Multiline;
+        private const RegexOptions Ro = (int)RegexOptions.IgnoreCase+RegexOptions.Multiline;
 
         public override FileModel GetFile(string filename)
         {
@@ -491,10 +503,9 @@ namespace miRobotEditor.Languages
 
         public SnippetCollection Snippets()
         {
-        	var sc = new SnippetCollection();
-        	sc.Add(forSnippet);
-        	
-        	return sc;
+        	var sc = new SnippetCollection {forSnippet};
+
+            return sc;
 
         }
         private Snippet forSnippet
@@ -524,19 +535,19 @@ namespace miRobotEditor.Languages
 
         #region Regex Expressions
 
-        public override Regex EnumRegex {get {return new Regex("^ENUM ",ro);}}
+        public override Regex EnumRegex {get {return new Regex("^ENUM ",Ro);}}
         
-        public override Regex StructRegex {get {return new Regex("DECL STRUC|^STRUC",ro);}}
+        public override Regex StructRegex {get {return new Regex("DECL STRUC|^STRUC",Ro);}}
         
         //public override Regex MethodRegex {get {return new Regex("GLOBAL DEFFCT |^DEFFCT |GLOBAL DEF |^DEF |^EXT ",ro);}}
-        public override Regex MethodRegex { get { return new Regex(@"^[GLOBAL ]*(DEF)+\s+([\w\d]+\s*)\(", ro); } }
+        public override Regex MethodRegex { get { return new Regex(@"^[GLOBAL ]*(DEF)+\s+([\w\d]+\s*)\(", Ro); } }
        
-        public override Regex FieldRegex { get { return new Regex(@"^[GLOBAL ]*[DECL ]*(INT|REAL|BOOL)\s+([\$0-9a-zA-Z_\[\],\$]+)=?([^\r\n;]*);?([^\r\n]*)", ro); } }
+        public override Regex FieldRegex { get { return new Regex(@"^[GLOBAL ]*[DECL ]*(INT|REAL|BOOL)\s+([\$0-9a-zA-Z_\[\],\$]+)=?([^\r\n;]*);?([^\r\n]*)", Ro); } }
     	
         public override string CommentChar {get{return ";";}}
-        public override Regex SignalRegex { get { return new Regex("Signal",ro); } }
+        public override Regex SignalRegex { get { return new Regex("Signal",Ro); } }
 
-        public override Regex XYZRegex { get { return new Regex(@"^[DECL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)", ro); } }
+        public override Regex XYZRegex { get { return new Regex(@"^[DECL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)(=\{[^}}]*\})?", Ro); } }
         #endregion
         
         public static string GetDatFileName(string filename)
@@ -545,13 +556,13 @@ namespace miRobotEditor.Languages
         }
         public static List<string> GetModuleFileNames(string filename)
         {
-        	string rootname = filename.Substring(0,filename.LastIndexOf('.'));
+        	var rootname = filename.Substring(0,filename.LastIndexOf('.'));
         	var result = new List<string>();
         	
-        	if (System.IO.File.Exists(rootname + ".src"))
+        	if (File.Exists(rootname + ".src"))
         		result.Add(rootname + ".src");
         	
-        	if (System.IO.File.Exists(rootname + ".dat"))
+        	if (File.Exists(rootname + ".dat"))
         		result.Add(rootname + ".dat");
         	
         	return result;

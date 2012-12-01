@@ -6,7 +6,9 @@
  * 
  */
 using System;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Collections;
 namespace miRobotEditor.GUI.ExplorerControl
@@ -18,6 +20,8 @@ namespace miRobotEditor.GUI.ExplorerControl
 	/// </summary>
 	public class ExplorerClass:TreeView,IComparable
 	{
+
+        //TODO Fix this
 		private const int FOLDER = 0;
 		private const int FOLDEROPEN=1;
 		private const int REMOVABLE = 5;
@@ -34,17 +38,17 @@ namespace miRobotEditor.GUI.ExplorerControl
 		public int CompareTo(object obj)
 		{
 			var directoryInfo = (DirectoryInfo)obj;
-			return string.Compare(this.Name, directoryInfo.Name);
+			return String.CompareOrdinal(Name, directoryInfo.Name);
 		}
 		
 		public ExplorerClass()
 		{
-			this.HideSelection = false;
+			HideSelection = false;
 		}
 		public void AddRobotNode(string sFile, string sName)
 		{
-			this.SelectedNode = this.Nodes.Add(sFile, sName, 11, 11);
-			this.SelectedNode.ToolTipText = sFile;
+			SelectedNode = Nodes.Add(sFile, sName, 11, 11);
+			SelectedNode.ToolTipText = sFile;
 		}
 		
 		void RaiseFileSelected(object sender, FileSelectedEventArgs e)
@@ -55,9 +59,9 @@ namespace miRobotEditor.GUI.ExplorerControl
 		
 		protected override void OnMouseDoubleClick(MouseEventArgs e)
 		{			
-			if (File.Exists(this.SelectedNode.FullPath))
+			if (File.Exists(SelectedNode.FullPath))
 			    {
-			    	RaiseFileSelected(this,new FileSelectedEventArgs{Filename=this.SelectedNode.FullPath});
+			    	RaiseFileSelected(this,new FileSelectedEventArgs{Filename=SelectedNode.FullPath});
 			    }
 			
 			base.OnMouseDoubleClick(e);
@@ -67,22 +71,18 @@ namespace miRobotEditor.GUI.ExplorerControl
 		{
 			if (SelectedNode!=null)
 			{
-				if (File.Exists(this.SelectedNode.FullPath))
-				    SelectedFile=this.SelectedNode.FullPath;	
-				else
-					SelectedFile = String.Empty;
-				if (Directory.Exists(this.SelectedNode.FullPath))
-					SelectedDirectory=this.SelectedNode.FullPath;
-				else
-					SelectedDirectory=String.Empty;
+			    var fp = SelectedNode.FullPath;
+
+			    SelectedFile = File.Exists(fp) ? fp : String.Empty;
+			    SelectedDirectory = Directory.Exists(fp) ? fp : String.Empty;
 			}
-			base.OnAfterSelect(e);
+		    base.OnAfterSelect(e);
 		}
 		
 		
 		public void ShowTree()
 		{
-			this.Nodes.Clear();
+			Nodes.Clear();
 			checked
 			{
 				try
@@ -134,102 +134,96 @@ namespace miRobotEditor.GUI.ExplorerControl
 			}
 		}
 		
-		private TreeNode AddNode(string name, int unselected,int selected)
+		private void AddNode(string name, int unselected, int selected)
 		{
 			var node = new TreeNode(name,unselected,selected);			
-			this.Nodes.Add(node);
+			Nodes.Add(node);
 			node.Tag=name;
 			node.Nodes.Add(String.Empty);
-			return node;
 		}
 	
-		public void ShowTree(string Path, bool bArchiveRoot = false, string sRobName = "", bool bSelect = false)
+		public void ShowTree(string path, bool bArchiveRoot , string sRobName , bool bSelect )
 		{
-			int num = 5;
-			string text = Path;
+			var num = 5;
+			var text = path;
 			if (bArchiveRoot)
 			{
 				num = 11;
 				text = sRobName;
 			}
 			
-			TreeNode treeNode = new TreeNode(text, num, num);
+			var treeNode = new TreeNode(text, num, num);
 			
 			
 			if (bArchiveRoot)
 			{
-				treeNode.Tag = Path;
-				this.Nodes.Add(treeNode);
+				treeNode.Tag = path;
+				Nodes.Add(treeNode);
 			}
 			else
 			{
-				this.Nodes.Add(treeNode);
+				Nodes.Add(treeNode);
 			}
-			this.FillTreeNode(treeNode, "");
+			FillTreeNode(treeNode,String.Empty);
 			if (bSelect)
 			{
-				this.SelectedNode = treeNode;
+				SelectedNode = treeNode;
 			}
 		}
 	
-		public void ShowTree(DriveType DriveType)
+		public void ShowTree(DriveType driveType)
 		{
-			DriveInfo[] drives = DriveInfo.GetDrives();
+			var drives = DriveInfo.GetDrives();
 			checked
 			{
-				for (int i = 0; i < drives.Length; i++)
+				foreach (var driveInfo in drives.Where(driveInfo => driveInfo.DriveType == driveType))
 				{
-					var driveInfo = drives[i];
-					if (driveInfo.DriveType == DriveType)
-					{
-						this.ShowTree(driveInfo.Name, false, "", false);
-					}
+				    ShowTree(driveInfo.Name, false, "", false);
 				}
 			}
 		}
-	
-		public void FillTreeNode(TreeNode dNode, string sRoot = "")
+
+	    [Localizable(false)]
+	    public void FillTreeNode(TreeNode node, string root)
 		{
 			checked
 			{
 				try
 				{
-					this.Cursor = Cursors.WaitCursor;
-					var text = dNode.FullPath;
-					if (String.Compare(text,"\\",false)==0)
+					Cursor = Cursors.WaitCursor;
+					var text = node.FullPath;
+				    const string folder = @"\";
+					if (String.CompareOrdinal(text, folder)==0)
 					{
-						text = dNode.ToString();
+						text = node.ToString();
 					}
 					else
 					{
-						if (String.Compare(text.Substring(1,1),":",false)!=0)
+						if (String.CompareOrdinal(text.Substring(1,1), ":")!=0)
 						{
 							
-							sRoot = dNode.Text;
-							text = sRoot + text.Substring(text.IndexOf("\\"));
+							root = node.Text;
+							text = root + text.Substring(text.IndexOf(folder, StringComparison.Ordinal));
 						}
 					}
 					var directoryInfo = new DirectoryInfo(text);
 					var directories = directoryInfo.GetDirectories();
 					var comparer = new Comparer();
 					Array.Sort(directories, comparer);					
-					foreach (DirectoryInfo d in directories)
+					foreach (var d in directories)
 					{						
-						var treeNode = new TreeNode(d.Name, 0, 1);
-						treeNode.Tag = dNode.Tag.ToString();
-						dNode.Nodes.Add(treeNode);
+						var treeNode = new TreeNode(d.Name, 0, 1) {Tag = node.Tag.ToString()};
+					    node.Nodes.Add(treeNode);
 						treeNode.Nodes.Add("");
 					}
 					
 					var files = Directory.GetFiles(text, FileExplorerControl.Instance.Filter);
-					Array.Sort<string>(files);
+					Array.Sort(files);
 					var array2 = files;
-					foreach (string f in array2)
+					foreach (var f in array2)
 					{
-						var fn = Path.GetFileName(f);
-						var treeNode2 = new TreeNode(Path.GetFileName(f));
-						treeNode2.Tag = dNode.Tag.ToString();
-						var left = Path.GetExtension(f).ToLower();
+					    var treeNode2 = new TreeNode(Path.GetFileName(f)) {Tag = node.Tag.ToString()};
+					    var left = Path.GetExtension(f).ToLower();
 						switch (left)
 						{
 								case ".src":								
@@ -255,15 +249,15 @@ namespace miRobotEditor.GUI.ExplorerControl
 								}
 							
 						
-						dNode.Nodes.Add(treeNode2);
+						node.Nodes.Add(treeNode2);
 					}
-					this.Cursor = Cursors.Default;
+					Cursor = Cursors.Default;
 				}
 				catch (Exception ex)
 				{
 					Console.WriteLine(ex.ToString());
 				//TODO	MainWindow.Instance.Output.Add("FileExplorerClass",ex.ToString());
-					this.Cursor = Cursors.Default;
+					Cursor = Cursors.Default;
 				}
 			}
 		}
@@ -271,7 +265,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 		protected override void OnBeforeExpand(TreeViewCancelEventArgs e)
 		{
 			var node = e.Node;
-			this.BeginUpdate();
+			BeginUpdate();
 			node.Nodes.Clear();
 			var sRoot = e.Node.Tag.ToString();			
 			FillTreeNode(node, sRoot);
@@ -287,7 +281,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 			var directoryInfo2 = (DirectoryInfo)y;
 			var name = directoryInfo.Name;
 			var name2 = directoryInfo2.Name;
-			return string.Compare(name, name2);
+			return String.CompareOrdinal(name, name2);
 		}
 	}
 	public class FileSelectedEventArgs:EventArgs

@@ -1,4 +1,6 @@
-﻿namespace miRobotEditor.Parsers
+﻿using System.ComponentModel;
+
+namespace miRobotEditor.Parsers
 {
     // This file was Auto Generated with TokenIcer
     using System.Collections.Generic;
@@ -10,6 +12,7 @@
     /// <remarks>
     /// TokenParser is the main parser engine for converting input into lexical tokens.
     /// </remarks>
+    [Localizable(false)]
     public class E6Parser : AbstractParser
     {
         // This dictionary will store our RegEx rules
@@ -29,6 +32,7 @@
         {
             UNDEFINED = 0,
             DECLARATION = 1,
+// ReSharper disable InconsistentNaming
             E6POS = 2,
             IDENTIFIER = 3,
             END = 4,
@@ -49,6 +53,8 @@
             PLUS = 19,
             COMMA = 20,
             MINUS = 21
+// ReSharper restore InconsistentNaming
+
         }
 
         // A public setter for our input string
@@ -112,7 +118,7 @@
         private void PrepareRegex()
         {
             _regExMatchCollection.Clear();
-            foreach (KeyValuePair<Tokens, string> pair in _tokens)
+            foreach (var pair in _tokens)
             {
                 _regExMatchCollection.Add(pair.Key, Regex.Matches(_inputString, pair.Value));
             }
@@ -154,7 +160,7 @@
                 return null;
 
             // Iterate through our prepared matches/Tokens dictionary
-            foreach (KeyValuePair<Tokens, MatchCollection> pair in _regExMatchCollection)
+            foreach (var pair in _regExMatchCollection)
             {
                 // Iterate through each prepared match
                 foreach (Match match in pair.Value)
@@ -198,7 +204,7 @@
         /// <seealso cref="Peek()"/>
         public PeekToken Peek(PeekToken peekToken)
         {
-            int oldIndex = _index;
+            var oldIndex = _index;
 
             _index = peekToken.TokenIndex;
 
@@ -208,20 +214,19 @@
                 return null;
             }
 
-            foreach (KeyValuePair<Tokens, string> pair in _tokens)
+            foreach (var pair in _tokens)
             {
-                Regex r = new Regex(pair.Value);
-                Match m = r.Match(_inputString, _index);
+                var r = new Regex(pair.Value);
+                var m = r.Match(_inputString, _index);
 
-                if (m.Success && m.Index == _index)
-                {
-                    _index += m.Length;
-                    PeekToken pt = new PeekToken(_index, new Token(pair.Key, m.Value));
-                    _index = oldIndex;
-                    return pt;
-                }
+                if (!m.Success || m.Index != _index) continue;
+                
+                _index += m.Length;
+                var pt = new PeekToken(_index, new Token(pair.Key, m.Value));
+                _index = oldIndex;
+                return pt;
             }
-            PeekToken pt2 = new PeekToken(_index + 1, new Token(Tokens.UNDEFINED, string.Empty));
+            var pt2 = new PeekToken(_index + 1, new Token(Tokens.UNDEFINED, string.Empty));
             _index = oldIndex;
             return pt2;
         }

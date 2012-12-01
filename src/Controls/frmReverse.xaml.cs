@@ -5,9 +5,9 @@ namespace miRobotEditor.Controls
     /// <summary>
     /// Interaction logic for frmReverse.xaml
     /// </summary>
-    public partial class frmReverse : Window
+    public partial class FrmReverse : Window
     {
-        public frmReverse()
+        public FrmReverse()
         {
             InitializeComponent();
         }

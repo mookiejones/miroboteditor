@@ -9,7 +9,7 @@ namespace miRobotEditor.Controls
 
         public SplineBorder()
         {
-            //RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
+            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
         }
 
 
@@ -102,27 +102,26 @@ namespace miRobotEditor.Controls
         protected override void OnRender(DrawingContext drawingContext)
         {
             var pgFill = new PathGeometry();
-            var pfFill = new PathFigure() { IsFilled = true, IsClosed = true };
-            pfFill.StartPoint = new Point(ActualWidth, 0.0);
+            var pfFill = new PathFigure {IsFilled = true, IsClosed = true, StartPoint = new Point(ActualWidth, 0.0)};
 
-            var q1Fill = new QuadraticBezierSegment() { Point1 = new Point(ActualWidth * 2 / 3, 0.0), Point2 = new Point(ActualWidth / 2.0, ActualHeight / 2.0), IsStroked = false };
+            var q1Fill = new QuadraticBezierSegment { Point1 = new Point(ActualWidth * 2 / 3, 0.0), Point2 = new Point(ActualWidth / 2.0, ActualHeight / 2.0), IsStroked = false };
             pfFill.Segments.Add(q1Fill);
-            var q2Fill = new QuadraticBezierSegment() { Point1 = new Point(ActualWidth / 3, ActualHeight), Point2 = new Point(0, ActualHeight), IsStroked = false };
+            var q2Fill = new QuadraticBezierSegment { Point1 = new Point(ActualWidth / 3, ActualHeight), Point2 = new Point(0, ActualHeight), IsStroked = false };
             pfFill.Segments.Add(q2Fill);
 
-            pfFill.Segments.Add(new LineSegment() { Point = new Point(ActualWidth, ActualHeight), IsStroked = false });
+            pfFill.Segments.Add(new LineSegment { Point = new Point(ActualWidth, ActualHeight), IsStroked = false });
 
             pgFill.Figures.Add(pfFill);
 
             drawingContext.DrawGeometry(Fill, null, pgFill);
 
             var pgBorder = new PathGeometry();
-            var pfBorder = new PathFigure() { IsFilled = false, IsClosed = false };
-            pfBorder.StartPoint = new Point(ActualWidth, Thickness / 2);
+            var pfBorder = new PathFigure
+                               {IsFilled = false, IsClosed = false, StartPoint = new Point(ActualWidth, Thickness/2)};
 
-            var q1Border = new QuadraticBezierSegment() { Point1 = new Point(ActualWidth * 2 / 3, 0.0), Point2 = new Point(ActualWidth / 2.0, ActualHeight / 2.0) };
+            var q1Border = new QuadraticBezierSegment { Point1 = new Point(ActualWidth * 2 / 3, 0.0), Point2 = new Point(ActualWidth / 2.0, ActualHeight / 2.0) };
             pfBorder.Segments.Add(q1Border);
-            var q2Border = new QuadraticBezierSegment() { Point1 = new Point(ActualWidth / 3, ActualHeight), Point2 = new Point(0.0, ActualHeight - BottomBorderMargin) };
+            var q2Border = new QuadraticBezierSegment { Point1 = new Point(ActualWidth / 3, ActualHeight), Point2 = new Point(0.0, ActualHeight - BottomBorderMargin) };
             pfBorder.Segments.Add(q2Border);
 
             pgBorder.Figures.Add(pfBorder);

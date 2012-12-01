@@ -13,6 +13,7 @@ namespace miRobotEditor.Controls
            
 
         }
+/*
         private void init()
         {
     //        dg.Rows.Clear();
@@ -27,6 +28,8 @@ namespace miRobotEditor.Controls
     //       dg[1, 9].Value = "1";
     //       dg[1,9].
         }
+*/
+/*
         private void init(string s)
         {
     //        dg[0, 0].Value = "Name";
@@ -37,5 +40,6 @@ namespace miRobotEditor.Controls
     //        dg[0, 4].Value = "Enable";
 //            dg[1, 4].Value = "TRUE";
         }
+*/
     }
 }
