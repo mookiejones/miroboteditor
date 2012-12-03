@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Properties\Resources\Editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="miRobotEditor" version="1.0.0.35210" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="miRobotEditor" version="1.0.0.21421" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
     <commandLine file="miRobotEditor.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -223,14 +223,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1555456">
-      <assemblyIdentity name="miRobotEditor" version="1.0.0.35210" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1573888">
+      <assemblyIdentity name="miRobotEditor" version="1.0.0.21421" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>OnTjCNznJSiTW3lCtG+XYaR/a9o=</dsig:DigestValue>
+        <dsig:DigestValue>wTgLW9tjD9qDd6tL8B6IO24Yoz8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -264,7 +264,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>I82gCDTBFlBMq0scd2d9m7r2Gng=</dsig:DigestValue>
+      <dsig:DigestValue>Klf1dbWfNxtbiOhzZiiXRyV2u7Q=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Properties\Resources\Editor.ico" size="149723">

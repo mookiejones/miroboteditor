@@ -579,8 +579,8 @@ namespace miRobotEditor.Pads
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error with {0} \r\n {1}", _fi.Extension, ex);
-            }
+                MessageViewModel.Instance.AddError(ex);
+              }
 
             return FileType.NONE ;
         }

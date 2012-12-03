@@ -395,7 +395,14 @@
 				<MenuItem
 					x:Name="View"
 					Header="View">
-					<MenuItem
+                    <MenuItem Header="Environment">
+                        <MenuItem Header="KUKA KRC2"/>
+                        <MenuItem Header="KUKA KRC4"/>
+                        <MenuItem Header="ABB" />
+                        <MenuItem Header="Kawasaki"/>
+                        <MenuItem Header="Nachi"/>
+                    </MenuItem>
+                    <MenuItem
 						Header="View Whitespace"
 						IsCheckable="true"
 						IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True,  Source={StaticResource TextOptions}}" />
@@ -509,10 +516,8 @@
 					Header="_Help">
 					<MenuItem
 						Header="_View Help" />
-					<MenuItem
-						Header="Report a _Bug" />
-					<MenuItem
-						Header="_About" />
+					<MenuItem  Header="Report a _Bug" />
+					<MenuItem Header="_About" Click="ShowAbout"/>
 				</MenuItem>
 			</Menu>
 			<ToolBarPanel>

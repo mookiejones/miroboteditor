@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
-using System.Windows.Controls;
+using System.Windows.Forms;
+using ToolTip = System.Windows.Controls.ToolTip;
+
 namespace DMC_Robot_Editor.Controls
 {
     class CustomToolTip:ToolTip,IDisposable
@@ -97,6 +96,11 @@ namespace DMC_Robot_Editor.Controls
           //     e.DrawBorder();
           //     e.DrawText();
           // }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -141,13 +141,115 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BookmarkBase.cs" />
-    <Compile Include="Classes\CaretHighlightAdorner.cs" />
+    <Compile Include="Classes\AbstractPaneViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\AbstractViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\BookmarkBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CaretHighlightAdorner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CodeCompletion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\FileModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\FileName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\FileWatcher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\frmReverse.xaml.cs" />
+    <Compile Include="Classes\Function.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\FunctionEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\FunctionItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\GlobalOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\GlobalOptionsViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\GridViewColumnResize.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\HighlightGroup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\IFileHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\IndentationReformatter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\IndentationSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\IndentationStrategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\IOutputMessages.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\IVariable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\LineColorizer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Messages\MessageType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Messages\NotifyPropertyChanged.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Position.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\RecentFileList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\RobotViewType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\StatusBar.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Variable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\VariableBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\VariableHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\ViewModelBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Commands\AbstractMenuCommand.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\EditorCommands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Controls\CustomToolTip.xaml.cs">
+      <DependentUpon>CustomToolTip.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controls\ShiftViewModel.cs" />
+    <Compile Include="Forms\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\AngleConverter\EnumToInt32Converter.cs" />
     <Compile Include="GUI\ExplorerControl\ExplorerClass.cs">
       <SubType>Component</SubType>
@@ -188,7 +290,45 @@
       <DependentUpon>Options.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Interfaces\AnchorMovementType.cs" />
+    <Compile Include="Interfaces\BlockCommentRegion.cs" />
+    <Compile Include="Interfaces\BookmarkImage.cs" />
+    <Compile Include="Interfaces\ClassMemberBookmark.cs" />
+    <Compile Include="Interfaces\ColorizeAvalonEdit.cs" />
+    <Compile Include="Interfaces\CompletionContext.cs" />
+    <Compile Include="Interfaces\CompletionItemListKeyResult.cs" />
+    <Compile Include="Interfaces\DefaultCompletionItem.cs" />
+    <Compile Include="Interfaces\DefaultCompletionItemList.cs" />
+    <Compile Include="Interfaces\DefaultFormattingStrategy.cs" />
+    <Compile Include="Interfaces\IBookmark.cs" />
+    <Compile Include="Interfaces\IBookmarkMargin.cs" />
+    <Compile Include="Interfaces\ICompletionItem.cs" />
+    <Compile Include="Interfaces\ICompletionItemList.cs" />
+    <Compile Include="Interfaces\ICompletionListWindow.cs" />
+    <Compile Include="Interfaces\ICompletionWindow.cs" />
+    <Compile Include="Interfaces\IconBarManager.cs" />
     <Compile Include="Interfaces\IconBarMargin.cs" />
+    <Compile Include="Interfaces\IDocument.cs" />
+    <Compile Include="Interfaces\IDocumentLine.cs" />
+    <Compile Include="Interfaces\IFancyCompletionItem.cs" />
+    <Compile Include="Interfaces\IFormattingStrategy.cs" />
+    <Compile Include="Interfaces\IImage.cs" />
+    <Compile Include="Interfaces\IInsightItem.cs" />
+    <Compile Include="Interfaces\IInsightWindow.cs" />
+    <Compile Include="Interfaces\ImageElementGenerator.cs" />
+    <Compile Include="Interfaces\ISerializeBase.cs" />
+    <Compile Include="Interfaces\ISnippetCompletionItem.cs" />
+    <Compile Include="Interfaces\ITextAnchor.cs" />
+    <Compile Include="Interfaces\ITextBuffer.cs" />
+    <Compile Include="Interfaces\ITextBufferVersion.cs" />
+    <Compile Include="Interfaces\ITextEditor.cs" />
+    <Compile Include="Interfaces\ITextEditorCaret.cs" />
+    <Compile Include="Interfaces\ITextEditorOptions.cs" />
+    <Compile Include="Interfaces\Location.cs" />
+    <Compile Include="Interfaces\SerializeBase.cs" />
+    <Compile Include="Interfaces\StringTextBuffer.cs" />
+    <Compile Include="Interfaces\TextChangeEventArgs.cs" />
+    <Compile Include="Interfaces\TextSourceAdapter.cs" />
     <Compile Include="ISingleInstanceApp.cs" />
     <Compile Include="Language Specific\DatCleanControl.xaml.cs">
       <DependentUpon>DatCleanControl.xaml</DependentUpon>
@@ -210,6 +350,10 @@
     <Compile Include="Language Specific\KUKAKFDDialog.xaml.cs">
       <DependentUpon>KUKAKFDDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Language Specific\KUKASystemFunctions.xaml.cs">
+      <DependentUpon>KUKASystemFunctions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Language Specific\SystemFunctionsViewModel.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Pads\ArchiveInfo\ArchiveInfo.xaml.cs">
       <DependentUpon>ArchiveInfo.xaml</DependentUpon>
@@ -232,28 +376,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Classes\AbstractPaneViewModel.cs" />
-    <Compile Include="Classes\AbstractViewModel.cs" />
-    <Compile Include="Classes\GridViewColumnResize.cs" />
-    <Compile Include="Classes\FileModel.cs" />
-    <Compile Include="Classes\FileWatcher.cs" />
-    <Compile Include="Classes\Function.cs" />
-    <Compile Include="Classes\IndentationReformatter.cs" />
-    <Compile Include="Classes\IndentationSettings.cs" />
-    <Compile Include="Classes\IndentationStrategy.cs" />
-    <Compile Include="Classes\IOutputMessages.cs" />
-    <Compile Include="Classes\IVariable.cs" />
-    <Compile Include="Classes\LineColorizer.cs" />
     <Compile Include="GUI\ObjectBrowser\ObjectBrowserViewModel.cs" />
     <Compile Include="GUI\MessageWindow\MessageViewModel.cs" />
     <Compile Include="GUI\MessageWindow\OutputWindowMessage.cs" />
-    <Compile Include="Classes\Position.cs" />
-    <Compile Include="Classes\RecentFileList.cs" />
-    <Compile Include="Classes\StatusBar.cs" />
-    <Compile Include="Classes\Variable.cs" />
-    <Compile Include="Classes\VariableBase.cs" />
-    <Compile Include="Classes\VariableHelper.cs" />
-    <Compile Include="Classes\ViewModelBase.cs" />
     <Compile Include="Common\ResourceAccess\IIndexedResourceAccessor.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -327,60 +452,13 @@
     </Compile>
     <Compile Include="GUI\XMLConfig.cs" />
     <Compile Include="InstanceOf.cs" />
-    <Compile Include="Interfaces\AnchorMovementType.cs" />
-    <Compile Include="Interfaces\BlockCommentRegion.cs" />
-    <Compile Include="Interfaces\BookmarkImage.cs" />
-    <Compile Include="Interfaces\ClassMemberBookmark.cs" />
-    <Compile Include="Interfaces\ColorizeAvalonEdit.cs" />
-    <Compile Include="Interfaces\CompletionContext.cs" />
-    <Compile Include="Interfaces\CompletionItemListKeyResult.cs" />
-    <Compile Include="Interfaces\DefaultCompletionItem.cs" />
-    <Compile Include="Interfaces\DefaultCompletionItemList.cs" />
-    <Compile Include="Interfaces\DefaultFormattingStrategy.cs" />
-    <Compile Include="Interfaces\IBookmark.cs" />
-    <Compile Include="Interfaces\IBookmarkMargin.cs" />
-    <Compile Include="Interfaces\ICompletionItem.cs" />
-    <Compile Include="Interfaces\ICompletionItemList.cs" />
-    <Compile Include="Interfaces\ICompletionListWindow.cs" />
-    <Compile Include="Interfaces\ICompletionWindow.cs" />
-    <Compile Include="Interfaces\IconBarManager.cs" />
-    <Compile Include="Interfaces\IDocument.cs" />
-    <Compile Include="Interfaces\IDocumentLine.cs" />
-    <Compile Include="Interfaces\IFancyCompletionItem.cs" />
-    <Compile Include="Interfaces\IFormattingStrategy.cs" />
-    <Compile Include="Interfaces\IImage.cs" />
-    <Compile Include="Interfaces\IInsightItem.cs" />
-    <Compile Include="Interfaces\IInsightWindow.cs" />
-    <Compile Include="Interfaces\ImageElementGenerator.cs" />
-    <Compile Include="Interfaces\ISnippetCompletionItem.cs" />
-    <Compile Include="Interfaces\ITextAnchor.cs" />
-    <Compile Include="Interfaces\ITextBuffer.cs" />
-    <Compile Include="Interfaces\ITextBufferVersion.cs" />
-    <Compile Include="Interfaces\ITextEditor.cs" />
-    <Compile Include="Interfaces\ITextEditorCaret.cs" />
-    <Compile Include="Interfaces\ITextEditorOptions.cs" />
-    <Compile Include="Interfaces\Location.cs" />
-    <Compile Include="Interfaces\StringTextBuffer.cs" />
-    <Compile Include="Interfaces\TextChangeEventArgs.cs" />
-    <Compile Include="Interfaces\TextSourceAdapter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Parsers\E6Parser.cs" />
-    <Compile Include="Classes\CodeCompletion.cs" />
-    <Compile Include="Classes\FileName.cs" />
-    <Compile Include="Classes\FunctionEventArgs.cs" />
-    <Compile Include="Classes\FunctionItem.cs" />
-    <Compile Include="Classes\HighlightGroup.cs" />
-    <Compile Include="Classes\IFileHandler.cs" />
-    <Compile Include="Classes\Messages\MessageType.cs" />
-    <Compile Include="Classes\Messages\NotifyPropertyChanged.cs" />
     <Compile Include="Controls\IErrorDisplayStrategy.cs" />
     <Compile Include="Controls\OptionsPanel.cs" />
     <Compile Include="Controls\ExtendedGridSplitter.cs" />
-    <Compile Include="Controls\CustomToolTip.xaml.cs">
-      <DependentUpon>CustomToolTip.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\FindAndReplaceForm.xaml.cs">
       <DependentUpon>FindAndReplaceForm.xaml</DependentUpon>
     </Compile>
@@ -440,6 +518,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ListFromFileBox.xaml" />
+    <Page Include="Forms\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\AngleConverter\AngleConverterWPF.xaml" />
     <Page Include="GUI\DummyDoc\DummyDoc.xaml">
       <SubType>Designer</SubType>
@@ -537,6 +619,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Language Specific\KUKASystemFunctions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml" />
     <Page Include="Pads\ArchiveInfo\ArchiveInfo.xaml" />
     <Page Include="Pads\ArchiveInfo\IOListBox.xaml">
@@ -594,6 +680,7 @@
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
     </EmbeddedResource>
     <Resource Include="Images\folder_open.png" />
+    <None Include="Interfaces\ve-BEC0.tmp" />
     <None Include="miRobotEditor.pfx" />
     <None Include="Snippets\KUKA.Snippet" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -678,6 +765,7 @@
     <Resource Include="Resources\spsfile.png" />
     <Resource Include="Resources\srcfile.png" />
     <Resource Include="Resources\vxXYZ_icon.png" />
+    <Resource Include="Resources\editorpng.png" />
     <Content Include="Tracking\Changes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

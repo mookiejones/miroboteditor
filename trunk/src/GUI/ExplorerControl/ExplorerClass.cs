@@ -128,8 +128,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine(ex.ToString());
-			//TODO		MainWindow.Instance.Output.Add("ExplorerClass",ex.ToString());
+				    Classes.MessageViewModel.Instance.AddError(ex);				
 				}
 			}
 		}
@@ -255,8 +254,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine(ex.ToString());
-				//TODO	MainWindow.Instance.Output.Add("FileExplorerClass",ex.ToString());
+				    Classes.MessageViewModel.Instance.AddError(ex);
 					Cursor = Cursors.Default;
 				}
 			}

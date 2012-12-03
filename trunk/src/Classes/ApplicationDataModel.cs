@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UpdateControls;
+﻿using System.Collections.Generic;
+
 namespace DMC_Robot_Editor.Classes
 {
     /// <summary>

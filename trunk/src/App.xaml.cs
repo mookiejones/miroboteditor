@@ -60,21 +60,21 @@ namespace miRobotEditor
         [Localizable(false)]
         protected override void OnStartup(StartupEventArgs e)
 	{
-	//if (e.Args.Length > 0)
-	//{
-    //    
-	//	MessageBox.Show("You have the latest version.");
-	//	Shutdown();
-	//}
-	//	JumpTask task = new JumpTask
-    // {
-    //     Title = "Check for Updates",
-    //     Arguments = "/update",
-    //     Description = "Checks for Software Updates",
-    //     CustomCategory = "Actions",
-    //     IconResourcePath = Assembly.GetEntryAssembly().CodeBase,
-    //     ApplicationPath = Assembly.GetEntryAssembly().CodeBase 
-    // };
+	 if (e.Args.Length > 0)
+	 {
+         
+	 	MessageBox.Show("You have the latest version.");
+	 	Shutdown();
+	 }
+	 	var task = new JumpTask
+      {
+          Title = "Check for Updates",
+          Arguments = "/update",
+          Description = "Checks for Software Updates",
+          CustomCategory = "Actions",
+          IconResourcePath = Assembly.GetEntryAssembly().CodeBase,
+          ApplicationPath = Assembly.GetEntryAssembly().CodeBase 
+      };
 
         var asm = Assembly.GetExecutingAssembly();
 
@@ -87,7 +87,7 @@ namespace miRobotEditor
 
         var jumpList = new JumpList();
         jumpList.JumpItems.Add(version);
-      //  jumpList.JumpItems.Add(task);
+        jumpList.JumpItems.Add(task);
         jumpList.ShowFrequentCategory = true;
         jumpList.ShowRecentCategory = true; 
         JumpList.SetJumpList(Current, jumpList);
