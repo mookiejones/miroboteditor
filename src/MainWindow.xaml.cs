@@ -11,8 +11,11 @@ using AvalonDock;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
 using miRobotEditor.Controls;
+using miRobotEditor.Forms;
 using miRobotEditor.GUI;
+using miRobotEditor.GUI.Dialogs.About;
 using miRobotEditor.Languages;
+using miRobotEditor.Properties;
 using Application = System.Windows.Application;
 using MenuItem = System.Windows.Controls.MenuItem;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -49,9 +52,11 @@ namespace miRobotEditor
         {
             
             InitializeComponent();
-            // Check for updates
-           // var checker = new Forms.FrmUpdateChecker();
 
+
+            if (Settings.Default.CheckForUpdates)
+                new Forms.FrmUpdateChecker();
+            
             //Get Initial Key Status
             ManageKeys(null,null);
 
@@ -624,5 +629,9 @@ namespace miRobotEditor
 		}
     	
 		public event PropertyChangedEventHandler PropertyChanged;
+        private void ShowAbout(object sender, RoutedEventArgs e)
+        {
+            new AboutWindow().ShowDialog();
+        }
     }
 }

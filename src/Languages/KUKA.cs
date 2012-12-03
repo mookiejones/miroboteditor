@@ -35,13 +35,11 @@ namespace miRobotEditor.Languages
         #region Private Members
 
         readonly FileInfo _fi = new FileInfo();
-
+        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.KUKA; } }
+        
         #endregion
 
-
-        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.KUKA; } }
-
-       public KUKA()
+        public KUKA()
         {
             FoldingStrategy = new RegionFoldingStrategy();
           
@@ -90,7 +88,7 @@ namespace miRobotEditor.Languages
 
         #region "_file Interface Info"
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Windows.Forms.FileDialog.set_Filter(System.String)")]
+        [Localizable(false)]
         public static string SystemFileName()
         {
             using (var ofd = new System.Windows.Forms.OpenFileDialog())
@@ -288,7 +286,7 @@ namespace miRobotEditor.Languages
                        }
                        catch (Exception ex)
                        {
-                           Console.WriteLine(ex.ToString());
+                           MessageViewModel.Instance.AddError(ex);
                        }
                     }
                 }

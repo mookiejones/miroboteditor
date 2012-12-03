@@ -227,35 +227,6 @@ C:\Programming\editor\miroboteditor\trunk\bin\Debug\miRobotEditor.exe.manifest
 C:\Programming\editor\miroboteditor\trunk\bin\Debug\miRobotEditor.application
 C:\Programming\editor\miroboteditor\trunk\bin\Debug\miRobotEditor.exe
 C:\Programming\editor\miroboteditor\trunk\bin\Debug\miRobotEditor.pdb
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Tracking\Changes.html
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.exe.config
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.exe.manifest
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.application
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.exe
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.pdb
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Aero.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Expression.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.VS2010.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ICSharpCode.AvalonEdit.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Ionic.Zip.Reduced.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\RecentFileListLib.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\TaskDialog.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.pdb
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.xml
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Aero.pdb
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Expression.pdb
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.VS2010.pdb
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ICSharpCode.AvalonEdit.xml
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\de\AvalonDock.resources.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\es\AvalonDock.resources.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\fr\AvalonDock.resources.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\hu\AvalonDock.resources.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\it\AvalonDock.resources.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\pt-BR\AvalonDock.resources.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ru\AvalonDock.resources.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\sv\AvalonDock.resources.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\zh-Hans\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\CustomToolTip.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ListFromFileBox.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\GotoDialog.baml
@@ -266,10 +237,8 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\xmlReader.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\AttributeViewer.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmSplashScreen.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmSystemFunctions.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmUpdateChecker.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Dialogs\About\About.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\FunctionWindow\FunctionWindow.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\LocalVariableWindow\LocalVariableWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Notes\NotesWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Options\Options.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KFDAssistant.baml
@@ -288,6 +257,7 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\StatusBar.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\App.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\CustomToolTip.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ListFromFileBox.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\AboutWindow.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\AngleConverter\AngleConverterWPF.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\DummyDoc\DummyDoc.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Editor\Editor.g.cs
@@ -316,6 +286,7 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KFDAss
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKADatSort.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAInlineFormHelper.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAKFDDialog.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKASystemFunctions.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Templates\VisualVariableItem.g.cs
@@ -323,17 +294,52 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor_Content.g.
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor_MarkupCompile.cache
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor_MarkupCompile.lref
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.exe.config
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.pdb
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Tracking\Changes.html
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.exe.manifest
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.application
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.exe
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.pdb
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Aero.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Expression.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.VS2010.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ICSharpCode.AvalonEdit.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Ionic.Zip.Reduced.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\RecentFileListLib.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\TaskDialog.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.pdb
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.xml
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Aero.pdb
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Expression.pdb
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.VS2010.pdb
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\de\AvalonDock.resources.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\es\AvalonDock.resources.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\fr\AvalonDock.resources.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\hu\AvalonDock.resources.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\it\AvalonDock.resources.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\pt-BR\AvalonDock.resources.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ru\AvalonDock.resources.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\sv\AvalonDock.resources.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\zh-Hans\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\App.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\AboutWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\AngleConverter\AngleConverterWPF.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\DummyDoc\DummyDoc.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Editor\Editor.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\FindAndReplaceForm.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmShift.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\frmUpdateChecker.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ExplorerControl\FileExplorerWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\KUKA\frmAdjustST.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\LocalVariableWindow\LocalVariableWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ObjectBrowser\ObjectBrowserWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\MessageWindow\MessageWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\DatCleanControl.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKASystemFunctions.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExtendedGridSplitter.baml
@@ -345,5 +351,3 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.Properties
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditorOld.csproj.GenerateResource.Cache
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe.manifest
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.application
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.pdb

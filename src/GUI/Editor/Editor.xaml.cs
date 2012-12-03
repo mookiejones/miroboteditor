@@ -136,7 +136,7 @@ namespace miRobotEditor.GUI
             _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
             TextArea.LeftMargins.Insert(0, _iconBarMargin);
 
-             TextArea.DefaultInputHandler.NestedInputHandlers.Add(new SearchInputHandler(TextArea));
+            TextArea.DefaultInputHandler.NestedInputHandlers.Add(new SearchInputHandler(TextArea));
 
             AddBindings();
 

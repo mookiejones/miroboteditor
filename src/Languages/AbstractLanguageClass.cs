@@ -39,7 +39,7 @@ namespace miRobotEditor.Languages
     		}
     		set{_robotmenuitems=value;OnPropertyChanged("RobotMenuItems");}
     	}
-    	
+
     	private MenuItem GetMenuItems()
     	{
     		var rd= new System.Windows.ResourceDictionary
@@ -96,7 +96,6 @@ namespace miRobotEditor.Languages
                     if (!data.Contains(item)&&char.IsLetter(item.Text,0))
                         data.Add(item);
                 }
-                Console.WriteLine();
                 //TODO Get Info from ObjectBrowser and Add to List
                 foreach (var va in ObjectBrowserViewModel.Instance.AllVariables)
                 {

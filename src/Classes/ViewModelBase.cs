@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
+using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Classes
 {
     [Localizable(false)]
-    public class ViewModelBase:INotifyPropertyChanged 
+    public class ViewModelBase:SerializeBase,INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -12,5 +13,14 @@ namespace miRobotEditor.Classes
            if (PropertyChanged!=null)
                PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
        }
+
+        private string _serializefile;
+        public override string SerializeFileName
+        {
+            get { return _serializefile; }
+            set{_serializefile=value;
+                OnPropertyChanged("SerializeFileName");
+            }
+        }
     }
 }

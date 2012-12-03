@@ -1,6 +1,6 @@
-﻿using System;
-using System.Windows.Input;
-using UpdateControls.XAML;
+﻿using System.Windows.Input;
+using miRobotEditor.Classes;
+
 namespace DMC_Robot_Editor.Classes
 {
     public class RecentFileViewModel
@@ -25,8 +25,7 @@ namespace DMC_Robot_Editor.Classes
         {
             get
             {
-                return MakeCommand
-                    .Do(() => _fileHandler.Open(_fileName));
+                return MakeCommand .Do(() => _fileHandler.Open(_fileName));
             }
         }
     }
