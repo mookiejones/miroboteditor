@@ -9,11 +9,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using AvalonDock;
-using AvalonDock.Controls;
-using AvalonDock.Converters;
-using AvalonDock.Layout;
-using AvalonDock.Themes;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -35,11 +30,6 @@ using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Shell;
-using miRobotEditor.Classes;
-using miRobotEditor.Common.ResourceAccess;
-using miRobotEditor.Controls;
-using miRobotEditor.Converters;
-using miRobotEditor.GUI;
 
 
 namespace miRobotEditor.Controls {

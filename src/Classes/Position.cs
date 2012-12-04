@@ -6,6 +6,7 @@ namespace miRobotEditor.Classes
 {
     public class Position : ViewModelBase,IVariable
     {
+        public bool IsSelected { get; set; }
         private BitmapImage _icon;
         private string _name;
         private string _path;

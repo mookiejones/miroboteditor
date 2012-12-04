@@ -4,6 +4,7 @@ namespace miRobotEditor.Classes
 {
     public class Variable:IVariable
     {
+        public bool IsSelected { get; set; }
         public BitmapImage Icon { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
