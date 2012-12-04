@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfFTPAccount xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FTPAccount>
+    <AccountName>DemoCell</AccountName>
+    <Server>10.20.5.197</Server>
+    <Protocol>FTP</Protocol>
+    <Port>21</Port>
+    <Username>administrator</Username>
+    <Password>kukarobxpe2</Password>
+    <SavePassword>true</SavePassword>
+    <NoPassword>false</NoPassword>
+  </FTPAccount>
+  <FTPAccount>
+    <AccountName>New Account 2</AccountName>
+    <Server>10.20.5.197</Server>
+    <Protocol>FTP</Protocol>
+    <Port>21</Port>
+    <Username>administrator</Username>
+    <Password>kukarobxpe2</Password>
+    <SavePassword>true</SavePassword>
+    <NoPassword>false</NoPassword>
+  </FTPAccount>
+</ArrayOfFTPAccount>
