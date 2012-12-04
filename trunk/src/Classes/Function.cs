@@ -16,6 +16,7 @@ namespace miRobotEditor.Classes
 {
     public class Function :ViewModelBase, IVariable
     {
+        public bool IsSelected { get; set; }
         public string Scope { get; set; }
         public string Returns { get; set; }
         public BitmapImage Icon { get; set; }

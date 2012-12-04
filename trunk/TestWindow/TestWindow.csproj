@@ -80,9 +80,18 @@
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RenamePositionViewModel.cs" />
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xaml" />
+    <Page Include="TestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -91,11 +100,6 @@
     <Folder Include="Global Classes\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\miRobotEditorOld.csproj">
-      <Project>{A2DB7828-113C-4334-8676-0002887BA4FC}</Project>
-      <Name>miRobotEditorOld</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </ProjectReference>
     <ProjectReference Include="..\src\miRobotEditorOld.csproj">
       <Project>{A2DB7828-113C-4334-8676-0002887BA4FC}</Project>
       <Name>miRobotEditorOld</Name>

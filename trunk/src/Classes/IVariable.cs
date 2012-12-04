@@ -4,6 +4,7 @@ namespace miRobotEditor.Classes
 {
     public interface IVariable
     {
+        bool IsSelected { get; set; }
         BitmapImage Icon { get; set; }
         string Name { get; set; }
         string Type { get; set; }

@@ -15,8 +15,11 @@ FC:\Programming\editor\miroboteditor\trunk\src\GUI\ObjectBrowser\ObjectBrowserWi
 FC:\Programming\editor\miroboteditor\trunk\src\GUI\MessageWindow\MessageWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Language Specific\DatCleanControl.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Language Specific\KUKASystemFunctions.xaml;;
+FC:\Programming\editor\miroboteditor\trunk\src\Language Specific\RenamePositionWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\MainWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Pads\ArchiveInfo\ArchiveInfo.xaml;;
+FC:\Programming\editor\miroboteditor\trunk\src\Pads\FTPBrowser\ConnectionFormWindow.xaml;;
+FC:\Programming\editor\miroboteditor\trunk\src\Pads\FTPBrowser\FTPAccountWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Themes\ExtendedGridSplitter.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Themes\Generic.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Themes\Styles.xaml;;

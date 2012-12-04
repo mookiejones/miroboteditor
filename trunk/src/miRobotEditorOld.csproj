@@ -353,6 +353,10 @@
     <Compile Include="Language Specific\KUKASystemFunctions.xaml.cs">
       <DependentUpon>KUKASystemFunctions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Language Specific\RenamePositionsViewModel.cs" />
+    <Compile Include="Language Specific\RenamePositionWindow.xaml.cs">
+      <DependentUpon>RenamePositionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Language Specific\SystemFunctionsViewModel.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Pads\ArchiveInfo\ArchiveInfo.xaml.cs">
@@ -361,6 +365,16 @@
     </Compile>
     <Compile Include="Pads\ArchiveInfo\ArchiveInfoViewModel.cs" />
     <Compile Include="Pads\ClipboardPad.cs" />
+    <Compile Include="Pads\FTPBrowser\ConnectionFormWindow.xaml.cs">
+      <DependentUpon>ConnectionFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pads\FTPBrowser\FTPAccount.cs" />
+    <Compile Include="Pads\FTPBrowser\FTPAccountViewModel.cs" />
+    <Compile Include="Pads\FTPBrowser\FTPAccountWindow.xaml.cs">
+      <DependentUpon>FTPAccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pads\FTPBrowser\FTPFolder.cs" />
+    <Compile Include="Pads\FTPBrowser\PasswordHelper.cs" />
     <Compile Include="Services\AnalyticsMonitorService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\MenuService.cs" />
@@ -623,10 +637,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Language Specific\RenamePositionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml" />
     <Page Include="Pads\ArchiveInfo\ArchiveInfo.xaml" />
     <Page Include="Pads\ArchiveInfo\IOListBox.xaml">
       <DependentUpon>ArchiveInfoViewModel.cs</DependentUpon>
+    </Page>
+    <Page Include="Pads\FTPBrowser\ConnectionFormWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pads\FTPBrowser\FTPAccountWindow.xaml">
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ResourceDictionaries\ExplorerWindowDictionary.xaml">
       <SubType>Designer</SubType>

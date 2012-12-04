@@ -414,6 +414,9 @@ namespace miRobotEditor
                 case "ArchiveInfo":
                     tool.Content= new Pads.ArchiveInfo();
                     break;
+                case "Rename Positions":
+                    tool.Content = new Language_Specific.RenamePositionWindow();
+                    break;
                 case "CleanDat":
                     tool.Content = new Language_Specific.DatCleanControl();                    
                     tool.AutoHideMinWidth = Language_Specific.DatCleanControl.Instance.Width;                    

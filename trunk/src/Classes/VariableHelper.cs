@@ -99,6 +99,7 @@ namespace miRobotEditor.Classes
 
         public class VariableBase : ViewModelBase,IVariable
         {
+            public bool IsSelected { get; set; }
         	private BitmapImage _icon;
         	private string _name = string.Empty;
         	private string _type = string.Empty;
