@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+	x:Class="FTPBrowser.ConnectionForm" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:FTPBrowser"
+	Title="FTPBrowser"
+	Height="490"
+	WindowStyle="ToolWindow"
+	ResizeMode="NoResize"
+	Background="#FFF0F0F0"
+	Closing="Window_Closing"
+	Width="492">
+	<Window.Resources>
+		<Style
+			TargetType="{x:Type Button}">
+			<Setter
+				Property="Margin"
+				Value="3,5,3,5" />
+		</Style>
+	</Window.Resources>
+	<StackPanel
+		Orientation="Vertical">
+		<StackPanel
+			Orientation="Horizontal">
+			<StackPanel
+				Orientation="Vertical"
+				Margin="10"
+				Width="162">
+				<ListBox  />
+				<Button
+					Content="Add _Account"
+					Command="{Binding AddCommand}" />
+				<Button
+					Content="_Remove Account"
+					Command="{Binding RemoveCommand}" />
+				<Button
+					Content="_Copy Account"
+					Command="{Binding CopyCommand}" />
+			</StackPanel>
+			<TabControl
+				Width="300"
+				Margin="5,10">
+				<TabItem
+					Header="General">
+					<TabItem.Resources>
+						<Style
+							TargetType="TextBox">
+							<EventSetter
+								Event="KeyDown"
+								Handler="ItemChanged" />
+						</Style>
+					</TabItem.Resources>
+					<StackPanel
+						Orientation="Vertical">
+						<TextBlock
+							Text="Account" />
+						<TextBox
+							Text="{Binding SelectedItem.AccountName}" />
+						<TextBlock
+							Text="Protocol:" />
+						<ComboBox
+							Text="{Binding SelectedItem.Protocol}">
+							<ComboBoxItem
+								Content="FTP" />
+							<ComboBoxItem
+								Content="SFTP" />
+							<ComboBoxItem
+								Content="FTPS - Control Only" />
+							<ComboBoxItem
+								Content="FTPS - Control + Data" />
+							<ComboBoxItem
+								Content="FTPS - Implicit" />
+						</ComboBox>
+						<TextBlock
+							Text="Server:" />
+						<TextBox
+							Text="{Binding SelectedItem.Server}" />
+						<TextBlock
+							Text="Port:" />
+						<TextBox
+							Text="{Binding SelectedItem.Port}" />
+						<TextBlock
+							Text="Username:" />
+						<TextBox
+							Text="{Binding SelectedItem.Username}" />
+						<TextBlock
+							Text="Password:" />
+						<PasswordBox
+							local:PasswordHelper.Attach="True"
+							local:PasswordHelper.Password="{Binding SelectedItem.Password}"></PasswordBox>
+						<StackPanel
+							Orientation="Horizontal">
+							<CheckBox
+								Margin="5"
+								Content="_Save Password" />
+							<CheckBox
+								Margin="5"
+								Content="_No Password" />
+						</StackPanel>
+					</StackPanel>
+				</TabItem>
+			</TabControl>
+		</StackPanel>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="*" />
+				<ColumnDefinition
+					Width="85" />
+				<ColumnDefinition
+					Width="85" />
+				<ColumnDefinition
+					Width="85" />
+			</Grid.ColumnDefinitions>
+			<Grid.Resources>
+				<Style
+					TargetType="Button">
+					<Setter
+						Property="Width"
+						Value="75" />
+					<Setter
+						Property="Margin"
+						Value="5" />
+				</Style>
+			<Style
+						x:Key="ApplyStyle"
+						TargetType="{x:Type Button}">
+						<Setter
+							Property="Content"
+							Value="OK" />
+						<EventSetter Event="Click" Handler="btnOK_Press"/>
+						<Style.Triggers>
+							<DataTrigger
+								Binding="{Binding IsSelectedEqual}"
+								Value="false">
+								<Setter
+									Property="Content"
+									Value="Apply" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+			</Grid.Resources>
+			<Button x:Name="btnOK"
+			    Style="{StaticResource ApplyStyle}"
+				Command="{Binding UpdateCommand}"
+				HorizontalAlignment="Right"
+				Grid.Column="1"/>
+				
+			<Button
+				Content="_Cancel"
+				Command="{x:Static local:ConnectionForm.CancelCommand}"
+				HorizontalAlignment="Right"
+				Grid.Column="2" />
+			<Button
+				Content="_Help"
+				Click="Help_Click"
+				Visibility="Collapsed"
+				Grid.Column="3" />
+		</Grid>
+	</StackPanel>
+</Window>
