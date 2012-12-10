@@ -23,6 +23,7 @@ namespace miRobotEditor.Languages
     [Localizable(false)]
     public abstract class AbstractLanguageClass :ViewModelBase
     {
+        #region Properties
         private string _filename;
         public string FileName
         {
@@ -53,7 +54,20 @@ namespace miRobotEditor.Languages
         public Editor SourceDocument { get; set; }
         public Editor DataDocument { get; set; }
 
+       
+
+        private List<IVariable> _positions;
+        public List<IVariable> Positions
+        {
+            get { return _positions; }
+            set { _positions = value;
+                OnPropertyChanged("Positions");
+            }
+        }
+
        	public static AbstractLanguageClass Instance { get; set; }
+
+        #endregion
 
         public abstract FileModel GetFile(string filename);
 
@@ -234,7 +248,7 @@ namespace miRobotEditor.Languages
         /// <summary>
         /// Regular Expression for Functions
         /// </summary>
-        internal abstract Collection<string> FunctionItems { get; }
+        internal abstract List<string> FunctionItems { get; }
 
         internal abstract IList<ICompletionData> CodeCompletion { get; }
         internal abstract AbstractFoldingStrategy FoldingStrategy { get; set; }
@@ -411,6 +425,8 @@ namespace miRobotEditor.Languages
             return m.Success ? m.Groups : null;
         }
 
+
+        
         private static Collection<string> GetMatches(string text, string matchstring)
         {
             var result = new Collection<string>();

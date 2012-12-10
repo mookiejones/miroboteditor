@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Properties\Resources\Editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="miRobotEditor" version="1.0.0.20958" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="miRobotEditor" version="1.0.0.29028" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
     <commandLine file="miRobotEditor.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -163,18 +163,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AvalonDock.Themes.Aero.dll" size="85504">
-      <assemblyIdentity name="AvalonDock.Themes.Aero" version="2.0.1715.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>YbZMmi5z/06oncy0gGGOmyMImTw=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AvalonDock.Themes.Expression.dll" size="94720">
       <assemblyIdentity name="AvalonDock.Themes.Expression" version="2.0.1715.0" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -183,18 +171,6 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
         <dsig:DigestValue>IISWp/WRksKqqjADPeDSvttpF+g=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AvalonDock.Themes.VS2010.dll" size="85504">
-      <assemblyIdentity name="AvalonDock.Themes.VS2010" version="2.0.1715.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>i9x2LsXv8bIBygh5oYWv+8UlwGY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -223,38 +199,38 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1630208">
-      <assemblyIdentity name="miRobotEditor" version="1.0.0.20958" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.Windows.Shell.dll" size="167808">
+      <assemblyIdentity name="Microsoft.Windows.Shell" version="3.5.41019.1" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>VXzR7GHv53e27bK6cLQhOiimRDM=</dsig:DigestValue>
+        <dsig:DigestValue>S66efBtmPeGHach1D6NpPm/2B8k=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RecentFileListLib.dll" size="16896">
-      <assemblyIdentity name="RecentFileListLib" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1651200">
+      <assemblyIdentity name="miRobotEditor" version="1.0.0.29028" publicKeyToken="190985D03FBD4179" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>D3nE9h9jILYNtGLLnr5yyrSopDc=</dsig:DigestValue>
+        <dsig:DigestValue>lrEZOJUAdZzdhb4U9Rt0hxyf0kk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TaskDialog.dll" size="20480">
-      <assemblyIdentity name="TaskDialog" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RibbonControlsLibrary.dll" size="778616">
+      <assemblyIdentity name="RibbonControlsLibrary" version="3.5.41019.1" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>htj1arlGv3dKLDBiAqgJ4LcWB0I=</dsig:DigestValue>
+        <dsig:DigestValue>ZDrmrXCU4GsnvXpzt9+d1fdn8rQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

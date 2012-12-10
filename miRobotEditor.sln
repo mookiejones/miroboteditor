@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 11
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miRobotEditorOld", "src\miRobotEditorOld.csproj", "{A2DB7828-113C-4334-8676-0002887BA4FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWindow", "TestWindow\TestWindow.csproj", "{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miRobotEditor.Controls", "miRobotEditor.Controls\miRobotEditor.Controls.csproj", "{362AE644-3A6F-4922-AF3C-20852C37ADE3}"
 EndProject
 Global
@@ -37,18 +35,6 @@ Global
 		{A2DB7828-113C-4334-8676-0002887BA4FC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A2DB7828-113C-4334-8676-0002887BA4FC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A2DB7828-113C-4334-8676-0002887BA4FC}.Release|x86.ActiveCfg = Release|Any CPU
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Debug|Any CPU.Build.0 = Debug|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Debug|x86.ActiveCfg = Debug|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Debug|x86.Build.0 = Debug|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Release|Any CPU.ActiveCfg = Release|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Release|Any CPU.Build.0 = Release|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Release|Mixed Platforms.Build.0 = Release|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Release|x86.ActiveCfg = Release|x86
-		{FA0F8BA3-8D5F-4896-AAA0-262D8B0389C7}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

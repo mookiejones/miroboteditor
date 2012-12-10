@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
@@ -33,13 +34,12 @@ namespace miRobotEditor.GUI
             var fi = data as FunctionInfo;
             if (fi != null) UpdateFunctions(fi.Values, fi.Items);
         }
-
-        public object SelectedItem
+        public FunctionItem SelectedItem
         {
             get
             {
                 if (liItems.SelectedItem != null)
-                    return liItems.SelectedItem;
+                    return liItems.SelectedItem as FunctionItem;
                      return null;
             }
         }
@@ -50,7 +50,7 @@ namespace miRobotEditor.GUI
             InvalidateVisual();
         }
 
-        public void UpdateFunctions(String values, Collection<string> items)
+        public void UpdateFunctions(String values, List<string> items)
         {
             if ((liItems.Items != null))
             {
@@ -64,7 +64,7 @@ namespace miRobotEditor.GUI
             InvalidateVisual();
         }
 
-        private void AddItems(Collection<FunctionItem> value)
+        private void AddItems(List<FunctionItem> value)
         {
             for (var i = 0; i <= (value.Count - 1); i++)
             {
@@ -72,10 +72,10 @@ namespace miRobotEditor.GUI
             }
         }
 
-        private static Collection<FunctionItem> GetMatches(string text, string matchstring)
+        private static List<FunctionItem> GetMatches(string text, string matchstring)
         {
 
-            var result = new Collection<FunctionItem>();
+            var result = new List<FunctionItem>();
 
             var r = new Regex(matchstring, RegexOptions.IgnoreCase);
             var m = r.Match(text);
@@ -118,9 +118,9 @@ namespace miRobotEditor.GUI
         internal sealed class FunctionInfo
         {
             public string Values { get; private set; }
-            public Collection<string> Items { get; private set; }
+            public List<string> Items { get; private set; }
 
-            public FunctionInfo(string values, Collection<string> items)
+            public FunctionInfo(string values, List<string> items)
             {
                 Items = items;
                 Values = values;
@@ -157,7 +157,6 @@ namespace miRobotEditor.GUI
 
                 var d = DummyDoc.Instance.TextBox.Document.GetLineByOffset(item.Offset);
                 DummyDoc.Instance.TextBox.JumpTo(d.LineNumber, 0);
-
             }
 
         }

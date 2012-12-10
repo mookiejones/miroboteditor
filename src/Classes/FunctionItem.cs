@@ -29,6 +29,10 @@ namespace miRobotEditor.Classes
             }
 
         }
+        public FunctionItem()
+        {
+        }
+
         public FunctionItem(string text, string name, string returns, string parameters,int offset)
         {
             _text = text;

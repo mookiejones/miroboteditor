@@ -47,9 +47,9 @@ namespace miRobotEditor.Languages
             get { return @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))"; }
         }
 
-        internal override Collection<string> FunctionItems
+        internal override List<string> FunctionItems
         {
-            get { return new Collection<string> { @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)" }; }
+            get { return new List<string> { @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)" }; }
         }
 
         #region Folding Section

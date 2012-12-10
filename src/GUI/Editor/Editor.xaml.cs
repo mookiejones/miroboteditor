@@ -47,6 +47,7 @@ namespace miRobotEditor.GUI
             {
                 _line=line;
             }
+
             public void Draw(TextView textView, DrawingContext drawingContext)
             {
                 textView.EnsureVisualLines();
@@ -63,7 +64,8 @@ namespace miRobotEditor.GUI
                 }
             }
 
-            public KnownLayer Layer { get; private set; }
+            public KnownLayer Layer { get; private 
+                set; }
         }
 
         #region Static Members
@@ -515,7 +517,7 @@ namespace miRobotEditor.GUI
                 Save(FileName);
                 var p = DummyDoc.Instance.Host as LayoutDocument;
                 if (p != null) p.Title = Path.GetFileNameWithoutExtension(FileName);
-                MainWindow.Instance.RecentFileList.InsertFile(FileName);
+               // MainWindow.Instance.RecentFileList.InsertFile(FileName);
                 MessageViewModel.Instance.Messages.Add(new OutputWindowMessage { Title = "_file Saved", Description = FileName, Icon = null });
             }
         }
@@ -590,9 +592,7 @@ namespace miRobotEditor.GUI
             _completionWindow.Show();
             
              if (IsModified)
-            RaiseUpdate(null,new DependencyPropertyChangedEventArgs());
-            
-         
+                RaiseUpdate(null,new DependencyPropertyChangedEventArgs());
         }
 
 
@@ -625,11 +625,8 @@ namespace miRobotEditor.GUI
                 r.Replace(FindReplaceViewModel.Instance.LookFor, FindReplaceViewModel.Instance.ReplaceWith, m.Index);
                 m = m.NextMatch();
             }
-            }
-        
+        }
 
-
-       
         public void ReplaceText()
         {
             FindText();
@@ -641,31 +638,30 @@ namespace miRobotEditor.GUI
             try
             {
 
-            if (text == null) throw new ArgumentNullException("text");
+                if (text == null) throw new ArgumentNullException("text");
 
-            var d = Document.GetLineByOffset(start);
-            TextArea.Caret.BringCaretToView();
-            CaretOffset = d.Offset;
-                JumpTo(d.LineNumber,0);
-            if (_foldingManager != null)
-            {
-                var f = _foldingManager.GetFoldingsAt(d.Offset);
-                if (f.Count > 0)
+                var d = Document.GetLineByOffset(start);
+                TextArea.Caret.BringCaretToView();
+                CaretOffset = d.Offset;
+                JumpTo(d.LineNumber, 0);
+                if (_foldingManager != null)
                 {
-                    var fs = f[0];
-                    fs.IsFolded = false;
+                    var f = _foldingManager.GetFoldingsAt(d.Offset);
+                    if (f.Count > 0)
+                    {
+                        var fs = f[0];
+                        fs.IsFolded = false;
+                    }
                 }
-            }
             }
             catch (Exception ex)
             {
-
                 MessageViewModel.Instance.AddError(ex);
             }
         }
+
         public void FindText()
         {
-
             var nIndex = Text.IndexOf(FindReplaceViewModel.Instance.LookFor, CaretOffset, StringComparison.Ordinal);
             if (nIndex > -1)
             {
@@ -754,6 +750,7 @@ namespace miRobotEditor.GUI
                 UpdateFunctions(this, new FunctionEventArgs(Text));
            
             FindBookmarkMembers();
+            Dispatcher.BeginInvoke((Action) UpdateLocalVariables);
             UpdateLocalVariables();
             UpdateFolds();
         }
@@ -763,15 +760,27 @@ namespace miRobotEditor.GUI
 
         private void UpdateLocalVariables()
         {
-            if (!File.Exists(FileName))return;
 
-            var local = new List<IVariable>();
+            //TODO This needs to be threaded because it is triggered everytime a key is pressed
            
-            var lang = DummyDoc.Instance.FileLanguage;
+            if (!File.Exists(FileName))return;
+            var bgWorker = new BackgroundWorker {WorkerReportsProgress = false, WorkerSupportsCancellation = false};
+            bgWorker.DoWork += (s2, e2) =>
+                                   {
+                                       var local = new List<IVariable>();
 
-            local.AddRange(VariableBase.GetVariables(FileName, lang.XYZRegex, Global.ImgXyz));
-            local.AddRange(VariableBase.GetVariables(FileName, lang.FieldRegex, Global.ImgField));
-            LocalVariableWindow.Instance.DataContext = local;
+                                       var lang = DummyDoc.Instance.FileLanguage;
+                                       local.AddRange(VariableBase.GetVariables(FileName, lang.XYZRegex, Global.ImgXyz));
+                                       local.AddRange(VariableBase.GetVariables(FileName, lang.FieldRegex,
+                                                                                Global.ImgField));
+                                       this.InvokeIfRequired(() =>
+                                                                                {
+                                                                                    LocalVariableWindow.Instance.
+                                                                                        DataContext = local;
+                                                                                }, DispatcherPriority.Background);
+                                   };
+
+            bgWorker.RunWorkerAsync();
         }
 
         private void EditorPreviewMouseWheel(object sender, MouseWheelEventArgs e)

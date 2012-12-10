@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:avalondock="http://avalondock.codeplex.com"
-                     xmlns:GUI="clr-namespace:miRobotEditor.GUI">
- 	    <Style x:Key="DataGridStyle"  TargetType="DataGrid">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:GUI="clr-namespace:miRobotEditor.GUI">
+ <Style x:Key="DataGridStyle"  TargetType="DataGrid">
         <Setter Property="RowBackground" Value="#FFFFFF" />
         <Setter Property="AlternatingRowBackground" Value="#EBEBED" />
         <Setter Property="RowHeight" Value="18" />
@@ -23,8 +21,7 @@
          <Setter Property="CanUserResizeRows" Value="False" />
          <Setter Property="CanUserSortColumns" Value="True"/>
         <Setter Property="AutoGenerateColumns" Value="False" />
-        <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
-        
+        <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />        
     </Style>
     
     <Style TargetType="GUI:DummyDoc">
@@ -33,44 +30,26 @@
     </Style>
 
     <Style TargetType="ToolBar">
-        <Setter Property="Background" Value="{DynamicResource InactiveWindowBrush}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource ExpressionDark_Dark}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ExpressionDark_Dark}"/>
     </Style>
-    <Style TargetType="{x:Type ToolBarPanel}">
-        <Setter Property="Background" Value="{DynamicResource InactiveWindowBrush}"/>        
+    <Style TargetType="{x:Type ToolBarPanel}" x:Key="ToolBarPanelStyle">
+        <Setter Property="Background" Value="{DynamicResource ExpressionDark_Dark}"/>        
     </Style>
     <Style TargetType="{x:Type ToolBarTray}">
-        <Setter Property="Background" Value="{DynamicResource InactiveWindowBrush}"/>        
+        <Setter Property="Background" Value="{DynamicResource ExpressionDark_Dark}"/>        
     </Style>
+   
 
 
-
-    <!--Menu-->
-    <Style TargetType="{x:Type Menu}">
-        <Setter Property="Background" Value="{DynamicResource InactiveWindowBrush}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBrush}"/>
-    </Style>
-
-    <!--MenuItem-->
-    <Style TargetType="MenuItem">
-        <Setter Property="Background" Value="{DynamicResource InactiveWindowBrush}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBrush}"/>
-        <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="Background" Value= "{DynamicResource MouseDownMenuBrush}"/>
-                <Setter Property="BorderBrush" Value= "{DynamicResource MouseDownMenuBorderBrush}"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource MouseOverMenuBrush}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource MouseOverMenuBorderBrush}"/>
-                <Setter Property="BorderThickness" Value="0"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
+  
+  
+   
+ 
+ 
     <Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderGlassEffect" >    	
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Foreground" Value="#EEEEEE"/>
+        <Setter Property="Foreground" Value="{DynamicResource ExpressionDark_Menu}"/>
         <Setter Property="Padding" Value="7,0,7,0"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -132,7 +111,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Rectangle x:Name="BackgroundRectangle" Stretch="Fill" Fill="{StaticResource ContentAreaBrushDark}" Grid.ColumnSpan="2" Grid.RowSpan="2"  />
+                        <Rectangle x:Name="BackgroundRectangle" Stretch="Fill" Fill="{DynamicResource ExpressionDark_Dark}" Grid.ColumnSpan="2" Grid.RowSpan="2"  />
                         <Border BorderBrush="Transparent" BorderThickness="1,1,1,1" Grid.ColumnSpan="3" Grid.RowSpan="3">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -154,7 +133,7 @@
                                                 </TransformGroup>
                                             </RadialGradientBrush.RelativeTransform>
                                             <GradientStop Color="#B2FFFFFF" Offset="0"/>
-                                            <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                            <GradientStop Color="#33FFFFFF" Offset="1"/>
                                         </RadialGradientBrush>
                                     </Border.Background>
                                 </Border>
@@ -206,92 +185,9 @@
 
     <DataTemplate x:Key="DocumentHeaderTemplateKey" >
         <Grid>
-        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
-            
+        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>            
         </Grid>
     </DataTemplate>
 
-    <!--Main Docking Control-->
-    <Style TargetType="avalondock:DockingManager">
-        <Setter Property="Background" Value="{StaticResource InactiveWindowBrush}"/>   
-        <Setter Property="DocumentHeaderTemplate" Value="{DynamicResource DocumentHeaderTemplateKey}"/>
-    </Style>
-    
-    <Style TargetType="avalondock:AnchorablePaneTabPanel">
-        <Setter Property="Background" Value="{StaticResource InactiveWindowBrush}"/>
-    </Style>
-    <Style TargetType="avalondock:AnchorablePaneTitle">
-        <Setter Property="Background" Value="{StaticResource InactiveWindowBrush}"/>
-        <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="Background" Value= "{DynamicResource AnchorableActiveBackgroundColor}"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource AnchorableMouseOverBackgroundBrush}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-    
-    <!-- AvalonDock Inactive area behind document tab -->
-    <Style TargetType="avalondock:DocumentPaneTabPanel">
-        <Setter Property="Background" Value="{StaticResource InactiveWindowBrush}"/>
-    </Style>
-    <Style TargetType="avalondock:LayoutDocumentControl">
-        <Setter Property="Background" Value="#FF7381F9"/>
-        <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="Background" Value= "Red"/>
-                <Setter Property="Foreground" Value= "{DynamicResource ActiveDocumentForegroundBrush}"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource DocumentMouseOverForegroundBrush}"/>
-                <Setter Property="Background" Value="{DynamicResource DocumentMouseOverBackgroundBrush}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-  
-    <Style TargetType="avalondock:LayoutDocumentTabItem">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Background" Value="{StaticResource InactiveWindowBrush}"/>        
-        <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="Background" Value= "Red"/>
-                <Setter Property="Foreground" Value= "{DynamicResource ActiveDocumentForegroundBrush}"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource DocumentMouseOverForegroundBrush}"/>
-                <Setter Property="Background" Value="{DynamicResource DocumentMouseOverBackgroundBrush}"/>
-            </Trigger>
-        </Style.Triggers>
-
-    </Style>
-    
-    
-    <!-- Background of AvalonDock Control. Doenst Need Mouse over-->
-    <Style TargetType="avalondock:LayoutAnchorableControl">
-        <Setter Property="Background" Value="{StaticResource InactiveWindowBrush}"/>
-        <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="Background" Value= "{DynamicResource AnchorableActiveBackgroundColor}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-    <Style TargetType="avalondock:LayoutAnchorableTabItem">
-        <Setter Property="Background" Value="{StaticResource InactiveWindowBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource InactiveTabForegroundBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource InactiveWindowBrush}"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ActiveTabBackgroundBrush}"/>
-                <Setter Property="Foreground" Value="{DynamicResource InactiveTabForegroundBrush}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource ActiveTabBackgroundBrush}"/>
-            </Trigger>
-            
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#FEFEFE"/>
-                <Setter Property="Foreground" Value="#637ACC"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style> 
+   
 </ResourceDictionary>

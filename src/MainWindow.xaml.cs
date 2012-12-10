@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using AvalonDock;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
+using miRobotEditor.Commands;
 using miRobotEditor.Controls;
 using miRobotEditor.Forms;
 using miRobotEditor.GUI;
@@ -48,6 +49,57 @@ namespace miRobotEditor
        
         
         #endregion
+
+
+        #region Commands
+        private static RelayCommand _addFileCommand;
+        public static ICommand AddNewFileCommand
+        {
+            get { return _addFileCommand ?? (_addFileCommand = new RelayCommand(param => Instance.AddNewFile(), param => true)); }
+        }
+        private static RelayCommand _showOptionsCommand;
+        public static ICommand ShowOptionsCommand
+        {
+            get { return _showOptionsCommand ?? (_showOptionsCommand = new RelayCommand(param => Instance.ShowOptions(), param => true)); }
+        }
+
+        private static RelayCommand _showAboutCommand;
+        public static ICommand ShowAboutCommand
+        {
+            get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand(param => Instance.ShowOptions(), param => true)); }
+        }
+        private static RelayCommand _closeWindowCommand;
+        public static ICommand CloseWindowCommand
+        {
+            get { return _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand(param => Instance.CloseWindow(), param => true)); }
+        }
+        private static RelayCommand _openFileCommand;
+
+        public static ICommand OpenFileCommand
+        {
+            get { return _openFileCommand ?? (_openFileCommand = new RelayCommand(param => Instance.OpenFile(), param => true)); }
+        }
+        private static RelayCommand _exitCommand;
+
+        public static ICommand ExitCommand
+        {
+            get { return _exitCommand ?? (_exitCommand = new RelayCommand(param => Instance.Close(), param => true)); }
+        }
+
+        private static RelayCommand _changeViewAsCommand;
+
+        public static ICommand ChangeViewAsCommand
+        {
+            get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand(param => Instance.ChangeViewAs(), param => true)); }
+        }
+        private static RelayCommand _addToolCommand;
+
+        public static ICommand AddToolCommand
+        {
+            get { return _addToolCommand ?? (_addToolCommand = new RelayCommand(param => Instance.AddTool(param), param => true)); }
+        }
+        #endregion
+
         public MainWindow()
         {
             
@@ -66,7 +118,7 @@ namespace miRobotEditor
        //     LoadLayout();
             ProcessArgs();
 
-            RecentFileList.MenuClick += (s, e) => OpenFile(e.Filepath);
+           // RecentFileList.MenuClick += (s, e) => OpenFile(e.Filepath);
             DataContext = this;
             Instance = this;
            
@@ -181,16 +233,16 @@ namespace miRobotEditor
             if (docpane != null)
                 foreach (var doc in docpane.Children.Select(t => t.Content as DummyDoc).Where(doc => doc.FileName !=null))
                 {
-                    Properties.Settings.Default.OpenDocuments += doc.FileName + ';';
+                    Settings.Default.OpenDocuments += doc.FileName + ';';
                 }
 
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
             SaveLayout();
         }
 
         private void LoadOpenFiles()
         {
-            var s = Properties.Settings.Default.OpenDocuments.Split(';');
+            var s = Settings.Default.OpenDocuments.Split(';');
             for (var i = 0; i<s.Length-1;i++) 
             {
                 if (File.Exists(s[i]))
@@ -202,7 +254,12 @@ namespace miRobotEditor
         {
             Close();
         }
-
+       
+        private void ChangeViewAs()
+        {
+            //TODO ImplementThis
+            throw new NotImplementedException();
+        }
         private void ChangeViewAs(object sender, RoutedEventArgs e)
         {
             var selected = sender as MenuItem;
@@ -298,7 +355,7 @@ namespace miRobotEditor
                     doc.ToolTip = filename;
                 
                 // Add file to Recent list
-                RecentFileList.InsertFile(filename);
+             //   RecentFileList.InsertFile(filename);
 
                 if (filename != null)
                 {
@@ -318,12 +375,25 @@ namespace miRobotEditor
             return DummyDoc.Instance;
         }
 
+        void AddNewFile()
+        {
+            OpenFile(string.Empty);
+        }
+
         private void AddNewFile(object sender, RoutedEventArgs e)
         {
             OpenFile(string.Empty);
         }
 
-
+        void OpenFile()
+        {
+            var fn = GetFileName();
+            foreach (var f in fn)
+            {
+                if (File.Exists(f))
+                    OpenFile(f);
+            }
+        }
         private void OpenFile(object sender, RoutedEventArgs e)
         {
             var fn = GetFileName();
@@ -341,6 +411,7 @@ namespace miRobotEditor
             
         }
 
+        private void ShowOptions() { }
 
         private void OnDocumentClosing(object sender, DocumentClosingEventArgs e)
         {
@@ -383,9 +454,11 @@ namespace miRobotEditor
         }
         #endregion
 
+       
         [Localizable(false)]
-        private void AddTool(string name)
+        private void AddTool(object parameter)
         {
+            var name = parameter as string;
 
             var tool = new LayoutAnchorable { Title = name, CanClose = false, CanFloat = true };
 
@@ -524,6 +597,17 @@ namespace miRobotEditor
             e.CanExecute = DummyDoc.Instance != null;
         }
 
+        private void CloseWindow()
+        {
+            var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
+            if (docpane == null) return;
+
+            foreach (var c in docpane.Children.Where(c => c.Content.Equals(DummyDoc.Instance)))
+            {
+                docpane.Children.Remove(c);
+                return;
+            } 
+        }
         private void CloseWindow(object sender, ExecutedRoutedEventArgs e)
         {
              var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
