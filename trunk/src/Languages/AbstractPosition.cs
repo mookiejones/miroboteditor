@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -25,14 +26,18 @@ namespace miRobotEditor.Languages
         public List<PositionValue> PositionalValues { get; set; }
         public void ParseValues()
         {
-            PositionalValues = new List<PositionValue>();
-            var sp = RawValue.Split('=');
-            var decl = sp[1].Substring(1, sp[1].Length - 2).Split(',');
-
-            foreach (var ss in decl.Select(s => s.Split(' ')))
+            try
             {
-                PositionalValues.Add(new PositionValue { Name = ss[0], Value = ss[1]});
+                PositionalValues = new List<PositionValue>();
+                var sp = RawValue.Split('=');
+                var decl = sp[1].Substring(1, sp[1].Length - 2).Split(',');
+
+                foreach (var ss in decl.Select(s => s.Split(' ')))
+                {
+                    PositionalValues.Add(new PositionValue { Name = ss[0], Value = ss[1] });
+                }
             }
+            catch { }
         }
 
         private string ConvertFromHex(string value)
@@ -54,13 +59,22 @@ namespace miRobotEditor.Languages
             }
 
         }
+
+        [Localizable(false)]
         public string ExtractFromMatch()
         {
-            var result = string.Empty; ;          
-            foreach (var v in PositionalValues)
-                result += String.Format("{0} {1},", v.Name, v.Value);
+            var result = string.Empty;
+            try
+            {
+                foreach (var v in PositionalValues)
+                    result += String.Format("{0} {1},", v.Name, v.Value);
 
-            return result.Substring(0, result.Length - 1);
+                return result.Substring(0, result.Length - 1);
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
     }
     public class PositionValue

@@ -73,7 +73,9 @@ namespace miRobotEditor.Forms
         {
             get
             {
+                if (Version !=null)
                 return String.Format("A New version of {0} {1} is available. Would you like to Update?", ProductName, Version.Version);
+                return string.Empty;
             }
         }
 
@@ -159,7 +161,6 @@ namespace miRobotEditor.Forms
 
             try
             {
-                UpdateCheckerViewModel.UpdateVersion result;
                 const string link = @"https://sites.google.com/site/dmcautomation/home/software/dmc-robot-editor";
                 using (var client = new WebClient())
                 {

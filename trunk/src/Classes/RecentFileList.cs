@@ -10,6 +10,7 @@ using System.Xml;
 using System.Diagnostics;
 using System.Text;
 using System.Reflection;
+using Microsoft.Windows.Controls.Ribbon;
 
 namespace miRobotEditor.Classes
 {
@@ -74,7 +75,8 @@ namespace miRobotEditor.Classes
 
 		void HookFileMenu()
 		{
-			var parent = Parent as MenuItem;
+		    var parent = Parent as MenuItem;
+
 			if ( parent == null ) throw new ApplicationException( "Parent must be a MenuItem" );
 
 			if (Equals(FileMenu, parent)) return;
@@ -125,8 +127,8 @@ namespace miRobotEditor.Classes
 			foreach ( var r in _recentFiles )
 			{
 				var header = GetMenuItemText( r.Number + 1, r.Filepath, r.DisplayPath );
-
-				r.MenuItem = new MenuItem { Header = header };
+			    r.MenuItem = new MenuItem {Header = header};
+//				r.MenuItem = new MenuItem { Header = header };
 				r.MenuItem.Click += MenuItemClick;
 
 				FileMenu.Items.Insert( ++iMenuItem, r.MenuItem );
@@ -287,8 +289,8 @@ namespace miRobotEditor.Classes
 		{
 			public readonly int Number;
 			public readonly string Filepath = "";
-			public MenuItem MenuItem;
-
+//			public MenuItem MenuItem;
+		    public MenuItem MenuItem;
 			public string DisplayPath
 			{
 				get
@@ -321,7 +323,8 @@ namespace miRobotEditor.Classes
 
 		void MenuItemClick( object sender, EventArgs e )
 		{
-			var menuItem = sender as MenuItem;
+//			var menuItem = sender as MenuItem;
+            var menuItem = sender as MenuItem;
 
 			OnMenuClick( menuItem );
 		}
@@ -341,7 +344,10 @@ namespace miRobotEditor.Classes
             }
 
 			var dMenuClick = MenuClick;
-			if ( dMenuClick != null ) dMenuClick( menuItem, new MenuClickEventArgs( filepath ) );
+
+            if (File.Exists(filepath))
+		    MainWindow.Instance.OpenFile(filepath);
+//			if ( dMenuClick != null ) dMenuClick( menuItem, new MenuClickEventArgs( filepath ) );
 		}
         
         void PromptForDelete(string filepath)

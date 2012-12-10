@@ -66,9 +66,9 @@ namespace miRobotEditor.Languages
 
         internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.None; } }
 
-        internal override Collection<string> FunctionItems
+        internal override List<string> FunctionItems
         {
-            get { return new Collection<string>(); }
+            get { return new List<string>(); }
         }
 
         internal override AbstractFoldingStrategy FoldingStrategy{ get; set; }

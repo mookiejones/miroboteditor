@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="Themes/Colors.xaml" />
                 <ResourceDictionary Source="Themes/StatusBar.xaml" />
                 <ResourceDictionary Source="Themes/Styles.xaml" />
-        		<ResourceDictionary Source="Themes/MenuDictionary.xaml" />
+        		<ResourceDictionary Source="Themes/MenuDictionary.xaml" />            
             </ResourceDictionary.MergedDictionaries>                 
         </ResourceDictionary>
         

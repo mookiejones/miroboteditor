@@ -98,14 +98,8 @@
     <Reference Include="AvalonDock">
       <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.dll</HintPath>
     </Reference>
-    <Reference Include="AvalonDock.Themes.Aero">
-      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.Aero.dll</HintPath>
-    </Reference>
     <Reference Include="AvalonDock.Themes.Expression">
       <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.Expression.dll</HintPath>
-    </Reference>
-    <Reference Include="AvalonDock.Themes.VS2010">
-      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\packages\AvalonEdit.4.2.0.8783\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -113,25 +107,16 @@
     <Reference Include="Ionic.Zip.Reduced">
       <HintPath>..\Libraries\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="RecentFileListLib">
-      <HintPath>..\Libraries\RecentFileListLib.dll</HintPath>
-    </Reference>
+    <Reference Include="RibbonControlsLibrary, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Input.Manipulations" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="TaskDialog">
-      <HintPath>..\Libraries\TaskDialog.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -226,6 +211,7 @@
     <Compile Include="Classes\StatusBar.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\ThreadingExtensions.cs" />
     <Compile Include="Classes\Variable.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -246,7 +232,16 @@
       <DependentUpon>CustomToolTip.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\MenuItems.xaml.cs">
+      <DependentUpon>MenuItems.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ShiftViewModel.cs" />
+    <Compile Include="Controls\ToolBarItems.xaml.cs">
+      <DependentUpon>ToolBarItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
@@ -365,11 +360,11 @@
     </Compile>
     <Compile Include="Pads\ArchiveInfo\ArchiveInfoViewModel.cs" />
     <Compile Include="Pads\ClipboardPad.cs" />
+    <Compile Include="Pads\FTPBrowser\ConnectionFormViewModel.cs" />
     <Compile Include="Pads\FTPBrowser\ConnectionFormWindow.xaml.cs">
       <DependentUpon>ConnectionFormWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pads\FTPBrowser\FTPAccount.cs" />
-    <Compile Include="Pads\FTPBrowser\FTPAccountViewModel.cs" />
     <Compile Include="Pads\FTPBrowser\FTPAccountWindow.xaml.cs">
       <DependentUpon>FTPAccountWindow.xaml</DependentUpon>
     </Compile>
@@ -466,9 +461,6 @@
     </Compile>
     <Compile Include="GUI\XMLConfig.cs" />
     <Compile Include="InstanceOf.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Parsers\E6Parser.cs" />
     <Compile Include="Controls\IErrorDisplayStrategy.cs" />
     <Compile Include="Controls\OptionsPanel.cs" />
@@ -532,6 +524,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ListFromFileBox.xaml" />
+    <Page Include="Controls\MenuItems.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ToolBarItems.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Forms\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -641,7 +645,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml" />
     <Page Include="Pads\ArchiveInfo\ArchiveInfo.xaml" />
     <Page Include="Pads\ArchiveInfo\IOListBox.xaml">
       <DependentUpon>ArchiveInfoViewModel.cs</DependentUpon>
@@ -683,6 +686,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\MenuDictionary.xaml" />
+    <Page Include="Themes\MenuItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -791,6 +798,8 @@
     <Resource Include="Resources\srcfile.png" />
     <Resource Include="Resources\vxXYZ_icon.png" />
     <Resource Include="Resources\editorpng.png" />
+    <Resource Include="Resources\eol.png" />
+    <Resource Include="Resources\Find.png" />
     <Content Include="Tracking\Changes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

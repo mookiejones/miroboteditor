@@ -81,9 +81,9 @@ namespace miRobotEditor.Languages
                     return IsLexemPrompt();
                 }
          */
-        internal override Collection<string> FunctionItems
+        internal override List<string> FunctionItems
         {
-            get { return new Collection<string> { @"((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\w\s]*)\(([\w\]\s:_\[,]*)\))" }; }
+            get { return new List<string> { @"((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\w\s]*)\(([\w\]\s:_\[,]*)\))" }; }
         }
 
         #region "_file Interface Info"
