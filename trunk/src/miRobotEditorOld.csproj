@@ -43,7 +43,7 @@
     <BootstrapperEnabled>false</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>false</Optimize>
@@ -107,7 +107,12 @@
     <Reference Include="Ionic.Zip.Reduced">
       <HintPath>..\Libraries\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
-    <Reference Include="RibbonControlsLibrary, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="MsgBox">
+      <HintPath>..\Libraries\MsgBox.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\Libraries\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -126,6 +131,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviour\DialogCloser.cs" />
+    <Compile Include="Behaviour\DropFileCommand.cs" />
+    <Compile Include="Behaviour\MergeStyleBehaviour.cs" />
+    <Compile Include="Behaviour\RemoveIcon.cs" />
     <Compile Include="Classes\AbstractPaneViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -225,6 +234,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\AbstractMenuCommand.cs" />
+    <Compile Include="Commands\AppCommand.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\EditorCommands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
@@ -232,13 +242,28 @@
       <DependentUpon>CustomToolTip.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\MenuItems.xaml.cs">
-      <DependentUpon>MenuItems.xaml</DependentUpon>
+    <Compile Include="Controls\FrmShift.xaml.cs">
+      <DependentUpon>FrmShift.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ShiftBoxControl.xaml.cs">
+      <DependentUpon>ShiftBoxControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ShiftViewModel.cs" />
-    <Compile Include="Controls\ToolBarItems.xaml.cs">
-      <DependentUpon>ToolBarItems.xaml</DependentUpon>
+    <Compile Include="Converters\BooleanToTypeModeStringConverter.cs" />
+    <Compile Include="GUI\DummyDoc\DummyDocViewModel.cs">
+      <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GUI\FunctionWindow\FunctionWindowViewModel.cs" />
+    <Compile Include="GUI\Notes\NotesWindowTemplate.xaml.cs">
+      <DependentUpon>NotesWindowTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\StatusBarTemplate\StatusBarControl.xaml.cs">
+      <DependentUpon>StatusBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Language Specific\KUKAFileInfo.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -277,9 +302,6 @@
     <Compile Include="GUI\Editor\TextEditorOptions.cs" />
     <Compile Include="GUI\LocalVariableWindow\LocalVariableWindow.xaml.cs">
       <DependentUpon>LocalVariableWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Notes\NotesWindow.xaml.cs">
-      <DependentUpon>NotesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Options\Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>
@@ -370,6 +392,15 @@
     </Compile>
     <Compile Include="Pads\FTPBrowser\FTPFolder.cs" />
     <Compile Include="Pads\FTPBrowser\PasswordHelper.cs" />
+    <Compile Include="Pads\Shift\ShiftBase.xaml.cs">
+      <DependentUpon>ShiftBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pads\Shift\TransformBase.xaml.cs">
+      <DependentUpon>TransformBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pads\Shift\ShiftWindow.xaml.cs">
+      <DependentUpon>ShiftWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\AnalyticsMonitorService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\MenuService.cs" />
@@ -380,6 +411,7 @@
     <Compile Include="Templates\VisualVariableItem.xaml.cs">
       <DependentUpon>VisualVariableItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Workspace_Command.cs" />
     <Compile Include="WM.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -474,17 +506,11 @@
     <Compile Include="Controls\frmReverse.xaml.cs">
       <DependentUpon>frmReverse.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ShiftBox.xaml.cs">
-      <DependentUpon>ShiftBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\DoubleToStringConverter.cs" />
     <Compile Include="Converters\WidthConverter.cs" />
     <Compile Include="Enums\TYPLANGUAGE.cs" />
     <Compile Include="Forms\AttributeViewer.xaml.cs">
       <DependentUpon>AttributeViewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmShift.xaml.cs">
-      <DependentUpon>frmShift.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmSplashScreen.xaml.cs">
       <DependentUpon>frmSplashScreen.xaml</DependentUpon>
@@ -523,12 +549,32 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ListFromFileBox.xaml" />
-    <Page Include="Controls\MenuItems.xaml">
+    <Page Include="Controls\FrmShift.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ToolBarItems.xaml">
+    <Page Include="Controls\ListFromFileBox.xaml" />
+    <Page Include="Controls\NumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ShiftBoxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Expander.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Notes\NotesWindowTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\StatusBarTemplate\StatusBarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\StatusBarTemplate\StatusBarTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -561,10 +607,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ShiftBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\SnippetPad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -574,10 +616,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\AttributeViewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\frmShift.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -610,10 +648,6 @@
     </Page>
     <Page Include="GUI\KUKA\frmAdjustST.xaml" />
     <Page Include="GUI\LocalVariableWindow\LocalVariableWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Notes\NotesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -656,6 +690,18 @@
     <Page Include="Pads\FTPBrowser\FTPAccountWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pads\Shift\ShiftBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pads\Shift\TransformBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pads\Shift\ShiftWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionaries\ExplorerWindowDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -677,6 +723,34 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\ExplorerWindow.xaml" />
+    <Page Include="Themes\ExpressionDark\AvalonEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ExpressionDark\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ExpressionDark\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ExpressionDark\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ExpressionDark\GroupBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ExpressionDark\Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ExpressionDark\ToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\ExtendedGridSplitter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -686,10 +760,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\MenuDictionary.xaml" />
-    <Page Include="Themes\MenuItemTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -806,10 +876,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\ErrorProvider\" />
-    <Folder Include="GUI\Document\" />
     <Folder Include="GUI\KUKA\AdjustST\" />
     <Folder Include="GUI\Printing\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

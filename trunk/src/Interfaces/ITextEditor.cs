@@ -83,7 +83,7 @@ namespace miRobotEditor.Interfaces
 		/// </summary>
 		void JumpTo(int line, int column);
 		
-		//FileName FileName { get; }
+		//Filename Filename { get; }
 		
 		ICompletionListWindow ShowCompletionWindow(ICompletionItemList data);
 		

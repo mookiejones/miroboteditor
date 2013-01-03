@@ -10,7 +10,6 @@ using System.Xml;
 using System.Diagnostics;
 using System.Text;
 using System.Reflection;
-using Microsoft.Windows.Controls.Ribbon;
 
 namespace miRobotEditor.Classes
 {

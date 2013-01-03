@@ -118,7 +118,7 @@ namespace miRobotEditor.Classes
 			if (DetectExternalChangesOption == false)
 				return;
 			
-			string fileName = file.FileName;
+			string fileName = file.Filename;
 			if (string.IsNullOrEmpty(fileName))
 				return;
 			if (FileUtility.IsUrl(fileName))
@@ -162,7 +162,7 @@ namespace miRobotEditor.Classes
 		{
 			if (file == null)
 				return;
-			LoggingService.Debug("File " + file.FileName + " was changed externally: " + e.ChangeType);
+			LoggingService.Debug("File " + file.Filename + " was changed externally: " + e.ChangeType);
 			if (!wasChangedExternally) {
 				wasChangedExternally = true;
 				if (WorkbenchSingleton.Workbench.IsActiveWindow) {
@@ -184,7 +184,7 @@ namespace miRobotEditor.Classes
 				if (file == null)
 					return;
 				
-				string fileName = file.FileName;
+				string fileName = file.Filename;
 				if (!File.Exists(fileName))
 					return;
 				

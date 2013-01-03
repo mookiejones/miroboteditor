@@ -34,7 +34,7 @@ namespace miRobotEditor.Languages
 
         #region Private Members
 
-        readonly FileInfo _fi = new FileInfo();
+        readonly Language_Specific.FileInfo _fi = new Language_Specific.FileInfo();
         internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.KUKA; } }
         
         #endregion
@@ -45,9 +45,8 @@ namespace miRobotEditor.Languages
           
         }
 
-        protected override string ShiftRegex { get { return @"((E6POS [\w]*={)X\s([\d.-]*)\s*,*Y\s*([-.\d]*)\s*,Z\s*([-\d.]*))";}}
 
-        public FileInfo GetFileInfo(string text)
+        public Language_Specific.FileInfo GetFileInfo(string text)
         {
             return _fi.GetFileInfo(text);
         }
@@ -81,10 +80,7 @@ namespace miRobotEditor.Languages
                     return IsLexemPrompt();
                 }
          */
-        internal override List<string> FunctionItems
-        {
-            get { return new List<string> { @"((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\w\s]*)\(([\w\]\s:_\[,]*)\))" }; }
-        }
+       
 
         #region "_file Interface Info"
 
@@ -201,16 +197,7 @@ namespace miRobotEditor.Languages
             return editor;
         }
 
-        public static string PositionRegex = @"(E6POS) ([^=]*)=\{([^\}]*)\}";
-
-  // <summary>
-  // Adds custom variables located from the current file
-  // </summary>
-  //     public new System.Collections.ObjectModel.Collection<ConfigLexem> CustomVariables(string text)
-  //     {
-  //         const string vars = @"(?<!DEF|DEFFCT) (BOOL|REAL|INT|SIGNAL|E6POS|E6AXIS|POS) ([_\w ]*)";
-  //         return LanguageBase.AddInternalVariables(text, vars);
-  //     }
+     
 
         internal static class FunctionGenerator
         {
@@ -341,57 +328,7 @@ namespace miRobotEditor.Languages
                 return sb.ToString();
             }
         }
-        public sealed class FileInfo
-        {
-            private const string COMMENT = "&COMMENT";
-            private const string VERSION = "&REL";
-            private const string PARAM = "&PARAM";
-            private const string ACCESS = "&ACCESS";
-            private const string USER = "&USER";           
-            private string _access = String.Empty;
-
-// ReSharper disable InconsistentNaming
-            internal string user = String.Empty;
-// ReSharper restore InconsistentNaming
-            public string Comment { get; private set; }           
-            public string Version { get; private set; }
-            public bool Visible { get; private set; }          
-            private string _text = String.Empty;
-
-            public FileInfo(string text)
-            {
-                _text = text;
-            }
-            public FileInfo()
-            {
-            }
-            public FileInfo GetFileInfo()
-            {
-                _access = Getinfo(ACCESS);
-                Comment = Getinfo(COMMENT);
-                Version = Getinfo(VERSION);
-                Getinfo(PARAM);
-                user = Getinfo(USER);
-                Visible = _access.IndexOf("V", StringComparison.Ordinal) > -1;
-                return this;
-            }
-
-            public FileInfo GetFileInfo(string text)
-            {
-                _text = text;
-                return GetFileInfo();
-            }
-            private string Getinfo(string lookfor)
-            {
-                var length = lookfor.Length;
-                var found = _text.IndexOf(lookfor, StringComparison.Ordinal);
-                if (found > -1)
-                    return _text.Substring(found + length, _text.IndexOf("\n", found, StringComparison.Ordinal) - found - length);
-
-                return String.Empty;
-            }
-        }
-
+      
 
         #region Folding Section
 
@@ -539,13 +476,22 @@ namespace miRobotEditor.Languages
         
         //public override Regex MethodRegex {get {return new Regex("GLOBAL DEFFCT |^DEFFCT |GLOBAL DEF |^DEF |^EXT ",ro);}}
         public override Regex MethodRegex { get { return new Regex(@"^[GLOBAL ]*(DEF)+\s+([\w\d]+\s*)\(", Ro); } }
-       
-        public override Regex FieldRegex { get { return new Regex(@"^[GLOBAL ]*[DECL ]*(INT|REAL|BOOL)\s+([\$0-9a-zA-Z_\[\],\$]+)=?([^\r\n;]*);?([^\r\n]*)", Ro); } }
-    	
+
+        public override Regex FieldRegex { get { return new Regex(@"^[DECL ]*[GLOBAL ]*[CONST ]*(INT|REAL|BOOL|CHAR)\s+([\$0-9a-zA-Z_\[\],\$]+)=?([^\r\n;]*);?([^\r\n]*)", Ro); } }
+        protected override string ShiftRegex { get { return @"((E6POS [\w]*={)X\s([\d.-]*)\s*,*Y\s*([-.\d]*)\s*,Z\s*([-\d.]*))"; } }
+        internal override string FunctionItems
+        {
+            get { return @"((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\w\s]*)\(([\w\]\s:_\[,]*)\))" ; }
+        }
         public override string CommentChar {get{return ";";}}
         public override Regex SignalRegex { get { return new Regex("Signal",Ro); } }
+        public override string ExtractXYZ(string positionstring)
+        {
+            var p = new PositionBase(positionstring);
+            return p.ExtractFromMatch();
+        }
 
-        public override Regex XYZRegex { get { return new Regex(@"^[DECL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)(=\{[^}}]*\})?", Ro); } }
+        public override Regex XYZRegex { get { return new Regex(@"^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)(=\{[^}}]*\})?", Ro); } }
         #endregion
         
         public static string GetDatFileName(string filename)

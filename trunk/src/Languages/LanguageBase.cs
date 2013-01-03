@@ -21,8 +21,9 @@ namespace miRobotEditor.Languages
 
         public override FileModel GetFile(string filename)
         {
-            return new FileModel { FileName = filename };
+            return new FileModel { FileName = filename, Icon = Utilities.LoadBitmap(Global.ImgSrc) };
         }
+
     	#region Properties
         /// <summary>
         /// Sets ComboBox Filter Items for searching
@@ -66,9 +67,9 @@ namespace miRobotEditor.Languages
 
         internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.None; } }
 
-        internal override List<string> FunctionItems
+        internal override string FunctionItems
         {
-            get { return new List<string>(); }
+            get { return string.Empty; }
         }
 
         internal override AbstractFoldingStrategy FoldingStrategy{ get; set; }
@@ -123,6 +124,11 @@ namespace miRobotEditor.Languages
 		}
 
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
+        public override string ExtractXYZ(string positionstring)
+        {
+            var p = new PositionBase(positionstring);
+            return p.ExtractFromMatch();
+        }
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
             #endregion

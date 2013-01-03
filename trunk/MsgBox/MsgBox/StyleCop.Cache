@@ -1,0 +1,261 @@
+<stylecopresultscache>
+  <version>11</version>
+  <project key="418434061">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="CommandReference.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>03/17/2012 21:08:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/17/2012 19:43:48</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="DelegateCommand.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>03/17/2012 21:08:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/17/2012 19:43:44</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="495626384">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <project key="-807292933">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="WPFMsgBox.g.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>03/17/2012 21:08:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>10/19/2012 13:35:49</timestamp>
+    <milliseconds>743</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="WPFMsgBox.xaml.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>03/17/2012 21:08:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/19/2012 08:58:44</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="-880741532">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <project key="-158701333">
+    <configuration>TRACE</configuration>
+  </project>
+  <project key="-748920043">
+    <configuration>TRACE</configuration>
+  </project>
+  <project key="-219344106">
+    <configuration>TRACE</configuration>
+  </project>
+  <project key="-180891204">
+    <configuration>TRACE</configuration>
+  </project>
+  <project key="-2044421721">
+    <configuration>TRACE</configuration>
+  </project>
+  <project key="689659862">
+    <configuration>TRACE</configuration>
+  </project>
+  <project key="79176672">
+    <configuration>TRACE</configuration>
+  </project>
+  <sourcecode name="ServiceInjector.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>10/19/2012 17:57:24</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="RelayCommand.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/18/2012 13:55:52</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="SetKeyboardFocusWhenIsDefault.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>10/30/2012 18:52:22</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ServiceContainer.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/17/2012 22:35:20</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="IMessageBoxService.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>10/19/2012 18:31:34</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="DialogCloser.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/18/2012 14:46:04</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MessageBoxService.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>10/19/2012 18:30:54</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="EnumMatchToBooleanConverter.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/18/2012 10:31:56</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/17/2012 18:42:42</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MsgBoxResult.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/19/2012 08:17:34</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MsgBoxButtons.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/17/2012 20:47:06</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MsgBoxImage.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>10/19/2012 17:43:00</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="GeneratedInternalTypeHelper.g.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>11/23/2012 23:23:38</timestamp>
+    <milliseconds>132</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name=".NETFramework,Version=v4.0.AssemblyAttributes.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>11/22/2012 20:07:33</timestamp>
+    <milliseconds>282</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="IconHelper.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/17/2012 20:44:50</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="BaseViewModel.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>04/18/2012 09:49:40</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MessageBoxViewModel.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>11/05/2012 16:11:54</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MsgBox.g.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>11/23/2012 23:23:37</timestamp>
+    <milliseconds>716</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MsgBoxView.g.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>11/23/2012 23:23:37</timestamp>
+    <milliseconds>777</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MsgBoxView.xaml.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>10/19/2012 15:53:12</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MsgBox.xaml.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>09/13/2011 15:04:00</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>11/05/2012 18:06:58</timestamp>
+    <milliseconds>0</milliseconds>
+    <violations />
+  </sourcecode>
+</stylecopresultscache>

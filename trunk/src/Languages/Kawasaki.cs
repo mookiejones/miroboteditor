@@ -13,7 +13,7 @@ namespace miRobotEditor.Languages
     [Localizable(false)]
     public class Kawasaki : AbstractLanguageClass
     {
-        public Kawasaki(string file)
+        public Kawasaki(string file):base(file)
         {
             Filename = file;
             FoldingStrategy = new RegionFoldingStrategy();
@@ -63,9 +63,9 @@ namespace miRobotEditor.Languages
 
 
 
-        internal override List<string> FunctionItems
+        internal override string FunctionItems
         {
-            get { return new List<string> { "(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)" }; }
+            get { return @"(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)" ; }
         }
     
         internal override sealed AbstractFoldingStrategy FoldingStrategy{get;set;}
@@ -106,9 +106,9 @@ namespace miRobotEditor.Languages
         }
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
-            string[] s = Regex.Split(section.Title, "æ");
-            int start = section.StartOffset ;
-            int end = section.Length - (s[0].Length + s[1].Length);
+            var s = Regex.Split(section.Title, "æ");
+            var start = section.StartOffset ;
+            var end = section.Length - (s[0].Length + s[1].Length);
 
             return doc.GetText(start, end);
         }
@@ -129,23 +129,30 @@ namespace miRobotEditor.Languages
             }         
         }
 
-           	
+        private const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
+
         // public override string SignalRegex{get{return "DEFSIG_";}}
-        public override Regex MethodRegex {get{return new Regex( String.Empty);}}
-		public override Regex StructRegex {get{return new Regex( String.Empty);}}   	
-		public override Regex FieldRegex  {get{return new Regex( String.Empty);}}   	
-		public override Regex EnumRegex   {get{return new Regex( String.Empty);}}
-        public override Regex XYZRegex { get { return new Regex(String.Empty); } }
+        public override Regex MethodRegex { get { return new Regex("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)",Ro); } }
+        public override Regex StructRegex { get { return new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)", Ro); } }
+        public override Regex FieldRegex { get { return new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)", Ro); } }
+        public override Regex EnumRegex { get { return new Regex("^ENUM ", Ro); } }
+        public override Regex XYZRegex { get { return new Regex(@"^(LINEAR|JOINT) ([^#])*#\[([^\]]*)", Ro); } }
     	
 		public override string CommentChar {get{return ";";}}
 
 
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
+        public override string ExtractXYZ(string positionstring)
+        {
+            var p = new PositionBase(positionstring);
+
+            return positionstring.Substring(positionstring.IndexOf("#[") + 2);
+        }
 
 
         public override FileModel GetFile(string filename)
         {
-            return new FileModel { FileName = filename };
+           return new FileModel { FileName = filename, Icon = Utilities.LoadBitmap(Global.ImgSrc) };
         }
     }
 }

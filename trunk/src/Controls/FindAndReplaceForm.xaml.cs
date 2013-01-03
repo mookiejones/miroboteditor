@@ -88,21 +88,21 @@ namespace miRobotEditor.Controls
         public bool UseRegex
         {
             get { return _useregex; }
-            set { _useregex = value;OnPropertyChanged("UseRegex"); }
+            set { _useregex = value;RaisePropertyChanged("UseRegex"); }
         }
         private bool _matchcase;
 
         public bool MatchCase
         {
             get { return _matchcase; }
-            set { _matchcase = value; OnPropertyChanged("MatchCase"); }
+            set { _matchcase = value; RaisePropertyChanged("MatchCase"); }
         }
         private bool _matchwholeword;
 
         public bool MatchWholeWord
         {
             get { return _matchwholeword; }
-            set { _matchwholeword = value; OnPropertyChanged("MatchWholeWord"); }
+            set { _matchwholeword = value; RaisePropertyChanged("MatchWholeWord"); }
         }
 
         public Regex RegexPattern
@@ -133,7 +133,7 @@ namespace miRobotEditor.Controls
             set
             {
                 _lookfor = value;
-                OnPropertyChanged("LookFor");
+                RaisePropertyChanged("LookFor");
             }
         }
 
@@ -141,14 +141,14 @@ namespace miRobotEditor.Controls
         public string ReplaceWith
         {
             get { return _replacewith; }
-            set { _replacewith = value;OnPropertyChanged("ReplaceWith"); }
+            set { _replacewith = value;RaisePropertyChanged("ReplaceWith"); }
         }
 
         private string _searchresult = string.Empty;
         public string SearchResult
         {
             get { return _searchresult; }
-            set { _searchresult = value;OnPropertyChanged("SearchResult"); }
+            set { _searchresult = value;RaisePropertyChanged("SearchResult"); }
         }
         #endregion
 

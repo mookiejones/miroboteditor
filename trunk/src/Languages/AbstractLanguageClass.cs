@@ -25,10 +25,11 @@ namespace miRobotEditor.Languages
     {
         #region Properties
         private string _filename;
+
         public string FileName
         {
             get { return _filename; }
-            set { _filename = value;OnPropertyChanged("FileName"); }
+            set { _filename = value;RaisePropertyChanged("Filename"); }
         }
     	
     	private MenuItem _robotmenuitems;
@@ -38,7 +39,7 @@ namespace miRobotEditor.Languages
     		{
     			return _robotmenuitems;
     		}
-    		set{_robotmenuitems=value;OnPropertyChanged("RobotMenuItems");}
+    		set{_robotmenuitems=value;RaisePropertyChanged("RobotMenuItems");}
     	}
 
     	private MenuItem GetMenuItems()
@@ -50,20 +51,17 @@ namespace miRobotEditor.Languages
 
     	    return i;
     	}
-    	
-        public Editor SourceDocument { get; set; }
-        public Editor DataDocument { get; set; }
 
-       
+        private Editor _sourcedocument;
+        public Editor SourceDocument{get { return _sourcedocument; }set{_sourcedocument = value;RaisePropertyChanged("SourceDocument");}}
+
+        private Editor _datadocument;
+        public Editor DataDocument{get { return _datadocument; }set{_datadocument = value;RaisePropertyChanged("DataDocument");}}
+
+
 
         private List<IVariable> _positions;
-        public List<IVariable> Positions
-        {
-            get { return _positions; }
-            set { _positions = value;
-                OnPropertyChanged("Positions");
-            }
-        }
+        public List<IVariable> Positions{get { return _positions; }set { _positions = value;RaisePropertyChanged("Positions");}}
 
        	public static AbstractLanguageClass Instance { get; set; }
 
@@ -92,34 +90,40 @@ namespace miRobotEditor.Languages
 
         public IList<ICompletionData> CompletionList (string currentWord,IList<ICompletionData> data )
         {
-            foreach (var t1 in DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules)
+            try
             {
-                var parseString = t1.Regex.ToString();
-
-                var start = parseString.IndexOf(">", StringComparison.Ordinal) +1;
-                var end = parseString.LastIndexOf(")", StringComparison.Ordinal);
-                parseString = parseString.Substring(start, end - start);
-
-                var spl = parseString.Split('|');
-                foreach (var t in spl)
+                foreach (var t1 in DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules)
                 {
-                    if (String.IsNullOrEmpty(t)) continue;
-                    
-                    var item = new CodeCompletion(t.Replace("\\b",""));
-                    
-                    if (!data.Contains(item)&&char.IsLetter(item.Text,0))
-                        data.Add(item);
-                }
-                //TODO Get Info from ObjectBrowser and Add to List
-                foreach (var va in ObjectBrowserViewModel.Instance.AllVariables)
-                {
-                    if ((va.Type != "def")&&(va.Type!="deffct"))
+                    var parseString = t1.Regex.ToString();
+
+                    var start = parseString.IndexOf(">", StringComparison.Ordinal) + 1;
+                    var end = parseString.LastIndexOf(")", StringComparison.Ordinal);
+                    parseString = parseString.Substring(start, end - start);
+
+                    var spl = parseString.Split('|');
+                    foreach (var t in spl)
                     {
-                        var item = new CodeCompletion(va.Name);
-                        data.Add(item);
+                        if (String.IsNullOrEmpty(t)) continue;
+
+                        var item = new CodeCompletion(t.Replace("\\b", ""));
+
+                        if (!data.Contains(item) && char.IsLetter(item.Text, 0))
+                            data.Add(item);
                     }
-                    
+                    //TODO Get Info from ObjectBrowser and Add to List
+                    foreach (var va in ObjectBrowserViewModel.Instance.AllVariables)
+                    {
+                        if ((va.Type != "def") && (va.Type != "deffct"))
+                        {
+                            var item = new CodeCompletion(va.Name);
+                            data.Add(item);
+                        }
+
+                    }
                 }
+            }
+            catch
+            {
             }
 
 
@@ -169,8 +173,17 @@ namespace miRobotEditor.Languages
         {
             var dir = Path.GetDirectoryName(filename);
             var dirExists = dir != null && Directory.Exists(dir);
-            SourceName = Path.GetFileNameWithoutExtension(filename) + ".src";
-            DataName = Path.GetFileNameWithoutExtension(filename) + ".dat";
+
+            if (this is KUKA)
+            {
+                SourceName = Path.GetFileNameWithoutExtension(filename) + ".src";
+                DataName = Path.GetFileNameWithoutExtension(filename) + ".dat";
+            }
+            else
+            {
+                SourceName = Path.GetFileName(filename);
+                DataName = string.Empty;
+            }
 
             if (dirExists && File.Exists(Path.Combine(dir, SourceName)))
                 using (var reader = new StreamReader(Path.Combine(dir, SourceName)))
@@ -186,9 +199,6 @@ namespace miRobotEditor.Languages
 					Instance=this;        
 					RobotMenuItems=GetMenuItems();					
         }
-
-
-
         #endregion
 
         #region Properties
@@ -248,7 +258,7 @@ namespace miRobotEditor.Languages
         /// <summary>
         /// Regular Expression for Functions
         /// </summary>
-        internal abstract List<string> FunctionItems { get; }
+        internal abstract string FunctionItems { get; }
 
         internal abstract IList<ICompletionData> CodeCompletion { get; }
         internal abstract AbstractFoldingStrategy FoldingStrategy { get; set; }
@@ -409,11 +419,13 @@ namespace miRobotEditor.Languages
         public abstract Regex StructRegex{get;}
         public abstract Regex SignalRegex { get; }
 
-        public  string ExtractXYZ(string positionstring)
-        {
-            var p = new PositionBase(positionstring);
-            return p.ExtractFromMatch();
-        }
+
+        public abstract string ExtractXYZ(string positionstring);
+
+//        {
+//            var p = new PositionBase(positionstring);
+//            return p.ExtractFromMatch();
+//        }
 
 // ReSharper disable UnusedMember.Local
         private static GroupCollection GetMatchCollection(string text, string matchstring)

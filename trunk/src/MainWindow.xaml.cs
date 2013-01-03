@@ -14,8 +14,9 @@ using miRobotEditor.Commands;
 using miRobotEditor.Controls;
 using miRobotEditor.Forms;
 using miRobotEditor.GUI;
-using miRobotEditor.GUI.Dialogs.About;
+using miRobotEditor.GUI.Notes;
 using miRobotEditor.Languages;
+using miRobotEditor.Pads;
 using miRobotEditor.Properties;
 using Application = System.Windows.Application;
 using MenuItem = System.Windows.Controls.MenuItem;
@@ -50,6 +51,8 @@ namespace miRobotEditor
         
         #endregion
 
+
+        public bool IsClosing { get; set; }
 
         #region Commands
         private static RelayCommand _addFileCommand;
@@ -92,6 +95,13 @@ namespace miRobotEditor
         {
             get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand(param => Instance.ChangeViewAs(), param => true)); }
         }
+        private static RelayCommand _closeCommand;
+
+
+        public static ICommand CloseCommand
+        {
+            get { return _closeCommand ?? (_closeCommand = new RelayCommand(param => Instance.CloseWindow(), param => true)); }
+        }
         private static RelayCommand _addToolCommand;
 
         public static ICommand AddToolCommand
@@ -107,7 +117,7 @@ namespace miRobotEditor
 
 
             if (Settings.Default.CheckForUpdates)
-                new Forms.FrmUpdateChecker();
+                new FrmUpdateChecker();
             
             //Get Initial Key Status
             ManageKeys(null,null);
@@ -155,6 +165,8 @@ namespace miRobotEditor
                     t.Start();
                 });
         }
+
+      
         public void LoadFile(IList<string> args)
         {
         	for (var i = 1; i < args.Count;i++)
@@ -184,11 +196,11 @@ namespace miRobotEditor
                               Filter =
                                   "All _files (*.*)|*.*|ABB _files (.mod,.prg,.cfg)|*.mod;*.prg;*.cfg|Kawasaki _files(*.as)|*.as|KUKA _files (.sub,.src,.dat,.kfd)|*.sub;*.src;*.dat;*.kfd|Fanuc _files (*.ls)|*.ls",
                               Multiselect = true,
-                              FilterIndex = Properties.Settings.Default.Filter
+                              FilterIndex = Settings.Default.Filter
                           };
             // Set filter for file extension and default file extension
 
-            var dir = Path.GetDirectoryName(DummyDoc.Instance.FileName);
+            var dir = Path.GetDirectoryName(DummyDoc.Instance.Filename);
             
 
                
@@ -197,7 +209,7 @@ namespace miRobotEditor
             // Display OpenFileDialog by calling ShowDialog method
             var result = ofd.ShowDialog();
 
-            Properties.Settings.Default.Filter = ofd.FilterIndex;
+            Settings.Default.Filter = ofd.FilterIndex;
            
             // Get the selected file name and display in a TextBox
             return result==true ? ofd.FileNames : new[]{String.Empty};
@@ -209,13 +221,13 @@ namespace miRobotEditor
         {
             if (!(sender is Editor)) return;
             if (DummyDoc.Instance == null) return;
-            if ((DummyDoc.Instance.FileLanguage == null) | DummyDoc.Instance.FileLanguage is LanguageBase)
-                Functions.Clear();
-            else
-            {
-                Functions.Clear();
-                Functions.UpdateFunctions(e.Text, DummyDoc.Instance.FileLanguage.FunctionItems);
-            }
+       //    if ((DummyDoc.Instance.FileLanguage == null) | DummyDoc.Instance.FileLanguage is LanguageBase)
+       //        Functions.Clear();
+       //    else
+       //    {
+       //        Functions.Clear();
+       //        Functions.UpdateFunctions(e.Text, DummyDoc.Instance.FileLanguage.FunctionItems);
+       //    }
         }
 
 
@@ -231,13 +243,23 @@ namespace miRobotEditor
             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             
             if (docpane != null)
-                foreach (var doc in docpane.Children.Select(t => t.Content as DummyDoc).Where(doc => doc.FileName !=null))
+                foreach(var doc in docpane.Children)
                 {
-                    Settings.Default.OpenDocuments += doc.FileName + ';';
+                    var d = doc.Content as DummyDoc;
+                    if (d.Filename!=null)
+                    Settings.Default.OpenDocuments += d.Filename + ';';
+                    d.Close();
                 }
+                
 
             Settings.Default.Save();
+
+         
             SaveLayout();
+
+            dockManager = null;
+            IsClosing = true;
+           
         }
 
         private void LoadOpenFiles()
@@ -295,7 +317,10 @@ namespace miRobotEditor
         {
             var doc = OpenFile(variable.Path);
             
-            doc.TextBox.SelectText(variable.Offset, variable.Name);
+
+            //TODO Check to see if this works correctly
+            DummyDoc.Instance.TextBox.SelectText(variable.Offset, variable.Name);
+          //  doc.TextBox.SelectText(variable.Offset, variable.Name);
         }
 
         [Localizable(false)]
@@ -307,8 +332,8 @@ namespace miRobotEditor
                 if (!File.Exists(filename))
                     return null;
 
-           
-            var f = Path.GetFileName(filename);
+
+            var f = Path.GetFileNameWithoutExtension(filename);
 
             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
         
@@ -316,7 +341,7 @@ namespace miRobotEditor
             if (docpane == null) return null;
             // If _file is open in another window, then select the file.
             if (File.Exists(filename))
-            foreach (var t in from t in docpane.Children let edit = t.Content as DummyDoc where edit != null && edit.FileName != null where f  == t.ContentId select t)
+            foreach (var t in from t in docpane.Children let edit = t.Content as DummyDoc where edit != null && edit.Filename != null where f  == t.ContentId select t)
             {
                 t.IsActive = true;
                 SendMessage("File allready Opened", filename);
@@ -351,11 +376,11 @@ namespace miRobotEditor
                 
                     doc.Title = f;
                     doc.Description = filename;
-                    doc.IconSource = DummyDoc.Instance.FileLanguage.GetFile(filename).Icon;
+                    doc.IconSource = document.FileLanguage.GetFile(filename).Icon;
                     doc.ToolTip = filename;
                 
                 // Add file to Recent list
-             //   RecentFileList.InsertFile(filename);
+                RecentFileList.Instance.InsertFile(filename);
 
                 if (filename != null)
                 {
@@ -380,21 +405,7 @@ namespace miRobotEditor
             OpenFile(string.Empty);
         }
 
-        private void AddNewFile(object sender, RoutedEventArgs e)
-        {
-            OpenFile(string.Empty);
-        }
-
         void OpenFile()
-        {
-            var fn = GetFileName();
-            foreach (var f in fn)
-            {
-                if (File.Exists(f))
-                    OpenFile(f);
-            }
-        }
-        private void OpenFile(object sender, RoutedEventArgs e)
         {
             var fn = GetFileName();
             foreach (var f in fn)
@@ -405,11 +416,6 @@ namespace miRobotEditor
         }
 
         #endregion
-
-        private void ShowOptions(object sender, RoutedEventArgs e)
-        {
-            
-        }
 
         private void ShowOptions() { }
 
@@ -482,13 +488,16 @@ namespace miRobotEditor
                     tool.Content = new MessageWindow();
                     break;
                 case "Notes":
-                    tool.Content = new NotesWindow();
+                    tool.Content = new NotesWindowTemplate();
                     break;
                 case "ArchiveInfo":
-                    tool.Content= new Pads.ArchiveInfo();
+                    tool.Content= new ArchiveInfo();
                     break;
                 case "Rename Positions":
                     tool.Content = new Language_Specific.RenamePositionWindow();
+                    break;
+                case "Shift":
+                    tool.Content = new ShiftWindow();
                     break;
                 case "CleanDat":
                     tool.Content = new Language_Specific.DatCleanControl();                    
@@ -511,17 +520,6 @@ namespace miRobotEditor
            
         }
 
-        private void AddTool(object sender, RoutedEventArgs e)
-        {
-            var item = sender as MenuItem;
-            if (item != null) AddTool(item.Header.ToString());
-        }
-
-        private void SplitWindow(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void OnActiveContentChanged(object sender, EventArgs e)
         {
             
@@ -531,8 +529,8 @@ namespace miRobotEditor
                 return;
                 DummyDoc.Instance = parent as DummyDoc;
 
-            if ((DummyDoc.Instance.TextBox!=null)&&(DummyDoc.Instance.TextBox.FileName!=null))
-                SetTitle(DummyDoc.Instance.TextBox.FileName);
+            if ((DummyDoc.Instance.TextBox!=null)&&(DummyDoc.Instance.TextBox.Filename!=null))
+                SetTitle(DummyDoc.Instance.TextBox.Filename);
 
           
             if (DummyDoc.Instance.TextBox != null)
@@ -608,17 +606,7 @@ namespace miRobotEditor
                 return;
             } 
         }
-        private void CloseWindow(object sender, ExecutedRoutedEventArgs e)
-        {
-             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
-            if (docpane == null) return;
-            
-            foreach (var c in docpane.Children.Where(c => c.Content.Equals(DummyDoc.Instance)))
-            {
-                docpane.Children.Remove(c);
-                return;
-            }
-        }
+     
 
 
         #region Status Bar Items

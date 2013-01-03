@@ -31,7 +31,7 @@ namespace miRobotEditor.Language_Specific
 				if (_listItems==null)
 					GetlistItems();
 				return _listItems;}
-			set{ _listItems = value; OnPropertyChanged("ListItems");}
+			set{ _listItems = value; RaisePropertyChanged("ListItems");}
 		}
 	
 		private void GetlistItems()
@@ -46,7 +46,7 @@ namespace miRobotEditor.Language_Specific
 		public int Progress
 		{
 			get{return _progress;}
-			set{_progress=value;OnPropertyChanged("Progress");}
+			set{_progress=value;RaisePropertyChanged("Progress");}
 		}
 		private static DatCleanHelper _instance;
 		public static DatCleanHelper Instance
@@ -116,29 +116,29 @@ namespace miRobotEditor.Language_Specific
 		public bool IgnoreTypes
 		{
 			get{return _ignoretypes;}
-			set{_ignoretypes=value; OnPropertyChanged("Ignoretypes");}
+			set{_ignoretypes=value; RaisePropertyChanged("Ignoretypes");}
 		}
 		public bool ExclusiveTypes
 		{
 			get{return _exclusivetypes;}
-			set{_exclusivetypes = value;OnPropertyChanged("ExclusiveTypes");}
+			set{_exclusivetypes = value;RaisePropertyChanged("ExclusiveTypes");}
 		}
 		public bool DeleteDeclaration
 		{
 			get{return _deletedeclaration;}
-			set{_deletedeclaration=value; OnPropertyChanged("DeleteDeclaration");}
+			set{_deletedeclaration=value; RaisePropertyChanged("DeleteDeclaration");}
 		}
 		public bool CommentDeclaration
 		{
 			get{return _commentdeclaration;}
-			set{_commentdeclaration=value;OnPropertyChanged("CommentDeclaration");}
+			set{_commentdeclaration=value;RaisePropertyChanged("CommentDeclaration");}
 		}
 		
 		private int _selectedVarIndex;
 		public int SelectedVarIndex
 		{
 			get{ return _selectedVarIndex;}
-			set{_selectedVarIndex=value; OnPropertyChanged("SelectedVarIndex");}
+			set{_selectedVarIndex=value; RaisePropertyChanged("SelectedVarIndex");}
 		}
 		public ObservableCollection<String> UsedVarTypes
 		{
@@ -156,7 +156,7 @@ namespace miRobotEditor.Language_Specific
 		public DatCleanHelper()
 		{
 			Instance=this;
-			_filename=DummyDoc.Instance.FileName;
+			_filename=DummyDoc.Instance.Filename;
 		}
 		
 		

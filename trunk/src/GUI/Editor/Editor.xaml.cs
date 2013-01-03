@@ -23,6 +23,7 @@ using ICSharpCode.AvalonEdit.Search;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls;
 using miRobotEditor.Enums;
+using miRobotEditor.GUI.StatusBarTemplate;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 
@@ -30,22 +31,23 @@ namespace miRobotEditor.GUI
 {
     public delegate void UpdateFunctionEventHandler(object sender, FunctionEventArgs e);
 
-    
+
     /// <summary>
     /// Interaction logic for Editor.xaml
     /// </summary>
     [Localizable(false)]
-    public partial class Editor : TextEditor,IDisposable
+    public partial class Editor : TextEditor, IDisposable, INotifyPropertyChanged
     {
         /// <summary>
         /// Used for Highlighting Background
         /// </summary>
-        private class XBackgroundRenderer:IBackgroundRenderer
+        private class XBackgroundRenderer : IBackgroundRenderer
         {
             private readonly DocumentLine _line;
+
             public XBackgroundRenderer(DocumentLine line)
             {
-                _line=line;
+                _line = line;
             }
 
             public void Draw(TextView textView, DrawingContext drawingContext)
@@ -64,13 +66,13 @@ namespace miRobotEditor.GUI
                 }
             }
 
-            public KnownLayer Layer { get; private 
-                set; }
+            public KnownLayer Layer { get; private set; }
         }
 
         #region Static Members
+
         public static readonly RoutedCommand Goto = new RoutedCommand();
-        public static new readonly RoutedCommand Save = new RoutedCommand();
+        public new static readonly RoutedCommand Save = new RoutedCommand();
         public static readonly RoutedCommand ToggleFolding = new RoutedCommand();
         public static readonly RoutedCommand ToggleAllFolding = new RoutedCommand();
         public static readonly RoutedCommand ShowDefinitions = new RoutedCommand();
@@ -78,12 +80,7 @@ namespace miRobotEditor.GUI
         public static readonly RoutedCommand CloseAllFolds = new RoutedCommand();
         public static readonly RoutedCommand IncreaseIndent = new RoutedCommand();
         public static readonly RoutedCommand DecreaseIndent = new RoutedCommand();
-        private static Editor _instance;
-        public static Editor Instance
-        {
-            get { return _instance ?? (_instance = new Editor()); }
-            set { _instance = value; }
-        }
+        
 
         #endregion
 
@@ -91,7 +88,7 @@ namespace miRobotEditor.GUI
 
         private readonly IconBarManager _iconBarManager;
         private readonly IconBarMargin _iconBarMargin;
-       
+
 
         /// <summary>
         /// Records last key For Multiple Key presses
@@ -115,11 +112,19 @@ namespace miRobotEditor.GUI
         public event UpdateFunctionEventHandler UpdateFunctions;
         public event EventHandler ReloadFile;
 
+        private List<IVariable> _variables;
+        public List<IVariable> Variables
+        {
+            get { return _variables; }
+            set{_variables = value;OnPropertyChanged("Variables");}
+        }
+       
         #endregion
 
         #region Properties
 
-        public string FileName { get; set; }
+        public string Filename { get; set; }
+
         #endregion
 
         public void OnReloadFile(EventArgs e)
@@ -127,14 +132,16 @@ namespace miRobotEditor.GUI
             var handler = ReloadFile;
             if (handler != null) handler(this, e);
         }
+
         #region Constructor
 
-        public Editor()
-        {           
+        public Editor(String text)
+        {
+            InitializeComponent();
             InitializeComponent();
             Options = TextEditorOptions.Instance;
             ShowLineNumbers = true;
-            RegisterSyntaxHighlighting();            
+            RegisterSyntaxHighlighting();
             _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
             TextArea.LeftMargins.Insert(0, _iconBarMargin);
 
@@ -142,70 +149,90 @@ namespace miRobotEditor.GUI
 
             AddBindings();
 
-            TextArea.TextEntered += TextEntered;          
+            TextArea.TextEntered += TextEntered;
+            TextArea.TextEntering += TextEntering;
+            TextArea.Caret.PositionChanged += CaretPositionChanged;
+            DataContext = this;
+            Text = text;
+        }
+        public Editor()
+        {
+            InitializeComponent();
+            Options = TextEditorOptions.Instance;
+            ShowLineNumbers = true;
+            RegisterSyntaxHighlighting();
+            _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
+            TextArea.LeftMargins.Insert(0, _iconBarMargin);
+
+            TextArea.DefaultInputHandler.NestedInputHandlers.Add(new SearchInputHandler(TextArea));
+
+            AddBindings();
+
+            TextArea.TextEntered += TextEntered;
             TextArea.TextEntering += TextEntering;
             TextArea.Caret.PositionChanged += CaretPositionChanged;
             DataContext = this;
         }
+
         #endregion
 
-       
+
         #region CaretPositionChanged - Bracket Highlighting
 
-        readonly MyBracketSearcher _bracketSearcher = new MyBracketSearcher();
-        BracketHighlightRenderer _bracketRenderer;
+        private readonly MyBracketSearcher _bracketSearcher = new MyBracketSearcher();
+        private BracketHighlightRenderer _bracketRenderer;
 
-		/// <summary>
-		/// Highlights matching brackets.
-		/// </summary>
-		void HighlightBrackets(object sender, EventArgs e)
-		{
-			/*
-			 * Special case: ITextEditor.Language guarantees that it never returns null.
-			 * In this case however it can be null, since this code may be called while the document is loaded.
-			 * ITextEditor.Language gets set in CodeEditorAdapter.FileNameChanged, which is called after
-			 * loading of the document has finished.
-			 * */
-			
-			
-					var bracketSearchResult = _bracketSearcher.SearchBracket(Document ,TextArea.Caret.Offset);
-						_bracketRenderer.SetHighlight(bracketSearchResult);
-		}
-		
-		
-		#endregion
-		
-  
-		void CaretPositionChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Highlights matching brackets.
+        /// </summary>
+        private void HighlightBrackets(object sender, EventArgs e)
+        {
+            /*
+             * Special case: ITextEditor.Language guarantees that it never returns null.
+             * In this case however it can be null, since this code may be called while the document is loaded.
+             * ITextEditor.Language gets set in CodeEditorAdapter.FileNameChanged, which is called after
+             * loading of the document has finished.
+             * */
+
+
+            var bracketSearchResult = _bracketSearcher.SearchBracket(Document, TextArea.Caret.Offset);
+            _bracketRenderer.SetHighlight(bracketSearchResult);
+        }
+
+
+        #endregion
+
+        private void CaretPositionChanged(object sender, EventArgs e)
         {
             var s = sender as ICSharpCode.AvalonEdit.Editing.Caret;
-            
+
             UpdateLineTransformers();
             if (s != null)
             {
-                StatusBar.Instance.Line = s.Line.ToString(CultureInfo.InvariantCulture);
-                StatusBar.Instance.Column =  s.Column.ToString(CultureInfo.InvariantCulture);
+                StatusBarControl.Instance.Line = s.Line.ToString(CultureInfo.InvariantCulture);
+                StatusBarControl.Instance.Column = s.Column.ToString(CultureInfo.InvariantCulture);
+
             }
-            StatusBar.Instance.Offset = CaretOffset.ToString(CultureInfo.InvariantCulture);
-            
-            
-            HighlightBrackets(sender,e);
+            StatusBarControl.Instance.Offset = CaretOffset.ToString(CultureInfo.InvariantCulture);
+
+
+            HighlightBrackets(sender, e);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        void UpdateLineTransformers()
+        private void UpdateLineTransformers()
         {
             // Clear the Current Renderers
             TextArea.TextView.BackgroundRenderers.Clear();
             var textEditorOptions = Options as TextEditorOptions;
             if (textEditorOptions != null && textEditorOptions.HighlightCurrentLine)
-            TextArea.TextView.BackgroundRenderers.Add(new XBackgroundRenderer(Document.GetLineByOffset(CaretOffset)));
-          if (_bracketRenderer==null)
-          _bracketRenderer = new BracketHighlightRenderer(TextArea.TextView);
-          else
-          TextArea.TextView.BackgroundRenderers.Add(_bracketRenderer);            
+                TextArea.TextView.BackgroundRenderers.Add(new XBackgroundRenderer(Document.GetLineByOffset(CaretOffset)));
+            if (_bracketRenderer == null)
+                _bracketRenderer = new BracketHighlightRenderer(TextArea.TextView);
+            else
+                TextArea.TextView.BackgroundRenderers.Add(_bracketRenderer);
         }
 
 
@@ -213,7 +240,7 @@ namespace miRobotEditor.GUI
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
-           
+
             if (_lastKeyUpArgs == null)
             {
                 _lastKeyUpArgs = e;
@@ -246,6 +273,7 @@ namespace miRobotEditor.GUI
 
 
         #region Syntax Highlighting
+
         /// <summary>
         /// Loads all of syntax Highlighting
         /// </summary>
@@ -276,10 +304,11 @@ namespace miRobotEditor.GUI
             Register("KUKA", Languages.KUKA.Ext.ToArray());
             Register("KAWASAKI", Kawasaki.EXT.ToArray());
             Register("Fanuc", Fanuc.EXT.ToArray());
-            Register("ABB", ABB.EXT.ToArray());         
+            Register("ABB", ABB.EXT.ToArray());
         }
 
         #endregion
+
 
         private void AddBookMark(int lineNumber, string imgpath)
         {
@@ -296,6 +325,14 @@ namespace miRobotEditor.GUI
             var m = matchstring.Match(Text.ToLower());
             while (m.Success)
             {
+                Variables.Add(new Variable
+                                  {
+                                      Offset = m.Index,
+                                      Type = m.Groups[1].ToString(),
+                                      Name = m.Groups[2].ToString(),
+                                      Path = Filename,
+                                      Icon = Utilities.LoadBitmap(imgPath)
+                                  });
                 var d = Document.GetLineByOffset(m.Index);
                 AddBookMark(d.LineNumber, imgPath);
                 m = m.NextMatch();
@@ -311,16 +348,19 @@ namespace miRobotEditor.GUI
             // Return if FileLanguage doesnt exist yet
             if (DummyDoc.Instance.FileLanguage == null) return;
             _iconBarManager.Bookmarks.Clear();
-
+            if (Variables == null)
+                Variables = new List<IVariable>();
+            Variables.Clear();
             FindMatches(DummyDoc.Instance.FileLanguage.MethodRegex, Global.ImgMethod);
             FindMatches(DummyDoc.Instance.FileLanguage.StructRegex, Global.ImgStruct);
             FindMatches(DummyDoc.Instance.FileLanguage.FieldRegex, Global.ImgField);
             FindMatches(DummyDoc.Instance.FileLanguage.SignalRegex, Global.ImgSignal);
             FindMatches(DummyDoc.Instance.FileLanguage.EnumRegex, Global.ImgEnum);
             FindMatches(DummyDoc.Instance.FileLanguage.XYZRegex, Global.ImgXyz);
+          //  if (DummyDoc.Instance.FileLanguage is Languages.KUKA)
+          //      FindMatches(new Regex("DECL [a-zA-Z0-9_$]+", (RegexOptions) 3), Global.ImgValue);
 
-            if (DummyDoc.Instance.FileLanguage is Languages.KUKA)
-                FindMatches(new Regex("DECL [a-zA-Z0-9_$]+", (RegexOptions) 3), Global.ImgValue);
+            LocalVariableWindow.Instance.DataContext = Variables;
         }
 
         #region Editor.Bindings
@@ -340,16 +380,16 @@ namespace miRobotEditor.GUI
             commandBindings.Add(new CommandBinding(ShowDefinitions, ExecuteShowDefinitions, CanShowDefinitions));
             commandBindings.Add(new CommandBinding(OpenAllFolds, ExecuteOpenAllFolds, CanOpenAllFolds));
             commandBindings.Add(new CommandBinding(CloseAllFolds, ExecuteCloseAllFolds, CanCloseAllFolds));
-        //    commandBindings.Add(new CommandBinding(ToggleComment, ExecuteToggleComment, CanToggleComment));
+            //    commandBindings.Add(new CommandBinding(ToggleComment, ExecuteToggleComment, CanToggleComment));
             commandBindings.Add(new CommandBinding(IncreaseIndent, ExecuteIncreaseIndent, CanIncreaseIndent));
             commandBindings.Add(new CommandBinding(DecreaseIndent, ExecuteDecreaseIndent, CanDecreaseIndent));
             var inputBindings = TextArea.InputBindings;
             inputBindings.Add(new KeyBinding(ApplicationCommands.Find, Key.F, ModifierKeys.Control));
             inputBindings.Add(new KeyBinding(ApplicationCommands.Replace, Key.R, ModifierKeys.Control));
-       //     inputBindings.Add(new KeyBinding(ToggleComment, Key.C, (int) ModifierKeys.Shift + ModifierKeys.Control));
+            //     inputBindings.Add(new KeyBinding(ToggleComment, Key.C, (int) ModifierKeys.Shift + ModifierKeys.Control));
         }
 
-       
+
         private void CanDecreaseIndent(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = TextArea.IndentationStrategy != null;
@@ -359,7 +399,7 @@ namespace miRobotEditor.GUI
         {
             e.CanExecute = TextArea.IndentationStrategy != null;
         }
-        
+
         private void ExecuteDecreaseIndent(object sender, ExecutedRoutedEventArgs e)
         {
             try
@@ -385,7 +425,7 @@ namespace miRobotEditor.GUI
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageViewModel.Instance.AddError(ex);
             }
@@ -409,7 +449,7 @@ namespace miRobotEditor.GUI
                         var m = rgx.Match(currentline);
                         if (m.Success)
                             positions = m.Groups[1].Length;
-                            Document.Insert(line.Offset + positions , " ");
+                        Document.Insert(line.Offset + positions, " ");
                     }
                 }
             }
@@ -442,7 +482,8 @@ namespace miRobotEditor.GUI
 
                     // Had to put in comment offset for Fanuc 
                     if (!DummyDoc.Instance.FileLanguage.IsLineCommented(currentline))
-                        Document.Insert(DummyDoc.Instance.FileLanguage.CommentOffset(currentline) + line.Offset, DummyDoc.Instance.FileLanguage.CommentChar);
+                        Document.Insert(DummyDoc.Instance.FileLanguage.CommentOffset(currentline) + line.Offset,
+                                        DummyDoc.Instance.FileLanguage.CommentChar);
                     else
                     {
                         var replacestring = DummyDoc.Instance.FileLanguage.CommentReplaceString(currentline);
@@ -465,8 +506,8 @@ namespace miRobotEditor.GUI
 
         private void CanSave(object sender, CanExecuteRoutedEventArgs e)
         {
-           
-                e.CanExecute = (File.Exists(FileName) && IsModified);            
+
+            e.CanExecute = (File.Exists(Filename) && IsModified);
         }
 
         private void CanSaveAs(object sender, CanExecuteRoutedEventArgs e)
@@ -477,12 +518,19 @@ namespace miRobotEditor.GUI
         private void ReplaceExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             // Make sure we update the Editor _instance           
-            FindAndReplaceForm.Instance = new FindAndReplaceForm
-                                              {Left = Mouse.GetPosition(this).X, Top = Mouse.GetPosition(this).Y};
+            FindAndReplaceForm.Instance = new FindAndReplaceForm{Left = Mouse.GetPosition(this).X, Top = Mouse.GetPosition(this).Y};
             FindAndReplaceForm.Instance.Show();
 
         }
 
+      
+
+        void SetDataContext()
+        {
+            LocalVariableWindow.Instance.DataContext = Variables;
+            FunctionWindowViewModel.Instance.MatchString = DummyDoc.Instance.FileLanguage.MethodRegex;
+            FunctionWindowViewModel.Instance.Text = Text;
+        }
         private void CanGoto(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -491,9 +539,9 @@ namespace miRobotEditor.GUI
 
         private void ExecuteGoto(object sender, ExecutedRoutedEventArgs e)
         {
-// ReSharper disable ObjectCreationAsStatement
+            // ReSharper disable ObjectCreationAsStatement
             new GotoDialog {Editor = this};
-// ReSharper restore ObjectCreationAsStatement
+            // ReSharper restore ObjectCreationAsStatement
         }
 
 
@@ -501,39 +549,41 @@ namespace miRobotEditor.GUI
         {
             var ofd = new Microsoft.Win32.SaveFileDialog {Title = "Save As", Filter = "All _files(*.*)|*.*"};
 
-            if (!String.IsNullOrEmpty(FileName))
+            if (!String.IsNullOrEmpty(Filename))
             {
-                ofd.FileName = FileName;
-                ofd.Filter += String.Format("|Current Type (*{0})|*{0}", Path.GetExtension(FileName) );
+                ofd.FileName = Filename;
+                ofd.Filter += String.Format("|Current Type (*{0})|*{0}", Path.GetExtension(Filename));
                 ofd.FilterIndex = 2;
-                ofd.DefaultExt = Path.GetExtension(FileName);
+                ofd.DefaultExt = Path.GetExtension(Filename);
             }
 
             ofd.ShowDialog();
 
             if (!String.IsNullOrEmpty(ofd.FileName))
             {
-                FileName = ofd.FileName;
-                Save(FileName);
+                Filename = ofd.FileName;
+                Save(Filename);
                 var p = DummyDoc.Instance.Host as LayoutDocument;
-                if (p != null) p.Title = Path.GetFileNameWithoutExtension(FileName);
-               // MainWindow.Instance.RecentFileList.InsertFile(FileName);
-                MessageViewModel.Instance.Messages.Add(new OutputWindowMessage { Title = "_file Saved", Description = FileName, Icon = null });
+                if (p != null) p.Title = Path.GetFileNameWithoutExtension(Filename);
+                // MainWindow.Instance.RecentFileList.InsertFile(Filename);
+                MessageViewModel.Instance.Messages.Add(new OutputWindowMessage
+                                                           {Title = "_file Saved", Description = Filename, Icon = null});
             }
         }
 
         private void ExecuteSave(object target, ExecutedRoutedEventArgs e)
         {
             //_watcher.EnableRaisingEvents = false;
-           // _watcher.Text = Text;
-                Save(FileName);
+            // _watcher.Text = Text;
+            Save(Filename);
 
-                StatusBar.Instance.FileSave = File.GetLastWriteTime(FileName).ToString(CultureInfo.InvariantCulture);
+            StatusBar.Instance.FileSave = File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture);
             //_watcher.EnableRaisingEvents = true;
-              // Suspend the calling thread until the file has been deleted. 
-            }       
+            // Suspend the calling thread until the file has been deleted. 
+        }
+
         #endregion
-    
+
         protected override void OnOptionChanged(PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -545,33 +595,33 @@ namespace miRobotEditor.GUI
             base.OnOptionChanged(e);
         }
 
-        /// <summary>
-        /// Initialize Internal Properties
-        /// </summary>
-        public new void Load(string filename)
+
+
+        public void SetHighlighting()
         {
-            FileName = filename;
-            base.Load(filename);
-            SetWatcher();           
-            SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(filename));
-         }
+            SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(Filename));
+        }
 
         public void UpdateVisualText()
         {
-              EditorTextChanged(null, null);
-              if (DummyDoc.Instance.FileLanguage != null && (!(DummyDoc.Instance.FileLanguage is LanguageBase)))
-              {
-                  var syn = HighlightingManager.Instance.GetDefinition(DummyDoc.Instance.FileLanguage.RobotType.ToString());
-                  SyntaxHighlighting = syn;
-              }
+            EditorTextChanged(null, null);
+            if (DummyDoc.Instance.FileLanguage != null && (!(DummyDoc.Instance.FileLanguage is LanguageBase)))
+            {
+                var syn = HighlightingManager.Instance.GetDefinition(DummyDoc.Instance.FileLanguage.RobotType.ToString());
+                SyntaxHighlighting = syn;
+            }
         }
 
+
+
         private void EditorTextChanged(object sender, EventArgs e)
-        {                      
-            RaiseUpdate(null,new DependencyPropertyChangedEventArgs());
+        {
+            FindBookmarkMembers();
+            RaiseUpdate(null, new DependencyPropertyChangedEventArgs());
         }
 
         #region Code Completion
+
         private CompletionWindow _completionWindow;
 
         private void TextEntered(object sender, TextCompositionEventArgs e)
@@ -580,7 +630,7 @@ namespace miRobotEditor.GUI
 
             var currentword = FindWord();
             // Dont Show Completion window until there are 3 Characters
-            if (currentword != null && (String.IsNullOrEmpty(currentword)) |currentword.Length<3)return;
+            if (currentword != null && (String.IsNullOrEmpty(currentword)) | currentword.Length < 3) return;
 
             _completionWindow = new CompletionWindow(TextArea);
 
@@ -589,10 +639,10 @@ namespace miRobotEditor.GUI
             _completionWindow.CloseWhenCaretAtBeginning = true;
             _completionWindow.CompletionList.SelectItem(currentword);
             if (_completionWindow.CompletionList.SelectedItem != null)
-            _completionWindow.Show();
-            
-             if (IsModified)
-                RaiseUpdate(null,new DependencyPropertyChangedEventArgs());
+                _completionWindow.Show();
+
+            if (IsModified)
+                RaiseUpdate(null, new DependencyPropertyChangedEventArgs());
         }
 
 
@@ -643,7 +693,7 @@ namespace miRobotEditor.GUI
                 var d = Document.GetLineByOffset(start);
                 TextArea.Caret.BringCaretToView();
                 CaretOffset = d.Offset;
-                JumpTo(d.LineNumber, 0);
+                JumpTo(new FunctionItem {Offset = start,Text=text});
                 if (_foldingManager != null)
                 {
                     var f = _foldingManager.GetFoldingsAt(d.Offset);
@@ -665,45 +715,58 @@ namespace miRobotEditor.GUI
             var nIndex = Text.IndexOf(FindReplaceViewModel.Instance.LookFor, CaretOffset, StringComparison.Ordinal);
             if (nIndex > -1)
             {
-               
+
                 var d = Document.GetLineByOffset(nIndex);
-//                ScrollTo(d.LineNumber, 0);
-                JumpTo(d.LineNumber,0);
+                JumpTo(new FunctionItem {Offset = nIndex});
                 SelectionStart = nIndex;
                 SelectionLength = FindReplaceViewModel.Instance.LookFor.Length;
             }
             else
             {
                 FindReplaceViewModel.Instance.SearchResult = "No Results Found, Starting Search from Beginning";
-                CaretOffset=0;
+                CaretOffset = 0;
             }
 
         }
 
-        public void JumpTo(int line, int column)
+        public void JumpTo(VariableItem i)
         {
-            Focus();
-            ScrollTo(line, column);
+            
+            var c = Document.GetLocation(Convert.ToInt32(i.Location));
 
+            ScrollTo(c.Line, c.Column);
+            SelectionStart = Convert.ToInt32(i.Location);
+            SelectionLength = i.Value.Length;
+            Focus();
             if (TextEditorOptions.Instance.EnableAnimations)
                 Dispatcher.BeginInvoke(DispatcherPriority.Background, (Action)DisplayCaretHighlightAnimation);
         }
-        
-        void DisplayCaretHighlightAnimation()
+        public void JumpTo(FunctionItem i)
+        {
+           
+            var c = Document.GetLocation(i.Offset);
+            
+            ScrollTo(c.Line, c.Column);
+            SelectionStart = i.Offset;
+            SelectionLength = i.Text.Length;
+          //  SelectText(i.Offset, i.Text);
+            Focus();
+            if (TextEditorOptions.Instance.EnableAnimations)
+                Dispatcher.BeginInvoke(DispatcherPriority.Background, (Action)DisplayCaretHighlightAnimation);
+        }
+        private void DisplayCaretHighlightAnimation()
         {
 
-          if (TextArea == null)
-              return;
-        
-          var layer = AdornerLayer.GetAdornerLayer(TextArea.TextView);
-        
-          if (layer == null)
-              return;
-        
-          var adorner = new CaretHighlightAdorner(TextArea);
-          layer.Add(adorner);
-        //
-        //  WorkbenchSingleton.CallLater(TimeSpan.FromSeconds(1), (Action)(() => layer.Remove(adorner)));
+            if (TextArea == null)
+                return;
+
+            var layer = AdornerLayer.GetAdornerLayer(TextArea.TextView);
+
+            if (layer == null)
+                return;
+
+            var adorner = new CaretHighlightAdorner(TextArea);
+            layer.Add(adorner);
         }
 
         /// <summary>
@@ -719,16 +782,14 @@ namespace miRobotEditor.GUI
             TextArea.Caret.BringCaretToView();
             CaretOffset = d.Offset;
             ScrollToLine(d.LineNumber);
-          
-          
+
+
             var f = _foldingManager.GetFoldingsAt(d.Offset);
-            if (f.Count > 0)
-            {
-                var fs = f[0];
-                fs.IsFolded = false;
-            }
+            if (f.Count <= 0) return;
+            var fs = f[0];
+            fs.IsFolded = false;
         }
-    
+
         public void FindText(string text)
         {
             if (text == null) throw new ArgumentNullException("text");
@@ -741,46 +802,17 @@ namespace miRobotEditor.GUI
         }
 
         #endregion
-        
+
         private void RaiseUpdate(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (!IsVisible) return;
 
             if (UpdateFunctions != null)
                 UpdateFunctions(this, new FunctionEventArgs(Text));
-           
-            FindBookmarkMembers();
-            Dispatcher.BeginInvoke((Action) UpdateLocalVariables);
-            UpdateLocalVariables();
+
+            SetDataContext();
+                    
             UpdateFolds();
-        }
-
-
-        public static readonly DependencyProperty LocalVariableProperty = DependencyProperty.Register("LocalVariables", typeof(List<IVariable>),typeof(Editor));
-
-        private void UpdateLocalVariables()
-        {
-
-            //TODO This needs to be threaded because it is triggered everytime a key is pressed
-           
-            if (!File.Exists(FileName))return;
-            var bgWorker = new BackgroundWorker {WorkerReportsProgress = false, WorkerSupportsCancellation = false};
-            bgWorker.DoWork += (s2, e2) =>
-                                   {
-                                       var local = new List<IVariable>();
-
-                                       var lang = DummyDoc.Instance.FileLanguage;
-                                       local.AddRange(VariableBase.GetVariables(FileName, lang.XYZRegex, Global.ImgXyz));
-                                       local.AddRange(VariableBase.GetVariables(FileName, lang.FieldRegex,
-                                                                                Global.ImgField));
-                                       this.InvokeIfRequired(() =>
-                                                                                {
-                                                                                    LocalVariableWindow.Instance.
-                                                                                        DataContext = local;
-                                                                                }, DispatcherPriority.Background);
-                                   };
-
-            bgWorker.RunWorkerAsync();
         }
 
         private void EditorPreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -798,7 +830,7 @@ namespace miRobotEditor.GUI
                 e.Handled = true;
             }
         }
-        
+
         #region Folding Section
 
         private FoldingManager _foldingManager;
@@ -809,27 +841,26 @@ namespace miRobotEditor.GUI
         {
             var textEditorOptions = Options as TextEditorOptions;
             var foldingEnabled = textEditorOptions != null && textEditorOptions.EnableFolding;
-            
+
             //if (File == null) return;
             if (SyntaxHighlighting == null)
                 _foldingStrategy = null;
 
-            
+
             // Get XML Folding
-            if (Path.GetExtension(FileName) == ".xml")
+            if (Path.GetExtension(Filename) == ".xml")
                 _foldingStrategy = new XmlFoldingStrategy();
-            else
-                if (DummyDoc.Instance.FileLanguage != null)
-                    _foldingStrategy = DummyDoc.Instance.FileLanguage.FoldingStrategy;
-            
-           if (_foldingStrategy != null && foldingEnabled)
+            else if (DummyDoc.Instance.FileLanguage != null)
+                _foldingStrategy = DummyDoc.Instance.FileLanguage.FoldingStrategy;
+
+            if (_foldingStrategy != null && foldingEnabled)
             {
                 if (_foldingManager == null)
                     _foldingManager = FoldingManager.Install(TextArea);
-               //this.BeginChange();
+                //this.BeginChange();
                 _foldingStrategy.UpdateFoldings(_foldingManager, Document);
                 RegisterFoldTitles();
-               //this.EndChange();
+                //this.EndChange();
             }
             else
             {
@@ -839,7 +870,7 @@ namespace miRobotEditor.GUI
                     _foldingManager = null;
                 }
             }
-           
+
         }
 
         /// <summary>
@@ -847,7 +878,7 @@ namespace miRobotEditor.GUI
         /// </summary>
         private void RegisterFoldTitles()
         {
-            if ((DummyDoc.Instance.FileLanguage is LanguageBase) && (Path.GetExtension(FileName) == ".xml")) return;
+            if ((DummyDoc.Instance.FileLanguage is LanguageBase) && (Path.GetExtension(Filename) == ".xml")) return;
 
             foreach (var section in _foldingManager.AllFoldings)
             {
@@ -865,17 +896,17 @@ namespace miRobotEditor.GUI
 
         public string FindWord()
         {
-           
+
             var line = GetLine(TextArea.Caret.Line);
             var search = line;
-            char[] terminators = { ' ', '=', '(', ')', '[', ']', '<', '>' ,'\r','\n'};
+            char[] terminators = {' ', '=', '(', ')', '[', ']', '<', '>', '\r', '\n'};
 
 
             // Are there any terminators in the line?
-       
 
 
-            var end = line.IndexOfAny(terminators, TextArea.Caret.Column-1);
+
+            var end = line.IndexOfAny(terminators, TextArea.Caret.Column - 1);
             if (end > -1)
                 search = (line.Substring(0, end));
 
@@ -883,7 +914,7 @@ namespace miRobotEditor.GUI
 
             if (start > -1)
                 search = search.Substring(start).Trim();
-           
+
             return search;
         }
 
@@ -1016,7 +1047,8 @@ namespace miRobotEditor.GUI
 
         private abstract class NewFoldingDefinition : NewFolding
         {
-            protected NewFoldingDefinition(int start, int end) : base(start, end)
+            protected NewFoldingDefinition(int start, int end)
+                : base(start, end)
             {
             }
         }
@@ -1026,39 +1058,41 @@ namespace miRobotEditor.GUI
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
         #endregion
 
         #region FileWatcher
 
-        
+
         private void SetWatcher()
         {
-            var dir = Path.GetDirectoryName(FileName);
+            var dir = Path.GetDirectoryName(Filename);
             var dirExists = dir != null && Directory.Exists(dir);
             //TODO Reimplement this
-// ReSharper disable RedundantJumpStatement
+            // ReSharper disable RedundantJumpStatement
             if (!dirExists) return;
-// ReSharper restore RedundantJumpStatement
+            // ReSharper restore RedundantJumpStatement
 
             // Only Watch For Module and Not individual files. This prevents from Reloading twice
         }
 
-       
+
 
 
         public void Reload()
         {
-            base.Load(FileName);    
+            Load(Filename);
             UpdateFolds();
         }
 
 
-       
+
 
 
         #endregion
@@ -1067,38 +1101,39 @@ namespace miRobotEditor.GUI
         //TODO Setup Snippets
 
 
-/*
-        private void InsertSnippet(object sender, KeyEventArgs e)
-        {
-            var loopCounter = new SnippetReplaceableTextElement {Text = "i"};
-            var snippet = new Snippet
-                              {
-                                  Elements =
+        /*
+                private void InsertSnippet(object sender, KeyEventArgs e)
+                {
+                    var loopCounter = new SnippetReplaceableTextElement {Text = "i"};
+                    var snippet = new Snippet
                                       {
-                                          new SnippetTextElement {Text = "for "},
-                                          new SnippetReplaceableTextElement {Text = "item"},
-                                          new SnippetTextElement {Text = " in range("},
-                                          new SnippetReplaceableTextElement {Text = "from"},
-                                          new SnippetTextElement {Text = ", "},
-                                          new SnippetReplaceableTextElement {Text = "to"},
-                                          new SnippetTextElement {Text = ", "},
-                                          new SnippetReplaceableTextElement {Text = "step"},
-                                          new SnippetTextElement {Text = "):backN\t"},
-                                          new SnippetSelectionElement()
-                                      }
-                              };
-            snippet.Insert(TextArea);
+                                          Elements =
+                                              {
+                                                  new SnippetTextElement {Text = "for "},
+                                                  new SnippetReplaceableTextElement {Text = "item"},
+                                                  new SnippetTextElement {Text = " in range("},
+                                                  new SnippetReplaceableTextElement {Text = "from"},
+                                                  new SnippetTextElement {Text = ", "},
+                                                  new SnippetReplaceableTextElement {Text = "to"},
+                                                  new SnippetTextElement {Text = ", "},
+                                                  new SnippetReplaceableTextElement {Text = "step"},
+                                                  new SnippetTextElement {Text = "):backN\t"},
+                                                  new SnippetSelectionElement()
+                                              }
+                                      };
+                    snippet.Insert(TextArea);
 
 
-        }
-*/
+                }
+        */
 
         private void TextEditorGotFocus(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(FileName))
+            DummyDoc.Instance.TextBox = this;
+
+            if (File.Exists(Filename))
             {
-            StatusBar.Instance.Name = FileName;
-            UpdateLocalVariables();
+                StatusBar.Instance.Name = Filename;
             }
 
             switch (DummyDoc.Instance.FileLanguage.RobotType)
@@ -1114,17 +1149,21 @@ namespace miRobotEditor.GUI
                     break;
             }
 
-            StatusBar.Instance.FileSave = !String.IsNullOrEmpty(FileName) ? File.GetLastWriteTime(FileName).ToString(CultureInfo.InvariantCulture) : String.Empty;
+            StatusBar.Instance.FileSave = !String.IsNullOrEmpty(Filename)? File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture): String.Empty;
             StatusBar.Instance.Line = TextArea.Caret.Line.ToString(CultureInfo.InvariantCulture);
             StatusBar.Instance.Column = TextArea.Caret.Column.ToString(CultureInfo.InvariantCulture);
             StatusBar.Instance.Offset = CaretOffset.ToString(CultureInfo.InvariantCulture);
+
+            SetDataContext();
         }
 
         public void Dispose()
         {
-            if (_iconBarMargin!=null)
-            _iconBarMargin.Dispose();
-
+            if (_iconBarMargin != null)
+                _iconBarMargin.Dispose();
         }
+
     }
+
 }
+

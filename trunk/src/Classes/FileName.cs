@@ -18,7 +18,7 @@ namespace miRobotEditor.Classes
             if (fileName == null)
                 throw new ArgumentNullException("fileName");
             if (fileName.Length == 0)
-                throw new ArgumentException("The empty string is not a valid FileName");
+                throw new ArgumentException("The empty string is not a valid Filename");
             _normalizedFileName = NormalizePath(fileName);
         }
         /// <summary>
@@ -115,7 +115,7 @@ namespace miRobotEditor.Classes
             return result.ToString();
         }
         /// <summary>
-        /// Creates a FileName instance from the string.
+        /// Creates a Filename instance from the string.
         /// It is valid to pass null or an empty string to this method (in that case, a null reference will be returned).
         /// </summary>
         public static FileName Create(string fileName)
@@ -169,25 +169,25 @@ namespace miRobotEditor.Classes
             return !(left == right);
         }
 
-        [ObsoleteAttribute("Warning: comparing FileName with string results in case-sensitive comparison")]
+        [ObsoleteAttribute("Warning: comparing Filename with string results in case-sensitive comparison")]
         public static bool operator ==(FileName left, string right)
         {
             return (string)left == right;
         }
 
-        [ObsoleteAttribute("Warning: comparing FileName with string results in case-sensitive comparison")]
+        [ObsoleteAttribute("Warning: comparing Filename with string results in case-sensitive comparison")]
         public static bool operator !=(FileName left, string right)
         {
             return (string)left != right;
         }
 
-        [ObsoleteAttribute("Warning: comparing FileName with string results in case-sensitive comparison")]
+        [ObsoleteAttribute("Warning: comparing Filename with string results in case-sensitive comparison")]
         public static bool operator ==(string left, FileName right)
         {
             return left == (string)right;
         }
 
-        [ObsoleteAttribute("Warning: comparing FileName with string results in case-sensitive comparison")]
+        [ObsoleteAttribute("Warning: comparing Filename with string results in case-sensitive comparison")]
         public static bool operator !=(string left, FileName right)
         {
             return left != (string)right;

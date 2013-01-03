@@ -47,9 +47,9 @@ namespace miRobotEditor.Languages
             get { return @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))"; }
         }
 
-        internal override List<string> FunctionItems
+        internal override string FunctionItems
         {
-            get { return new List<string> { @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)" }; }
+            get { return  @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)" ; }
         }
 
         #region Folding Section
@@ -141,6 +141,10 @@ namespace miRobotEditor.Languages
         public override string CommentChar { get { return "'"; } }
 
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
+        public override string ExtractXYZ(string positionstring)
+        {
+            return String.Empty;
+        }
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
 

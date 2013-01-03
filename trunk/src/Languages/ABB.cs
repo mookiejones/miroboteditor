@@ -61,9 +61,9 @@ namespace miRobotEditor.Languages
             get { return @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))"; }
         }
 
-        internal override List<string> FunctionItems
+        internal override string FunctionItems
         {
-            get { return new List<string> { @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)" }; }
+            get { return  @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)" ; }
         }
 
         internal override Color FocusedColor
@@ -89,7 +89,7 @@ namespace miRobotEditor.Languages
 
         public override Regex FieldRegex
         {
-            get { return new Regex("( num )", RegexOptions.IgnoreCase); }
+            get { return new Regex(@"^([^\r\n]*)(tooldata|wobjdata|num|mecunit|string|datapos|intnum|bool|signaldo|dignaldi|signalgo|signalgi)\s+([\$0-9a-zA-Z_\[\],\$]+)(:=)?([^\r\n]*)", RegexOptions.IgnoreCase); }
         }
 
         public override Regex EnumRegex
@@ -112,6 +112,13 @@ namespace miRobotEditor.Languages
         {
             get { return new Regex("SignalDI|SignalDO|SignalGI|SignalGO"); }
         }
+
+        public override string ExtractXYZ(string positionstring)
+        {
+            throw new NotImplementedException();
+            var p = new PositionBase(positionstring);
+            return p.ExtractFromMatch();
+        }   
 
         #region Folding Section
 
@@ -164,10 +171,10 @@ namespace miRobotEditor.Languages
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
-            string[] s = Regex.Split(section.Title, "æ");
+            var s = Regex.Split(section.Title, "æ");
 
-            int start = section.StartOffset + s[0].Length;
-            int end = section.Length - (s[0].Length + s[1].Length);
+            var start = section.StartOffset + s[0].Length;
+            var end = section.Length - (s[0].Length + s[1].Length);
 
 
             return doc.GetText(start, end);

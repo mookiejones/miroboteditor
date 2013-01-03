@@ -16,9 +16,8 @@ namespace miRobotEditor.GUI
     [Localizable(false)]
     public partial class DummyDoc : UserControl, INotifyPropertyChanged
     {
-
-
         public object Host { get; set; }
+
         private string _title;
 
         public string Title
@@ -44,21 +43,46 @@ namespace miRobotEditor.GUI
 
         #region Properties
 
-        public string FileName { get; set; }
+        public string Filename { get; set; }
+
+      
+
+        public static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(Editor), typeof(DummyDoc));
 
         public Editor Source
         {
-            get { return source; }
+            get { return (Editor)GetValue(SourceProperty); }
+            set
+            {
+                SetValue(SourceProperty, value);
+                OnPropertyChanged("Source");
+            }
         }
+
+
+        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(Editor), typeof(DummyDoc));
 
         public Editor Data
         {
-            get { return data; }
+            get { return (Editor)GetValue(DataProperty); }
+            set
+            {
+                SetValue(DataProperty, value);
+                OnPropertyChanged("Data");
+            }
         }
 
+        public static readonly DependencyProperty TextBoxProperty = DependencyProperty.Register("TextBox", typeof (Editor),typeof (DummyDoc));
 
-        public Editor TextBox { get; set; }
+        public Editor TextBox
+        {
+            get { return (Editor) GetValue(TextBoxProperty); }
+            set { SetValue(TextBoxProperty, value);
+                OnPropertyChanged("TextBox");
+            }
+        }
 
+       
 
         #endregion
 
@@ -86,13 +110,17 @@ namespace miRobotEditor.GUI
                 {
                     case true:
 
-                        Data.Load(Path.GetDirectoryName(FileName) + "\\" + FileLanguage.DataName);
+                        Data.Text = FileLanguage.DataText;
+                        Data.Filename = Path.Combine(Path.GetDirectoryName(Filename) , FileLanguage.DataName);
+                        Data.SetHighlighting();
                         Data.Visibility = Visibility.Visible;
                         grid.Visibility = Visibility.Visible;
                         Grid.SetRow(grid, 1);
                         Grid.SetRow(data, 2);
                         break;
                     case false:
+                        if (Data == null)
+                            Data = new Editor();
                         Data.Visibility = Visibility.Collapsed;
                         grid.Visibility = Visibility.Collapsed;
                         break;
@@ -102,32 +130,36 @@ namespace miRobotEditor.GUI
      
         public void CanReload(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = File.Exists(FileName);
+            e.CanExecute = File.Exists(Filename);
         }
 
         public  void ExecuteReload(object sender, ExecutedRoutedEventArgs e)
         {
-            Load(FileName);           
+            Load(Filename);           
         }
 
         public void Load(string filename)
         {
-            FileName = filename;
-
-            FileLanguage = AbstractLanguageClass.GetRobotType(FileName);
+            Filename = filename;
+            Instance = this;
+            FileLanguage = AbstractLanguageClass.GetRobotType(Filename);
             grid.IsAnimated = false;
             //TODO Set Icon For File
 
             //TODO Get Files Based in language 
+            Source.Filename = filename;
+            Source.Text = FileLanguage.SourceText;           
+            Source.SetHighlighting();
 
-            if ((FileLanguage is Languages.KUKA) && (!String.IsNullOrEmpty(FileLanguage.SourceText)) && (FileLanguage.SourceName != null))
-                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => Source.Load(Path.GetDirectoryName(FileName) + "\\" + FileLanguage.SourceName)));
-            else
-                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => Source.Load(FileName)));
+           
             if ((FileLanguage is Languages.KUKA) && (!String.IsNullOrEmpty(FileLanguage.DataText)) && (Source.Text != FileLanguage.DataText))
             {
-                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => ShowGrid = true));
-                Dispatcher.Invoke(DispatcherPriority.Normal,new Action(() => Data.Load(Path.GetDirectoryName(FileName) + "\\" + FileLanguage.DataName)));
+                ShowGrid = true;
+//                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => ShowGrid = true));
+                Data.Filename = Path.GetDirectoryName(Filename) + "\\" + FileLanguage.DataName;
+                Data.Text = FileLanguage.DataText;
+              
+                Data.SetHighlighting();
             }
             else
             {
@@ -135,7 +167,7 @@ namespace miRobotEditor.GUI
             }
 
             // Select Original File
-            TextBox = source.FileName == filename ? source : data;
+            TextBox = source.Filename == filename ? source : data;
             grid.IsAnimated = true;
            
         }
@@ -143,10 +175,10 @@ namespace miRobotEditor.GUI
         private void ReloadFile(object sender, EventArgs e)
         {
             // Dispatcher is used because of the FileChanged Events
-            if (!String.IsNullOrEmpty(Source.FileName))
+            if (!String.IsNullOrEmpty(Source.Filename))
                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => Source.Reload()));
             // Dispatcher is used because of the FileChanged Events
-            if (!String.IsNullOrEmpty(data.FileName))
+            if (!String.IsNullOrEmpty(data.Filename))
                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => Data.Reload()));
         }
 
@@ -162,13 +194,13 @@ namespace miRobotEditor.GUI
             }
         }
 
-        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        public void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (IsVisible)
             Instance = this;
             if (!(sender is Editor)) return;
             TextBox = sender as Editor;
-            FileLanguage=AbstractLanguageClass.GetRobotType(FileName);
+            FileLanguage=AbstractLanguageClass.GetRobotType(Filename);
         }
 
         public void Find()

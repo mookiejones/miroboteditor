@@ -69,9 +69,9 @@ namespace miRobotEditor.Languages
 
 
 
-        internal override List<string> FunctionItems
+        internal override string FunctionItems
         {
-            get { return new List<string> { "(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)" }; }
+            get { return   "(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)" ; }
         }
     
         internal override sealed AbstractFoldingStrategy FoldingStrategy{get;set;}
@@ -189,6 +189,12 @@ namespace miRobotEditor.Languages
         public override string CommentChar {get { return "!";}}
 
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
+        public override string ExtractXYZ(string positionstring)
+        {
+            throw new NotImplementedException();
+            var p = new PositionBase(positionstring);
+            return p.ExtractFromMatch();
+        }
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
         public override FileModel GetFile(string filename)
