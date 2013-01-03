@@ -5,6 +5,6 @@ namespace miRobotEditor.GUI.KUKA.AdjustST
     {
         private ToolItems _toolItems = new ToolItems();
 
-        public ToolItems ToolItems { get { return _toolItems; } set { _toolItems = value; OnPropertyChanged("ToolItems"); } }
+        public ToolItems ToolItems { get { return _toolItems; } set { _toolItems = value; RaisePropertyChanged("ToolItems"); } }
     }
 }

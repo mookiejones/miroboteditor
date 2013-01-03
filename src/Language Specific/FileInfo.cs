@@ -26,7 +26,7 @@ namespace miRobotEditor.Pads
         public string Comment
         {
             get { return _comment; }
-            set { _comment = value; OnPropertyChanged("Comment"); }
+            set { _comment = value; RaisePropertyChanged("Comment"); }
         }
         public string DirectoryName
         {
@@ -47,7 +47,7 @@ namespace miRobotEditor.Pads
         public bool IsReadOnly
         {
             get { return _fi.IsReadOnly; }
-            set { _fi.IsReadOnly = value; OnPropertyChanged("IsReadOnly");} 
+            set { _fi.IsReadOnly = value; RaisePropertyChanged("IsReadOnly");} 
         }
        
      

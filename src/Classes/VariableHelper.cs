@@ -108,14 +108,14 @@ namespace miRobotEditor.Classes
         	private string _comment = string.Empty;
         	private string _declaration = string.Empty;
         	private int _offset = -1;
-        	public BitmapImage Icon { get{return _icon;} set{_icon = value;OnPropertyChanged("Icon");} }
-        	public string Name { get{return _name;} set{_name=value;OnPropertyChanged("Name");} }
-            public string Type { get{return _type;} set{_type=value;OnPropertyChanged("Type");} }
-            public string Path { get{return _path;} set{_path=value;OnPropertyChanged("Path");} }
-            public string Value { get{return _value;} set{_value=value;OnPropertyChanged("Value");} }
-            public int Offset { get{return _offset;} set{_offset=value;OnPropertyChanged("Offset");} }
-            public string Comment { get{return _comment;} set{_comment=value;OnPropertyChanged("Comment");} }
-            public string Declaration { get{return _declaration;} set{_declaration=value;OnPropertyChanged("Declaration");} }
+        	public BitmapImage Icon { get{return _icon;} set{_icon = value;RaisePropertyChanged("Icon");} }
+        	public string Name { get{return _name;} set{_name=value;RaisePropertyChanged("Name");} }
+            public string Type { get{return _type;} set{_type=value;RaisePropertyChanged("Type");} }
+            public string Path { get{return _path;} set{_path=value;RaisePropertyChanged("Path");} }
+            public string Value { get{return _value;} set{_value=value;RaisePropertyChanged("Value");} }
+            public int Offset { get{return _offset;} set{_offset=value;RaisePropertyChanged("Offset");} }
+            public string Comment { get{return _comment;} set{_comment=value;RaisePropertyChanged("Comment");} }
+            public string Declaration { get{return _declaration;} set{_declaration=value;RaisePropertyChanged("Declaration");} }
 
         }
 

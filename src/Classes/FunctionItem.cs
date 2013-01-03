@@ -5,15 +5,12 @@ namespace miRobotEditor.Classes
 {
     public class FunctionItem
     {
-        private readonly string _text;
-        private readonly string _name;
-        private readonly string _returns;
-        private readonly string _parameters;
-        public string Text
-        {
-            get { return _text; }
-        }
+        public string Text { get;  set; }
+        public string Name { get;  set; }
+        public string Returns { get;  set; }
+        public string Parameters { get;  set; }
 
+      
         public int Offset { get; set; }
 
         [Localizable(false)]
@@ -22,9 +19,9 @@ namespace miRobotEditor.Classes
             get
             {
                 var sb = new StringBuilder();
-                sb.AppendLine("Name:= " + _name);
-                if (!(string.IsNullOrEmpty(_returns))) sb.AppendLine("Returns:= " + _returns);
-                if (!(string.IsNullOrEmpty(_parameters))) sb.AppendLine("Parameters:= " + _parameters);
+                sb.AppendLine("Name:= " + Name);
+                if (!(string.IsNullOrEmpty(Returns))) sb.AppendLine("Returns:= " + Returns);
+                if (!(string.IsNullOrEmpty(Parameters))) sb.AppendLine("Parameters:= " + Parameters);
                 return sb.ToString();
             }
 
@@ -35,15 +32,15 @@ namespace miRobotEditor.Classes
 
         public FunctionItem(string text, string name, string returns, string parameters,int offset)
         {
-            _text = text;
-            _name = name;
-            _returns = returns;
-            _parameters = parameters;
+            Text = text;
+            Name = name;
+            Returns = returns;
+            Parameters = parameters;
             Offset = offset;
         }
         public override string ToString()
         {
-            return _text;
+            return Text;
         }
 
     }

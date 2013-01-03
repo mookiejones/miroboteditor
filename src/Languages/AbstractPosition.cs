@@ -6,7 +6,7 @@ using System.Text;
 
 namespace miRobotEditor.Languages
 {
-    class PositionBase:IPosition
+    public class PositionBase:IPosition
     {
         public PositionBase(string value)
         {           

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Media.Imaging;
@@ -19,14 +20,14 @@ namespace miRobotEditor.Classes
         private string _declaration;
         private int _offset;
         private string _comment;
-        public BitmapImage Icon { get { return _icon; } set { _icon = value; OnPropertyChanged("Icon"); } }
-        public string Name { get { return _name; } set { _name = value; OnPropertyChanged("Name"); } }
-        public string Comment { get { return _comment; } set { _comment = value; OnPropertyChanged("Comment"); } }       
-        public string Path { get { return _path; } set { _path = value; OnPropertyChanged("Path"); } }
-        public string Value { get { return _value; } set { _value = value; OnPropertyChanged("Value"); } }
-        public string Type { get { return _type; } set { _type = value; OnPropertyChanged("Type"); } }
-         public string Declaration { get { return _declaration; } set { _declaration = value; OnPropertyChanged("Declaration"); } }
-        public int Offset { get { return _offset; } set { _offset = value; OnPropertyChanged("Offset"); } }
+        public BitmapImage Icon { get { return _icon; } set { _icon = value; RaisePropertyChanged("Icon"); } }
+        public string Name { get { return _name; } set { _name = value; RaisePropertyChanged("Name"); } }
+        public string Comment { get { return _comment; } set { _comment = value; RaisePropertyChanged("Comment"); } }       
+        public string Path { get { return _path; } set { _path = value; RaisePropertyChanged("Path"); } }
+        public string Value { get { return _value; } set { _value = value; RaisePropertyChanged("Value"); } }
+        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged("Type"); } }
+         public string Declaration { get { return _declaration; } set { _declaration = value; RaisePropertyChanged("Declaration"); } }
+        public int Offset { get { return _offset; } set { _offset = value; RaisePropertyChanged("Offset"); } }
 
        private static List<IVariable> _positions = new List<IVariable>();
 
@@ -129,9 +130,14 @@ namespace miRobotEditor.Classes
            var icon = Utilities.LoadBitmap(iconpath);
            var lang = DummyDoc.Instance.FileLanguage;
            var m = VariableHelper.FindMatches(regex, filename);
-           var isxyz =
-               System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath).
-                   Contains("XYZ");
+           var isxyz =System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath).Contains("XYZ");
+           if (m==null)
+           {
+               var s = new StringBuilder();
+               MessageViewModel.Instance.Add("Variable for " + lang.RobotType.ToString(),
+                                             "Does not exist in VariableBase.GetVariables", null);
+               return null;
+           }
            while (m.Success)
            {
                var p = new Position

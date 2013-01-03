@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -30,7 +31,7 @@ namespace miRobotEditor.Templates
             if (cell == null | !cell.CurrentCell.IsValid) return;
             var item = cell.CurrentCell.Item as IVariable;
 
-            if (item != null) MainWindow.Instance.OpenFile(item);
+            if ((item != null)&&(File.Exists(item.Path))) MainWindow.Instance.OpenFile(item);
             e.Handled = true;
         }
         public T TryFindParent<T>(DependencyObject child) where T : DependencyObject
@@ -82,6 +83,10 @@ namespace miRobotEditor.Templates
             //if it's not a ContentElement/FrameworkElement, rely on VisualTreeHelper
             return VisualTreeHelper.GetParent(child);
         }
- 
+
+        private void ToolTip_Opening(object sender, ToolTipEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

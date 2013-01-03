@@ -66,7 +66,7 @@ namespace miRobotEditor.Forms
             set
             {
                 _updateapplication = value;
-                OnPropertyChanged("UpdateApplication");
+                RaisePropertyChanged("UpdateApplication");
             }
         }
         public string UpdateText
@@ -93,7 +93,7 @@ namespace miRobotEditor.Forms
         public bool AskForUpdates
         {
             get { return Settings.Default.CheckForUpdates; }
-            set { Settings.Default.CheckForUpdates = value; OnPropertyChanged("AskForUpdates"); }
+            set { Settings.Default.CheckForUpdates = value; RaisePropertyChanged("AskForUpdates"); }
         }
 
         #endregion

@@ -15,14 +15,7 @@
     <UserControl.InputBindings>
         <KeyBinding Key="F5" Command="{StaticResource Reload}"/>
     </UserControl.InputBindings>
-        <Grid >
-        <Grid.Resources>
-            <Style TargetType="{x:Type GUI:Editor}">
-                <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
-                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            </Style>
-        </Grid.Resources>
+        <Grid >        
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>

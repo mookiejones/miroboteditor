@@ -23,12 +23,6 @@
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />        
     </Style>
-    
-    <Style TargetType="GUI:DummyDoc">
-        <Setter Property="Background" Value="{DynamicResource InactiveWindowBrush}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBrush}"/>
-    </Style>
-
     <Style TargetType="ToolBar">
         <Setter Property="Background" Value="{DynamicResource ExpressionDark_Dark}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ExpressionDark_Dark}"/>

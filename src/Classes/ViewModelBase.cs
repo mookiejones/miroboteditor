@@ -8,19 +8,22 @@ namespace miRobotEditor.Classes
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-       public void OnPropertyChanged(string propertyName)
+       public void RaisePropertyChanged(string propertyName)
        {
            if (PropertyChanged!=null)
                PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
        }
+
+       
 
         private string _serializefile;
         public override string SerializeFileName
         {
             get { return _serializefile; }
             set{_serializefile=value;
-                OnPropertyChanged("SerializeFileName");
+                RaisePropertyChanged("SerializeFileName");
             }
         }
+      
     }
 }
