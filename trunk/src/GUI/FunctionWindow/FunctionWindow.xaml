@@ -1,25 +1,32 @@
-﻿<UserControl
+﻿<AvalonDock:LayoutAnchorable
+             xmlns:AvalonDock="http://avalondock.codeplex.com"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:miRobotEditor.GUI" x:Class="miRobotEditor.GUI.FunctionWindow"
              mc:Ignorable="d" 
-             IsVisibleChanged="VisiblityChanged"
+             IsVisibleChanged="VisiblityChanged"  
+   
+    Title="Functions"
+    CanAutoHide="True"
+    CanClose="True"
              d:DesignHeight="300" d:DesignWidth="300">
-
-    <UserControl.DataContext>
-        <local:FunctionWindowViewModel/>
-    </UserControl.DataContext>
-    <UserControl.Resources>
-        <Style TargetType="{x:Type ListViewItem}">
-            <EventSetter Event="MouseDoubleClick" Handler="gMouseDoubleClick"/>
-        </Style>
-    </UserControl.Resources>
-        <ListView ItemsSource="{Binding Items}" MouseMove="ListBoxMouseMove"     SelectedItem="{Binding CurrentItem,Mode=TwoWay}"  >
+ 
+       
+        <ListView ItemsSource="{Binding Items}" MouseMove="ListBoxMouseMove" Background="White" Foreground="Black"    SelectedItem="{Binding CurrentItem,Mode=TwoWay}"  >
+            <ListView.Resources>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="MouseDoubleClick" Handler="gMouseDoubleClick"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.DataContext>
+                <local:FunctionWindowViewModel/>
+            </ListView.DataContext>
             <ListView.ItemTemplate>
                 <DataTemplate>
                 <TextBlock Text="{Binding Text}"/>
             </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-</UserControl>
+    
+</AvalonDock:LayoutAnchorable>

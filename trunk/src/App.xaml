@@ -10,19 +10,26 @@
                 <ResourceDictionary Source="Themes/ExtendedGridSplitter.xaml" />
                 <ResourceDictionary Source="Themes/AdjustST.xaml" />
            <!--         <ResourceDictionary Source="Themes/ExplorerWindow.xaml" /> -->
-                <ResourceDictionary Source="Themes/Colors.xaml" />
-                <ResourceDictionary Source="Themes/StatusBar.xaml" />
+               
+                <!--<ResourceDictionary Source="Themes/StatusBar.xaml" />
                 <ResourceDictionary Source="Themes/Styles.xaml" />
         		<ResourceDictionary Source="Themes/MenuDictionary.xaml" />
-                <ResourceDictionary Source="GUI/StatusBarTemplate/StatusBarTemplate.xaml"/>
-                <ResourceDictionary Source="Themes/ExpressionDark/AvalonEdit.xaml"/>
-                <ResourceDictionary Source="Themes/ExpressionDark/Brushes.xaml"/>               
+                <ResourceDictionary Source="GUI/StatusBarTemplate/StatusBarTemplate.xaml"/>-->
+                <!--<ResourceDictionary Source="Themes/ExpressionDark/AvalonEdit.xaml"/>-->
+                <!--<ResourceDictionary Source="Themes/ExpressionDark/Brushes.xaml"/>               
                 <ResourceDictionary Source="Themes/ExpressionDark/Menu.xaml"/>
                 <ResourceDictionary Source="Themes/ExpressionDark/ToolBar.xaml"/>
                 <ResourceDictionary Source="Themes/ExpressionDark/Button.xaml"/>
                 <ResourceDictionary Source="Themes/ExpressionDark/ComboBox.xaml"/>
                 <ResourceDictionary Source="Expander.xaml"/>
                 <ResourceDictionary Source="Themes/ExpressionDark/GroupBox.xaml"/>
+                <ResourceDictionary Source="Themes/ExpressionDark/ExplorerControl.xaml"/>
+                <ResourceDictionary Source="Themes/ExpressionDark/UserControl.xaml"/>
+                <ResourceDictionary Source="Themes/ExpressionDark/TextBox.xaml"/>
+                <ResourceDictionary Source="Themes/ExpressionDark/DoubleStyle.xaml"/>
+                <ResourceDictionary Source="Themes/ExpressionDark/ScrollBar.xaml"/>
+                <ResourceDictionary Source="Themes/ExpressionDark/TabControl.xaml"/>-->
+              
             </ResourceDictionary.MergedDictionaries>                 
         </ResourceDictionary>
         

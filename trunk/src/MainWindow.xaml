@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Window xmlns:explorer="clr-namespace:miRobotEditor.GUI.ExplorerControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ad="http://avalondock.codeplex.com" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:ctrl="clr-namespace:miRobotEditor.Controls" xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter" xmlns:GUI="clr-namespace:miRobotEditor.GUI"
-        xmlns:Notes="clr-namespace:miRobotEditor.GUI.Notes" xmlns:miRobotEditor="clr-namespace:miRobotEditor"
+        xmlns:Notes="clr-namespace:miRobotEditor.GUI.Notes" xmlns:miRobotEditor="clr-namespace:miRobotEditor" xmlns:angle="clr-namespace:miRobotEditor.GUI.AngleConverter"
         xmlns:Behaviour="clr-namespace:miRobotEditor.Behaviour"
         mc:Ignorable="d"
 	x:Class="miRobotEditor.MainWindow"
@@ -360,8 +360,8 @@
                     </StackPanel>
                 </DataTemplate>
             </ad:DockingManager.DocumentHeaderTemplate>
-            <ad:DockingManager.Theme>
-                <ad:ExpressionDarkTheme/>
+            <ad:DockingManager.Theme>     
+                <ad:ExpressionLightTheme/>
             </ad:DockingManager.Theme>
 			<ad:LayoutRoot>                
 				<ad:LayoutPanel Orientation="Vertical">
@@ -384,19 +384,9 @@
 						</ad:LayoutDocumentPaneGroup>
 						<ad:LayoutAnchorablePaneGroup DockWidth="250">
 							<ad:LayoutAnchorablePane>
-								<ad:LayoutAnchorable
-									Title="Functions"
-									CanAutoHide="True"
-									CanClose="True">
-									<GUI:FunctionWindow/>
-								</ad:LayoutAnchorable>
-								<ad:LayoutAnchorable
-									Title="Angle Converter"
-									CanAutoHide="True">
-									<AngleConverter:AngleConverterWpf
-										x:Name="_angleconverter"
-										VerticalAlignment="Top" />
-								</ad:LayoutAnchorable>
+                                <GUI:FunctionWindow /> 
+                                <angle:AngleConverterWpf/>
+                                
 							</ad:LayoutAnchorablePane>
 						</ad:LayoutAnchorablePaneGroup>
 					</ad:LayoutPanel>

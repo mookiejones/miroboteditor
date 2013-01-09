@@ -1,9 +1,10 @@
-﻿C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 
 FC:\Programming\editor\miroboteditor\trunk\src\App.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Controls\FrmShift.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Controls\NumericUpDown.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Controls\ShiftBoxControl.xaml;;
+FC:\Programming\editor\miroboteditor\trunk\src\GUI\ImportWindow\ImportWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\MainWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Forms\AboutWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\GUI\AngleConverter\AngleConverterWPF.xaml;;
@@ -24,6 +25,8 @@ FC:\Programming\editor\miroboteditor\trunk\src\Pads\ArchiveInfo\ArchiveInfo.xaml
 FC:\Programming\editor\miroboteditor\trunk\src\Pads\FTPBrowser\ConnectionFormWindow.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Pads\Shift\TransformBase.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Pads\Shift\ShiftWindow.xaml;;
+FC:\Programming\editor\miroboteditor\trunk\src\Themes\ExpressionDark\AvalonEdit.xaml;;
+FC:\Programming\editor\miroboteditor\trunk\src\Themes\ExpressionDark\ExplorerControl.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Themes\ExtendedGridSplitter.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Themes\Generic.xaml;;
 FC:\Programming\editor\miroboteditor\trunk\src\Themes\Styles.xaml;;

@@ -2,18 +2,31 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:miRobotEditor.Controls"
                     >
+    
+    <Style TargetType="TextBlock" x:Key="ExtendedTextBlock">  
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Opacity" Value="1"/>
+
+      
+        <Setter Property="Foreground" Value="White"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#595959"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="#333333"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     <!-- Vertical GridSplitter Handle -->
-    <Style x:Key="VerticalGridSplitterHandleStyle"
-           TargetType="ToggleButton">
-        <Setter Property="Cursor"
-                Value="Hand" />
-        <Setter Property="IsChecked"
-                Value="False" />
+    <Style x:Key="VerticalGridSplitterHandleStyle" TargetType="ToggleButton">
+        <Setter Property="Cursor"     Value="Hand" />
+        <Setter Property="IsChecked"  Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
                     <Grid x:Name="Root">
-
                         <!-- VSM -->
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -23,8 +36,7 @@
                                 </VisualStateGroup.Transitions>
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="BackgroundBorder"
-                                                         Storyboard.TargetProperty="Opacity"  Duration="00:00:00.3"  To="0.4" />
+                                        <DoubleAnimation Storyboard.TargetName="BackgroundBorder" Storyboard.TargetProperty="Opacity"  Duration="00:00:00.3"  To="0.4" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
@@ -50,12 +62,10 @@
                         <Grid HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch">
                             <!-- Background -->
-                            <Border x:Name="BackgroundBorder" CornerRadius="3" BorderBrush="#FF000000" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0" />
+                            <Border x:Name="BackgroundBorder" CornerRadius="3" BorderBrush="BlueViolet" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0" />
 
                             <!-- Vertical Handle Icon -->
                             <Path Data="M0,0 L0,6 L3,3 Z"
-                                  Stroke="Black"
-                                  Fill="Black"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   RenderTransformOrigin="0.5,0.5">
@@ -75,6 +85,9 @@
     <!-- Horizontal GridSplitter Handle -->
     <Style x:Key="HorizontalGridSplitterHandleStyle"  TargetType="ToggleButton">
         <Setter Property="Cursor"  Value="Hand" />
+        <Setter Property="Background" Value="#595959"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="IsChecked"  Value="False" />
         <Setter Property="Template">
             <Setter.Value>
@@ -111,9 +124,9 @@
 
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <!-- Box -->
-                            <Border x:Name="BackgroundBorder" CornerRadius="1" BorderBrush="#FF000000" BorderThickness="0" HorizontalAlignment="Stretch" Height="12" VerticalAlignment="Stretch" Width="12" Background="{TemplateBinding Background}" Opacity="1" >
+                            <Border x:Name="BackgroundBorder" CornerRadius="1" BorderBrush="Black" BorderThickness=".75" HorizontalAlignment="Stretch" Height="12" VerticalAlignment="Stretch" Width="12" Background="{TemplateBinding Background}" Opacity="1" >
                                 <!-- Arrows -->
-                                <Path Data="M1,6 l3,-3.5 l3,3.5 M1,9.5 l3,-3.5 l3,3.5" x:Name="Arrow" HorizontalAlignment="Center" StrokeThickness=".75" Stroke="Black" RenderTransformOrigin="0.5,0.5" Opacity="1">
+                                <Path Data="M1,6 l3,-3.5 l3,3.5 M1,9.5 l3,-3.5 l3,3.5" x:Name="Arrow" Stroke="White" HorizontalAlignment="Center" StrokeThickness=".75" RenderTransformOrigin="0.5,0.5" Opacity="1">
                                     <Path.RenderTransform>
                                         <RotateTransform x:Name="IconRotateTransform" Angle="0" />
                                     </Path.RenderTransform>
@@ -127,9 +140,12 @@
     </Style>
   
     <!-- Label Handle -->
-    <Style x:Key="LabelStyle"  TargetType="Button">
+    <Style x:Key="LabelStyle"  TargetType="Button">       
         <Setter Property="Cursor"  Value="Hand" />
         <Setter Property="Visibility" Value="Visible"  />
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -152,10 +168,22 @@
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <!-- Box -->
                             <Border x:Name="BackgroundBorder"  CornerRadius="1" BorderThickness="0.1" HorizontalAlignment="Left"   Opacity="1" >
+                                <Border.Resources>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Stroke" Value="Black"/>
+                                        <Setter Property="Fill" Value="#595959"/>
+                                        <Setter Property="StrokeThickness" Value=".75"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Stroke" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Resources>
                                 <!-- Arrows -->
-                                <Grid>
-                                    <Path Data="M0,0 L0,16 S0,18 2,18 L60,18 s0,0 2,-1 L80,0" x:Name="border" Stroke="Black"  Fill="{DynamicResource InactiveWindowBrush}" StrokeThickness=".75"  RenderTransformOrigin="0.5,0.5" Opacity="1"/>                     
-                                </Grid>
+                               
+                                    <Path Data="M0,0 L0,16 S0,18 2,18 L60,18 s0,0 2,-1 L80,0" x:Name="border"   RenderTransformOrigin="0.5,0.5" Opacity="1"/>                     
+                               
                             </Border>
                         </Grid>
                     </Grid>
@@ -166,6 +194,8 @@
 
     <!-- SwitchArrow Handle -->
     <Style x:Key="SwitchArrowStyle"  TargetType="ToggleButton">
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="Cursor"  Value="Hand" />
         <Setter Property="Visibility" Value="Visible"/>
         <Setter Property="IsChecked"  Value="False" />
@@ -205,9 +235,9 @@
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
                             <!-- Box -->
-                            <Border x:Name="BackgroundBorder" CornerRadius="1" BorderBrush="#FF000000" BorderThickness="0" HorizontalAlignment="Stretch" Height="12" VerticalAlignment="Stretch" Width="12" Background="{TemplateBinding Background}" Opacity="1" >
+                            <Border x:Name="BackgroundBorder" CornerRadius="1" BorderBrush="#Red" BorderThickness="0" HorizontalAlignment="Stretch" Height="12" VerticalAlignment="Stretch" Width="12" Background="{TemplateBinding Background}" Opacity="1" >
                                 <!-- Arrows -->
-                                <Path Data="M2,4 l2,-2 l2,2Z M4,4 L4,11 M6,8 l2,2 l2,-2Z M8,7.5 L8,2" x:Name="Arrow"  Fill="Black" StrokeThickness=".75" Stroke="Black" RenderTransformOrigin="0.5,0.5" Opacity="1">
+                                <Path Data="M2,4 l2,-2 l2,2Z M4,4 L4,11 M6,8 l2,2 l2,-2Z M8,7.5 L8,2" x:Name="Arrow"  Fill="Olive" StrokeThickness=".75" Stroke="Honeydew" RenderTransformOrigin="0.5,0.5" Opacity="1">
                                         <Path.RenderTransform>
                                         <RotateTransform x:Name="IconRotateTransform" Angle="0" />
                                     </Path.RenderTransform>
@@ -222,11 +252,6 @@
 
     <!-- GridSplitter Preview -->
     <Style x:Key="GridSplitterPreviewStyle"  TargetType="Control">
-        <Setter Property="Background" >
-            <Setter.Value>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-            </Setter.Value>
-        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Control">
@@ -236,14 +261,14 @@
                         <Rectangle Fill="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" />
 
                         <!-- Horizontal Template -->
-                        <Grid x:Name="HorizontalTemplate" Height="6">
+                        <Grid x:Name="HorizontalTemplate" Height="6"/>
                             <!-- Just show the faint gray grid splitter rectangle with no other details -->
-                        </Grid>
+                      
 
                         <!-- Vertical Template -->
-                        <Grid x:Name="VerticalTemplate"  Visibility="Collapsed"   Width="6">
+                        <Grid x:Name="VerticalTemplate"  Visibility="Collapsed"   Width="6"/>
                             <!-- Just show the faint gray grid splitter rectangle with no other details -->
-                        </Grid>
+                       
 
                     </Grid>
                 </ControlTemplate>
@@ -253,8 +278,7 @@
 
     <!-- ExtendedGridSplitter -->
     <Style TargetType="controls:ExtendedGridSplitter">
-        <Setter Property="Background" Value="#FF646464" />
-        <Setter Property="IsTabStop" Value="true" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="PreviewStyle"   Value="{StaticResource GridSplitterPreviewStyle}" />
         <Setter Property="VerticalHandleStyle"   Value="{StaticResource VerticalGridSplitterHandleStyle}" />
         <Setter Property="HorizontalHandleStyle" Value="{StaticResource HorizontalGridSplitterHandleStyle}" />
@@ -264,6 +288,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ExtendedGridSplitter">
+                   
                     <Grid x:Name="Root"  IsHitTestVisible="{TemplateBinding IsEnabled}">
 
                         <!-- VSM -->
@@ -291,8 +316,7 @@
                         </VisualStateManager.VisualStateGroups>
 
                         <!-- Background -->
-                        <Rectangle x:Name="GridSplitterBackground" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                                   StrokeThickness="0" />
+                        <Rectangle x:Name="GridSplitterBackground" Fill="#333333" StrokeThickness="0" />
 
                         <!-- Horizontal Template -->
                         <Grid x:Name="HorizontalTemplate">
@@ -306,27 +330,24 @@
                                 <ColumnDefinition Width="14" />
                                 <ColumnDefinition Width="5" />
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="lblSource" Grid.Column="1" VerticalAlignment="Center"  Tag="Source" Background="White" IsHitTestVisible="True" Style="{TemplateBinding LabelStyle}" RenderTransformOrigin="0.5,0.5">
+                            <Button x:Name="lblSource" Grid.Column="1" Tag="Source" Style="{TemplateBinding LabelStyle}" RenderTransformOrigin="0.5,0.5">
                                 <Button.RenderTransform>
                                     <ScaleTransform ScaleY="1" />
                                 </Button.RenderTransform>
                             </Button>
-                            <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="Source"  HorizontalAlignment="Center" Opacity="1" />
+                            <TextBlock Style="{StaticResource ExtendedTextBlock}"  Grid.Column="1" Text="Source" />
 
-                <!--            <ToggleButton x:Name="SwitchArrows" Grid.Column="2" IsHitTestVisible="True" Style="{TemplateBinding SwitchArrowStyle}" RenderTransformOrigin="0.5,0.5">
-                                <ToggleButton.RenderTransform>
-                                    <ScaleTransform ScaleY="1" />
-                                </ToggleButton.RenderTransform>
-                            </ToggleButton>-->
-                            <Button x:Name="lblData" Grid.Column="3" Tag="Data" Background="{DynamicResource FocusBrush}"  VerticalAlignment="Center" IsHitTestVisible="True" Style="{TemplateBinding LabelStyle}" RenderTransformOrigin="0.5,0.5">
+                            <Button x:Name="lblData" Grid.Column="3" Tag="Data" IsHitTestVisible="True" Style="{TemplateBinding LabelStyle}" RenderTransformOrigin="0.5,0.5">
                                 <Button.RenderTransform>
                                     <ScaleTransform ScaleY="-1" ScaleX="-1"/>
                                     </Button.RenderTransform>
                                     </Button>
-                            <TextBlock VerticalAlignment="Center" Grid.Column="3" Text="Data"  HorizontalAlignment="Center" Opacity="1" />
+                          
+                            
+                            <TextBlock Style="{StaticResource ExtendedTextBlock}" Grid.Column="3" Text="Data"  />
 
                             <!-- Horizontal GridSplitter Handle -->
-                            <ToggleButton x:Name="HorizontalGridSplitterHandle" Grid.Column="5" IsHitTestVisible="True" Style="{TemplateBinding HorizontalHandleStyle}" RenderTransformOrigin="0.5,0.5">
+                            <ToggleButton x:Name="HorizontalGridSplitterHandle"  Grid.Column="5" IsHitTestVisible="True" Style="{TemplateBinding HorizontalHandleStyle}" RenderTransformOrigin="0.5,0.5">
                                 <ToggleButton.RenderTransform>
                                     <ScaleTransform ScaleY="-1" />
                                 </ToggleButton.RenderTransform>
@@ -350,7 +371,7 @@
                         </Grid>
 
                         <!-- Focus Visual -->
-                        <Rectangle x:Name="FocusVisual" Stroke="#FF6DBDD1" StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
+                        <Rectangle x:Name="FocusVisual" Stroke="Black" StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

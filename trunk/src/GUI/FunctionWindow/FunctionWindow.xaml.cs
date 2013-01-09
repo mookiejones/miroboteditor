@@ -14,7 +14,7 @@ namespace miRobotEditor.GUI
     /// <summary>
     /// Interaction logic for FunctionPanel.xaml
     /// </summary>
-    public partial class FunctionWindow : UserControl
+    public partial class FunctionWindow : AvalonDock.Layout.LayoutAnchorable
     {
 
         private static FunctionWindow _instance =new FunctionWindow();
@@ -22,7 +22,7 @@ namespace miRobotEditor.GUI
         public FunctionWindow()
         {
             InitializeComponent();
-            this.DataContext = new FunctionWindowViewModel();
+
             Instance = this;
         }
 
@@ -82,7 +82,7 @@ namespace miRobotEditor.GUI
         }
 
 
-        private void VisiblityChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void VisiblityChanged(object sender, EventArgs e)
         {
             if (IsVisible)
                 FunctionWindowViewModel.Instance.Timer.Start();
@@ -97,6 +97,11 @@ namespace miRobotEditor.GUI
             var i = (FunctionItem)((ListViewItem)sender).Content;
             DummyDoc.Instance.TextBox.SelectText(i.Text);
             DummyDoc.Instance.TextBox.JumpTo(i);
+        }
+
+        private void LayoutAnchorable_IsVisibleChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 
