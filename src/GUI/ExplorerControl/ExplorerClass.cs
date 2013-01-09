@@ -44,6 +44,8 @@ namespace miRobotEditor.GUI.ExplorerControl
 		public ExplorerClass()
 		{
 			HideSelection = false;
+            this.BackColor = System.Drawing.Color.White;
+            this.ForeColor = System.Drawing.Color.Black;
 		}
 		public void AddRobotNode(string sFile, string sName)
 		{

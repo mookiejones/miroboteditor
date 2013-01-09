@@ -13,7 +13,7 @@ namespace miRobotEditor.GUI.AngleConverter
 	/// <summary>
 	/// Interaction logic for AngleConverterWPF.xaml
 	/// </summary>
-	public partial class AngleConverterWpf : UserControl
+	public partial class AngleConverterWpf : AvalonDock.Layout.LayoutAnchorable
 	{
 		private static AngleConverterWpf _instance;
 		public static AngleConverterWpf Instance

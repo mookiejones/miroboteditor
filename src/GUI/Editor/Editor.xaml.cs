@@ -136,15 +136,13 @@ namespace miRobotEditor.GUI
         #region Constructor
 
         public Editor(String text)
-        {
-            InitializeComponent();
+        {           
             InitializeComponent();
             Options = TextEditorOptions.Instance;
             ShowLineNumbers = true;
             RegisterSyntaxHighlighting();
             _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
             TextArea.LeftMargins.Insert(0, _iconBarMargin);
-
             TextArea.DefaultInputHandler.NestedInputHandlers.Add(new SearchInputHandler(TextArea));
 
             AddBindings();

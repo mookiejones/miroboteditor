@@ -471,7 +471,7 @@ namespace miRobotEditor
             switch (name)
             {
                 case "Angle Converter":
-                    tool.Content = new GUI.AngleConverter.AngleConverterWpf { VerticalContentAlignment = VerticalAlignment.Top, MaxWidth = 250 };
+                    tool.Content = new GUI.AngleConverter.AngleConverterWpf();
                     tool.AutoHideMinWidth = 219;
                     break;
                 case "Functions":
@@ -564,6 +564,10 @@ namespace miRobotEditor
 
         private void ImportRobot(object sender, ExecutedRoutedEventArgs e)
         {
+
+            //TODO ReImplement this
+
+
             objectBrowser.ShowWizard("Backup Folder");           
             AddTool("Object Browser");
             AddTool("ArchiveInfo");

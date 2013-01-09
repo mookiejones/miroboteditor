@@ -47,27 +47,26 @@ namespace miRobotEditor.GUI
 
       
 
-        public static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(Editor), typeof(DummyDoc));
-
+       
         public Editor Source
         {
-            get { return (Editor)GetValue(SourceProperty); }
+            get {return source; }
             set
             {
-                SetValue(SourceProperty, value);
+                source = value;
                 OnPropertyChanged("Source");
             }
         }
 
 
-        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(Editor), typeof(DummyDoc));
-
+       
+     
         public Editor Data
         {
-            get { return (Editor)GetValue(DataProperty); }
+            get {return data; }
             set
             {
-                SetValue(DataProperty, value);
+                data=value;
                 OnPropertyChanged("Data");
             }
         }
