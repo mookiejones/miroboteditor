@@ -79,7 +79,7 @@ namespace miRobotEditor.Languages
 
         public override Regex MethodRegex
         {
-            get { return new Regex("( proc )", RegexOptions.IgnoreCase); }
+            get { return new Regex(@"( proc )\s*([\d\w]*)\(([^\)]*)", RegexOptions.IgnoreCase); }
         }
 
         public override Regex StructRegex
@@ -96,12 +96,12 @@ namespace miRobotEditor.Languages
         {
             get { return new Regex(String.Empty); }
         }
-
+        private const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
         public override Regex XYZRegex
         {
-            get { return new Regex("(robtarget|jointtarget)"); }
+            get { return new Regex(@"^[PERS ]*(robtarget|jointtarget) ([\w\d_]*)",Ro); }
         }
-
+        //@"^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)(=\{[^}}]*\})?"
         public override string CommentChar
         {
             get { return "!"; }

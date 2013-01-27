@@ -19,19 +19,19 @@ namespace miRobotEditor.Languages
             : base(start, end)
         {
             Message = message;
-            ToolTip = new CustomToolTip { Title = text, Message = text };
+            ToolTip = new Classes.ToolTipViewModel { Title = text, Message = text };
             Text = Text;
         }
 
         public LanguageFold(string message)
         {
             Message = message;
-            ToolTip = new CustomToolTip();
+            ToolTip = new Classes.ToolTipViewModel();
         }
 
         public string Text { get; private set; }
         public string Message { get; private set; }
-        public CustomToolTip ToolTip { get; private set; }
+        public Classes.ToolTipViewModel ToolTip { get; private set; }
        
     }
 

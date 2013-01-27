@@ -234,30 +234,37 @@ C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.applicatio
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.exe
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\miRobotEditor.pdb
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.dll
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Expression.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Caliburn.Metro.Core.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Caliburn.Metro.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Caliburn.Micro.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ICSharpCode.AvalonEdit.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Ionic.Zip.Reduced.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\MahApps.Metro.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\MsgBox.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\NLog.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\System.Windows.Interactivity.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.pdb
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.xml
-C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\AvalonDock.Themes.Expression.pdb
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Caliburn.Micro.pdb
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\Caliburn.Micro.xml
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\System.Windows.Interactivity.xml
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\de\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\es\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\fr\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\hu\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\it\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\pt-BR\AvalonDock.resources.dll
+C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ro\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\ru\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\sv\AvalonDock.resources.dll
 C:\Programming\editor\miroboteditor\trunk\src\bin\Debug\zh-Hans\AvalonDock.resources.dll
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\CustomToolTip.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ListFromFileBox.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Expander.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Notes\NotesWindowTemplate.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\StatusBarTemplate\StatusBarControl.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\StatusBarTemplate\StatusBarTemplate.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\QuantecRemoteView.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\GotoDialog.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\frmReverse.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\SnippetPad.baml
@@ -276,8 +283,10 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\FTPBrowser\FTPAccou
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\Shift\ShiftBase.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\ResourceDictionaries\ExplorerWindowDictionary.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\ResourceDictionaries\LocalizedStrings\en-us.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Resources\Icons.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Templates\VisualVariableItem.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\AdjustST.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Brushes.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExplorerWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\Brushes.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\Button.baml
@@ -288,10 +297,12 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\Me
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\ScrollBar.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\TabControl.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\TextBox.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\ToolBar.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\MenuDictionary.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\MenuStyle.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Metro\MetroBrushes.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\StatusBar.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\UserControl.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ToolTip.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\App.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\CustomToolTip.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\FrmShift.g.cs
@@ -300,7 +311,7 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ShiftBoxControl
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ImportWindow\ImportWindow.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\Notes\NotesWindowTemplate.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\StatusBarTemplate\StatusBarControl.g.cs
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\QuantecRemoteView.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\AboutWindow.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\AngleConverter\AngleConverterWPF.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\DummyDoc\DummyDoc.g.cs
@@ -329,6 +340,7 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAIn
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKAKFDDialog.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKASystemFunctions.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\RenamePositionWindow.g.cs
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\FTPBrowser\ConnectionFormWindow.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\FTPBrowser\FTPAccountWindow.g.cs
@@ -341,11 +353,11 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GeneratedInternalTypeHel
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor_MarkupCompile.cache
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor_MarkupCompile.lref
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\App.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\CustomToolTip.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\FrmShift.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\NumericUpDown.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\ShiftBoxControl.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\ImportWindow\ImportWindow.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Forms\AboutWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\AngleConverter\AngleConverterWPF.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\DummyDoc\DummyDoc.baml
@@ -361,10 +373,12 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\GUI\MessageWindow\Messag
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\DatCleanControl.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\KUKASystemFunctions.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Language Specific\RenamePositionWindow.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\MainWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\ArchiveInfo.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\FTPBrowser\ConnectionFormWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\Shift\TransformBase.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\Shift\ShiftWindow.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\AvalonEdit.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\ExplorerControl.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExtendedGridSplitter.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Generic.baml
@@ -377,4 +391,4 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe.manife
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.application
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.pdb
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\AvalonEdit.baml
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache
