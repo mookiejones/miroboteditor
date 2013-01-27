@@ -491,7 +491,7 @@ namespace miRobotEditor.Languages
             return p.ExtractFromMatch();
         }
 
-        public override Regex XYZRegex { get { return new Regex(@"^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)(=\{[^}}]*\})?", Ro); } }
+        public override Regex XYZRegex { get { return new Regex(@"^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)=?\{?([^}}]*)?\}?", Ro); } }
         #endregion
         
         public static string GetDatFileName(string filename)

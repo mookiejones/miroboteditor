@@ -21,7 +21,7 @@ using miRobotEditor.Properties;
 using Application = System.Windows.Application;
 using MenuItem = System.Windows.Controls.MenuItem;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-
+using MahApps.Metro.Controls;
 namespace miRobotEditor	
 {
     using Classes;
@@ -29,7 +29,7 @@ namespace miRobotEditor
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     [Localizable(false)]
-    public partial class MainWindow : Window,INotifyPropertyChanged 
+    public partial class MainWindow : MahApps.Metro.Controls.MetroWindow,INotifyPropertyChanged 
     {
         public static readonly RoutedCommand ImportCommand = new RoutedCommand("ImportCommand",typeof(MainWindow));
         public static MainWindow Instance { get; set; }
@@ -93,7 +93,7 @@ namespace miRobotEditor
 
         public static ICommand ChangeViewAsCommand
         {
-            get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand(param => Instance.ChangeViewAs(), param => true)); }
+            get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand(param => Instance.ChangeViewAs(param), param => true)); }
         }
         private static RelayCommand _closeCommand;
 
@@ -109,6 +109,19 @@ namespace miRobotEditor
             get { return _addToolCommand ?? (_addToolCommand = new RelayCommand(param => Instance.AddTool(param), param => true)); }
         }
         #endregion
+        void ButtonMinimiseOnClick(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        void ButtonMaxRestoreOnClick(object sender, RoutedEventArgs e)
+        {
+            ToggleMaximized();
+        }
+        void ToggleMaximized()
+        {
+            WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        }
 
         public MainWindow()
         {
@@ -237,6 +250,11 @@ namespace miRobotEditor
         #endregion
 
 
+        /// <summary>
+        /// Takes Place on Application Closing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WindowClosing(object sender, CancelEventArgs e)
         {
             
@@ -247,20 +265,16 @@ namespace miRobotEditor
                 {
                     var d = doc.Content as DummyDoc;
                     if (d.Filename!=null)
-                    Settings.Default.OpenDocuments += d.Filename + ';';
-                    d.Close();
+                    Settings.Default.OpenDocuments += d.Filename + ';';                   
                 }
-                
-
             Settings.Default.Save();
 
-         
             SaveLayout();
 
-            dockManager = null;
             IsClosing = true;
-           
+            miRobotEditor.App._application.Shutdown();
         }
+
 
         private void LoadOpenFiles()
         {
@@ -277,20 +291,13 @@ namespace miRobotEditor
             Close();
         }
        
-        private void ChangeViewAs()
+        private void ChangeViewAs(object param)
         {
-            //TODO ImplementThis
-            throw new NotImplementedException();
-        }
-        private void ChangeViewAs(object sender, RoutedEventArgs e)
-        {
-            var selected = sender as MenuItem;
-
-            if (selected != null)
-                switch (selected.Header.ToString())
+         
+                switch (param.ToString())
                 {
                     case "ABB":
-                        DummyDoc.Instance.FileLanguage = DummyDoc.Instance.FileLanguage as  ABB;
+                        DummyDoc.Instance.FileLanguage = DummyDoc.Instance.FileLanguage as ABB;
                         break;
                     case "KUKA":
                         DummyDoc.Instance.FileLanguage = new KUKA();
@@ -304,6 +311,7 @@ namespace miRobotEditor
                 }
             DummyDoc.Instance.TextBox.UpdateVisualText();
         }
+      
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
@@ -380,7 +388,7 @@ namespace miRobotEditor
                     doc.ToolTip = filename;
                 
                 // Add file to Recent list
-                RecentFileList.Instance.InsertFile(filename);
+               // RecentFileList.Instance.InsertFile(filename);
 
                 if (filename != null)
                 {
@@ -711,6 +719,11 @@ namespace miRobotEditor
         private void ShowAbout(object sender, RoutedEventArgs e)
         {
             new AboutWindow().ShowDialog();
+        }
+
+        private void TryClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿<Window x:Class="miRobotEditor.Controls.FindAndReplaceForm"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:findReplace="clr-namespace:miRobotEditor.Controls"
         Title="FindAndReplaceForm" Height="202" Width="397"        
@@ -12,7 +13,6 @@
         <TextBlock HorizontalAlignment="Left" Margin="12,35,0,0" Text="Replace With:" VerticalAlignment="Top"/>
         <TextBox   Text="{Binding LookFor}"     Margin="90,6,0,0" Width="277" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox   Text="{Binding ReplaceWith}" Margin="90,32,0,0" Width="277" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        
         <CheckBox IsChecked="{Binding MatchCase}" Content="Match case" HorizontalAlignment="Left" Margin="14,59,0,0" VerticalAlignment="Top"/>
         <CheckBox IsChecked="{Binding MatchWholeWord}"  Content="Match whole word" HorizontalAlignment="Left" Margin="102,59,0,0" VerticalAlignment="Top"/>
         <CheckBox IsChecked="{Binding UseRegex}" Content="Use Regular Expressions" HorizontalAlignment="Left" Margin="227,59,0,0" VerticalAlignment="Top"/>

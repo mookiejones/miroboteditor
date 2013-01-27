@@ -173,11 +173,16 @@ namespace miRobotEditor.Languages
         {
             var dir = Path.GetDirectoryName(filename);
             var dirExists = dir != null && Directory.Exists(dir);
+            var ext = Path.GetExtension(filename);
+            var fn = Path.GetFileNameWithoutExtension(filename);
+            //TODO Need to find way to make sps to work.
 
-            if (this is KUKA)
+
+            if ((this is KUKA) && ((ext == ".src")||(ext==".dat")))
             {
-                SourceName = Path.GetFileNameWithoutExtension(filename) + ".src";
-                DataName = Path.GetFileNameWithoutExtension(filename) + ".dat";
+
+                    SourceName = fn + ".src";
+                    DataName = fn + ".dat";
             }
             else
             {

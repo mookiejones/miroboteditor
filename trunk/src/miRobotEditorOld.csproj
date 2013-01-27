@@ -95,17 +95,27 @@
     <AssemblyOriginatorKeyFile>miRobotEditor.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AvalonDock">
-      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.dll</HintPath>
+    <Reference Include="AvalonDock, Version=2.0.1746.0, Culture=neutral, PublicKeyToken=96637cf0d3eefdfb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\AvalonDock.2.0.1746\lib\net40\AvalonDock.dll</HintPath>
     </Reference>
-    <Reference Include="AvalonDock.Themes.Expression">
-      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.Expression.dll</HintPath>
+    <Reference Include="Caliburn.Metro">
+      <HintPath>packages\Caliburn.Metro.0.2.0\lib\net40\Caliburn.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Metro.Core">
+      <HintPath>packages\Caliburn.Metro.0.2.0\lib\net40\Caliburn.Metro.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>packages\Caliburn.Micro.1.3.1\lib\net40\Caliburn.Micro.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\packages\AvalonEdit.4.2.0.8783\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip.Reduced">
       <HintPath>..\Libraries\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>packages\MahApps.Metro.0.10.0.0\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="MsgBox">
       <HintPath>..\Libraries\MsgBox.dll</HintPath>
@@ -114,10 +124,14 @@
       <HintPath>..\Libraries\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Caliburn.Micro.1.3.1\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -221,6 +235,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\ThreadingExtensions.cs" />
+    <Compile Include="Classes\ToolTipViewModel.cs" />
     <Compile Include="Classes\Variable.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -240,7 +255,6 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Controls\CustomToolTip.xaml.cs">
       <DependentUpon>CustomToolTip.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\FrmShift.xaml.cs">
       <DependentUpon>FrmShift.xaml</DependentUpon>
@@ -266,8 +280,8 @@
       <DependentUpon>StatusBarControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Language Specific\KUKAFileInfo.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Language Specific\QuantecRemoteView.xaml.cs">
+      <DependentUpon>QuantecRemoteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
@@ -377,6 +391,10 @@
       <DependentUpon>RenamePositionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Language Specific\SystemFunctionsViewModel.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Pads\ArchiveInfo\ArchiveInfo.xaml.cs">
       <DependentUpon>ArchiveInfo.xaml</DependentUpon>
@@ -584,9 +602,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Language Specific\QuantecRemoteView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\AboutWindow.xaml">
       <SubType>Designer</SubType>
@@ -685,6 +703,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pads\ArchiveInfo\ArchiveInfo.xaml" />
     <Page Include="Pads\ArchiveInfo\IOListBox.xaml">
       <DependentUpon>ArchiveInfoViewModel.cs</DependentUpon>
@@ -716,11 +738,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Templates\VisualVariableItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\AdjustST.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Brushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -769,10 +799,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\ExpressionDark\ToolBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\ExtendedGridSplitter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -782,6 +808,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\MenuDictionary.xaml" />
+    <Page Include="Themes\MenuStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Metro\MetroBrushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -791,6 +825,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\ExpressionDark\UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ToolTip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -810,6 +848,7 @@
     <Resource Include="Images\folder_open.png" />
     <None Include="Interfaces\ve-BEC0.tmp" />
     <None Include="miRobotEditor.pfx" />
+    <Resource Include="Resources\Entypo.ttf" />
     <None Include="Snippets\KUKA.Snippet" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -896,6 +935,7 @@
     <Resource Include="Resources\editorpng.png" />
     <Resource Include="Resources\eol.png" />
     <Resource Include="Resources\Find.png" />
+    <Resource Include="Resources\Entypo-license.txt" />
     <Content Include="Tracking\Changes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

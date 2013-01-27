@@ -96,10 +96,6 @@ namespace miRobotEditor.GUI
             DataContext = this;
         }
 
-        
-        public void Close()
-        {
-        }
 
         private bool ShowGrid
         {
@@ -195,12 +191,15 @@ namespace miRobotEditor.GUI
 
         public void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+           // if (MainWindow.Instance.IsClosing)
+           //     return;
             if (IsVisible)
             Instance = this;
             if (!(sender is Editor)) return;
             TextBox = sender as Editor;
             FileLanguage=AbstractLanguageClass.GetRobotType(Filename);
         }
+
 
         public void Find()
         {
@@ -228,7 +227,6 @@ namespace miRobotEditor.GUI
             grid.IsAnimated = true;
 
         }
-
 
         public void OnPropertyChanged(string propertyName)
         {

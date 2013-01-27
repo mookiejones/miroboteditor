@@ -26,7 +26,7 @@ using miRobotEditor.Enums;
 using miRobotEditor.GUI.StatusBarTemplate;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
-
+using ICSharpCode.AvalonEdit.Snippets;
 namespace miRobotEditor.GUI
 {
     public delegate void UpdateFunctionEventHandler(object sender, FunctionEventArgs e);
@@ -328,6 +328,7 @@ namespace miRobotEditor.GUI
                                       Offset = m.Index,
                                       Type = m.Groups[1].ToString(),
                                       Name = m.Groups[2].ToString(),
+                                      Value=m.Groups[3].ToString(),
                                       Path = Filename,
                                       Icon = Utilities.LoadBitmap(imgPath)
                                   });
@@ -917,12 +918,60 @@ namespace miRobotEditor.GUI
         }
 
 
+        System.Windows.Controls.ToolTip toolTip = new System.Windows.Controls.ToolTip();
+
+        private bool GetCurrentFold(TextViewPosition loc)
+        {
+
+            var off = Document.GetOffset(loc.Location);
+
+        
+                foreach (var fld in _foldingManager.AllFoldings)
+                {
+
+                    if (fld.StartOffset <= off && off <= fld.EndOffset && fld.IsFolded)
+                    {
+
+                        
+                        this.ToolTip = toolTip;
+                        toolTip.Style = (Style)FindResource("FoldToolTipStyle");
+                        toolTip.DataContext = fld;
+
+                        toolTip.PlacementTarget = this;
+                        toolTip.IsOpen =true;
+                        return true;
+                       
+                       // toolTip.PlacementTarget = this;
+                       //
+                       // toolTip.Content = textEditor.Document.Text.Substring(fld.StartOffset,
+                       //
+                       //                                                      fld.EndOffset - fld.StartOffset);
+                       //
+                       // toolTip.IsOpen = true;
+                       //
+                       // e.Handled = true;
+
+                    }
+
+                    
+            }
+                return false;
+
+        }
+
+
+   
         private void Mouse_OnHover(object sender, MouseEventArgs e)
         {
             if (_foldingManager == null) return;
 
             //UpdateFolds();
-            GetPositionFromPoint(e.GetPosition(this));
+            var tvp =  GetPositionFromPoint(e.GetPosition(this));
+
+
+            if (tvp.HasValue)
+              e.Handled =  GetCurrentFold((TextViewPosition)tvp);
+
 
             //TODO _variables
             //    toolTip.PlacementTarget = this;
@@ -946,18 +995,18 @@ namespace miRobotEditor.GUI
             //   }
             //
 
-            //  if (Document != null)
-            //  {
-            //      // Is it really necessary to have a tooltip for the folds?
-            //      var Fold = GetCurrentFold(e);
-            //      if ((Fold != null) && (ToolTip != null))
-            //      {
-            //
-            //          ToolTipTitle = Fold.ToolTip.Title;
-            //          ToolTipMessage = Fold.Message;
-            //          ToolTipAdditional = Fold.Text;
-            //      }
-            //  }
+           //  if (Document != null)
+           //  {
+           //      // Is it really necessary to have a tooltip for the folds?
+           //      var Fold = GetCurrentFold(e);
+           //      if ((Fold != null) && (ToolTip != null))
+           //      {
+           //
+           //          ToolTipTitle = Fold.ToolTip.Title;
+           //          ToolTipMessage = Fold.Message;
+           //          ToolTipAdditional = Fold.Text;
+           //      }
+           //  }
         }
 
 
@@ -1099,10 +1148,12 @@ namespace miRobotEditor.GUI
         //TODO Setup Snippets
 
 
-        /*
+        
                 private void InsertSnippet(object sender, KeyEventArgs e)
                 {
+                    
                     var loopCounter = new SnippetReplaceableTextElement {Text = "i"};
+
                     var snippet = new Snippet
                                       {
                                           Elements =
@@ -1123,7 +1174,7 @@ namespace miRobotEditor.GUI
 
 
                 }
-        */
+        
 
         private void TextEditorGotFocus(object sender, RoutedEventArgs e)
         {
@@ -1160,6 +1211,13 @@ namespace miRobotEditor.GUI
             if (_iconBarMargin != null)
                 _iconBarMargin.Dispose();
         }
+
+        private void TextEditor_MouseHoverStopped(object sender, MouseEventArgs e)
+        {
+            toolTip.IsOpen = false;
+        }
+
+      
 
     }
 

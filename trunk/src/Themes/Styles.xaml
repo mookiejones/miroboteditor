@@ -33,15 +33,29 @@
     <Style TargetType="{x:Type ToolBarTray}">
         <Setter Property="Background" Value="{DynamicResource ExpressionDark_Dark}"/>        
     </Style>
-   
+
+    <Style TargetType="{x:Type WrapPanel}">
+        
+    </Style>
 
 
-  
-  
-   
- 
- 
-    <Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderGlassEffect" >    	
+    <Color x:Key="HighlightDarkColor">#FFbe0606</Color>
+    <Color x:Key="HighlightLightColor">#FFbe0606</Color>
+    
+    
+    
+    <Color x:Key="AccentDarkColor">#FFbe0606</Color>
+    <Color x:Key="AccentColor">#CCbe0606</Color>
+    <Color x:Key="AccentColor2">#99ff3333</Color>
+    <Color x:Key="AccentColor3">#66ff3333</Color>
+    <Color x:Key="AccentColor4">#33ff3333</Color>
+    <LinearGradientBrush x:Key="BrandingBrush" EndPoint="0,0.5" StartPoint="1,0.5">
+        <GradientStop Color="{DynamicResource HighlightDarkColor}" Offset="0" />
+        <GradientStop Color="Blue" Offset="1" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}" />
+
+        <Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderGlassEffect" >    	
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="{DynamicResource ExpressionDark_Menu}"/>
         <Setter Property="Padding" Value="7,0,7,0"/>
