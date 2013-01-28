@@ -345,7 +345,9 @@ namespace miRobotEditor.Classes
 			var dMenuClick = MenuClick;
 
             if (File.Exists(filepath))
-		    MainWindow.Instance.OpenFile(filepath);
+		      MainWindow.Instance.OpenFile(filepath);
+            else
+                PromptForDelete(filepath);
 //			if ( dMenuClick != null ) dMenuClick( menuItem, new MenuClickEventArgs( filepath ) );
 		}
         
