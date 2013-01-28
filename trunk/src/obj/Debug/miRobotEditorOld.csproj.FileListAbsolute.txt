@@ -288,20 +288,9 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Templates\VisualVariable
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\AdjustST.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Brushes.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExplorerWindow.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\Brushes.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\Button.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\ComboBox.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\DoubleStyle.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\GroupBox.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\Menu.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\ScrollBar.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\TabControl.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\TextBox.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\MenuDictionary.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\MenuStyle.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Metro\MetroBrushes.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\StatusBar.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\UserControl.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ToolTip.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\App.g.cs
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Controls\CustomToolTip.g.cs
@@ -378,8 +367,6 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\ArchiveInfo\Archive
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\FTPBrowser\ConnectionFormWindow.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\Shift\TransformBase.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Pads\Shift\ShiftWindow.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\AvalonEdit.baml
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExpressionDark\ExplorerControl.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\ExtendedGridSplitter.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Generic.baml
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\Styles.baml
@@ -391,4 +378,4 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe.manife
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.application
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.pdb
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache
+C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\HorizontalScrollBarStyle.baml
