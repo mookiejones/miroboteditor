@@ -1,5 +1,5 @@
-﻿<AvalonDock:LayoutAnchorable
-             xmlns:AvalonDock="http://avalondock.codeplex.com"
+﻿<avalonDock:LayoutAnchorable
+             xmlns:avalonDock="http://avalondock.codeplex.com"    
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,7 +10,7 @@
     Title="Functions"
     CanAutoHide="True"
     CanClose="True"
-             d:DesignHeight="300" d:DesignWidth="300">
+          >
  
        
         <ListView ItemsSource="{Binding Items}" MouseMove="ListBoxMouseMove" Background="White" Foreground="Black"    SelectedItem="{Binding CurrentItem,Mode=TwoWay}"  >
@@ -29,4 +29,4 @@
             </ListView.ItemTemplate>
         </ListView>
     
-</AvalonDock:LayoutAnchorable>
+</avalonDock:LayoutAnchorable>

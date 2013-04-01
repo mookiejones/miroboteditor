@@ -41,11 +41,11 @@ namespace miRobotEditor.GUI.ExplorerControl
             this.ctxFileExplorer = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.explorer= new ExplorerClass();
             this.mnuPaste = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.imgList = new System.Windows.Forms.ImageList(this.components);
-            this.explorer = new miRobotEditor.GUI.ExplorerControl.ExplorerClass();
             this.ctxFileExplorer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -147,6 +147,6 @@ namespace miRobotEditor.GUI.ExplorerControl
 		private System.Windows.Forms.ToolStripMenuItem mnuCut;
 		private System.Windows.Forms.ToolStripMenuItem mnuCopy;
 		private System.Windows.Forms.ContextMenuStrip ctxFileExplorer;
-		private miRobotEditor.GUI.ExplorerControl.ExplorerClass explorer;
+		private miRobotEditor.GUI.ExplorerControl.ExplorerClass explorer = new ExplorerClass();
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Input;
 using miRobotEditor.Commands;
 using miRobotEditor.GUI;
@@ -9,7 +8,7 @@ namespace miRobotEditor.Controls
     /// <summary>
     /// Interaction logic for FindAndREplaceForm.xaml
     /// </summary>
-    public partial class FindAndReplaceForm : Window
+    public partial class FindAndReplaceForm
     {
         private static FindAndReplaceForm _instance;
         public static FindAndReplaceForm Instance

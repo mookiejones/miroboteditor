@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AvalonDock:LayoutAnchorable xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:AvalonDock="http://avalondock.codeplex.com"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
-    xmlns:AngleConverter="clr-namespace:miRobotEditor.GUI.AngleConverter"
-             x:Class="miRobotEditor.GUI.AngleConverter.AngleConverterWpf"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:gui="clr-namespace:miRobotEditor.GUI"
+                             x:Class="miRobotEditor.GUI.AngleConverter.AngleConverterWpf"
                              Title="Angle Converter" CanAutoHide="True"
                              AutoHideMinWidth="200" >
    
@@ -18,8 +18,6 @@
                 <Setter
 				Property="TextAlignment"
 				Value="Center" />
-
-
                 <Setter
 				Property="VerticalAlignment"
 				Value="Stretch" />
@@ -36,10 +34,9 @@
                 <Setter Property="Grid.Row" Value="1"/>
             </Style>
 
-            <AngleConverter:EnumtoInt32 x:Key="EnumtoInt32" />
         </Grid.Resources>
         <Grid.DataContext>
-            <AngleConverter:AngleConvertorViewModel/>
+            <gui:AngleConvertorViewModel/>
         </Grid.DataContext>
         <GroupBox
 			HorizontalAlignment="Stretch"

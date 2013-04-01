@@ -11,17 +11,16 @@ using AvalonDock;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
 using miRobotEditor.Commands;
-using miRobotEditor.Controls;
 using miRobotEditor.Forms;
 using miRobotEditor.GUI;
 using miRobotEditor.GUI.Notes;
 using miRobotEditor.Languages;
 using miRobotEditor.Pads;
+using miRobotEditor.Pads.Shift;
 using miRobotEditor.Properties;
 using Application = System.Windows.Application;
-using MenuItem = System.Windows.Controls.MenuItem;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using MahApps.Metro.Controls;
+
 namespace miRobotEditor	
 {
     using Classes;
@@ -29,7 +28,7 @@ namespace miRobotEditor
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     [Localizable(false)]
-    public partial class MainWindow : MahApps.Metro.Controls.MetroWindow,INotifyPropertyChanged 
+    public partial class MainWindow : INotifyPropertyChanged 
     {
         public static readonly RoutedCommand ImportCommand = new RoutedCommand("ImportCommand",typeof(MainWindow));
         public static MainWindow Instance { get; set; }
@@ -47,7 +46,9 @@ namespace miRobotEditor
             set { TextEditorOptions.Instance=value;
             }
         }
-       
+
+        private DummyDoc _activeeditor = new DummyDoc();
+        public DummyDoc _activeEditor { get { return _activeeditor; } set { _activeeditor = value;OnPropertyChanged("_activeEditor"); } }
         
         #endregion
 
@@ -132,9 +133,7 @@ namespace miRobotEditor
             if (Settings.Default.CheckForUpdates)
                 new FrmUpdateChecker();
             
-            //Get Initial Key Status
-            ManageKeys(null,null);
-
+          
             // Load Files That were open on Closing
             LoadOpenFiles();
 
@@ -621,85 +620,7 @@ namespace miRobotEditor
      
 
 
-        #region Status Bar Items
-        
-        [DllImport("user32.dll")]
-        internal static extern short GetKeyState(int keyCode);
-
-        #region Properties
-        private bool _isScrollPressed;
-        private bool _isNumPressed;
-        private bool _isInsPressed;
-        private bool _isCapsPressed;
-
-        public bool IsScrollPressed
-        {
-            get { return _isScrollPressed; }
-            set
-            {
-                _isScrollPressed = value;
-                OnPropertyChanged("IsScrollPressed");
-            }
-        }
-        public bool IsNumPressed
-        {
-            get { return _isNumPressed; }
-            set
-            {
-                _isNumPressed = value;
-                OnPropertyChanged("IsNumPressed");
-            }
-        }
-        public bool IsInsPressed
-        {
-            get { return _isInsPressed; }
-            set
-            {
-                _isInsPressed = value;
-                OnPropertyChanged("IsInsPressed");
-            }
-        }
-        public bool IsCapsPressed
-        {
-            get { return _isCapsPressed; }
-            set
-            {
-                _isCapsPressed = value;
-                OnPropertyChanged("IsCapsPressed");
-            }
-        }
-        #endregion
-
-        private void ManageKeys(object sender, KeyEventArgs e)
-        {
-            IsCapsPressed = GetKeyState((int) VKeyStates.CapsKey)!=0;
-            IsInsPressed = GetKeyState((int)VKeyStates.InsKey) != 0;
-            IsNumPressed = GetKeyState((int)VKeyStates.NumKey) != 0;
-            IsScrollPressed = GetKeyState((int)VKeyStates.ScrollKey) != 0;            
-        }
-
-        private enum VKeyStates
-        {
-            /// <summary>
-            /// the caps lock key
-            /// </summary>
-            CapsKey = 0x14,
-            /// <summary>
-            /// the numlock key
-            /// </summary>
-            NumKey=0x90,
-            /// <summary>
-            /// the scroll key
-            /// </summary>
-            ScrollKey=0x91,
-            /// <summary>
-            /// the ins key
-            /// </summary>
-            InsKey=0x2d
-        }
-
-        #endregion
-
+     
     
         protected virtual void OnPropertyChanged(string propertyName)
         {

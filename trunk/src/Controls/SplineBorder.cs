@@ -20,7 +20,7 @@ namespace miRobotEditor.Controls
         /// </summary>
         public static readonly DependencyProperty ThicknessProperty =
             DependencyProperty.Register("Thickness", typeof(double), typeof(SplineBorder),
-                new FrameworkPropertyMetadata((double)1.0, FrameworkPropertyMetadataOptions.AffectsRender));
+                new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
         /// Gets or sets the Thickness property.  This dependency property 
@@ -41,7 +41,7 @@ namespace miRobotEditor.Controls
         /// </summary>
         public static readonly DependencyProperty FillProperty =
             DependencyProperty.Register("Fill", typeof(Brush), typeof(SplineBorder),
-                new FrameworkPropertyMetadata((Brush)null, FrameworkPropertyMetadataOptions.AffectsRender));
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
         /// Gets or sets the Fill property.  This dependency property 
@@ -83,7 +83,7 @@ namespace miRobotEditor.Controls
         /// </summary>
         public static readonly DependencyProperty BottomBorderMarginProperty =
             DependencyProperty.Register("BottomBorderMargin", typeof(double), typeof(SplineBorder),
-                new FrameworkPropertyMetadata((double)0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+                new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
         /// Gets or sets the BottomBorderMargin property.  This dependency property 

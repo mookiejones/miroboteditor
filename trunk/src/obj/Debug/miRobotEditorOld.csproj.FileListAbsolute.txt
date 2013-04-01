@@ -379,3 +379,5 @@ C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.applicatio
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.exe
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\miRobotEditor.pdb
 C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\Themes\HorizontalScrollBarStyle.baml
+C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\bin\Debug\miRobotEditor.exe.config
+C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\obj\Debug\miRobotEditorOld.csprojResolveAssemblyReference.cache

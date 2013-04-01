@@ -48,7 +48,7 @@
     /// <param name="e"></param>
     private static void OnDropCommandChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      UIElement uiElement = d as UIElement;	  // Remove the handler if it exist to avoid memory leaks
+      var uiElement = d as UIElement;	  // Remove the handler if it exist to avoid memory leaks
       uiElement.Drop -= UIElement_Drop;
 
       var command = e.NewValue as ICommand;
@@ -73,13 +73,13 @@
     /// <param name="e"></param>
     private static void UIElement_Drop(object sender, DragEventArgs e)
     {
-      UIElement uiElement = sender as UIElement;
+      var uiElement = sender as UIElement;
 
       // Sanity check just in case this was somehow send by something else
       if (uiElement == null)
         return;
 
-      ICommand dropCommand = DropFileCommand.GetDropCommand(uiElement);
+      var dropCommand = GetDropCommand(uiElement);
 
       // There may not be a command bound to this after all
       if (dropCommand == null)
@@ -87,7 +87,7 @@
 
       if (e.Data.GetDataPresent(DataFormats.FileDrop))
       {
-        string[] droppedFilePaths =
+        var droppedFilePaths =
         e.Data.GetData(DataFormats.FileDrop, true) as string[];
 
         foreach (string droppedFilePath in droppedFilePaths)

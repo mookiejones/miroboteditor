@@ -1,4 +1,6 @@
-﻿namespace miRobotEditor.Behaviour
+﻿using miRobotEditor.Properties;
+
+namespace miRobotEditor.Behaviour
 {
   using System;
   using System.Windows;
@@ -23,16 +25,16 @@
     /// </summary>
     public static readonly DependencyProperty AutoMergeStyleProperty =
     DependencyProperty.RegisterAttached("AutoMergeStyle", typeof(bool), typeof(MergeStyleBehaviour),
-        new FrameworkPropertyMetadata((bool)false,
-            new PropertyChangedCallback(OnAutoMergeStyleChanged)));
+        new FrameworkPropertyMetadata(false,
+            OnAutoMergeStyleChanged));
 
     /// <summary>
     /// BaseOnStyle
     /// </summary>
     public static readonly DependencyProperty BaseOnStyleProperty =
         DependencyProperty.RegisterAttached("BaseOnStyle", typeof(Style), typeof(MergeStyleBehaviour),
-            new FrameworkPropertyMetadata((Style)null,
-                new PropertyChangedCallback(OnBaseOnStyleChanged)));
+            new FrameworkPropertyMetadata(null,
+                OnBaseOnStyleChanged));
 
     /// <summary>
     /// OriginalStyle
@@ -168,20 +170,20 @@
           return;
         }
 
-        Control control = d as Control;
+        var control = d as Control;
         if (control == null)
         {
-          throw new NotSupportedException("AutoMergeStyle can only used in Control");
+          throw new NotSupportedException(Resources.MergeStyleBehaviour_OnAutoMergeStyleChanged_AutoMergeStyle_can_only_used_in_Control);
         }
 
         if ((bool)e.NewValue)
         {
           Type type = d.GetType();
-          control.SetResourceReference(MergeStyleBehaviour.BaseOnStyleProperty, type);
+          control.SetResourceReference(BaseOnStyleProperty, type);
         }
         else
         {
-          control.ClearValue(MergeStyleBehaviour.BaseOnStyleProperty);
+          control.ClearValue(BaseOnStyleProperty);
         }
       }
       catch (Exception exp)
@@ -198,28 +200,25 @@
     private static void OnBaseOnStyleChanged(DependencyObject d,
                                              DependencyPropertyChangedEventArgs e)
     {
-      if (e == null) return;
-
-      if (d == null) return;
+        if (d == null) return;
 
       //// if (e.OldValue == null) return;
 
-      Control control = null;
-      try
+        try
       {
         if (e.OldValue == e.NewValue)
         {
           return;
         }
 
-        control = d as Control;
+        var control = d as Control;
         if (control == null)
         {
-          throw new NotSupportedException("BaseOnStyle can only be used in Control");
+          throw new NotSupportedException(Resources.MergeStyleBehaviour_OnBaseOnStyleChanged_BaseOnStyle_can_only_be_used_in_Control);
         }
 
-        Style baseOnStyle = e.NewValue as Style;
-        Style originalStyle = GetOriginalStyle(control);
+        var baseOnStyle = e.NewValue as Style;
+        var originalStyle = GetOriginalStyle(control);
 
         if (originalStyle == null)
         {
@@ -227,18 +226,17 @@
           SetOriginalStyle(control, originalStyle);
         }
 
-        Style newStyle = originalStyle;
+        var newStyle = originalStyle;
 
         if (originalStyle.IsSealed)
         {
           ////Console.WriteLine("+++ ORIGINAL STYLE IS SEALED. +++ ");
 
-          newStyle = new Style(originalStyle.TargetType);
+          newStyle = new Style(originalStyle.TargetType) {Resources = originalStyle.Resources};
           ////newStyle.TargetType = originalStyle.TargetType;
 
           // 1. Copy resources, setters, triggers
-          newStyle.Resources = originalStyle.Resources;
-          foreach (var st in originalStyle.Setters)
+            foreach (var st in originalStyle.Setters)
           {
             newStyle.Setters.Add(st);
           }
@@ -260,10 +258,10 @@
         }
         catch (Exception exp)
         {
-          string sInfo = string.Format(CultureInfo.CurrentCulture, "newStyle: {0}", (newStyle != null ? newStyle.TargetType.FullName : "(null)"));
-          sInfo += string.Format(CultureInfo.CurrentCulture, "DependencyObject d: {0}", (d != null ? d.ToString() : "(null)"));
+          string sInfo = string.Format(CultureInfo.CurrentCulture, Resources.MergeStyleBehaviour_OnBaseOnStyleChanged_newStyle___0_, (newStyle != null ? newStyle.TargetType.FullName : Resources.MergeStyleBehaviour_OnBaseOnStyleChanged__null_));
+          sInfo += string.Format(CultureInfo.CurrentCulture, Resources.MergeStyleBehaviour_OnBaseOnStyleChanged_DependencyObject_d___0_, (d));
 
-          Console.WriteLine(exp.ToString() + Environment.NewLine + Environment.NewLine + sInfo);
+          Console.WriteLine(exp + Environment.NewLine + Environment.NewLine + sInfo);
         }
       }
       catch (Exception exp)
