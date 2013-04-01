@@ -1,32 +1,21 @@
-﻿
+﻿C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\obj\Debug\GeneratedInternalTypeHelper.g.cs
 
-FC:\Programming\editor\miroboteditor\trunk\src\App.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Controls\CustomToolTip.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Controls\FrmShift.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Controls\NumericUpDown.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Controls\ShiftBoxControl.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\ImportWindow\ImportWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Forms\AboutWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\AngleConverter\AngleConverterWPF.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\DummyDoc\DummyDoc.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\Editor\Editor.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Controls\FindAndReplaceForm.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Forms\frmUpdateChecker.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\ExplorerControl\FileExplorerWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\FunctionWindow\FunctionWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\KUKA\frmAdjustST.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\LocalVariableWindow\LocalVariableWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\ObjectBrowser\ObjectBrowserWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\GUI\MessageWindow\MessageWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Language Specific\DatCleanControl.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Language Specific\KUKASystemFunctions.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Language Specific\RenamePositionWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\MainWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Pads\ArchiveInfo\ArchiveInfo.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Pads\FTPBrowser\ConnectionFormWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Pads\Shift\TransformBase.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Pads\Shift\ShiftWindow.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Themes\ExtendedGridSplitter.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Themes\Generic.xaml;;
-FC:\Programming\editor\miroboteditor\trunk\src\Themes\Styles.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Forms\frmShift.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\GUI\AngleConverter\AngleConverterWPF.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\GUI\DummyDoc\DummyDoc.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\GUI\Editor\Editor.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Controls\FindAndReplaceForm.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Forms\frmUpdateChecker.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\GUI\ExplorerControl\FileExplorerWindow.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\GUI\FunctionWindow\FunctionWindow.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\GUI\KUKA\frmAdjustST.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\GUI\ObjectBrowser\ObjectBrowserWindow.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Language Specific\DatCleanControl.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\MainWindow.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Pads\ArchiveInfo\ArchiveInfo.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Templates\StatusBarTemplate.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Templates\ToolTipTemplate.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Themes\ExtendedGridSplitter.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Themes\Generic.xaml;;
+FC:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Themes\Styles.xaml;;
 

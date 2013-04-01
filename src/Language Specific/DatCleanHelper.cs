@@ -38,7 +38,8 @@ namespace miRobotEditor.Language_Specific
 		{			
 			var result = new System.Collections.Generic.List<IVariable>();
 			result.AddRange(ObjectBrowserViewModel.Instance.GetVarForFile(Languages.KUKA.GetDatFileName(_filename)));
-			
+
+        	
 			_listItems  = result;
 		}
 		

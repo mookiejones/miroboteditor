@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using miRobotEditor.GUI.AngleConverter;
+using miRobotEditor.GUI;
 
 namespace miRobotEditor.Converters
 {
@@ -10,10 +10,10 @@ namespace miRobotEditor.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
 
-            switch ((AngleConvertorViewModel.CartesianEnum)value)
+            switch ((CartesianEnum)value)
             {
-                case AngleConvertorViewModel.CartesianEnum.AbbQuaternion:
-                case AngleConvertorViewModel.CartesianEnum.AxisAngle:
+                case CartesianEnum.AbbQuaternion:
+                case CartesianEnum.AxisAngle:
                     return "25*";
                 default:
                     return "33*";

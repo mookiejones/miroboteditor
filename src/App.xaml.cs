@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Reflection;
-using System.Windows.Shell;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 

@@ -1,6 +1,6 @@
 ﻿<Application x:Class="miRobotEditor.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:GUI="clr-namespace:miRobotEditor.GUI" StartupUri="MainWindow.xaml"
+             StartupUri="MainWindow.xaml"
               DispatcherUnhandledException="AppDispatcherUnhandledException"
              >
     <Application.Resources>        
@@ -11,14 +11,15 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+             <ResourceDictionary Source="Templates\StatusBarTemplate.xaml"/>
                 <ResourceDictionary Source="Themes\Generic.xaml"/>
                 <ResourceDictionary Source="Themes/ExtendedGridSplitter.xaml" />
                 <ResourceDictionary Source="Themes/AdjustST.xaml" />                  
                 <ResourceDictionary Source="Themes/MenuDictionary.xaml" />
-                <ResourceDictionary Source="Themes/ToolTip.xaml" />
-                <ResourceDictionary Source="Themes/MenuStyle.xaml" />
+                <!--ResourceDictionary Source="Themes/ToolTip.xaml" /-->
+                <!--ResourceDictionary Source="Themes/MenuStyle.xaml" /-->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
-                <!--         <ResourceDictionary Source="Themes/ExplorerWindow.xaml" /> -->
+                <ResourceDictionary Source="Themes/ExplorerWindow.xaml" /> 
                
                 <!--<ResourceDictionary Source="Themes/StatusBar.xaml" />
                 <ResourceDictionary Source="Themes/Styles.xaml" />
@@ -39,7 +40,8 @@
                 <ResourceDictionary Source="Themes/ExpressionDark/ScrollBar.xaml"/>
                 <ResourceDictionary Source="Themes/ExpressionDark/TabControl.xaml"/>-->
               
-            </ResourceDictionary.MergedDictionaries>                 
+            </ResourceDictionary.MergedDictionaries>
+         
         </ResourceDictionary>
       
     </Application.Resources>

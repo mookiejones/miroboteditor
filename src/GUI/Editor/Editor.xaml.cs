@@ -23,7 +23,6 @@ using ICSharpCode.AvalonEdit.Search;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls;
 using miRobotEditor.Enums;
-using miRobotEditor.GUI.StatusBarTemplate;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using ICSharpCode.AvalonEdit.Snippets;
@@ -36,7 +35,7 @@ namespace miRobotEditor.GUI
     /// Interaction logic for Editor.xaml
     /// </summary>
     [Localizable(false)]
-    public partial class Editor : TextEditor, IDisposable, INotifyPropertyChanged
+    public partial class Editor : IDisposable, INotifyPropertyChanged
     {
         /// <summary>
         /// Used for Highlighting Background
@@ -207,11 +206,11 @@ namespace miRobotEditor.GUI
             UpdateLineTransformers();
             if (s != null)
             {
-                StatusBarControl.Instance.Line = s.Line.ToString(CultureInfo.InvariantCulture);
-                StatusBarControl.Instance.Column = s.Column.ToString(CultureInfo.InvariantCulture);
+                StatusBarViewModel.Instance.Line = s.Line;
+                StatusBarViewModel.Instance.Column = s.Column;
 
             }
-            StatusBarControl.Instance.Offset = CaretOffset.ToString(CultureInfo.InvariantCulture);
+            StatusBarViewModel.Instance.Offset = CaretOffset;
 
 
             HighlightBrackets(sender, e);

@@ -7,6 +7,7 @@
  */
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -44,10 +45,23 @@ namespace miRobotEditor.GUI.ExplorerControl
 		public ExplorerClass()
 		{
 			HideSelection = false;
-            this.BackColor = System.Drawing.Color.White;
-            this.ForeColor = System.Drawing.Color.Black;
+            this.BackColor = Color.White;
+            ForeColor = Color.Black;
 		}
-		public void AddRobotNode(string sFile, string sName)
+
+	    public override sealed Color ForeColor
+	    {
+	        get { return base.ForeColor; }
+	        set { base.ForeColor = value; }
+	    }
+
+	    public override sealed Color BackColor
+	    {
+	        get { return base.BackColor; }
+	        set { base.BackColor = value; }
+	    }
+
+	    public void AddRobotNode(string sFile, string sName)
 		{
 			SelectedNode = Nodes.Add(sFile, sName, 11, 11);
 			SelectedNode.ToolTipText = sFile;

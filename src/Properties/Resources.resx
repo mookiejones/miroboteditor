@@ -2677,4 +2677,22 @@
   <data name="CheckEnvironment" xml:space="preserve">
     <value>This version of {0} requires .Net 4.0. Your are using:{1}</value>
   </data>
+  <data name="MergeStyleBehaviour_OnBaseOnStyleChanged_BaseOnStyle_can_only_be_used_in_Control" xml:space="preserve">
+    <value>BaseOnStyle can only be used in Control</value>
+  </data>
+  <data name="MergeStyleBehaviour_OnBaseOnStyleChanged_newStyle___0_" xml:space="preserve">
+    <value>newStyle: {0}</value>
+  </data>
+  <data name="MergeStyleBehaviour_OnBaseOnStyleChanged_DependencyObject_d___0_" xml:space="preserve">
+    <value>DependencyObject d: {0}</value>
+  </data>
+  <data name="MergeStyleBehaviour_OnAutoMergeStyleChanged_AutoMergeStyle_can_only_used_in_Control" xml:space="preserve">
+    <value>AutoMergeStyle can only used in Control</value>
+  </data>
+  <data name="MergeStyleBehaviour_OnBaseOnStyleChanged__null_" xml:space="preserve">
+    <value>(null)</value>
+  </data>
+  <data name="GotoDialog_GotoDialog_OnLoaded_Enter_Line_Number__1__0___" xml:space="preserve">
+    <value>Enter Line Number (1-{0}):</value>
+  </data>
 </root>

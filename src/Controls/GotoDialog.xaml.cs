@@ -51,7 +51,7 @@ namespace miRobotEditor.Controls
 
         private void GotoDialog_OnLoaded(object sender, RoutedEventArgs e)
         {
-            Description.Text = String.Format("Enter Line Number (1-{0}):", Editor.LineCount);
+            Description.Text = String.Format(Properties.Resources.GotoDialog_GotoDialog_OnLoaded_Enter_Line_Number__1__0___, Editor.LineCount);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

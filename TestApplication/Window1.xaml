@@ -1,0 +1,23 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:TestApplication" x:Class="TestApplication.Window1"
+	Title="TestApplication" Height="300" Width="300"
+	>
+    <Window.DataContext>
+        <local:FanucREPCDViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu IsMainMenu="True" Grid.Row="0">
+            <MenuItem Header="Test" Click="TestItem"/>
+        </Menu> 
+        <DataGrid IsReadOnly="True" ItemsSource="{Binding REPTCDItems}" Grid.Row="1" />
+		<GroupBox Header="Task Hold Conditions">
+	    	<DataGrid/>
+    	</GroupBox>
+    </Grid>
+</Window>

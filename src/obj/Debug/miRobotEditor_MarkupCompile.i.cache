@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Programming\editor\miroboteditor\trunk\src\obj\Debug\
+C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\obj\Debug\
 miRobotEditor
 none
 false
 DEBUG;TRACE
 
-63-1697273363
+56-1584639339
 1-550120235
-2482103437196
-24678581508
-App.xaml;Controls\CustomToolTip.xaml;Controls\FrmShift.xaml;Controls\ListFromFileBox.xaml;Controls\NumericUpDown.xaml;Controls\ShiftBoxControl.xaml;Expander.xaml;GUI\ImportWindow\ImportWindow.xaml;GUI\Notes\NotesWindowTemplate.xaml;GUI\StatusBarTemplate\StatusBarControl.xaml;GUI\StatusBarTemplate\StatusBarTemplate.xaml;Language Specific\QuantecRemoteView.xaml;Forms\AboutWindow.xaml;GUI\AngleConverter\AngleConverterWPF.xaml;GUI\DummyDoc\DummyDoc.xaml;GUI\Editor\Editor.xaml;Controls\FindAndReplaceForm.xaml;Controls\GotoDialog.xaml;Controls\frmReverse.xaml;Controls\SnippetPad.xaml;Controls\xmlReader.xaml;Forms\AttributeViewer.xaml;Forms\frmSplashScreen.xaml;Forms\frmSystemFunctions.xaml;Forms\frmUpdateChecker.xaml;GUI\Dialogs\About\About.xaml;GUI\ExplorerControl\FileExplorerWindow.xaml;GUI\FunctionWindow\FunctionWindow.xaml;GUI\KUKA\frmAdjustST.xaml;GUI\LocalVariableWindow\LocalVariableWindow.xaml;GUI\ObjectBrowser\ObjectBrowserWindow.xaml;GUI\Options\Options.xaml;GUI\MessageWindow\MessageWindow.xaml;Language Specific\DatCleanControl.xaml;Language Specific\KFDAssistant.xaml;Language Specific\KUKADatSort.xaml;Language Specific\KUKAInlineFormHelper.xaml;Language Specific\KUKAKFDDialog.xaml;Language Specific\KUKASystemFunctions.xaml;Language Specific\RenamePositionWindow.xaml;MainWindow.xaml;Pads\ArchiveInfo\ArchiveInfo.xaml;Pads\ArchiveInfo\IOListBox.xaml;Pads\FTPBrowser\ConnectionFormWindow.xaml;Pads\FTPBrowser\FTPAccountWindow.xaml;Pads\Shift\ShiftBase.xaml;Pads\Shift\TransformBase.xaml;Pads\Shift\ShiftWindow.xaml;ResourceDictionaries\ExplorerWindowDictionary.xaml;ResourceDictionaries\LocalizedStrings\en-us.xaml;Resources\Icons.xaml;Templates\VisualVariableItem.xaml;Themes\AdjustST.xaml;Themes\Brushes.xaml;Themes\ExplorerWindow.xaml;Themes\ExtendedGridSplitter.xaml;Themes\Generic.xaml;Themes\HorizontalScrollBarStyle.xaml;Themes\MenuDictionary.xaml;Themes\MenuStyle.xaml;Themes\StatusBar.xaml;Themes\Styles.xaml;Themes\ToolTip.xaml;
+240-1996218444
+20-1857109183
+App.xaml;Controls\ListFromFileBox.xaml;Controls\ShiftBox.xaml;Forms\frmShift.xaml;GUI\Notes\NotesWindowTemplate.xaml;Language Specific\QuantecRemoteView.xaml;Forms\AboutWindow.xaml;GUI\AngleConverter\AngleConverterWPF.xaml;GUI\DummyDoc\DummyDoc.xaml;GUI\Editor\Editor.xaml;Controls\FindAndReplaceForm.xaml;Controls\GotoDialog.xaml;Controls\frmReverse.xaml;Controls\SnippetPad.xaml;Controls\xmlReader.xaml;Forms\AttributeViewer.xaml;Forms\frmSplashScreen.xaml;Forms\frmSystemFunctions.xaml;Forms\frmUpdateChecker.xaml;GUI\Dialogs\About\About.xaml;GUI\ExplorerControl\FileExplorerWindow.xaml;GUI\FunctionWindow\FunctionWindow.xaml;GUI\KUKA\frmAdjustST.xaml;GUI\LocalVariableWindow\LocalVariableWindow.xaml;GUI\ObjectBrowser\ObjectBrowserWindow.xaml;GUI\Options\Options.xaml;GUI\MessageWindow\MessageWindow.xaml;Language Specific\DatCleanControl.xaml;Language Specific\KFDAssistant.xaml;Language Specific\KUKADatSort.xaml;Language Specific\KUKAInlineFormHelper.xaml;Language Specific\KUKAKFDDialog.xaml;Language Specific\KUKASystemFunctions.xaml;Language Specific\RenamePositionWindow.xaml;MainWindow.xaml;Pads\ArchiveInfo\ArchiveInfo.xaml;Pads\ArchiveInfo\IOListBox.xaml;Pads\FTPBrowser\ConnectionFormWindow.xaml;Pads\FTPBrowser\FTPAccountWindow.xaml;Pads\Shift\ShiftBase.xaml;Pads\Shift\TransformBase.xaml;Pads\Shift\ShiftWindow.xaml;ResourceDictionaries\ExplorerWindowDictionary.xaml;Templates\StatusBarTemplate.xaml;Templates\ToolTipTemplate.xaml;Templates\VisualVariableItem.xaml;Themes\AdjustST.xaml;Themes\Brushes.xaml;Themes\ExplorerWindow.xaml;Themes\ExtendedGridSplitter.xaml;Themes\Generic.xaml;Themes\MenuDictionary.xaml;Themes\MenuStyle.xaml;Themes\StatusBar.xaml;Themes\Styles.xaml;Themes\ToolTip.xaml;
 
-True
+False
 
