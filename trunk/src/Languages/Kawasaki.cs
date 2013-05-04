@@ -7,7 +7,8 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
-
+using miRobotEditor.ViewModel;
+using miRobotEditor.GUI;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]

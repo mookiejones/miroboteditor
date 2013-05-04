@@ -10,6 +10,8 @@ using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using ICSharpCode.AvalonEdit.CodeCompletion;
+using miRobotEditor.ViewModel;
+using miRobotEditor.GUI;
 
 namespace miRobotEditor.Languages
 {
@@ -115,9 +117,16 @@ namespace miRobotEditor.Languages
 
         public override string ExtractXYZ(string positionstring)
         {
-            throw new NotImplementedException();
-            var p = new PositionBase(positionstring);
-            return p.ExtractFromMatch();
+            try
+            {
+                var p = new PositionBase(positionstring);
+                return p.ExtractFromMatch();
+            }
+            catch (Exception ex)
+            {
+                throw ex as NotImplementedException;
+            }
+           
         }   
 
         #region Folding Section

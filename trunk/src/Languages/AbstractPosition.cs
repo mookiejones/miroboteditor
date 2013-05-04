@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-
+using System.Collections.ObjectModel;
 namespace miRobotEditor.Languages
 {
     public class PositionBase:IPosition
@@ -23,18 +23,25 @@ namespace miRobotEditor.Languages
         public string RawValue { get; set; }
         public string Scope { get; set; }
         public string Name { get; set; }
-        public List<PositionValue> PositionalValues { get; set; }
+      //  public List<PositionValue> PositionalValues { get; set; }
+
+        ObservableCollection<PositionValue> _values = new ObservableCollection<PositionValue>();
+        ReadOnlyObservableCollection<PositionValue> _positionalValues = null;
+
+        public ReadOnlyObservableCollection<PositionValue> PositionalValues { get { return _positionalValues ?? new ReadOnlyObservableCollection<PositionValue>(_values); } }
+
+
         public void ParseValues()
         {
             try
             {
-                PositionalValues = new List<PositionValue>();
+                _values = new ObservableCollection<PositionValue>();
                 var sp = RawValue.Split('=');
                 var decl = sp[1].Substring(1, sp[1].Length - 2).Split(',');
 
                 foreach (var ss in decl.Select(s => s.Split(' ')))
                 {
-                    PositionalValues.Add(new PositionValue { Name = ss[0], Value = ss[1] });
+                    _values.Add(new PositionValue { Name = ss[0], Value = ss[1] });
                 }
             }
             catch { }
@@ -81,5 +88,17 @@ namespace miRobotEditor.Languages
     {
         public string Name { get; set; }
         public string Value { get; set; }
+    }
+
+      public interface IPosition
+    {
+         string RawValue { get; set; }
+         string Scope { get; set; }
+         string Name { get; set; }
+         string Type { get; set; }
+         ReadOnlyObservableCollection<PositionValue> PositionalValues { get;  }
+         void ParseValues();
+         string ExtractFromMatch();
+       
     }
 }

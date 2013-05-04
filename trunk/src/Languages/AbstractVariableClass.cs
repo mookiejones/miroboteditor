@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
-
 namespace miRobotEditor.Languages
 {
     internal abstract class AbstractVariableClass 
