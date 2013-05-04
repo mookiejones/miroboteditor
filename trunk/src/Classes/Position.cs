@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using miRobotEditor.GUI;
-
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {
     public class Position : ViewModelBase,IVariable

@@ -6,7 +6,7 @@ using System.Threading;
 using System.Windows.Media.Imaging;
 using miRobotEditor.GUI;
 using miRobotEditor.Languages;
-
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {
    public class VariableBase:ViewModelBase,IVariable
@@ -134,8 +134,8 @@ namespace miRobotEditor.Classes
            if (m==null)
            {
                var s = new StringBuilder();
-               MessageViewModel.Instance.Add("Variable for " + lang.RobotType.ToString(),
-                                             "Does not exist in VariableBase.GetVariables", null);
+              
+               MessageViewModel.Instance.Add("Variable for " + lang.RobotType.ToString(),"Does not exist in VariableBase.GetVariables", MSGIcon.ERROR,true);
                return null;
            }
            while (m.Success)
