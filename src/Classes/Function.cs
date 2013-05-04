@@ -1,58 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using miRobotEditor.GUI;
+using miRobotEditor.ViewModel;
 using Color = System.Windows.Media.Color;
 
 namespace miRobotEditor.Classes
 {
-    public class Function :ViewModelBase, IVariable
-    {
-        public bool IsSelected { get; set; }
-        public string Scope { get; set; }
-        public string Returns { get; set; }
-        public BitmapImage Icon { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public string Value { get; set; }
-        public int Offset { get; set; }
-        public string Path { get; set; }
-        public string Comment { get; set; }
-        public string Declaration{get;set;}
-        public List<Function> GetFunctions(string filename)
-        {
-
-            var result = new List<Function>();
-            BitmapImage icon = Utilities.LoadBitmap(Global.ImgMethod);
-            var m = VariableHelper.FindMatches(DummyDoc.Instance.FileLanguage.MethodRegex, filename);
-
-            while (m.Success)
-            {
-                var f = new Function
-                            {
-                                Offset = m.Index,
-                                Icon = icon,
-                                Path = filename,
-                                Type = m.Groups[1].ToString(),
-                                Name = m.Groups[2].ToString()
-                            };
-                result.Add(f);
-                m = m.NextMatch();
-            }
-
-            return result;
-        }
-
-       
-    }
     /// <summary>
     /// Global Variables
     /// </summary>
@@ -61,8 +22,9 @@ namespace miRobotEditor.Classes
         /// <summary>
         /// XML Configuration File For Docking Manager
         /// </summary>
-        public const string DockConfig = "dockConfig.xml";
+        public const string _DockConfig =  "dockConfig.xml";
 
+        public static string DockConfig {get{ return Environment.CurrentDirectory + "\\" + _DockConfig;}}
         /// <summary>
         /// Used to help prevent from freezing when network directory doesnt exist
         /// </summary>
@@ -88,7 +50,6 @@ namespace miRobotEditor.Classes
             return false;
         }
 
-        //TODO Remove these when you get the resource problem figured out
 
         //TODO Change this to an XML File
         /// <summary>
@@ -167,13 +128,14 @@ namespace miRobotEditor.Classes
         /// <param name="showmessage"></param>
         public static void ErrorHandler(string message, bool showmessage)
         {
-            Console.WriteLine(message);
-            TraceWriter.Trace(message);
-            LogWriter.WriteLog(message, showmessage ? Colors.Red : Colors.Gray);
-
-            if (showmessage)
-                MessageBox.Show(message);
+        	Console.WriteLine(message);
+        	TraceWriter.Trace(message);
+        	LogWriter.WriteLog(message,showmessage?Colors.Red:Colors.Gray);
+        	
+        	if (showmessage)
+            MessageViewModel.ShowMessage(message);
         }
+        	
     }
     /// <summary>
     /// TraceWriter
@@ -199,6 +161,7 @@ namespace miRobotEditor.Classes
         /// <returns></returns>
         public static BitmapImage LoadBitmap(Bitmap img)
         {
+        	
             var result = new BitmapImage();
             using (var ms = new MemoryStream())
             {
@@ -258,11 +221,14 @@ namespace miRobotEditor.Classes
         }
 
     }
+    
     /// <summary>
     /// Class for Writing To LogFile
     /// </summary>
     public sealed class LogWriter
     {
+        
+    	
         /// <summary>
         /// Constructor
         /// </summary>
@@ -270,8 +236,8 @@ namespace miRobotEditor.Classes
         public LogWriter()
         {
             // Delete Current log
-            File.Delete(String.Format("{0}{1}", Application.StartupPath, @"\KRC Editor.log"));
-            WriteLog(String.Format("{0} {1} Created", Application.ProductName, Application.ProductVersion));
+            File.Delete(String.Format("{0}{1}",App.StartupPath, @"\KRC Editor.log"));
+            WriteLog(String.Format("{0} {1} Created", App.ProductName, App.Version));
         }
         /// <summary>
         /// Write to Log
@@ -291,7 +257,7 @@ namespace miRobotEditor.Classes
         [Localizable(false)]
         public static void WriteLog(string message, Color color)
         {
-            using (var stream = new FileStream(string.Format("{0}{1}", Application.StartupPath, @"\KRC Editor.log"), FileMode.OpenOrCreate))
+            using (var stream = new FileStream(string.Format("{0}{1}", App.StartupPath, @"\KRC Editor.log"), FileMode.OpenOrCreate))
             {
                 using (var writer = new StreamWriter(stream, Encoding.Default))
                 {
