@@ -2632,47 +2632,36 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>_Cancel</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="FindAll" xml:space="preserve">
     <value>Find _All</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="FindNext" xml:space="preserve">
     <value>Find _Next</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="FindPrevious" xml:space="preserve">
     <value>Find _Previous</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="FindWhat" xml:space="preserve">
     <value>Find What:</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="MatchCase" xml:space="preserve">
     <value>Match case</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="MatchWholeWord" xml:space="preserve">
     <value>Match whole word</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="Replace" xml:space="preserve">
     <value>_Replace</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="ReplaceAll" xml:space="preserve">
     <value>Replace A_ll</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="ReplaceWith" xml:space="preserve">
     <value>Replace With:</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="UseRegularExpressions" xml:space="preserve">
     <value>Use Regular Expressions</value>
-    <comment>FindAndReplaceForm</comment>
   </data>
   <data name="CheckEnvironment" xml:space="preserve">
     <value>This version of {0} requires .Net 4.0. Your are using:{1}</value>
@@ -2694,5 +2683,12 @@
   </data>
   <data name="GotoDialog_GotoDialog_OnLoaded_Enter_Line_Number__1__0___" xml:space="preserve">
     <value>Enter Line Number (1-{0}):</value>
+  </data>
+  <data name="DefaultFilter" xml:space="preserve">
+    <value>All _files (*.*)|*.*|ABB _files (.mod,.prg,.cfg)|*.mod;*.prg;*.cfg|Kawasaki _files(*.as)|*.as|KUKA _files (.sub,.src,.dat,.kfd)|*.sub;*.src;*.dat;*.kfd|Fanuc _files (*.ls)|*.ls</value>
+  </data>
+  <data name="ShiftingProgram" xml:space="preserve">
+    <value>"Shifting Program. Progress:= {0}"</value>
+    <comment>Used In AbstractLanguageClass.cs</comment>
   </data>
 </root>

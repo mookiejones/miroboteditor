@@ -88,6 +88,15 @@ namespace miRobotEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All _files (*.*)|*.*|ABB _files (.mod,.prg,.cfg)|*.mod;*.prg;*.cfg|Kawasaki _files(*.as)|*.as|KUKA _files (.sub,.src,.dat,.kfd)|*.sub;*.src;*.dat;*.kfd|Fanuc _files (*.ls)|*.ls.
+        /// </summary>
+        public static string DefaultFilter {
+            get {
+                return ResourceManager.GetString("DefaultFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://sites.google.com/site/dmcautomation/home/software/dmc-robot-editor.
         /// </summary>
         public static string DownloadsPage {
@@ -249,6 +258,15 @@ namespace miRobotEditor.Properties {
         public static string ReplaceWith {
             get {
                 return ResourceManager.GetString("ReplaceWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Shifting Program. Progress:= {0}&quot;.
+        /// </summary>
+        public static string ShiftingProgram {
+            get {
+                return ResourceManager.GetString("ShiftingProgram", resourceCulture);
             }
         }
         
