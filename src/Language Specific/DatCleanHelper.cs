@@ -7,12 +7,12 @@
  */
 using System;
 using System.Globalization;
-using miRobotEditor.Classes;
+using miRobotEditor.ViewModel;
 using System.Windows.Input;
 using miRobotEditor.Commands;
 using System.Collections.ObjectModel;
 using miRobotEditor.GUI;
-
+using miRobotEditor.Classes;
 namespace miRobotEditor.Language_Specific
 {
 	
@@ -31,7 +31,7 @@ namespace miRobotEditor.Language_Specific
 				if (_listItems==null)
 					GetlistItems();
 				return _listItems;}
-			set{ _listItems = value; RaisePropertyChanged("ListItems");}
+		 private	set{ _listItems = value; RaisePropertyChanged("ListItems");}
 		}
 	
 		private void GetlistItems()
