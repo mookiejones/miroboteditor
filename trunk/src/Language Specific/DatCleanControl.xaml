@@ -80,8 +80,7 @@
 					Grid.Row="1">
 					<ListView.View>
 						<GridView>
-							<GridViewColumn
-								Header="Name">
+							<GridViewColumn	Header="Name">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate>
 										<StackPanel>

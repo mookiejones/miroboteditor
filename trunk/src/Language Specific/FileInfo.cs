@@ -13,6 +13,7 @@ using System.Security;
 using System.Security.AccessControl;
 using System.IO;
 using miRobotEditor.Classes;
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Pads
 {
   /// <summary>
@@ -579,7 +580,7 @@ namespace miRobotEditor.Pads
             }
             catch (Exception ex)
             {
-                MessageViewModel.Instance.AddError(ex);
+                MessageViewModel.AddError(ex);
               }
 
             return FileType.NONE ;
