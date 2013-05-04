@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EscDiagnose TraceMode="False" TraceServer="127.0.0.1" TracePort="8002" TraceRetryConnect="60" TestMode="False" TestServer="127.0.0.1" TestPort="8004">
+  <NetLibrary>
+    <Net Name="Default config" ReadOnly="False">
+      <ControlNode Name="Robot Control 1" Ordinal="00" NodeType="126" ShortCut="RC 1" IconIndex="16">
+        <EscNode Name="KCP" Ordinal="00" NodeType="15" ShortCut="KCP" IconIndex="15">
+          <Signal Tag="NA" Show="True" IconOff="2" IconOn="0" />
+          <Signal Tag="ENA" Show="True" IconOff="2" IconOn="0" />
+          <Signal Tag="BS" Show="True" IconOff="2" IconOn="1" />
+          <Signal Tag="AUTO" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="ZS1" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="QE" Show="True" IconOff="1" IconOn="2" />
+          <Signal Tag="AF" Show="True" IconOff="2" IconOn="1" />
+          <Signal Tag="ZS2" Show="True" IconOff="2" IconOn="0" />
+          <Signal Tag="AE" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="ANA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="LNA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="AAUTO" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="ATEST" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="RES1" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="RAE2" Show="True" IconOff="1" IconOn="0" />
+          <Signal Tag="E2" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="TEST" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="AA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_NA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_ENA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_BS" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_E2" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_ZS" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_QE" Show="True" IconOff="0" IconOn="1" />
+        </EscNode>
+        <EscNode Name="KPS" Ordinal="01" NodeType="10" ShortCut="KPS" IconIndex="10">
+          <Signal Tag="NA" Show="True" IconOff="2" IconOn="0" />
+          <Signal Tag="ENA" Show="True" IconOff="2" IconOn="0" />
+          <Signal Tag="BS" Show="True" IconOff="2" IconOn="1" />
+          <Signal Tag="AUTO" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="ZS1" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="QE" Show="True" IconOff="1" IconOn="2" />
+          <Signal Tag="AF" Show="True" IconOff="2" IconOn="1" />
+          <Signal Tag="ZS2" Show="True" IconOff="2" IconOn="0" />
+          <Signal Tag="AE" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="ANA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="LNA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="AAUTO" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="ATEST" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="RES1" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="RAE2" Show="True" IconOff="1" IconOn="0" />
+          <Signal Tag="E2" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="TEST" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="AA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_NA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_ENA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_BS" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_E2" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_ZS" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_QE" Show="True" IconOff="0" IconOn="1" />
+        </EscNode>
+        <EscNode Name="Esc-CI3" Ordinal="02" NodeType="02" ShortCut="CI3" IconIndex="02">
+          <Signal Tag="NA" Show="True" IconOff="2" IconOn="0" />
+          <Signal Tag="ENA" Show="True" IconOff="2" IconOn="0" />
+          <Signal Tag="BS" Show="True" IconOff="2" IconOn="1" />
+          <Signal Tag="AUTO" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="ZS1" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="QE" Show="True" IconOff="1" IconOn="2" />
+          <Signal Tag="AF" Show="True" IconOff="2" IconOn="1" />
+          <Signal Tag="ZS2" Show="True" IconOff="2" IconOn="0" />
+          <Signal Tag="AE" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="ANA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="LNA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="AAUTO" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="ATEST" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="RES1" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="RAE2" Show="True" IconOff="1" IconOn="0" />
+          <Signal Tag="E2" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="TEST" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="AA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_NA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_ENA" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_BS" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_E2" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_ZS" Show="True" IconOff="0" IconOn="1" />
+          <Signal Tag="CH2_QE" Show="True" IconOff="0" IconOn="1" />
+        </EscNode>
+      </ControlNode>
+    </Net>
+  </NetLibrary>
+  <IconLibrary>
+    <Icon Index="00" Type="00" File="Res00.ico" />
+    <Icon Index="01" Type="01" File="Res01.ico" />
+    <Icon Index="02" Type="02" File="Res02.ico" />
+    <Icon Index="03" Type="03" File="Res03.ico" />
+    <Icon Index="04" Type="04" File="Res04.ico" />
+    <Icon Index="05" Type="05" File="CIBRD.ico" />
+    <Icon Index="06" Type="06" File="Res06.ico" />
+    <Icon Index="07" Type="07" File="Res07.ico" />
+    <Icon Index="08" Type="08" File="Res08.ico" />
+    <Icon Index="09" Type="09" File="Test.ico" />
+    <Icon Index="10" Type="10" File="KPS.ico" />
+    <Icon Index="11" Type="11" File="Auxiliary.ico" />
+    <Icon Index="12" Type="12" File="MFC.ico" />
+    <Icon Index="13" Type="13" File="GM.ico" />
+    <Icon Index="14" Type="14" File="ES.ico" />
+    <Icon Index="15" Type="15" File="KCP.ico" />
+    <Icon Index="16" Type="126" File="Robot.ico" />
+  </IconLibrary>
+</EscDiagnose>

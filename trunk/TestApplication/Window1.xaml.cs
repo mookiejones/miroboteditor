@@ -19,11 +19,13 @@ namespace TestApplication
 		public Window1()
 		{
 			InitializeComponent();
+
+            
 		}
 
 	    private void TestItem(object sender, RoutedEventArgs e)
 	    {
-	    	FanucREPCDViewModel.Instance.REPTCDItems=  	FanucTools.FanucDiagnostics.GetREPTCD();
+	    	//FanucREPCDViewModel.Instance.REPTCDItems=  	FanucTools.FanucDiagnostics.GetREPTCD();
 	    }
 	}
 }

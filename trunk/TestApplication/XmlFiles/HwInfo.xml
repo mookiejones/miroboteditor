@@ -1,0 +1,116 @@
+<HwInfo>
+	<KRC>
+		<Group Name="Cabinet" Tag="HwiCabinet" Icon="Cabinet">
+			<Class Namespace="root\KUKARoboter" Name="ControlHardware" Tag="HwiPC" Icon="PC">
+				<Property>Name</Property>
+				<Property>Type</Property>
+				<Class Namespace="root\KUKARoboter" Name="MultiFunctionCard" Tag="HwiMFC" Icon="Electronic">
+					<Property>Name</Property>
+					<Property>Type</Property>
+					<Property>SwVersion</Property>
+				</Class>
+				<Class Namespace="root\KUKARoboter" Name="DigitalServoElectronic" Tag="HwiDSE" Icon="Electronic">
+					<Property>Name</Property>
+					<Property>Type</Property>
+					<Property>SwVersion</Property>
+					<Property>ProcessorFrequency</Property>
+					<Property>ProcessorVersion</Property>
+				</Class>
+			</Class>
+			<Class Namespace="root\KUKARoboter" Name="DriveBus" Tag="HwiDB" Icon="Electronic" OrderBy="Name">
+				<Property>*</Property>
+				<Class Namespace="root\KUKARoboter" Name="DriveBusParticipant" Tag="HwiDBP" Icon="Electronic" OrderBy="Name">
+					<Property>Name</Property>
+					<Property>Type</Property>
+					<Property>SwVersion</Property>
+					<Property>HwVersion</Property>
+					<Property>SerialNumber</Property>
+				</Class>
+			</Class>
+			<Class Namespace="root\KUKARoboter" Name="Bus" Tag="$Type" Icon="Electronic" OrderBy="Ordinal">
+				<Property>Ordinal</Property>
+				<Property>Name</Property>
+				<Property>Type</Property>
+				<Class Namespace="root\KUKARoboter" Name="BusParticipant" Tag="$Name" Icon="StatusLED" OrderBy="Address">
+					<Property>Ordinal</Property>
+					<Property>Name</Property>
+					<Property>Address</Property>
+					<Property>Group</Property>
+					<Property>Active</Property>
+					<Property>Error</Property>
+					<Property>LEDStatus</Property>
+					<Property>Type</Property>
+					<Property>SwVersion</Property>
+					<Property>HwVersion</Property>
+					<Property>SerialNumber</Property>
+				</Class>
+			</Class>
+		</Group>
+		<Class Namespace="root\KUKARoboter" Name="RobotControl" Tag="HwiRobot" Icon="Robot" AutoRefresh="5">
+			<Property>RobotName</Property>
+			<Property>RobotRuntime</Property>
+			<Property>RobotSerialNumber</Property>
+			<Class Namespace="root\KUKARoboter" Name="ResolverDigitalConverter" Tag="HwiRDC" Icon="Electronic">
+				<Property>Name</Property>
+				<Property>Type</Property>
+				<Property>SwVersion</Property>
+				<Property>HwVersion</Property>
+				<Property>SerialNumber</Property>
+				<Property>ProcessorFrequency</Property>
+				<Property>ProcessorVersion</Property>
+			</Class>
+		</Class>
+	</KRC>
+	<KRC2>
+		<Group Name="Cabinet" Tag="HwiCabinet" Icon="Cabinet">
+			<Class Namespace="root\KUKARoboter" Name="ControlHardware" Tag="HwiPC" Icon="PC">
+				<Property>Name</Property>
+				<Property>Type</Property>
+				<Class Namespace="root\KUKARoboter" Name="MultiFunctionCard" Tag="HwiMFC" Icon="Electronic">
+					<Property>Name</Property>
+					<Property>Type</Property>
+					<Property>SwVersion</Property>
+				</Class>
+				<Class Namespace="root\KUKARoboter" Name="DigitalServoElectronic" Tag="HwiDSE" Icon="Electronic">
+					<Property>Name</Property>
+					<Property>Type</Property>
+					<Property>SwVersion</Property>
+					<Property>ProcessorFrequency</Property>
+					<Property>ProcessorVersion</Property>
+				</Class>
+			</Class>
+			<Class Namespace="root\KUKARoboter" Name="DriveBus" Tag="HwiDB" Icon="Electronic">
+				<Property>*</Property>
+			</Class>
+			<Class Namespace="root\KUKARoboter" Name="DriveBusParticipant" Tag="HwiDBP" Icon="Electronic">
+				<Property>Name</Property>
+				<Property>Type</Property>
+				<Property>SwVersion</Property>
+				<Property>HwVersion</Property>
+				<Property>SerialNumber</Property>
+			</Class>
+		</Group>
+		<Class Namespace="root\KUKARoboter" Name="RobotControl" Tag="HwiRobot" Icon="Robot" AutoRefresh="5">
+			<Property>RobotName</Property>
+			<Property>RobotRuntime</Property>
+			<Property>RobotSerialNumber</Property>
+			<Class Namespace="root\KUKARoboter" Name="ResolverDigitalConverter" Tag="HwiRDC" Icon="Electronic">
+				<Property>Name</Property>
+				<Property>Type</Property>
+				<Property>SwVersion</Property>
+				<Property>HwVersion</Property>
+				<Property>SerialNumber</Property>
+				<Property>ProcessorFrequency</Property>
+				<Property>ProcessorVersion</Property>
+			</Class>
+		</Class>
+	</KRC2>
+	<default>
+		<Class Name="WIN32_BIOS" Tag="BIOS" Icon="System">
+			<Property>*</Property>
+		</Class >
+		<Class Name="WIN32_PhysicalMemory" Tag="MEMORY" Icon="System">
+			<Property>*</Property>
+		</Class >
+	</default>
+</HwInfo>
