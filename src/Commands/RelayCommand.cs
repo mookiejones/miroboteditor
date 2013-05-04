@@ -11,6 +11,7 @@ using System.Diagnostics;
 
 namespace miRobotEditor.Commands
 {
+    [System.Diagnostics.DebuggerStepThrough]
 public class RelayCommand : ICommand
 {
     #region Fields
