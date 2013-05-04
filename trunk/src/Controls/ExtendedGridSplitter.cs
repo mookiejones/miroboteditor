@@ -6,13 +6,14 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-
+using System.Diagnostics;
 namespace miRobotEditor.Controls
 {
     /// <summary>
     /// An updated version of the standard ExtendedGridSplitter control that includes a centered handle
     /// which allows complete collapsing and expanding of the appropriate grid column or row.
     /// </summary>
+   [DebuggerStepThrough]
     [Localizable(false),TemplatePart(Name = ElementHorizontalHandleName, Type = typeof(ToggleButton))]
     [TemplatePart(Name = ElementLabelName, Type = typeof(ToggleButton))]
     [TemplatePart(Name = ElementSwitcharrowHandleName, Type = typeof(ToggleButton))]
@@ -97,11 +98,6 @@ namespace miRobotEditor.Controls
             set { SetValue(UnfocusColorProperty, value); }
         }
 
-        public virtual void OnFocusStyleChanged(Style v)
-        {
-
-
-        }
 
         /// <summary>
         /// Gets or sets the style that customizes the appearance of the horizontal handle 
@@ -356,10 +352,6 @@ namespace miRobotEditor.Controls
         #endregion
 
 
-        public void Goto(int value)
-        {
-
-        }
         #region Collapse and Expand Methods
 
         /// <summary>
@@ -764,6 +756,26 @@ namespace miRobotEditor.Controls
 
 
 
+    }
+     /// <summary>
+    /// Specifies different collapse modes of a ExtendedGridSplitter.
+    /// </summary>
+    public enum GridSplitterCollapseMode
+    {
+        /// <summary>
+        /// The ExtendedGridSplitter cannot be collapsed or expanded.
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// The column (or row) to the right (or below) the
+        /// splitter's column, will be collapsed.
+        /// </summary>
+        Next = 1,
+        /// <summary>
+        /// The column (or row) to the left (or above) the
+        /// splitter's column, will be collapsed.
+        /// </summary>
+        Previous = 2
     }
 }
 

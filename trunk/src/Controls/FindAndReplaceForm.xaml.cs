@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using miRobotEditor.Commands;
 using miRobotEditor.GUI;
-
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Controls
 {
     /// <summary>
@@ -22,7 +22,7 @@ namespace miRobotEditor.Controls
 
     }
 
-    public class FindReplaceViewModel : Classes.ViewModelBase
+    public class FindReplaceViewModel : ViewModelBase
     {
 
         #region  Commands
