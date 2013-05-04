@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Collections;
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.GUI.ExplorerControl
 {
 	
@@ -28,7 +29,8 @@ namespace miRobotEditor.GUI.ExplorerControl
 		private const int REMOVABLE = 5;
 		private const int CDDRIVE=3;
 		private const int FIXEDDRIVE=2;
-		private const int GENERICFILE=5;
+		private const int GENERICFILE=6;
+		private const int NETWORK=7;
 		
 		
 		public string SelectedFile{get;set;}
@@ -131,7 +133,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 							}
 							case DriveType.Network:
 							{
-								AddNode(d.Name,10,10);
+								AddNode(d.Name,NETWORK,NETWORK);
 								break;
 							}
 							case DriveType.CDRom:
@@ -144,7 +146,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 				}
 				catch (Exception ex)
 				{
-				    Classes.MessageViewModel.Instance.AddError(ex);				
+				    MessageViewModel.AddError(ex);				
 				}
 			}
 		}
@@ -270,7 +272,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 				}
 				catch (Exception ex)
 				{
-				    Classes.MessageViewModel.Instance.AddError(ex);
+				    MessageViewModel.AddError(ex);
 					Cursor = Cursors.Default;
 				}
 			}

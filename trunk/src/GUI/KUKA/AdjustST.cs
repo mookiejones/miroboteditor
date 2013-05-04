@@ -1,4 +1,4 @@
-﻿using miRobotEditor.Classes;
+﻿using miRobotEditor.ViewModel;
 namespace miRobotEditor.GUI.KUKA.AdjustST
 {
     class AdjustST:ViewModelBase
