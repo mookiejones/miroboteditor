@@ -1,33 +1,24 @@
-﻿<UserControl
+<!-- Removed Focus Color From Extended Grid Splitter-->
+    <UserControl
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:miRobotEditor.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:GUI="clr-namespace:miRobotEditor.GUI"
-        mc:Ignorable="d" x:Name="document" x:Class="miRobotEditor.GUI.DummyDoc"
-        IsVisibleChanged="OnIsVisibleChanged" d:DesignHeight="212" d:DesignWidth="428">
-    <UserControl.Resources>
-        <Color x:Key="UnFocus"/>
-        <RoutedUICommand x:Key="Reload" Text="Reload File"/>
-    </UserControl.Resources>
-    <UserControl.CommandBindings>
-        <CommandBinding   CanExecute="CanReload" Executed="ExecuteReload" Command="{StaticResource Reload}" />
-    </UserControl.CommandBindings>   
-    <UserControl.InputBindings>
-        <KeyBinding Key="F5" Command="{StaticResource Reload}"/>
-    </UserControl.InputBindings>
-        <Grid >        
+	 	xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:gui="clr-namespace:miRobotEditor.GUI"
+		xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
+        mc:Ignorable="d" x:Name="document" x:Class="miRobotEditor.GUI.DummyDoc"	
+         d:DesignHeight="212" d:DesignWidth="428"> 
+        <Grid>        
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="25"/>
-
             </Grid.RowDefinitions>
-            <GUI:Editor  x:Name="data"  ReloadFile="ReloadFile" IsVisibleChanged="OnIsVisibleChanged"   TextChanged="TextChanged" UpdateFunctions="Raiseupdated" Grid.Row="2" BorderThickness="1"/>        	
-            <local:ExtendedGridSplitter  x:Name="grid" Grid.Row="1" HorizontalAlignment="Stretch" Height="20" CollapseMode="Previous" UnfocusColor="{StaticResource UnFocus}" FocusColor="{Binding Robot.FocusColor}" Loaded="GridLoaded" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Center"/>
-            <GUI:Editor x:Name="source" ReloadFile="ReloadFile" Grid.Row="0" IsVisibleChanged="OnIsVisibleChanged" TextChanged="TextChanged"  UpdateFunctions="Raiseupdated" BorderThickness="1" />
-            
+            <gui:Editor  x:Name="data"  Grid.Row="2" GotFocus="FocusChanged" IsVisibleChanged="OnIsVisibleChanged"   TextChanged="dTextChangedCommand"   BorderThickness="1"/>
+            <local:ExtendedGridSplitter   x:Name="grid"  HorizontalAlignment="Stretch" Height="20" CollapseMode="Previous"   Loaded="GridLoaded" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" Grid.Row="1"/>
+            <gui:Editor x:Name="source" GotFocus="FocusChanged"  Grid.Row="0" IsVisibleChanged="OnIsVisibleChanged"  TextChanged="dTextChangedCommand"  BorderThickness="1" />            
         </Grid>
     </Grid>
 </UserControl>

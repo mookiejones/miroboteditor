@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
 using miRobotEditor.Classes;
-
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.GUI.Dialogs.About
 {
     
@@ -38,7 +38,7 @@ namespace miRobotEditor.GUI.Dialogs.About
             }
             catch (Exception ex)
             {
-                MessageViewModel.Instance.Add("Error In About Window", ex.ToString(), null);
+                MessageViewModel.Instance.Add("Error In About Window", ex.ToString(), MSGIcon.ERROR);
             }
         }
     }
