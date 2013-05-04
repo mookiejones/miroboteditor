@@ -1,0 +1,267 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:Templates="clr-namespace:miRobotEditor.Templates"
+                    xmlns:GUI="clr-namespace:miRobotEditor.GUI"
+                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <DataTemplate DataType="{x:Type vm:ObjectBrowserViewModel}">
+        <Grid>
+            <TabControl>
+                <TabItem Header="Functions">
+                    <Templates:VisualVariableItem ItemsSource="{Binding Functions}"/>
+                </TabItem>
+                <TabItem Header="Fields">
+                    <Templates:VisualVariableItem ItemsSource="{Binding Fields}"/>
+                </TabItem>
+                <TabItem Header="Files">
+                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Files}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Icon}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Name">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Size">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Length}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Type">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Extension}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Path" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding File.FullName}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Positions">
+                    <Templates:VisualVariableItem ItemsSource="{Binding Positions}"  />
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate  DataType="{x:Type vm:MessageViewModel}">
+        <ListView ItemsSource="{Binding Path=Messages}" SelectedItem="{Binding SelectedMessage}" Height="Auto" Width="Auto">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Clear" Command="{Binding ClearMessagesCommand}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="16" DisplayMemberBinding="{Binding Icon}" />
+                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
+                    <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Description}" />
+                </GridView>
+            </ListView.View>
+            <ListView.Resources>
+                <Style TargetType="{x:Type ListViewItem }">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding Icon}" Grid.RowSpan="3"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding SelectedMessage.Title , StringFormat=Title     \{0\}}"/>
+                                    <Separator Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                    <Separator />
+                                    <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedMessage.Description , StringFormat=Description     \{0\}}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.Resources>
+        </ListView>
+    </DataTemplate>
+
+    
+    
+    <!-- Archive Info-->
+    <DataTemplate DataType="{x:Type vm:ArchiveInfoViewModel}">
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextAlignment" Value="Right"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="5,0,5,0"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="IsReadOnly" Value="True"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+                <Style TargetType="GroupBox">
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+                <Style TargetType="{x:Type ListView}" x:Key="ListView">
+                    <Setter Property="MinHeight" Value="100"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Menu Background="#FFF0F0F0" Grid.Row="0">
+                <MenuItem Header="_File" Command="{Binding LoadCommand}"/>
+            </Menu>
+            <TabControl Grid.Row="1">
+                <TabItem Header="Archive Information">
+                    <StackPanel Orientation="Vertical">
+                        <!-- General -->
+                        <GroupBox Header="General">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Archive Name" Grid.Row="0" Grid.Column="0"/>
+                                <TextBlock Text="Config Type" Grid.Row="1" Grid.Column="0"/>
+                                <TextBlock Text="Disk No" Grid.Row="2" Grid.Column="0"/>
+                                <TextBlock Text="ID" Grid.Row="3" Grid.Column="0"/>
+                                <TextBlock Text="Date" Grid.Row="4" Grid.Column="0"/>
+                                <TextBox Text="{Binding ArchiveName}" Grid.Column="1" Grid.Row="0"/>
+                                <TextBox Text="{Binding ArchiveConfigType}" Grid.Column="1" Grid.Row="1"/>
+                                <TextBox Text="{Binding ArchiveDiskNo}" Grid.Column="1" Grid.Row="2"/>
+                                <TextBox Text="{Binding ArchiveID}" Grid.Column="1" Grid.Row="3"/>
+                                <TextBox Text="{Binding ArchiveDate}" Grid.Column="1" Grid.Row="4"/>
+                            </Grid>
+                        </GroupBox>
+                        <!-- Roboter -->
+                        <GroupBox Header="Roboter">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Robot Name" Grid.Row="0" Grid.Column="0"/>
+                                <TextBlock Text="Serial" Grid.Row="1" Grid.Column="0"/>
+                                <TextBox Text="{Binding RobotName}" Grid.Column="1" Grid.Row="0"/>
+                                <TextBox Text="{Binding RobotSerial}" Grid.Column="1" Grid.Row="1"/>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="Version">
+                            <TextBox Text="{Binding KSSVersion}" />
+                        </GroupBox>
+                        <!-- TechPacks -->
+                        <GroupBox Header="TechPacks" VerticalAlignment="Stretch">
+                            <ListView ItemsSource="{Binding TechPacks}" MinHeight="100" VerticalAlignment="Stretch">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Technology Name">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Name}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Version" >
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Version}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Archive Files">
+                    <ListView ItemsSource="{Binding FileCollection}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Size}"/>
+                                <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Comment}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+                <TabItem Header="IO Points">
+                    <TabItem.Resources>
+                        <Style TargetType="DataGrid">
+                            <Setter Property="AlternatingRowBackground" Value="SkyBlue"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </TabItem.Resources>
+                    <TabControl>
+                        <TabItem Header="Digital">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50*"/>
+                                    <ColumnDefinition Width="50*"/>
+                                </Grid.ColumnDefinitions>
+                                <GroupBox Header="Digital In" Grid.Column="0">
+                                    <DataGrid  ItemsSource="{Binding DigitalIn}" />
+                                </GroupBox>
+                                <GroupBox Header="Digital Out" Grid.Column="1">
+                                    <DataGrid  ItemsSource="{Binding DigitalOut}" />
+                                </GroupBox>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Analog">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50*"/>
+                                    <ColumnDefinition Width="50*"/>
+                                </Grid.ColumnDefinitions>
+                                <GroupBox Header="Analog In" Grid.Column="0">
+                                    <DataGrid  ItemsSource="{Binding AnalogIn}" />
+                                </GroupBox>
+                                <GroupBox Header="Analog Out" Grid.Column="1">
+                                    <DataGrid  ItemsSource="{Binding AnalogOut}" />
+                                </GroupBox>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

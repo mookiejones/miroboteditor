@@ -1,0 +1,25 @@
+<UserControl x:Class="miRobotEditor.Templates.ProjectExplorerTemplate"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:vm="clr-namespace:miRobotEditor.ViewModel">
+	<UserControl.DataContext>
+	<vm:ProjectExplorerViewModel/>
+	</UserControl.DataContext>
+	<ListView ItemsSource="{Binding Items}">	
+	<ListView.View>
+		<GridView>
+			<GridViewColumn Header="Name">
+				<GridViewColumn.CellTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding ShortName}"/>
+					</DataTemplate>
+				</GridViewColumn.CellTemplate>
+			</GridViewColumn>
+		
+		</GridView>
+	</ListView.View>
+	
+	
+	</ListView>
+
+</UserControl>
