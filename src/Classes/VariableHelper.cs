@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
-
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {
     public class VariableHelper

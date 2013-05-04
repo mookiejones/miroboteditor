@@ -1,5 +1,5 @@
 ﻿using System.Windows.Media.Imaging;
-
+using System.Collections.ObjectModel;
 namespace miRobotEditor.Classes
 {
     public interface IVariable

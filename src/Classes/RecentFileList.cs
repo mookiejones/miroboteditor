@@ -296,7 +296,7 @@ namespace miRobotEditor.Classes
 				{
                     //TODO I think i want to show the filename for this
                     var dir = Path.GetDirectoryName(Filepath);
-				    var f = Path.GetFileNameWithoutExtension(Filepath);
+                    string f = ViewModel.GlobalOptions.Instance.Options.FileOptions.ShowFullName?Path.GetFileName(Filepath):Path.GetFileNameWithoutExtension(Filepath);
 // ReSharper disable AssignNullToNotNullAttribute
 					return Path.Combine(dir, f );
 // ReSharper restore AssignNullToNotNullAttribute
@@ -345,7 +345,7 @@ namespace miRobotEditor.Classes
 			var dMenuClick = MenuClick;
 
             if (File.Exists(filepath))
-		      MainWindow.Instance.OpenFile(filepath);
+                Workspace.Instance.OpenFile(filepath);
             else
                 PromptForDelete(filepath);
 //			if ( dMenuClick != null ) dMenuClick( menuItem, new MenuClickEventArgs( filepath ) );
@@ -428,7 +428,7 @@ namespace miRobotEditor.Classes
 				}
 				catch (Exception ex)
 				{
-				    MessageViewModel.Instance.AddError(ex);
+				    ViewModel.MessageViewModel.AddError(ex);
 				}
 			}
 		}

@@ -1,46 +1,41 @@
 ﻿using System.ComponentModel;
 using System.Text;
-
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {
-    public class FunctionItem
+	public class FunctionItem:ViewModelBase
     {
-        public string Text { get;  set; }
-        public string Name { get;  set; }
-        public string Returns { get;  set; }
-        public string Parameters { get;  set; }
+		
+		private string _type = string.Empty;
+		private string _name = string.Empty;
+		private string _returns = string.Empty;
+		private string _parameters = string.Empty;
+		
+		public bool ShowType{get{return Type.Length>0;}}
+		public bool ShowName{get{return Name.Length>0;}}
+		public bool ShowReturns{get{return Returns.Length>0;}}
+		public bool ShowParameters{get{return Parameters.Length>0;}}
+		
+		
+		
+		public string Type { get{ return _type;}  set{_type=value;RaisePropertyChanged("Type");} }
+		public string Name { get{ return _name;}  set{_name=value;RaisePropertyChanged("Name");} }
+		public string Returns { get{ return _returns;}  set{_returns=value;RaisePropertyChanged("Returns");} }
+		public string Parameters { get{ return _parameters;}  set{_parameters=value;RaisePropertyChanged("Parameters");} }
+        
+      	private int _offset = -1;
+      	
+      	public int Offset { get{return _offset;} set{_offset=value;RaisePropertyChanged("Offset");} }
 
-      
-        public int Offset { get; set; }
-
-        [Localizable(false)]
-        public string Tooltip
-        {
-            get
-            {
-                var sb = new StringBuilder();
-                sb.AppendLine("Name:= " + Name);
-                if (!(string.IsNullOrEmpty(Returns))) sb.AppendLine("Returns:= " + Returns);
-                if (!(string.IsNullOrEmpty(Parameters))) sb.AppendLine("Parameters:= " + Parameters);
-                return sb.ToString();
-            }
-
-        }
+     
         public FunctionItem()
         {
         }
 
-        public FunctionItem(string text, string name, string returns, string parameters,int offset)
-        {
-            Text = text;
-            Name = name;
-            Returns = returns;
-            Parameters = parameters;
-            Offset = offset;
-        }
+      
         public override string ToString()
         {
-            return Text;
+            return Name;
         }
 
     }
