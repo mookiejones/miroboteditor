@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media.Imaging;
 
-namespace miRobotEditor.Classes
+namespace miRobotEditor.ViewModel
 {
     public class FileModel:ViewModelBase
     {
