@@ -6,15 +6,19 @@
     <Application.Resources>        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes\Generic.xaml"/>
+
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-             <ResourceDictionary Source="Templates\StatusBarTemplate.xaml"/>
-                <ResourceDictionary Source="Themes\Generic.xaml"/>
+              <ResourceDictionary Source="Templates\StatusBarTemplate.xaml"/>
                 <ResourceDictionary Source="Themes/ExtendedGridSplitter.xaml" />
-                <ResourceDictionary Source="Themes/AdjustST.xaml" />                  
+                <ResourceDictionary Source="Themes/AdjustST.xaml" />  
+                <ResourceDictionary Source="Themes/ToolTipTemplate.xaml" />
+                <ResourceDictionary Source="Templates/EditorTemplate.xaml" />
+
                 <ResourceDictionary Source="Themes/MenuDictionary.xaml" />
                 <!--ResourceDictionary Source="Themes/ToolTip.xaml" /-->
                 <!--ResourceDictionary Source="Themes/MenuStyle.xaml" /-->
