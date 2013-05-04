@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:GUI="clr-namespace:miRobotEditor.GUI">
- <Style x:Key="DataGridStyle"  TargetType="DataGrid">
+ <Style  TargetType="{x:Type DataGrid}">
         <Setter Property="RowBackground" Value="#FFFFFF" />
         <Setter Property="AlternatingRowBackground" Value="#EBEBED" />
         <Setter Property="RowHeight" Value="18" />
@@ -23,24 +24,25 @@
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />        
     </Style>
-    <Style TargetType="ToolBar">
-        <Setter Property="Background" Value="{DynamicResource ExpressionDark_Dark}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource ExpressionDark_Dark}"/>
-    </Style>
-    <Style TargetType="{x:Type ToolBarPanel}" x:Key="ToolBarPanelStyle">
-        <Setter Property="Background" Value="{DynamicResource ExpressionDark_Dark}"/>        
-    </Style>
-    <Style TargetType="{x:Type ToolBarTray}">
-        <Setter Property="Background" Value="{DynamicResource ExpressionDark_Dark}"/>        
-    </Style>
 
+    <Style x:Key="{x:Type mah:MetroWindow}" TargetType="{x:Type mah:MetroWindow}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush MappingMode="Absolute" StartPoint="0,0" EndPoint="0,180">
+                    <GradientStop Color="#FFDEDEDE" />
+                    <GradientStop Color="White" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style TargetType="{x:Type WrapPanel}">
         
     </Style>
 
 
-    <Color x:Key="HighlightDarkColor">#FFbe0606</Color>
-    <Color x:Key="HighlightLightColor">#FFbe0606</Color>
+    <Color x:Key="HighlightDarkColor">#086F9E</Color>
+    <Color x:Key="HighlightLightColor">#41B1E1</Color>
     
     
     
@@ -53,11 +55,11 @@
         <GradientStop Color="{DynamicResource HighlightDarkColor}" Offset="0" />
         <GradientStop Color="Blue" Offset="1" />
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}" />
-
-        <Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderGlassEffect" >    	
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource HighlightDarkColor}" />
+    
+    
+        <Style x:Key="{x:Type DataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}"  >    	
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Foreground" Value="{DynamicResource ExpressionDark_Menu}"/>
         <Setter Property="Padding" Value="7,0,7,0"/>
         <Setter Property="Template">
             <Setter.Value>

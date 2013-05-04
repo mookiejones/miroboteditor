@@ -31,7 +31,7 @@ namespace miRobotEditor.Templates
             if (cell == null | !cell.CurrentCell.IsValid) return;
             var item = cell.CurrentCell.Item as IVariable;
 
-            if ((item != null)&&(File.Exists(item.Path))) MainWindow.Instance.OpenFile(item);
+            if ((item != null)&&(File.Exists(item.Path))) Workspace.Instance.OpenFile(item);
             e.Handled = true;
         }
         public T TryFindParent<T>(DependencyObject child) where T : DependencyObject

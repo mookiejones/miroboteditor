@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
               AutoGenerateColumns="False"
-              IsReadOnly="True"
-            ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}"
+              IsReadOnly="True"                
              d:DesignHeight="300" d:DesignWidth="300"
-              ToolTipOpening="ToolTip_Opening"
-              Style="{DynamicResource DataGridStyle}"
+              ToolTipOpening="ToolTip_Opening"  
                   MouseDoubleClick="OnMouseDoubleClick">
-            <DataGrid.Columns>
-                             <!--Icon-->
+    <DataGrid.Resources>
+        <ResourceDictionary Source="/miRobotEditor;component/Themes/Styles.xaml"/>
+    </DataGrid.Resources>
+        <DataGrid.Columns>
                 <DataGridTemplateColumn  Width="Auto" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
