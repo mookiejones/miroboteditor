@@ -7,34 +7,61 @@ using System.Windows.Threading;
 using System.Reflection;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
-
+using System.Diagnostics;
+using miRobotEditor.ViewModel;
 namespace miRobotEditor
 {
+	
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application, ISingleInstanceApp
     {
+    	
+    	 public static string StartupPath
+        {
+        	get{
+	        	 return System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+        	}
+        }
+    	
+    	 public static string Version
+    	 {
+    	 	get
+    	 	{
+	    	 	var asm = System.Reflection.Assembly.GetExecutingAssembly();
+	    	 	return asm.GetName().Version.ToString();
+    	 	}
+    	 	
+    	 }
+    	 public static string ProductName
+    	 {
+    	 	get 
+    	 	{
+                return System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString();
+    	 	}
+    	 }
+    
     	  private const string Unique = "My_Unique_Application_String";
     	  public static App _application;
           [STAThread]
           public static void Main()
           {
 
-              //#if DEBUG
-              Control.CheckForIllegalCrossThreadCalls = true;
-              //#endif
+              #if DEBUG
+              //Control.CheckForIllegalCrossThreadCalls = true;
+              #endif
               if (!CheckEnvironment())
                   return;
-              if (SingleInstance<App>.InitializeAsFirstInstance(Unique))
-              {
+            if (SingleInstance<App>.InitializeAsFirstInstance(Unique))
+            {
                   _application = new App();
 
                   _application.InitializeComponent();                 
                   _application.Run();
                   // Allow single instance code to perform cleanup operations
-                  SingleInstance<App>.Cleanup();
-              }
+               SingleInstance<App>.Cleanup();
+           }
           }
 
 
@@ -57,58 +84,70 @@ namespace miRobotEditor
               }
               return true;
           }
-
-          [Localizable(false)]
-          protected override void OnStartup(StartupEventArgs e)
-          {
-              if (e.Args.Length > 0)
-              {
-                  MessageBox.Show("You have the latest version.");
-                  Shutdown();
-              }
-
-//              var task = new JumpTask { Title = "Check for Updates", Arguments = "/update", Description = "Checks for Software Updates", CustomCategory = "Actions", IconResourcePath = Assembly.GetEntryAssembly().CodeBase, ApplicationPath = Assembly.GetEntryAssembly().CodeBase};
-
-  //          var asm = Assembly.GetExecutingAssembly();
-  //
-  //          var version = new JumpTask
-  //                                 {
-  //                                     CustomCategory = "Version",
-  //                                     Title = asm.GetName().Version.ToString(),
-  //                                     IconResourcePath = asm.Location,
-  //                                     IconResourceIndex = 0
-  //                                 };
-  //
-  //         var jumpList = new JumpList();
-  //          jumpList.JumpItems.Add(version);
-  //          jumpList.ShowFrequentCategory = true;
-  //          jumpList.ShowRecentCategory = true;
-  //          JumpList.SetJumpList(Current, jumpList);
-  //          jumpList.Apply();
-
-              base.OnStartup(e);
-          }
-
-
-          protected override void OnExit(ExitEventArgs e)
-          {
-              base.OnExit(e);
-          }
+          
+          
 		public bool SignalExternalCommandLineArgs(IList<string> args)
 		{			
 			MainWindow.Activate();
-			((MainWindow)_application.MainWindow).LoadFile(args);
+	        Workspace.Instance.LoadFile(args);
 			return true;
 		}
 
         void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            MessageViewModel.AddError(e.Exception);
+            Console.Write(e);
+            MessageBox.Show(e.Exception.Message + "\r\n" ,"Main Error Handler");
             e.Handled = true;
-            Classes.MessageViewModel.Instance.AddError(e.Exception);
-            MessageBox.Show(e.Exception.Message);
-            e.Handled = true;
-         //   throw e.Exception;
-
         }
+        
+        
+        #region Unused Overrides
+        /*
+          protected override void OnExit(ExitEventArgs e)
+          {
+              base.OnExit(e);
+          }
+            [Localizable(false)]
+          protected override void OnStartup(StartupEventArgs e)
+          {
+             if (e.Args.Length > 0)
+              {
+              	
+              	foreach(var v in e.Args)
+              	{
+              		
+              	}
+              	System.Diagnostics.Debugger.Break();
+              	MessageBox.Show(e.ToString());
+                  MessageBox.Show("You have the latest version.");
+                  Shutdown();
+              }
+
+            var task = new JumpTask { Title = "Check for Updates", Arguments = "/update", Description = "Checks for Software Updates", CustomCategory = "Actions", IconResourcePath = Assembly.GetEntryAssembly().CodeBase, ApplicationPath = Assembly.GetEntryAssembly().CodeBase};
+
+          var asm = Assembly.GetExecutingAssembly();
+
+          var version = new JumpTask
+                                 {
+                                     CustomCategory = "Version",
+                                     Title = asm.GetName().Version.ToString(),
+                                     IconResourcePath = asm.Location,
+                                     IconResourceIndex = 0
+                                 };
+
+         var jumpList = new JumpList();
+          jumpList.JumpItems.Add(version);
+          jumpList.ShowFrequentCategory = true;
+          jumpList.ShowRecentCategory = true;
+          JumpList.SetJumpList(Current, jumpList);
+          jumpList.Apply();
+
+          base.OnStartup(e);
+          }
+*/
+        #endregion
     }
+    
+
 }
