@@ -1,0 +1,13 @@
+<KrcListMonitor Name="Counter" Width="250">
+   <Tab Name="Counter" UpperBound="20">
+      <Column Type="Text" Name="Nr" Align="Right" Width="25">
+         <Text>#</Text>
+      </Column>
+	   <Column Type="Variable" Name="Value" Align="Right" Width="70" EditableForUser="0">
+	      <Variable Type="INT" Name="I[]"></Variable>
+	   </Column>
+	   <Column Type="DB" Name="Name" Align="Left" Width="20" EditableForUser="0">
+	      <DB Module="Counter" Key="CounterText#" Default="Zaehler"></DB>
+	   </Column>
+   </Tab>
+</KrcListMonitor>

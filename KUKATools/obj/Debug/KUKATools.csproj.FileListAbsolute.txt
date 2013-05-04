@@ -1,0 +1,5 @@
+C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\KUKATools\bin\Debug\KUKATools.dll
+C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\KUKATools\bin\Debug\KUKATools.pdb
+C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\KUKATools\obj\Debug\KUKATools.dll
+C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\KUKATools\obj\Debug\KUKATools.pdb
+C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\KUKATools\obj\Debug\KUKATools.csprojResolveAssemblyReference.cache

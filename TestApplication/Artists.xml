@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Artists>
+  <Artist Name="Sting">
+    <Albums>
+      <Album Name="Brand New Day">
+      <Songs>
+        <Song Name="1. A Thousand years"/>
+        <Song Name="2. Desert Rose"/>
+        <Song Name="3. Big Lie Small World"/>
+      </Songs>
+     </Album>
+    <Album Name="Greatest Hits">
+      <Songs>
+        <Song Name="1. Every Breath you take."/>
+      </Songs>
+    </Album>
+    </Albums>
+  
+  </Artist>
+<Artist Name="Elzhi">
+    <Albums>
+      <Album Name="Brand New Day">
+      <Songs>
+        <Song Name="1. A Thousand years"/>
+        <Song Name="2. Desert Rose"/>
+        <Song Name="3. Big Lie Small World"/>
+      </Songs>
+     </Album>
+    <Album Name="Greatest Hits">
+      <Songs>
+        <Song Name="1. Every Breath you take."/>
+      </Songs>
+    </Album>
+    </Albums>
+  
+  </Artist>
+<Artist Name="Nas">
+    <Albums>
+      <Album Name="Brand New Day">
+      <Songs>
+        <Song Name="1. A Thousand years"/>
+        <Song Name="2. Desert Rose"/>
+        <Song Name="3. Big Lie Small World"/>
+      </Songs>
+     </Album>
+    <Album Name="Greatest Hits">
+      <Songs>
+        <Song Name="1. Every Breath you take."/>
+      </Songs>
+    </Album>
+    </Albums>
+  
+  </Artist>
+</Artists>

@@ -1,0 +1,15 @@
+<KrcListMonitor Name="Flags" Width="200">
+   <Tab Name="Flags" UpperBound="999">
+      <Column Type="Text" Name="Nr" Align="Right" Width="30">
+         <Text>#</Text>
+      </Column>
+	   <Column Type="Variable" ShowIcon="true" Name="Value" Align="Center" Width="40" EditableForUser="0">
+	      <Variable Type="BOOL" Name="$FLAG[]"></Variable>
+	      <ShowIcon Value="False">c:\krc\hmi\plugins\krclistmonitor\res\ledoff.ico</ShowIcon>
+	      <ShowIcon Value="True">c:\krc\hmi\plugins\krclistmonitor\res\ledon.ico</ShowIcon>
+	   </Column>
+	   <Column Type="DB" Name="Name" Align="Left" Width="20" EditableForUser="0">
+	      <DB Module="Flag" Key="FlagText#" Default="Flag"></DB>
+	   </Column>
+   </Tab>
+</KrcListMonitor>
