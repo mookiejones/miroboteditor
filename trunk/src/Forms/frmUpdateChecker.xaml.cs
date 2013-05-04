@@ -3,7 +3,7 @@ using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
-using miRobotEditor.Classes;
+using miRobotEditor.ViewModel;
 using miRobotEditor.Commands;
 using miRobotEditor.Properties;
 using Application = System.Windows.Forms.Application;
