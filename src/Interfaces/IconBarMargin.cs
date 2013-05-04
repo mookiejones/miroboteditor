@@ -82,6 +82,7 @@ namespace miRobotEditor.Interfaces
         }
 
 
+        [System.Diagnostics.DebuggerStepThrough]
         protected override void OnRender(DrawingContext drawingContext)
         {
             var renderSize = RenderSize;

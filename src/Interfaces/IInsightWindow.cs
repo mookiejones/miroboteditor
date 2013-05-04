@@ -8,9 +8,9 @@
  */
 using System;
 using System.Collections.Generic;
-using miRobotEditor.Interfaces;
+using miRobotEditor.GUI;
 
-namespace miRobotEditor
+namespace miRobotEditor.Interfaces
 {
 	/// <summary>
 	/// Describes a set of insight items (e.g. multiple overloads of a method) to be displayed in the insight window.
