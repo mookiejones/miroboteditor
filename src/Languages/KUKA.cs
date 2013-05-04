@@ -15,7 +15,7 @@ using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using miRobotEditor.Snippets;
-
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -221,8 +221,6 @@ namespace miRobotEditor.Languages
                     if (frm.DialogResult.HasValue &&frm.DialogResult.Value)
                     {
 
-                       
-
                        var ofd = new OpenFileDialog();
 
                         try
@@ -231,6 +229,7 @@ namespace miRobotEditor.Languages
                            ofd.Title = ("Select file for reading System Functions");
                            ofd.InitialDirectory = "C:\\krc\\bin\\";
 
+                           const string st = "************************************************";
                            var result =ofd.ShowDialog();
                            if (result == true)
                            {
@@ -241,24 +240,18 @@ namespace miRobotEditor.Languages
                                _functionFile = "c:\\Temp.rt";
                                if (frm.Structures)
                                {
-                                   sb.AppendLine("************************************************");
-                                   sb.AppendLine("*** Structures  ******************");
-                                   sb.AppendLine("************************************************");
-                                   sb.Append(GetSTRUC(_functionFile));
+                               	sb.AppendFormat("{0}\r\n*** Structures  ******************\r\n{0}\r\n",st);
+                                sb.Append(GetSTRUC(_functionFile));
                                }
                                if (frm.Programs)
                                {
-                                   sb.AppendLine("************************************************");
-                                   sb.AppendLine("*** Programs  ******************");
-                                   sb.AppendLine("************************************************");
+                                	sb.AppendFormat("{0}\r\n*** Programs  ******************\r\n{0}\r\n",st);
                                    sb.Append(GetRegex(_functionFile, @"(EXTFCTP|EXTDEF)([\d\w]*)([\[\]\w\d\( :,]*\))"));
                                }
                                if (frm.Functions)
                                {
 
-                                   sb.AppendLine("************************************************");
-                                   sb.AppendLine("*** Functions  ******************");
-                                   sb.AppendLine("************************************************");
+	                               	sb.AppendFormat("{0}\r\n*** Functions  ******************\r\n{0}\r\n",st);
                                    sb.Append(GetRegex(_functionFile, @"(EXTFCTP|EXTDEF)([\d\w]*)([\[\]\w\d\( :,]*\))"));
                                }
                                if (frm.Variables)
@@ -273,7 +266,7 @@ namespace miRobotEditor.Languages
                        }
                        catch (Exception ex)
                        {
-                           MessageViewModel.Instance.AddError(ex);
+                           MessageViewModel.AddError(ex);
                        }
                     }
                 }
@@ -357,10 +350,11 @@ namespace miRobotEditor.Languages
                 var newFoldings = new List<LanguageFold>();
 
                 newFoldings.AddRange(CreateFoldingHelper(document, ";fold", ";endfold", true));
-                newFoldings.AddRange(CreateFoldingHelper(document, "def", "end ", false));
+                newFoldings.AddRange(CreateFoldingHelper(document, "def", "end", false));
                 newFoldings.AddRange(CreateFoldingHelper(document, "global def", "end", true));
           
-                newFoldings.AddRange(CreateFoldingHelper(document, "global deffct ", "endfct", true));
+                newFoldings.AddRange(CreateFoldingHelper(document, "global deffct", "endfct", true));
+                newFoldings.AddRange(CreateFoldingHelper(document, "deftp", "endtp", true));
 
                 newFoldings.Sort((a, b) => a.StartOffset.CompareTo(b.StartOffset));
                 return newFoldings;
@@ -377,10 +371,13 @@ namespace miRobotEditor.Languages
             var crlf = section.TextContent.IndexOf("\r\n", StringComparison.Ordinal);
 
             var start = section.StartOffset + s[0].Length;
+            
             var end = section.Length - (s[0].Length + s[1].Length);
             if (perct > -1)
                 end = perct < crlf ? perct : end;
 
+          //  return section.TextContent.Substring(s[0].Length,section.TextContent.Length-s[0].Length-s[1].Length);
+            
             return doc.GetText(start, end);
         }
         #endregion
@@ -470,7 +467,7 @@ namespace miRobotEditor.Languages
 
         #region Regex Expressions
 
-        public override Regex EnumRegex {get {return new Regex("^ENUM ",Ro);}}
+        public override Regex EnumRegex {get {return new Regex(@"^(ENUM)\s+([\d\w]+)\s+([\d\w,]+)",Ro);}}
         
         public override Regex StructRegex {get {return new Regex("DECL STRUC|^STRUC",Ro);}}
         
@@ -484,7 +481,7 @@ namespace miRobotEditor.Languages
             get { return @"((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\w\s]*)\(([\w\]\s:_\[,]*)\))" ; }
         }
         public override string CommentChar {get{return ";";}}
-        public override Regex SignalRegex { get { return new Regex("Signal",Ro); } }
+        public override Regex SignalRegex { get { return new Regex(@"^([SIGNAL]+)\s+([\d\w]+)\s+([^\r\;]*)",Ro); } }
         public override string ExtractXYZ(string positionstring)
         {
             var p = new PositionBase(positionstring);
@@ -513,5 +510,6 @@ namespace miRobotEditor.Languages
         	
         }
     }
+    
     }
 

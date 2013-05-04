@@ -1,12 +1,19 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Snippets;
+using miRobotEditor.GUI;
+using ICSharpCode.AvalonEdit;
+using Microsoft.Win32;
+using System.Windows.Controls;
 using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using miRobotEditor.Classes;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Languages
 {
@@ -191,7 +198,7 @@ namespace miRobotEditor.Languages
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
         public override string ExtractXYZ(string positionstring)
         {
-            throw new NotImplementedException();
+            new NotImplementedException();
             var p = new PositionBase(positionstring);
             return p.ExtractFromMatch();
         }

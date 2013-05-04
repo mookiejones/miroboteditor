@@ -18,6 +18,7 @@ using miRobotEditor.Enums;
 using miRobotEditor.Forms;
 using miRobotEditor.GUI;
 using System.Windows.Controls;
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -61,7 +62,9 @@ namespace miRobotEditor.Languages
 
 
         private List<IVariable> _positions;
-        public List<IVariable> Positions{get { return _positions; }set { _positions = value;RaisePropertyChanged("Positions");}}
+     //   public List<IVariable> Positions{get { return _positions; }set { _positions = value;RaisePropertyChanged("Positions");}}
+        public List<IVariable> Positions { get { return _positions; } private set { _positions = value; RaisePropertyChanged("Positions"); } }
+
 
        	public static AbstractLanguageClass Instance { get; set; }
 
@@ -69,32 +72,15 @@ namespace miRobotEditor.Languages
 
         public abstract FileModel GetFile(string filename);
 
-        public ObservableCollection<VariableItem> Functions;
-        public ObservableCollection<VariableItem> GetMatches(Regex matchstring, string file, BitmapImage image, string type)
-        {
 
-            var result = new ObservableCollection<VariableItem>();
-            // Dont Include Empty Values
-            if (String.IsNullOrEmpty(matchstring.ToString())) return null;
 
-            var m = matchstring.Match(file.ToLower());
-            while (m.Success)
-            {
-                var item = new VariableItem {Icon = image, Location = file, Type = type};
-                result.Add(item);
-                m = m.NextMatch();
-
-            }
-            return result;
-        }
-
-        public IList<ICompletionData> CompletionList (string currentWord,IList<ICompletionData> data )
+        public IList<ICompletionData> CompletionList (Editor editor, string currentWord,IList<ICompletionData> data )
         {
             try
             {
-                foreach (var t1 in DummyDoc.Instance.TextBox.SyntaxHighlighting.MainRuleSet.Rules)
+                foreach (var rule in editor.SyntaxHighlighting.MainRuleSet.Rules)
                 {
-                    var parseString = t1.Regex.ToString();
+                    var parseString = rule.Regex.ToString();
 
                     var start = parseString.IndexOf(">", StringComparison.Ordinal) + 1;
                     var end = parseString.LastIndexOf(")", StringComparison.Ordinal);
@@ -120,6 +106,9 @@ namespace miRobotEditor.Languages
                         }
 
                     }
+
+                    //TODO Add All Code Snippets
+
                 }
             }
             catch
@@ -145,6 +134,7 @@ namespace miRobotEditor.Languages
                         case ".src":
                         case ".dat":
                         case ".sub":
+                           case ".kfd":
                             return  new KUKA(file);
                         case ".mod":
                         case ".prg":
@@ -163,13 +153,14 @@ namespace miRobotEditor.Languages
         #region Constructors
         internal string DataName{get; private set;}
         internal string SourceName { get; private set; }
-        protected AbstractLanguageClass()
+
+        public AbstractLanguageClass()
         {
         	Instance=this;
-        	RobotMenuItems=GetMenuItems();
+        	//RobotMenuItems=GetMenuItems();
         }
 
-        protected AbstractLanguageClass(string filename)
+        public AbstractLanguageClass(string filename)
         {
             var dir = Path.GetDirectoryName(filename);
             var dirExists = dir != null && Directory.Exists(dir);
@@ -228,8 +219,8 @@ namespace miRobotEditor.Languages
 
         public abstract List<string> SearchFilters { get; }
 
-        public List<string> Methods { get; set; }
-        public List<string> Fields { get; set; }
+        public List<string> Methods { get; private set; }
+        public List<string> Fields { get; private set; }
 
         protected string SnippetFilePath
         {
@@ -332,38 +323,57 @@ namespace miRobotEditor.Languages
 
         #region Folding Section
 
+        
+         static bool IsValidFold(string text, string s, string e)
+        {
+        	var bSP = text.StartsWith(s);
+        	var bEP = text.StartsWith(e);
+        	
+        	if (!(bSP|bEP)) return false;
+        	
+        	string cAfterString = string.Empty;
+        	var lookfor = bSP?s:e;
+        	
+        	if (text.Substring(text.IndexOf(lookfor) + lookfor.Length).Length == 0) return true;
+        	
+        	cAfterString = text.Substring(text.IndexOf(lookfor) + lookfor.Length,1);
+
+        	
+        	var cc = Convert.ToChar(cAfterString);
+        	var isLetter = Char.IsLetterOrDigit(cc);
+        	
+        	return (!isLetter);
+        }
         public static IEnumerable<LanguageFold> CreateFoldingHelper(ITextSource document, string startFold, string endFold, bool defaultclosed)
         {
+        	
             var newFoldings = new List<LanguageFold>();
             var startOffsets = new Stack<int>();
             var doc = (document as TextDocument);
 
-            for (var i = 0; i < ((TextDocument) document).Lines.Count - 1; i++)
-            {
-                var textDocument = document as TextDocument;
-                if (textDocument != null)
-                {
-                    var seg = textDocument.Lines[i];
-                    int offs, end = document.TextLength;
-                    char c;
-                    for (offs = seg.Offset; offs < end && ((c = document.GetCharAt(offs)) == ' ' || c == '\t'); offs++)
-                    {
-                    }
+       
+            
+            foreach(var dd in doc.Lines)
+            		{
+		            	var line = doc.GetLineByNumber(dd.LineNumber);
+            			var text = doc.GetText(line.Offset,line.Length).ToLower().Trim();
+            
+            	try
+            	{
+            		
+                    	if (!IsValidFold(text,startFold,endFold))
+                    		continue;
 
-                    if (offs == end)
-                        break;
-
-                    var spacecount = offs - seg.Offset;
-
-                    //now offs points to the non-whitespace char on the line
-                    if (document.GetCharAt(offs) != ' ')
-                    {
-                        var text = document.GetText(offs, seg.Length - spacecount);
-
-                        if (text.ToLower().StartsWith(startFold))
-                            startOffsets.Push(offs);
+                    	//HACK
+                        if (text.StartsWith(startFold))
+                        {
+                            startOffsets.Push(line.Offset);
+                            continue;
+                        }
+                        
+                       
                         //                     startOffsets.Push(offs + text.Length);
-                        if (text.ToLower().StartsWith(endFold) && startOffsets.Count > 0)
+                        if (text.StartsWith(endFold) && startOffsets.Count > 0)
                         {
                             //FIXME this is Wrong!!!!!!
                             // Might Be for EndFolds
@@ -384,16 +394,37 @@ namespace miRobotEditor.Languages
                             {
                                 //Add a new folder to the list
                                 var start = startOffsets.Pop();
-                                var nf = new LanguageFold(start, offs + text.Length,doc.GetText(start + startFold.Length + 1,offs - start - endFold.Length))
-                                             {
-                                                 Name = String.Format("{0}æ{1}", startFold, endFold),
-                                                 DefaultClosed = defaultclosed
-                                             };
+                                
+                                var s = start;
+                                var e = line.Offset + text.Length;
+                                var ll = doc.GetLineByOffset(s);
+
+                                var str = doc.GetText(s + startFold.Length + 1 ,line.Offset - s - endFold.Length);
+                                var strl = doc.GetText(ll.Offset,ll.Length);
+                                
+                                // Get Number of Spaces before startfold
+                                //str = doc.GetText(ll.Offset + startFold.Length + 1,line.Offset - s - endFold.Length);
+                                
+                                var ff = doc.GetText(s,(line.NextLine.Offset-1)-s);
+                                
+                                //return this.manager.document.GetText(base.StartOffset, base.EndOffset - base.StartOffset);
+//                                var nf = new LanguageFold(s,e,ff,startFold,endFold,defaultclosed);
+                                
+                                var nf = new LanguageFold(s, e,str,startFold,endFold,defaultclosed);                                            
                                 newFoldings.Add(nf);
                             }
                         }
-                    }
-                }
+                        else
+                        	Console.WriteLine("Didnt Work");
+                
+            	}
+            	catch(Exception ex)
+            	{
+            	
+            		MessageViewModel.AddError(ex);
+            		continue;
+            	}
+            		
             }
 
             return newFoldings;
@@ -538,8 +569,7 @@ namespace miRobotEditor.Languages
             {
                 SplashScreen.UpdateProgress((int) prog);
                 SplashScreen.UpdateStatusTextWithStatus(
-                    string.Format("Shifting Program. Progress:= {0}",
-                                  ((int) prog).ToString(CultureInfo.InvariantCulture)), TypeOfMessage.Success);
+                    string.Format( Properties.Resources.ShiftingProgram,((int) prog).ToString(CultureInfo.InvariantCulture)), TypeOfMessage.Success);
                
                 prog = prog + increment;
 
@@ -549,7 +579,7 @@ namespace miRobotEditor.Languages
                 var yf = Convert.ToDouble(m.Groups[4].Value) + shiftvalY;
                 var zf = Convert.ToDouble(m.Groups[5].Value) + shiftvalZ;
 // ReSharper restore UnusedVariable
-                switch (DummyDoc.Instance.FileLanguage.RobotType)
+                switch (RobotType)
                 {
                     case Typlanguage.KUKA:
                         doc.ReplaceAll();
