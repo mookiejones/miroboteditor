@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using miRobotEditor.ViewModel;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
@@ -10,15 +11,16 @@ using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using ICSharpCode.AvalonEdit.CodeCompletion;
-using miRobotEditor.ViewModel;
-using miRobotEditor.GUI;
 
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
     public class ABB : AbstractLanguageClass
     {
-        
+
+
+       
+
         public ABB()
         {
             FoldingStrategy = new RegionFoldingStrategy();
@@ -67,17 +69,6 @@ namespace miRobotEditor.Languages
         {
             get { return  @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)" ; }
         }
-
-        internal override Color FocusedColor
-        {
-            get { return Color.FromRgb(255, 192, 84); }
-        }
-
-        internal override Color UnfocusedColor
-        {
-            get { return Color.FromRgb(255, 192, 84); }
-        }
-
 
         public override Regex MethodRegex
         {

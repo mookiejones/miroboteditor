@@ -1,19 +1,28 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.3
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication", "TestApplication\TestApplication.csproj", "{8AC29AF0-1B95-47F5-8E44-CA3CC2699E74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVE6POS", "CSVE6POS\CSVE6POS.csproj", "{821082B0-6C9B-43D6-8791-7B41913EA185}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvalonDock", "..\..\avalondock-100414\Version2.0\AvalonDock\AvalonDock\AvalonDock.csproj", "{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "miRobotEditor", "miRobotEditor", "{6A633BB1-A338-499A-8C2F-ED781C41BB64}"
+	ProjectSection(SolutionItems) = postProject
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MookiesRobotEditor", "src\MookiesRobotEditor.csproj", "{A2DB7828-113C-4334-8676-0002887BA4FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FanucTools", "FanucTools\FanucTools.csproj", "{9B30F64B-A378-43CC-AC16-78FC5B0EA940}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorCoreLibrary", "EditorPluginLibrary\EditorCoreLibrary.csproj", "{D040DE8E-D931-4660-BC9A-0E47EDA10E22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUKA Language", "KUKATools\KUKA Language.csproj", "{124CC906-A48B-40B8-99A6-ED57649A20B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication", "TestApplication\TestApplication.csproj", "{8AC29AF0-1B95-47F5-8E44-CA3CC2699E74}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUKATools", "KUKATools\KUKATools.csproj", "{124CC906-A48B-40B8-99A6-ED57649A20B0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Office Lite Archive Manager", "Office Lite Archive Manager", "{F691C88A-D946-4688-AA45-8CA9CB5F6361}"
+	ProjectSection(SolutionItems) = postProject
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveManager", "ArchiveManager\ArchiveManager.csproj", "{AB9EE401-B6BD-41B6-8C54-E084FBF0C859}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVE6POS", "CSVE6POS\CSVE6POS.csproj", "{821082B0-6C9B-43D6-8791-7B41913EA185}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,16 +54,6 @@ Global
 		{9B30F64B-A378-43CC-AC16-78FC5B0EA940}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9B30F64B-A378-43CC-AC16-78FC5B0EA940}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9B30F64B-A378-43CC-AC16-78FC5B0EA940}.Release|x86.ActiveCfg = Release|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D040DE8E-D931-4660-BC9A-0E47EDA10E22}.Release|x86.ActiveCfg = Release|Any CPU
 		{8AC29AF0-1B95-47F5-8E44-CA3CC2699E74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8AC29AF0-1B95-47F5-8E44-CA3CC2699E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AC29AF0-1B95-47F5-8E44-CA3CC2699E74}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -99,8 +98,24 @@ Global
 		{821082B0-6C9B-43D6-8791-7B41913EA185}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{821082B0-6C9B-43D6-8791-7B41913EA185}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{821082B0-6C9B-43D6-8791-7B41913EA185}.Release|x86.ActiveCfg = Release|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DB81988F-E0F2-45A0-A1FD-8C37F3D35244}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A2DB7828-113C-4334-8676-0002887BA4FC} = {6A633BB1-A338-499A-8C2F-ED781C41BB64}
+		{9B30F64B-A378-43CC-AC16-78FC5B0EA940} = {6A633BB1-A338-499A-8C2F-ED781C41BB64}
+		{124CC906-A48B-40B8-99A6-ED57649A20B0} = {6A633BB1-A338-499A-8C2F-ED781C41BB64}
+		{AB9EE401-B6BD-41B6-8C54-E084FBF0C859} = {F691C88A-D946-4688-AA45-8CA9CB5F6361}
 	EndGlobalSection
 EndGlobal

@@ -437,14 +437,14 @@ namespace miRobotEditor.Controls
                     }
                 }
             }
-
+            IsCollapsed = true;
 
         }
 
         /// <summary>
         /// Expands the target ColumnDefinition or RowDefinition.
         /// </summary>
-        private void Expand()
+        public void Expand()
         {
 
             var parentGrid = Parent as Grid;
@@ -504,7 +504,7 @@ namespace miRobotEditor.Controls
                         parentGrid.ColumnDefinitions[splitterIndex - 1].SetValue(ColumnDefinition.WidthProperty, _savedGridLength);
                 }
             }
-
+            IsCollapsed = false;
         }
 
         /// <summary>

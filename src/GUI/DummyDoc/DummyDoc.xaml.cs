@@ -20,40 +20,36 @@ namespace miRobotEditor.GUI
     {
 
 
-    	
         public string Title
         {        	
             get 
             {
             	var _t = TextBox.IsModified?" *":String.Empty;
-            	return String.Format("{0}{1}",String.IsNullOrEmpty(TextBox.Filename)?FilePath:Path.GetFileName(TextBox.Filename),_t);
+                var fn = String.IsNullOrEmpty(TextBox.Title) ? "Document" : TextBox.Title;
+
+                var t =String.Format("{0}{1}",fn,_t);
+                return t;
             }
         }
         
-        
-        
-        private string _filepath = string.Empty;
-        public string FilePath{get{return _filepath;} set{_filepath = value;}}
+        public string FilePath { get; set; }
     	
     	public DummyDoc()
         {
             Instance = this;
-            TextBox = new Editor();
+       //     TextBox = new Editor();
             InitializeComponent();            
             ShowGrid = false;
             FileLanguage =  AbstractLanguageClass.GetRobotType(Filename);
             Source.FileLanguage = FileLanguage;
             Data.FileLanguage=FileLanguage;
             TextBox.TextChanged += (s,e) => TextChanged(s);
+            Source.GotFocus += (s, e) => { TextBox = s as Editor; };
+            Data.GotFocus += (s, e) => { TextBox = s as Editor; };
+            IsVisibleChanged += (s, e) => { Instance = this; };
             DataContext = this;
         
         }
-    	
-
-
-
-
-        public object Host { get; set; }
 
         private AbstractLanguageClass _filelanguage = new LanguageBase();
         public AbstractLanguageClass FileLanguage { get{return _filelanguage;} set{_filelanguage=value;OnPropertyChanged("FileLanguage");} }
@@ -80,7 +76,6 @@ namespace miRobotEditor.GUI
             var enoughlines = TextBox.Text.Length >= var.Offset;
             if (enoughlines)            
 	            TextBox.SelectText(var);        	
-            else
             {
             	TextBox = data;
             	enoughlines = TextBox.Text.Length >= var.Offset;
@@ -102,7 +97,6 @@ namespace miRobotEditor.GUI
         	}
         	
         }
-
 
         public static DummyDoc Instance { get; set; }
 
@@ -141,30 +135,6 @@ namespace miRobotEditor.GUI
 
         #endregion
 
-        private bool ShowGrid
-        {
-            set
-            {
-                switch (value)
-                {
-                    case true:
-                        Data.Text = FileLanguage.DataText;
-                        Data.Filename = Path.Combine(Path.GetDirectoryName(Filename) , FileLanguage.DataName);
-                        Data.SetHighlighting();
-                        Data.Visibility = Visibility.Visible;
-                        grid.Visibility = Visibility.Visible;
-                        Grid.SetRow(grid, 1);
-                        Grid.SetRow(data, 2);
-                        break;
-                    case false:
-                        if (Data == null)
-                            Data = new Editor();
-                        Data.Visibility = Visibility.Collapsed;
-                        grid.Visibility = Visibility.Collapsed;
-                        break;
-                }
-            }
-        }
 
         #region Commands
         private RelayCommand _gotFocusCommand;
@@ -181,6 +151,13 @@ namespace miRobotEditor.GUI
             get { return _textChangedCommand ?? (_textChangedCommand = new RelayCommand((p) => TextChanged(p), (p) => TextBox!=null)); }
         }
 
+        private RelayCommand _toggleGridCommand;
+
+        public ICommand ToggleGridCommand
+        {
+            get { return _toggleGridCommand ?? (_toggleGridCommand = new RelayCommand((p) => ToggleGrid(), (p) => grid != null)); }
+        }
+
         private RelayCommand _reloadCommand;
 
 
@@ -191,21 +168,41 @@ namespace miRobotEditor.GUI
         }
 
         #endregion
+
+        private bool ShowGrid
+        {
+            set
+            {
+                switch (value)
+                {
+                    case true:
+                        Data.Text = FileLanguage.DataText;
+                        Data.Filename = Path.Combine(Path.GetDirectoryName(Filename), FileLanguage.DataName);
+                        Data.SetHighlighting();
+                        Data.Visibility = Visibility.Visible;
+                        grid.Visibility = Visibility.Visible;
+                        Grid.SetRow(grid, 1);
+                        Grid.SetRow(data, 2);
+                        break;
+                    case false:
+                        if (Data == null)
+                            Data = new Editor();
+                        Data.Visibility = Visibility.Collapsed;
+                        grid.Visibility = Visibility.Collapsed;
+                        break;
+                }
+            }
+        }
+
         void FocusChanged(object sender)
         {
             TextBox = sender as Editor;
             OnPropertyChanged("Title");
         }
-     
-       
-
-
-        
 
         public void Load(string filename)
         {
         	Filename = filename;
-//            Filename = filename;
             Instance = this;
             FileLanguage = AbstractLanguageClass.GetRobotType(Filename);
             TextBox.FileLanguage=FileLanguage;
@@ -217,15 +214,12 @@ namespace miRobotEditor.GUI
 	            Source.Filename = Filename;
 	            Source.SetHighlighting();	            
 	            Source.Text = LoadDatFileOnly?FileLanguage.DataText:FileLanguage.SourceText;
-
-
            
             if ((FileLanguage is Languages.KUKA) && (!String.IsNullOrEmpty(FileLanguage.DataText)) && (Source.Text != FileLanguage.DataText))
             {
                 ShowGrid = true;
-//                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => ShowGrid = true));
 				Data.FileLanguage=FileLanguage;
-                Data.Filename = Path.Combine(Path.GetDirectoryName(Filename), FileLanguage.DataName); 
+                Data.Filename = Path.Combine(Path.GetDirectoryName(Filename), FileLanguage.DataName);
                 Data.Text = FileLanguage.DataText;
                 Data.SetHighlighting();
             }
@@ -240,8 +234,7 @@ namespace miRobotEditor.GUI
             OnPropertyChanged("Title");
         }
 
-
-        //TODO ReWrite this
+        //TODO Need to Check for FileChanged
         private void ReloadFile(object sender, EventArgs e)
         {
             // Dispatcher is used because of the FileChanged Events
@@ -250,29 +243,6 @@ namespace miRobotEditor.GUI
             // Dispatcher is used because of the FileChanged Events
             if (!String.IsNullOrEmpty(data.Filename))
                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => Data.Reload()));
-        }
-
-        private void Raiseupdated(object sender, FunctionEventArgs e)
-        {
-   //       if (TextUpdated != null)
-   //       {
-   //           if (sender is Editor)
-   //               TextBox = sender as Editor;
-   //   //TODO Remember why im calling this at this point. It resets the "View As" Setting
-   //   //        GetRobotType();
-   //           TextUpdated(sender, e);
-   //           OnPropertyChanged("Title");
-   //       }
-        }
-
-        public void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-           Instance = this;
-
-          //
-          // if (!(sender is Editor)) return;
-          // TextBox = sender as Editor;
-           // FileLanguage=AbstractLanguageClass.GetRobotType(Filename);
         }
 
         public void Find()
@@ -285,17 +255,15 @@ namespace miRobotEditor.GUI
             TextBox = sender as Editor;              
             FileLanguage.RawText = Source.Text + Data.Text;
             OnPropertyChanged("Title");
-            Raiseupdated(TextBox, new FunctionEventArgs(TextBox.Text));
         }
 
         private void GridLoaded(object sender, RoutedEventArgs e)
         {
-            grid.IsAnimated = false;
+            grid.IsAnimated = false;     
             grid.Collapse();
             grid.IsCollapsed = true;
             grid.IsAnimated = true;
         }
-
 
         #region OnPropertyChanged
         protected void OnPropertyChanged(string propertyName)
@@ -307,175 +275,21 @@ namespace miRobotEditor.GUI
             }
             catch (InvalidOperationException ex)
             {
-                ViewModel.MessageViewModel.AddError(ex);
+                ViewModel.MessageViewModel.AddError("DummyDoc.OnPropertyChanged " + propertyName,ex);
             }
         }
         
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
-        private void FocusChanged(object sender, RoutedEventArgs e)
+
+        void ToggleGrid()
         {
-            TextBox = sender as Editor;
-            OnPropertyChanged("Title");
-            OnPropertyChanged("TextBox");
+            if (grid.IsCollapsed)
+                grid.Expand();
+            else
+                grid.Collapse();
+
         }
-
-        private void dTextChangedCommand(object sender, EventArgs e)
-        {
-            TextChanged(sender);
-           
-        }
-
-        
-        
-    }
-    public class DummyDocViewModel:ViewModelBase
-    {
-
-        #region Public Events
-
-    //    public event UpdateFunctionEventHandler TextUpdated;
-
-        #endregion
-
-        public string Filename { get; set; }
-
-        #region Properties
-        private Controls.ExtendedGridSplitter _grid = new Controls.ExtendedGridSplitter();
-        public Controls.ExtendedGridSplitter Grid { get { return _grid; } set { _grid = value; RaisePropertyChanged("Grid"); } }
-        public static DummyDocViewModel Instance { get; set; }
-        private AbstractLanguageClass _filelanguage = new LanguageBase();
-        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged("FileLanguage"); } }
-        private Editor _textbox = new Editor();
-        public Editor TextBox { get { return _textbox; } set { _textbox = value; RaisePropertyChanged("TextBox"); } }
-        private Editor _source = new Editor();
-        public Editor Source { get { return _source; } set { _source = value; RaisePropertyChanged("Source"); } }
-        private Editor _data = new Editor();
-        public Editor Data { get { return _data; } set { _data = value; RaisePropertyChanged("Data"); } }
-        #endregion
-        #region Commands
-        private RelayCommand _gotFocusCommand;
-
-        public ICommand GotFocusCommand
-        {
-            get { return _gotFocusCommand ?? (_gotFocusCommand = new RelayCommand((p) => FocusChanged(p), (p) => TextBox.IsFocused)); }
-        }
-
-        private RelayCommand _textChangedCommand;
-
-        public ICommand TextChangedCommand
-        {
-            get { return _textChangedCommand ?? (_textChangedCommand = new RelayCommand((p) => TextChanged(p), (p) => TextBox != null)); }
-        }
-
-        void FocusChanged(object sender)
-        {
-            TextBox = sender as Editor;
-            RaisePropertyChanged("Title");
-        }
-
-        private RelayCommand _reloadCommand;
-
-        public ICommand ReloadCommand
-        {
-            get { return _reloadCommand ?? (_reloadCommand = new RelayCommand((p) => Load(Filename), (p) => File.Exists(Filename))); }
-        }
-
-
-        private void TextChanged(object sender)
-        {
-
-            TextBox = sender as Editor;
-            FileLanguage.RawText = Source.Text + Data.Text;
-
-
-            RaisePropertyChanged("Title");
-            Raiseupdated(TextBox, new FunctionEventArgs(TextBox.Text));
-        }
-
-
-        #endregion
-
-
-        public void Load(string filename)
-        {
-            Filename = filename;
-            //            Filename = filename;
-            Instance = this;
-            FileLanguage = AbstractLanguageClass.GetRobotType(Filename);
-            TextBox.FileLanguage = FileLanguage;
-            Source.FileLanguage = FileLanguage;
-            Grid.IsAnimated = false;
-
-            var LoadDatFileOnly = Path.GetExtension(Filename) == ".dat";
-            //TODO Set Icon For File
-            Source.Filename = Filename;
-            Source.SetHighlighting();
-            Source.Text = LoadDatFileOnly ? FileLanguage.DataText : FileLanguage.SourceText;
-
-
-
-            if ((FileLanguage is Languages.KUKA) && (!String.IsNullOrEmpty(FileLanguage.DataText)) && (Source.Text != FileLanguage.DataText))
-            {
-                ShowGrid = true;
-                //                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => ShowGrid = true));
-                Data.FileLanguage = FileLanguage;
-                Data.Filename = Path.Combine(Path.GetDirectoryName(Filename), FileLanguage.DataName);
-                Data.Text = FileLanguage.DataText;
-                Data.SetHighlighting();
-            }
-            {
-                ShowGrid=false;
-            }
-
-
-            // Select Original File            
-            TextBox = _source.Filename == filename ? _source : _data;
-            Grid.IsAnimated = true;
-           RaisePropertyChanged("Title");
-        }
-
-        private int _gridrow = 1;
-        private int _datarow = 1;
-        public int GridRow { get { return _gridrow; } set { _gridrow = value; RaisePropertyChanged("GridRow"); } }
-        public int DataRow { get { return _datarow; } set { _datarow = value; RaisePropertyChanged("DataRow"); } }
-        private bool ShowGrid
-        {
-            set
-            {
-                switch (value)
-                {
-                    case true:
-                        Data.Text = FileLanguage.DataText;
-                        Data.Filename = Path.Combine(Path.GetDirectoryName(Filename), FileLanguage.DataName);
-                        Data.SetHighlighting();
-                        Data.Visibility = Visibility.Visible;
-                        Grid.Visibility = Visibility.Visible;
-                        GridRow = 1;
-                        DataRow = 2;
-                        break;
-                    case false:
-                        if (Data == null)
-                            Data = new Editor();
-                        Data.Visibility = Visibility.Collapsed;
-                        Grid.Visibility = Visibility.Collapsed;
-                        break;
-                }
-            }
-        }
-        private void Raiseupdated(object sender, FunctionEventArgs e)
-        {
-   //        if (TextUpdated != null)
-   //        {
-   //            if (sender is Editor)
-   //                TextBox = sender as Editor;
-   //            //TODO Remember why im calling this at this point. It resets the "View As" Setting
-   //            //        GetRobotType();
-   //            TextUpdated(sender, e);
-   //            RaisePropertyChanged("Title");
-   //        }
-        }
-
     }
 }

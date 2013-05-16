@@ -1,20 +1,36 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows.Input;
-using miRobotEditor.ViewModel;
-
-namespace miRobotEditor.GUI
+using miRobotEditor.Commands;
+namespace miRobotEditor.ViewModel
 {
    public class StatusBarViewModel:ViewModelBase
    {
 
 
+       #region Constructor
        public StatusBarViewModel()
        {
-           //Get Initial Key Status
-           ManageKeys(null, null);
 
            Instance = this;
+
+           //Get Initial Key Status
+           ManageKeys(this, null);
        }
+       #endregion
+
+       #region Commands
+
+       private RelayCommand _keyPressedCommand;
+       public ICommand KeyPressedCommand
+       {
+           get
+           {
+               return _keyPressedCommand ?? (_keyPressedCommand = new RelayCommand(param => ManageKeys(param,null), param => true));
+           }
+       }
+
+       #endregion
+
 
        private static StatusBarViewModel _instance;
        public static StatusBarViewModel Instance { get { return _instance ?? new StatusBarViewModel(); } set { _instance = value; } }
@@ -38,55 +54,26 @@ namespace miRobotEditor.GUI
         internal static extern short GetKeyState(int keyCode);
 
         #region Properties
-        private bool _isScrollPressed;
-        private bool _isNumPressed;
-        private bool _isInsPressed;
-        private bool _isCapsPressed;
-
-        public bool IsScrollPressed
-        {
-            get { return _isScrollPressed; }
-            set
-            {
-                _isScrollPressed = value;
-                RaisePropertyChanged("IsScrollPressed");
-            }
-        }
-        public bool IsNumPressed
-        {
-            get { return _isNumPressed; }
-            set
-            {
-                _isNumPressed = value;
-                RaisePropertyChanged("IsNumPressed");
-            }
-        }
-        public bool IsInsPressed
-        {
-            get { return _isInsPressed; }
-            set
-            {
-                _isInsPressed = value;
-                RaisePropertyChanged("IsInsPressed");
-            }
-        }
-        public bool IsCapsPressed
-        {
-            get { return _isCapsPressed; }
-            set
-            {
-                _isCapsPressed = value;
-                RaisePropertyChanged("IsCapsPressed");
-            }
-        }
+        public bool IsScrollPressed { get; set; }
+        public bool IsNumPressed { get; set; }
+        public bool IsInsPressed { get; set; }
+        public bool IsCapsPressed { get; set; }
         #endregion
 
-        private void ManageKeys(object sender, KeyEventArgs e)
+        public void ManageKeys(object sender, KeyEventArgs e)
         {
             IsCapsPressed = GetKeyState((int)VKeyStates.CapsKey) != 0;
             IsInsPressed = GetKeyState((int)VKeyStates.InsKey) != 0;
             IsNumPressed = GetKeyState((int)VKeyStates.NumKey) != 0;
             IsScrollPressed = GetKeyState((int)VKeyStates.ScrollKey) != 0;
+
+            RaisePropertyChanged("IsInsPressed");
+            RaisePropertyChanged("IsNumPressed");
+            RaisePropertyChanged("IsScrollPressed");
+
+            RaisePropertyChanged("IsCapsPressed");
+
+
         }
 
         private enum VKeyStates

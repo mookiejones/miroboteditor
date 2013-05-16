@@ -11,6 +11,7 @@ namespace miRobotEditor.Classes
         
         }
 
+        public DataTemplate ArchiveViewTemplate { get; set; }
 
         public DataTemplate MessageViewTemplate
         {

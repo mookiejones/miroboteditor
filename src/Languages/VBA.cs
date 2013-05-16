@@ -121,17 +121,6 @@ namespace miRobotEditor.Languages
         }
         #endregion
 
-
-        internal override System.Windows.Media.Color FocusedColor
-        {
-            get { return System.Windows.Media.Colors.AntiqueWhite; }
-        }
-
-        internal override System.Windows.Media.Color UnfocusedColor
-        {
-            get { return System.Windows.Media.Colors.WhiteSmoke; }
-        }
-
         public override Regex MethodRegex { get { return new Regex("( sub )", RegexOptions.IgnoreCase); } }
 
         public override Regex StructRegex { get { return new Regex("( struc )", RegexOptions.IgnoreCase); } }

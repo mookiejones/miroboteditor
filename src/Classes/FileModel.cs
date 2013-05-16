@@ -6,6 +6,5 @@ namespace miRobotEditor.ViewModel
     {
         public BitmapImage Icon { get; set; }
         public string FileName { get; set; }
-
     }
 }

@@ -7,10 +7,19 @@ namespace ISTUK.MathLibrary
     public sealed class Vector3D : Vector, IGeometricElement3D, IFormattable
 #pragma warning restore 660,661
     {
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         public Vector3D() : base(3)
         {
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
   
         public Vector3D(Matrix mat) : base(3)
         {

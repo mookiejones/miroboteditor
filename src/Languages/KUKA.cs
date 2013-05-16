@@ -16,11 +16,16 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using miRobotEditor.Snippets;
 using miRobotEditor.ViewModel;
+using System.Windows.Input;
+using miRobotEditor.Commands;
+
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
     public class KUKA : AbstractLanguageClass
     {
+
+        #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
@@ -29,8 +34,23 @@ namespace miRobotEditor.Languages
         {         
             FoldingStrategy = new RegionFoldingStrategy();
         }
-		
-        
+
+        public KUKA()
+        {
+            FoldingStrategy = new RegionFoldingStrategy();
+        }
+
+        #endregion
+
+        #region Commands
+        private RelayCommand _systemFunctionCommand;
+
+        public ICommand SystemFunctionCommand
+        {
+            get { return _systemFunctionCommand ?? (_systemFunctionCommand = new RelayCommand((p) => FunctionGenerator.GetSystemFunctions(), (p) => true)); }
+        }
+
+        #endregion
 
         #region Private Members
 
@@ -39,11 +59,7 @@ namespace miRobotEditor.Languages
         
         #endregion
 
-        public KUKA()
-        {
-            FoldingStrategy = new RegionFoldingStrategy();
-          
-        }
+
 
 
         public Language_Specific.FileInfo GetFileInfo(string text)
@@ -69,18 +85,6 @@ namespace miRobotEditor.Languages
                 Dispose(true);
             }
         }
-
-     
-
-
-        /*        public new bool ContextPromptBeforeOpen(ILexemLine lexemLine)
-                {
-                    // get Lexem
-                    Lexem = LanguageBase.GetLexem(lexemLine);
-                    return IsLexemPrompt();
-                }
-         */
-       
 
         #region "_file Interface Info"
 
@@ -142,17 +146,6 @@ namespace miRobotEditor.Languages
   
         #endregion
 
-/*
-        private static Editor GetPointsFromArray(Editor editor, Collection<string> points)
-        {
-            if (points == null) throw new ArgumentNullException("points");
-            for (var b = 0; b <= (points.Count - 1); b++)
-            {
-                editor.Text = editor.Text + points[b] + "\r\n";
-            }
-            return editor;
-        }
-*/
 
         //TODO Find out where this is used
         private static Collection<string> GetPositionFromFile(int line, ITextEditorComponent editor)
@@ -197,7 +190,6 @@ namespace miRobotEditor.Languages
             return editor;
         }
 
-     
 
         internal static class FunctionGenerator
         {
@@ -207,16 +199,16 @@ namespace miRobotEditor.Languages
                 return RemoveFromFile(filename, "((?<!_)STRUC [\\w\\s,\\[\\]]*)");
             }
 
-// ReSharper disable MemberHidesStaticFromOuterClass
             public static string GetSystemFunctions()
-// ReSharper restore MemberHidesStaticFromOuterClass
             {
 
                 var sb = new System.Text.StringBuilder();
-                using (var frm = new Forms.FrmSystemFunctions())
-                {
 
-                    frm.ShowDialog();
+                var vm = new SystemFunctionsViewModel();
+
+                   var frm = new System.Windows.Window{Content=vm};
+
+                
 
                     if (frm.DialogResult.HasValue &&frm.DialogResult.Value)
                     {
@@ -238,23 +230,23 @@ namespace miRobotEditor.Languages
 
                                File.Copy(ofd.FileName, "c:\\Temp.rt", true);
                                _functionFile = "c:\\Temp.rt";
-                               if (frm.Structures)
+                               if (vm.Structures)
                                {
                                	sb.AppendFormat("{0}\r\n*** Structures  ******************\r\n{0}\r\n",st);
                                 sb.Append(GetSTRUC(_functionFile));
                                }
-                               if (frm.Programs)
+                               if (vm.Programs)
                                {
                                 	sb.AppendFormat("{0}\r\n*** Programs  ******************\r\n{0}\r\n",st);
                                    sb.Append(GetRegex(_functionFile, @"(EXTFCTP|EXTDEF)([\d\w]*)([\[\]\w\d\( :,]*\))"));
                                }
-                               if (frm.Functions)
+                               if (vm.Functions)
                                {
 
 	                               	sb.AppendFormat("{0}\r\n*** Functions  ******************\r\n{0}\r\n",st);
                                    sb.Append(GetRegex(_functionFile, @"(EXTFCTP|EXTDEF)([\d\w]*)([\[\]\w\d\( :,]*\))"));
                                }
-                               if (frm.Variables)
+                               if (vm.Variables)
                                {
                                    //sb.AppendLine("***********************************************");
                                    //sb.AppendLine("***   _variables  ******************");
@@ -266,10 +258,10 @@ namespace miRobotEditor.Languages
                        }
                        catch (Exception ex)
                        {
-                           MessageViewModel.AddError(ex);
+                           MessageViewModel.AddError("GetSystemFiles",ex);
                        }
                     }
-                }
+                
 
                 return sb.ToString();
 
@@ -339,20 +331,12 @@ namespace miRobotEditor.Languages
             public override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
             {
                 firstErrorOffset = -1;
-                return CreateNewFoldings(document);
-            }
-
-            /// <summary>
-            /// Create <see cref="NewFolding"/>s for the specified document.
-            /// </summary>
-            public IEnumerable<LanguageFold> CreateNewFoldings(ITextSource document)
-            {
                 var newFoldings = new List<LanguageFold>();
 
                 newFoldings.AddRange(CreateFoldingHelper(document, ";fold", ";endfold", true));
                 newFoldings.AddRange(CreateFoldingHelper(document, "def", "end", false));
                 newFoldings.AddRange(CreateFoldingHelper(document, "global def", "end", true));
-          
+
                 newFoldings.AddRange(CreateFoldingHelper(document, "global deffct", "endfct", true));
                 newFoldings.AddRange(CreateFoldingHelper(document, "deftp", "endtp", true));
 
@@ -360,30 +344,48 @@ namespace miRobotEditor.Languages
                 return newFoldings;
             }
 
+
         }
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
             var s = Regex.Split(section.Title, "æ");
-
+            var eval = section.TextContent.ToLower().Trim();
+            
             const string sStart = "%{PE}%";
 
-            var perct = section.TextContent.IndexOf(sStart, StringComparison.Ordinal) - sStart.Length;
-            var crlf = section.TextContent.IndexOf("\r\n", StringComparison.Ordinal);
+            // Trim String
+            var resultstring = section.TextContent.Trim();
 
+           
+
+
+            var perct = section.TextContent.Trim().IndexOf(sStart, StringComparison.Ordinal) - sStart.Length;
+            var crlf = section.TextContent.Trim().IndexOf("\r\n", StringComparison.Ordinal);
+
+            //Find Offset of Text for spaces here
             var start = section.StartOffset + s[0].Length;
+
+            resultstring =resultstring.Substring(eval.IndexOf(s[0])+s[0].Length);
+
+
             
-            var end = section.Length - (s[0].Length + s[1].Length);
+            var end = eval.IndexOf(s[1]);
+
+
+
+
+
             if (perct > -1)
                 end = perct < crlf ? perct : end;
 
           //  return section.TextContent.Substring(s[0].Length,section.TextContent.Length-s[0].Length-s[1].Length);
             
-            return doc.GetText(start, end);
+            return resultstring.Substring(0,end);
         }
         #endregion
 
 
-        public static MenuItem MenuItems
+        public new MenuItem MenuItems
         {
             get
             {
@@ -398,22 +400,12 @@ namespace miRobotEditor.Languages
             }
         }
 
-
-        internal override System.Windows.Media.Color FocusedColor
-        {
-            get { return System.Windows.Media.Colors.Orange ; }
-        }
-
-        internal override System.Windows.Media.Color UnfocusedColor
-        {
-            get { return System.Windows.Media.Colors.Gray; }
-        }
         
         private const RegexOptions Ro = (int)RegexOptions.IgnoreCase+RegexOptions.Multiline;
 
         public override FileModel GetFile(string filename)
         {
-            switch (Path.GetExtension(filename))
+            switch (Path.GetExtension(filename.ToLower()))
             {
                 case ".src":
                     GetInfo();
@@ -429,6 +421,7 @@ namespace miRobotEditor.Languages
             }
             return null;
         }
+
         private void GetInfo()
         {
         }

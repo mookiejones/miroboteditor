@@ -65,6 +65,7 @@ namespace miRobotEditor.Interfaces
         public virtual void Dispose()
         {
             TextView = null; // detach from TextView (will also detach from manager)
+            GC.SuppressFinalize(this);
         }
         #endregion
 

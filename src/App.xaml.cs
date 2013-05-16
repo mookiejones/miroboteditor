@@ -17,13 +17,15 @@ namespace miRobotEditor
     /// </summary>
     public partial class App : Application, ISingleInstanceApp
     {
-    	
-    	 public static string StartupPath
+        public static string StartupPath
         {
-        	get{
-	        	 return System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-        	}
+            get
+            {
+                return System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+            }
         }
+
+
     	
     	 public static string Version
     	 {
@@ -32,8 +34,8 @@ namespace miRobotEditor
 	    	 	var asm = System.Reflection.Assembly.GetExecutingAssembly();
 	    	 	return asm.GetName().Version.ToString();
     	 	}
-    	 	
     	 }
+
     	 public static string ProductName
     	 {
     	 	get 
@@ -95,7 +97,7 @@ namespace miRobotEditor
 
         void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageViewModel.AddError(e.Exception);
+            MessageViewModel.AddError("App",e.Exception);
             Console.Write(e);
             MessageBox.Show(e.Exception.Message + "\r\n" ,"Main Error Handler");
             e.Handled = true;

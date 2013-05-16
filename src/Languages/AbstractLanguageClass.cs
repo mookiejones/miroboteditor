@@ -15,10 +15,10 @@ using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls;
 using miRobotEditor.Enums;
-using miRobotEditor.Forms;
 using miRobotEditor.GUI;
 using System.Windows.Controls;
 using miRobotEditor.ViewModel;
+using miRobotEditor.Forms;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -42,6 +42,10 @@ namespace miRobotEditor.Languages
     		}
     		set{_robotmenuitems=value;RaisePropertyChanged("RobotMenuItems");}
     	}
+
+
+        private ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
+        public  ObservableCollection<MenuItem> MenuItems { get { return _menuItems; } set { _menuItems = value; RaisePropertyChanged("MenuItems"); } }
 
     	private MenuItem GetMenuItems()
     	{
@@ -167,11 +171,8 @@ namespace miRobotEditor.Languages
             var ext = Path.GetExtension(filename);
             var fn = Path.GetFileNameWithoutExtension(filename);
             //TODO Need to find way to make sps to work.
-
-
             if ((this is KUKA) && ((ext == ".src")||(ext==".dat")))
             {
-
                     SourceName = fn + ".src";
                     DataName = fn + ".dat";
             }
@@ -259,9 +260,6 @@ namespace miRobotEditor.Languages
         internal abstract IList<ICompletionData> CodeCompletion { get; }
         internal abstract AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        internal abstract Color FocusedColor { get; }
-        internal abstract Color UnfocusedColor { get; }
-
         #endregion
 
         public abstract string CommentChar {get;}
@@ -326,6 +324,7 @@ namespace miRobotEditor.Languages
         
          static bool IsValidFold(string text, string s, string e)
         {
+            text = text.Trim();
         	var bSP = text.StartsWith(s);
         	var bEP = text.StartsWith(e);
         	
@@ -333,7 +332,8 @@ namespace miRobotEditor.Languages
         	
         	string cAfterString = string.Empty;
         	var lookfor = bSP?s:e;
-        	
+
+             //TODO Come Back and fix this
         	if (text.Substring(text.IndexOf(lookfor) + lookfor.Length).Length == 0) return true;
         	
         	cAfterString = text.Substring(text.IndexOf(lookfor) + lookfor.Length,1);
@@ -346,17 +346,19 @@ namespace miRobotEditor.Languages
         }
         public static IEnumerable<LanguageFold> CreateFoldingHelper(ITextSource document, string startFold, string endFold, bool defaultclosed)
         {
-        	
             var newFoldings = new List<LanguageFold>();
             var startOffsets = new Stack<int>();
             var doc = (document as TextDocument);
-
+            endFold = endFold.ToLower();
+            int err = 0;
        
             
             foreach(var dd in doc.Lines)
             		{
 		            	var line = doc.GetLineByNumber(dd.LineNumber);
-            			var text = doc.GetText(line.Offset,line.Length).ToLower().Trim();
+            			//var text = doc.GetText(line.Offset,line.Length).ToLower().Trim();
+                        var text = doc.GetText(line.Offset, line.Length).ToLower();
+                        var eval = text.TrimStart();
             
             	try
             	{
@@ -365,7 +367,7 @@ namespace miRobotEditor.Languages
                     		continue;
 
                     	//HACK
-                        if (text.StartsWith(startFold))
+                        if (eval.StartsWith(startFold))
                         {
                             startOffsets.Push(line.Offset);
                             continue;
@@ -373,12 +375,12 @@ namespace miRobotEditor.Languages
                         
                        
                         //                     startOffsets.Push(offs + text.Length);
-                        if (text.StartsWith(endFold) && startOffsets.Count > 0)
+                        if (eval.StartsWith(endFold) && startOffsets.Count > 0)
                         {
                             //FIXME this is Wrong!!!!!!
                             // Might Be for EndFolds
                             bool valid;
-                            if (endFold.ToLower() == "end")
+                            if (endFold == "end")
                             {
                                 if (text.Length == endFold.Length)
                                     valid = true;
@@ -393,35 +395,25 @@ namespace miRobotEditor.Languages
                             if (valid)
                             {
                                 //Add a new folder to the list
-                                var start = startOffsets.Pop();
-                                
-                                var s = start;
-                                var e = line.Offset + text.Length;
-                                var ll = doc.GetLineByOffset(s);
+                                var s = startOffsets.Pop();
 
-                                var str = doc.GetText(s + startFold.Length + 1 ,line.Offset - s - endFold.Length);
-                                var strl = doc.GetText(ll.Offset,ll.Length);
-                                
-                                // Get Number of Spaces before startfold
-                                //str = doc.GetText(ll.Offset + startFold.Length + 1,line.Offset - s - endFold.Length);
-                                
-                                var ff = doc.GetText(s,(line.NextLine.Offset-1)-s);
-                                
-                                //return this.manager.document.GetText(base.StartOffset, base.EndOffset - base.StartOffset);
-//                                var nf = new LanguageFold(s,e,ff,startFold,endFold,defaultclosed);
-                                
-                                var nf = new LanguageFold(s, e,str,startFold,endFold,defaultclosed);                                            
+                                var e = line.Offset +text.Length;
+                              
+                                var str = doc.GetText(s + startFold.Length + 1, line.Offset - s - endFold.Length);
+                          
+
+                                var nf = new LanguageFold(s, e, str, startFold, endFold, defaultclosed);
                                 newFoldings.Add(nf);
                             }
                         }
                         else
-                        	Console.WriteLine("Didnt Work");
+                            err++;
                 
             	}
             	catch(Exception ex)
             	{
             	
-            		MessageViewModel.AddError(ex);
+            		MessageViewModel.AddError("AbstractLanguageClass.CreateFoldingHelper",ex);
             		continue;
             	}
             		
@@ -520,7 +512,7 @@ namespace miRobotEditor.Languages
         /// <param name="doc"></param>
         /// <param name="shift"></param>
         /// <returns></returns>
-        public ShiftClass ShiftProgram(DummyDoc doc, FrmShift shift)
+        public ShiftClass ShiftProgram(DummyDoc doc, ShiftViewModel shift)
         {
             var result = new ShiftClass {Source = ShiftProgram(doc.Source, shift)};
 
@@ -530,7 +522,7 @@ namespace miRobotEditor.Languages
             return result;
         }
 
-        private string ShiftProgram(Editor doc, FrmShift shift)
+        private string ShiftProgram(Editor doc, ShiftViewModel shift)
         {
             var splash = new FrmSplashScreen();
             //TODO: Need to put all of this into a thread.
@@ -568,8 +560,7 @@ namespace miRobotEditor.Languages
             foreach (Match m in r.Matches(doc.Text))
             {
                 SplashScreen.UpdateProgress((int) prog);
-                SplashScreen.UpdateStatusTextWithStatus(
-                    string.Format( Properties.Resources.ShiftingProgram,((int) prog).ToString(CultureInfo.InvariantCulture)), TypeOfMessage.Success);
+                SplashScreen.UpdateStatusTextWithStatus(string.Format( Properties.Resources.ShiftingProgram,((int) prog).ToString(CultureInfo.InvariantCulture)), TypeOfMessage.Success);
                
                 prog = prog + increment;
 

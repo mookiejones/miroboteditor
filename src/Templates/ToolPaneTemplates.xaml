@@ -1,9 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:Templates="clr-namespace:miRobotEditor.Templates"
+                    xmlns:ad="http://avalondock.codeplex.com"
                     xmlns:GUI="clr-namespace:miRobotEditor.GUI"
+                    xmlns:local="clr-namespace:miRobotEditor.Controls"
                     xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Converters="clr-namespace:miRobotEditor.Converters" xmlns:miRobotEditor="clr-namespace:miRobotEditor">
+
+
+    <Converters:WidthConverter x:Key="WidthConverter"/>
+
+
+    <!-- object Broswer -->
     <DataTemplate DataType="{x:Type vm:ObjectBrowserViewModel}">
         <Grid>
             <TabControl>
@@ -60,66 +67,68 @@
             </TabControl>
         </Grid>
     </DataTemplate>
-    <DataTemplate  DataType="{x:Type vm:MessageViewModel}">
-        <ListView ItemsSource="{Binding Path=Messages}" SelectedItem="{Binding SelectedMessage}" Height="Auto" Width="Auto">
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Clear" Command="{Binding ClearMessagesCommand}"/>
-                </ContextMenu>
-            </ListView.ContextMenu>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="16" DisplayMemberBinding="{Binding Icon}" />
-                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
-                    <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Description}" />
-                </GridView>
-            </ListView.View>
-            <ListView.Resources>
-                <Style TargetType="{x:Type ListViewItem }">
-                    <Setter Property="ToolTip">
-                        <Setter.Value>
-                            <DataTemplate>
-                                <Grid >
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Image Source="{Binding Icon}" Grid.RowSpan="3"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding SelectedMessage.Title , StringFormat=Title     \{0\}}"/>
-                                    <Separator Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
-                                    <Separator />
-                                    <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedMessage.Description , StringFormat=Description     \{0\}}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.Resources>
-        </ListView>
+
+
+    <!-- Message View Model-->
+    <DataTemplate DataType="{x:Type vm:MessageViewModel}">
+        <DataGrid ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn  Width="Auto" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Height="16" Width="16" IsEnabled="False" Source="{Binding Icon}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Title" Width="Auto" IsReadOnly="True" Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Message" Width="*"  IsReadOnly="True" Binding="{Binding Description}"/>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow">
+                        <TextBlock.ToolTip>
+                            <ToolTip>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Icon}"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Title, StringFormat=Title    \{0\}}"/>
+                                        <Separator />
+                                        <TextBlock Text="{Binding Description, StringFormat=Description     \{0\}}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ToolTip>
+                        </TextBlock.ToolTip>
+                    </TextBlock>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
     </DataTemplate>
 
-    
-    
-    <!-- Archive Info-->
+    <DataTemplate DataType="{x:Type vm:OutputWindowMessage}">
+        <Label >
+            <StackPanel>
+                <Image Source="{Binding Icon}"/>
+                <TextBlock Text="{Binding Title}"/>
+                <TextBlock Text="{Binding Description}" ToolTip="Hello" />
+            </StackPanel>
+        </Label>
+    </DataTemplate>
+<!--
+     Archive Info
     <DataTemplate DataType="{x:Type vm:ArchiveInfoViewModel}">
         <Grid>
             <Grid.Resources>
-                <Style TargetType="TextBlock">
+                <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="TextAlignment" Value="Right"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="Margin" Value="5,0,5,0"/>
                 </Style>
-                <Style TargetType="TextBox">
+                <Style TargetType="{x:Type TextBox}">
                     <Setter Property="IsReadOnly" Value="True"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="Margin" Value="5"/>
                 </Style>
-                <Style TargetType="GroupBox">
+                <Style TargetType="{x:Type GroupBox}">
                     <Setter Property="Margin" Value="5"/>
                 </Style>
                 <Style TargetType="{x:Type ListView}" x:Key="ListView">
@@ -133,10 +142,11 @@
             <Menu Background="#FFF0F0F0" Grid.Row="0">
                 <MenuItem Header="_File" Command="{Binding LoadCommand}"/>
             </Menu>
+            <TextBlock Text="Here"/>
             <TabControl Grid.Row="1">
                 <TabItem Header="Archive Information">
                     <StackPanel Orientation="Vertical">
-                        <!-- General -->
+
                         <GroupBox Header="General">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -162,7 +172,6 @@
                                 <TextBox Text="{Binding ArchiveDate}" Grid.Column="1" Grid.Row="4"/>
                             </Grid>
                         </GroupBox>
-                        <!-- Roboter -->
                         <GroupBox Header="Roboter">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -182,11 +191,10 @@
                         <GroupBox Header="Version">
                             <TextBox Text="{Binding KSSVersion}" />
                         </GroupBox>
-                        <!-- TechPacks -->
                         <GroupBox Header="TechPacks" VerticalAlignment="Stretch">
                             <ListView ItemsSource="{Binding TechPacks}" MinHeight="100" VerticalAlignment="Stretch">
                                 <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
+                                    <Style TargetType="{x:Type ListViewItem}">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                     </Style>
                                 </ListView.ItemContainerStyle>
@@ -225,7 +233,7 @@
                 </TabItem>
                 <TabItem Header="IO Points">
                     <TabItem.Resources>
-                        <Style TargetType="DataGrid">
+                        <Style TargetType="{x:Type DataGrid}">
                             <Setter Property="AlternatingRowBackground" Value="SkyBlue"/>
                             <Setter Property="BorderThickness" Value="0"/>
                         </Style>
@@ -264,4 +272,83 @@
             </TabControl>
         </Grid>
     </DataTemplate>
+    -->
+
+    <DataTemplate DataType="{x:Type vm:ValueBoxViewModel}">
+        <StackPanel Orientation="Vertical">
+            <StackPanel.Resources>
+                <vm:AngleToolTipConverter x:Key="tooltip"/>
+                <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}" >
+                    <Setter	Property="TextAlignment" Value="Center" />
+                    <Setter	Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="IsReadOnly" Value="{Binding IsReadOnly}"/>
+                    <Setter Property="Width" Value="53"/>
+                    <Setter Property="Margin" Value="0,2,2,0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BoxVisibility}" Value="Collapsed">
+                            <Setter Property="Width" Value="71"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+
+            </StackPanel.Resources>
+            <ComboBox   ItemsSource="{Binding SelectionItems}" IsReadOnly="True" DisplayMemberPath= "ValueCartesianString"  SelectedValuePath= "ValueCartesianEnum" SelectedValue="{Binding SelectedItem}"/>
+            <StackPanel Orientation="Horizontal"  >
+                <TextBox x:Name="V1" Text="{Binding V1, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}" ToolTip="{Binding SelectedItem, ConverterParameter=V1, Converter={StaticResource tooltip}}"  />
+                <TextBox x:Name="V2" Text="{Binding V2, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}" ToolTip="{Binding SelectedItem, ConverterParameter=V2, Converter={StaticResource tooltip}}"  />
+                <TextBox x:Name="V3" Text="{Binding V3, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}" ToolTip="{Binding SelectedItem, ConverterParameter=V3, Converter={StaticResource tooltip}}"  />
+                <TextBox x:Name="V4" Text="{Binding V4, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}" Visibility="{Binding BoxVisibility}" ToolTip="{Binding SelectedItem, ConverterParameter=V4, Converter={StaticResource tooltip}}"  />
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+
+    <!-- Angle Converter-->
+    <DataTemplate DataType="{x:Type vm:AngleConvertorViewModel}">
+        <StackPanel Orientation="Vertical">
+
+            <GroupBox  Header="Input" Content="{Binding InputItems}"/>
+            <GroupBox Header="Output" Content="{Binding OutputItems}"/>
+            <TextBox x:Name="txtMatrix" IsReadOnly="True" TextAlignment="Center" Text="{Binding Matrix}" Height="80" SpellCheck.IsEnabled="False" />
+        </StackPanel>
+
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DummyDocViewModel}">
+        <Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <GUI:Editor Grid.Row="{Binding DataRow}" Document="{Binding Data.Document}" BorderThickness="1"/>
+                <local:ExtendedGridSplitter HorizontalAlignment="Stretch" Height="20" CollapseMode="Previous" Loaded="{Binding GridLoadedCommand}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" Grid.Row="{Binding GridRow}"/>
+                <GUI:Editor Grid.Row="1" Document="{Binding Source.Document}" BorderThickness="1"/>
+
+            </Grid>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NotesWindowTemplate">
+        <TextBox TextWrapping="Wrap"/>
+    </DataTemplate>
+
+    
+    <DataTemplate DataType="{x:Type vm:FunctionViewModel}">
+        <ListView DataContext="{Binding ActiveEditor.TextBox}"	Background="White"	Foreground="Black"	 ItemTemplate="{DynamicResource FunctionItemTemplate}" >
+            <ListView.Resources>
+            </ListView.Resources>
+            <ListView.SelectedItem>
+                <Binding Path="SelectedVariable" />
+            </ListView.SelectedItem>
+            <ListView.ItemsSource>
+                <Binding Path="Variables" Mode="OneWay" NotifyOnSourceUpdated="True"/>
+            </ListView.ItemsSource>
+        </ListView>
+    </DataTemplate>
+                  
+
+
 </ResourceDictionary>

@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.GUI;
-
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Languages
 {
     public interface IRobot
@@ -14,8 +14,6 @@ namespace miRobotEditor.Languages
         string SourceFile { get; }
         string DataFile { get; }
 
-        System.Windows.Forms.ToolStripItem[] AddMenuItems();
-
         bool DataFileExists { get; }
         string DataFileName { get; }
         string ConfigName { get; }
@@ -24,7 +22,7 @@ namespace miRobotEditor.Languages
         string GetFile(string fileName, string filetype);
         AbstractFoldingStrategy FoldingStrategy { get; set; }
         System.IO.Stream Intellisense { get; }
-        ShiftClass ShiftProgram(DummyDoc doc, Forms.FrmShift shift);
+        ShiftClass ShiftProgram(DummyDoc doc, ViewModel.ShiftViewModel shift);
         IList<ICompletionData> CodeCollection { get; }
     }
 }

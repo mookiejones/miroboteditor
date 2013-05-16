@@ -580,7 +580,7 @@ namespace miRobotEditor.Pads
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError(ex);
+                MessageViewModel.AddError("FileInfo",ex);
               }
 
             return FileType.NONE ;

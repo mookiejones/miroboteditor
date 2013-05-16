@@ -8,7 +8,7 @@ namespace miRobotEditor.Forms
     /// </summary>
     public partial class FrmSplashScreen : Window
     {
-          delegate void StringParameterDelegate(string text);
+        delegate void StringParameterDelegate(string text);
         delegate void StringParameterWithStatusDelegate(string text, TypeOfMessage tom);
         delegate void SplashShowCloseDelegate();
         delegate void UpdateProgressDelegate(int value);
@@ -152,74 +152,37 @@ namespace miRobotEditor.Forms
                 e.Cancel = true;
         }
     }
-    /// <summary>
-    /// Defined types of messages: Success/Warning/Error.
-    /// </summary>
+
     public enum TypeOfMessage
     {
-        Success,
-        Warning,
-        Information,
+        Status,
         Error,
+        Message,
+        Success,
+        Warning
     }
-    /// <summary>
-    /// Initiate instance of SplashScreen
-    /// </summary>
+
     public static class SplashScreen
     {
-        static FrmSplashScreen _sf;
 
-        /// <summary>
-        /// Displays the splashscreen
-        /// </summary>
+        public static void UpdateProgress(int progress)
+        {
+        }
+
         public static void ShowSplashScreen()
         {
-            if (_sf == null)
-            {
-                _sf = new FrmSplashScreen();
-                _sf.ShowSplashScreen();
-            }
-        }
-        public static void UpdateProgress(int value)
-        {
-            if (_sf != null)
-            {
-                _sf.UpdateProgress(value);
-            }
-        }
-        /// <summary>
-        /// Closes the SplashScreen
-        /// </summary>
-        public static void CloseSplashScreen()
-        {
-            if (_sf != null)
-            {
-                _sf.CloseSplashScreen();
-                _sf = null;
-            }
+            spl.Show();
+            spl.ShowActivated = true;
         }
 
-        /// <summary>
-        /// Update text in default green color of success message
-        /// </summary>
-        /// <param name="text">Message</param>
-        public static void UpdateStatusText(string text)
+
+        private static FrmSplashScreen spl= new FrmSplashScreen();
+        public static void UpdateStatusTextWithStatus(string statusText,TypeOfMessage msgType)
         {
-            if (_sf != null)
-                _sf.UpdateStatusText(text);
+           spl.UpdateStatusTextWithStatus(statusText,msgType);
+
         }
 
-        /// <summary>
-        /// Update text with message color defined as green/yellow/red/ for success/warning/failure
-        /// </summary>
-        /// <param name="text">Message</param>
-        /// <param name="tom">Type of Message</param>
-        public static void UpdateStatusTextWithStatus(string text, TypeOfMessage tom)
-        {
-
-            if (_sf != null)
-                _sf.UpdateStatusTextWithStatus(text, tom);
-        }
     }
     }
 

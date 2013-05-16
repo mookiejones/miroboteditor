@@ -29,8 +29,7 @@ namespace miRobotEditor.Languages
         	Start = start;
         	End = end;
         	Text = text;
-        	string title = text.Substring(startfold.Length);
-        	
+            string title = text;
         	
         	var p = title.IndexOf("\r\n");
         	var n = title.IndexOf('%');
