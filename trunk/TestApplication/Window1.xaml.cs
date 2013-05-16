@@ -8,24 +8,26 @@
  */
 
 using System.Windows;
-
+using TestApplication.WorkspaceBuilder;
+using System.Collections.Generic;
+using System.Windows.Controls;
 namespace TestApplication
 {
 	/// <summary>
 	/// Interaction logic for Window1.xaml
 	/// </summary>
-	public partial class Window1 : Window
+	public partial class Window1 
 	{
 		public Window1()
 		{
 			InitializeComponent();
 
-            
 		}
 
 	    private void TestItem(object sender, RoutedEventArgs e)
 	    {
 	    	//FanucREPCDViewModel.Instance.REPTCDItems=  	FanucTools.FanucDiagnostics.GetREPTCD();
 	    }
+       
 	}
 }

@@ -15,10 +15,11 @@ namespace miRobotEditor.ViewModel
 	/// </summary>
 	public class ToolViewModel:PaneViewModel
 	{
-     public ToolViewModel(string name)
+     public ToolViewModel(string name,int minWidth)
         {
             Name = name;
             Title = name;
+            MinWidth = minWidth;
         }
 
         public string Name
@@ -27,6 +28,7 @@ namespace miRobotEditor.ViewModel
             private set;
         }
 
+        public int MinWidth { get; private set; }
 
         #region IsVisible
 

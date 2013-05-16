@@ -428,7 +428,7 @@ namespace miRobotEditor.Classes
 				}
 				catch (Exception ex)
 				{
-				    ViewModel.MessageViewModel.AddError(ex);
+				    ViewModel.MessageViewModel.AddError("RecentFileList.ApplicationAttributes",ex);
 				}
 			}
 		}

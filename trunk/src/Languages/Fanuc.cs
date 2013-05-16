@@ -112,22 +112,6 @@ namespace miRobotEditor.Languages
             }
         }
 
-
-        internal override System.Windows.Media.Color FocusedColor
-        {
-            get
-            {
-                return System.Windows.Media.Colors.Yellow;
-            }          
-        }
-
-        internal override System.Windows.Media.Color UnfocusedColor
-        {
-            get
-            {
-                return System.Windows.Media.Colors.Gray;
-            }         
-        }
     	
         
         
@@ -198,7 +182,7 @@ namespace miRobotEditor.Languages
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
         public override string ExtractXYZ(string positionstring)
         {
-            new NotImplementedException();
+            throw new NotImplementedException();
             var p = new PositionBase(positionstring);
             return p.ExtractFromMatch();
         }

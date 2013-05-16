@@ -37,38 +37,31 @@ using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.GUI
 {
-  
     
     /// <summary>
     /// Interaction logic for Editor.xaml
     /// </summary>
     [Localizable(false)]
-    public partial class Editor : TextEditor, IDisposable,INotifyPropertyChanged
+    public partial class Editor : TextEditor, INotifyPropertyChanged
     {
         #region Constructor
-
-        void InitializeMyControl()
-        {
-            TextArea.LeftMargins.Insert(0, _iconBarMargin);
-            TextArea.DefaultInputHandler.NestedInputHandlers.Add(new SearchInputHandler(TextArea));
-
-            AddBindings();
-            TextArea.TextEntered += TextEntered;
-            TextArea.TextEntering += TextEntering;
-            TextArea.Caret.PositionChanged += CaretPositionChanged;
-            DataContext = this;
-        }
+    
         public Editor()
         {
             InitializeComponent();
             _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
             InitializeMyControl();
             MouseHoverStopped += delegate { toolTip.IsOpen = false; };
+
         }
 
         #endregion
 
         #region ViewModel Properties
+
+        private string _title = string.Empty;
+        public string Title { get { return Path.GetFileName(Filename); }  }
+
         private EDITORTYPE _editortype;
     	public EDITORTYPE EditorType {get{return _editortype;}set{_editortype =value; OnPropertyChanged("EditorType");}}
 
@@ -76,27 +69,28 @@ namespace miRobotEditor.GUI
         public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; OnPropertyChanged("SelectedVariable"); } }
 
         private String _filename = string.Empty;
-        public string Filename { get { return _filename; } set { _filename = value; OnPropertyChanged("Filename"); } }
+        public string Filename { get { return _filename; } set { _filename = value; OnPropertyChanged("Filename"); OnPropertyChanged("Title"); } }
 
         private AbstractLanguageClass _filelanguage = new LanguageBase();
         public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; OnPropertyChanged("FileLanguage"); } }
 
-        private ObservableCollection<IVariable> _variables = new ObservableCollection<IVariable>();
-        public ObservableCollection<IVariable> Variables { get { return _variables; } set { _variables = value;  } }
+//        private ObservableCollection<IVariable> _variables = new ObservableCollection<IVariable>();
+//        public ObservableCollection<IVariable> Variables { get { return _variables; } set { _variables = value;  } }
+
+
+        private FunctionViewModel _variables = new FunctionViewModel();
+        public FunctionViewModel Variables { get { return _variables; } set { _variables = value; OnPropertyChanged("Variables"); } }
 
 
 
 
-        public bool IsModified
-        {
-            get { return base.IsModified; }
-            set { base.IsModified = value; OnPropertyChanged("IsModified");} 
-        }
+
+        private string _fileSave = string.Empty;
+        public string FileSave { get { return _fileSave; } set { _fileSave = value; OnPropertyChanged("FileSave"); } }
+
         #endregion
 
         #region Commands
-
-
 
         private  RelayCommand _undoCommand;
         public  ICommand UndoCommand
@@ -106,6 +100,7 @@ namespace miRobotEditor.GUI
                 return _undoCommand ?? (_undoCommand = new RelayCommand(param => Undo(), param => (CanUndo)));
             }
         }
+
         private  RelayCommand _redoCommand;
         public  ICommand RedoCommand
         {
@@ -114,9 +109,6 @@ namespace miRobotEditor.GUI
                 return _redoCommand ?? (_redoCommand = new RelayCommand(param => Redo(), param => (CanRedo)));
             }
         }
-        
-
-
 
         private RelayCommand _saveCommand;
         public ICommand SaveCommand
@@ -135,7 +127,6 @@ namespace miRobotEditor.GUI
         {
             get { return _replaceCommand ?? (_replaceCommand = new RelayCommand((p) => Replace(), (p) => true)); }
         }
-
 
         private RelayCommand _variableDoubleClickCommand;
         public ICommand VariableDoubleClickCommand
@@ -245,12 +236,28 @@ namespace miRobotEditor.GUI
 
         #endregion
         
+        private int _line = 0;
+        public int Line { get { return _line; } set { _line = value; OnPropertyChanged("Line"); } }
+
+
         private void OpenFunctionItem(object parameter)
         {
             var i = (IVariable)((System.Windows.Controls.ListViewItem)parameter).Content;
             DummyDoc.Instance.TextBox.SelectText(i);
         }
-        
+
+
+        void InitializeMyControl()
+        {
+            TextArea.LeftMargins.Insert(0, _iconBarMargin);
+            TextArea.DefaultInputHandler.NestedInputHandlers.Add(new SearchInputHandler(TextArea));
+
+            AddBindings();
+            TextArea.TextEntered += TextEntered;
+            TextArea.TextEntering += TextEntering;
+            TextArea.Caret.PositionChanged += CaretPositionChanged;
+            DataContext = this;
+        }
         
         #region CaretPositionChanged - Bracket Highlighting
 
@@ -281,6 +288,8 @@ namespace miRobotEditor.GUI
             UpdateLineTransformers();
             if (s != null)
             {
+
+                Line = s.Line;
             	
                 StatusBarViewModel.Instance.Line = s.Line;
                 StatusBarViewModel.Instance.Column = s.Column;
@@ -302,8 +311,10 @@ namespace miRobotEditor.GUI
         /// <summary>
         /// 
         /// </summary>
-        private void UpdateLineTransformers()
+        public  void UpdateLineTransformers()
         {
+
+
             // Clear the Current Renderers
             TextArea.TextView.BackgroundRenderers.Clear();
             var textEditorOptions = Options as TextEditorOptions;
@@ -395,10 +406,7 @@ namespace miRobotEditor.GUI
             // Return if FileLanguage doesnt exist yet
             if (FileLanguage == null) return;
             _iconBarManager.Bookmarks.Clear();
-   //         if (Variables == null)
-                Variables = new ObservableCollection<IVariable>();
-      //      else
-       //     Variables.Clear();
+              Variables.Clear();
             FindMatches(FileLanguage.MethodRegex, Global.ImgMethod);
             FindMatches(FileLanguage.StructRegex, Global.ImgStruct);
             FindMatches(FileLanguage.FieldRegex, Global.ImgField);
@@ -416,7 +424,20 @@ namespace miRobotEditor.GUI
             inputBindings.Add(new KeyBinding(ApplicationCommands.Find, Key.F, ModifierKeys.Control));
             inputBindings.Add(new KeyBinding(ApplicationCommands.Replace, Key.R, ModifierKeys.Control));
         }
-		
+
+        protected override bool ReceiveWeakEvent(Type managerType, object sender, EventArgs e)
+        {
+            switch (managerType.Name)
+            {
+                case "TextChanged":
+                    FindBookmarkMembers();
+                      OnPropertyChanged("Filename");
+                    IsModified = true;
+                    UpdateFolds();
+                    break;
+            }
+            return base.ReceiveWeakEvent(managerType, sender, e);
+        }
 
 		
         public void ChangeIndent(object param)
@@ -455,7 +476,7 @@ namespace miRobotEditor.GUI
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError(ex);
+                MessageViewModel.AddError("Editor.ChangeIndent",ex);
             }
         }
         
@@ -523,6 +544,8 @@ namespace miRobotEditor.GUI
         protected virtual bool IsFileLocked(FileInfo file)
         {
             FileStream stream = null;
+
+            if (!File.Exists(file.FullName)) return false;
             try
             {
                 stream = file.Open(FileMode.Open,FileAccess.Read,FileShare.None);
@@ -544,22 +567,6 @@ namespace miRobotEditor.GUI
         }
 
 
-        public void SaveAs()
-        {       	
-        		Filename= GetFilename();
-
-                var islocked = IsFileLocked(new FileInfo(Filename));
-
-                if (islocked) 
-                    return;
-                
-                File.WriteAllText(Filename,Text);
-
-                var p = DummyDoc.Instance.Host as LayoutDocument;
-                if (p != null) p.Title = Path.GetFileNameWithoutExtension(Filename);
-                // MainWindow.Instance.RecentFileList.InsertFile(Filename);
-            MessageViewModel.Add(new OutputWindowMessage{Title = "File Saved", Description = Filename, Icon = null});
-        }
         
         string GetFilename()
         {
@@ -578,6 +585,27 @@ namespace miRobotEditor.GUI
             return ofd.FileName;
             	
         }
+
+        public void SaveAs()
+        {
+            Filename = GetFilename();
+
+            var islocked = IsFileLocked(new FileInfo(Filename));
+
+            if (islocked)
+                return;
+
+            File.WriteAllText(Filename, Text);
+
+//            var p = DummyDoc.Instance.Host as LayoutDocument;
+//            if (p != null) p.Title = 
+            OnPropertyChanged("Title");
+
+            // MainWindow.Instance.RecentFileList.InsertFile(Filename);
+            MessageViewModel.Add(new OutputWindowMessage { Title = "File Saved", Description = Filename, Icon = null });
+        }
+        
+        
         public void Save()
         {
             //_watcher.EnableRaisingEvents = false;
@@ -616,25 +644,6 @@ namespace miRobotEditor.GUI
             SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(Filename));
         }
 
-        public void UpdateVisualText()
-        {
-        	
-        	
-            EditorTextChanged(null, null);
-            if (FileLanguage != null && (!(FileLanguage is LanguageBase)))
-            {
-                var syn = HighlightingManager.Instance.GetDefinition(FileLanguage.RobotType.ToString());
-                SyntaxHighlighting = syn;
-            }
-        }
-
-        private void EditorTextChanged(object sender, EventArgs e)
-        {
-            OnPropertyChanged("Filename");
-            IsModified = true;
-            FindBookmarkMembers();
-            UpdateFolds();
-        }
 
         #region Code Completion
 
@@ -814,6 +823,7 @@ namespace miRobotEditor.GUI
 
         private FoldingManager _foldingManager;
         private AbstractFoldingStrategy _foldingStrategy;
+	
 
         [Localizable(false)]
         private void UpdateFolds()
@@ -851,8 +861,9 @@ namespace miRobotEditor.GUI
                     _foldingManager = null;
                 }
             }
-
         }
+
+
 
         /// <summary>
         /// Writes Titles for When the fold is closed
@@ -862,11 +873,8 @@ namespace miRobotEditor.GUI
             if ((DummyDoc.Instance.FileLanguage is LanguageBase) && (Path.GetExtension(Filename) == ".xml")) return;
 
             foreach (var section in _foldingManager.AllFoldings)
-            {
                 section.Title = DummyDoc.Instance.FileLanguage.FoldTitle(section, Document);
-            }
         }
-
 
         private string GetLine(int idx)
         {
@@ -883,9 +891,6 @@ namespace miRobotEditor.GUI
 
 
             // Are there any terminators in the line?
-
-
-
             var end = line.IndexOfAny(terminators, TextArea.Caret.Column - 1);
             if (end > -1)
                 search = (line.Substring(0, end));
@@ -897,38 +902,45 @@ namespace miRobotEditor.GUI
 
             return search;
         }
-
-
-
         private bool GetCurrentFold(TextViewPosition loc)
         {
 
             var off = Document.GetOffset(loc.Location);
 
-             foreach (var fld in _foldingManager.AllFoldings)
-             {
-    
-                 if (fld.StartOffset <= off && off <= fld.EndOffset && fld.IsFolded)
-                 {
-                 	toolTip = new System.Windows.Controls.ToolTip
-                 	{
-                 		Style = (Style)FindResource("FoldToolTipStyle"),
-                 		DataContext = fld,
-                 		PlacementTarget = this,
-                 		IsOpen=true
-                 	};
-    
-                     
-                     return true;
-                    
-                    // e.Handled = true;
-                 }
-         }
+            var f= _foldingManager.GetFoldingsAt(off);
+            if (f.Count == 0)
                 return false;
+            toolTip = new System.Windows.Controls.ToolTip
+            {
+                Style = (Style)FindResource("FoldToolTipStyle"),
+                DataContext = f,
+                PlacementTarget = this,
+                IsOpen = true
+            };
+
+
+
+    //         foreach (var fld in _foldingManager.AllFoldings)
+    //         {
+    //
+    //             if (fld.StartOffset <= off && off <= fld.EndOffset && fld.IsFolded)
+    //             {
+    //             	toolTip = new System.Windows.Controls.ToolTip
+    //             	{
+    //             		Style = (Style)FindResource("FoldToolTipStyle"),
+    //             		DataContext = fld,
+    //             		PlacementTarget = this,
+    //             		IsOpen=true
+    //             	};
+    //
+    //                 
+    //                 return true;
+    //                
+    //                // e.Handled = true;
+    //             }
+    //     }
+                return true;
         }
-
-
-   
         private void Mouse_OnHover(object sender, MouseEventArgs e)
         {
             if (_foldingManager == null) return;
@@ -1060,8 +1072,6 @@ namespace miRobotEditor.GUI
         #endregion
 
 
-        //TODO Setup Snippets
-
 
         
         private void InsertSnippet(object sender, KeyEventArgs e)
@@ -1120,27 +1130,18 @@ namespace miRobotEditor.GUI
 
 
             //HACK Trying to fix the Function Window
-            FindBookmarkMembers();
+            //FindBookmarkMembers();
             
         }
 
-        public int Line{get{return TextArea.Caret.Line;}}
         public int Column{get{return TextArea.Caret.Column;}}
         public int Offset{get{return TextArea.Caret.Offset;}}
         
 
-        private string _fileSave = string.Empty;
-        public string FileSave{get{return _fileSave;}set{_fileSave=value;OnPropertyChanged("FileSave");}}
         
         
-        public void Dispose()
-        {
-            if (_iconBarMargin != null)
-                _iconBarMargin.Dispose();
-        }
 
         private System.Windows.Controls.ToolTip toolTip = new System.Windows.Controls.ToolTip();
-        
 
         private void lbMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

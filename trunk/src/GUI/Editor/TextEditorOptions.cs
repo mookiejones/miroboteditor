@@ -45,7 +45,7 @@ namespace miRobotEditor.GUI
 
         private bool _wrapWords = true;
         public  bool WrapWords { get { return _wrapWords; } set { _wrapWords = value; OnPropertyChanged("WrapWords"); } }
-
+        [NonSerialized]
         private Brush _selectedlinecolor = Brushes.Yellow;
 
         /// <summary>
@@ -53,16 +53,19 @@ namespace miRobotEditor.GUI
         /// </summary>
         public Brush HighlightedLineColor { get { return _selectedlinecolor; } set { _selectedlinecolor = value; OnPropertyChanged("HighlightedLineColor"); } }
         //System.Windows.SystemColors.HighlightColor
+        [NonSerialized]
         private Brush _selectedTextBackground = new SolidColorBrush{ Color=Colors.SteelBlue, Opacity=0.7};
         public Brush SelectedTextBackground { get { return _selectedlinecolor; } set { _selectedlinecolor = value; OnPropertyChanged("SelectedTextBackground"); } }
 
+        [NonSerialized]
         private Brush _selectedTextForeground = new SolidColorBrush { Color = System.Windows.SystemColors.HighlightColor, Opacity = 0.7 };
         public Brush SelectedTextForeground { get { return _selectedTextForeground; } set { _selectedTextForeground = value; OnPropertyChanged("SelectedTextForeground"); } }
 
+        [NonSerialized]
         private Border _foldToolTipBackground = new Border { BorderBrush = Brushes.Black, Background = Brushes.WhiteSmoke };
         public Border FoldToolTipBackground { get { return _foldToolTipBackground; } set { _foldToolTipBackground = value; OnPropertyChanged("FoldToolTipBackground"); } }
 
-
+        [NonSerialized ]
         private Pen _selectedTextBorder = new Pen{Brush=Brushes.Orange, Thickness=1};
         public Pen SelectedTextBorder { get { return _selectedTextBorder; } set { _selectedTextBorder = value; OnPropertyChanged("SelectedTextBorder"); } }
 
@@ -103,13 +106,10 @@ namespace miRobotEditor.GUI
                 //KUKAHighlight.xshd
                 IHighlightingDefinition customHighlighting;
                 using (var reader = new XmlTextReader(s))
-                {
                     customHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
-                }
 
                 HighlightingManager.Instance.RegisterHighlighting(name, ext, customHighlighting);
             }
-
         }
 
         private void RegisterSyntaxHighlighting()

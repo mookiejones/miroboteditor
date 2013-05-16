@@ -57,6 +57,18 @@ namespace miRobotEditor.Classes
         /// </summary>
         public const string LogFile = "logFile.txt";
 
+        /// <summary>
+        /// Constant Error Image
+        /// </summary>
+        public const string ImgError = "..\\..\\Resources\\error.png";
+
+        /// <summary>
+        /// Constant Error Info
+        /// <remarks>
+        /// Used with Message Window</remarks>
+        /// </summary>
+        public const string ImgInfo = "..\\..\\Resources\\info.png";
+
 
         /// <summary>
         /// Constant Variable Image
@@ -222,61 +234,5 @@ namespace miRobotEditor.Classes
 
     }
     
-    /// <summary>
-    /// Class for Writing To LogFile
-    /// </summary>
-    public sealed class LogWriter
-    {
-        
-    	
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        [Localizable(false)]
-        public LogWriter()
-        {
-            // Delete Current log
-            File.Delete(String.Format("{0}{1}",App.StartupPath, @"\KRC Editor.log"));
-            WriteLog(String.Format("{0} {1} Created", App.ProductName, App.Version));
-        }
-        /// <summary>
-        /// Write to Log
-        /// </summary>
-        /// <param name="message">Message</param>
-        /// <param name="ex">Exception</param>
-        public static void WriteLog(string message, Exception ex)
-        {
-            WriteLog(message, Colors.Red);
-            WriteLog(ex.Message, Colors.Red);
-        }
-        /// <summary>
-        /// Write to Log
-        /// </summary>
-        /// <param name="message">Message</param>
-        /// <param name="color">Color Text</param>
-        [Localizable(false)]
-        public static void WriteLog(string message, Color color)
-        {
-            using (var stream = new FileStream(string.Format("{0}{1}", App.StartupPath, @"\KRC Editor.log"), FileMode.OpenOrCreate))
-            {
-                using (var writer = new StreamWriter(stream, Encoding.Default))
-                {
-                    writer.WriteLine("{0}:={1}", DateTime.Now.ToString(CultureInfo.InvariantCulture), message);
-
-                }
-            }
-        }
-
-        /// <summary>
-        /// Write To Log
-        /// </summary>
-        /// <param name="message">Message</param>
-        public static void WriteLog(string message)
-        {
-            WriteLog(message, Colors.Gray);
-        }
-
-
-
-    }
+  
 }

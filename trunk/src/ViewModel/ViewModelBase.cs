@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using miRobotEditor.Interfaces;
 using System.Diagnostics;
+using System;
 using System.Windows.Input;
 using miRobotEditor.Commands;
 namespace miRobotEditor.ViewModel
@@ -10,13 +11,14 @@ namespace miRobotEditor.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
-
- 
-        [DebuggerStepThrough]
+      
         protected  void RaisePropertyChanged(string propertyName)
         {
             try
             {
+                if (propertyName == "ActiveEditor")
+                    Console.WriteLine("Hello");
+
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
@@ -24,7 +26,7 @@ namespace miRobotEditor.ViewModel
             {
                 if (ex.Message == @"'#FF333333' is not a valid value for property 'BorderBrush'.")
                     return;
-                MessageViewModel.AddError(ex);
+                MessageViewModel.AddError("Error on RaisePropertyChanged with " + propertyName,ex);
             }
         }
         

@@ -20,7 +20,7 @@ namespace miRobotEditor.Language_Specific
 	public class KUKAKFDHelper:ViewModelBase
 	{
 		List<String> ilf = new List<String>();
-		private string TQ_TriggerId;
+		private string TQ_TriggerId = string.Empty;
 
 		String[,] sParam;
 		String[,] sVar;
@@ -130,7 +130,7 @@ namespace miRobotEditor.Language_Specific
 			}
 			catch (Exception ex)
 			{
-                MessageViewModel.AddError(ex);
+                MessageViewModel.AddError("KUKAKFDHelper LoadBasisFiles",ex);
 			}
 		}
 		
@@ -156,7 +156,7 @@ namespace miRobotEditor.Language_Specific
     }
     catch (Exception ex)
     {
-                MessageViewModel.AddError(ex);
+                MessageViewModel.AddError("KFDHelper.CheckPar",ex);
     }
     return flag;
  }
@@ -1112,7 +1112,7 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	    }
 	    catch (Exception ex)
 	    {
-	    	MessageViewModel.AddError(ex);
+	    	MessageViewModel.AddError("KFDHelper.GetPar",ex);
 	    }
 	    return str;
 	}

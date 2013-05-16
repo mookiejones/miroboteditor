@@ -24,8 +24,7 @@ namespace miRobotEditor
 {
     public class Workspace:ViewModelBase
     {
-//        private DockingManager _dockingManager=new DockingManager();
-//        public DockingManager dockManager{get{return dockManager;}set{dockManager=value;RaisePropertyChanged("dockManager");}}
+
 
         #region Constructor
         public Workspace()
@@ -60,7 +59,7 @@ namespace miRobotEditor
 
         public ICommand NewFileCommand
         {
-            get { return _newFileCommand ?? (_newFileCommand = new RelayCommand((p) => OnOpen(String.Empty), (p) => true)); }
+            get { return _newFileCommand ?? (_newFileCommand = new RelayCommand((p) => AddNewFile(), (p) => true)); }
         }
 
         private RelayCommand _closeWindowCommand;
@@ -70,6 +69,27 @@ namespace miRobotEditor
             get { return _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand((p) => CloseWindow(p), (p) => true)); }
         }
 
+        private RelayCommand _showOptionsCommand;
+
+        public ICommand ShowOptionsCommand
+        {
+            get { return _showOptionsCommand ?? (_showOptionsCommand = new RelayCommand((p) => ShowOptions(), (p) => true)); }
+        }
+
+
+        private RelayCommand _showAboutCommand;
+
+        public ICommand ShowAboutCommand
+        {
+            get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand((p) => ShowAbout(), (p) => true)); }
+        }
+
+        private RelayCommand _exitCommand;
+
+        public ICommand ExitCommand
+        {
+            get { return _exitCommand ?? (_exitCommand = new RelayCommand((p) => Exit(),(p) => true)); }
+        }
 
         private RelayCommand _importCommand;
 
@@ -85,18 +105,18 @@ namespace miRobotEditor
             get { return _openFileCommand ?? (_openFileCommand = new RelayCommand((p) => OnOpen(p), (p) => true)); }
         }
 
-        private static RelayCommand _changeViewAsCommand;
+        private  RelayCommand _changeViewAsCommand;
 
-        public static ICommand ChangeViewAsCommand
+        public  ICommand ChangeViewAsCommand
         {
-            get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand(param => Instance.ChangeViewAs(param), param => true)); }
+            get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand(param => ChangeViewAs(param), param => true)); }
         }
 
-        private static RelayCommand _addToolCommand;
+        private  RelayCommand _addToolCommand;
 
-        public static ICommand AddToolCommand
+        public  ICommand AddToolCommand
         {
-            get { return _addToolCommand ?? (_addToolCommand = new RelayCommand(param => Instance.AddTool(param), param => true)); }
+            get { return _addToolCommand ?? (_addToolCommand = new RelayCommand(param => AddTool(param), param => true)); }
         }
 
         #endregion
@@ -111,7 +131,7 @@ namespace miRobotEditor
         /// <param name="param"></param>
         public void OnOpen(object param)
         {
-            var doc = param != null ? param as DummyDoc : new DummyDoc();
+            DummyDoc doc = param != null ? param as DummyDoc : new DummyDoc();
 
             var fn = doc.Filename;
 
@@ -170,14 +190,12 @@ namespace miRobotEditor
 
             var document = new DummyDoc
             {
-                
                 Filename = id,
                 FilePath = id,
                 Visibility = Visibility.Visible
             };
 
             var doc = new LayoutDocument { Description = filename, Content = document, ContentId = id };
-            document.Host = doc;
             docpane.Children.Add(doc);
 
             if (File.Exists(filename))
@@ -247,13 +265,15 @@ namespace miRobotEditor
 
             //                DummyDocViewModel.Instance.TextBox.UpdateVisualText();
         }
-      
 
+        public void Exit() { MainWindow.Instance.Close(); }
 
         public void ShowOptions()
         {
             //TODO Need to Implement the ShowOptions
             new Options.OptionsWindow().ShowDialog();
+              throw new NotImplementedException("ShowOptions");
+        
         }
 
         private void OnDocumentClosing(object sender, AvalonDock.DocumentClosingEventArgs e)
@@ -269,8 +289,6 @@ namespace miRobotEditor
         }
 
 
-
-
         [Localizable(false)]
         private void AddTool(object parameter)
         {
@@ -281,7 +299,7 @@ namespace miRobotEditor
             switch (name)
             {
                 case "Angle Converter":
-                    tool.Content = new GUI.AngleConverter.AngleConverterWpf();
+                    tool.Content = new ViewModel.AngleConvertorViewModel();
                     tool.AutoHideMinWidth = 219;
                     break;
                 case "Functions":
@@ -325,6 +343,7 @@ namespace miRobotEditor
                 return;
             }
             var group = new LayoutAnchorGroup();
+            tool.IsActive = true;
             group.Children.Add(tool);
             MainWindow.Instance.dockManager.Layout.RightSide.Children.Add(group);
 
@@ -364,6 +383,7 @@ namespace miRobotEditor
             }
 
         }
+
 
 
         //TODO This could probably be moved to the KUKA FileLanguage SomeHow

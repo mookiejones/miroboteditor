@@ -113,6 +113,8 @@ namespace miRobotEditor
         {
             Instance = this;        
             InitializeComponent();
+            KeyDown += (s, e) =>   StatusBarViewModel.Instance.ManageKeys(s, e); ;
+
         }
         
         

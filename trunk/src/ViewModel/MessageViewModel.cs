@@ -24,33 +24,26 @@ namespace miRobotEditor.ViewModel
         public static MessageViewModel Instance { get { return _instance ?? new MessageViewModel(); } set { _instance = value; } }
 
 
-        private OutputWindowMessage _selectedMessage = new OutputWindowMessage();
+
+        private OutputWindowMessage _selectedMessage ;
         public OutputWindowMessage SelectedMessage {get{return _selectedMessage;}set{_selectedMessage=value;RaisePropertyChanged("SelectedMessage");}}
 
+        public ObservableCollection<OutputWindowMessage> Messages { get; set; }
 
-        private List<OutputWindowMessage> _messages = new List<OutputWindowMessage>();
-        public List<OutputWindowMessage> Messages { get { return _messages; } set { _messages = value; RaisePropertyChanged("Messages"); } }
         #endregion
 
         #region Constructor
         public MessageViewModel()
         {
+            Messages = new ObservableCollection<OutputWindowMessage>();
             Instance = this;
         }        
 
         #endregion
 
-        public static void AddError(Exception ex)
-        {
-            var msg = new OutputWindowMessage() { Title = "Error", Description = ex.Message };
-            Instance.Messages.Add(msg);
-        }
-
-
-
         public static void Add(OutputWindowMessage msg)
         {
-            Instance.Messages.Add(msg);
+            Add(msg.Title,msg.Description,msg.Icon,true);
         }
 
 
@@ -61,10 +54,10 @@ namespace miRobotEditor.ViewModel
             switch (icon)
             {
                 case MSGIcon.ERROR:
-                    img = (BitmapImage)Application.Current.Resources.MergedDictionaries[0]["error"];
+                    img = Utilities.LoadBitmap(Global.ImgError);;
                     break;
                 case MSGIcon.INFO:
-                    img = (BitmapImage)Application.Current.Resources.MergedDictionaries[0]["info"];
+                    img = Utilities.LoadBitmap(Global.ImgInfo);
                     break;
             }
 
@@ -75,16 +68,11 @@ namespace miRobotEditor.ViewModel
                 Workspace.Instance.BringToFront("Output Window");
         }
 
-        
-        public void SendMessage(string title, string description, bool forceactivate = true)
-        {
-            Add(title, description,MSGIcon.ERROR, forceactivate);
-        }
 
         void HandleMouseOver(object param)
         {
 
-            MessageViewModel.Instance.SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
+           SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
         }
 
         /// <summary>
@@ -107,7 +95,9 @@ namespace miRobotEditor.ViewModel
             var trace = new System.Diagnostics.StackTrace();
             var msg = new OutputWindowMessage();
             msg.Title = "Internal Error";
-            msg.Description = String.Format("Internal error\r\n {0} \r\n in {1}", ex.Message, trace.GetFrame(1).GetMethod().Name);
+//            msg.Icon = (BitmapImage)Application.Current.Resources.MergedDictionaries[0]["error"];
+            msg.Icon = Utilities.LoadBitmap(Global.ImgError);
+            msg.Description = String.Format("Internal error\r\n {0} \r\n in {1}", ex.Message, trace.GetFrame(2));
 
             Instance.Messages.Add(msg);
 

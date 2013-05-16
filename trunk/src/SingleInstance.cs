@@ -20,7 +20,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-
+using miRobotEditor.GUI;
 namespace miRobotEditor 
 {
     /// <summary>
@@ -318,4 +318,29 @@ namespace miRobotEditor
 
         #endregion
     }
+
+    /// <summary>
+    /// Trying to Only Have one _instance of Each here
+    /// </summary>
+    class InstanceOf
+    {
+        private static Editor _ieditor;
+        public static Editor IEditor
+        {
+            get { return _ieditor ?? (_ieditor = new Editor()); }
+            set { _ieditor = value; }
+        }
+
+        private static DummyDoc _idocument;
+        public static DummyDoc IDocument
+        {
+            get { return _idocument ?? (_idocument = new DummyDoc()); }
+            set { _idocument = value; }
+        }
+    }
+    public interface ISingleInstanceApp
+    {
+        bool SignalExternalCommandLineArgs(IList<string> args);
+    }
+
 }

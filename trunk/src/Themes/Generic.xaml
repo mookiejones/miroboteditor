@@ -10,11 +10,12 @@
     xmlns:validation="clr-namespace:miRobotEditor.ValidationRules"
     xmlns:rkc="clr-namespace:miRobotEditor.Common.ResourceAccess" xmlns:System="clr-namespace:System;assembly=mscorlib" >
 
-    <gui:TextEditorOptions  x:Key="TextOptions"        AllowScrollBelowDocument="False" ConvertTabsToSpaces="True" EnableEmailHyperlinks="True" EnableRectangularSelection="True" EnableFolding="True" EnableHyperlinks="True" RequireControlModifierForHyperlinkClick="True" ShowTabs="True" ShowSpaces="True" ShowEndOfLine="True" />
+    <gui:TextEditorOptions  x:Key="TextOptions"  AllowScrollBelowDocument="False" ConvertTabsToSpaces="True" EnableEmailHyperlinks="True" EnableRectangularSelection="True" EnableFolding="True" EnableHyperlinks="True" RequireControlModifierForHyperlinkClick="True" ShowTabs="True" ShowSpaces="True" ShowEndOfLine="True" />
     <rkc:ResourceKeyConverter x:Key="ResourceKeyConverter" />
     <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
     <converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
     <vm:GlobalOptionsViewModel x:Key="GlobalOptions"/>
+    
     <ControlTemplate x:Key="validationTemplate">
         <DockPanel>
             <TextBlock  Foreground="Red" FontSize="20"><Run Text="!" />
@@ -22,6 +23,7 @@
             <AdornedElementPlaceholder />
         </DockPanel>
     </ControlTemplate>
+    
     <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
@@ -29,6 +31,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
     <DataTemplate DataType="{x:Type vm:GotoViewModel}">
         <StackPanel Orientation="Vertical" >
             <StackPanel.Resources>
@@ -58,9 +61,6 @@
         </StackPanel>
     </DataTemplate>
     
-
-    
-    
     <DataTemplate x:Key="DummyDocTemplate">
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -74,6 +74,7 @@
             <gui:Editor  BorderThickness="1" />
         </Grid>
     </DataTemplate>
+
     <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type classes:Variable}">
         <TextBlock Text="{Binding Name}">
             <TextBlock.ToolTip>
@@ -92,9 +93,6 @@
             </TextBlock.ToolTip>
         </TextBlock>
     </DataTemplate>
-
-  
-    
     
     <DataTemplate x:Key="MessageWindowTemplate">
         <ListView ItemsSource="{Binding Path=Messages}" SelectedItem="{Binding SelectedMessage}" Height="Auto" Width="Auto">
@@ -138,17 +136,13 @@
             </ListView.Resources>
         </ListView>
     </DataTemplate>
-    
-    
+
     <!-- Code Completion Items -->
     <Style TargetType="{x:Type ae:TextEditor}">
-
         <Setter Property="Options" Value="{StaticResource TextOptions}"/>
         <Setter Property="ShowLineNumbers" Value="{Binding ShowLineNumbers,Source={StaticResource TextOptions}}"/>
         
     </Style>
-    
-    
     
     
 </ResourceDictionary>

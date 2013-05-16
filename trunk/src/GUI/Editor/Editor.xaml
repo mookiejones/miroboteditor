@@ -10,11 +10,11 @@
              xmlns:ctt ="clr-namespace:miRobotEditor.Classes"
              xmlns:Editor="clr-namespace:miRobotEditor.GUI"
              xmlns:Converters="clr-namespace:miRobotEditor.Converters"
+    xmlns:lang="clr-namespace:miRobotEditor.Languages"
              x:Class="miRobotEditor.GUI.Editor" 	           
              mc:Ignorable="d" 
              d:DesignHeight="300"
              d:DesignWidth="300" 
-             TextChanged="EditorTextChanged"          
              MouseHover="Mouse_OnHover"
              PreviewMouseWheel="EditorPreviewMouseWheel"			
              GotFocus="TextEditorGotFocus" 
@@ -41,9 +41,9 @@
         <Style x:Key="FunctionListItem" TargetType="{x:Type ListViewItem}">
             <EventSetter Event="MouseDoubleClick" Handler="lbMouseDoubleClick"/>
         </Style>
-        <DataTemplate DataType="{x:Type Editor:CodeCompletion}">
+        <DataTemplate DataType="{x:Type  lang:CodeCompletion}">
             <StackPanel Orientation="Vertical">
-                <TextBlock Background="Blue" Text="{Binding Text}"/>
+                <TextBlock Background="Orange" Text="{Binding Text}"/>
                 <TextBlock Background="Red" Text="{Binding Description}"/>                
             </StackPanel>
         </DataTemplate>

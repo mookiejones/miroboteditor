@@ -5,7 +5,8 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using miRobotEditor.Interfaces;
-namespace miRobotEditor.GUI
+using miRobotEditor.GUI;
+namespace miRobotEditor.Languages
 {
     /// Implements AvalonEdit ICompletionData interface to provide the entries in the
     /// completion drop down.

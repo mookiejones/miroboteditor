@@ -65,7 +65,6 @@ namespace miRobotEditor.Languages
             return doc.GetText(start, end);
         }
 
-        public System.Windows.Forms.ToolStripItem[] AddMenuItems() { return null; }
 
         internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.None; } }
 
@@ -97,17 +96,6 @@ namespace miRobotEditor.Languages
             }
         }
         #endregion
-
-
-            internal override System.Windows.Media.Color FocusedColor
-            {
-                get { return System.Windows.Media.Colors.AntiqueWhite; }
-            }
-
-            internal override System.Windows.Media.Color UnfocusedColor
-            {
-                get { return System.Windows.Media.Colors.WhiteSmoke; }
-            }
 
             
             #region Regular Expressions

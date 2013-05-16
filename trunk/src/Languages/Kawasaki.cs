@@ -114,22 +114,6 @@ namespace miRobotEditor.Languages
             return doc.GetText(start, end);
         }
 
-        internal override System.Windows.Media.Color FocusedColor
-        {
-            get
-            {
-                return System.Windows.Media.Colors.LightGray;
-            }          
-        }
-
-        internal override System.Windows.Media.Color UnfocusedColor
-        {
-            get
-            {
-                return System.Windows.Media.Colors.Gray;
-            }         
-        }
-
         private const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
 
         // public override string SignalRegex{get{return "DEFSIG_";}}
