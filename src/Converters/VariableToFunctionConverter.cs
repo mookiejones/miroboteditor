@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows.Data;
 using miRobotEditor.Classes;
@@ -10,20 +11,27 @@ namespace miRobotEditor.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is ObservableCollection<IVariable>)
+            if (value is ReadOnlyObservableCollection<IVariable>)
             {
-                var prev = value as ObservableCollection<IVariable>;
-                if (prev.Count == 0) return new ObservableCollection<IVariable>();
-                var list = new ObservableCollection<IVariable>();
+                var prev = value as ReadOnlyObservableCollection<IVariable>;
 
-                foreach (var i in prev)
+                
+              // If Count is zero, hide the function window
+                if (prev.Count == 0)
                 {
-                    if (i.Type == "def")
-                        list.Add(i);
+                    return new ObservableCollection<IVariable>();
                 }
-                return list;
-            }
+                var list = new ObservableCollection<IVariable>();
+               
 
+                foreach (var i in prev.Where(i => i.Type == "def"))
+                    list.Add(i);
+
+                var result = new ReadOnlyObservableCollection<IVariable>(list);
+
+
+                return result;
+            }
 
             return Binding.DoNothing;
         }

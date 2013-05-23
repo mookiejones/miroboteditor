@@ -53,7 +53,7 @@ namespace miRobotEditor.Languages
 
             return doc.GetText(start, end);
         }
-        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.Fanuc; } }
+        internal override Typlanguage RobotType { get { return Typlanguage.Fanuc; } }
 
         internal override IList<ICompletionData> CodeCompletion
         {
@@ -188,9 +188,9 @@ namespace miRobotEditor.Languages
         }
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
-        public override FileModel GetFile(string filename)
+        public override DocumentViewModel GetFile(string filepath)
         {
-            return new FileModel { FileName = filename };
+            return new DocumentViewModel(filepath);
         }
     }
 }

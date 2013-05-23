@@ -103,6 +103,7 @@
         <Word>BRAKE</Word>
         <Word>CCLOSE</Word>
         <Word>CHANNEL</Word>
+        <Word>$POS_ACT</Word>
         <Word>CONFIRM</Word>
         <Word>CONTINUE</Word>
         <Word>COPEN</Word>
@@ -133,6 +134,7 @@
         <Word>STRCOMP</Word>
         <Word>STRCOPY</Word>
         <Word>GET_SIG_INF</Word>
+         <Word>$POS_ACT</Word>
       </Keywords>
      
        <Keywords color="VariableType">

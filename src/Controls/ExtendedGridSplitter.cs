@@ -227,7 +227,12 @@ namespace miRobotEditor.Controls
             // Set default values
             DefaultStyleKey = typeof(ExtendedGridSplitter);
 
-            CollapseMode = GridSplitterCollapseMode.None;
+            HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+            HorizontalContentAlignment = System.Windows.HorizontalAlignment.Stretch;
+            VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            VerticalContentAlignment = System.Windows.VerticalAlignment.Stretch;
+            Height = 20;
+            CollapseMode = GridSplitterCollapseMode.Previous;
             LayoutUpdated += delegate { _gridCollapseDirection = GetCollapseDirection(); };
 
             // All ExtendedGridSplitter visual states are handled by the parent GridSplitter class.

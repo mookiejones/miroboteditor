@@ -3,30 +3,24 @@
                       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:Classes="clr-namespace:miRobotEditor.Classes" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ad="http://avalondock.codeplex.com"
                       xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
                       xmlns:GUI="clr-namespace:miRobotEditor.GUI" 
-                      xmlns:Behaviour="clr-namespace:miRobotEditor.Behaviour" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-                      xmlns:ftpBrowser="clr-namespace:miRobotEditor.Pads.FTPBrowser"
+                      xmlns:Behaviour="clr-namespace:miRobotEditor.Behaviour" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"                       
 					  xmlns:Templates="clr-namespace:miRobotEditor.Templates"
                       xmlns:explorer="clr-namespace:miRobotEditor.GUI.ExplorerControl"
 				      xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
                       xmlns:System="clr-namespace:System;assembly=mscorlib"
         			  xmlns:commands="clr-namespace:miRobotEditor.Commands"
-                      xmlns:selector="clr-namespace:miRobotEditor.Selectors"
-					  xmlns:converters="clr-namespace:miRobotEditor.Converters"
+                 	  xmlns:converters="clr-namespace:miRobotEditor.Converters"
 					  xmlns:local="clr-namespace:miRobotEditor" x:Name="metroWindow"
                       SnapsToDevicePixels="True"
                       x:Class="miRobotEditor.MainWindow"	WindowState="Maximized"	Closing="WindowClosing"
-                      Title="{Binding ActiveEditor.Filename, StringFormat=miRobotEditor:\= \{0\}}"
-    Loaded="WindowLoaded"	AllowDrop="True"	Icon="Properties/Resources/Editor.ico"	Drop="DropFiles"	DragEnter="onDragEnter" >
+                      Title="{Binding ActiveEditor.Title, StringFormat=miRobotEditor:\= \{0\}}"
+    Loaded="WindowLoaded"	AllowDrop="True"	Icon="Properties/Resources/Editor.ico"	Drop="DropFiles"	DragEnter="onDragEnter" DataContext="{DynamicResource workspace}" >
     <mah:MetroWindow.Background>
         <LinearGradientBrush MappingMode="Absolute" StartPoint="0,0" EndPoint="0,180">
             <GradientStop Color="#FFDEDEDE" />
             <GradientStop Color="White" Offset="1" />
         </LinearGradientBrush>
     </mah:MetroWindow.Background>
-   
-    <Window.DataContext>
-        <local:Workspace/>
-    </Window.DataContext>
     <mah:MetroWindow.Resources>   
         <!--Explorer Window-->
         <ResourceDictionary>
@@ -35,6 +29,7 @@
                 <ResourceDictionary Source="Templates/ToolPaneTemplates.xaml" />
                 <ResourceDictionary Source="Templates/StatusBarTemplate.xaml" />
                 <ResourceDictionary Source="Templates/ArchiveInfoTemplate.xaml"/>
+                <ResourceDictionary Source="Templates/KUKASpecificTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
         <explorer:FileExplorerWindow x:Key="ExplorerWindow"/>      
         <converters:ActiveEditorConverter x:Key="ActiveEditorConverter"/>
@@ -122,7 +117,7 @@
                         <Image Source="/Resources\close.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <Classes:RecentFileList   />
+                <Classes:RecentFileList/>
                 <MenuItem Header="E_xit"  Command="{Binding ExitCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Resources\exit.png" />
@@ -397,83 +392,57 @@
 
         </StackPanel>
 
-        <ad:DockingManager
-			AllowMixedOrientation="True"
+        <ad:DockingManager		
 			x:Name="dockManager"
             Background="Transparent"
 			Grid.Row="2"        	
-        	ActiveContent="{Binding ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay, NotifyOnSourceUpdated=True}" Grid.RowSpan="2" DocumentClosing="dockManager_DocumentClosing">
+            AnchorablesSource="{Binding Tools}"
+            DocumentsSource="{Binding Files}"
+        	ActiveContent="{Binding ActiveEditor, Converter={StaticResource ActiveEditorConverter},Mode=TwoWay}" Grid.RowSpan="2" DocumentClosing="dockManager_DocumentClosing">
         	<!--             DocumentsSource="{Binding Files}"  -->
             <ad:DockingManager.Effect>
                 <DropShadowEffect BlurRadius="10" Color="Black" Opacity="0.25" Direction="270" />
             </ad:DockingManager.Effect>        	
-            <ad:DockingManager.DocumentHeaderTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Title}"  TextTrimming="CharacterEllipsis"  VerticalAlignment="Center" />
-                    </StackPanel>
-                </DataTemplate>
-            </ad:DockingManager.DocumentHeaderTemplate>
-             <ad:LayoutRoot>
+            <ad:DockingManager.LayoutItemContainerStyleSelector>
+                <Classes:PanesStyleSelector>
+                    <Classes:PanesStyleSelector.ToolStyle>
+                        <Style TargetType="{x:Type ad:LayoutAnchorableItem}">
+                            <Setter Property="Title" Value="{Binding Model.Title}"/>
+                            <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
+                            <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}"/>                        
+                            <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
+                            <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
+                            <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
+                        </Style>
+                    </Classes:PanesStyleSelector.ToolStyle>
+                    <Classes:PanesStyleSelector.FileStyle>
+                        <Style TargetType="{x:Type ad:LayoutItem}">
+                            <Setter Property="Title" Value="{Binding Model.Title}"/>
+                            <Setter Property="ToolTip" Value="{Binding Model.FilePath}"/>
+                            <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
+                            <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
+                            <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
+                        </Style>
+                    </Classes:PanesStyleSelector.FileStyle>
+                </Classes:PanesStyleSelector>
+            </ad:DockingManager.LayoutItemContainerStyleSelector>
+            <ad:DockingManager.LayoutUpdateStrategy>
+                <Classes:LayoutInitializer/>
+            </ad:DockingManager.LayoutUpdateStrategy>
+        
+            <ad:LayoutRoot>
                 <ad:LayoutPanel Orientation="Vertical">
                     <ad:LayoutPanel Orientation="Horizontal">
                         <ad:LayoutAnchorablePaneGroup DockWidth="300" >
-                            <ad:LayoutAnchorablePane >
+                            <ad:LayoutAnchorablePane Name="LeftPane">
                                 <ad:LayoutAnchorable Title="Explorer" CanAutoHide="True" CanClose="True" Content="{StaticResource ExplorerWindow}"/>
-                                <ad:LayoutAnchorable Title="FTP Accounts">
-                                    <ftpBrowser:FtpAccountWindow/>
-                                </ad:LayoutAnchorable>
                             </ad:LayoutAnchorablePane>
                         </ad:LayoutAnchorablePaneGroup>
-                        <ad:LayoutDocumentPaneGroup>
-                            <ad:LayoutDocumentPane/>
-                        </ad:LayoutDocumentPaneGroup>
-                        <ad:LayoutAnchorablePaneGroup DockWidth="250">
-                            <ad:LayoutAnchorablePane>
-                                <ad:LayoutAnchorable Title="Functions" CanAutoHide="True" CanClose="False" AutoHideMinWidth="250"  >
-                                    <ListView DataContext="{Binding ActiveEditor.TextBox}"	Background="White"	Foreground="Black"	 ItemTemplate="{DynamicResource FunctionItemTemplate}" >
-                                        <ListView.Resources>
-                                            <Style TargetType="{x:Type ListViewItem}">
-                                                <EventSetter Event="MouseDoubleClick" Handler="OpenFunction"/>
-                                            </Style>
-                                        </ListView.Resources>
-                                        <ListView.SelectedItem>
-                                            <Binding Path="SelectedVariable" />
-                                        </ListView.SelectedItem>
-                                        <ListView.ItemsSource>
-                                            <Binding Path="Variables" Mode="OneWay" NotifyOnSourceUpdated="True"/>
-                                        </ListView.ItemsSource>
-                                    </ListView>                                  
-								</ad:LayoutAnchorable >
-                                <ad:LayoutAnchorable Title="Angle Converter">
-                                    <vm:AngleConvertorViewModel/>
-                                </ad:LayoutAnchorable>
-
-                            </ad:LayoutAnchorablePane>
-                        </ad:LayoutAnchorablePaneGroup>
+                        <ad:LayoutDocumentPane/>
+                            <ad:LayoutAnchorablePane Name="RightPane" DockWidth="250"/>
                     </ad:LayoutPanel>
-                    <ad:LayoutAnchorablePaneGroup DockHeight="200" >
-                        <ad:LayoutAnchorablePane>
-                            <ad:LayoutAnchorable Title="Output Window" CanAutoHide="True" IconSource="Resources\error.png">
-                                <vm:MessageViewModel x:Name="Output"/>
-                            </ad:LayoutAnchorable>                           
-                            <ad:LayoutAnchorable Title="Notes">
-                                <TextBox TextWrapping="WrapWithOverflow" />
-                            </ad:LayoutAnchorable>
-                            <ad:LayoutAnchorable
-								Title="Object Browser"
-								CanAutoHide="True"
-								CanClose="False"
-								IconSource="Resources\objectbrowser.png"
-								IsVisible="False"
-								CanHide="True">
-                                <vm:ObjectBrowserViewModel/>
-                            </ad:LayoutAnchorable>
-                            <ad:LayoutAnchorable Title="Locals" CanAutoHide="True" CanClose="False" CanHide="True"  >
-                            	<Templates:VisualVariableItem ItemsSource="{Binding ActiveEditor.TextBox.Variables, NotifyOnSourceUpdated=True}"/>
-                            </ad:LayoutAnchorable>
-                        </ad:LayoutAnchorablePane>
-                    </ad:LayoutAnchorablePaneGroup>
+                  
+                    <ad:LayoutAnchorablePane Name="BottomPane" DockHeight="200"/>
                 </ad:LayoutPanel>
             </ad:LayoutRoot>
         </ad:DockingManager>

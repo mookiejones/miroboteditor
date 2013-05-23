@@ -2,7 +2,7 @@
 namespace miRobotEditor.Interfaces
 {
     /// <summary>
-    /// A line inside a <see cref="IDocument"/>.
+    /// A line inside a <see cref="IEditor"/>.
     /// </summary>
     public interface IDocumentLine
     {

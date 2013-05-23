@@ -41,7 +41,7 @@ namespace miRobotEditor.Languages
         	get{return new List<string> { ".as", ".prg" };}
         }
 
-        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.KAWASAKI; } }
+        internal override Typlanguage RobotType { get { return Typlanguage.KAWASAKI; } }
 
         internal override IList<ICompletionData> CodeCompletion
         {
@@ -135,9 +135,9 @@ namespace miRobotEditor.Languages
         }
 
 
-        public override FileModel GetFile(string filename)
+        public override DocumentViewModel GetFile(string filepath)
         {
-           return new FileModel { FileName = filename, Icon = Utilities.LoadBitmap(Global.ImgSrc) };
+            return new DocumentViewModel(filepath);
         }
     }
 }

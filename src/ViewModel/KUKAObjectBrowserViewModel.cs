@@ -53,14 +53,25 @@ namespace miRobotEditor.ViewModel
 		}
 		
 		
-		private ObservableCollection<FunctionClass> _functionItems = new ObservableCollection<FunctionClass>();
-		public ObservableCollection<FunctionClass> FunctionItems{get{return _functionItems;}set{_functionItems=value;RaisePropertyChanged("FunctionItems");}}
+
+
+		 ObservableCollection<FunctionClass> _functionItems = new ObservableCollection<FunctionClass>();
+         ReadOnlyObservableCollection<FunctionClass> _readonlyFunctionItems = null;
+         public ReadOnlyObservableCollection<FunctionClass> FunctionItems { get { return _readonlyFunctionItems ?? new ReadOnlyObservableCollection<FunctionClass>(_functionItems); } }
+
 		private ObservableCollection<VariableClass> _variableItems = new ObservableCollection<VariableClass>();
-		public ObservableCollection<VariableClass> VariableItems{get{return _variableItems;}set{_variableItems=value;RaisePropertyChanged("VariableItems");}}
+        ReadOnlyObservableCollection<VariableClass> _readonlyVariableItems = null;
+        public ReadOnlyObservableCollection<VariableClass> VariableItems { get { return _readonlyVariableItems ?? new ReadOnlyObservableCollection<VariableClass>(_variableItems); } }
+
+
 		private ObservableCollection<EnumClass> _enumItems = new ObservableCollection<EnumClass>();
-		public ObservableCollection<EnumClass> EnumItems{get{return _enumItems;}set{_enumItems=value;RaisePropertyChanged("EnumItems");}}
+        ReadOnlyObservableCollection<EnumClass> _readonlyEnumItems = null;
+        public ReadOnlyObservableCollection<EnumClass> EnumItems { get { return _readonlyEnumItems ?? new ReadOnlyObservableCollection<EnumClass>(_enumItems); } }
+
+
 		private ObservableCollection<StructureClass> _structureItems = new ObservableCollection<StructureClass>();
-		public ObservableCollection<StructureClass> StructureItems{get{return _structureItems;}set{_structureItems=value;RaisePropertyChanged("StructureItems");}}
+        ReadOnlyObservableCollection<StructureClass> _readonlyStructureItems = null;
+        public ReadOnlyObservableCollection<StructureClass> StructureItems { get { return _readonlyStructureItems ?? new ReadOnlyObservableCollection<StructureClass>(_structureItems); } }
 		
 		public static KUKAObjectBrowserViewModel Instance{get;set;}
 		

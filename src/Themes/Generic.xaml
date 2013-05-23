@@ -8,11 +8,12 @@
 	xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
     xmlns:local="clr-namespace:miRobotEditor.Controls"
     xmlns:validation="clr-namespace:miRobotEditor.ValidationRules"
+    xmlns:miEditor="clr-namespace:miRobotEditor"
     xmlns:rkc="clr-namespace:miRobotEditor.Common.ResourceAccess" xmlns:System="clr-namespace:System;assembly=mscorlib" >
-
+    <miEditor:Workspace x:Key="workspace"/>
     <gui:TextEditorOptions  x:Key="TextOptions"  AllowScrollBelowDocument="False" ConvertTabsToSpaces="True" EnableEmailHyperlinks="True" EnableRectangularSelection="True" EnableFolding="True" EnableHyperlinks="True" RequireControlModifierForHyperlinkClick="True" ShowTabs="True" ShowSpaces="True" ShowEndOfLine="True" />
-    <rkc:ResourceKeyConverter x:Key="ResourceKeyConverter" />
-    <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+<!-- Not Using??? -->
+    <!--    <rkc:ResourceKeyConverter x:Key="ResourceKeyConverter" /> -->
     <converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
     <vm:GlobalOptionsViewModel x:Key="GlobalOptions"/>
     
@@ -61,38 +62,6 @@
         </StackPanel>
     </DataTemplate>
     
-    <DataTemplate x:Key="DummyDocTemplate">
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="25"/>
-            </Grid.RowDefinitions>
-            <gui:Editor Grid.Row="{Binding DataRow}" BorderThickness="1"/>
-            <local:ExtendedGridSplitter Grid.Row="{Binding GridRow}" HorizontalAlignment="Stretch" Height="20" CollapseMode="Previous"/>
-            <gui:Editor  BorderThickness="1" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type classes:Variable}">
-        <TextBlock Text="{Binding Name}">
-            <TextBlock.ToolTip>
-                <GroupBox Header="{Binding Name}"	FontWeight="ExtraBold"	FontSize="14">
-                    <GroupBox.Resources>
-                        <Style	TargetType="{x:Type TextBlock}">
-                            <Setter Property="FontWeight" Value="Normal" />
-                        </Style>
-                    </GroupBox.Resources>
-                    <StackPanel	Orientation="Vertical">
-                        <TextBlock Text="{Binding Offset, StringFormat=Offset:\=\{0\}}" Visibility="{Binding ShowOffset, Converter={StaticResource BoolToVisConverter}}" />
-                        <TextBlock Text="{Binding Returns, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowReturns, Converter={StaticResource BoolToVisConverter}}" />
-                        <TextBlock Text="{Binding Declaration, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowDeclaration, Converter={StaticResource BoolToVisConverter}}" />
-                    </StackPanel>
-                </GroupBox>
-            </TextBlock.ToolTip>
-        </TextBlock>
-    </DataTemplate>
     
     <DataTemplate x:Key="MessageWindowTemplate">
         <ListView ItemsSource="{Binding Path=Messages}" SelectedItem="{Binding SelectedMessage}" Height="Auto" Width="Auto">

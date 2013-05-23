@@ -51,7 +51,7 @@ namespace miRobotEditor.Classes
         }
 
 
-        //TODO Change this to an XML File
+    
         /// <summary>
         /// Log File
         /// </summary>
@@ -69,6 +69,15 @@ namespace miRobotEditor.Classes
         /// </summary>
         public const string ImgInfo = "..\\..\\Resources\\info.png";
 
+        /// <summary>
+        /// Constant ObjectBrowser Icon
+        /// </summary>
+        public const string IconObjectBrowser = "pack://application:,,/Resources/objectbrowser.png";
+
+        /// <summary>
+        /// Constant ObjectBrowser Icon
+        /// </summary>
+        public const string IconProperty = "pack://application:,,/Resources/property-blue.png";
 
         /// <summary>
         /// Constant Variable Image
@@ -201,6 +210,15 @@ namespace miRobotEditor.Classes
             bitmap.Dispose();
 
             return bitSrc;
+        }
+
+        public static ImageSource GetIcon(string fileName)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(fileName);
+            bi.EndInit();
+            return bi;
         }
 
         /// <summary>

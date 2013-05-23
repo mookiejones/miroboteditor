@@ -14,28 +14,26 @@ using System.Diagnostics;
 using System.Windows.Data;
 using System.Globalization;
 using System.Windows;
+using miRobotEditor.Classes;
 namespace miRobotEditor.ViewModel
 {
     public class ArchiveInfoViewModel:ToolViewModel
     {
         #region Constructor
-        public ArchiveInfoViewModel():base("ArchiveInfoViewModel",300)
+        public ArchiveInfoViewModel():base("ArchiveInfoViewModel")
         {
             
-            Root = new ObservableCollection<DirectoryInfo>();
-            this.Inputs = new List<Item>(4096);
-            this.Outputs = new List<Item>(4096);
-            this.AnIn = new List<Item>(32);
-            this.AnOut = new List<Item>(32);
-            this.Timer = new List<Item>(20);
-            this.Counter = new List<Item>(20);
-            this.Flags = new List<Item>(999);
-            this.CycFlags = new List<Item>(256);
+            _root = new ObservableCollection<DirectoryInfo>();
+           
             RaisePropertyChanged("DigInVisibility");
             RaisePropertyChanged("DigOutVisibility");
             RaisePropertyChanged("AnInVisibility");
             RaisePropertyChanged("AnOutVisibility");
+            DefaultPane = DefaultToolPane.Right;
 
+            Width = 250;
+
+            Height = 600;
         }
         #endregion
 
@@ -96,7 +94,10 @@ namespace miRobotEditor.ViewModel
 
         public string InfoFile { get; set; }
 
-        public ObservableCollection<DirectoryInfo> Root { get; set; }
+
+        ObservableCollection<DirectoryInfo> _root = new ObservableCollection<DirectoryInfo>();
+        ReadOnlyObservableCollection<DirectoryInfo> _readonlyRoot = null;
+        public ReadOnlyObservableCollection<DirectoryInfo> Root { get { return _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root); } }
 
         private static string StartupPath
         {
@@ -114,15 +115,40 @@ namespace miRobotEditor.ViewModel
         public string DatabaseText { get { return _databaseText; } set { _databaseText = value; RaisePropertyChanged("DatabaseText"); } }
 
 
-        public ObservableCollection<FileModel> Files { get; set; }
-        public List<Item> Inputs { get; set; }
-        public List<Item> Outputs { get; set; }
-        public List<Item> AnIn { get; set; }
-        public List<Item> AnOut { get; set; }
-        public List<Item> Timer { get; set; }
-        public List<Item> Flags { get; set; }
-        public List<Item> CycFlags { get; set; }
-        public List<Item> Counter { get; set; }
+
+
+        public ObservableCollection<Item> _inputs = new ObservableCollection<Item>();
+        ReadOnlyObservableCollection<Item> _readonlyinputs = null;
+        public ReadOnlyObservableCollection<Item> Inputs { get { return _readonlyinputs ?? new ReadOnlyObservableCollection<Item>(_inputs); } }
+
+        ObservableCollection<Item> _outputs = new ObservableCollection<Item>();
+        ReadOnlyObservableCollection<Item> _readonlyOutputs = null;
+        public ReadOnlyObservableCollection<Item> Outputs { get { return _readonlyOutputs ?? new ReadOnlyObservableCollection<Item>(_outputs); } }
+
+        ObservableCollection<Item> _anin = new ObservableCollection<Item>();
+        ReadOnlyObservableCollection<Item> _readonlyAnIN = null;
+        public ReadOnlyObservableCollection<Item> AnIn { get { return _readonlyAnIN ?? new ReadOnlyObservableCollection<Item>(_anin); } }
+
+        ObservableCollection<Item> _anout = new ObservableCollection<Item>();
+        ReadOnlyObservableCollection<Item> _readonlyAnOut = null;
+        public ReadOnlyObservableCollection<Item> AnOut { get { return _readonlyAnOut ?? new ReadOnlyObservableCollection<Item>(_anout); } }
+
+        ObservableCollection<Item> _timer = new ObservableCollection<Item>();
+        ReadOnlyObservableCollection<Item> _readonlyTimer = null;
+        public ReadOnlyObservableCollection<Item> Timer { get { return _readonlyTimer ?? new ReadOnlyObservableCollection<Item>(_timer); } }
+
+        ObservableCollection<Item> _flags = new ObservableCollection<Item>();
+        ReadOnlyObservableCollection<Item> _readonlyFlags = null;
+        public ReadOnlyObservableCollection<Item> Flags { get { return _readonlyFlags ?? new ReadOnlyObservableCollection<Item>(_flags); } }
+
+        ObservableCollection<Item> _cycflags = new ObservableCollection<Item>();
+        ReadOnlyObservableCollection<Item> _readonlyCycFlags = null;
+        public ReadOnlyObservableCollection<Item> CycFlags { get { return _readonlyCycFlags ?? new ReadOnlyObservableCollection<Item>(_cycflags); } }
+
+        ObservableCollection<Item> _counter = new ObservableCollection<Item>();
+        ReadOnlyObservableCollection<Item> _readonlyCounter = null;
+        public ReadOnlyObservableCollection<Item> Counter { get { return _readonlyCounter ?? new ReadOnlyObservableCollection<Item>(_counter); } }
+
         #endregion
 
         #region Commands
@@ -154,7 +180,7 @@ namespace miRobotEditor.ViewModel
             var ofd = new OpenFileDialog { Title = "Select Archive", Filter = "KUKA Archive (*.zip)|*.zip", Multiselect = false };
             ofd.ShowDialog();
 
-            Root.Clear();
+            _root.Clear();
             if (File.Exists(ofd.FileName))
             {
                 ArchivePath = ofd.FileName;
@@ -219,7 +245,7 @@ namespace miRobotEditor.ViewModel
                 //     if they do, the method will throw.
            ArchiveZip.ExtractAll(DirectoryPath);
 
-           Root.Add(new DirectoryInfo(DirectoryPath));
+           _root.Add(new DirectoryInfo(DirectoryPath));
         }
      
         void GetDirectories()
@@ -288,7 +314,7 @@ namespace miRobotEditor.ViewModel
                         {
                             temp = oleDbDataReader.GetValue(0).ToString();
                             var sig = new Item(String.Format("$FLAG[{0}]", temp.Substring(8)), oleDbDataReader.GetValue(1).ToString());
-                            Flags.Add(sig);
+                            _flags.Add(sig);
                         }
                     }
                 }
@@ -298,6 +324,7 @@ namespace miRobotEditor.ViewModel
 
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         List<Item> GetValues(string cmd, int index)
         {
             List<Item> Result = new List<Item>();
@@ -339,7 +366,7 @@ namespace miRobotEditor.ViewModel
                         {
                             temp = oleDbDataReader.GetValue(0).ToString();
                             var sig = new Item(String.Format("$TIMER[{0}]", temp.Substring(9)), oleDbDataReader.GetValue(1).ToString());
-                            Timer.Add(sig);
+                            _timer.Add(sig);
                         }
                     }
                 }
@@ -382,22 +409,22 @@ namespace miRobotEditor.ViewModel
                                     case "IN":
                                         sig = new Item(String.Format("$IN[{0}]", temp.Substring(3)), oleDbDataReader.GetValue(1).ToString());
 
-                                        Inputs.Add(sig);
+                                        _inputs.Add(sig);
                                         LanguageText += sig.ToString() + "\r\n";
                                         break;
                                     case "OUT":
                                         sig = new Item(String.Format("$OUT[{0}]", temp.Substring(4)), oleDbDataReader.GetValue(1).ToString());
-                                        Outputs.Add(sig);
+                                        _outputs.Add(sig);
                                         LanguageText += sig.ToString() + "\r\n";
                                         break;
                                     case "ANIN":
                                         sig = new Item(String.Format("$ANIN[{0}]", temp.Substring(5)), oleDbDataReader.GetValue(1).ToString());
-                                        this.AnIn.Add(sig);
+                                        this._anin.Add(sig);
                                         LanguageText += sig.ToString() + "\r\n";
                                         break;
                                     case "ANOUT":
                                         sig = new Item(String.Format("$ANOUT[{0}]", temp.Substring(6)), oleDbDataReader.GetValue(1).ToString());
-                                        this.AnOut.Add(sig);
+                                        this._anout.Add(sig);
                                         LanguageText += sig.ToString() + "\r\n";
                                         break;
                                     default:
@@ -630,23 +657,14 @@ namespace miRobotEditor.ViewModel
             this._progress.Value = 0;
             this._progress.IsVisible = true;
 
-            this.Inputs = new List<Item>(4096);
-            this.Outputs = new List<Item>(4096);
-            this.AnIn = new List<Item>(32);
-            this.AnOut = new List<Item>(32);
-            this.Timer = new List<Item>(20);
-            this.Counter = new List<Item>(20);
-            this.Flags = new List<Item>(999);
-            this.CycFlags = new List<Item>(256);
-
             //            MyProject.Forms.FormMain.LangtextFillBuffer(this.sFileDb);
             int num = 1;
             checked
             {
                 for (int i = 1; i < 4096; i++)
                 {
-                    Inputs.Add(new Item(String.Format("$IN[{0}]", i), string.Empty));
-                    Outputs.Add(new Item(String.Format("$OUT[{0}]", i), string.Empty));
+                    _inputs.Add(new Item(String.Format("$IN[{0}]", i), string.Empty));
+                    _outputs.Add(new Item(String.Format("$OUT[{0}]", i), string.Empty));
 
                     _progress.Value++;
 
@@ -655,25 +673,25 @@ namespace miRobotEditor.ViewModel
 
                 for (var i = 1; i < 32; i++)
                 {
-                    AnIn.Add(new Item(String.Format("$ANIN[{0}]", i), string.Empty));
-                    AnOut.Add(new Item(String.Format("$ANOUT[{0}]", i), string.Empty));
+                    _anin.Add(new Item(String.Format("$ANIN[{0}]", i), string.Empty));
+                    _anout.Add(new Item(String.Format("$ANOUT[{0}]", i), string.Empty));
                     _progress.Value++;
                 }
 
                 for (var i = 1; i < 20; i++)
                 {
-                    Timer.Add(new Item(String.Format("$TIMER[{0}]", i), string.Empty));
-                    Counter.Add(new Item(String.Format("$COUNT_I[{0}]", i), string.Empty));
+                    _timer.Add(new Item(String.Format("$TIMER[{0}]", i), string.Empty));
+                    _counter.Add(new Item(String.Format("$COUNT_I[{0}]", i), string.Empty));
                     _progress.Value++;
                 }
                 for (var i = 1; i < 999; i++)
                 {
-                    Flags.Add(new Item(String.Format("$FLAG[{0}]", i), string.Empty));
+                    _flags.Add(new Item(String.Format("$FLAG[{0}]", i), string.Empty));
                     _progress.Value++;
                 }
                 for (var i = 1; i < 256; i++)
                 {
-                    Flags.Add(new Item(String.Format("$CYCFLAG[{0}]", i), string.Empty));
+                    _cycflags.Add(new Item(String.Format("$CYCFLAG[{0}]", i), string.Empty));
                     _progress.Value++;
                 }
 
@@ -737,9 +755,11 @@ namespace miRobotEditor.ViewModel
         public string RobotSerial { get { return _archiveRobotSerial; } set { _archiveRobotSerial = value; RaisePropertyChanged("RobotSerial"); } }
         public string KSSVersion { get { return _archiveKssVersion; } set { _archiveKssVersion = value; RaisePropertyChanged("KSSVersion"); } }
 
-        
-        
-        public ObservableCollection<Technology> Technologies { get; set; }
+
+
+        private ObservableCollection<Technology> _technologies = new ObservableCollection<Technology>();
+        ReadOnlyObservableCollection<Technology> _readonlyTechnology = null;
+        public ReadOnlyObservableCollection<Technology> Technologies { get { return _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies); } }
 
     }
 
@@ -780,21 +800,23 @@ namespace miRobotEditor.ViewModel
               {
                   switch (Path.GetExtension(value.ToString().ToLower()))
                   {
-                          //TODO This must not be hardcoded
                       case ".src":
-                          var ico =  miRobotEditor.Classes.Utilities.LoadBitmap(@"C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Resources\srcfile.png");
+                          var ico =  Utilities.LoadBitmap(Global.ImgSrc);
                           return ico;
                       case ".dat":
-                          return miRobotEditor.Classes.Utilities.LoadBitmap(@"C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Resources\datfile.png");
+                          return Utilities.LoadBitmap(Global.ImgDat);
                       case ".sub":
-                          return miRobotEditor.Classes.Utilities.LoadBitmap(@"C:\Programming\ miroboteditor --username Charles.Heath.Berman@gmail.com\trunk\src\Resources\spsfile.png");
+                          return Utilities.LoadBitmap(Global.ImgSps);
                       default:
                           break;
                   }
                 
 
               }
-              catch { }
+              catch(Exception ex )
+              {
+                  MessageViewModel.AddError("Convert",ex);
+              }
               return null;
           }
 

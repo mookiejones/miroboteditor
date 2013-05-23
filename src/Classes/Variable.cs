@@ -9,6 +9,9 @@ namespace miRobotEditor.Classes
         private BitmapImage _icon = null;
         public BitmapImage Icon { get { return _icon; } set { _icon = value; RaisePropertyChanged("Icon"); } }
 
+        private string _description = string.Empty;
+        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
+
         private string _name=string.Empty;
         public string Name { get { return _name; } set { _name = value; RaisePropertyChanged("Name"); } }
 
@@ -30,7 +33,19 @@ namespace miRobotEditor.Classes
         private int _offset = 0;
         public int Offset { get { return _offset; } set { _offset = value; RaisePropertyChanged("Offset"); } }
     }
-
+    public interface IVariable
+    {
+        bool IsSelected { get; set; }
+        BitmapImage Icon { get; set; }
+        string Name { get; set; }
+        string Type { get; set; }
+        string Path { get; set; }
+        string Value { get; set; }
+        string Comment { get; set; }
+        string Declaration { get; set; }
+        string Description { get; set; }
+        int Offset { get; set; }       
+    }
 
     public class MethodVariable : Variable
     {

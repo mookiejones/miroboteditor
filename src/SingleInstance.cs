@@ -21,6 +21,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using miRobotEditor.GUI;
+using miRobotEditor.ViewModel;
 namespace miRobotEditor 
 {
     /// <summary>
@@ -331,10 +332,10 @@ namespace miRobotEditor
             set { _ieditor = value; }
         }
 
-        private static DummyDoc _idocument;
-        public static DummyDoc IDocument
+        private static DocumentViewModel _idocument;
+        public static DocumentViewModel IDocument
         {
-            get { return _idocument ?? (_idocument = new DummyDoc()); }
+            get { return _idocument ?? (_idocument = new DocumentViewModel(null)); }
             set { _idocument = value; }
         }
     }

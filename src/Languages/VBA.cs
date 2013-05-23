@@ -16,7 +16,6 @@ namespace miRobotEditor.Languages
     public class VBA : AbstractLanguageClass
     {
 
-        //TODO Set Filter for this
         /// <summary>
         /// Sets ComboBox Filter Items for searching
         /// </summary>
@@ -27,13 +26,12 @@ namespace miRobotEditor.Languages
             get { return new List<string> { "*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd" }; }
         }
 
-        //TODO Need to test this
         public VBA(string file):base(file)
         {           
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.VBA; } }
+        internal override Typlanguage RobotType { get { return Typlanguage.VBA; } }
 
         internal override string SourceFile
         {
@@ -139,9 +137,9 @@ namespace miRobotEditor.Languages
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
 
-        public override FileModel GetFile(string filename)
+        public override DocumentViewModel GetFile(string filepath)
         {
-            return new FileModel { FileName = filename };
+            return new DocumentViewModel(filepath);
         }
     }
     }

@@ -4,19 +4,21 @@
 // String on my own.
 
 using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Input;
+using System.Windows.Threading;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Windows.Controls;
 using miRobotEditor.Commands;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
+
 using System.Xml;
 using AvalonDock.Layout;
 using ICSharpCode.AvalonEdit;
@@ -30,11 +32,11 @@ using ICSharpCode.AvalonEdit.Search;
 using miRobotEditor.Classes;
 using System.Collections.ObjectModel;
 using miRobotEditor.Controls;
-using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.ViewModel;
+using ICSharpCode.AvalonEdit.Editing;
 namespace miRobotEditor.GUI
 {
     
@@ -52,21 +54,27 @@ namespace miRobotEditor.GUI
             _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
             InitializeMyControl();
             MouseHoverStopped += delegate { toolTip.IsOpen = false; };
-
         }
 
         #endregion
 
         #region ViewModel Properties
+        private int _line = 0;
+        public int Line { get { return _line; } set { _line = value; OnPropertyChanged("Line"); } }
+
+        public new string Text { get { return base.Text; } set { base.Text = value; } }
 
         private string _title = string.Empty;
         public string Title { get { return Path.GetFileName(Filename); }  }
+
+        public static DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(Editor), new PropertyMetadata((obj, args) => { Editor target = (Editor)obj; target.Text = (string)args.NewValue;}));
+
 
         private EDITORTYPE _editortype;
     	public EDITORTYPE EditorType {get{return _editortype;}set{_editortype =value; OnPropertyChanged("EditorType");}}
 
         private IVariable _selectedVariable = null;
-        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; OnPropertyChanged("SelectedVariable"); } }
+        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; SelectText(_selectedVariable); OnPropertyChanged("SelectedVariable"); } }
 
         private String _filename = string.Empty;
         public string Filename { get { return _filename; } set { _filename = value; OnPropertyChanged("Filename"); OnPropertyChanged("Title"); } }
@@ -74,14 +82,10 @@ namespace miRobotEditor.GUI
         private AbstractLanguageClass _filelanguage = new LanguageBase();
         public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; OnPropertyChanged("FileLanguage"); } }
 
-//        private ObservableCollection<IVariable> _variables = new ObservableCollection<IVariable>();
-//        public ObservableCollection<IVariable> Variables { get { return _variables; } set { _variables = value;  } }
 
-
-        private FunctionViewModel _variables = new FunctionViewModel();
-        public FunctionViewModel Variables { get { return _variables; } set { _variables = value; OnPropertyChanged("Variables"); } }
-
-
+        ObservableCollection<IVariable> _variables = new ObservableCollection<IVariable>();
+        ReadOnlyObservableCollection<IVariable> _readonlyVariables = null;
+        public ReadOnlyObservableCollection<IVariable> Variables { get { return _readonlyVariables ?? new ReadOnlyObservableCollection<IVariable>(_variables); } }
 
 
 
@@ -235,15 +239,12 @@ namespace miRobotEditor.GUI
         private const int LogicListFontSizeMin = 10;
 
         #endregion
-        
-        private int _line = 0;
-        public int Line { get { return _line; } set { _line = value; OnPropertyChanged("Line"); } }
-
+       
 
         private void OpenFunctionItem(object parameter)
         {
             var i = (IVariable)((System.Windows.Controls.ListViewItem)parameter).Content;
-            DummyDoc.Instance.TextBox.SelectText(i);
+            SelectText(i);
         }
 
 
@@ -300,7 +301,8 @@ namespace miRobotEditor.GUI
 
                 
             }
-            StatusBarViewModel.Instance.Offset = CaretOffset;
+
+            StatusBarViewModel.Instance.Offset = s.Offset;
             OnPropertyChanged("Offset");
 
 
@@ -313,13 +315,13 @@ namespace miRobotEditor.GUI
         /// </summary>
         public  void UpdateLineTransformers()
         {
-
-
             // Clear the Current Renderers
             TextArea.TextView.BackgroundRenderers.Clear();
             var textEditorOptions = Options as TextEditorOptions;
+
             if (textEditorOptions != null && textEditorOptions.HighlightCurrentLine)
                 TextArea.TextView.BackgroundRenderers.Add(new BackgroundRenderer(Document.GetLineByOffset(CaretOffset)));
+
             if (_bracketRenderer == null)
                 _bracketRenderer = new BracketHighlightRenderer(TextArea.TextView);
             else
@@ -362,7 +364,6 @@ namespace miRobotEditor.GUI
 
         #endregion
 
-         // Need to Add Host
 
         private void AddBookMark(int lineNumber, string imgpath)
         {
@@ -382,7 +383,7 @@ namespace miRobotEditor.GUI
             var m = matchstring.Match(Text.ToLower());
             while (m.Success)
             {
-                Variables.Add(new Variable
+                _variables.Add(new Variable
                                   {   Declaration=m.Groups[0].ToString(),
                                       Offset = m.Index,
                                       Type = m.Groups[1].ToString(),
@@ -403,16 +404,18 @@ namespace miRobotEditor.GUI
         /// </summary>
         private void FindBookmarkMembers()
         {
+
             // Return if FileLanguage doesnt exist yet
             if (FileLanguage == null) return;
             _iconBarManager.Bookmarks.Clear();
-              Variables.Clear();
+              _variables.Clear();
             FindMatches(FileLanguage.MethodRegex, Global.ImgMethod);
             FindMatches(FileLanguage.StructRegex, Global.ImgStruct);
             FindMatches(FileLanguage.FieldRegex, Global.ImgField);
             FindMatches(FileLanguage.SignalRegex, Global.ImgSignal);
             FindMatches(FileLanguage.EnumRegex, Global.ImgEnum);
             FindMatches(FileLanguage.XYZRegex, Global.ImgXyz);         
+
         }
 
         #region Editor.Bindings
@@ -431,7 +434,6 @@ namespace miRobotEditor.GUI
             {
                 case "TextChanged":
                     FindBookmarkMembers();
-                      OnPropertyChanged("Filename");
                     IsModified = true;
                     UpdateFolds();
                     break;
@@ -597,11 +599,8 @@ namespace miRobotEditor.GUI
 
             File.WriteAllText(Filename, Text);
 
-//            var p = DummyDoc.Instance.Host as LayoutDocument;
-//            if (p != null) p.Title = 
             OnPropertyChanged("Title");
 
-            // MainWindow.Instance.RecentFileList.InsertFile(Filename);
             MessageViewModel.Add(new OutputWindowMessage { Title = "File Saved", Description = Filename, Icon = null });
         }
         
@@ -647,7 +646,9 @@ namespace miRobotEditor.GUI
 
         #region Code Completion
 
-        private CompletionWindow _completionWindow;
+
+        public static readonly DependencyProperty CompletionWindowProperty = DependencyProperty.Register("CompletionWindow", typeof(CompletionWindow), typeof(Editor));
+        public CompletionWindow CompletionWindow { get { return (CompletionWindow)GetValue(CompletionWindowProperty); } set { SetValue(CompletionWindowProperty, value); } }
 
         private void TextEntered(object sender, TextCompositionEventArgs e)
         {
@@ -657,30 +658,98 @@ namespace miRobotEditor.GUI
             // Dont Show Completion window until there are 3 Characters
             if (currentword != null && (String.IsNullOrEmpty(currentword)) | currentword.Length < 3) return;
 
-            _completionWindow = new CompletionWindow(TextArea);
+            CompletionWindow = new CompletionWindow(TextArea);
+           // FileLanguage.CompletionList(this, currentword, CompletionWindow.CompletionList.CompletionData);
+            ICompletionData[] items = GetCompletionItems();
+            foreach (var item in items)
+            {
+                CompletionWindow.CompletionList.CompletionData.Add(item);
+            }
 
-            FileLanguage.CompletionList(this,currentword, _completionWindow.CompletionList.CompletionData);
-
-            _completionWindow.Closed += delegate { _completionWindow = null; };
-            _completionWindow.CloseWhenCaretAtBeginning = true;
-            _completionWindow.CompletionList.SelectItem(currentword);
-            if (_completionWindow.CompletionList.SelectedItem != null)
-                _completionWindow.Show();
+            CompletionWindow.Closed += delegate { CompletionWindow = null; };
+            CompletionWindow.CloseWhenCaretAtBeginning = true;
+            CompletionWindow.CompletionList.SelectItem(currentword);
+            if (CompletionWindow.CompletionList.SelectedItem != null)
+            CompletionWindow.Show();
 
             if (IsModified)
                 UpdateFolds();
         }
 
 
+        #region Code Completion
+        public IList<ICompletionData> CompletionData { get; private set; }
+        ICompletionData[] GetCompletionItems()
+        {
+            List<ICompletionData> items = new List<ICompletionData>();
+
+            items.AddRange(HighlightList());
+            items.AddRange(LocalCompletionList());
+
+            return items.ToArray();
+        }
+
+        public IList<ICompletionData> HighlightList()
+        {
+            List<CodeCompletion> items = new List<CodeCompletion>();
+
+            foreach (var rule in this.SyntaxHighlighting.MainRuleSet.Rules)
+            {
+                var parseString = rule.Regex.ToString();
+                var start = parseString.IndexOf(">", StringComparison.Ordinal) + 1;
+                var end = parseString.LastIndexOf(")", StringComparison.Ordinal);
+                parseString = parseString.Substring(start, end - start);
+
+                var spl = parseString.Split('|');
+                foreach (var t in spl)
+                {
+                    if (String.IsNullOrEmpty(t)) continue;
+
+                    var item = new CodeCompletion(t.Replace("\\b", ""));
+
+                    if (!items.Contains(item) && char.IsLetter(item.Text, 0))
+                        items.Add(item);
+                }
+
+            }
+
+            return items.ToArray();
+        }
+
+        IList<ICompletionData> LocalCompletionList()
+        {
+            List<ICompletionData> items = new List<ICompletionData>();
+
+            foreach (var v in Variables)
+            {
+                if ((v.Type != "def") && (v.Type != "deffct"))
+                {
+                    var item = new CodeCompletion(v.Name) { Image = v.Icon };
+                    items.Add(item);
+                }
+            }
+
+            return items.ToArray();
+        }
+        IList<ICompletionData> ObjectBrowserCompletionList()
+        {
+            List<ICompletionData> items = new List<ICompletionData>();
+
+            return items.ToArray();
+        }
+       
+
+        #endregion
+
         private void TextEntering(object sender, TextCompositionEventArgs e)
         {
-            if (e.Text.Length > 0 && _completionWindow != null)
+            if (e.Text.Length > 0 && CompletionWindow != null)
             {
                 if (!char.IsLetterOrDigit(e.Text[0]))
                 {
                     // Whenever a non-letter is typed while the completion window is open,
                     // insert the currently selected element.
-                    _completionWindow.CompletionList.RequestInsertion(e);
+                    CompletionWindow.CompletionList.RequestInsertion(e);
                 }
             }
             // Do not set e.Handled=true.
@@ -763,7 +832,7 @@ namespace miRobotEditor.GUI
         {
         	if (var.Name == null) throw new ArgumentNullException("text");
 
-            var d = DummyDoc.Instance.TextBox.Document.GetLineByOffset(var.Offset);
+            var d = Document.GetLineByOffset(var.Offset);
             TextArea.Caret.BringCaretToView();
             CaretOffset = d.Offset;
             ScrollToLine(d.LineNumber);
@@ -870,10 +939,11 @@ namespace miRobotEditor.GUI
         /// </summary>
         private void RegisterFoldTitles()
         {
-            if ((DummyDoc.Instance.FileLanguage is LanguageBase) && (Path.GetExtension(Filename) == ".xml")) return;
+
+            if ((DocumentViewModel.Instance.FileLanguage is LanguageBase) && (Path.GetExtension(Filename) == ".xml")) return;
 
             foreach (var section in _foldingManager.AllFoldings)
-                section.Title = DummyDoc.Instance.FileLanguage.FoldTitle(section, Document);
+                section.Title = DocumentViewModel.Instance.FileLanguage.FoldTitle(section, Document);
         }
 
         private string GetLine(int idx)
@@ -904,7 +974,6 @@ namespace miRobotEditor.GUI
         }
         private bool GetCurrentFold(TextViewPosition loc)
         {
-
             var off = Document.GetOffset(loc.Location);
 
             var f= _foldingManager.GetFoldingsAt(off);
@@ -997,7 +1066,6 @@ namespace miRobotEditor.GUI
                 }
             }
         }
-
 
         private void ToggleAllFolds()
         {
@@ -1104,10 +1172,12 @@ namespace miRobotEditor.GUI
         private void TextEditorGotFocus(object sender, RoutedEventArgs e)
         {
         	
-        	//DummyDocViewModel.Instance.TextBox = this;
+        	DocumentViewModel.Instance.TextBox = this;
 
             if (File.Exists(Filename))
+            {
                 StatusBarViewModel.Instance.Name = Filename;
+            }
 
             switch (FileLanguage.RobotType)
             {
@@ -1128,18 +1198,10 @@ namespace miRobotEditor.GUI
             OnPropertyChanged("Offset");
             FileSave = !String.IsNullOrEmpty(Filename)? File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture): String.Empty;
 
-
-            //HACK Trying to fix the Function Window
-            //FindBookmarkMembers();
-            
         }
 
         public int Column{get{return TextArea.Caret.Column;}}
         public int Offset{get{return TextArea.Caret.Offset;}}
-        
-
-        
-        
 
         private System.Windows.Controls.ToolTip toolTip = new System.Windows.Controls.ToolTip();
 
@@ -1151,6 +1213,62 @@ namespace miRobotEditor.GUI
         }
     }
 
+    /// <summary>
+    /// Animated rectangle around the caret.
+    /// </summary>
+    sealed class CaretHighlightAdorner : Adorner
+    {
+        readonly Pen _pen;
+        readonly RectangleGeometry _geometry;
+
+        public CaretHighlightAdorner(TextArea textArea)
+            : base(textArea.TextView)
+        {
+            var min = textArea.Caret.CalculateCaretRectangle();
+            min.Offset(-textArea.TextView.ScrollOffset);
+
+            var max = min;
+            var size = Math.Max(min.Width, min.Height) * 0.25;
+            max.Inflate(size, size);
+
+            _pen = new Pen(TextBlock.GetForeground(textArea.TextView).Clone(), 1);
+
+            _geometry = new RectangleGeometry(min, 2, 2);
+            _geometry.BeginAnimation(RectangleGeometry.RectProperty, new RectAnimation(min, max, new Duration(TimeSpan.FromMilliseconds(300))) { AutoReverse = true });
+            _pen.Brush.BeginAnimation(Brush.OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromMilliseconds(200))) { BeginTime = TimeSpan.FromMilliseconds(450) });
+        }
+
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            drawingContext.DrawGeometry(null, _pen, _geometry);
+        }
+    }
+    /// <summary>
+    /// Dont think im using this
+    /// </summary>
+    public class LineColorizer : DocumentColorizingTransformer
+    {
+        public string TextToSelect { get; set; }
+        public int StartOffset { get; set; }
+        public int EndOffset { get; set; }
+
+        protected override void ColorizeLine(DocumentLine line)
+        {
+            if (line.Length == 0)
+                return;
+
+            if (line.Offset < StartOffset || line.Offset > EndOffset)
+                return;
+
+            var start = line.Offset > StartOffset ? line.Offset : StartOffset;
+            var end = EndOffset > line.EndOffset ? line.EndOffset : EndOffset;
+
+            ChangeLinePart(start, end, element => element.TextRunProperties.SetBackgroundBrush(Brushes.Red));
+
+        }
+    }
     public enum EDITORTYPE { SOURCE, DATA };
+
+ 
 }
 

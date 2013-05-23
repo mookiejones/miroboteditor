@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
 using miRobotEditor.Interfaces;
-
 namespace miRobotEditor.Core
 {
     /// <summary>
@@ -11,10 +10,10 @@ namespace miRobotEditor.Core
     {
         Location _location;
 
-        IDocument _document;
+        IEditor _document;
         ITextAnchor _anchor;
 
-        public IDocument Document
+        public IEditor Document
         {
             get
             {

@@ -36,53 +36,19 @@ namespace miRobotEditor
             set;
         }
         
-        public override System.Windows.Style SelectStyle(object item, System.Windows.DependencyObject container)
+        public override Style SelectStyle(object item, System.Windows.DependencyObject container)
         {
         	
             if (item is ToolViewModel)
                 return ToolStyle;
 
-            if (item is miRobotEditor.GUI.DummyDoc)
+            if (item is IDocument)
                 return FileStyle;
 
             return base.SelectStyle(item, container);
         }
     }
-      public class ToolViewModel : PaneViewModel
-    {
-        public ToolViewModel(string name)
-        {
-            Name = name;
-            Title = name;
-        }
-
-        public string Name
-        {
-            get;
-            private set;
-        }
-
-
-        #region IsVisible
-
-        private bool _isVisible = true;
-        public bool IsVisible
-        {
-            get { return _isVisible; }
-            set
-            {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    RaisePropertyChanged("IsVisible");
-                }
-            }
-        }
-
-        #endregion
-
-
-    }
+ 
       public class PaneViewModel : ViewModelBase,IPaneViewModel
     {
          public PaneViewModel()
@@ -204,7 +170,7 @@ namespace miRobotEditor
             var itemAsLayoutContent = item as LayoutContent;
 
             
-           if (item is GUI.DummyDoc)
+           if (item is IDocument)
                  return FileViewTemplate;
 		//
         //   if (item is FileStatsViewModel)

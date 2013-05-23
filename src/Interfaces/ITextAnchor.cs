@@ -4,7 +4,7 @@ using System;
 namespace miRobotEditor.Interfaces
 {
     /// <summary>
-    /// Represents an anchored location inside an <see cref="IDocument"/>.
+    /// Represents an anchored location inside an <see cref="IEditor"/>.
     /// </summary>
     public interface ITextAnchor
     {

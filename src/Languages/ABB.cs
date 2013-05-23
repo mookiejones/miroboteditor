@@ -9,7 +9,6 @@ using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
-using miRobotEditor.Enums;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 
 namespace miRobotEditor.Languages
@@ -180,13 +179,13 @@ namespace miRobotEditor.Languages
             return doc.GetText(start, end);
         }
 
-        public override FileModel GetFile(string filename)
+        public override DocumentViewModel GetFile(string filepath)
         {
-            switch (Path.GetExtension(filename))
+            switch (Path.GetExtension(filepath))
             {
                 case ".prg":
                 case ".mod":
-                    return new FileModel {FileName = filename};
+                    return new DocumentViewModel(filepath);
             }
             return null;
         }

@@ -51,7 +51,7 @@ namespace miRobotEditor.Interfaces
             }
             InvalidateVisual();
         }
-
+        [System.Diagnostics.DebuggerStepThrough]
         void OnRedrawRequested(object sender, EventArgs e)
         {
             // Don't invalidate the IconBarMargin if it'll be invalidated again once the
@@ -77,6 +77,7 @@ namespace miRobotEditor.Interfaces
         }
 
         /// <inheritdoc/>
+        [System.Diagnostics.DebuggerStepThrough]
         protected override Size MeasureOverride(Size availableSize)
         {
             return new Size(18, 0);

@@ -99,10 +99,8 @@ namespace miRobotEditor
         {
             MessageViewModel.AddError("App",e.Exception);
             Console.Write(e);
-            MessageBox.Show(e.Exception.Message + "\r\n" ,"Main Error Handler");
             e.Handled = true;
         }
-        
         
         #region Unused Overrides
         /*

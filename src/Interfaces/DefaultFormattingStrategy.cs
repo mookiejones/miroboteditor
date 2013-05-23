@@ -13,7 +13,7 @@ namespace miRobotEditor.Interfaces
 		
         public virtual void IndentLine(ITextEditor editor, IDocumentLine line)
         {
-            IDocument document = editor.Document;
+            IEditor document = editor.Document;
             int lineNumber = line.LineNumber;
             if (lineNumber > 1)
             {
@@ -99,7 +99,7 @@ namespace miRobotEditor.Interfaces
 		
         public static BlockCommentRegion FindSelectedCommentRegion(ITextEditor editor, string commentStart, string commentEnd)
         {
-            IDocument document = editor.Document;
+            IEditor document = editor.Document;
 			
             if (document.TextLength == 0) {
                 return null;

@@ -30,48 +30,103 @@ namespace miRobotEditor
         public Workspace()
         {
             Instance = this;
+            AddNewFile();
+            _tools = new ObservableCollection<ToolViewModel> { ObjectBrowser,MessageView, Notes, LocalVariables, Functions, AngleConverter };
+
         }
+
         #endregion
 
         DockingManager Dock { get { return MainWindow.Instance.Dock; } set { MainWindow.Instance.Dock = value; } }
 
-        private static Workspace _instance;
-        public static Workspace Instance { get { return _instance ?? new Workspace(); } set { _instance = value; } }
+        private static Workspace _instance =null;
+        public static Workspace Instance { get { return _instance; } set { _instance = value; } }
+
+
+        #region Tools
+
+        //Object Browser
+        ObjectBrowserViewModel _objectBrowser = null;
+        public ObjectBrowserViewModel ObjectBrowser { get { return _objectBrowser ?? new ObjectBrowserViewModel(); } }
+
+        NotesViewModel _notes = null;
+        public NotesViewModel Notes { get { return _notes ?? new NotesViewModel(); } }
+
+        MessageViewModel _messageView = null;
+        public MessageViewModel MessageView
+        {
+            get { return _messageView ?? new MessageViewModel(); }
+        }
+
+        FunctionViewModel _functions = null;
+        public FunctionViewModel Functions { get { return _functions ?? new FunctionViewModel(); } }
+
+      
+
+        LocalVariablesViewModel _localVariables = null;
+        public LocalVariablesViewModel LocalVariables { get { return _localVariables ?? new LocalVariablesViewModel(); } }
+
+
+        AngleConvertorViewModel _angleConverter = null;
+        public AngleConvertorViewModel AngleConverter { get { return _angleConverter ?? new AngleConvertorViewModel(); } }
+        #endregion
 
         #region Properties
-        private DummyDoc _activeEditor = new DummyDoc();
-        public DummyDoc ActiveEditor { get { return _activeEditor; } set { _activeEditor = value; RaisePropertyChanged("ActiveEditor"); } }
+
+
+        ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
+        IEnumerable<ToolViewModel> _readonlyTools = null;
+        public IEnumerable<ToolViewModel> Tools { get { return _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools); } }
 
 
         private bool _isClosing = false;
         public bool IsClosing { get { return _isClosing; } set { _isClosing = value; RaisePropertyChanged("IsClosing"); } }
 
-        ObservableCollection<DummyDoc> _files = new ObservableCollection<DummyDoc>();
-        ReadOnlyObservableCollection<DummyDoc> _readonyFiles = null;
+        ObservableCollection<IDocument> _files = new ObservableCollection<IDocument>();
+        ReadOnlyObservableCollection<IDocument> _readonyFiles = null;
+        public ReadOnlyObservableCollection<IDocument> Files { get { return _readonyFiles ?? new ReadOnlyObservableCollection<IDocument>(_files); } }
 
-        public ReadOnlyObservableCollection<DummyDoc> Files{get{return _readonyFiles ?? new ReadOnlyObservableCollection<DummyDoc>(_files);}}
+        #endregion
 
+        #region ActiveEditor
+        private static IDocument _activeEditor = null;
+        public IDocument ActiveEditor 
+        {
+            get 
+            {
+                return _activeEditor; 
+            } 
+            set 
+            {
+                _activeEditor = value;
+                _activeEditor.TextBox.Focus();
+                RaisePropertyChanged("ActiveEditor");
+    //            if (ActiveEditorChanged != null)
+    //                ActiveEditorChanged(this, EventArgs.Empty);
+            } 
+        }
+        public event EventHandler ActiveEditorChanged;
         #endregion
 
         #region Commands
 
         private RelayCommand _newFileCommand;
 
-        public ICommand NewFileCommand
+      public ICommand NewFileCommand
         {
             get { return _newFileCommand ?? (_newFileCommand = new RelayCommand((p) => AddNewFile(), (p) => true)); }
         }
 
         private RelayCommand _closeWindowCommand;
 
-        public ICommand CloseWindowCommand
+      public ICommand CloseWindowCommand
         {
             get { return _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand((p) => CloseWindow(p), (p) => true)); }
         }
 
         private RelayCommand _showOptionsCommand;
 
-        public ICommand ShowOptionsCommand
+      public ICommand ShowOptionsCommand
         {
             get { return _showOptionsCommand ?? (_showOptionsCommand = new RelayCommand((p) => ShowOptions(), (p) => true)); }
         }
@@ -79,49 +134,48 @@ namespace miRobotEditor
 
         private RelayCommand _showAboutCommand;
 
-        public ICommand ShowAboutCommand
+      public ICommand ShowAboutCommand
         {
             get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand((p) => ShowAbout(), (p) => true)); }
         }
 
         private RelayCommand _exitCommand;
 
-        public ICommand ExitCommand
+      public ICommand ExitCommand
         {
             get { return _exitCommand ?? (_exitCommand = new RelayCommand((p) => Exit(),(p) => true)); }
         }
 
         private RelayCommand _importCommand;
 
-        public ICommand ImportCommand
+      public ICommand ImportCommand
         {
             get { return _importCommand ?? (_importCommand = new RelayCommand((p) => ImportRobot(), (p) => (!(p is LanguageBase) | (p is Fanuc) | (p is Kawasaki) | p == null))); }
         }
 
         private RelayCommand _openFileCommand;
 
-        public ICommand OpenFileCommand
+      public ICommand OpenFileCommand
         {
             get { return _openFileCommand ?? (_openFileCommand = new RelayCommand((p) => OnOpen(p), (p) => true)); }
         }
 
         private  RelayCommand _changeViewAsCommand;
 
-        public  ICommand ChangeViewAsCommand
+      public ICommand ChangeViewAsCommand
         {
             get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand(param => ChangeViewAs(param), param => true)); }
         }
 
         private  RelayCommand _addToolCommand;
 
-        public  ICommand AddToolCommand
+      public ICommand AddToolCommand
         {
             get { return _addToolCommand ?? (_addToolCommand = new RelayCommand(param => AddTool(param), param => true)); }
         }
 
         #endregion
 
-        //TODO Do i Really need 8 different ways to open a program?
 
         #region OpenFile
 
@@ -129,27 +183,52 @@ namespace miRobotEditor
         /// Open file from menu entry
         /// </summary>
         /// <param name="param"></param>
-        public void OnOpen(object param)
+        void OnOpen(object param)
         {
-            DummyDoc doc = param != null ? param as DummyDoc : new DummyDoc();
 
-            var fn = doc.Filename;
-
-            var dir = doc.Filename != null ? Path.GetDirectoryName(fn) : null;
             var dlg = new OpenFileDialog
             {
-                DefaultExt = File.Exists(fn) ? Path.GetExtension(fn) : "*.*",
                 Filter = Properties.Resources.DefaultFilter,
                 Multiselect = true,
                 FilterIndex = Settings.Default.Filter,
-                InitialDirectory = dir != null && Directory.Exists(dir) ? dir : String.Empty
             };
-
             if (dlg.ShowDialog().GetValueOrDefault())
             {
-                foreach (var f in dlg.FileNames)
-                    doc = OpenFile(dlg.FileName);
+                Open(dlg.FileName);
             }
+        }
+
+
+        public IDocument Open(string filepath)
+        {
+            var fileViewModel = OpenFile(filepath);
+            ActiveEditor = fileViewModel;
+            ActiveEditor.IsActive = true;
+            return fileViewModel;
+        }
+
+        private IDocument OpenFile(string filepath)
+        {
+            var fileViewModel = _files.FirstOrDefault(fm => fm.FilePath == filepath);
+            if (fileViewModel != null)
+                return fileViewModel;
+
+
+            fileViewModel = AbstractLanguageClass.GetViewModel(filepath);
+          
+            if (File.Exists(filepath))
+            {
+                fileViewModel.Load(filepath);
+                // Add file to Recent list
+                RecentFileList.Instance.InsertFile(filepath);
+                System.Windows.Shell.JumpList.AddToRecentCategory(filepath);
+
+            
+            }
+            fileViewModel.IsActive = true;
+            _files.Add(fileViewModel);
+            ActiveEditor = fileViewModel;
+            return fileViewModel;
         }
 
     
@@ -157,69 +236,17 @@ namespace miRobotEditor
         {
             // Am i using dock or ActiveEditor?
 
-            var doc = OpenFile(variable.Path);
+          var fileViewModel =   Open(variable.Path);
 
-            ActiveEditor.SelectText(variable);
+          fileViewModel.SelectText(variable);
 //            ActiveEditor.TextBox.SelectText(variable);
         }
 
-        [Localizable(false)]
-        public DummyDoc OpenFile(string filename)
-        {
-
-            // Check to see if file exists before creating new document
-            if (!String.IsNullOrEmpty(filename))
-                if (!File.Exists(filename))
-                    return null;
-
-            var title = Path.GetFileNameWithoutExtension(filename);
-
-            var docpane = Dock.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
-
-            var id = File.Exists(filename) ? Path.Combine(Path.GetDirectoryName(filename), title) : string.Empty;
-
-            var dd = docpane.Children.FirstOrDefault(dm => dm.ContentId == id);
-            if (dd != null)
-            {
-                dd.IsActive = true;
-                return dd.Content as DummyDoc;
-            }
-
-            if (String.IsNullOrEmpty(id))
-                id = String.Format("Document {0}", (docpane.Children.Count + 1));
-
-            var document = new DummyDoc
-            {
-                Filename = id,
-                FilePath = id,
-                Visibility = Visibility.Visible
-            };
-
-            var doc = new LayoutDocument { Description = filename, Content = document, ContentId = id };
-            docpane.Children.Add(doc);
-
-            if (File.Exists(filename))
-            {
-                document.Load(filename);
-                doc.Description = filename;
-                doc.IconSource = document.FileLanguage.GetFile(filename).Icon;
-                doc.ToolTip = filename;
-
-                // Add file to Recent list
-                RecentFileList.Instance.InsertFile(filename);
-                System.Windows.Shell.JumpList.AddToRecentCategory(filename);
-            }
-
-            _files.Add(document);
-            doc.Title = String.IsNullOrEmpty(document.Title)?id:document.Title;
-            doc.IsActive = true;
-            ActiveEditor = document;
-            return document;
-        }
-
+     
         public void AddNewFile()
         {
-            OpenFile(string.Empty);
+            _files.Add(new DocumentViewModel(null));
+            ActiveEditor = _files.Last();
         }
 
 
@@ -227,7 +254,7 @@ namespace miRobotEditor
         {
             for (var i = 1; i < args.Count; i++)
             {
-                OpenFile(args[i]);
+                Open(args[i]);
             }
         }
 
@@ -245,19 +272,19 @@ namespace miRobotEditor
             {
                 case "ABB":
                     lang = (ABB)lang;
-                    //                        DummyDoc.Instance.FileLanguage = DummyDoc.Instance.FileLanguage as ABB;
+                    //                        Workspace.Instance.ActiveEditor.FileLanguage = Workspace.Instance.ActiveEditor.FileLanguage as ABB;
                     break;
                 case "KUKA":
                     lang = new KUKA();
-                    //                       DummyDoc.Instance.FileLanguage = new KUKA();
+                    //                       Workspace.Instance.ActiveEditor.FileLanguage = new KUKA();
                     break;
                 case "Fanuc":
                     lang = (Fanuc)lang;
-                    //                        DummyDoc.Instance.FileLanguage = DummyDoc.Instance.FileLanguage as Fanuc;
+                    //                        Workspace.Instance.ActiveEditor.FileLanguage = Workspace.Instance.ActiveEditor.FileLanguage as Fanuc;
                     break;
                 case "Kawasaki":
                     lang = (Kawasaki)lang;
-                    //DummyDoc.Instance.FileLanguage = DummyDoc.Instance.FileLanguage as Kawasaki;
+                    //Workspace.Instance.ActiveEditor.FileLanguage = Workspace.Instance.ActiveEditor.FileLanguage as Kawasaki;
                     break;
             }
 
@@ -293,74 +320,77 @@ namespace miRobotEditor
         private void AddTool(object parameter)
         {
             var name = parameter as string;
-
-            var tool = new LayoutAnchorable { Title = name, CanClose = false, CanFloat = true };
-
+            ToolViewModel toolModel = null;
+            var tool = new LayoutAnchorable();
             switch (name)
             {
                 case "Angle Converter":
-                    tool.Content = new ViewModel.AngleConvertorViewModel();
+                    toolModel = new ViewModel.AngleConvertorViewModel();
                     tool.AutoHideMinWidth = 219;
                     break;
                 case "Functions":
-                    tool.Content = ActiveEditor.TextBox.Variables;
+                    toolModel = new FunctionViewModel();
                     tool.AutoHideMinWidth = 300;
                     break;
                 case "Explorer":
                     tool.Content = new GUI.ExplorerControl.FileExplorerWindow();
                     break;
                 case "Object Browser":
-                    tool.Content = new ObjectBrowserViewModel();
+                    toolModel = new ObjectBrowserViewModel();
                     break;
                 case "Output Window":
-                    tool.Content = new MessageViewModel();
+                    toolModel = new MessageViewModel();
                     break;
                 case "Notes":
-                    tool.Content = new System.Windows.Controls.TextBox { TextWrapping = TextWrapping.Wrap };
+                    toolModel = new NotesViewModel();
                     break;
                 case "ArchiveInfo":
-                    tool.Content = new ArchiveInfoViewModel();
+                    toolModel = new ArchiveInfoViewModel();
                     break;
                 case "Rename Positions":
+                    //TODO Change this
                     tool.Content = new Language_Specific.RenamePositionWindow();
                     break;
                 case "Shift":
+                    //TODO Change this
                     tool.Content = new ShiftWindow();
                     break;
                 case "CleanDat":
-                    tool.Content = new Language_Specific.DatCleanControl();
-                    tool.AutoHideMinWidth = Language_Specific.DatCleanControl.Instance.Width;
+                    toolModel = new DatCleanHelper();
+                    tool.AutoHideMinWidth = DatCleanHelper.Instance.Width;
                     break;
                 default:
                     MessageViewModel.Instance.Add("Not Implemented", String.Format("Add Tool Parameter of {0} not Implemented", name), MSGIcon.ERROR);
                     break;
             }
 
+            tool.Title = toolModel.Title;
+            tool.Content = toolModel;
+
             // Does Content Exist Allready?
-            foreach (var dd in MainWindow.Instance.dockManager.Layout.Descendents().OfType<LayoutAnchorable>().Where(dd => dd.Title == tool.Title))
+            foreach (var t in Tools.Where(t => t.Title==toolModel.Title))
             {
-                dd.IsActive = true;
+                t.IsActive = true;
                 return;
             }
-            var group = new LayoutAnchorGroup();
-            tool.IsActive = true;
-            group.Children.Add(tool);
-            MainWindow.Instance.dockManager.Layout.RightSide.Children.Add(group);
+
+            toolModel.IsActive = true;
+            _tools.Add(toolModel);
+            RaisePropertyChanged("Tools");
+
+    
 
         }
 
         private void ImportRobot()
         {
-           //TODO Reimplement this
-            ObjectBrowserViewModel.Instance.ShowWizard("Backup Folder");
-                       //AddTool("Object Browser");
                          BringToFront("Object Browser");
                       AddTool("ArchiveInfo");
         }
 
         public void CloseWindow(object param)
         {
-            var ad = param as DummyDoc;
+            var ad = param as IDocument;
             var docpane = MainWindow.Instance.dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (docpane == null) return;
 
@@ -377,23 +407,14 @@ namespace miRobotEditor
             // Does Content Exist Allready?
             foreach (var dd in MainWindow.Instance.dockManager.Layout.Descendents().OfType<LayoutAnchorable>())
             {
-                if (dd.Title == windowname)
+                if (dd.Title == windowname)                   
                     dd.IsActive = true;
                 Console.WriteLine(dd.Title);
             }
 
         }
 
-
-
-        //TODO This could probably be moved to the KUKA FileLanguage SomeHow
-        public void CleanDat(object sender, RoutedEventArgs e)
-        {
-            //	Language_Specific.DatCleanControl dcc = new miRobotEditor.Language_Specific.DatCleanControl();
-            //	dcc.ShowDialog();
-            //	Output.Add("Add","Need to Put Clean Dat to Command");
-        }
-
+       
         public void ShowAbout()
         {
             new AboutWindow().ShowDialog();
@@ -454,9 +475,9 @@ namespace miRobotEditor
         /// <summary>
         /// Allow the user to confirm whether they want to close a modified document.
         /// </summary>
-        public bool QueryCloseModifiedDocument(DummyDoc document)
+        public bool QueryCloseModifiedDocument(IDocument document)
         {
-            string msg = document.Filename + " has been modified but not saved.\r\nDo you really want to close it?";
+            string msg = document.FilePath + " has been modified but not saved.\r\nDo you really want to close it?";
             var result = MessageBox.Show( msg, "File modified but not saved", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             return result == MessageBoxResult.Yes;
         }
