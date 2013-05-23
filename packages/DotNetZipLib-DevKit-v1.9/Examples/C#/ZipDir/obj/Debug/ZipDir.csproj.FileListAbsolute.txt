@@ -1,0 +1,8 @@
+C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ZipDir\bin\Debug\ZipDir.exe
+C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ZipDir\bin\Debug\ZipDir.pdb
+C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ZipDir\bin\Debug\Ionic.Zip.dll
+C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ZipDir\bin\Debug\Ionic.Zip.pdb
+C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ZipDir\bin\Debug\Ionic.Zip.xml
+C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ZipDir\obj\Debug\ZipDir.csprojResolveAssemblyReference.cache
+C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ZipDir\obj\Debug\ZipDir.exe
+C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ZipDir\obj\Debug\ZipDir.pdb
