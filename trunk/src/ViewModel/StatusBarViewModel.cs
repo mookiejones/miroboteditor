@@ -50,8 +50,7 @@ namespace miRobotEditor.ViewModel
     
         #region Status Bar Items
 
-        [DllImport("user32.dll")]
-        internal static extern short GetKeyState(int keyCode);
+       
 
         #region Properties
         public bool IsScrollPressed { get; set; }
@@ -62,10 +61,10 @@ namespace miRobotEditor.ViewModel
 
         public void ManageKeys(object sender, KeyEventArgs e)
         {
-            IsCapsPressed = GetKeyState((int)VKeyStates.CapsKey) != 0;
-            IsInsPressed = GetKeyState((int)VKeyStates.InsKey) != 0;
-            IsNumPressed = GetKeyState((int)VKeyStates.NumKey) != 0;
-            IsScrollPressed = GetKeyState((int)VKeyStates.ScrollKey) != 0;
+            IsCapsPressed = NativeMethods.GetKeyState((int)VKeyStates.CapsKey) != 0;
+            IsInsPressed = NativeMethods.GetKeyState((int)VKeyStates.InsKey) != 0;
+            IsNumPressed = NativeMethods.GetKeyState((int)VKeyStates.NumKey) != 0;
+            IsScrollPressed = NativeMethods.GetKeyState((int)VKeyStates.ScrollKey) != 0;
 
             RaisePropertyChanged("IsInsPressed");
             RaisePropertyChanged("IsNumPressed");

@@ -44,7 +44,7 @@ namespace miRobotEditor.ViewModel
         public ImageSource IconSource
         {
             get;
-            protected set;
+            set;
         }
 
         #region ContentId

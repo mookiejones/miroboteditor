@@ -2,18 +2,35 @@
                     xmlns:Templates="clr-namespace:miRobotEditor.Templates"
                     xmlns:ad="http://avalondock.codeplex.com"
                     xmlns:GUI="clr-namespace:miRobotEditor.GUI"
+                    xmlns:app="clr-namespace:miRobotEditor"
                     xmlns:local="clr-namespace:miRobotEditor.Controls"
                     xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Converters="clr-namespace:miRobotEditor.Converters" xmlns:miRobotEditor="clr-namespace:miRobotEditor">
-
+                    xmlns:classes="clr-namespace:miRobotEditor.Classes"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Converters="clr-namespace:miRobotEditor.Converters"
+                    xmlns:miRobotEditor="clr-namespace:miRobotEditor">
+    <Converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    <Converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter"/>
 
     <Converters:WidthConverter x:Key="WidthConverter"/>
 
-
+  
+  
+    
+    <!-- Local Variables-->
+    <DataTemplate DataType="{x:Type vm:LocalVariablesViewModel}">
+        <Templates:VisualVariableItem DataContext="{Binding ActiveEditor, NotifyOnSourceUpdated=True, Source={x:Static miRobotEditor:Workspace.Instance}}" ItemsSource="{Binding TextBox.Variables}"/>
+    </DataTemplate>
+    
+    <!-- Notes Template -->
+    <DataTemplate DataType="{x:Type vm:NotesViewModel}">
+        <TextBox Text="{Binding Text}" TextWrapping="WrapWithOverflow"/>
+    </DataTemplate>
+  
     <!-- object Broswer -->
     <DataTemplate DataType="{x:Type vm:ObjectBrowserViewModel}">
-        <Grid>
-            <TabControl>
+        <Grid>                    
+            <TabControl DataContext="{Binding ActiveEditor.FileLanguage, IsAsync=True, Source={StaticResource workspace}}" >                  
                 <TabItem Header="Functions">
                     <Templates:VisualVariableItem ItemsSource="{Binding Functions}"/>
                 </TabItem>
@@ -22,14 +39,7 @@
                 </TabItem>
                 <TabItem Header="Files">
                     <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Files}">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding Icon}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                        <DataGrid.Columns>                            
                             <DataGridTemplateColumn Header="Name">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -54,7 +64,7 @@
                             <DataGridTemplateColumn Header="Path" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding File.FullName}"/>
+                                        <TextBlock Text="{Binding FullName}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -71,7 +81,7 @@
 
     <!-- Message View Model-->
     <DataTemplate DataType="{x:Type vm:MessageViewModel}">
-        <DataGrid ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}">
+        <DataGrid ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn  Width="Auto" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
@@ -113,166 +123,7 @@
             </StackPanel>
         </Label>
     </DataTemplate>
-<!--
-     Archive Info
-    <DataTemplate DataType="{x:Type vm:ArchiveInfoViewModel}">
-        <Grid>
-            <Grid.Resources>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="TextAlignment" Value="Right"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="Margin" Value="5,0,5,0"/>
-                </Style>
-                <Style TargetType="{x:Type TextBox}">
-                    <Setter Property="IsReadOnly" Value="True"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="Margin" Value="5"/>
-                </Style>
-                <Style TargetType="{x:Type GroupBox}">
-                    <Setter Property="Margin" Value="5"/>
-                </Style>
-                <Style TargetType="{x:Type ListView}" x:Key="ListView">
-                    <Setter Property="MinHeight" Value="100"/>
-                </Style>
-            </Grid.Resources>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Menu Background="#FFF0F0F0" Grid.Row="0">
-                <MenuItem Header="_File" Command="{Binding LoadCommand}"/>
-            </Menu>
-            <TextBlock Text="Here"/>
-            <TabControl Grid.Row="1">
-                <TabItem Header="Archive Information">
-                    <StackPanel Orientation="Vertical">
 
-                        <GroupBox Header="General">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="Archive Name" Grid.Row="0" Grid.Column="0"/>
-                                <TextBlock Text="Config Type" Grid.Row="1" Grid.Column="0"/>
-                                <TextBlock Text="Disk No" Grid.Row="2" Grid.Column="0"/>
-                                <TextBlock Text="ID" Grid.Row="3" Grid.Column="0"/>
-                                <TextBlock Text="Date" Grid.Row="4" Grid.Column="0"/>
-                                <TextBox Text="{Binding ArchiveName}" Grid.Column="1" Grid.Row="0"/>
-                                <TextBox Text="{Binding ArchiveConfigType}" Grid.Column="1" Grid.Row="1"/>
-                                <TextBox Text="{Binding ArchiveDiskNo}" Grid.Column="1" Grid.Row="2"/>
-                                <TextBox Text="{Binding ArchiveID}" Grid.Column="1" Grid.Row="3"/>
-                                <TextBox Text="{Binding ArchiveDate}" Grid.Column="1" Grid.Row="4"/>
-                            </Grid>
-                        </GroupBox>
-                        <GroupBox Header="Roboter">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="Robot Name" Grid.Row="0" Grid.Column="0"/>
-                                <TextBlock Text="Serial" Grid.Row="1" Grid.Column="0"/>
-                                <TextBox Text="{Binding RobotName}" Grid.Column="1" Grid.Row="0"/>
-                                <TextBox Text="{Binding RobotSerial}" Grid.Column="1" Grid.Row="1"/>
-                            </Grid>
-                        </GroupBox>
-                        <GroupBox Header="Version">
-                            <TextBox Text="{Binding KSSVersion}" />
-                        </GroupBox>
-                        <GroupBox Header="TechPacks" VerticalAlignment="Stretch">
-                            <ListView ItemsSource="{Binding TechPacks}" MinHeight="100" VerticalAlignment="Stretch">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="{x:Type ListViewItem}">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="Technology Name">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Name}"/>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                        <GridViewColumn Header="Version" >
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Version}"/>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </GroupBox>
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="Archive Files">
-                    <ListView ItemsSource="{Binding FileCollection}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                                <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Size}"/>
-                                <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Comment}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </TabItem>
-                <TabItem Header="IO Points">
-                    <TabItem.Resources>
-                        <Style TargetType="{x:Type DataGrid}">
-                            <Setter Property="AlternatingRowBackground" Value="SkyBlue"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                        </Style>
-                    </TabItem.Resources>
-                    <TabControl>
-                        <TabItem Header="Digital">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50*"/>
-                                    <ColumnDefinition Width="50*"/>
-                                </Grid.ColumnDefinitions>
-                                <GroupBox Header="Digital In" Grid.Column="0">
-                                    <DataGrid  ItemsSource="{Binding DigitalIn}" />
-                                </GroupBox>
-                                <GroupBox Header="Digital Out" Grid.Column="1">
-                                    <DataGrid  ItemsSource="{Binding DigitalOut}" />
-                                </GroupBox>
-                            </Grid>
-                        </TabItem>
-                        <TabItem Header="Analog">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50*"/>
-                                    <ColumnDefinition Width="50*"/>
-                                </Grid.ColumnDefinitions>
-                                <GroupBox Header="Analog In" Grid.Column="0">
-                                    <DataGrid  ItemsSource="{Binding AnalogIn}" />
-                                </GroupBox>
-                                <GroupBox Header="Analog Out" Grid.Column="1">
-                                    <DataGrid  ItemsSource="{Binding AnalogOut}" />
-                                </GroupBox>
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
-                </TabItem>
-            </TabControl>
-        </Grid>
-    </DataTemplate>
-    -->
 
     <DataTemplate DataType="{x:Type vm:ValueBoxViewModel}">
         <StackPanel Orientation="Vertical">
@@ -290,7 +141,6 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-
             </StackPanel.Resources>
             <ComboBox   ItemsSource="{Binding SelectionItems}" IsReadOnly="True" DisplayMemberPath= "ValueCartesianString"  SelectedValuePath= "ValueCartesianEnum" SelectedValue="{Binding SelectedItem}"/>
             <StackPanel Orientation="Horizontal"  >
@@ -314,40 +164,84 @@
 
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:DummyDocViewModel}">
-        <Grid>
-            <Grid Grid.Row="1">
+    <!-- Generic Document -->
+    <DataTemplate DataType="{x:Type vm:DocumentViewModel}">
+        <ContentPresenter Content="{Binding TextBox}" />
+    </DataTemplate>
+    
+    <!-- KUKA Document -->
+    <DataTemplate DataType="{x:Type vm:KukaViewModel}">
+        <DockPanel>
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type ComboBox}">
+                    <Setter Property="Opacity" Value="0.1"/>
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="ItemTemplate" Value="{DynamicResource FunctionItemTemplate}"/>                        
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Resources>
+            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  DockPanel.Dock="Top" />
+              
+        <Grid DockPanel.Dock="Top" >
+            <Grid.InputBindings>
+                <KeyBinding Command="{Binding ToggleGridCommand}" Key="T" Modifiers="Control"/>
+            </Grid.InputBindings>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
-                <GUI:Editor Grid.Row="{Binding DataRow}" Document="{Binding Data.Document}" BorderThickness="1"/>
-                <local:ExtendedGridSplitter HorizontalAlignment="Stretch" Height="20" CollapseMode="Previous" Loaded="{Binding GridLoadedCommand}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" Grid.Row="{Binding GridRow}"/>
-                <GUI:Editor Grid.Row="1" Document="{Binding Source.Document}" BorderThickness="1"/>
-
+                <ContentPresenter Content="{Binding Source}" Grid.Row="0"/>
+                <ContentPresenter Content="{Binding Data}" Grid.Row="2"/>
+                <local:ExtendedGridSplitter Grid.Row="1" DataContext="{Binding Grid}"/>
             </Grid>
-        </Grid>
+        </DockPanel>
     </DataTemplate>
 
+    <!-- Editor -->
+    <DataTemplate DataType="{x:Type GUI:Editor}">
+        <DockPanel>
+            <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}" DockPanel.Dock="Top"/>
+            <ContentPresenter Content="{Binding }" DockPanel.Dock="Top"/>
+        </DockPanel>
+    </DataTemplate>
     <DataTemplate x:Key="NotesWindowTemplate">
         <TextBox TextWrapping="Wrap"/>
     </DataTemplate>
 
     
     <DataTemplate DataType="{x:Type vm:FunctionViewModel}">
-        <ListView DataContext="{Binding ActiveEditor.TextBox}"	Background="White"	Foreground="Black"	 ItemTemplate="{DynamicResource FunctionItemTemplate}" >
-            <ListView.Resources>
-            </ListView.Resources>
-            <ListView.SelectedItem>
-                <Binding Path="SelectedVariable" />
-            </ListView.SelectedItem>
-            <ListView.ItemsSource>
-                <Binding Path="Variables" Mode="OneWay" NotifyOnSourceUpdated="True"/>
-            </ListView.ItemsSource>
-        </ListView>
+        <ListView DataContext="{Binding ActiveEditor, IsAsync=True, Source={StaticResource workspace}}"	Background="White"	Foreground="Black" SelectedItem="{Binding TextBox.SelectedVariable}" ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  ItemTemplate="{DynamicResource FunctionItemTemplate}"  />
     </DataTemplate>
+    
+    <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type classes:Variable}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Image Source="{Binding Icon}" DockPanel.Dock="Left"/>                            
+                <Label Content="{Binding Name}" Margin="5,0,0,0" HorizontalAlignment="Stretch">
+                <Label.ToolTip>
+                        <GroupBox Header="{Binding Name}" FontWeight="ExtraBold" FontSize="14" Foreground="White">
+                            <GroupBox.Resources>
+                                <Style	TargetType="{x:Type TextBlock}">
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                            </GroupBox.Resources>
+                            <StackPanel	Orientation="Vertical">
+                                <TextBlock Text="{Binding Offset, StringFormat=Offset:\=\{0\}}" Visibility="{Binding ShowOffset, Converter={StaticResource BoolToVisConverter}}" />
+                                <TextBlock Text="{Binding Returns, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowReturns, Converter={StaticResource BoolToVisConverter}}" />
+                                <TextBlock Text="{Binding Declaration, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowDeclaration, Converter={StaticResource BoolToVisConverter}}" />
+                            </StackPanel>
+                        </GroupBox>
+                </Label.ToolTip>
+            </Label>
+            </StackPanel>
+        </DataTemplate>
+    
                   
 
 

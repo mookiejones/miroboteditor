@@ -34,7 +34,7 @@ namespace miRobotEditor.Interfaces
         /// <summary>
         /// Allow the user to confirm whether they want to close a modified document.
         /// </summary>
-        bool QueryCloseModifiedDocument(miRobotEditor.GUI.DummyDoc document);
+        bool QueryCloseModifiedDocument(IEditor document);
 
         /// <summary>
         /// Allow the user to confirm whether they want to close the application when 1 or more documents are modified.

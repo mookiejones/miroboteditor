@@ -133,27 +133,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\DropFileCommand.cs" />
-    <Compile Include="Classes\AbstractPaneViewModel.cs" />
-    <Compile Include="Classes\AbstractViewModel.cs" />
     <Compile Include="Classes\BookmarkBase.cs" />
-    <Compile Include="Classes\CaretHighlightAdorner.cs" />
     <Compile Include="Classes\DataTemplateUtils.cs" />
     <Compile Include="Classes\DocumentClosingEventArgs.cs" />
-    <Compile Include="Classes\FileModel.cs" />
     <Compile Include="Classes\FileWatcher.cs" />
     <Compile Include="Classes\Function.cs" />
-    <Compile Include="Classes\GridViewColumnResize.cs" />
     <Compile Include="Classes\IndentationClass.cs" />
-    <Compile Include="Classes\IOutputMessages.cs" />
-    <Compile Include="Classes\IVariable.cs" />
     <Compile Include="Classes\LayoutInitializer.cs" />
-    <Compile Include="Classes\LineColorizer.cs" />
     <Compile Include="Classes\Messages\MessageType.cs" />
     <Compile Include="Classes\Messages\NotifyPropertyChanged.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
     <Compile Include="Classes\PanesStyleSelector.cs" />
-    <Compile Include="Classes\PanesTemplateSelector.cs" />
-    <Compile Include="Classes\Position.cs" />
     <Compile Include="Classes\RecentFileList.cs" />
     <Compile Include="Classes\Variable.cs" />
     <Compile Include="Classes\VariableBase.cs" />
@@ -184,7 +174,6 @@
     <Compile Include="Controls\xmlReader.xaml.cs">
       <DependentUpon>xmlReader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Enums\TYPLANGUAGE.cs" />
     <Compile Include="ExplorerControl\ExplorerClass.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -253,9 +242,6 @@
     <Compile Include="GUI\AngleConverter\Robot\RobotBaseAndToolCalibration.cs" />
     <Compile Include="GUI\Dialogs\About\About.cs" />
     <Compile Include="GUI\Dialogs\IconConverter.cs" />
-    <Compile Include="GUI\DummyDoc\DummyDoc.xaml.cs">
-      <DependentUpon>DummyDoc.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\Editor\BackgroundRenderer.cs" />
     <Compile Include="GUI\Editor\BracketHighlightRenderer.cs" />
     <Compile Include="GUI\Editor\CodeCompletion.cs" />
@@ -263,7 +249,6 @@
       <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Editor\FoldingElementGenerator.cs" />
-    <Compile Include="GUI\Editor\IDocument.cs" />
     <Compile Include="GUI\Editor\TextEditorOptions.cs" />
     <Compile Include="GUI\KUKA\AdjustST.cs" />
     <Compile Include="GUI\KUKA\frmAdjustST.cs" />
@@ -284,7 +269,9 @@
     <Compile Include="Interfaces\IconBarMargin.cs" />
     <Compile Include="Interfaces\IDialogProvider.cs" />
     <Compile Include="Interfaces\IDialogWindow.cs" />
-    <Compile Include="Interfaces\IDocument.cs" />
+    <Compile Include="Interfaces\IEditor.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interfaces\IDocumentLine.cs" />
     <Compile Include="Interfaces\IFormattingStrategy.cs" />
     <Compile Include="Interfaces\IImage.cs" />
@@ -301,7 +288,6 @@
     <Compile Include="Interfaces\StringTextBuffer.cs" />
     <Compile Include="Interfaces\TextChangeEventArgs.cs" />
     <Compile Include="Interfaces\TextSourceAdapter.cs" />
-    <Compile Include="Language Specific\DatCleaner.cs" />
     <Compile Include="Languages\ABB.cs" />
     <Compile Include="Languages\AbstractLanguageClass.cs" />
     <Compile Include="Languages\AbstractPosition.cs" />
@@ -348,17 +334,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PanesStyleSelector.cs" />
-    <Compile Include="Selectors\PanesStyleSelector.cs" />
-    <Compile Include="Selectors\PanesTemplateSelector.cs" />
     <Compile Include="Language Specific\KUKAFileInfo.cs" />
     <Compile Include="Language Specific\QuantecRemoteView.xaml.cs">
       <DependentUpon>QuantecRemoteView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Language Specific\DatCleanControl.xaml.cs">
-      <DependentUpon>DatCleanControl.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Language Specific\DatCleanHelper.cs" />
     <Compile Include="Language Specific\FileInfo.cs" />
     <Compile Include="Language Specific\KFDAssistant.xaml.cs">
       <DependentUpon>KFDAssistant.xaml</DependentUpon>
@@ -387,16 +366,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Pads\ClipboardPad.cs" />
-    <Compile Include="Pads\FTPBrowser\ConnectionFormViewModel.cs" />
-    <Compile Include="Pads\FTPBrowser\ConnectionFormWindow.xaml.cs">
-      <DependentUpon>ConnectionFormWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pads\FTPBrowser\FTPAccount.cs" />
-    <Compile Include="Pads\FTPBrowser\FTPAccountWindow.xaml.cs">
-      <DependentUpon>FTPAccountWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pads\FTPBrowser\FTPFolder.cs" />
-    <Compile Include="Pads\FTPBrowser\PasswordHelper.cs" />
     <Compile Include="Pads\Shift\ShiftBase.xaml.cs">
       <DependentUpon>ShiftBase.xaml</DependentUpon>
     </Compile>
@@ -406,10 +375,6 @@
     <Compile Include="Pads\Shift\ShiftWindow.xaml.cs">
       <DependentUpon>ShiftWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\AnalyticsMonitorService.cs" />
-    <Compile Include="Services\LoggingService.cs" />
-    <Compile Include="Services\ServiceManager.cs" />
-    <Compile Include="Services\TextWriterLoggingService.cs" />
     <Compile Include="Snippets\SnippetCollection.cs" />
     <Compile Include="Templates\VisualVariableItem.xaml.cs">
       <DependentUpon>VisualVariableItem.xaml</DependentUpon>
@@ -420,16 +385,18 @@
     <Compile Include="ViewModel\AngleConvertorViewModel.cs" />
     <Compile Include="ViewModel\ArchiveInfoViewModel.cs" />
     <Compile Include="ViewModel\CustomToolTipViewModel.cs" />
-    <Compile Include="ViewModel\DummyDocViewModel.cs" />
+    <Compile Include="ViewModel\DocumentViewModel.cs" />
     <Compile Include="ViewModel\FileOptionsViewModel.cs" />
     <Compile Include="ViewModel\FileViewModel.cs" />
+    <Compile Include="ViewModel\FTPAccountWindowViewModel.cs" />
     <Compile Include="ViewModel\FunctionViewModel.cs" />
     <Compile Include="ViewModel\GlobalOptionsViewModel.cs" />
     <Compile Include="ViewModel\GotoViewModel.cs" />
     <Compile Include="ViewModel\KUKAObjectBrowserViewModel.cs" />
     <Compile Include="ViewModel\KUKASpecificViewModels.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\LocalVariablesViewModel.cs" />
     <Compile Include="ViewModel\MessageViewModel.cs" />
+    <Compile Include="ViewModel\NotesViewModel.cs" />
     <Compile Include="ViewModel\ObjectBrowserViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\PaneViewModel.cs" />
@@ -445,15 +412,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Common\ResourceAccess\IIndexedResourceAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Common\ResourceAccess\IResourceAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Common\ResourceAccess\ResourceKeyConverter.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Parsers\E6Parser.cs" />
     <Compile Include="Converters\DoubleToStringConverter.cs" />
@@ -519,10 +477,6 @@
     <Page Include="GUI\Dialogs\About\About.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GUI\DummyDoc\DummyDoc.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="GUI\Editor\Editor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -542,7 +496,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Language Specific\DatCleanControl.xaml" />
     <Page Include="Language Specific\KFDAssistant.xaml" />
     <Page Include="Language Specific\KUKADatSort.xaml" />
     <Page Include="Language Specific\KUKAInlineFormHelper.xaml">
@@ -558,6 +511,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Language Specific\RenamePositionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Languages\CodeCompletionList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Languages\KUKACompletionItems.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -580,14 +541,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Templates\KUKASpecificTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pads\FTPBrowser\ConnectionFormWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pads\FTPBrowser\FTPAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -675,6 +628,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Languages\CompletionItemsSchema.xsd" />
     <None Include="ViewModel\app.config" />
     <Resource Include="Images\folder_open.png" />
     <EmbeddedResource Include="Controls\SyntaxHighlighting\ABBHighlight.xshd" />
@@ -763,12 +717,19 @@
     <Resource Include="Resources\srcfile.png" />
     <Resource Include="Resources\vxXYZ_icon.png" />
     <Resource Include="Resources\info.png" />
+    <Resource Include="Resources\document.png" />
+    <Resource Include="Resources\property-blue.png" />
+    <Resource Include="Languages\CompletionItems.xml" />
+    <Content Include="MookiesRobotEditor.cd" />
+    <Content Include="MookiesRobotEditor.cd" />
+    <Content Include="MookiesRobotEditor.cd" />
     <Content Include="Tracking\Changes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\ErrorProvider\" />
+    <Folder Include="Enums\" />
     <Folder Include="GUI\KUKA\AdjustST\" />
     <Folder Include="ResourceDictionaries\LocalizedStrings\" />
   </ItemGroup>

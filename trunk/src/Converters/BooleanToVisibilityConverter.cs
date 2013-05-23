@@ -13,6 +13,7 @@ namespace miRobotEditor.Converters
             if (targetType == typeof(Visibility))
             {
                 var visible = System.Convert.ToBoolean(value, culture);
+
                 if (InvertVisibility)
                     visible = !visible;
                 return visible ? Visibility.Visible : Visibility.Collapsed;
@@ -22,7 +23,9 @@ namespace miRobotEditor.Converters
 
         public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
-            throw new InvalidOperationException("Converter cannot convert back.");
+           // throw new InvalidOperationException("Converter cannot convert back.");
+            return ((Visibility)value)==Visibility.Visible?true:false;
+
         }
 
         public Boolean InvertVisibility { get; set; }

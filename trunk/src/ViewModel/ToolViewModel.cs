@@ -10,25 +10,33 @@ using System;
 
 namespace miRobotEditor.ViewModel
 {
+    public enum DefaultToolPane { Left, Right, Bottom, None };
+
 	/// <summary>
 	/// Description of ToolViewModel.
 	/// </summary>
 	public class ToolViewModel:PaneViewModel
 	{
-     public ToolViewModel(string name,int minWidth)
+
+
+     public ToolViewModel(string name)
         {
             Name = name;
             Title = name;
-            MinWidth = minWidth;
         }
+
+     public DefaultToolPane DefaultPane = DefaultToolPane.None;
+    
+        // Sizes for External Tools
+     public int Height { get; set; }
+     public int Width { get; set; }
+
 
         public string Name
         {
             get;
             private set;
         }
-
-        public int MinWidth { get; private set; }
 
         #region IsVisible
 

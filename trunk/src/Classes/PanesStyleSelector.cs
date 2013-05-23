@@ -3,31 +3,18 @@ using System.Windows;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {
-    class PanesStyleSelector : StyleSelector
+   public class PanesStyleSelector : StyleSelector
     {
-        public Style ToolStyle
+        public Style ToolStyle { get;set; }
+
+        public Style FileStyle{get;set;}
+
+        public override Style SelectStyle(object item, DependencyObject container)
         {
-            get;
-            set;
-        }
+            if (item is ToolViewModel) return ToolStyle;
+            if (item is IDocument) return FileStyle;
 
-        public Style FileStyle
-        {
-            get;
-            set;
-        }
-
-        public Style MessageStyle { get; set; }
-        public Style VariableStyle { get; set; }
-
-        public override System.Windows.Style SelectStyle(object item, System.Windows.DependencyObject container)
-        {
-            if (item is MessageViewModel)
-                return MessageStyle;
-
-            if (item is IVariable)
-                return VariableStyle;
-
+            //TODO Still Need to add file explorer
             return base.SelectStyle(item, container);
         }
     }

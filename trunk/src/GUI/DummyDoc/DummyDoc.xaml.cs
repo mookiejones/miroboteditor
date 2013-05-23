@@ -161,10 +161,10 @@ namespace miRobotEditor.GUI
         private RelayCommand _reloadCommand;
 
 
-        //TODO Should Check to see if the text is changed before reloading.
+       
         public ICommand ReloadCommand
         {
-            get { return _reloadCommand ?? (_reloadCommand = new RelayCommand((p) => Load(Filename), (p) => File.Exists(Filename))); }
+            get { return _reloadCommand ?? (_reloadCommand = new RelayCommand((p) => Reload(Filename), (p) => File.Exists(Filename))); }
         }
 
         #endregion
@@ -194,6 +194,14 @@ namespace miRobotEditor.GUI
             }
         }
 
+
+        void Reload(string filepath)
+        {
+            //TODO Should Check to see if the text is changed before reloading.
+            Console.WriteLine("need to check");
+
+            Load(filepath);
+        }
         void FocusChanged(object sender)
         {
             TextBox = sender as Editor;

@@ -88,7 +88,6 @@ namespace miRobotEditor.GUI
 
     		#region Syntax Highlighting
     	
-    	//TODO Should this go into the options? does it need to be run everytime for each editor?
 
         /// <summary>
         /// Loads all of syntax Highlighting

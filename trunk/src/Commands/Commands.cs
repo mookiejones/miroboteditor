@@ -13,7 +13,7 @@ namespace miRobotEditor.Commands
         public static ICommand ChangeIndentCommand
         {
         	get { 
-        		return _changeIndentCommand ?? (_changeIndentCommand = new RelayCommand(param => DummyDoc.Instance.TextBox.ChangeIndent(param), param => true)); }
+        		return _changeIndentCommand ?? (_changeIndentCommand = new RelayCommand(param => Workspace.Instance.ActiveEditor.TextBox.ChangeIndent(param), param => true)); }
         }
    	
         

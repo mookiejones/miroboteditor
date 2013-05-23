@@ -2,6 +2,7 @@
 using miRobotEditor.Interfaces;
 using System.Diagnostics;
 using System;
+using System.Windows;
 using System.Windows.Input;
 using miRobotEditor.Commands;
 namespace miRobotEditor.ViewModel
@@ -16,9 +17,6 @@ namespace miRobotEditor.ViewModel
         {
             try
             {
-                if (propertyName == "ActiveEditor")
-                    Console.WriteLine("Hello");
-
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
@@ -57,7 +55,7 @@ namespace miRobotEditor.ViewModel
 
     }
 
-    public abstract class SerializeBase
+    public abstract class SerializeBase:DependencyObject
     {
 
         public abstract string SerializeFileName { get; set; }

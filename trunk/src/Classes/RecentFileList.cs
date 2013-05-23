@@ -16,8 +16,8 @@ namespace miRobotEditor.Classes
     [Localizable(false)]
     public class RecentFileList : Separator
 	{
-
-        public static RecentFileList Instance { get; private set; }
+        private static RecentFileList _instance;
+        public static RecentFileList Instance { get { return _instance ?? new RecentFileList(); } private set { _instance = value; } }
 
 		public interface IPersist
 		{
@@ -127,7 +127,6 @@ namespace miRobotEditor.Classes
 			{
 				var header = GetMenuItemText( r.Number + 1, r.Filepath, r.DisplayPath );
 			    r.MenuItem = new MenuItem {Header = header};
-//				r.MenuItem = new MenuItem { Header = header };
 				r.MenuItem.Click += MenuItemClick;
 
 				FileMenu.Items.Insert( ++iMenuItem, r.MenuItem );
@@ -294,7 +293,6 @@ namespace miRobotEditor.Classes
 			{
 				get
 				{
-                    //TODO I think i want to show the filename for this
                     var dir = Path.GetDirectoryName(Filepath);
                     string f = ViewModel.GlobalOptions.Instance.Options.FileOptions.ShowFullName?Path.GetFileName(Filepath):Path.GetFileNameWithoutExtension(Filepath);
 // ReSharper disable AssignNullToNotNullAttribute
@@ -322,12 +320,11 @@ namespace miRobotEditor.Classes
 
 		void MenuItemClick( object sender, EventArgs e )
 		{
-//			var menuItem = sender as MenuItem;
             var menuItem = sender as MenuItem;
-
 			OnMenuClick( menuItem );
 		}
 
+       
 		protected virtual void OnMenuClick( MenuItem menuItem )
 		{
 			var filepath = GetFilepath( menuItem );
@@ -342,13 +339,12 @@ namespace miRobotEditor.Classes
                 return;
             }
 
-			var dMenuClick = MenuClick;
-
             if (File.Exists(filepath))
-                Workspace.Instance.OpenFile(filepath);
+            {
+                Workspace.Instance.Open(filepath);
+            }
             else
                 PromptForDelete(filepath);
-//			if ( dMenuClick != null ) dMenuClick( menuItem, new MenuClickEventArgs( filepath ) );
 		}
         
         void PromptForDelete(string filepath)

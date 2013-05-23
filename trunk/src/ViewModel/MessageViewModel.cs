@@ -12,12 +12,11 @@ using Application = System.Windows.Application;
 namespace miRobotEditor.ViewModel
 {
 
-    //TODO Add Message Icons
     public enum MSGIcon { ERROR, INFO }
 
-    public class MessageViewModel:ViewModelBase
+    public class MessageViewModel:ToolViewModel
     {
-
+        public const string ToolContentId = "MessageViewTool";
 
         #region Properties
         private static MessageViewModel _instance;
@@ -28,20 +27,22 @@ namespace miRobotEditor.ViewModel
         private OutputWindowMessage _selectedMessage ;
         public OutputWindowMessage SelectedMessage {get{return _selectedMessage;}set{_selectedMessage=value;RaisePropertyChanged("SelectedMessage");}}
 
-        public ObservableCollection<OutputWindowMessage> Messages { get; set; }
+        public ObservableCollection<IMessage> Messages { get; set; }
 
         #endregion
 
         #region Constructor
-        public MessageViewModel()
+        public MessageViewModel():base("Output Window")
         {
-            Messages = new ObservableCollection<OutputWindowMessage>();
+            ContentId = ToolContentId;
+            DefaultPane = DefaultToolPane.Bottom;
+            Messages = new ObservableCollection<IMessage>();
             Instance = this;
         }        
 
         #endregion
 
-        public static void Add(OutputWindowMessage msg)
+        public static void Add(IMessage msg)
         {
             Add(msg.Title,msg.Description,msg.Icon,true);
         }
@@ -127,12 +128,22 @@ namespace miRobotEditor.ViewModel
         #endregion
 
     }
-    public class OutputWindowMessage
+    public class OutputWindowMessage:IMessage
     {
+        public string Time { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
         public BitmapImage Icon { get; set; }
     }
+
+    public interface IMessage
+    {
+        BitmapImage Icon { get; set; }
+        string Time { get; set; }
+        string Title { get; set; }
+        string Description { get; set; }
+    }
+
     /*
     public class MessageWindow
     {

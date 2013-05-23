@@ -11,20 +11,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AvalonDock.Layout;
-
+using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {
 	  class LayoutInitializer : ILayoutUpdateStrategy
     {
         public bool BeforeInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow, ILayoutContainer destinationContainer)
         {
+
+            var content = anchorableToShow.Content;
             //AD wants to add the anchorable into destinationContainer
             //just for test provide a new anchorablepane 
             //if the pane is floating let the manager go ahead
             LayoutAnchorablePane destPane = destinationContainer as LayoutAnchorablePane;
-            if (destinationContainer != null &&
+             if (destinationContainer != null &&
                 destinationContainer.FindParent<LayoutFloatingWindow>() != null)
                 return false;
+             var bottomPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => d.Name == "BottomPane");
+             var leftPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => d.Name == "LeftPane");
+             var rightPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => d.Name == "RightPane");
+
+
+           
+             switch (((ToolViewModel)content).DefaultPane)
+             {
+                 case DefaultToolPane.Bottom:
+                     if (bottomPane != null)
+                     {
+                         bottomPane.Children.Add(anchorableToShow);
+                         return true;
+                     }
+                     break;
+                 case DefaultToolPane.Left:
+                     if (leftPane != null)
+                     {
+                         leftPane.Children.Add(anchorableToShow);
+                         return true;
+                     }
+                     break;
+                 case DefaultToolPane.Right:
+                     if (rightPane != null)
+                     {
+                         rightPane.Children.Add(anchorableToShow);
+                         return true;
+                     }
+
+                     break;
+             }
+
+            //TODO Need to Expand Side to meet width
+
+           
+            
 
             var toolsPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => d.Name == "ToolsPane");
             if (toolsPane != null)
@@ -40,6 +78,20 @@ namespace miRobotEditor.Classes
 
         public void AfterInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableShown)
         {
+            var content = anchorableShown.Content as ToolViewModel;
+            if (content==null) return;
+
+            switch ((content.DefaultPane))
+            {
+
+                case DefaultToolPane.Bottom:
+                    anchorableShown.AutoHideMinHeight = content.Height;
+                    break;
+                case DefaultToolPane.Right:
+                case DefaultToolPane.Left:
+                    anchorableShown.AutoHideMinWidth = content.Width;
+                    break;
+            }
         }
 
 

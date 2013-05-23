@@ -12,73 +12,60 @@ using System.Diagnostics;
 namespace miRobotEditor.Commands
 {
     [System.Diagnostics.DebuggerStepThrough]
-public class RelayCommand : ICommand
-{
-    #region Fields
-
-    readonly Action<object> _execute;
-    readonly Predicate<object> _canExecute;        
-
-    #endregion // Fields
-
-    #region Constructors
-
-    public RelayCommand(Action<object> execute)
-    : this(execute, null)
+    public class RelayCommand : ICommand
     {
-    }
+        #region Fields
 
-    public RelayCommand(Action<object> execute, Predicate<object> canExecute)
-    {
-        if (execute == null)
-            throw new ArgumentNullException("execute");
+        readonly Action<object> _execute;
+        readonly Predicate<object> _canExecute;
 
-        _execute = execute;
-        _canExecute = canExecute;           
-    }
-    #endregion // Constructors
+        #endregion // Fields
 
-    #region ICommand Members
+        #region Constructors
 
-    [DebuggerStepThrough]
-    public bool CanExecute(object parameter)
-    {
-        return _canExecute == null || _canExecute(parameter);
-    }
+        public RelayCommand(Action<object> execute)
+            : this(execute, null)
+        {
+        }
 
-    public event EventHandler CanExecuteChanged
-    {
-        add { CommandManager.RequerySuggested += value; }
-        remove { CommandManager.RequerySuggested -= value; }
-    }
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+        {
+            if (execute == null)
+                throw new ArgumentNullException("execute");
 
-    public void Execute(object parameter)
-    {
-        _execute(parameter);
-    }
+            _execute = execute;
+            _canExecute = canExecute;
+        }
+        #endregion // Constructors
 
-    #endregion // ICommand Members
-	
-	public event EventHandler OwnerChanged;
-	  protected virtual void OnOwnerChanged(EventArgs e)
+        #region ICommand Members
+
+        [DebuggerStepThrough]
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null || _canExecute(parameter);
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute(parameter);
+        }
+
+        #endregion // ICommand Members
+
+        public event EventHandler OwnerChanged;
+        protected virtual void OnOwnerChanged(EventArgs e)
         {
             if (OwnerChanged != null)
             {
                 OwnerChanged(this, e);
             }
         }
-	public object Owner {
-		get {
-			throw new NotImplementedException();
-		}
-		set {
-			throw new NotImplementedException();
-		}
-	}
-	
-	public void Run()
-	{
-		throw new NotImplementedException();
-	}
-}
+    }
 }

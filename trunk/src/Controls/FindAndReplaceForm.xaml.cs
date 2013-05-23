@@ -157,12 +157,12 @@ namespace miRobotEditor.Controls
         }
         private static void FindNext()
         {
-            DummyDoc.Instance.TextBox.FindText();
+            Workspace.Instance.ActiveEditor.TextBox.FindText();
         }
 
         private void Replace()
         {
-            DummyDoc.Instance.TextBox.ReplaceText();
+            Workspace.Instance.ActiveEditor.TextBox.ReplaceText();
         }
 
         private void ReplaceAll()

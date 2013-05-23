@@ -6,24 +6,32 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using miRobotEditor.Interfaces;
 using miRobotEditor.GUI;
+using System.Windows.Media;
+using miRobotEditor.Classes;
 namespace miRobotEditor.Languages
 {
     /// Implements AvalonEdit ICompletionData interface to provide the entries in the
     /// completion drop down.
     public class CodeCompletion : ICompletionData
     {
+        public CodeCompletion(IVariable variable) 
+        {
+            Text = variable.Name;
+            Image = variable.Icon;
+            Description = variable.Description.ToString();
+        }
+
+
         [Localizable(false)]
         public CodeCompletion(string text)
         {
             Text = text;
         }
 
-        public System.Windows.Media.ImageSource Image
-        {
-            get { return null; }
-        }
+        public ImageSource Image{get;set;}
         private string _text = string.Empty;
         public string Text { get; private set; }
+        private string _description = string.Empty;
 
         // Use this property if you want to show a fancy UIElement in the list.
         public object Content
@@ -31,15 +39,14 @@ namespace miRobotEditor.Languages
             get { return Text; }
         }
 
+
+
         [Localizable(false)]
-        public object Description
-        {
-            get { return "Description for " + Text; }
-        }
+        public object Description { get { return String.IsNullOrEmpty(_description)?null:String.Format("Description for {0} \r\n {1}", Text, _description); } set { _description = (string)value; } }
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            var currentWord = DummyDoc.Instance.TextBox.FindWord();
+            var currentWord = Workspace.Instance.ActiveEditor.TextBox.FindWord();
             var offs = completionSegment.Offset - currentWord.Length;
             // Create New AnchorSegment 
             textArea.Document.Replace(offs, currentWord.Length, Text);
@@ -50,6 +57,7 @@ namespace miRobotEditor.Languages
             get { return 0; }
         }
     }
+
     /// <summary>
     /// Container class for the parameters available to the Complete function.
     /// </summary>

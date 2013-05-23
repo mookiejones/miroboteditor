@@ -32,7 +32,7 @@ namespace miRobotEditor.Interfaces
 	    /// Use this event to close the insight window or adjust .
 	    /// </summary>
 	    /// <remarks>
-	    /// Unlike directly attaching to <see cref="IDocument.TextChanged"/>, using the event does not require handlers to unsubscribe
+	    /// Unlike directly attaching to <see cref="IEditor.TextChanged"/>, using the event does not require handlers to unsubscribe
 	    /// when the insight window is closed. This makes it easier to avoid memory leaks.
 	    /// </remarks>
 	    event EventHandler<TextChangeEventArgs> DocumentChanged;

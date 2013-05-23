@@ -21,9 +21,9 @@ namespace miRobotEditor.Languages
 
 
 
-        public override FileModel GetFile(string filename)
+        public override DocumentViewModel GetFile(string filename)
         {
-            return new FileModel { FileName = filename, Icon = Utilities.LoadBitmap(Global.ImgSrc) };
+            return new DocumentViewModel(filename);
         }
 
     	#region Properties
@@ -66,7 +66,7 @@ namespace miRobotEditor.Languages
         }
 
 
-        internal override Enums.Typlanguage RobotType { get { return Enums.Typlanguage.None; } }
+        internal override Typlanguage RobotType { get { return Typlanguage.None; } }
 
         internal override string FunctionItems
         {

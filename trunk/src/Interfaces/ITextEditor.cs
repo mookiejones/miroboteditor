@@ -32,7 +32,7 @@ namespace miRobotEditor.Interfaces
 		/// <summary>
 		/// Gets the document that is being edited.
 		/// </summary>
-		IDocument Document { get; }
+		IEditor Document { get; }
 		
 		/// <summary>
 		/// Gets an object that represents the caret inside this text editor.

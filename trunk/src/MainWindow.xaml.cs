@@ -47,7 +47,7 @@ namespace miRobotEditor
             //If No open files, Open one
             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (docpane.ChildrenCount == 0)
-                OpenFile(String.Empty);
+                Workspace.Instance.AddNewFile();
 
             ProcessArgs();
 
@@ -55,7 +55,7 @@ namespace miRobotEditor
 
         void OpenFile(string filename)
         {
-            Workspace.Instance.OpenFile(filename);
+            Workspace.Instance.Open(filename);
         }
 
         private void LoadOpenFiles()
@@ -82,14 +82,6 @@ namespace miRobotEditor
         }
 
 
-        private void OpenFunction(object sender, MouseButtonEventArgs e)
-        {
-
-            var i = (IVariable)((System.Windows.Controls.ListViewItem)sender).Content;
-            DummyDoc.Instance.TextBox.SelectText(i);
-        }
-
-
         [Localizable(false)]
         private void DropFiles(object sender, System.Windows.DragEventArgs e)
         {
@@ -98,7 +90,7 @@ namespace miRobotEditor
             foreach (var t in files)
             {
                 MessageViewModel.Instance.Add("File Dropped", String.Format("Opening:={0}", t), MSGIcon.INFO);
-                Workspace.Instance.OpenFile(t);
+                Workspace.Instance.Open(t);
             }
         }
 
@@ -163,9 +155,9 @@ namespace miRobotEditor
             if (docpane != null)
                 foreach(var doc in docpane.Children)
                 {
-                    var d = doc.Content as DummyDoc;
-                    if (d.Filename!=null)
-                    Settings.Default.OpenDocuments += d.Filename + ';';                   
+                    var d = doc.Content as DocumentViewModel;
+                    if (d.FilePath!=null)
+                        Settings.Default.OpenDocuments += d.FilePath + ';';                   
                 }
             Settings.Default.Save();
 
@@ -193,7 +185,7 @@ namespace miRobotEditor
 
         public void CloseWindow(object param)
         {
-            var ad = param as DummyDoc;
+            var ad = param as IDocument;
             var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (docpane == null) return;
 			
