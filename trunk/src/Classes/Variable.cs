@@ -1,12 +1,13 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.ComponentModel;
+using System.Windows.Media.Imaging;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {
     public class Variable:ViewModelBase,IVariable
     {
-        private bool _isSelected = false;
+        private bool _isSelected;
         public bool IsSelected { get { return _isSelected; } set { _isSelected = value; RaisePropertyChanged("IsSelected"); } }
-        private BitmapImage _icon = null;
+        private BitmapImage _icon;
         public BitmapImage Icon { get { return _icon; } set { _icon = value; RaisePropertyChanged("Icon"); } }
 
         private string _description = string.Empty;
@@ -30,7 +31,7 @@ namespace miRobotEditor.Classes
         private string _declaration = string.Empty;
         public string Declaration { get { return _declaration; } set { _declaration = value; RaisePropertyChanged("Declaration"); } }
 
-        private int _offset = 0;
+        private int _offset;
         public int Offset { get { return _offset; } set { _offset = value; RaisePropertyChanged("Offset"); } }
     }
     public interface IVariable
@@ -38,6 +39,7 @@ namespace miRobotEditor.Classes
         bool IsSelected { get; set; }
         BitmapImage Icon { get; set; }
         string Name { get; set; }
+        [Localizable(false)]
         string Type { get; set; }
         string Path { get; set; }
         string Value { get; set; }
@@ -46,9 +48,4 @@ namespace miRobotEditor.Classes
         string Description { get; set; }
         int Offset { get; set; }       
     }
-
-    public class MethodVariable : Variable
-    {
-    }
-
 }

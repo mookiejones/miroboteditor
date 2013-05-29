@@ -8,8 +8,8 @@
  */
 using System;
 using System.IO;
-using miRobotEditor.GUI;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Language_Specific
@@ -19,18 +19,24 @@ namespace miRobotEditor.Language_Specific
 	/// </summary>
 	public class KUKAKFDHelper:ViewModelBase
 	{
-		List<String> ilf = new List<String>();
-		private string TQ_TriggerId = string.Empty;
+#pragma warning disable 169
+		List<String> _ilf = new List<String>();
+		private string _tqTriggerId = string.Empty;
 
-		String[,] sParam;
-		String[,] sVar;
+#pragma warning disable 649
+		String[,] _sParam;
+#pragma warning restore 649
+#pragma warning disable 649
+		String[,] _sVar;
+#pragma warning restore 649
 		
+// ReSharper disable UnusedMember.Local
 		int ParamCount()
 		{
 			var num2 = 1;
 			do
 			{
-				if (String.IsNullOrEmpty(sParam[num2,0]))
+				if (String.IsNullOrEmpty(_sParam[num2,0]))
 				    return num2;
 				    
 				    num2++;
@@ -41,7 +47,7 @@ namespace miRobotEditor.Language_Specific
 		
 		string ParamGetByIndex(int sIndex, int iField = 0)
 		{
-			return this.sParam[sIndex,iField];
+			return _sParam[sIndex,iField];
 		}
 		
 		private string ParamGet(string sPar, int iField=5)
@@ -49,8 +55,8 @@ namespace miRobotEditor.Language_Specific
 			var num = 1;
 			do
 			{
-				if (sParam[num,0] == sPar.ToLower())
-					return sParam[num,iField];
+				if (_sParam[num,0] == sPar.ToLower())
+					return _sParam[num,iField];
 				num++;
 			}
 			while (num<=255);
@@ -59,9 +65,9 @@ namespace miRobotEditor.Language_Specific
 		
 		public bool IsNumber (ref string value)
 		{
-			var flag = false;
+			const bool flag = false;
 			var str = value;
-			var str2 = "0123456789";
+			const string str2 = "0123456789";
 			
 			try
 			{
@@ -70,7 +76,7 @@ namespace miRobotEditor.Language_Specific
 				
 				if (str.Substring(0,1) == "-")
 					str = str.Substring(2);
-				for (int i = str.Length -1;i >=0;i+= -1)
+				for (var i = str.Length -1;i >=0;i+= -1)
 					if (str2.IndexOf(str.Substring(i)) == -1)
 					    return false;
 			}
@@ -86,8 +92,8 @@ namespace miRobotEditor.Language_Specific
 		{
 			get
 			{
-				for (var i = sVar.GetUpperBound(0);i>=0;i+= -1)
-					if (!String.IsNullOrEmpty(sVar[i,0]))
+				for (var i = _sVar.GetUpperBound(0);i>=0;i+= -1)
+					if (!String.IsNullOrEmpty(_sVar[i,0]))
 						return i;
 				
 				return -1;
@@ -99,18 +105,15 @@ namespace miRobotEditor.Language_Specific
  
 
 		
-		List<Label> LabelCollection = new List<Label>();
-		Panel ILFPanel;
-		Label ILFCommand = new Label();
-		public KUKAKFDHelper()
-		{
-		}
-		
-		string StartupPath
+		List<Label> _labelCollection = new List<Label>();
+		Panel _ilfPanel;
+		Label _ilfCommand = new Label();
+
+	    static string StartupPath
 		{
 			get{
 				var s=				System.Reflection.Assembly.GetExecutingAssembly().Location;
-				return s.ToString();
+				return s;
 			}
 		}
 		
@@ -122,10 +125,11 @@ namespace miRobotEditor.Language_Specific
 					MessageViewModel.Add("KFD","TPBasis path ",null,false);
 				else
 				{
-					foreach (string str in Directory.GetFiles(StartupPath + @"\TPBasis\"))
-						if (Path.GetExtension(str).ToLower() == ".kfd")
-							this.LoadFile(str, "TPBasis");
-                    MessageViewModel.Add("KFD", "TPBasis initialization complete", null, false);
+				    foreach (var str in from str in Directory.GetFiles(StartupPath + @"\TPBasis\") let extension = Path.GetExtension(str) where extension != null && extension.ToLower() == ".kfd" select str)
+				    {
+				        LoadFile(str, "TPBasis");
+				    }
+				    MessageViewModel.Add("KFD", "TPBasis initialization complete", null, false);
 				}
 			}
 			catch (Exception ex)
@@ -137,20 +141,22 @@ namespace miRobotEditor.Language_Specific
 
  private bool CheckPar(string sLine, string sParam)
 {
-    bool flag = false;
+    var flag = false;
     try
     {
     	
-    	int start = sLine.IndexOf(sParam + " ");
+    	var start = sLine.IndexOf(sParam + " ");
         if (start == 0)
-            return flag;
+            return false;
 
         start += sParam.Length;
-        int num2 = sLine.IndexOf("}",start);
-        int num3 = sLine.IndexOf(":",start);
-        int num4 = sLine.IndexOf(",",start);
+        var num2 = sLine.IndexOf("}", start, StringComparison.Ordinal);
+        var num3 = sLine.IndexOf(":", start, StringComparison.Ordinal);
+        var num4 = sLine.IndexOf(",", start, StringComparison.Ordinal);
         if ((((num3 < num2) && (num3 > 0)) || ((num4 < num2) && (num4 > 0))) || (num2 == 0))
+// ReSharper disable RedundantAssignment
             num2 = num3;
+// ReSharper restore RedundantAssignment
 
         flag = true;
     }
@@ -442,7 +448,9 @@ namespace miRobotEditor.Language_Specific
 		    }
 		    */
 		}
+// ReSharper disable UnusedParameter.Local
 private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, string sCmdShow, string sTpName = "", string sTpVersion = "")
+// ReSharper restore UnusedParameter.Local
 {
 	/*
 }
@@ -754,7 +762,9 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
     */
 }
 
+// ReSharper disable UnusedParameter.Local
 		private void ExecuteScript(string sScript)
+// ReSharper restore UnusedParameter.Local
 		{
 			/*
 		}
@@ -1083,11 +1093,11 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
  
 	private string GetPar(string sLine, string sParam)
 	{
-	    string str = "";
+	    var str = "";
 
 	    try
 	    {
-	        bool flag = false;
+	        var flag = false;
 	        var start = sLine.IndexOf(sParam + " ");
 	        if (start == 0)
 	            return str;
@@ -1108,7 +1118,7 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	        if ((flag || ((num3 < num2) && (num3 > 0))) || (num2 == 0))
 	            num2 = num3;
 	
-	        str = sLine.Substring(start,num2-start).Trim().Trim(new char[]{'"'}).Replace("/;",";");
+	        str = sLine.Substring(start,num2-start).Trim().Trim(new[]{'"'}).Replace("/;",";");
 	    }
 	    catch (Exception ex)
 	    {
@@ -1117,10 +1127,12 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	    return str;
 	}
 
+// ReSharper disable UnusedParameter.Local
  	private string GetParam(string sLine)
-{
- 		string str = "";
- 		/*
+// ReSharper restore UnusedParameter.Local
+ 	{
+ 	    const string str = "";
+ 	    /*
  	}
     
     try
@@ -1278,13 +1290,15 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
     }
     */
     return str;
-}
+ 	}
 
- 
-	private int GetParamWidth(string sText)
-	{
-	    int num = -1;
-	    /*
+
+// ReSharper disable UnusedParameter.Local
+	    private int GetParamWidth(string sText)
+// ReSharper restore UnusedParameter.Local
+	    {
+	        const int num = -1;
+	        /*
 	    try
 	    {
 	        Graphics graphics = this.CreateGraphics();
@@ -1300,14 +1314,15 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	    }
 	    */
 	    return num;
-	}
+	    }
 
- 
 
-	 private string GetScriptPar(string sLine, string sPar)
-	{
-	    string str = "";
-	    /*
+// ReSharper disable UnusedParameter.Local
+	    private string GetScriptPar(string sLine, string sPar)
+// ReSharper restore UnusedParameter.Local
+	    {
+	        const string str = "";
+	        /*
 	    try
 	    {
 	        int start = (Strings.InStr(sLine.Replace("(", " ").Replace(",", " "), " " + sPar + " ", CompareMethod.Text) + Strings.Len(sPar)) + 1;
@@ -1326,13 +1341,14 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	    }
 	    */
 	   	    return str;
+	    }
 
-	}
-
-	 private string GetScriptPar2(string sLine, string sPar)
-	{
-	    string str = "";
-	    /*
+// ReSharper disable UnusedParameter.Local
+	    private string GetScriptPar2(string sLine, string sPar)
+// ReSharper restore UnusedParameter.Local
+	    {
+	        const string str = "";
+	        /*
 	    try
 	    {
 	        int num4;
@@ -1358,13 +1374,15 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	    }
 	    */
 	    return str;
-	}
+	    }
 
- 
-		private string GetStrucVal(string sLine, string sVar)
-		{
-			 string str = "";
-			/*
+
+// ReSharper disable UnusedParameter.Local
+	    private string GetStrucVal(string sLine, string sVar)
+// ReSharper restore UnusedParameter.Local
+	    {
+	        const string str = "";
+	        /*
 		   
 		    try
 		    {
@@ -1395,14 +1413,17 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 		    }
 		    */
 		    return str;
-		}
+	    }
 
- 
 
-		 private string GetVarFromDat(string sVarIn)
+// ReSharper disable UnusedParameter.Local
+	    private string GetVarFromDat(string sVarIn)
+// ReSharper restore UnusedParameter.Local
 		{
-		    string[] strArray = new string[1];
-		    string str = "";
+#pragma warning disable 168
+		    var strArray = new string[1];
+#pragma warning restore 168
+		    const string str = "";
 		    /*
 		    try
 		    {
@@ -1479,7 +1500,9 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 		}
 
  
-private void LoadFile(string sFile, string sTyp)
+// ReSharper disable UnusedParameter.Local
+private static void LoadFile(string sFile, string sTyp)
+// ReSharper restore UnusedParameter.Local
 		{
 			/*
 		}
@@ -1582,10 +1605,14 @@ private void LoadFile(string sFile, string sTyp)
 		    */
 		}
 		
+// ReSharper disable UnusedParameter.Local
 private bool ReDeclFromDat(string sName, string sVal)
+// ReSharper restore UnusedParameter.Local
 {
-    string[] strArray = new string[1];
-    bool flag = false;
+#pragma warning disable 168
+    var strArray = new string[1];
+#pragma warning restore 168
+    const bool flag = false;
     /*
     try
     {
@@ -1675,10 +1702,12 @@ private bool ReDeclFromDat(string sName, string sVal)
 
  
 
+// ReSharper disable UnusedParameter.Local
 private bool ScriptReDecl(string sPar1, string sPar2)
-		{
-		    bool flag = false;
-		    /*
+// ReSharper restore UnusedParameter.Local
+{
+    const bool flag = false;
+    /*
 		    try
 		    {
 		        string str3;
@@ -1723,12 +1752,14 @@ private bool ScriptReDecl(string sPar1, string sPar2)
 		    }
 		    */
 		    return flag;
-		}
-		
-private bool ScriptSetVar(string sPar1, string sPar2)
-{
-    bool flag = false;
-    /*
+}
+
+// ReSharper disable UnusedParameter.Local
+	    private bool ScriptSetVar(string sPar1, string sPar2)
+// ReSharper restore UnusedParameter.Local
+	    {
+	        const bool flag = false;
+	        /*
     try
     {
         int num = this.ParamCount();
@@ -1754,16 +1785,23 @@ private bool ScriptSetVar(string sPar1, string sPar2)
     }
     */
     return flag;
-}
+	    }
 
- 
 
- private bool ScriptShowVar(string sPar1, string sPar2)
+// ReSharper disable UnusedParameter.Local
+	    private bool ScriptShowVar(string sPar1, string sPar2)
+// ReSharper restore UnusedParameter.Local
 {
- 	List<String> strArray = new List<string>(1);
-    string expression = String.Empty;
-    bool flag = false;
-    string scTmp = String.Empty;
+#pragma warning disable 168
+ 	var strArray = new List<string>(1);
+#pragma warning restore 168
+#pragma warning disable 168
+    var expression = String.Empty;
+#pragma warning restore 168
+    const bool flag = false;
+#pragma warning disable 168
+    var scTmp = String.Empty;
+#pragma warning restore 168
 /*
     try
     {
@@ -1854,8 +1892,10 @@ private bool ScriptSetVar(string sPar1, string sPar2)
 
  public bool SetVarFromDat(string sVarIn, string sVal, bool bRefresh = true)
 {
-    string[] strArray = new string[1];
-    bool flag = false;
+#pragma warning disable 168
+    var strArray = new string[1];
+#pragma warning restore 168
+    const bool flag = false;
     /*
     try
     {
@@ -1961,7 +2001,9 @@ private bool ScriptSetVar(string sPar1, string sPar2)
         this.SendErrorMsg();
     }
     */
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
     return flag;
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 }
 
  private void UpdateControls()
@@ -2107,7 +2149,7 @@ private bool ScriptSetVar(string sPar1, string sPar2)
 
  private void LoadUserFiles()
 {
- 	/*
+    /*
     try
     {
         foreach (string str in Directory.GetFiles(this.sEnvPathTpUser))
@@ -2118,14 +2160,16 @@ private bool ScriptSetVar(string sPar1, string sPar2)
     }
     catch (Exception ex)
     {
-    	MessageWindow.Add(ex);
+        MessageWindow.Add(ex);
         this.SendErrorMsg();
     }
     
 }
 */
-		
-	}
+#pragma warning restore 169
+    // ReSharper restore UnusedMember.Local
+
+}
 }
 }
 

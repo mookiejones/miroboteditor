@@ -8,7 +8,7 @@
 			<vm:OptionsViewModel/>
 		</Grid.DataContext>
 		<Button Content="Apply" Command="{Binding ApplyCommand}"/>
-		<Button Content="OK" Command="{Binding OKCommand}"/>
+		<Button Content="OK" Command="{Binding OkCommand}"/>
 		<Button Content="Cancel" Command="{Binding CancelCommand}"/>	
 	</Grid>
 </Window>

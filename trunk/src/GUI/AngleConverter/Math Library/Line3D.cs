@@ -1,8 +1,11 @@
+using System.ComponentModel;
+
 namespace ISTUK.MathLibrary
 {
     using System;
     using System.Collections.ObjectModel;
 
+    [Localizable(false)]
     public sealed class Line3D : IGeometricElement3D
     {
        
@@ -16,7 +19,7 @@ namespace ISTUK.MathLibrary
         public Line3D(Point3D p1, Point3D p2)
         {
             Origin = p1;
-            Direction = (Vector3D)(p2 - p1);
+            Direction = p2 - p1;
             Direction.Normalise();
         }
 
@@ -35,7 +38,7 @@ namespace ISTUK.MathLibrary
 
         public Point3D GetPoint(double u)
         {
-            var vectord = new Vector3D((Matrix)(u * Direction));
+            var vectord = new Vector3D(u * Direction);
             return (Origin + vectord);
         }
 

@@ -229,21 +229,19 @@ namespace ISTUK.MathLibrary
                         for (var num48 = num3; num48 <= m; num48++)
                         {
                             num12 = num9 * vector[num48];
-                            if (Math.Abs((Math.Abs(num12) + num6) - num6) > EPSILON)
+                            if (!(Math.Abs((Math.Abs(num12) + num6) - num6) > EPSILON)) continue;
+                            b = _w[num48];
+                            num13 = Pythag(num12, b);
+                            _w[num48] = (float) num13;
+                            num13 = 1.0 / num13;
+                            num47 = b * num13;
+                            num9 = -num12 * num13;
+                            for (var num49 = 0; num49 < rows; num49++)
                             {
-                                b = _w[num48];
-                                num13 = Pythag(num12, b);
-                                _w[num48] = (float) num13;
-                                num13 = 1.0 / num13;
-                                num47 = b * num13;
-                                num9 = -num12 * num13;
-                                for (var num49 = 0; num49 < rows; num49++)
-                                {
-                                    num50 = _u[num49, num7];
-                                    num51 = _u[num49, num48];
-                                    _u[num49, num7] = (num50 * num47) + (num51 * num9);
-                                    _u[num49, num48] = (num51 * num47) - (num50 * num9);
-                                }
+                                num50 = _u[num49, num7];
+                                num51 = _u[num49, num48];
+                                _u[num49, num7] = (num50 * num47) + (num51 * num9);
+                                _u[num49, num48] = (num51 * num47) - (num50 * num9);
                             }
                         }
                     }
@@ -362,11 +360,9 @@ namespace ISTUK.MathLibrary
                 var num2 = 0;
                 for (var i = 1; i < W.Size; i++)
                 {
-                    if (W[i] > num)
-                    {
-                        num = W[i];
-                        num2 = i;
-                    }
+                    if (!(W[i] > num)) continue;
+                    num = W[i];
+                    num2 = i;
                 }
                 return num2;
             }
@@ -380,11 +376,9 @@ namespace ISTUK.MathLibrary
                 var num2 = 0;
                 for (var i = 1; i < W.Size; i++)
                 {
-                    if (W[i] < num)
-                    {
-                        num = W[i];
-                        num2 = i;
-                    }
+                    if (!(W[i] < num)) continue;
+                    num = W[i];
+                    num2 = i;
                 }
                 return num2;
             }

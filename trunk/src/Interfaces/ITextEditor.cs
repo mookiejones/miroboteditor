@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 namespace miRobotEditor.Interfaces
 {

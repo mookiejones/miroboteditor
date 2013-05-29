@@ -67,17 +67,15 @@ namespace ISTUK.MathLibrary
                     }
                     num4++;
                 }
-                if (num2 != i)
+                if (num2 == i) continue;
+                _diag[num2] = _diag[i];
+                _diag[i] = num3;
+                for (num4 = 0; num4 < 3; num4++)
                 {
-                    _diag[num2] = _diag[i];
-                    _diag[i] = num3;
-                    for (num4 = 0; num4 < 3; num4++)
-                    {
-                        var num5 = _mat[num4, i];
-                        _mat[num4, i] = _mat[num4, num2];
-                        _mat[num4, num2] = num5;
-                        _isRotation = !_isRotation;
-                    }
+                    var num5 = _mat[num4, i];
+                    _mat[num4, i] = _mat[num4, num2];
+                    _mat[num4, num2] = num5;
+                    _isRotation = !_isRotation;
                 }
             }
         }
@@ -92,12 +90,10 @@ namespace ISTUK.MathLibrary
 
         private void GuaranteeRotation()
         {
-            if (!_isRotation)
+            if (_isRotation) return;
+            for (var i = 0; i < 3; i++)
             {
-                for (var i = 0; i < 3; i++)
-                {
-                    _mat[i, 0] = -_mat[i, 0];
-                }
+                _mat[i, 0] = -_mat[i, 0];
             }
         }
 

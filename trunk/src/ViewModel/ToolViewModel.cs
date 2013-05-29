@@ -6,13 +6,10 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;
 
 namespace miRobotEditor.ViewModel
 {
-    public enum DefaultToolPane { Left, Right, Bottom, None };
-
-	/// <summary>
+    /// <summary>
 	/// Description of ToolViewModel.
 	/// </summary>
 	public class ToolViewModel:PaneViewModel
@@ -46,11 +43,9 @@ namespace miRobotEditor.ViewModel
             get { return _isVisible; }
             set
             {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    RaisePropertyChanged("IsVisible");
-                }
+                if (_isVisible == value) return;
+                _isVisible = value;
+                RaisePropertyChanged("IsVisible");
             }
         }
 

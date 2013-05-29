@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
 using miRobotEditor.ViewModel;
 using System.Windows.Controls;
 namespace miRobotEditor.Converters
 {
+    [Localizable(false)]
     public class WidthConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -12,7 +14,6 @@ namespace miRobotEditor.Converters
             if (value is GridView)
             {
                 var v = value as GridView;
-                Console.WriteLine("Convertered");
                 return v;
             }
 

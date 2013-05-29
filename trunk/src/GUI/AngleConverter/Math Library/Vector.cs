@@ -27,13 +27,11 @@ namespace ISTUK.MathLibrary
             {
                 mat = mat.Transpose();
             }
-            if (mat.Rows == 1)
+            if (mat.Rows != 1) return;
+            Size = mat.Columns;
+            for (var i = 0; i < mat.Columns; i++)
             {
-                Size = mat.Columns;
-                for (var i = 0; i < mat.Columns; i++)
-                {
-                    this[i] = mat[0, i];
-                }
+                this[i] = mat[0, i];
             }
         }
 
@@ -85,12 +83,16 @@ namespace ISTUK.MathLibrary
             return new Vector(this / Length());
         }
 
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector operator +(Vector v1, Vector v2)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector(v1 + v2);
         }
 
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector operator +(Vector vec, double scalar)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector(vec + scalar);
         }
@@ -103,7 +105,9 @@ namespace ISTUK.MathLibrary
             return new Vector(vec + scalar);
         }
 
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector operator /(Vector vec, double scalar)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector(vec / scalar);
         }
@@ -111,12 +115,16 @@ namespace ISTUK.MathLibrary
         {
             return new Vector(vec / scalar);
         }
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector operator *(Matrix mat, Vector vec)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector(mat * vec);
         }
 
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector operator *(Vector vec, double scalar)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector(vec * scalar);
         }
@@ -124,12 +132,16 @@ namespace ISTUK.MathLibrary
         {
             return new Vector(vec * scalar);
         }
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector operator *(double scalar, Vector vec)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector(scalar * vec);
         }
 
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector operator -(Vector v1, Vector v2)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector(v1 - v2);
         }
@@ -150,12 +162,16 @@ namespace ISTUK.MathLibrary
         {
             return !(v1 == v2);
         }
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector operator -(Vector vec, double scalar)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector(vec - scalar);
         }
 
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector operator -(Vector v)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector(-v);
         }

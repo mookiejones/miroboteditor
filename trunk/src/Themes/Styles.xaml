@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:GUI="clr-namespace:miRobotEditor.GUI">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
  <Style  TargetType="{x:Type DataGrid}">
         <Setter Property="RowBackground" Value="White" />
         <Setter Property="AlternatingRowBackground" Value="#EBEBED" />
@@ -306,11 +305,6 @@
         </Style.Triggers>
     </Style>
 
-    <DataTemplate x:Key="DocumentHeaderTemplateKey" >
-        <Grid>
-        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>            
-        </Grid>
-    </DataTemplate>
-
+  
    
 </ResourceDictionary>

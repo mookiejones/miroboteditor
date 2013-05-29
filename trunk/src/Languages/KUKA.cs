@@ -17,9 +17,8 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using miRobotEditor.Snippets;
 using miRobotEditor.ViewModel;
 using System.Windows.Input;
-using System.Linq;
 using miRobotEditor.Commands;
-using System.Globalization;
+
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -48,7 +47,7 @@ namespace miRobotEditor.Languages
 
         public ICommand SystemFunctionCommand
         {
-            get { return _systemFunctionCommand ?? (_systemFunctionCommand = new RelayCommand((p) => FunctionGenerator.GetSystemFunctions(), (p) => true)); }
+            get { return _systemFunctionCommand ?? (_systemFunctionCommand = new RelayCommand(p => FunctionGenerator.GetSystemFunctions(), p => true)); }
         }
 
         #endregion
@@ -193,12 +192,14 @@ namespace miRobotEditor.Languages
         internal static class FunctionGenerator
         {
             private static string _functionFile = String.Empty;
-            private static string GetSTRUC(string filename)
+            private static string GetStruc(string filename)
             {
                 return RemoveFromFile(filename, "((?<!_)STRUC [\\w\\s,\\[\\]]*)");
             }
 
+// ReSharper disable MemberHidesStaticFromOuterClass
             public static string GetSystemFunctions()
+// ReSharper restore MemberHidesStaticFromOuterClass
             {
 
                 var sb = new System.Text.StringBuilder();
@@ -232,7 +233,7 @@ namespace miRobotEditor.Languages
                                if (vm.Structures)
                                {
                                	sb.AppendFormat("{0}\r\n*** Structures  ******************\r\n{0}\r\n",st);
-                                sb.Append(GetSTRUC(_functionFile));
+                                sb.Append(GetStruc(_functionFile));
                                }
                                if (vm.Programs)
                                {
@@ -362,13 +363,15 @@ namespace miRobotEditor.Languages
             var crlf = section.TextContent.Trim().IndexOf("\r\n", StringComparison.Ordinal);
 
             //Find Offset of Text for spaces here
+#pragma warning disable 168
             var start = section.StartOffset + s[0].Length;
+#pragma warning restore 168
 
             resultstring =resultstring.Substring(eval.IndexOf(s[0])+s[0].Length);
 
 
-            
-            var end = eval.IndexOf(s[1]);
+
+            var end = resultstring.Length - s[0].Length;//eval.IndexOf(s[1]);
 
 
 
@@ -404,42 +407,42 @@ namespace miRobotEditor.Languages
 
         public override DocumentViewModel GetFile(string filepath)
         {
-            System.Windows.Media.ImageSource _icon = null;
+            System.Windows.Media.ImageSource icon = null;
             switch (Path.GetExtension(filepath.ToLower()))
             {
                 case ".src":
                     GetInfo();
-                    _icon = Utilities.GetIcon(Global.ImgSrc);
+                    icon = Utilities.GetIcon(Global.ImgSrc);
                     break;
                 case ".dat":
                         GetInfo();
-                        _icon = Utilities.GetIcon(Global.ImgDat);
+                        icon = Utilities.GetIcon(Global.ImgDat);
                         break;
                 case ".sub":
                 case ".sps":
                 case ".kfd":
                     GetInfo();
-                    _icon = Utilities.GetIcon(Global.ImgSps);
+                    icon = Utilities.GetIcon(Global.ImgSps);
                     break;
             }
 
-            var model = new DocumentViewModel(filepath) { IconSource = _icon };
+            var model = new DocumentViewModel(filepath) { IconSource = icon };
 
             return model;
         }
 
-        private void GetInfo()
+        private static void GetInfo()
         {
         }
 
         public SnippetCollection Snippets()
         {
-        	var sc = new SnippetCollection {forSnippet};
+        	var sc = new SnippetCollection {ForSnippet};
 
             return sc;
 
         }
-        private Snippet forSnippet
+        private static Snippet ForSnippet
         {
             get
             {
@@ -510,164 +513,7 @@ namespace miRobotEditor.Languages
         }
 
     }
-   internal class DatCleaner : ViewModelBase
-    {
 
-    }
-   //TODO Need to Tie this into Code
-
-   /// <summary>
-   /// Description of DatCleanHelper.
-   /// </summary>
-   public class DatCleanHelper : ToolViewModel
-   {
-
-
-       private readonly string _filename;
-
-
-       private ReadOnlyCollection<IVariable> _listItems;
-       public ReadOnlyCollection<IVariable> ListItems
-       {
-           get
-           {
-               if (_listItems == null)
-                   _listItems = ObjectBrowserViewModel.Instance.GetVarForFile(Languages.KUKA.GetDatFileName(_filename));
-               return _listItems ; } }
-
-
-
-       private int _progress;
-       public int Progress
-       {
-           get { return _progress; }
-           set { _progress = value; RaisePropertyChanged("Progress"); }
-       }
-
-       private static DatCleanHelper _instance;
-       public static DatCleanHelper Instance
-       {
-           get { return _instance ?? (_instance = new DatCleanHelper()); }
-           set { _instance = value; }
-       }
-
-       #region Commands
-       public static RelayCommand Cleandat;
-       public static ICommand CleanDatCMD
-       {
-           get { return Cleandat ?? (Cleandat = new RelayCommand(param => Instance.CleanDat(), param => true)); }
-       }
-       public void CleanDat() { throw new NotImplementedException(); }
-
-       private static RelayCommand _checked;
-       public static ICommand CheckedCMD
-       {
-           get { return _checked ?? (_checked = new RelayCommand(param => Instance.Checked(), param => true)); }
-       }
-       public void Checked()
-       {
-           throw new NotImplementedException();
-       }
-
-       private static RelayCommand _deletevartype;
-       public static ICommand DeleteVarTypeCMD
-       {
-           get { return _deletevartype ?? (_deletevartype = new RelayCommand(param => Instance.DeleteVarType(), param => true)); }
-       }
-       public void DeleteVarType() { throw new NotImplementedException(); }
-       private static RelayCommand _addvartype;
-       public static ICommand AddVarTypeCMD
-       {
-           get { return _addvartype ?? (_addvartype = new RelayCommand(param => Instance.AddVarType(), param => true)); }
-       }
-       public void AddVarType() { throw new NotImplementedException(); }
-       private static RelayCommand _selectallcommand;
-       public static ICommand SelectAllCommand
-       {
-           get { return _selectallcommand ?? (_selectallcommand = new RelayCommand(param => Instance.SelectAll(), param => true)); }
-       }
-       private static RelayCommand _invertselection;
-       public static ICommand InvertSelectionCommand
-       {
-           get
-           {
-               return _invertselection ??
-                      (_invertselection = new RelayCommand(param => Instance.InvertSelection(), param => true));
-           }
-       }
-       void SelectAll()
-       {
-           foreach (var v in ListItems)
-               v.IsSelected = true;
-
-           RaisePropertyChanged("NumberSelected");
-       }
-       void InvertSelection()
-       {
-           foreach (var v in ListItems)
-               v.IsSelected = !v.IsSelected;
-           RaisePropertyChanged("NumberSelected");
-
-       }
-       #endregion
-
-       private const int NItemsSelected = 0;
-       private const int NItemsTotal = 0;
-       private bool _ignoretypes;
-       private bool _exclusivetypes;
-       private bool _deletedeclaration;
-       private bool _commentdeclaration;
-       private readonly ObservableCollection<String> _usedvartypes = new ObservableCollection<string> { "actual selection", "actual dat", "all Dat's" };
-       public bool IgnoreTypes
-       {
-           get { return _ignoretypes; }
-           set { _ignoretypes = value; RaisePropertyChanged("Ignoretypes"); }
-       }
-       public bool ExclusiveTypes
-       {
-           get { return _exclusivetypes; }
-           set { _exclusivetypes = value; RaisePropertyChanged("ExclusiveTypes"); }
-       }
-       public bool DeleteDeclaration
-       {
-           get { return _deletedeclaration; }
-           set { _deletedeclaration = value; RaisePropertyChanged("DeleteDeclaration"); }
-       }
-       public bool CommentDeclaration
-       {
-           get { return _commentdeclaration; }
-           set { _commentdeclaration = value; RaisePropertyChanged("CommentDeclaration"); }
-       }
-
-       private int _selectedVarIndex;
-       public int SelectedVarIndex
-       {
-           get { return _selectedVarIndex; }
-           set { _selectedVarIndex = value; RaisePropertyChanged("SelectedVarIndex"); }
-       }
-       public ObservableCollection<String> UsedVarTypes
-       {
-           get { return _usedvartypes; }
-       }
-
-    
-
-       public DatCleanHelper():base("Dat Cleaner")
-       {
-           Instance = this;
-           DefaultPane = DefaultToolPane.Right;
-           _filename = Workspace.Instance.ActiveEditor.FilePath;
-           Width = 619;
-           Height = 506;
-       }
-
-
-       public void Clean()
-       {
-
-       }
-   }
-	
-    
-    }
+    //TODO Need to Tie this into Code
+}
 

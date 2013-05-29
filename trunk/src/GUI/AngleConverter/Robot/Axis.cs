@@ -9,7 +9,7 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
         {
         }
 
-        public Axis(Vector3D point, Vector3D direction)
+        public Axis(Vector point, Vector direction)
         {
             Point = new Vector3D(point);
             Direction = new Vector3D(direction);

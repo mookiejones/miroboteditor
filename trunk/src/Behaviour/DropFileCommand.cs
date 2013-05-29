@@ -49,14 +49,12 @@
     private static void OnDropCommandChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
       var uiElement = d as UIElement;	  // Remove the handler if it exist to avoid memory leaks
-      uiElement.Drop -= UIElement_Drop;
+        if (uiElement != null) uiElement.Drop -= UIElement_Drop;
 
-      var command = e.NewValue as ICommand;
-      if (command != null)
-      {
+        var command = e.NewValue as ICommand;
+        if (command == null) return;
         // the property is attached so we attach the Drop event handler
-        uiElement.Drop += UIElement_Drop;
-      }
+        if (uiElement != null) uiElement.Drop += UIElement_Drop;
     }
 
     /// <summary>
@@ -85,26 +83,25 @@
       if (dropCommand == null)
         return;
 
-      if (e.Data.GetDataPresent(DataFormats.FileDrop))
-      {
+        if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
         var droppedFilePaths =
-        e.Data.GetData(DataFormats.FileDrop, true) as string[];
+            e.Data.GetData(DataFormats.FileDrop, true) as string[];
 
-        foreach (string droppedFilePath in droppedFilePaths)
-        {
-          // Check whether this attached behaviour is bound to a RoutedCommand
-          if (dropCommand is RoutedCommand)
-          {
-            // Execute the routed command
-            (dropCommand as RoutedCommand).Execute(droppedFilePath, uiElement);
-          }
-          else
-          {
-            // Execute the Command as bound delegate
-            dropCommand.Execute(droppedFilePath);
-          }
-        }
-      }
+        if (droppedFilePaths != null)
+            foreach (var droppedFilePath in droppedFilePaths)
+            {
+                // Check whether this attached behaviour is bound to a RoutedCommand
+                if (dropCommand is RoutedCommand)
+                {
+                    // Execute the routed command
+                    (dropCommand as RoutedCommand).Execute(droppedFilePath, uiElement);
+                }
+                else
+                {
+                    // Execute the Command as bound delegate
+                    dropCommand.Execute(droppedFilePath);
+                }
+            }
     }
   }
 }

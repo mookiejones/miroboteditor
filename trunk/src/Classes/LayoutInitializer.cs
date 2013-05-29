@@ -6,15 +6,15 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;
-using System.Collections.Generic;
+
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using AvalonDock.Layout;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {
-	  class LayoutInitializer : ILayoutUpdateStrategy
+    [Localizable(false)]
+    class LayoutInitializer : ILayoutUpdateStrategy
     {
         public bool BeforeInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow, ILayoutContainer destinationContainer)
         {
@@ -23,8 +23,7 @@ namespace miRobotEditor.Classes
             //AD wants to add the anchorable into destinationContainer
             //just for test provide a new anchorablepane 
             //if the pane is floating let the manager go ahead
-            LayoutAnchorablePane destPane = destinationContainer as LayoutAnchorablePane;
-             if (destinationContainer != null &&
+            if (destinationContainer != null &&
                 destinationContainer.FindParent<LayoutFloatingWindow>() != null)
                 return false;
              var bottomPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => d.Name == "BottomPane");

@@ -8,7 +8,6 @@
  */
 using System;
 using System.Collections.Generic;
-using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 namespace miRobotEditor.Interfaces
 {

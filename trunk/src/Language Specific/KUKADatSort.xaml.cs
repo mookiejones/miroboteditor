@@ -13,7 +13,9 @@ namespace miRobotEditor.Language_Specific
 	/// <summary>
 	/// Interaction logic for KUKADatSort.xaml
 	/// </summary>
+// ReSharper disable RedundantExtendsListEntry
 	public partial class KUKADatSort : Window
+// ReSharper restore RedundantExtendsListEntry
 	{
 		public KUKADatSort()
 		{

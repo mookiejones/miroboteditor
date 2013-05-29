@@ -4,22 +4,26 @@ namespace ISTUK.MathLibrary
     using System.Collections.ObjectModel;
 
 #pragma warning disable 660,661
-    public sealed class Vector3D : Vector, IGeometricElement3D, IFormattable
+    public sealed class Vector3D : Vector, IGeometricElement3D
 #pragma warning restore 660,661
     {
 
+// ReSharper disable RedundantOverridenMember
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
+// ReSharper restore RedundantOverridenMember
         public Vector3D() : base(3)
         {
         }
 
+// ReSharper disable RedundantOverridenMember
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
         }
+// ReSharper restore RedundantOverridenMember
   
         public Vector3D(Matrix mat) : base(3)
         {
@@ -37,7 +41,7 @@ namespace ISTUK.MathLibrary
             }
         }
 
-        public Vector3D(Vector3D vec) : base(3)
+        public Vector3D(Vector vec) : base(3)
         {
             for (var i = 0; i < 3; i++)
             {
@@ -75,7 +79,9 @@ namespace ISTUK.MathLibrary
             return new Vector3D((Matrix) (this / Length()));
         }
         
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector3D operator +(Vector3D v1, Vector3D v2)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector3D(v1 + v2);
         }
@@ -84,7 +90,9 @@ namespace ISTUK.MathLibrary
         {
             return new Vector3D(v1 + v2);
         }
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector3D operator /(Vector3D vec, double scalar)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector3D((Matrix) (vec / scalar));
         }
@@ -101,7 +109,9 @@ namespace ISTUK.MathLibrary
             return new Point3D(vec);
         }
        
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector3D operator *(Vector3D vec, double scalar)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector3D((Matrix) (vec * scalar));
         }
@@ -119,7 +129,9 @@ namespace ISTUK.MathLibrary
             return list;
         }
 
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector3D operator -(Vector3D v1, Vector3D v2)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector3D(v1 - v2);
         }

@@ -6,10 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;
-using miRobotEditor.Classes;
-using System.Collections.Generic;
-using System.Text;
+
 using System.Windows.Media;
 
 namespace miRobotEditor.ViewModel
@@ -19,23 +16,17 @@ namespace miRobotEditor.ViewModel
 	/// </summary>
 	public class PaneViewModel:ViewModelBase
 	{
-		  public PaneViewModel()
-        { }
+	    #region Title
 
-
-        #region Title
-
-        private string _title = null;
+        private string _title;
         public string Title
         {
             get { return _title; }
             set
             {
-                if (_title != value)
-                {
-                    _title = value;
-                    RaisePropertyChanged("Title");
-                }
+                if (_title == value) return;
+                _title = value;
+                RaisePropertyChanged("Title");
             }
         }
 
@@ -49,17 +40,15 @@ namespace miRobotEditor.ViewModel
 
         #region ContentId
 
-        private string _contentId = null;
+        private string _contentId;
         public string ContentId
         {
             get { return _contentId; }
             set
             {
-                if (_contentId != value)
-                {
-                    _contentId = value;
-                    RaisePropertyChanged("ContentId");
-                }
+                if (_contentId == value) return;
+                _contentId = value;
+                RaisePropertyChanged("ContentId");
             }
         }
 
@@ -67,17 +56,15 @@ namespace miRobotEditor.ViewModel
 
         #region IsSelected
 
-        private bool _isSelected = false;
+        private bool _isSelected;
         public bool IsSelected
         {
             get { return _isSelected; }
             set
             {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    RaisePropertyChanged("IsSelected");
-                }
+                if (_isSelected == value) return;
+                _isSelected = value;
+                RaisePropertyChanged("IsSelected");
             }
         }
 
@@ -85,17 +72,15 @@ namespace miRobotEditor.ViewModel
 
         #region IsActive
 
-        private bool _isActive = false;
+        private bool _isActive;
         public bool IsActive
         {
             get { return _isActive; }
             set
             {
-                if (_isActive != value)
-                {
-                    _isActive = value;
-                    RaisePropertyChanged("IsActive");
-                }
+                if (_isActive == value) return;
+                _isActive = value;
+                RaisePropertyChanged("IsActive");
             }
         }
 

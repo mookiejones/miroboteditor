@@ -1,14 +1,14 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="miRobotEditor.GUI.KUKA.FrmAdjustST"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="miRobotEditor.GUI.KUKA.FrmAdjustSt"
         xmlns:local="clr-namespace:miRobotEditor.GUI.KUKA.AdjustST"
         Title="frmAdjustST" Height="793" >
     <Window.Background>
         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}"/>
     </Window.Background>
     <Window.Resources>
-        <local:AdjustST x:Key="AdjustST"/>
+        <local:AdjustST x:Key="AdjustSt"/>
     </Window.Resources>
     <Grid >
         <!--Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"-->
@@ -32,7 +32,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="List positions from" Grid.Column="0" Height="20"  Margin="0,5,0,0" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Top" d:LayoutOverrides="GridBox, Margin"/>
-                <ComboBox x:Name="comboBox" Grid.Column="1" Grid.Row="0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="Transparent" d:LayoutOverrides="Margin" Grid.ColumnSpan="3" >
+                <ComboBox x:Name="ComboBox" Grid.Column="1" Grid.Row="0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="Transparent" d:LayoutOverrides="Margin" Grid.ColumnSpan="3" >
                     <ComboBoxItem Content="Actual Selection" />
                     <ComboBoxItem Content="Actual SRC" />
                     <ComboBoxItem Content="Actual DAT" />
@@ -53,9 +53,9 @@
                         <TextBlock Text="Name" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="0" d:LayoutOverrides="Margin" Height="16"/>
                         <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="1" Height="22" d:LayoutOverrides="Margin"/>
                         <TextBlock Text="Tool[" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" d:LayoutOverrides="Margin" Grid.ColumnSpan="1" Height="16"/>
-                        <ComboBox Grid.Column="3"  VerticalAlignment="Top" ItemsSource="{Binding Mode=OneWay, Source={StaticResource AdjustST}}" SelectedValuePath="{Binding Mode=OneWay}" Height="22" d:LayoutOverrides="Margin"  />
+                        <ComboBox Grid.Column="3"  VerticalAlignment="Top" ItemsSource="{Binding Mode=OneWay, Source={StaticResource AdjustSt}}" SelectedValuePath="{Binding Mode=OneWay}" Height="22" d:LayoutOverrides="Margin"  />
                         <TextBlock Text="]Base[" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="4" d:LayoutOverrides="Margin" Grid.ColumnSpan="1" Height="16"/>
-                        <ComboBox Grid.Column="5" VerticalAlignment="Top" ItemsSource="{Binding Mode=OneWay, Source={StaticResource AdjustST}}" SelectedValuePath="{Binding Mode=OneWay}" Height="22" d:LayoutOverrides="Margin"  />
+                        <ComboBox Grid.Column="5" VerticalAlignment="Top" ItemsSource="{Binding Mode=OneWay, Source={StaticResource AdjustSt}}" SelectedValuePath="{Binding Mode=OneWay}" Height="22" d:LayoutOverrides="Margin"  />
                         <TextBlock Text="]" VerticalAlignment="Top" Grid.Column="6"   d:LayoutOverrides="Margin" Grid.ColumnSpan="1" Height="16"/>
                     </Grid>
                 </GroupBox>

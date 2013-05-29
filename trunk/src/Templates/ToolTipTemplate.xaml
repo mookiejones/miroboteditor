@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ViewModel="clr-namespace:miRobotEditor.ViewModel">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:viewModel="clr-namespace:miRobotEditor.ViewModel">
     <Style TargetType="{x:Type ToolTip}">
         <Setter Property="Height" Value="Auto"/>
         <Setter Property="Width" Value="Auto"/>
@@ -8,7 +8,7 @@
                 <ControlTemplate TargetType="{x:Type ToolTip}">
                     <StackPanel Orientation="Vertical">
                         <StackPanel.DataContext>
-                            <ViewModel:CustomToolTipViewModel/>
+                            <viewModel:CustomToolTipViewModel/>
                         </StackPanel.DataContext>
                         <TextBlock Text="{Binding Title}" FontWeight="ExtraBold" FontSize="12"/>
                         <Separator/>
@@ -27,7 +27,7 @@
                 <ControlTemplate TargetType="{x:Type ToolTip}">
                     <StackPanel Orientation="Vertical">
                         <StackPanel.DataContext>
-                            <ViewModel:CustomToolTipViewModel/>
+                            <viewModel:CustomToolTipViewModel/>
                         </StackPanel.DataContext>
                         <TextBlock Text="{Binding Title}" FontWeight="ExtraBold" FontSize="12"/>
                         <Separator/>

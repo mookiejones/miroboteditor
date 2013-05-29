@@ -17,6 +17,7 @@
 
           <!-- This Border and ContentPresenter displays the
                content of the TreeViewItem. -->
+<!-- ReSharper disable Xaml.StaticResourceNotResolved -->
           <Border Name="Bd"
             Background="{StaticResource ItemAreaBrush}"
             BorderBrush="{StaticResource ItemBorderBrush}"
@@ -24,6 +25,7 @@
             CornerRadius="8"
             Padding="6"
             >
+<!-- ReSharper restore Xaml.StaticResourceNotResolved -->
             <ContentPresenter Name="PART_Header"                 
               ContentSource="Header"
               HorizontalAlignment="Center"
@@ -38,23 +40,29 @@
           <!--When the item is selected in the TreeView, use the
               "selected" colors and give it a drop shadow. -->
           <Trigger Property="IsSelected" Value="True">
+<!-- ReSharper disable Xaml.StaticResourceNotResolved -->
             <Setter
               TargetName="Bd"
               Property="Panel.Background"                    
               Value="{StaticResource SelectedItemAreaBrush}" />
+<!-- ReSharper restore Xaml.StaticResourceNotResolved -->
+<!-- ReSharper disable Xaml.StaticResourceNotResolved -->
             <Setter
               TargetName="Bd"
               Property="Border.BorderBrush"                    
               Value="{StaticResource SelectedItemBorderBrush}" />
+<!-- ReSharper restore Xaml.StaticResourceNotResolved -->
             <Setter
               TargetName="Bd"
               Property="TextElement.Foreground"                  
               Value="{DynamicResource
                 {x:Static SystemColors.HighlightTextBrushKey}}" />
+<!-- ReSharper disable Xaml.StaticResourceNotResolved -->
             <Setter
               TargetName="Bd"
               Property="Border.BitmapEffect"                 
               Value="{StaticResource DropShadowEffect}" />
+<!-- ReSharper restore Xaml.StaticResourceNotResolved -->
           </Trigger>
         </ControlTemplate.Triggers>
       </ControlTemplate>

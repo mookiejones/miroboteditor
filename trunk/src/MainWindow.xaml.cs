@@ -1,30 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using AvalonDock;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
-using miRobotEditor.Commands;
-using miRobotEditor.Forms;
-using miRobotEditor.GUI;
-using miRobotEditor.Languages;
-using miRobotEditor.Pads;
-using miRobotEditor.Pads.Shift;
 using miRobotEditor.Properties;
-using Application = System.Windows.Application;
-using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
-
 using miRobotEditor.ViewModel;
-using miRobotEditor.Interfaces;
-using System.Reflection;
-using System.Collections.ObjectModel;
+
 namespace miRobotEditor	
 {
     using Classes;
@@ -37,28 +21,28 @@ namespace miRobotEditor
         public static MainWindow Instance { get; set; }
 
 
-        public DockingManager Dock { get { return dockManager; } set { dockManager = value; } }
+        public DockingManager Dock { get { return DockManager; } set { DockManager = value; } }
 
         public void LoadItems()
-        {
+        {            
             //Load Files that were closed with the window the last time the Program was executed
             LoadOpenFiles();
 
             //If No open files, Open one
-            var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
-            if (docpane.ChildrenCount == 0)
+            var docpane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
+            if (docpane != null && docpane.ChildrenCount == 0)
                 Workspace.Instance.AddNewFile();
 
             ProcessArgs();
 
         }
 
-        void OpenFile(string filename)
+        static void OpenFile(string filename)
         {
             Workspace.Instance.Open(filename);
         }
 
-        private void LoadOpenFiles()
+        private static void LoadOpenFiles()
         {
             var s = Settings.Default.OpenDocuments.Split(';');
             for (var i = 0; i < s.Length - 1; i++)
@@ -71,7 +55,7 @@ namespace miRobotEditor
         /// <summary>
         /// Open file from parameters sent to program
         /// </summary>
-        private void ProcessArgs()
+        private static void ProcessArgs()
         {
             var args = Environment.GetCommandLineArgs();
 
@@ -83,30 +67,29 @@ namespace miRobotEditor
 
 
         [Localizable(false)]
-        private void DropFiles(object sender, System.Windows.DragEventArgs e)
+        private void DropFiles(object sender, DragEventArgs e)
         {
-            var files = (string[])e.Data.GetData(System.Windows.DataFormats.FileDrop);
+            var files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
             foreach (var t in files)
             {
-                MessageViewModel.Instance.Add("File Dropped", String.Format("Opening:={0}", t), MSGIcon.INFO);
+                MessageViewModel.Instance.Add("File Dropped", String.Format("Opening:={0}", t), MsgIcon.Info);
                 Workspace.Instance.Open(t);
             }
         }
 
         // ReSharper disable InconsistentNaming
-        public void onDragEnter(object sender, System.Windows.DragEventArgs e)
+        public void onDragEnter(object sender, DragEventArgs e)
         // ReSharper restore InconsistentNaming
         {
-            if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop)) e.Effects = System.Windows.DragDropEffects.Copy;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effects = DragDropEffects.Copy;
         }
 
         public MainWindow()
         {
             Instance = this;        
             InitializeComponent();
-            KeyDown += (s, e) =>   StatusBarViewModel.Instance.ManageKeys(s, e); ;
-
+            KeyDown += (s, e) =>   StatusBarViewModel.Instance.ManageKeys(s, e);
         }
         
         
@@ -150,21 +133,19 @@ namespace miRobotEditor
         private void WindowClosing(object sender, CancelEventArgs e)
         {
             
-            var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
+            var docpane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             
             if (docpane != null)
-                foreach(var doc in docpane.Children)
+                foreach (var d in docpane.Children.Select(doc => doc.Content as DocumentViewModel).Where(d => d != null && d.FilePath!=null))
                 {
-                    var d = doc.Content as DocumentViewModel;
-                    if (d.FilePath!=null)
-                        Settings.Default.OpenDocuments += d.FilePath + ';';                   
+                    Settings.Default.OpenDocuments += d.FilePath + ';';
                 }
             Settings.Default.Save();
 
             SaveLayout();
 
             Workspace.Instance.IsClosing = true;
-            miRobotEditor.App._application.Shutdown();
+            App._application.Shutdown();
         }
 
 
@@ -175,18 +156,16 @@ namespace miRobotEditor
 
         private void SaveLayout()
         {
-            var serializer = new XmlLayoutSerializer(dockManager);
+            var serializer = new XmlLayoutSerializer(DockManager);
             using (var stream = new StreamWriter(Global.DockConfig))
                 serializer.Serialize(stream);
-
-            serializer = null;
         }
 
 
         public void CloseWindow(object param)
         {
             var ad = param as IDocument;
-            var docpane = dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
+            var docpane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (docpane == null) return;
 			
             foreach (var c in docpane.Children.Where(c => c.Content.Equals(ad)))

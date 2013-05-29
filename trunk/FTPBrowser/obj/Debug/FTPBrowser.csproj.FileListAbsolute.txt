@@ -42,3 +42,6 @@ C:\Programming\editor\miroboteditor\trunk\FTPBrowser\obj\Debug\FTPBrowser.applic
 C:\Programming\editor\miroboteditor\trunk\FTPBrowser\obj\Debug\FTPBrowser.exe
 C:\Programming\editor\miroboteditor\trunk\FTPBrowser\obj\Debug\FTPBrowser.pdb
 C:\Programming\editor\miroboteditor\trunk\FTPBrowser\obj\Debug\FTPBrowser.csprojResolveAssemblyReference.cache
+D:\Programming\miroboteditor\trunk\FTPBrowser\bin\Debug\FTPBrowser.exe.config
+D:\Programming\miroboteditor\trunk\FTPBrowser\obj\Debug\FTPBrowser.exe
+D:\Programming\miroboteditor\trunk\FTPBrowser\obj\Debug\FTPBrowser.pdb

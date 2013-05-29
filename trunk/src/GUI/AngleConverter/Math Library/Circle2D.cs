@@ -1,7 +1,10 @@
+using System.ComponentModel;
+
 namespace ISTUK.MathLibrary
 {
     using System;
 
+    [Localizable(false)]
     public class Circle2D : IFormattable
     {
         private readonly Point2D _origin;

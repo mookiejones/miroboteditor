@@ -5,7 +5,7 @@ using System.Security;
 
 namespace miRobotEditor
 {
-    [SuppressUnmanagedCodeSecurity]
+    [Localizable(false),SuppressUnmanagedCodeSecurity]
     internal static class NativeMethods
     {
         /// <summary>
@@ -28,7 +28,7 @@ namespace miRobotEditor
 
         public static string[] CommandLineToArgvW(string cmdLine)
         {
-            IntPtr argv = IntPtr.Zero;
+            var argv = IntPtr.Zero;
             try
             {
                 int numArgs;
@@ -40,9 +40,9 @@ namespace miRobotEditor
                 }
                 var result = new string[numArgs];
 
-                for (int i = 0; i < numArgs; i++)
+                for (var i = 0; i < numArgs; i++)
                 {
-                    IntPtr currArg = Marshal.ReadIntPtr(argv, i * Marshal.SizeOf(typeof(IntPtr)));
+                    var currArg = Marshal.ReadIntPtr(argv, i * Marshal.SizeOf(typeof(IntPtr)));
                     result[i] = Marshal.PtrToStringUni(currArg);
                 }
 
@@ -51,7 +51,8 @@ namespace miRobotEditor
             finally
             {
 
-                IntPtr p = _LocalFree(argv);
+                var p = _LocalFree(argv);
+                Console.WriteLine(IntPtr.Zero.Equals(p));
                 // Otherwise LocalFree failed.
                 //Assert.AreEqual(IntPtr.Zero, p);
             }

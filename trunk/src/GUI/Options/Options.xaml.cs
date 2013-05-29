@@ -13,7 +13,9 @@ namespace miRobotEditor.GUI.Options
 	/// <summary>
 	/// Interaction logic for Options.xaml
 	/// </summary>
+// ReSharper disable RedundantExtendsListEntry
 	public partial class Options : Window
+// ReSharper restore RedundantExtendsListEntry
 	{
 		public Options()
 		{

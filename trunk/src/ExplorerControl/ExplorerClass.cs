@@ -11,19 +11,18 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Collections;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.GUI.ExplorerControl
 {
-	
-	public delegate void FileSelectedEventHandler (object sender, FileSelectedEventArgs e);
-	/// <summary>
+    /// <summary>
 	/// Description of ExplorerClass.
 	/// </summary>
 	public class ExplorerClass:TreeView,IComparable
 	{
 
         //TODO Fix this
+// ReSharper disable InconsistentNaming
+#pragma warning disable 169
 		private const int FOLDER = 0;
 		private const int FOLDEROPEN=1;
 		private const int REMOVABLE = 5;
@@ -31,9 +30,11 @@ namespace miRobotEditor.GUI.ExplorerControl
 		private const int FIXEDDRIVE=2;
 		private const int GENERICFILE=6;
 		private const int NETWORK=7;
-		
-		
-		public string SelectedFile{get;set;}
+        // ReSharper restore InconsistentNaming
+#pragma warning restore 169
+
+
+        public string SelectedFile{get;set;}
 		public string SelectedDirectory{get;set;}
 	
 		public event FileSelectedEventHandler OnFileSelected;
@@ -47,7 +48,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 		public ExplorerClass()
 		{
 			HideSelection = false;
-            this.BackColor = Color.White;
+            BackColor = Color.White;
             ForeColor = Color.Black;
 		}
 
@@ -202,8 +203,9 @@ namespace miRobotEditor.GUI.ExplorerControl
 
 	    [Localizable(false)]
 	    public void FillTreeNode(TreeNode node, string root)
-		{
-			checked
+	    {
+	        if (root == null) throw new ArgumentNullException("root");
+	        checked
 			{
 				try
 				{
@@ -227,11 +229,10 @@ namespace miRobotEditor.GUI.ExplorerControl
 					var directories = directoryInfo.GetDirectories();
 					var comparer = new Comparer();
 					Array.Sort(directories, comparer);					
-					foreach (var d in directories)
-					{						
-						var treeNode = new TreeNode(d.Name, 0, 1) {Tag = node.Tag.ToString()};
+					foreach (var treeNode in directories.Select(d => new TreeNode(d.Name, 0, 1) {Tag = node.Tag.ToString()}))
+					{
 					    node.Nodes.Add(treeNode);
-						treeNode.Nodes.Add("");
+					    treeNode.Nodes.Add("");
 					}
 					
 					var files = Directory.GetFiles(text, FileExplorerControl.Instance.Filter);
@@ -240,33 +241,37 @@ namespace miRobotEditor.GUI.ExplorerControl
 					foreach (var f in array2)
 					{
 					    var treeNode2 = new TreeNode(Path.GetFileName(f)) {Tag = node.Tag.ToString()};
-					    var left = Path.GetExtension(f).ToLower();
-						switch (left)
-						{
-								case ".src":								
-								treeNode2.SelectedImageIndex = 6;
-								treeNode2.ImageIndex = 6;
-								break;
-						case ".dat":							
-								treeNode2.SelectedImageIndex = 6;
-								treeNode2.ImageIndex = 6;
-								break;
-						case ".sub":
-								treeNode2.SelectedImageIndex = 6;
-								treeNode2.ImageIndex = 6;
-								break;
-						case ".zip":
-								treeNode2.SelectedImageIndex = 6;
-								treeNode2.ImageIndex = 6;
-								break;
-						default:
-								treeNode2.SelectedImageIndex = 6;
-								treeNode2.ImageIndex = 6;
-								break;
-								}
-							
-						
-						node.Nodes.Add(treeNode2);
+					    var extension = Path.GetExtension(f);
+					    if (extension != null)
+					    {
+					        var left = extension.ToLower();
+					        switch (left)
+					        {
+					            case ".src":								
+					                treeNode2.SelectedImageIndex = 6;
+					                treeNode2.ImageIndex = 6;
+					                break;
+					            case ".dat":							
+					                treeNode2.SelectedImageIndex = 6;
+					                treeNode2.ImageIndex = 6;
+					                break;
+					            case ".sub":
+					                treeNode2.SelectedImageIndex = 6;
+					                treeNode2.ImageIndex = 6;
+					                break;
+					            case ".zip":
+					                treeNode2.SelectedImageIndex = 6;
+					                treeNode2.ImageIndex = 6;
+					                break;
+					            default:
+					                treeNode2.SelectedImageIndex = 6;
+					                treeNode2.ImageIndex = 6;
+					                break;
+					        }
+					    }
+
+
+					    node.Nodes.Add(treeNode2);
 					}
 					Cursor = Cursors.Default;
 				}
@@ -276,9 +281,9 @@ namespace miRobotEditor.GUI.ExplorerControl
 					Cursor = Cursors.Default;
 				}
 			}
-		}
-	
-		protected override void OnBeforeExpand(TreeViewCancelEventArgs e)
+	    }
+
+	    protected override void OnBeforeExpand(TreeViewCancelEventArgs e)
 		{
 			var node = e.Node;
 			BeginUpdate();
@@ -288,20 +293,5 @@ namespace miRobotEditor.GUI.ExplorerControl
 			EndUpdate();
 			base.OnBeforeExpand(e);
 		}
-	}
-	class Comparer:IComparer
-	{
-		public int Compare(object x, object y)
-		{
-			var directoryInfo = (DirectoryInfo)x;
-			var directoryInfo2 = (DirectoryInfo)y;
-			var name = directoryInfo.Name;
-			var name2 = directoryInfo2.Name;
-			return String.CompareOrdinal(name, name2);
-		}
-	}
-	public class FileSelectedEventArgs:EventArgs
-	{
-		public string Filename{get;set;}
 	}
 }

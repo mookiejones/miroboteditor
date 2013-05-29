@@ -1,8 +1,11 @@
+using System.ComponentModel;
+
 namespace ISTUK.MathLibrary
 {
     using System;
     using System.Collections.ObjectModel;
 
+    [Localizable(false)]
     public sealed class Point3D : IGeometricElement3D
     {
         private bool Equals(Point3D other)
@@ -67,7 +70,7 @@ namespace ISTUK.MathLibrary
         public static Collection<Point3D> operator *(Collection<TransformationMatrix3D> transforms, Point3D point)
         {
             var list = new Collection<Point3D>();
-            foreach (TransformationMatrix3D matrixd in transforms)
+            foreach (var matrixd in transforms)
             {
                 list.Add(matrixd * point);
             }
@@ -76,7 +79,7 @@ namespace ISTUK.MathLibrary
         public static Collection<Point3D> Multiply(Collection<TransformationMatrix3D> transforms, Point3D point)
         {
             var list = new Collection<Point3D>();
-            foreach (TransformationMatrix3D matrixd in transforms)
+            foreach (var matrixd in transforms)
             {
                 list.Add(matrixd * point);
             }
@@ -108,6 +111,8 @@ namespace ISTUK.MathLibrary
         {
             return !(p1 == p2);
         }
+
+        [Localizable(false)]
         public override string ToString()
         {
             return string.Format("[{0:F2}, {1:F2}, {2:F2}]", X, Y, Z);

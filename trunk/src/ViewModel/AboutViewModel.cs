@@ -9,10 +9,8 @@
 using System;
 using System.Text;
 using System.Reflection;
-using miRobotEditor.Classes;
 using System.Globalization;
-using System.Security.Permissions;
-using System.Threading;
+
 namespace miRobotEditor.ViewModel
 {
 	/// <summary>
@@ -21,16 +19,17 @@ namespace miRobotEditor.ViewModel
 	public class AboutViewModel:ViewModelBase
 	{
 		public string Copyright{get{return "Copyright 2012-2013 Charles Berman";}}
-		public string Name{get{return Assembly.GetExecutingAssembly().GetName().Name.ToString();}}
+		public string Name{get{return Assembly.GetExecutingAssembly().GetName().Name;}}
 		public string Version{get{return Assembly.GetExecutingAssembly().GetName().Version.ToString();}}
-		
-		string NetVersion {get{return Environment.Version.ToString();}}
-		string OSVersion{get{return Environment.OSVersion.ToString();}}
-		string CurrentCulture{get{return CultureInfo.CurrentCulture.Name;}}
-		string WorkingSetMemory 
+
+	    static string NetVersion {get{return Environment.Version.ToString();}}
+	    static string OSVersion{get{return Environment.OSVersion.ToString();}}
+	    static string CurrentCulture{get{return CultureInfo.CurrentCulture.Name;}}
+
+	    static string WorkingSetMemory 
 		{
 			get{
-				return GC.GetTotalMemory(true).ToString();
+				return GC.GetTotalMemory(true).ToString(CultureInfo.InvariantCulture);
 			}
 			
 		}
@@ -45,10 +44,6 @@ namespace miRobotEditor.ViewModel
 				
 				return sb.ToString();
 			}
-		}
-		public AboutViewModel()
-		{
-			
 		}
 	}
 }

@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Text.RegularExpressions;
-using System.Collections.ObjectModel;
-using ICSharpCode.AvalonEdit.Snippets;
-using miRobotEditor.GUI;
-using ICSharpCode.AvalonEdit;
-using Microsoft.Win32;
-using System.Windows.Controls;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.CodeCompletion;
-using miRobotEditor.Classes;
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Languages
@@ -45,10 +37,10 @@ namespace miRobotEditor.Languages
         public static List<string> EXT{get{return new List<string> {".ls"};}}
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
-            string[] s = Regex.Split(section.Title, "æ");
+            var s = Regex.Split(section.Title, "æ");
 
-            int start = section.StartOffset + s[0].Length;
-            int end = section.Length - (s[0].Length + s[1].Length);
+            var start = section.StartOffset + s[0].Length;
+            var end = section.Length - (s[0].Length + s[1].Length);
 
 
             return doc.GetText(start, end);
@@ -136,7 +128,7 @@ namespace miRobotEditor.Languages
         		
         	if (rgx!=null)
         	{
-        		Match m = rgx.Match(text);
+        		var m = rgx.Match(text);
         			if (m.Success)
         				return m.Groups[1]+ m.Groups[2].ToString();
         	}			
@@ -149,7 +141,7 @@ namespace miRobotEditor.Languages
         	var rgx=new Regex(@"(^[\s\d:]+)");
 
             {
-                Match m = rgx.Match(text);
+                var m = rgx.Match(text);
                 if (m.Success)
                     return m.Groups[1].Length;
                 //return m.Groups[1].ToString()+ m.Groups[2].ToString();
@@ -182,9 +174,10 @@ namespace miRobotEditor.Languages
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
         public override string ExtractXYZ(string positionstring)
         {
-            throw new NotImplementedException();
+            System.Diagnostics.Debugger.Break();
             var p = new PositionBase(positionstring);
             return p.ExtractFromMatch();
+
         }
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }

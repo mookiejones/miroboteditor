@@ -11,7 +11,6 @@ namespace miRobotEditor.Core
         Location _location;
 
         IEditor _document;
-        ITextAnchor _anchor;
 
         public IEditor Document
         {
@@ -21,17 +20,15 @@ namespace miRobotEditor.Core
             }
             set
             {
-                if (_document != value)
+                if (_document == value) return;
+                if (Anchor != null)
                 {
-                    if (_anchor != null)
-                    {
-                        _location = _anchor.Location;
-                        _anchor = null;
-                    }
-                    _document = value;
-                    CreateAnchor();
-                    OnDocumentChanged(EventArgs.Empty);
+                    _location = Anchor.Location;
+                    Anchor = null;
                 }
+                _document = value;
+                CreateAnchor();
+                OnDocumentChanged(EventArgs.Empty);
             }
         }
 
@@ -45,14 +42,14 @@ namespace miRobotEditor.Core
                     lineNumber,
                     Math.Max(1, Math.Min(_location.Column, lineLength + 1))
                 );
-                _anchor = _document.CreateAnchor(offset);
+                Anchor = _document.CreateAnchor(offset);
                 // after insertion: keep bookmarks after the initial whitespace (see DefaultFormattingStrategy.SmartReplaceLine)
-                _anchor.MovementType = AnchorMovementType.AfterInsertion;
-                _anchor.Deleted += AnchorDeleted;
+                Anchor.MovementType = AnchorMovementType.AfterInsertion;
+                Anchor.Deleted += AnchorDeleted;
             }
             else
             {
-                _anchor = null;
+                Anchor = null;
             }
         }
 
@@ -60,36 +57,29 @@ namespace miRobotEditor.Core
         {
             // the anchor just became invalid, so don't try to use it again
             _location = Location.Empty;
-            _anchor = null;
+            Anchor = null;
             RemoveMark();
         }
 
         protected virtual void RemoveMark()
         {
-            if (_document != null)
-            {
-                var bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
-                if (bookmarkMargin != null)
-                    bookmarkMargin.Bookmarks.Remove(this);
-            }
+            if (_document == null) return;
+            var bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
+            if (bookmarkMargin != null)
+                bookmarkMargin.Bookmarks.Remove(this);
         }
 
         /// <summary>
         /// Gets the TextAnchor used for this bookmark.
         /// Is null if the bookmark is not connected to a document.
         /// </summary>
-        public ITextAnchor Anchor
-        {
-            get { return _anchor; }
-        }
+        public ITextAnchor Anchor { get; private set; }
 
         public Location Location
         {
             get
             {
-                if (_anchor != null)
-                    return _anchor.Location;
-                return _location;
+                return Anchor != null ? Anchor.Location : _location;
             }
             set
             {
@@ -110,21 +100,17 @@ namespace miRobotEditor.Core
 
         protected virtual void Redraw()
         {
-            if (_document != null)
-            {
-                var bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
-                if (bookmarkMargin != null)
-                    bookmarkMargin.Redraw();
-            }
+            if (_document == null) return;
+            var bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
+            if (bookmarkMargin != null)
+                bookmarkMargin.Redraw();
         }
 
         public int LineNumber
         {
             get
             {
-                if (_anchor != null)
-                    return _anchor.Line;
-                return _location.Line;
+                return Anchor != null ? Anchor.Line : _location.Line;
             }
         }
 
@@ -132,9 +118,7 @@ namespace miRobotEditor.Core
         {
             get
             {
-                if (_anchor != null)
-                    return _anchor.Column;
-                return _location.Column;
+                return Anchor != null ? Anchor.Column : _location.Column;
             }
         }
 
@@ -160,7 +144,9 @@ namespace miRobotEditor.Core
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly IImage defaultBookmarkImage;// = new ResourceServiceImage("Bookmarks.ToggleMark");
+// ReSharper disable InconsistentNaming
+        public static readonly IImage defaultBookmarkImage = null;// = new ResourceServiceImage("Bookmarks.ToggleMark");
+// ReSharper restore InconsistentNaming
 
         public static IImage DefaultBookmarkImage
         {
@@ -178,11 +164,9 @@ namespace miRobotEditor.Core
 
         public virtual void MouseUp(MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left && CanToggle)
-            {
-                RemoveMark();
-                e.Handled = true;
-            }
+            if (e.ChangedButton != MouseButton.Left || !CanToggle) return;
+            RemoveMark();
+            e.Handled = true;
         }
 
         public virtual bool CanDragDrop

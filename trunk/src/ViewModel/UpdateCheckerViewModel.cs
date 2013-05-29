@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Net;
-
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using miRobotEditor.Commands;
 using System.Windows.Input;
 using miRobotEditor.Properties;
@@ -51,9 +47,7 @@ namespace miRobotEditor.ViewModel
         {
             get
             {
-                if (Version != null)
-                    return String.Format("A New version of {0} {1} is available. Would you like to Update?", ProductName, Version.Version);
-                return string.Empty;
+                return Version != null ? String.Format("A New version of {0} {1} is available. Would you like to Update?", ProductName, Version.Version) : string.Empty;
             }
         }
 
@@ -104,9 +98,7 @@ namespace miRobotEditor.ViewModel
                 {
                     if (Current.Major > Major) return true;
                     if (Current.Minor > Minor) return true;
-                    if (Current.Revision > Revision) return true;
-
-                    return false;
+                    return Current.Revision > Revision;
                 }
             }
 
@@ -168,10 +160,11 @@ namespace miRobotEditor.ViewModel
                 if (Version.IsOld)
                     RaiseUpdateRequired();
             }
+// ReSharper disable EmptyGeneralCatchClause
             catch
+// ReSharper restore EmptyGeneralCatchClause
             {
             }
         }
     }
-    public delegate void UpdateRequiredHandler(object sender, EventArgs e);
 }

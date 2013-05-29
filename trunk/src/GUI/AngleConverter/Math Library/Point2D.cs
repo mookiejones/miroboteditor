@@ -1,8 +1,11 @@
+using System.ComponentModel;
+
 namespace ISTUK.MathLibrary
 {
     using System;
     using System.Globalization;
 
+    [Localizable(false)]
     public class Point2D : IFormattable
     {
         protected bool Equals(Point2D other)
@@ -14,8 +17,7 @@ namespace ISTUK.MathLibrary
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((Point2D) obj);
+            return obj.GetType() == GetType() && Equals((Point2D) obj);
         }
 
         public Point2D()
@@ -24,7 +26,9 @@ namespace ISTUK.MathLibrary
         }
         public override int GetHashCode()
         {
+// ReSharper disable BaseObjectGetHashCodeCallInGetHashCode
             return base.GetHashCode();
+// ReSharper restore BaseObjectGetHashCodeCallInGetHashCode
         }
 
         public Point2D(Vector2D position)
@@ -62,6 +66,8 @@ namespace ISTUK.MathLibrary
         {
             return new Vector2D(p2.X - p1.X, p2.Y - p1.Y);
         }
+
+        [Localizable(false)]
         public override string ToString()
         {
             return string.Format("{0:F2}, {1:F2}", X, Y);

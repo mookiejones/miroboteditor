@@ -41,11 +41,9 @@ namespace miRobotEditor.GUI.ExplorerControl
 		{
 			get
 			{
-				if (String.IsNullOrEmpty(_filter))
-					return "*.*";
-				return _filter;
+			    return String.IsNullOrEmpty(_filter) ? "*.*" : _filter;
 			}
-			set {_filter=value;}
+	        set {_filter=value;}
 		}
 		
 		public FileExplorerControl()

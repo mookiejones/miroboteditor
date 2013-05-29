@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Media.Imaging;
-using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
@@ -33,7 +30,9 @@ namespace miRobotEditor.Classes
         public int Offset { get { return _offset; } set { _offset = value; RaisePropertyChanged("Offset"); } }
 
 
+// ReSharper disable UnusedAutoPropertyAccessor.Local
         public static List<IVariable> Variables { get; private set; }
+// ReSharper restore UnusedAutoPropertyAccessor.Local
       
        internal class WorkerArgs
        {
@@ -63,29 +62,29 @@ namespace miRobotEditor.Classes
        static void BackgroundworkerDoWork(object sender, DoWorkEventArgs e)
        {
            var s = e.Argument as WorkerArgs;
+           if (s == null) return;
            var icon = Utilities.LoadBitmap(s.IconPath);
            var lang = Workspace.Instance.ActiveEditor.FileLanguage;
            
 
            var m = VariableHelper.FindMatches(s.Lang.XYZRegex, s.Filename);
-           var isxyz =
-               System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath).
-                   Contains("XYZ");
+           var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath);
+           var isxyz =fileNameWithoutExtension != null && fileNameWithoutExtension.Contains("XYZ");
            while (m.Success)
            {
                var p = new Variable
-               {
-                   Icon = icon,
-                   Path = s.Filename,
-                   Offset = m.Index,
-                   Type = m.Groups[1].ToString(),
-                   Name = m.Groups[2].ToString(),
-                   Value =
-                       isxyz
-                           ? lang.ExtractXYZ(m.ToString())
-                           : m.Groups[3].ToString(),
-                   Comment = m.Groups[4].ToString()
-               };
+                   {
+                       Icon = icon,
+                       Path = s.Filename,
+                       Offset = m.Index,
+                       Type = m.Groups[1].ToString(),
+                       Name = m.Groups[2].ToString(),
+                       Value =
+                           isxyz
+                               ? lang.ExtractXYZ(m.ToString())
+                               : m.Groups[3].ToString(),
+                       Comment = m.Groups[4].ToString()
+                   };
                Variables.Add(p);
                m = m.NextMatch();
            }
@@ -98,12 +97,12 @@ namespace miRobotEditor.Classes
 
            var lang = Workspace.Instance.ActiveEditor.FileLanguage;
            var m = VariableHelper.FindMatches(regex, filename);
-           var isxyz =System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath).Contains("XYZ");
+           var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath);
+           var isxyz =fileNameWithoutExtension != null && fileNameWithoutExtension.Contains("XYZ");
            if (m==null)
-           {
-               var s = new StringBuilder();
-              
-               MessageViewModel.Instance.Add("Variable for " + lang.RobotType.ToString(),"Does not exist in VariableBase.GetVariables", MSGIcon.ERROR,true);
+           {             
+             
+               MessageViewModel.Instance.Add("Variable for " + lang.RobotType,"Does not exist in VariableBase.GetVariables", MsgIcon.Error);
                return null;
            }
 

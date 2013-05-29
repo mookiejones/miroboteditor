@@ -2,13 +2,11 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Classes;
 using miRobotEditor.ViewModel;
-using miRobotEditor.GUI;
+
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -85,7 +83,7 @@ namespace miRobotEditor.Languages
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
-            private IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
+            private static IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
                 var newFoldings = new List<NewFolding>();
                 newFoldings.AddRange(CreateFoldingHelper(document, ".program", ".end", false));
@@ -129,7 +127,9 @@ namespace miRobotEditor.Languages
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
         public override string ExtractXYZ(string positionstring)
         {
+#pragma warning disable 168
             var p = new PositionBase(positionstring);
+#pragma warning restore 168
 
             return positionstring.Substring(positionstring.IndexOf("#[") + 2);
         }

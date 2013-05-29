@@ -25,16 +25,16 @@ namespace ISTUK.MathLibrary
             }
             var num = Vector.Dot(vectord, line.Direction);
             //TODO CHECK THIS
-            return new Point3D();
-            //                return (line.Origin + ((Point3D) (line.Direction * num)));
+            //return new Point3D();
+                            return (line.Origin + (Vector3D) ((Point3D) (line.Direction * num)));
         }
 
         public static Point3D PointOntoPlane(Plane3D plane, Point3D point)
         {
             var vectord = plane.Point - point;
             var vectord3 = Vector3D.Cross(Vector3D.Cross(vectord, plane.Normal), plane.Normal).Normalised();
-            return new Point3D();
-            //                return (plane.Point + ((Point3D) (vectord3 * Vector.Dot(vectord, vectord3))));
+          //  return new Point3D();
+            return (plane.Point + (Vector3D) ((Point3D) (vectord3 * Vector.Dot(vectord, vectord3))));
         }
 
         public static Point3D PointOntoSphere(Sphere3D sphere, Point3D point)

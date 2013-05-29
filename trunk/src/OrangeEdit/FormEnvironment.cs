@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using miRobotEditor.Commands;
+﻿using miRobotEditor.Commands;
 using System.Windows.Input;
 using miRobotEditor.ViewModel;
 using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
@@ -58,19 +54,11 @@ namespace miRobotEditor.OrangeEdit
         string _r1Path = string.Empty;
         public string R1Path { get { return _r1Path; } set { _r1Path = value; RaisePropertyChanged("R1Path"); } }
 
-        private bool _activateEnabled = false;
+        private bool _activateEnabled;
         public bool ActivateEnabled { get { return _activateEnabled; } set { _activateEnabled = value; RaisePropertyChanged("ActivateEnabled"); } }
 
 
         #endregion
-
-        public FormEnvironment()
-        {
-
-        }
-
-
-        void SetControls() { }
 
         void TextChanged()
         {
@@ -87,15 +75,13 @@ namespace miRobotEditor.OrangeEdit
         }
         void Folder()
         {
-            var fbd = new FolderBrowserDialog();
-            fbd.SelectedPath = this.Directory;
-            fbd.ShowNewFolderButton = false;
+            var fbd = new FolderBrowserDialog {SelectedPath = Directory, ShowNewFolderButton = false};
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Directory = fbd.SelectedPath;
             }
         }
 
-        void Close() { }
+        static void Close() { }
     }
 }

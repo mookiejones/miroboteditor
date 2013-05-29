@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using miRobotEditor.ViewModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using miRobotEditor.Classes;
-using miRobotEditor.GUI;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
+
 namespace miRobotEditor.ViewModel
 {
     public class ObjectBrowserViewModel : ToolViewModel
     {
         #region Constructors
         public ObjectBrowserViewModel() : base("Object Browser") { Initialize(); }
+// ReSharper disable UnusedParameter.Local
         public ObjectBrowserViewModel(string directory) : base("Object Browser")
+// ReSharper restore UnusedParameter.Local
         {
             Initialize();
         }
@@ -25,12 +22,12 @@ namespace miRobotEditor.ViewModel
         public static ObjectBrowserViewModel Instance { get { return _instance ?? new ObjectBrowserViewModel(); } set { _instance = value; } }
 
         private IVariable _selectedVariable;
-        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; miRobotEditor.Workspace.Instance.OpenFile(value); RaisePropertyChanged("SelectedVariable"); } }
+        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; Workspace.Instance.OpenFile(value); RaisePropertyChanged("SelectedVariable"); } }
 
-        private int _progress = 0;
+        private int _progress;
         public int Progress { get { return _progress; } set { _progress = value; RaisePropertyChanged("Progress"); } }
 
-        private int _progressMax = 0;
+        private int _progressMax;
         public int ProgressMax { get { return _progressMax; } set { _progressMax = value; RaisePropertyChanged("ProgressMax"); } }
         #endregion
 
@@ -41,7 +38,9 @@ namespace miRobotEditor.ViewModel
 
 
 
+// ReSharper disable UnusedMember.Local
         string GetDirectory()
+// ReSharper restore UnusedMember.Local
         {
 
             //TODO Add Archive Functionality
@@ -78,10 +77,7 @@ namespace miRobotEditor.ViewModel
 
             var v = ws.Data.Variables;
 
-            List<IVariable> result = new List<IVariable>();
-            foreach (var p in v.Where(p => p.Type == "e6pos"))
-                result.Add(p);
-
+            var result = v.Where(p => p.Type == "e6pos").ToList();
 
 
             return new ReadOnlyCollection<IVariable>(result);

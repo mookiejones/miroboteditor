@@ -18,7 +18,7 @@ namespace miRobotEditor.Options
 		private string _description = String.Empty;
 		public string Description {get{return _description;} set{_description=value;RaisePropertyChanged("Description");}}
 		
-		private bool _value = false;
+		private bool _value;
 		public bool Value{get{return _value;}set{_value=value;RaisePropertyChanged("Value");}}		
 	}
 }

@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using miRobotEditor.ViewModel;
 using System.Text.RegularExpressions;
-using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Classes;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 
 namespace miRobotEditor.Languages
@@ -107,16 +104,8 @@ namespace miRobotEditor.Languages
 
         public override string ExtractXYZ(string positionstring)
         {
-            try
-            {
-                var p = new PositionBase(positionstring);
-                return p.ExtractFromMatch();
-            }
-            catch (Exception ex)
-            {
-                throw ex as NotImplementedException;
-            }
-           
+            var p = new PositionBase(positionstring);
+            return p.ExtractFromMatch();
         }   
 
         #region Folding Section
@@ -138,7 +127,7 @@ namespace miRobotEditor.Languages
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
-            private IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
+            private static IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
                 var newFoldings = new List<NewFolding>();
 

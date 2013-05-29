@@ -8,9 +8,9 @@
  */
 
 using System.Windows;
-using TestApplication.WorkspaceBuilder;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Media;
 namespace TestApplication
 {
 	/// <summary>
@@ -28,6 +28,14 @@ namespace TestApplication
 	    {
 	    	//FanucREPCDViewModel.Instance.REPTCDItems=  	FanucTools.FanucDiagnostics.GetREPTCD();
 	    }
-       
+
+
+	  
 	}
+
+    public class mySchema
+    {
+        private Color _colors = Colors.Red;
+        public Color Colores { get { return _colors; } set { _colors = value; } }
+    }
 }

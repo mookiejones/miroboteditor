@@ -51,7 +51,7 @@ namespace miRobotEditor
 			}
 		}
 		
-		public void MouseDown(System.Windows.Input.MouseButtonEventArgs e)
+		public void MouseDown(MouseButtonEventArgs e)
 		{
 		if (e.ChangedButton == MouseButton.Left) {
 			//	var f = Services.AnalyticsMonitorService.TrackFeature("ICSharpCode.SharpDevelop.Bookmarks.ClassMemberBookmark.ShowContextMenu");
@@ -63,7 +63,7 @@ namespace miRobotEditor
 			}
 		}
 		
-		public void MouseUp(System.Windows.Input.MouseButtonEventArgs e)
+		public void MouseUp(MouseButtonEventArgs e)
 		{
 		}
 		

@@ -31,22 +31,22 @@ namespace miRobotEditor.Dialogs
 		public string Button6Text{get{return _button6Text;}set{_button6Text=value;RaisePropertyChanged("Button6Text");}}
 		public string Button7Text{get{return _button7Text;}set{_button7Text=value;RaisePropertyChanged("Button7Text");}}
 		
-		private bool _b1visible = true,_b2visible = true,_b3visible = true,_b4visible = true,_b5visible = true,_b6visible = true,_b7visible = true;
+		private bool _b1Visible = true,_b2Visible = true,_b3Visible = true,_b4Visible = true,_b5Visible = true,_b6Visible = true,_b7Visible = true;
 		
 		
-		public bool Button1Visible{get{return _b1visible;}set{_b1visible=value;RaisePropertyChanged("Button1Visible");}}
-		public bool Button2Visible{get{return _b2visible;}set{_b2visible=value;RaisePropertyChanged("Button2Visible");}}
-		public bool Button3Visible{get{return _b3visible;}set{_b3visible=value;RaisePropertyChanged("Button3Visible");}}
-		public bool Button4Visible{get{return _b4visible;}set{_b4visible=value;RaisePropertyChanged("Button4Visible");}}
-		public bool Button5Visible{get{return _b5visible;}set{_b5visible=value;RaisePropertyChanged("Button5Visible");}}
-		public bool Button6Visible{get{return _b6visible;}set{_b6visible=value;RaisePropertyChanged("Button6Visible");}}
-		public bool Button7Visible{get{return _b7visible;}set{_b7visible=value;RaisePropertyChanged("Button7Visible");}}
+		public bool Button1Visible{get{return _b1Visible;}set{_b1Visible=value;RaisePropertyChanged("Button1Visible");}}
+		public bool Button2Visible{get{return _b2Visible;}set{_b2Visible=value;RaisePropertyChanged("Button2Visible");}}
+		public bool Button3Visible{get{return _b3Visible;}set{_b3Visible=value;RaisePropertyChanged("Button3Visible");}}
+		public bool Button4Visible{get{return _b4Visible;}set{_b4Visible=value;RaisePropertyChanged("Button4Visible");}}
+		public bool Button5Visible{get{return _b5Visible;}set{_b5Visible=value;RaisePropertyChanged("Button5Visible");}}
+		public bool Button6Visible{get{return _b6Visible;}set{_b6Visible=value;RaisePropertyChanged("Button6Visible");}}
+		public bool Button7Visible{get{return _b7Visible;}set{_b7Visible=value;RaisePropertyChanged("Button7Visible");}}
 		
 		private int _width = 592;
 		public int Width{get {return _width;}set{_width=value;RaisePropertyChanged("Width");}}
 		
 		
-		private int _answer = 0;
+		private int _answer;
 		public int Answer{get{return _answer;}set{_answer=value;RaisePropertyChanged("Answer");}}
 		
 		

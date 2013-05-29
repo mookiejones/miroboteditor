@@ -1,11 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Drawing;
-using miRobotEditor.GUI;
-using miRobotEditor.Commands;
-using System.Windows.Input;
+
 namespace miRobotEditor.Controls
 {
     /// <summary>
@@ -23,18 +19,17 @@ namespace miRobotEditor.Controls
         private void Close(object sender, RoutedEventArgs e)
         {
             var btn = sender as System.Windows.Controls.Button;
-            switch (btn.Content.ToString())
-            {
-                case "_OK":
-                    this.DialogResult = true;
-                    break;
-                case "_Cancel":
-                    this.DialogResult = false;
-                    break;
-            }
+            if (btn != null)
+                switch (btn.Content.ToString())
+                {
+                    case "_OK":
+                        DialogResult = true;
+                        break;
+                    case "_Cancel":
+                        DialogResult = false;
+                        break;
+                }
         }
-
-
     }
 
 

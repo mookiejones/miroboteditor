@@ -4,27 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-			xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
-		    xmlns:controls="clr-namespace:miRobotEditor.Controls"
-			xmlns:commands="clr-namespace:miRobotEditor.Commands"
-            xmlns:ctt ="clr-namespace:miRobotEditor.Classes"
-            xmlns:Editor="clr-namespace:miRobotEditor.GUI"
-            xmlns:Converters="clr-namespace:miRobotEditor.Converters"
-            xmlns:lang="clr-namespace:miRobotEditor.Languages"
-            x:Class="miRobotEditor.GUI.Editor" 	           
+             xmlns:lang="clr-namespace:miRobotEditor.Languages" xmlns:gui="clr-namespace:miRobotEditor.GUI"
+             x:Class="miRobotEditor.GUI.Editor" 	           
              mc:Ignorable="d" 
              d:DesignHeight="300"
              d:DesignWidth="300" 
              MouseHover="Mouse_OnHover"
-             PreviewMouseWheel="EditorPreviewMouseWheel"			
-             GotFocus="TextEditorGotFocus" 
-            >
-    <avalonedit:TextEditor.Options>
-        <Binding Source="{StaticResource TextOptions}"/>
-    </avalonedit:TextEditor.Options>
-    <avalonedit:TextEditor.ShowLineNumbers>
-        <Binding Path="ShowLineNumbers" Source="{StaticResource TextOptions}"/>
-    </avalonedit:TextEditor.ShowLineNumbers>
+             PreviewMouseWheel="EditorPreviewMouseWheel"
+            
+    Options="{x:Static gui:EditorOptions.Instance}"
+      
+        GotFocus="TextEditorGotFocus" 
+    
+            >   
+    <avalonedit:TextEditor.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/miRobotEditor;component/Templates/EditorTemplate.xaml"/>
+                <ResourceDictionary Source="/miRobotEditor;component/Templates/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type  lang:CodeCompletion}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Background="Orange" Text="{Binding Text}"/>
+                    <TextBlock Background="Red" Text="{Binding Description}"/>
+                    
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+
+    </avalonedit:TextEditor.Resources>
+    
+
     <avalonedit:TextEditor.InputBindings>
         <KeyBinding Command="{Binding GotoCommand}" Key="G" Modifiers="Control"/>
         <KeyBinding Command="Find" Key="F" Modifiers="Control"/>
@@ -37,15 +47,5 @@
             <MenuItem Header="Close all Folds" Command="{Binding CloseAllFoldsCommand}" InputGestureText="Ctrl,+,M,L" />
         </ContextMenu>
     </avalonedit:TextEditor.ContextMenu>
-    <avalonedit:TextEditor.Resources>
-        <Style x:Key="FunctionListItem" TargetType="{x:Type ListViewItem}">
-            <EventSetter Event="MouseDoubleClick" Handler="lbMouseDoubleClick"/>
-        </Style>
-        <DataTemplate DataType="{x:Type  lang:CodeCompletion}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Background="Orange" Text="{Binding Text}"/>
-                <TextBlock Background="Red" Text="{Binding Description}"/>                
-            </StackPanel>
-        </DataTemplate>     
-    </avalonedit:TextEditor.Resources>
+  
 </avalonedit:TextEditor>

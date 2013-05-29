@@ -23,7 +23,7 @@ namespace ISTUK.MathLibrary
                 var a = 0.0;
                 for (var j = i; j < _rows; j++)
                 {
-                    a = pythag(a, _qr[j, i]);
+                    a = Pythag(a, _qr[j, i]);
                 }
                 if (Math.Abs(a - 0.0) > EPSILON)
                 {
@@ -75,7 +75,7 @@ namespace ISTUK.MathLibrary
             return true;
         }
 
-        private double pythag(double a, double b)
+        private static double Pythag(double a, double b)
         {
             double num3;
             var num = Math.Abs(a);
@@ -184,21 +184,19 @@ namespace ISTUK.MathLibrary
                     matrix[i, i] = 1.0;
                     for (var k = i; k < _columns; k++)
                     {
-                        if (Math.Abs(_qr[i, i] - 0.0) > EPSILON)
+                        if (!(Math.Abs(_qr[i, i] - 0.0) > EPSILON)) continue;
+                        var num4 = 0.0;
+                        for (var m = i; m < _rows; m++)
                         {
-                            var num4 = 0.0;
-                            for (var m = i; m < _rows; m++)
-                            {
-                                num4 += _qr[m, i] * matrix[m, k];
-                            }
-                            num4 = -num4 / _qr[i, i];
-                            for (var n = i; n < _rows; n++)
-                            {
-                                Matrix matrix2;
-                                int num7;
-                                int num8;
-                                (matrix2 = matrix)[num7 = n, num8 = k] = matrix2[num7, num8] + (num4 * _qr[n, i]);
-                            }
+                            num4 += _qr[m, i] * matrix[m, k];
+                        }
+                        num4 = -num4 / _qr[i, i];
+                        for (var n = i; n < _rows; n++)
+                        {
+                            Matrix matrix2;
+                            int num7;
+                            int num8;
+                            (matrix2 = matrix)[num7 = n, num8 = k] = matrix2[num7, num8] + (num4 * _qr[n, i]);
                         }
                     }
                 }

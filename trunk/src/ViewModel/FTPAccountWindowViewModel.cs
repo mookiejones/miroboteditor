@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 
 namespace miRobotEditor.ViewModel
 {
     public class FTPAccountWindowViewModel:ToolViewModel
     {
         #region Properties
-        ObservableCollection<FTPAccount> _accounts = new ObservableCollection<FTPAccount>();
-        ReadOnlyObservableCollection<FTPAccount> _readonlyAccounts = null;
+
+        readonly ObservableCollection<FTPAccount> _accounts = new ObservableCollection<FTPAccount>();
+        readonly ReadOnlyObservableCollection<FTPAccount> _readonlyAccounts = null;
         public ReadOnlyObservableCollection<FTPAccount> Accounts{get{return _readonlyAccounts?? new ReadOnlyObservableCollection<FTPAccount>(_accounts);}}
         #endregion
 
@@ -23,9 +21,5 @@ namespace miRobotEditor.ViewModel
 
         //Connect Command
 
-    }
-
-    public class FTPAccount
-    {
     }
 }

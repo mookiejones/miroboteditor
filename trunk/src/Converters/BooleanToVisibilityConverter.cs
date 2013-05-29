@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -7,7 +8,7 @@ namespace miRobotEditor.Converters
 {
     public class BooleanToVisibilityConverter : IValueConverter
     {
-
+        [Localizable(false)]
         public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
             if (targetType == typeof(Visibility))
@@ -24,7 +25,7 @@ namespace miRobotEditor.Converters
         public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
            // throw new InvalidOperationException("Converter cannot convert back.");
-            return ((Visibility)value)==Visibility.Visible?true:false;
+            return ((Visibility)value)==Visibility.Visible;
 
         }
 

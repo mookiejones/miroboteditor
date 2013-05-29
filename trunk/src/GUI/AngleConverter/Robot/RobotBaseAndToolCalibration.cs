@@ -9,10 +9,6 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
     [Localizable(false)]
     public class RobotBaseAndToolCalibration
     {
-        private TransformationMatrix3D _calculatedRobotBase;
-        private TransformationMatrix3D _calculatedRobotTool;
-        private double _conditionNumber;
-
         public void CalibrateRobotBaseAndTool(Collection<TransformationMatrix3D> robotPoses, Collection<TransformationMatrix3D> measuredPoses)
         {
             if (robotPoses.Count != measuredPoses.Count)
@@ -65,7 +61,7 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
             }
             matrix7 = matrix7.Transpose();
             matrix8 = matrix8.Transpose();
-            _conditionNumber = matrix7.ConditionNumber();
+            ConditionNumber = matrix7.ConditionNumber();
             var vector = new Vector(matrix7.PseudoInverse() * matrix8);
             var scalar = Math.Pow(((1.0 + (vector[3] * vector[3])) + (vector[4] * vector[4])) + (vector[5] * vector[5]), -0.5);
             var vectord3 = new Vector3D(vector[3], vector[4], vector[5]) * scalar;
@@ -102,35 +98,17 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
             }
             matrix10 = matrix10.Transpose();
             matrix11 = matrix11.Transpose();
-            _conditionNumber = Math.Max(_conditionNumber, matrix10.ConditionNumber());
+            ConditionNumber = Math.Max(ConditionNumber, matrix10.ConditionNumber());
             var vector2 = new Vector(matrix10.PseudoInverse() * matrix11);
-            _calculatedRobotBase = new TransformationMatrix3D(new Vector3D(vector2[3], vector2[4], vector2[5]), rot);
-            _calculatedRobotTool = new TransformationMatrix3D(new Vector3D(vector2[0], vector2[1], vector2[2]), matrixd4.Inverse());
+            CalculatedRobotBase = new TransformationMatrix3D(new Vector3D(vector2[3], vector2[4], vector2[5]), rot);
+            CalculatedRobotTool = new TransformationMatrix3D(new Vector3D(vector2[0], vector2[1], vector2[2]), matrixd4.Inverse());
         }
 
-        public TransformationMatrix3D CalculatedRobotBase
-        {
-            get
-            {
-                return _calculatedRobotBase;
-            }
-        }
+        public TransformationMatrix3D CalculatedRobotBase { get; private set; }
 
-        public TransformationMatrix3D CalculatedRobotTool
-        {
-            get
-            {
-                return _calculatedRobotTool;
-            }
-        }
+        public TransformationMatrix3D CalculatedRobotTool { get; private set; }
 
-        public double ConditionNumber
-        {
-            get
-            {
-                return _conditionNumber;
-            }
-        }
+        public double ConditionNumber { get; private set; }
     }
 }
 

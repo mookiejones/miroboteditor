@@ -1,4 +1,4 @@
-﻿using miRobotEditor.Controls;
+﻿using System.ComponentModel;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Languages
@@ -19,7 +19,8 @@ namespace miRobotEditor.Languages
         {
         }
 
-        
+
+        [Localizable(false)]
         public LanguageFold(int start,int end, string text, string startfold, string endfold,bool closed):base(start,end)
         {
             Name = System.String.Format("{0}æ{1}", startfold, endfold);
@@ -29,7 +30,7 @@ namespace miRobotEditor.Languages
         	Start = start;
         	End = end;
         	Text = text;
-            string title = text;
+            var title = text;
         	
         	var p = title.IndexOf("\r\n");
         	var n = title.IndexOf('%');

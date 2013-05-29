@@ -35,7 +35,7 @@ namespace ISTUK.MathLibrary
             return matrix;
         }
 
-        private bool IsDone(Vector delta)
+        private static bool IsDone(Vector delta)
         {
             for (var i = 0; i < delta.Rows; i++)
             {
@@ -64,11 +64,9 @@ namespace ISTUK.MathLibrary
                 var vector4 = matrix2 * vector3;
                 var delta = matrix3.PseudoInverse() * vector4;
                 guess -= delta;
-                if (IsDone(delta))
-                {
-                    NumStepsToConverge = i + 1;
-                    return guess;
-                }
+                if (!IsDone(delta)) continue;
+                NumStepsToConverge = i + 1;
+                return guess;
             }
             return guess;
         }
@@ -78,7 +76,9 @@ namespace ISTUK.MathLibrary
 
         private int NumVariables { get; set; }
 
+// ReSharper disable UnusedAutoPropertyAccessor.Local
         private int NumStepsToConverge { get; set; }
+// ReSharper restore UnusedAutoPropertyAccessor.Local
     }
 }
 

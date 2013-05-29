@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace miRobotEditor.GUI.KUKA.AdjustST
 {
+    [Localizable(false)]
     class ToolItems:List<string>
     {
         public ToolItems()

@@ -1,10 +1,5 @@
 ﻿using System.ComponentModel;
-using miRobotEditor.Interfaces;
-using System.Diagnostics;
-using System;
-using System.Windows;
-using System.Windows.Input;
-using miRobotEditor.Commands;
+
 namespace miRobotEditor.ViewModel
 {
     [Localizable(false)]
@@ -42,29 +37,18 @@ namespace miRobotEditor.ViewModel
                 RaisePropertyChanged("SerializeFileName");
             }
         }
+// ReSharper disable UnusedMember.Local
        void BringToFront()
+// ReSharper restore UnusedMember.Local
         {
         	
         }
 
-        public void SendMessage(string title,string message,MSGIcon icon, bool forceshow = true)
+        public void SendMessage(string title,string message,MsgIcon icon, bool forceshow = true)
         {
             MessageViewModel.Instance.Add(title,message,icon,forceshow);
         }
 
 
     }
-
-    public abstract class SerializeBase:DependencyObject
-    {
-
-        public abstract string SerializeFileName { get; set; }
-
-        public void Serialize() { }
-        public void Deserialize() { }
-
-    }
-
-
-
 }

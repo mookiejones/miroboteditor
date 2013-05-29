@@ -1,20 +1,88 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Xml;
+using System.Xml.Serialization;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using System.Windows.Media;
 using miRobotEditor.Languages;
+using System.Collections.ObjectModel;
 namespace miRobotEditor.GUI
 {
-    [Localizable(false),Serializable]
-    public class TextEditorOptions : ICSharpCode.AvalonEdit.TextEditorOptions
-    {
-        //#region Overrides
 
+    public interface IOptions
+    {
+        String Title { get; }
+    }
+
+    [Localizable(false), Serializable]
+    public sealed class EditorOptions : TextEditorOptions, IOptions
+    {
+        #region Constructor
+        public EditorOptions()
+        {           
+//            ShowSpaces = true;
+            RegisterSyntaxHighlighting();
+
+        }
+#endregion
+
+         ~EditorOptions()
+        {
+           WriteXml();    
+        }
+
+
+        private void WriteXml()
+        {
+            var s = new XmlSerializer(typeof(EditorOptions));
+            TextWriter writer = new StreamWriter(@"D:\values.xml");
+            s.Serialize(writer, this);
+            writer.Close();
+        }
+
+        private static EditorOptions ReadXml()
+        {
+            var s = new XmlSerializer(typeof(EditorOptions));
+            var fs = new FileStream(@"D:\values.xml", FileMode.Open);
+            var result = new EditorOptions();
+            try
+            {
+                result = (EditorOptions)s.Deserialize(fs);
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                fs.Close();
+              
+            }
+
+            return result;
+
+
+        }
+
+        public static EditorOptions Instance
+        {
+            get
+            {
+                return _instance ??(_instance= ReadXml());
+           
+            }
+            set { _instance = value; }
+        }
+
+        private static EditorOptions _instance;
+        #region Overrides
+
+        public override bool ShowSpaces { get { return base.ShowSpaces; } set { base.ShowSpaces = value;OnPropertyChanged("ShowSpaces"); } }
         //private bool _convertTabsToSpaces = false;
         //public override bool ConvertTabsToSpaces{get{return _convertTabsToSpaces;}set{_convertTabsToSpaces=value;OnPropertyChanged("ConvertTabsToSpaces");}}
 
@@ -24,7 +92,7 @@ namespace miRobotEditor.GUI
         //private bool _enableEmailHyperLinks = true;
         //public override bool EnableEmailHyperlinks { get { return _enableEmailHyperLinks; } set { _enableEmailHyperLinks = value; OnPropertyChanged("EnableEmailHyperlinks"); } }
 
-      
+
         //private bool _enableHyperlinks = true;
         //public override bool EnableHyperlinks { get { return _enableHyperlinks; } set { _enableHyperlinks = value; OnPropertyChanged("EnableHyperlinks"); } }
 
@@ -39,55 +107,108 @@ namespace miRobotEditor.GUI
 
         //private bool _showTabs = true;
         //public override bool ShowTabs { get { return _showTabs; } set { _showTabs = value; OnPropertyChanged("ShowTabs"); } }
-    
-     
-        //#endregion
 
-        private bool _wrapWords = true;
-        public  bool WrapWords { get { return _wrapWords; } set { _wrapWords = value; OnPropertyChanged("WrapWords"); } }
+
+        #endregion
+
+        //Background
+
+        #region Colors
+
+        /// <summary>
+        /// Selected Text Background
+        /// </summary>
+        private Color _selectedTextBackground = Colors.SteelBlue;// { Color = Colors.SteelBlue, Opacity = 0.7 };
+        public Color SelectedTextBackground { get { return _selectedTextBackground; } set { _selectedTextBackground = value; OnPropertyChanged("SelectedTextBackground"); } }
+        private Color _backgroundColor = Colors.White;// new SolidColorBrush { Color = Colors.White };
+        public Color BackgroundColor { get { return _backgroundColor; } set { _backgroundColor = value; OnPropertyChanged("BackgroundColor"); } }
+        private Color _fontColor = Colors.Black;
+        public Color FontColor { get { return _fontColor; } set { _fontColor = value; OnPropertyChanged("FontColor"); } }
         [NonSerialized]
-        private Brush _selectedlinecolor = Brushes.Yellow;
+        private Color _selectedFontColor = Colors.White;
+        public Color SelectedFontColor { get { return _selectedFontColor; } set { _selectedFontColor = value; OnPropertyChanged("SelectedFontColor"); } }
+        [NonSerialized]
+        private Color _selectedBorderColor = Colors.Orange;
+        public Color SelectedBorderColor { get { return _selectedBorderColor; } set { _selectedBorderColor = value; OnPropertyChanged("SelectedBorderColor"); } }
+
+        
+        private Color _lineNumbersFontColor = Colors.Gray;
+        public Color LineNumbersFontColor{get { return _lineNumbersFontColor; }set { _lineNumbersFontColor = value;OnPropertyChanged("LineNumbersFontColor"); }}
+
+        /// <summary>
+        /// Border Color of editor window
+        /// </summary>
+        private Color _borderColor = Colors.Transparent;
+        /// <summary>
+        /// Border Color of editor window
+        /// </summary>
+        public Color BorderColor { get { return _borderColor; } set { _borderColor = value; OnPropertyChanged("BorderColor"); } }
+
+        /// <summary>
+        /// Color of Line Numbers
+        /// </summary>
+        private Color _lineNumbersForeground = Colors.Gray;
+        /// <summary>
+        /// Color of Line Numbers
+        /// </summary>
+        public Color LineNumbersForeground { get { return _lineNumbersForeground; } set { _lineNumbersForeground = value; OnPropertyChanged("LineNumbersForeground"); } }
+
+
+
+
+        [NonSerialized]
+        private Color _selectedTextBorderColor = Colors.Orange;
+        /// <summary>
+        /// Color of Border for selected text
+        /// </summary>
+        public Color SelectedTextBorderColor { get { return _selectedTextBorderColor; } set { _selectedTextBorderColor = value; OnPropertyChanged("SelectedTextBorderColor"); } }
+
+        private double _selectedBorderThickness = 1;
+        public double SelectedBorderThickness { get { return _selectedBorderThickness; } set { _selectedBorderThickness = value; OnPropertyChanged("SelectedBorderThickness"); } }
+
+
+
+        private double _borderThickness = 0.0;
+        public double BorderThickness { get { return _borderThickness; } set { _borderThickness = value;OnPropertyChanged("BorderThickness"); } }
+
+        [NonSerialized]
+        private Color _selectedlinecolor = Colors.Yellow;
 
         /// <summary>
         /// Color of Currently Selected Line
         /// </summary>
-        public Brush HighlightedLineColor { get { return _selectedlinecolor; } set { _selectedlinecolor = value; OnPropertyChanged("HighlightedLineColor"); } }
-        //System.Windows.SystemColors.HighlightColor
-        [NonSerialized]
-        private Brush _selectedTextBackground = new SolidColorBrush{ Color=Colors.SteelBlue, Opacity=0.7};
-        public Brush SelectedTextBackground { get { return _selectedlinecolor; } set { _selectedlinecolor = value; OnPropertyChanged("SelectedTextBackground"); } }
+        public Color HighlightedLineColor { get { return _selectedlinecolor; } set { _selectedlinecolor = value; OnPropertyChanged("HighlightedLineColor"); } }
+
+        #endregion
+        #region Brushes
 
         [NonSerialized]
-        private Brush _selectedTextForeground = new SolidColorBrush { Color = System.Windows.SystemColors.HighlightColor, Opacity = 0.7 };
-        public Brush SelectedTextForeground { get { return _selectedTextForeground; } set { _selectedTextForeground = value; OnPropertyChanged("SelectedTextForeground"); } }
+        private Color _foldToolTipBackgroundColor =  Colors.Red;//{ BorderBrush = Brushes.Black, Background = Brushes.WhiteSmoke };
+        public Color FoldToolTipBackgroundColor { get { return _foldToolTipBackgroundColor; } set { _foldToolTipBackgroundColor = value; OnPropertyChanged("FoldToolTipBackgroundColor"); } }
 
-        [NonSerialized]
-        private Border _foldToolTipBackground = new Border { BorderBrush = Brushes.Black, Background = Brushes.WhiteSmoke };
-        public Border FoldToolTipBackground { get { return _foldToolTipBackground; } set { _foldToolTipBackground = value; OnPropertyChanged("FoldToolTipBackground"); } }
+        private Color _foldToolTipBackgroundBorderColor = Colors.WhiteSmoke;//{ BorderBrush = Brushes.Black, Background = Brushes.WhiteSmoke };
+        public Color FoldToolTipBackgroundBorderColor { get { return _foldToolTipBackgroundBorderColor; } set { _foldToolTipBackgroundBorderColor = value; OnPropertyChanged("FoldToolTipBackgroundBorderColor"); } }
 
-        [NonSerialized ]
-        private Pen _selectedTextBorder = new Pen{Brush=Brushes.Orange, Thickness=1};
-        public Pen SelectedTextBorder { get { return _selectedTextBorder; } set { _selectedTextBorder = value; OnPropertyChanged("SelectedTextBorder"); } }
+        private double _foldToolTipBorderThickness = 1;
+        public double FoldToolTipBorderThickness { get { return _foldToolTipBorderThickness; } set { _foldToolTipBorderThickness = value;OnPropertyChanged("FoldToolTipBorderThickness"); } }
 
-        private System.Text.Encoding _encoding = System.Text.Encoding.UTF8;
-        public System.Text.Encoding Encoding { get { return _encoding; } set { _encoding=value; OnPropertyChanged("Encoding"); } }
+        #endregion
+
+        #region Boolean
+
+        private bool _wrapWords = true;
+        public bool WrapWords { get { return _wrapWords; } set { _wrapWords = value; OnPropertyChanged("WrapWords"); } }
+
+        #endregion
+
+
 
         private bool _highlightcurrentline = true;
         public bool HighlightCurrentLine { get { return _highlightcurrentline; } set { _highlightcurrentline = value; } }
-        public override bool ShowSpaces
-        {
-            get
-            {
-                return base.ShowSpaces;
-            }
-            set
-            {
-                base.ShowSpaces = value;
-            }
-        }
 
-    		#region Syntax Highlighting
-    	
+
+        #region Syntax Highlighting
+
 
         /// <summary>
         /// Loads all of syntax Highlighting
@@ -95,7 +216,7 @@ namespace miRobotEditor.GUI
         /// <param name="name"></param>
         /// <param name="ext"></param>
         [Localizable(false)]
-        private void Register(string name, string[] ext)
+        private static void Register(string name, string[] ext)
         {
             var filename = String.Format("miRobotEditor.Controls.SyntaxHighlighting.{0}Highlight.xshd", name);
             using (var s = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(filename))
@@ -111,7 +232,7 @@ namespace miRobotEditor.GUI
             }
         }
 
-        private void RegisterSyntaxHighlighting()
+        private static void RegisterSyntaxHighlighting()
         {
             Register("KUKA", Languages.KUKA.Ext.ToArray());
             Register("KAWASAKI", Kawasaki.EXT.ToArray());
@@ -119,21 +240,9 @@ namespace miRobotEditor.GUI
             Register("ABB", ABB.EXT.ToArray());
         }
 
-    	#endregion
-    	
-        public TextEditorOptions()
-        {
-            Instance = this;
-            RegisterSyntaxHighlighting();
-        }
+        #endregion
 
-        public static TextEditorOptions Instance
-        {
-            get { return _instance ?? (_instance = new TextEditorOptions()); }
-            set { _instance = value; }
-        }
 
-        private static TextEditorOptions _instance;
 
         bool _enableFolding = true;
 
@@ -142,7 +251,10 @@ namespace miRobotEditor.GUI
         /// Enable Code Folding
         /// </summary>
         [DefaultValue(true)]
-        public bool EnableFolding{ get { return _enableFolding;}set{_enableFolding = value;OnPropertyChanged("EnableFolding");}}
+        public bool EnableFolding { get { return _enableFolding; } set { _enableFolding = value; OnPropertyChanged("EnableFolding"); } }
+
+
+
 
         bool _mouseWheelZoom = true;
 
@@ -155,22 +267,45 @@ namespace miRobotEditor.GUI
             get { return _mouseWheelZoom; }
             set
             {
-                if (_mouseWheelZoom != value)
-                {
-                    _mouseWheelZoom = value;
-                    OnPropertyChanged("MouseWheelZoom");
-                }
+                if (_mouseWheelZoom == value) return;
+                _mouseWheelZoom = value;
+                OnPropertyChanged("MouseWheelZoom");
             }
         }
 
         private bool _enableAnimations = true;
-        public bool EnableAnimations { get { return _enableAnimations; } set { _enableAnimations = value;OnPropertyChanged("EnableAnimations"); } }
+        public bool EnableAnimations { get { return _enableAnimations; } set { _enableAnimations = value; OnPropertyChanged("EnableAnimations"); } }
 
         private bool _showlinenumbers = true;
         public bool ShowLineNumbers
         {
             get { return _showlinenumbers; }
-            set { _showlinenumbers = value;OnPropertyChanged("ShowLineNumbers"); }
+            set { _showlinenumbers = value; OnPropertyChanged("ShowLineNumbers"); }
         }
+
+        public string Title { get { return "Text Editor Options"; } }
     }
+
+    public class GlobalOptions:IOptions
+    {
+        private GlobalOptions()
+        {
+            FlyoutOpacity = .85;
+        }
+
+        public string Title { get { return "Global Options"; } }
+        private static GlobalOptions _instance;
+        public static GlobalOptions Instance
+        {
+            get { return _instance ?? (_instance = new GlobalOptions()); }
+            set { _instance = value; }
+        }
+
+        #region Flyout Options
+        [DefaultValue(0.75)]
+        public double FlyoutOpacity { get; set; }
+ 
+        #endregion
+    }
+
 }

@@ -12,7 +12,6 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.AccessControl;
 using System.IO;
-using miRobotEditor.Classes;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Pads
 {
@@ -351,7 +350,9 @@ namespace miRobotEditor.Pads
         //
         //   System.IO.IOException:
         //     The file is already open.
+// ReSharper disable FunctionRecursiveOnAllPaths
         public FileStream Open(FileMode mode, FileAccess access, FileShare share)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return Open(mode, access, share);
         }

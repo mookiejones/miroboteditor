@@ -1,12 +1,11 @@
-﻿using System.Windows;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Threading;
 namespace miRobotEditor.Forms
 {
     /// <summary>
     /// Interaction logic for frmSplashScreen.xaml
     /// </summary>
-    public partial class FrmSplashScreen : Window
+    public partial class FrmSplashScreen
     {
         delegate void StringParameterDelegate(string text);
         delegate void StringParameterWithStatusDelegate(string text, TypeOfMessage tom);
@@ -25,7 +24,7 @@ namespace miRobotEditor.Forms
         {
             InitializeComponent();
 //            label1.BackColor = Color.Transparent;
-            label1.Foreground = Brushes.Green;
+            Label1.Foreground = Brushes.Green;
 
             //progressBar1.Parent = pictureBox1;
             //progressBar1.BackColor = Color.Transparent;
@@ -34,19 +33,19 @@ namespace miRobotEditor.Forms
         }
         public int Maximum
         {
-            get { return (int)progressBar1.Maximum; }
-            set { progressBar1.Maximum = value; }
+            get { return (int)ProgressBar1.Maximum; }
+            set { ProgressBar1.Maximum = value; }
         }
         public int Minimum
         {
-            get { return (int)progressBar1.Minimum; }
-            set { progressBar1.Minimum = value; }
+            get { return (int)ProgressBar1.Minimum; }
+            set { ProgressBar1.Minimum = value; }
         }
         public void UpdateProgress(int value)
         {
              if (Dispatcher.Thread == Thread.CurrentThread)
              {
-                 progressBar1.Value = value;
+                 ProgressBar1.Value = value;
              }
              else
              {
@@ -100,8 +99,8 @@ namespace miRobotEditor.Forms
             if (Dispatcher.Thread == Thread.CurrentThread)
             {
                 // Must be on the UI thread if we've got this far
-                label1.Foreground = Brushes.Green;
-                label1.Text = text;
+                Label1.Foreground = Brushes.Green;
+                Label1.Text = text;
             }
             else
             {
@@ -123,16 +122,16 @@ namespace miRobotEditor.Forms
                 switch (tom)
                 {
                     case TypeOfMessage.Error:
-                        label1.Foreground = Brushes.Red;
+                        Label1.Foreground = Brushes.Red;
                         break;
                     case TypeOfMessage.Warning:
-                        label1.Foreground = Brushes.Yellow;
+                        Label1.Foreground = Brushes.Yellow;
                         break;
                     case TypeOfMessage.Success:
-                        label1.Foreground = Brushes.Green;
+                        Label1.Foreground = Brushes.Green;
                         break;
                 }
-                label1.Text = text;
+                Label1.Text = text;
             }
             else
             {
@@ -171,15 +170,15 @@ namespace miRobotEditor.Forms
 
         public static void ShowSplashScreen()
         {
-            spl.Show();
-            spl.ShowActivated = true;
+            Spl.Show();
+            Spl.ShowActivated = true;
         }
 
 
-        private static FrmSplashScreen spl= new FrmSplashScreen();
+        private static readonly FrmSplashScreen Spl= new FrmSplashScreen();
         public static void UpdateStatusTextWithStatus(string statusText,TypeOfMessage msgType)
         {
-           spl.UpdateStatusTextWithStatus(statusText,msgType);
+           Spl.UpdateStatusTextWithStatus(statusText,msgType);
 
         }
 

@@ -8,7 +8,9 @@ namespace miRobotEditor.Controls
     /// <summary>
     /// Interaction logic for KUKAKFDDialog.xaml
     /// </summary>
+// ReSharper disable RedundantExtendsListEntry
     public partial class KUKAKFDDialog : Window
+// ReSharper restore RedundantExtendsListEntry
     {
         public KUKAKFDDialog()
         {
@@ -46,7 +48,8 @@ namespace miRobotEditor.Controls
 
         private void Selected(object sender, RoutedEventArgs e)
         {
-            Num = Convert.ToInt32((sender as Button).Tag);
+            var button = sender as Button;
+            if (button != null) Num = Convert.ToInt32(button.Tag);
         }
     }
 }

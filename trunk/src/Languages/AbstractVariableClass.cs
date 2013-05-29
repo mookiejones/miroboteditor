@@ -39,7 +39,7 @@ namespace miRobotEditor.Languages
         public void Add(string text, AbstractVariableClass vartype)
             {
                 var r = new Regex(Expression, RegexOptions.IgnoreCase);
-                Match m = r.Match(text);
+                var m = r.Match(text);
                 while (m.Success)
                 {
                     Raw = m.ToString();

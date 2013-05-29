@@ -30,9 +30,10 @@ namespace miRobotEditor.Parsers
         /// </summary>
         public enum Tokens
         {
+            // ReSharper disable InconsistentNaming
+
             UNDEFINED = 0,
             DECLARATION = 1,
-// ReSharper disable InconsistentNaming
             E6POS = 2,
             IDENTIFIER = 3,
             END = 4,

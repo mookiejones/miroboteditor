@@ -23,17 +23,16 @@ namespace miRobotEditor.GUI
         {
             textView.EnsureVisualLines();
 
-            if (!_line.IsDeleted)
+            if (_line.IsDeleted) return;
+            var segment = new TextSegment { StartOffset = _line.Offset, EndOffset = _line.EndOffset };
+            foreach (var r in BackgroundGeometryBuilder.GetRectsForSegment(textView, segment))
             {
-                var segment = new TextSegment { StartOffset = _line.Offset, EndOffset = _line.EndOffset };
-                foreach (var r in BackgroundGeometryBuilder.GetRectsForSegment(textView, segment))
-                {
-                    drawingContext.DrawRoundedRectangle(TextEditorOptions.Instance.HighlightedLineColor, new Pen(Brushes.Red, 0),
-                                                        new Rect(r.Location, new Size(textView.ActualWidth, r.Height)), 3, 3);
-                }
+                drawingContext.DrawRoundedRectangle(new SolidColorBrush( EditorOptions.Instance.HighlightedLineColor), new Pen(Brushes.Red, 0),new Rect(r.Location, new Size(textView.ActualWidth, r.Height)), 3, 3);
             }
         }
 
+// ReSharper disable UnusedAutoPropertyAccessor.Local
         public KnownLayer Layer { get; private set; }
+// ReSharper restore UnusedAutoPropertyAccessor.Local
     }
 }
