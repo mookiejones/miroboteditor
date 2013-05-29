@@ -10,7 +10,9 @@ namespace miRobotEditor.Templates
     /// <summary>
     /// Interaction logic for VisualVariableItem.xaml
     /// </summary>
+// ReSharper disable RedundantExtendsListEntry
     public partial class VisualVariableItem : DataGrid
+// ReSharper restore RedundantExtendsListEntry
     {
         public VisualVariableItem()
         {
@@ -28,10 +30,13 @@ namespace miRobotEditor.Templates
             // Open The File
             var cell = sender as DataGrid;
 
-            if (cell == null | !cell.CurrentCell.IsValid) return;
-            var item = cell.CurrentCell.Item as IVariable;
+            if (cell != null && false | !cell.CurrentCell.IsValid) return;
+            if (cell != null)
+            {
+                var item = cell.CurrentCell.Item as IVariable;
 
-            if ((item != null)&&(File.Exists(item.Path))) Workspace.Instance.OpenFile(item);
+                if ((item != null)&&(File.Exists(item.Path))) Workspace.Instance.OpenFile(item);
+            }
             e.Handled = true;
         }
         public T TryFindParent<T>(DependencyObject child) where T : DependencyObject

@@ -136,7 +136,9 @@ namespace ISTUK.MathLibrary
             return new Point3D(vectord2.X, vectord2.Y, vectord2.Z);
         }
 
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static TransformationMatrix3D operator *(TransformationMatrix3D m1, TransformationMatrix3D m2)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             var result = new TransformationMatrix3D(m1*m2);
             return result;

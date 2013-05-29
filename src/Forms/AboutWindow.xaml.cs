@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace miRobotEditor.Forms
 {
     /// <summary>
     /// Interaction logic for AboutWindow.xaml
     /// </summary>
+// ReSharper disable RedundantExtendsListEntry
     public partial class AboutWindow : Window
+// ReSharper restore RedundantExtendsListEntry
     {
         public AboutWindow()
         {
@@ -25,7 +16,7 @@ namespace miRobotEditor.Forms
         
 		void CloseClick(object sender, RoutedEventArgs e)
 		{
-			this.Close();
+			Close();
 		}
     }
 }

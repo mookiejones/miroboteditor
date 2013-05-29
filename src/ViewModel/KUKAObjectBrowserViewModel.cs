@@ -7,13 +7,14 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using miRobotEditor.Classes;
 using System.Windows.Controls;
 using miRobotEditor.Commands;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 namespace miRobotEditor.ViewModel
 {
+    // ReSharper disable UnusedMember.Local
+
 	/// <summary>
 	/// Description of KUKAObjectBrowserViewModel.
 	/// </summary>
@@ -51,26 +52,26 @@ namespace miRobotEditor.ViewModel
 			string IsGlobal{get;set;}
 			string Info{get;set;}
 		}
-		
-		
+
+        // ReSharper restore UnusedMember.Local
 
 
-		 ObservableCollection<FunctionClass> _functionItems = new ObservableCollection<FunctionClass>();
-         ReadOnlyObservableCollection<FunctionClass> _readonlyFunctionItems = null;
+	    readonly ObservableCollection<FunctionClass> _functionItems = new ObservableCollection<FunctionClass>();
+	    readonly ReadOnlyObservableCollection<FunctionClass> _readonlyFunctionItems = null;
          public ReadOnlyObservableCollection<FunctionClass> FunctionItems { get { return _readonlyFunctionItems ?? new ReadOnlyObservableCollection<FunctionClass>(_functionItems); } }
 
-		private ObservableCollection<VariableClass> _variableItems = new ObservableCollection<VariableClass>();
-        ReadOnlyObservableCollection<VariableClass> _readonlyVariableItems = null;
+		private readonly ObservableCollection<VariableClass> _variableItems = new ObservableCollection<VariableClass>();
+	    readonly ReadOnlyObservableCollection<VariableClass> _readonlyVariableItems = null;
         public ReadOnlyObservableCollection<VariableClass> VariableItems { get { return _readonlyVariableItems ?? new ReadOnlyObservableCollection<VariableClass>(_variableItems); } }
 
 
-		private ObservableCollection<EnumClass> _enumItems = new ObservableCollection<EnumClass>();
-        ReadOnlyObservableCollection<EnumClass> _readonlyEnumItems = null;
+		private readonly ObservableCollection<EnumClass> _enumItems = new ObservableCollection<EnumClass>();
+	    readonly ReadOnlyObservableCollection<EnumClass> _readonlyEnumItems = null;
         public ReadOnlyObservableCollection<EnumClass> EnumItems { get { return _readonlyEnumItems ?? new ReadOnlyObservableCollection<EnumClass>(_enumItems); } }
 
 
-		private ObservableCollection<StructureClass> _structureItems = new ObservableCollection<StructureClass>();
-        ReadOnlyObservableCollection<StructureClass> _readonlyStructureItems = null;
+		private readonly ObservableCollection<StructureClass> _structureItems = new ObservableCollection<StructureClass>();
+	    readonly ReadOnlyObservableCollection<StructureClass> _readonlyStructureItems = null;
         public ReadOnlyObservableCollection<StructureClass> StructureItems { get { return _readonlyStructureItems ?? new ReadOnlyObservableCollection<StructureClass>(_structureItems); } }
 		
 		public static KUKAObjectBrowserViewModel Instance{get;set;}

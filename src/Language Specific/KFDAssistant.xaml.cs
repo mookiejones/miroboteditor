@@ -13,7 +13,9 @@ namespace miRobotEditor.Language_Specific
 	/// <summary>
 	/// Interaction logic for KFDAssistant.xaml
 	/// </summary>
+// ReSharper disable RedundantExtendsListEntry
 	public partial class KFDAssistant : Window
+// ReSharper restore RedundantExtendsListEntry
 	{
 		public KFDAssistant()
 		{

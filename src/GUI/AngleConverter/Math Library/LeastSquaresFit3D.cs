@@ -10,14 +10,8 @@ namespace ISTUK.MathLibrary
     [Localizable(false)]
     public class LeastSquaresFit3D
     {
-        private double _averageError;
-        private Collection<double> _errors;
-        private double _maxError;
         private Collection<Point3D> _measuredPoints;
-        private int _pointWithLargestError;
         private NRSolver _solver;
-        private double _standardDeviationError;
-        private TransformationMatrix3D _transform;
 
         public Vector3D AverageVector3D(Collection<Vector3D> vectors)
         {
@@ -31,29 +25,27 @@ namespace ISTUK.MathLibrary
             return element;
         }
 
-        private void CalculateErrors(Collection<Point3D> points, IGeometricElement3D element)
+        private void CalculateErrors(IList<Point3D> points, IGeometricElement3D element)
         {
-            _errors = new Collection<double>();
+            Errors = new Collection<double>();
             var num = 0.0;
             var num2 = 0.0;
-            _maxError = 0.0;
-            _pointWithLargestError = -1;
+            MaxError = 0.0;
+            PointWithLargestError = -1;
             for (var i = 0; i < points.Count; i++)
             {
                 var pointd = points[i];
                 var item = Distance3D.Between(element, pointd);
-                _errors.Add(item);
+                Errors.Add(item);
                 num += item;
                 num2 += item * item;
-                if (item > _maxError)
-                {
-                    _maxError = item;
-                    _pointWithLargestError = i;
-                }
+                if (!(item > MaxError)) continue;
+                MaxError = item;
+                PointWithLargestError = i;
             }
             var count = points.Count;
-            _averageError = num / count;
-            _standardDeviationError = Math.Sqrt((count * num2) - (_averageError * _averageError)) / count;
+            AverageError = num / count;
+            StandardDeviationError = Math.Sqrt((count * num2) - (AverageError * AverageError)) / count;
         }
 
         private void CalculateErrors(IEnumerable<Vector3D> vectors, IGeometricElement3D element)
@@ -66,13 +58,13 @@ namespace ISTUK.MathLibrary
             CalculateErrors(points, element);
         }
 
-        private void CalculateErrors(Collection<Point3D> nominal, Collection<Point3D> measured, TransformationMatrix3D transform)
+        private void CalculateErrors(IList<Point3D> nominal, IList<Point3D> measured, TransformationMatrix3D transform)
         {
-            _errors = new Collection<double>();
+            Errors = new Collection<double>();
             var num = 0.0;
             var num2 = 0.0;
-            _maxError = 0.0;
-            _pointWithLargestError = -1;
+            MaxError = 0.0;
+            PointWithLargestError = -1;
             for (var i = 0; i < nominal.Count; i++)
             {
                 var pointd = measured[i];
@@ -80,18 +72,16 @@ namespace ISTUK.MathLibrary
                 var pointd2 = new Point3D(new Vector3D(transform.Rotation.Inverse() * vectord));
                 var pointd3 = nominal[i];
                 var item = Distance3D.Between(pointd2, pointd3);
-                _errors.Add(item);
+                Errors.Add(item);
                 num += item;
                 num2 += item * item;
-                if (item > _maxError)
-                {
-                    _maxError = item;
-                    _pointWithLargestError = i;
-                }
+                if (!(item > MaxError)) continue;
+                MaxError = item;
+                PointWithLargestError = i;
             }
             var count = nominal.Count;
-            _averageError = num / count;
-            _standardDeviationError = Math.Sqrt((count * num2) - (_averageError * _averageError)) / count;
+            AverageError = num / count;
+            StandardDeviationError = Math.Sqrt((count * num2) - (AverageError * AverageError)) / count;
         }
 
         public Point3D Centroid(Collection<Point3D> points)
@@ -107,7 +97,7 @@ namespace ISTUK.MathLibrary
                 num4 += pointd.Z;
             }
             var element = new Point3D(num2 / count, num3 / count, num4 / count);
-            _transform = new TransformationMatrix3D(new Vector3D(element.X, element.Y, element.Z), new RotationMatrix3D());
+            Transform = new TransformationMatrix3D(new Vector3D(element.X, element.Y, element.Z), new RotationMatrix3D());
             CalculateErrors(points, element);
             return element;
         }
@@ -358,9 +348,9 @@ namespace ISTUK.MathLibrary
             matrix4[2, 2] = num3;
             var rot = new RotationMatrix3D((svd.V * matrix4) * svd.UT);
             var trans = (rot * pointd) - pointd2;
-            _transform = new TransformationMatrix3D(trans, rot);
-            CalculateErrors(nominal, measured, _transform);
-            return _transform;
+            Transform = new TransformationMatrix3D(trans, rot);
+            CalculateErrors(nominal, measured, Transform);
+            return Transform;
         }
 
         public TransformationMatrix3D PointToPointMapping(Collection<Vector3D> nominal, Collection<Vector3D> measured)
@@ -395,37 +385,13 @@ namespace ISTUK.MathLibrary
             return vector;
         }
 
-        public double AverageError
-        {
-            get
-            {
-                return _averageError;
-            }
-        }
+        public double AverageError { get; private set; }
 
-        public Collection<double> Errors
-        {
-            get
-            {
-                return _errors;
-            }
-        }
+        public Collection<double> Errors { get; private set; }
 
-        public double MaxError
-        {
-            get
-            {
-                return _maxError;
-            }
-        }
+        public double MaxError { get; private set; }
 
-        public int PointWithLargestError
-        {
-            get
-            {
-                return _pointWithLargestError;
-            }
-        }
+        public int PointWithLargestError { get; private set; }
 
         public double RmsError
         {
@@ -437,21 +403,9 @@ namespace ISTUK.MathLibrary
             }
         }
 
-        public double StandardDeviationError
-        {
-            get
-            {
-                return _standardDeviationError;
-            }
-        }
+        public double StandardDeviationError { get; private set; }
 
-        public TransformationMatrix3D Transform
-        {
-            get
-            {
-                return _transform;
-            }
-        }
+        public TransformationMatrix3D Transform { get; private set; }
     }
 }
 

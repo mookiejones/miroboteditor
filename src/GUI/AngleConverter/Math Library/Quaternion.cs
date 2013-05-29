@@ -1,10 +1,15 @@
+using System.ComponentModel;
+
 namespace ISTUK.MathLibrary
 {
     using System;
 
+    [Localizable(false)]
     public class Quaternion : IFormattable
     {
+// ReSharper disable FunctionRecursiveOnAllPaths
         protected bool Equals(Quaternion other)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return Equals(other);
         }
@@ -13,13 +18,14 @@ namespace ISTUK.MathLibrary
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((Quaternion) obj);
+            return obj.GetType() == GetType() && Equals((Quaternion) obj);
         }
 
         public override int GetHashCode()
         {
+// ReSharper disable BaseObjectGetHashCodeCallInGetHashCode
             return base.GetHashCode();
+// ReSharper restore BaseObjectGetHashCodeCallInGetHashCode
         }
 
 
@@ -56,7 +62,7 @@ namespace ISTUK.MathLibrary
 
         public double Angle()
         {
-            double num = Math.Acos(W) * 2.0;
+            var num = Math.Acos(W) * 2.0;
             return ((num * 180.0) / Math.PI);
         }
 
@@ -64,8 +70,10 @@ namespace ISTUK.MathLibrary
         {
             new Quaternion(this).Normalise();
             var w = W;
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Math.Acos(w);
-            double num2 = Math.Sqrt(1.0 - (w * w));
+// ReSharper restore ReturnValueOfPureMethodIsNotUsed
+            var num2 = Math.Sqrt(1.0 - (w * w));
             if (Math.Abs(num2) < 0.0005)
             {
                 num2 = 1.0;
@@ -91,7 +99,7 @@ namespace ISTUK.MathLibrary
 
         public Quaternion Inverse()
         {
-            Quaternion quaternion = Conjugate();
+            var quaternion = Conjugate();
             quaternion.Scalar = 1.0 / Scalar;
             return quaternion;
         }
@@ -103,7 +111,7 @@ namespace ISTUK.MathLibrary
 
         public void Normalise()
         {
-            double num = Magnitude();
+            var num = Magnitude();
             X /= num;
             Y /= num;
             Z /= num;
@@ -121,7 +129,7 @@ namespace ISTUK.MathLibrary
         public static explicit operator RotationMatrix3D(Quaternion q)
         {
             var matrixd = new RotationMatrix3D();
-            double num = q.X * q.X;
+            var num = q.X * q.X;
             var num2 = q.X * q.Y;
             var num3 = q.X * q.Z;
             var num4 = q.X * q.W;

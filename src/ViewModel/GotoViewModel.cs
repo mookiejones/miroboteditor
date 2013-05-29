@@ -14,10 +14,10 @@ namespace miRobotEditor.ViewModel
         private string _description = string.Empty;
         public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
 
-        private int _enteredText = 0;
+        private int _enteredText;
         public int EnteredText { get { return _enteredText; } set { _enteredText = value; RaisePropertyChanged("EnteredText"); } }
 
-        private int _selectedLine = 0;
+        private int _selectedLine;
         public int SelectedLine { get { return _selectedLine; } set { _selectedLine = value; RaisePropertyChanged("SelectedLine"); } }
         #endregion
 
@@ -42,17 +42,10 @@ namespace miRobotEditor.ViewModel
 
         void Accept()
         {
-            try
-            {
-                var d = Editor.Document.GetLineByNumber(EnteredText);
-                Editor.CaretOffset = d.Offset;
-                Editor.TextArea.Caret.BringCaretToView();
-                Editor.ScrollToLine(_selectedLine);
-            }
-            finally
-            {
-  //              Close();
-            }
+            var d = Editor.Document.GetLineByNumber(EnteredText);
+            Editor.CaretOffset = d.Offset;
+            Editor.TextArea.Caret.BringCaretToView();
+            Editor.ScrollToLine(_selectedLine);
         }
     }
 }

@@ -5,7 +5,9 @@ namespace miRobotEditor.Controls
     /// <summary>
     /// Interaction logic for KUKAInlineFormHelper.xaml
     /// </summary>
+// ReSharper disable RedundantExtendsListEntry
     public partial class KUKAInlineFormHelper : Window
+// ReSharper restore RedundantExtendsListEntry
     {
         public KUKAInlineFormHelper()
         {

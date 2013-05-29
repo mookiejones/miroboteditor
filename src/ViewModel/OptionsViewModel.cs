@@ -6,8 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;
-using miRobotEditor.Classes;
+
 using miRobotEditor.Commands;
 using System.Windows.Input;
 namespace miRobotEditor.ViewModel
@@ -33,9 +32,9 @@ namespace miRobotEditor.ViewModel
         }
         
         private  RelayCommand _okCommand;
-        public  ICommand OKCommand
+        public  ICommand OkCommand
         {
-            get { return _okCommand ?? (_okCommand = new RelayCommand(param => OK(), param => true)); }
+            get { return _okCommand ?? (_okCommand = new RelayCommand(param => Ok(), param => true)); }
         }
         
         private  RelayCommand _cancelCommand;
@@ -43,10 +42,10 @@ namespace miRobotEditor.ViewModel
         {
             get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(param => Cancel(), param => true)); }
         }
-        
-        void Apply(){}
-        void OK(){}
-        void Cancel(){}
+
+	    static void Apply(){}
+	    static void Ok(){}
+	    static void Cancel(){}
 
         
 	}

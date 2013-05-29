@@ -3,8 +3,6 @@ using miRobotEditor.Forms;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using miRobotEditor.GUI;
 using System.Windows.Input;
 using miRobotEditor.Commands;
 using System.IO;
@@ -16,10 +14,9 @@ using miRobotEditor.Properties;
 using miRobotEditor.Languages;
 using System.ComponentModel;
 using System.Windows;
-using AvalonDock.Layout.Serialization;
 using AvalonDock.Layout;
 using miRobotEditor.Pads;
-using AvalonDock;
+
 namespace miRobotEditor
 {
     public class Workspace:ViewModelBase
@@ -37,59 +34,55 @@ namespace miRobotEditor
 
         #endregion
 
-        DockingManager Dock { get { return MainWindow.Instance.Dock; } set { MainWindow.Instance.Dock = value; } }
-
-        private static Workspace _instance =null;
-        public static Workspace Instance { get { return _instance; } set { _instance = value; } }
-
+        public static Workspace Instance { get; set; }
 
         #region Tools
 
         //Object Browser
-        ObjectBrowserViewModel _objectBrowser = null;
+        readonly ObjectBrowserViewModel _objectBrowser = null;
         public ObjectBrowserViewModel ObjectBrowser { get { return _objectBrowser ?? new ObjectBrowserViewModel(); } }
 
-        NotesViewModel _notes = null;
+        readonly NotesViewModel _notes = null;
         public NotesViewModel Notes { get { return _notes ?? new NotesViewModel(); } }
 
-        MessageViewModel _messageView = null;
+        readonly MessageViewModel _messageView = null;
         public MessageViewModel MessageView
         {
             get { return _messageView ?? new MessageViewModel(); }
         }
 
-        FunctionViewModel _functions = null;
+        readonly FunctionViewModel _functions = null;
         public FunctionViewModel Functions { get { return _functions ?? new FunctionViewModel(); } }
 
-      
 
-        LocalVariablesViewModel _localVariables = null;
+        readonly LocalVariablesViewModel _localVariables = null;
         public LocalVariablesViewModel LocalVariables { get { return _localVariables ?? new LocalVariablesViewModel(); } }
 
 
-        AngleConvertorViewModel _angleConverter = null;
+        readonly AngleConvertorViewModel _angleConverter = null;
         public AngleConvertorViewModel AngleConverter { get { return _angleConverter ?? new AngleConvertorViewModel(); } }
         #endregion
 
         #region Properties
+        private bool _showSettings;
+        public bool ShowSettings { get { return _showSettings; } set { _showSettings = value; RaisePropertyChanged("ShowSettings"); } }
 
-
-        ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
-        IEnumerable<ToolViewModel> _readonlyTools = null;
+        readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
+        readonly IEnumerable<ToolViewModel> _readonlyTools = null;
         public IEnumerable<ToolViewModel> Tools { get { return _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools); } }
 
 
-        private bool _isClosing = false;
+        private bool _isClosing;
         public bool IsClosing { get { return _isClosing; } set { _isClosing = value; RaisePropertyChanged("IsClosing"); } }
 
-        ObservableCollection<IDocument> _files = new ObservableCollection<IDocument>();
-        ReadOnlyObservableCollection<IDocument> _readonyFiles = null;
+        readonly ObservableCollection<IDocument> _files = new ObservableCollection<IDocument>();
+        readonly ReadOnlyObservableCollection<IDocument> _readonyFiles = null;
         public ReadOnlyObservableCollection<IDocument> Files { get { return _readonyFiles ?? new ReadOnlyObservableCollection<IDocument>(_files); } }
 
         #endregion
 
         #region ActiveEditor
-        private static IDocument _activeEditor = null;
+        private static IDocument _activeEditor;
         public IDocument ActiveEditor 
         {
             get 
@@ -105,7 +98,9 @@ namespace miRobotEditor
     //                ActiveEditorChanged(this, EventArgs.Empty);
             } 
         }
+#pragma warning disable 67
         public event EventHandler ActiveEditorChanged;
+#pragma warning restore 67
         #endregion
 
         #region Commands
@@ -114,21 +109,27 @@ namespace miRobotEditor
 
       public ICommand NewFileCommand
         {
-            get { return _newFileCommand ?? (_newFileCommand = new RelayCommand((p) => AddNewFile(), (p) => true)); }
+            get { return _newFileCommand ?? (_newFileCommand = new RelayCommand(p => AddNewFile(), p => true)); }
         }
+      private RelayCommand _showSettingsCommand;
+
+      public ICommand ShowSettingsCommand
+      {
+          get { return _showSettingsCommand ?? (_showSettingsCommand = new RelayCommand(p => ExecuteShowSettings(), p => true)); }
+      }
 
         private RelayCommand _closeWindowCommand;
 
       public ICommand CloseWindowCommand
         {
-            get { return _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand((p) => CloseWindow(p), (p) => true)); }
+            get { return _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand(p => CloseWindow(p), p => true)); }
         }
 
         private RelayCommand _showOptionsCommand;
 
       public ICommand ShowOptionsCommand
         {
-            get { return _showOptionsCommand ?? (_showOptionsCommand = new RelayCommand((p) => ShowOptions(), (p) => true)); }
+            get { return _showOptionsCommand ?? (_showOptionsCommand = new RelayCommand(p => ShowOptions(), p => true)); }
         }
 
 
@@ -136,28 +137,28 @@ namespace miRobotEditor
 
       public ICommand ShowAboutCommand
         {
-            get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand((p) => ShowAbout(), (p) => true)); }
+            get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand(p => ShowAbout(), p => true)); }
         }
 
         private RelayCommand _exitCommand;
 
       public ICommand ExitCommand
         {
-            get { return _exitCommand ?? (_exitCommand = new RelayCommand((p) => Exit(),(p) => true)); }
+            get { return _exitCommand ?? (_exitCommand = new RelayCommand(p => Exit(),p => true)); }
         }
 
         private RelayCommand _importCommand;
 
       public ICommand ImportCommand
         {
-            get { return _importCommand ?? (_importCommand = new RelayCommand((p) => ImportRobot(), (p) => (!(p is LanguageBase) | (p is Fanuc) | (p is Kawasaki) | p == null))); }
+            get { return _importCommand ?? (_importCommand = new RelayCommand(p => ImportRobot(), p => (!(p is LanguageBase) | (p is Fanuc) | (p is Kawasaki) | p == null))); }
         }
 
         private RelayCommand _openFileCommand;
 
       public ICommand OpenFileCommand
         {
-            get { return _openFileCommand ?? (_openFileCommand = new RelayCommand((p) => OnOpen(p), (p) => true)); }
+            get { return _openFileCommand ?? (_openFileCommand = new RelayCommand(p => OnOpen(p), p => true)); }
         }
 
         private  RelayCommand _changeViewAsCommand;
@@ -175,20 +176,27 @@ namespace miRobotEditor
         }
 
         #endregion
+      #region Show Settings
+      void ExecuteShowSettings()
+      {
+          ShowSettings = !ShowSettings;
+      }
+      #endregion
 
+      #region OpenFile
 
-        #region OpenFile
-
-        /// <summary>
+      /// <summary>
         /// Open file from menu entry
         /// </summary>
         /// <param name="param"></param>
+// ReSharper disable UnusedParameter.Local
         void OnOpen(object param)
+// ReSharper restore UnusedParameter.Local
         {
 
             var dlg = new OpenFileDialog
             {
-                Filter = Properties.Resources.DefaultFilter,
+                Filter = Resources.DefaultFilter,
                 Multiselect = true,
                 FilterIndex = Settings.Default.Filter,
             };
@@ -263,7 +271,7 @@ namespace miRobotEditor
         #endregion
 
         //This can probably move to the language class section
-        private void ChangeViewAs(object param)
+        private static void ChangeViewAs(object param)
         {
 
             var lang = param as AbstractLanguageClass;
@@ -271,19 +279,33 @@ namespace miRobotEditor
             switch (param.ToString())
             {
                 case "ABB":
+// ReSharper disable RedundantAssignment
+// ReSharper disable RedundantCast
                     lang = (ABB)lang;
+// ReSharper restore RedundantCast
+// ReSharper restore RedundantAssignment
                     //                        Workspace.Instance.ActiveEditor.FileLanguage = Workspace.Instance.ActiveEditor.FileLanguage as ABB;
                     break;
                 case "KUKA":
+// ReSharper disable RedundantAssignment
                     lang = new KUKA();
+// ReSharper restore RedundantAssignment
                     //                       Workspace.Instance.ActiveEditor.FileLanguage = new KUKA();
                     break;
                 case "Fanuc":
+// ReSharper disable RedundantAssignment
+// ReSharper disable RedundantCast
                     lang = (Fanuc)lang;
+// ReSharper restore RedundantCast
+// ReSharper restore RedundantAssignment
                     //                        Workspace.Instance.ActiveEditor.FileLanguage = Workspace.Instance.ActiveEditor.FileLanguage as Fanuc;
                     break;
                 case "Kawasaki":
+// ReSharper disable RedundantAssignment
+// ReSharper disable RedundantCast
                     lang = (Kawasaki)lang;
+// ReSharper restore RedundantCast
+// ReSharper restore RedundantAssignment
                     //Workspace.Instance.ActiveEditor.FileLanguage = Workspace.Instance.ActiveEditor.FileLanguage as Kawasaki;
                     break;
             }
@@ -303,16 +325,25 @@ namespace miRobotEditor
         
         }
 
+// ReSharper disable UnusedMember.Local
+// ReSharper disable UnusedParameter.Local
         private void OnDocumentClosing(object sender, AvalonDock.DocumentClosingEventArgs e)
+// ReSharper restore UnusedParameter.Local
+// ReSharper restore UnusedMember.Local
         {
-            MessageViewModel.Instance.Add("Not Implemented", "Need to add OnDocumentClosing", MSGIcon.ERROR);
+
+            //TODO Fix this now!
+            MessageViewModel.Instance.Add("Not Implemented", "Need to add OnDocumentClosing", MsgIcon.Error);
         }
 
+// ReSharper disable UnusedMember.Local
+// ReSharper disable UnusedParameter.Local
         private void WindowLoaded(object sender, RoutedEventArgs e)
+// ReSharper restore UnusedParameter.Local
+// ReSharper restore UnusedMember.Local
         {
          //   SendMessage("Application Started", System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
-
-            MessageViewModel.Instance.Add("Application Started", App.ProductName, MSGIcon.INFO, false);
+            MessageView.Add("Application Started",App.ProductName,MsgIcon.Info);
         }
 
 
@@ -325,7 +356,7 @@ namespace miRobotEditor
             switch (name)
             {
                 case "Angle Converter":
-                    toolModel = new ViewModel.AngleConvertorViewModel();
+                    toolModel = new AngleConvertorViewModel();
                     tool.AutoHideMinWidth = 219;
                     break;
                 case "Functions":
@@ -360,22 +391,25 @@ namespace miRobotEditor
                     tool.AutoHideMinWidth = DatCleanHelper.Instance.Width;
                     break;
                 default:
-                    MessageViewModel.Instance.Add("Not Implemented", String.Format("Add Tool Parameter of {0} not Implemented", name), MSGIcon.ERROR);
+                    MessageViewModel.Instance.Add("Not Implemented", String.Format("Add Tool Parameter of {0} not Implemented", name), MsgIcon.Error);
                     break;
             }
 
-            tool.Title = toolModel.Title;
-            tool.Content = toolModel;
-
-            // Does Content Exist Allready?
-            foreach (var t in Tools.Where(t => t.Title==toolModel.Title))
+            if (toolModel != null)
             {
-                t.IsActive = true;
-                return;
-            }
+                tool.Title = toolModel.Title;
+                tool.Content = toolModel;
 
-            toolModel.IsActive = true;
-            _tools.Add(toolModel);
+                // Does Content Exist Allready?
+                foreach (var t in Tools.Where(t => t.Title==toolModel.Title))
+                {
+                    t.IsActive = true;
+                    return;
+                }
+
+                toolModel.IsActive = true;
+                _tools.Add(toolModel);
+            }
             RaisePropertyChanged("Tools");
 
     
@@ -391,7 +425,7 @@ namespace miRobotEditor
         public void CloseWindow(object param)
         {
             var ad = param as IDocument;
-            var docpane = MainWindow.Instance.dockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
+            var docpane = MainWindow.Instance.DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (docpane == null) return;
 
             foreach (var c in docpane.Children.Where(c => c.Content.Equals(ad)))
@@ -405,7 +439,7 @@ namespace miRobotEditor
         public void BringToFront(string windowname)
         {
             // Does Content Exist Allready?
-            foreach (var dd in MainWindow.Instance.dockManager.Layout.Descendents().OfType<LayoutAnchorable>())
+            foreach (var dd in MainWindow.Instance.DockManager.Layout.Descendents().OfType<LayoutAnchorable>())
             {
                 if (dd.Title == windowname)                   
                     dd.IsActive = true;
@@ -429,16 +463,13 @@ namespace miRobotEditor
         {
             var openFileDialog = new OpenFileDialog();
             var result = openFileDialog.ShowDialog();
-            if (result.HasValue && result.Value)
+            if (result.Value)
             {
                 filePath = openFileDialog.FileName;
                 return true;
             }
-            else
-            {
-                filePath = null;
-                return false;
-            }
+            filePath = null;
+            return false;
         }
 
         /// <summary>
@@ -451,16 +482,13 @@ namespace miRobotEditor
             // saveFileDialog.FileName = ActiveEditor.Filename;
 
             var result = saveFileDialog.ShowDialog();
-            if (result.HasValue && result.Value)
+            if (result.Value)
             {
                 newFilePath = saveFileDialog.FileName;
                 return true;
             }
-            else
-            {
-                newFilePath = string.Empty;
-                return false;
-            }
+            newFilePath = string.Empty;
+            return false;
         }
 
         /// <summary>
@@ -477,7 +505,7 @@ namespace miRobotEditor
         /// </summary>
         public bool QueryCloseModifiedDocument(IDocument document)
         {
-            string msg = document.FilePath + " has been modified but not saved.\r\nDo you really want to close it?";
+            var msg = document.FilePath + " has been modified but not saved.\r\nDo you really want to close it?";
             var result = MessageBox.Show( msg, "File modified but not saved", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             return result == MessageBoxResult.Yes;
         }
@@ -488,7 +516,7 @@ namespace miRobotEditor
         /// </summary>
         public bool QueryCloseApplicationWhenDocumentsModified()
         {
-            string msg = "1 or more open files have been modified but not saved.\n" +"Do you really want to exit?";
+            const string msg = "1 or more open files have been modified but not saved.\n" +"Do you really want to exit?";
             var result = MessageBox.Show( msg, "File(s) modified but not saved", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             return result == MessageBoxResult.Yes;
         }
@@ -581,7 +609,11 @@ namespace miRobotEditor
         /// <summary>
         /// Event raised when AvalonDock has loaded.
         /// </summary>
+// ReSharper disable UnusedMember.Local
+// ReSharper disable UnusedParameter.Local
         private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
+// ReSharper restore UnusedParameter.Local
+// ReSharper restore UnusedMember.Local
         {
 
             throw new NotImplementedException();

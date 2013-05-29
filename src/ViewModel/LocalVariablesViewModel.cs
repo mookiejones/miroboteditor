@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using miRobotEditor.Classes;
-namespace miRobotEditor.ViewModel
+﻿namespace miRobotEditor.ViewModel
 {
     public class LocalVariablesViewModel:ToolViewModel
     {

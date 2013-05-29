@@ -1,7 +1,4 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:GUI="clr-namespace:miRobotEditor.GUI"
-                  	xmlns:cc="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit"
-                    xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit;assemply=ICSharpCode.AvalonEdit"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
 

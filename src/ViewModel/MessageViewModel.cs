@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
 using miRobotEditor.Classes;
-using miRobotEditor.GUI;
 using miRobotEditor.Commands;
 using System.Windows.Input;
-using Application = System.Windows.Application;
 
 namespace miRobotEditor.ViewModel
 {
-
-    public enum MSGIcon { ERROR, INFO }
-
     public class MessageViewModel:ToolViewModel
     {
         public const string ToolContentId = "MessageViewTool";
@@ -44,20 +38,19 @@ namespace miRobotEditor.ViewModel
 
         public static void Add(IMessage msg)
         {
-            Add(msg.Title,msg.Description,msg.Icon,true);
+            Add(msg.Title,msg.Description,msg.Icon);
         }
 
-
-        public  void Add(string title, string message, MSGIcon  icon,bool forceactivate=true)
+        public void Add(string title, string message, MsgIcon  icon,bool forceactivate=true)
         {
             BitmapImage img = null;
 
             switch (icon)
             {
-                case MSGIcon.ERROR:
-                    img = Utilities.LoadBitmap(Global.ImgError);;
+                case MsgIcon.Error:
+                    img = Utilities.LoadBitmap(Global.ImgError);
                     break;
-                case MSGIcon.INFO:
+                case MsgIcon.Info:
                     img = Utilities.LoadBitmap(Global.ImgInfo);
                     break;
             }
@@ -94,20 +87,22 @@ namespace miRobotEditor.ViewModel
         public static void AddError(string message,Exception ex)
         {
             var trace = new System.Diagnostics.StackTrace();
-            var msg = new OutputWindowMessage();
-            msg.Title = "Internal Error";
+            var msg = new OutputWindowMessage
+                {
+                    Title = "Internal Error",
+                    Icon = Utilities.LoadBitmap(Global.ImgError),
+                    Description = String.Format("Internal error\r\n {0} \r\n in {1}", ex.Message, trace.GetFrame(2))
+                };
 //            msg.Icon = (BitmapImage)Application.Current.Resources.MergedDictionaries[0]["error"];
-            msg.Icon = Utilities.LoadBitmap(Global.ImgError);
-            msg.Description = String.Format("Internal error\r\n {0} \r\n in {1}", ex.Message, trace.GetFrame(2));
 
             Instance.Messages.Add(msg);
 
         }
 
-        public static void Add(string title, string message, System.Windows.Media.Imaging.BitmapImage icon, bool forceactivate = true)
+        public static void Add(string title, string message, BitmapImage icon, bool forceactivate = true)
         {
 
-            MessageViewModel.Instance.Messages.Add(new OutputWindowMessage { Title = title, Description = message, Icon = icon });
+            Instance.Messages.Add(new OutputWindowMessage { Title = title, Description = message, Icon = icon });
 
             if (forceactivate)
                 Workspace.Instance.BringToFront("Output Window");
@@ -127,21 +122,6 @@ namespace miRobotEditor.ViewModel
         }
         #endregion
 
-    }
-    public class OutputWindowMessage:IMessage
-    {
-        public string Time { get; set; }
-        public string Description { get; set; }
-        public string Title { get; set; }
-        public BitmapImage Icon { get; set; }
-    }
-
-    public interface IMessage
-    {
-        BitmapImage Icon { get; set; }
-        string Time { get; set; }
-        string Title { get; set; }
-        string Description { get; set; }
     }
 
     /*

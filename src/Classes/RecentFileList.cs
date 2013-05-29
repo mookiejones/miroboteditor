@@ -54,7 +54,7 @@ namespace miRobotEditor.Classes
 		public delegate string GetMenuItemTextDelegate( int index, string filepath );
 		public GetMenuItemTextDelegate GetMenuItemTextHandler { get; set; }
 
-		public event EventHandler<MenuClickEventArgs> MenuClick;
+	
 
 		Separator _separator;
 		List<RecentFile> _recentFiles;
@@ -109,9 +109,8 @@ namespace miRobotEditor.Classes
 			if ( _separator != null ) FileMenu.Items.Remove( _separator );
 
 			if ( _recentFiles != null )
-				foreach ( var r in _recentFiles )
-					if ( r.MenuItem != null )
-						FileMenu.Items.Remove( r.MenuItem );
+				foreach (var r in _recentFiles.Where(r => r.MenuItem != null))
+				    FileMenu.Items.Remove( r.MenuItem );
 
 			_separator = null;
 			_recentFiles = null;
@@ -173,10 +172,10 @@ namespace miRobotEditor.Classes
 				return pathname;
 
 			var root = Path.GetPathRoot( pathname );
-			if ( root != null && root.Length > 3 )
+			if ( root.Length > 3 )
 				root += Path.DirectorySeparatorChar;
 
-	        if (root != null)
+	        if (true)
 	        {
 	            var elements = pathname.Substring( root.Length ).Split( Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar );
 
@@ -294,7 +293,7 @@ namespace miRobotEditor.Classes
 				get
 				{
                     var dir = Path.GetDirectoryName(Filepath);
-                    string f = ViewModel.GlobalOptions.Instance.Options.FileOptions.ShowFullName?Path.GetFileName(Filepath):Path.GetFileNameWithoutExtension(Filepath);
+                    var f = ViewModel.GlobalOptions.Instance.Options.FileOptions.ShowFullName?Path.GetFileName(Filepath):Path.GetFileNameWithoutExtension(Filepath);
 // ReSharper disable AssignNullToNotNullAttribute
 					return Path.Combine(dir, f );
 // ReSharper restore AssignNullToNotNullAttribute
@@ -450,7 +449,7 @@ namespace miRobotEditor.Classes
 				RegistryKey = key;
 			}
 
-			string Key( int i ) { return i.ToString( "00" ); }
+	        static string Key( int i ) { return i.ToString( "00" ); }
 
 			public List<string> RecentFiles( int max )
 			{
@@ -484,13 +483,11 @@ namespace miRobotEditor.Classes
 					var sThis = Key( i );
 					var sNext = Key( i + 1 );
 
-				    if (k != null)
-				    {
-				        var oThis = k.GetValue( sThis );
-				        if ( oThis == null ) continue;
+				    if (k == null) continue;
+				    var oThis = k.GetValue( sThis );
+				    if ( oThis == null ) continue;
 
-				        k.SetValue( sNext, oThis );
-				    }
+				    k.SetValue( sNext, oThis );
 				}
 
 			    if (k != null) k.SetValue( Key( 0 ), filepath );
@@ -505,11 +502,9 @@ namespace miRobotEditor.Classes
 				{
 again:
 					var s = ( string ) k.GetValue( Key( i ) );
-					if ( s != null && s.Equals( filepath, StringComparison.CurrentCultureIgnoreCase ) )
-					{
-						RemoveFile( i, max );
-						goto again;
-					}
+				    if (s == null || !s.Equals(filepath, StringComparison.CurrentCultureIgnoreCase)) continue;
+				    RemoveFile( i, max );
+				    goto again;
 				}
 			}
 
@@ -589,7 +584,7 @@ again:
 				Save( list );
 			}
 
-			void CopyExcluding( IEnumerable<string> source, string exclude, List<string> target, int max )
+		    static void CopyExcluding( IEnumerable<string> source, string exclude, ICollection<string> target, int max )
 			{
 			    foreach (var s in from s in source where !String.IsNullOrEmpty( s ) where !s.Equals( exclude, StringComparison.OrdinalIgnoreCase ) where target.Count < max select s)
 			        target.Add( s );
@@ -598,11 +593,10 @@ again:
 		    class SmartStream : IDisposable
 			{
 			    readonly bool _isStreamOwned = true;
-				Stream _stream;
 
-				public Stream Stream { get { return _stream; } }
+		        public Stream Stream { get; private set; }
 
-				public static implicit operator Stream( SmartStream me ) { return me.Stream; }
+		        public static implicit operator Stream( SmartStream me ) { return me.Stream; }
 
 				public SmartStream( string filepath, FileMode mode )
 				{
@@ -613,30 +607,26 @@ again:
 					Directory.CreateDirectory(dir);
 // ReSharper restore AssignNullToNotNullAttribute
 
-					_stream = File.Open( filepath, mode );
+					Stream = File.Open( filepath, mode );
 				}
 
 				public SmartStream( Stream stream )
 				{
 					_isStreamOwned = false;
-					_stream = stream;
+					Stream = stream;
 				}
 
 				public void Dispose()
 				{
-					if ( _isStreamOwned && _stream != null ) _stream.Dispose();
+					if ( _isStreamOwned && Stream != null ) Stream.Dispose();
 
-					_stream = null;
+					Stream = null;
 				}
 			}
 
 			SmartStream OpenStream( FileMode mode )
 			{
-			    if ( !String.IsNullOrEmpty( Filepath ) )
-				{
-					return new SmartStream( Filepath, mode );
-				}
-			    return new SmartStream( Stream );
+			    return !String.IsNullOrEmpty( Filepath ) ? new SmartStream( Filepath, mode ) : new SmartStream( Stream );
 			}
 
 		    List<string> Load( int max )

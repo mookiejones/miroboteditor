@@ -6,7 +6,9 @@ namespace ISTUK.MathLibrary
     {
         enum TYP3D { Point3D, Line3D, Plane3D, Circle3D, Sphere3D,None }
 
+// ReSharper disable InconsistentNaming
         private static TYP3D getType(IGeometricElement3D geo)
+// ReSharper restore InconsistentNaming
         {
             if (geo is Point3D)
                 return TYP3D.Point3D;

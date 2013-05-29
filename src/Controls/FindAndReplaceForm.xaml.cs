@@ -1,7 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows.Input;
 using miRobotEditor.Commands;
-using miRobotEditor.GUI;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Controls
 {
@@ -44,7 +43,7 @@ namespace miRobotEditor.Controls
         {
             get {
                 return _replacecommand ??
-                       (_replacecommand = new RelayCommand(param => Instance.Replace(), param => true));
+                       (_replacecommand = new RelayCommand(param => Replace(), param => true));
             }
         }
         private static RelayCommand _replaceallcommand;
@@ -52,7 +51,7 @@ namespace miRobotEditor.Controls
         {
             get {
                 return _replaceallcommand ??
-                       (_replaceallcommand = new RelayCommand(param => Instance.ReplaceAll(), param => true));
+                       (_replaceallcommand = new RelayCommand(param => ReplaceAll(), param => true));
             }
         }
         private static RelayCommand _highlightallcommand;
@@ -60,7 +59,7 @@ namespace miRobotEditor.Controls
         {
             get {
                 return _highlightallcommand ??
-                       (_highlightallcommand = new RelayCommand(param => Instance.HighlightAll(), param => true));
+                       (_highlightallcommand = new RelayCommand(param => HighlightAll(), param => true));
             }
         }
         private static RelayCommand _findallcommand;
@@ -68,7 +67,7 @@ namespace miRobotEditor.Controls
         {
             get {
                 return _findallcommand ??
-                       (_findallcommand = new RelayCommand(param => Instance.FindAll(), param => true));
+                       (_findallcommand = new RelayCommand(param => FindAll(), param => true));
             }
         }
         #endregion
@@ -109,7 +108,7 @@ namespace miRobotEditor.Controls
             get
             {
                 var pattern = UseRegex == false ? Regex.Escape(LookFor) : LookFor;
-                int options = MatchCase ? 0 : 1;
+                var options = MatchCase ? 0 : 1;
                 return new Regex(pattern, (RegexOptions)options);
             }
         }
@@ -118,9 +117,7 @@ namespace miRobotEditor.Controls
         {
             get
             {
-                if (UseRegex == false)
-                    return Regex.Escape(LookFor);
-                return LookFor;
+                return UseRegex == false ? Regex.Escape(LookFor) : LookFor;
             }
         }
 
@@ -160,22 +157,22 @@ namespace miRobotEditor.Controls
             Workspace.Instance.ActiveEditor.TextBox.FindText();
         }
 
-        private void Replace()
+        private static void Replace()
         {
             Workspace.Instance.ActiveEditor.TextBox.ReplaceText();
         }
 
-        private void ReplaceAll()
+        private static void ReplaceAll()
         {
             throw new System.NotImplementedException();
         }
 
-        private void HighlightAll()
+        private static void HighlightAll()
         {
             throw new System.NotImplementedException();
         }
 
-        private void FindAll()
+        private static void FindAll()
         {
             throw new System.NotImplementedException();
         }

@@ -7,13 +7,10 @@ using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
-using miRobotEditor.Controls;
 using miRobotEditor.GUI;
 using System.Windows.Controls;
 using miRobotEditor.ViewModel;
@@ -21,21 +18,19 @@ using miRobotEditor.Forms;
 using System.Windows;
 namespace miRobotEditor.Languages
 {
-    public enum Typlanguage { None = 0, KUKA = 1, KAWASAKI = 2, ABB = 3, VBA = 4, Fanuc = 5 }
-
     [Localizable(false)]
-    public abstract class AbstractLanguageClass : ViewModelBase
+    public abstract class AbstractLanguageClass : ViewModelBase,IDisposable
     {
 
         #region Constructors
 
-        public AbstractLanguageClass()
+        protected AbstractLanguageClass()
         {
             Instance = this;
             //RobotMenuItems=GetMenuItems();
         }
 
-        public AbstractLanguageClass(string filename)
+        protected AbstractLanguageClass(string filename)
         {
             var dir = Path.GetDirectoryName(filename);
             var dirExists = dir != null && Directory.Exists(dir);
@@ -58,7 +53,7 @@ namespace miRobotEditor.Languages
                     DataName = string.Empty;
                 }
 
-            if (dirExists && File.Exists(Path.Combine(dir, SourceName)))
+            if (SourceName != null && (dirExists && File.Exists(Path.Combine(dir, SourceName))))
                 using (var reader = new StreamReader(Path.Combine(dir, SourceName)))
                     SourceText += reader.ReadToEnd();
 
@@ -76,7 +71,7 @@ namespace miRobotEditor.Languages
 
 
         #region Properties
-        private DirectoryInfo _rootpath = null;
+        private DirectoryInfo _rootpath;
         public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged("RootPath"); } }
 
         private string _filename = String.Empty;
@@ -99,20 +94,20 @@ namespace miRobotEditor.Languages
         internal string DataName { get; private set; }
         internal string SourceName { get; private set; }
 
-        List<string> _rootFiles = new List<string>();
-
+// ReSharper disable UnusedAutoPropertyAccessor.Local
         public static int Progress { get; private set; }
+// ReSharper restore UnusedAutoPropertyAccessor.Local
 
-        private ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
-        ReadOnlyObservableCollection<IVariable> _readOnlyBrowserVariables = null;
+        private readonly ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
+        readonly ReadOnlyObservableCollection<IVariable> _readOnlyBrowserVariables = null;
         public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable { get { return _readOnlyBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables); } }
 
-        private ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
-        ReadOnlyObservableCollection<MenuItem> __readonlyMenuItems = null;
-        public ReadOnlyObservableCollection<MenuItem> MenuItems { get { return __readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems); } }
+        private readonly ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
+        readonly ReadOnlyObservableCollection<MenuItem> _readonlyMenuItems = null;
+        public ReadOnlyObservableCollection<MenuItem> MenuItems { get { return _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems); } }
 
-        List<FileInfo> _files = new List<FileInfo>();
-        ReadOnlyCollection<FileInfo> _readOnlyFiles = null;
+        readonly List<FileInfo> _files = new List<FileInfo>();
+        readonly ReadOnlyCollection<FileInfo> _readOnlyFiles = null;
         public ReadOnlyCollection<FileInfo> Files { get { return _readOnlyFiles ?? new ReadOnlyCollection<FileInfo>(_files); } }
 
         /// <summary>
@@ -157,34 +152,34 @@ namespace miRobotEditor.Languages
 
         public static int FileCount { get; private set; }
 
-        List<IVariable> _allVariables = new List<IVariable>();
-        ReadOnlyCollection<IVariable> _readOnlyAllVariables = null;
+        readonly List<IVariable> _allVariables = new List<IVariable>();
+        readonly ReadOnlyCollection<IVariable> _readOnlyAllVariables = null;
         public ReadOnlyCollection<IVariable> AllVariables { get { return _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables); } }
 
         List<IVariable> _functions = new List<IVariable>();
-        ReadOnlyCollection<IVariable> _readOnlyFunctions = null;
+        readonly ReadOnlyCollection<IVariable> _readOnlyFunctions = null;
         public ReadOnlyCollection<IVariable> Functions { get { return _readOnlyFunctions ?? new ReadOnlyCollection<IVariable>(_functions); } }
 
          List<IVariable> _fields = new List<IVariable>();
-        ReadOnlyCollection<IVariable> _readOnlyFields = null;
+        readonly ReadOnlyCollection<IVariable> _readOnlyFields = null;
         public ReadOnlyCollection<IVariable> Fields { get { return _readOnlyFields ?? new ReadOnlyCollection<IVariable>(_fields); } }
 
          List<IVariable> _positions = new List<IVariable>();
-        ReadOnlyCollection<IVariable> _readOnlypositions = null;
+        readonly ReadOnlyCollection<IVariable> _readOnlypositions = null;
         public ReadOnlyCollection<IVariable> Positions { get { return _readOnlypositions ?? new ReadOnlyCollection<IVariable>(_positions); } }
 
 
-         List<IVariable> _enums = new List<IVariable>();
-        ReadOnlyCollection<IVariable> _readOnlyenums = null;
+        readonly List<IVariable> _enums = new List<IVariable>();
+        readonly ReadOnlyCollection<IVariable> _readOnlyenums = null;
         public ReadOnlyCollection<IVariable> Enums { get { return _readOnlyenums ?? new ReadOnlyCollection<IVariable>(_enums); } }
 
 
-         List<IVariable> _structures = new List<IVariable>();
-        ReadOnlyCollection<IVariable> _readOnlystructures = null;
+        readonly List<IVariable> _structures = new List<IVariable>();
+        readonly ReadOnlyCollection<IVariable> _readOnlystructures = null;
         public ReadOnlyCollection<IVariable> Structures { get { return _readOnlystructures ?? new ReadOnlyCollection<IVariable>(_structures); } }
 
-         List<IVariable> _signals = new List<IVariable>();
-        ReadOnlyCollection<IVariable> _readOnlysignals = null;
+        readonly List<IVariable> _signals = new List<IVariable>();
+        readonly ReadOnlyCollection<IVariable> _readOnlysignals = null;
         public ReadOnlyCollection<IVariable> Signals { get { return _readOnlysignals ?? new ReadOnlyCollection<IVariable>(_signals); } }
 
         #endregion
@@ -247,7 +242,7 @@ namespace miRobotEditor.Languages
 
         private MenuItem GetMenuItems()
         {
-            var rd = new ResourceDictionary { Source = new Uri("/miRobotEditor;component/Themes/MenuDictionary.xaml", UriKind.RelativeOrAbsolute) };
+            var rd = new ResourceDictionary { Source = new Uri("/miRobotEditor;component/Templates/MenuDictionary.xaml", UriKind.RelativeOrAbsolute) };
             var i = rd[RobotType + "Menu"] as MenuItem ?? new MenuItem();
             return i;
         }
@@ -358,11 +353,6 @@ namespace miRobotEditor.Languages
 
 
 
-        #region IDisposable Members
-
-
-
-        #endregion
 
         #region Folding Section
 
@@ -370,18 +360,17 @@ namespace miRobotEditor.Languages
         static bool IsValidFold(string text, string s, string e)
         {
             text = text.Trim();
-            var bSP = text.StartsWith(s);
-            var bEP = text.StartsWith(e);
+            var bSp = text.StartsWith(s);
+            var bEp = text.StartsWith(e);
 
-            if (!(bSP | bEP)) return false;
+            if (!(bSp | bEp)) return false;
 
-            string cAfterString = string.Empty;
-            var lookfor = bSP ? s : e;
+            var lookfor = bSp ? s : e;
 
             //TODO Come Back and fix this
             if (text.Substring(text.IndexOf(lookfor) + lookfor.Length).Length == 0) return true;
 
-            cAfterString = text.Substring(text.IndexOf(lookfor) + lookfor.Length, 1);
+            var cAfterString = text.Substring(text.IndexOf(lookfor) + lookfor.Length, 1);
 
 
             var cc = Convert.ToChar(cAfterString);
@@ -395,71 +384,73 @@ namespace miRobotEditor.Languages
             var startOffsets = new Stack<int>();
             var doc = (document as TextDocument);
             endFold = endFold.ToLower();
-            int err = 0;
+#pragma warning disable 219
+            var err = 0;
+#pragma warning restore 219
 
             //TODO Instead of Parsing through lines, I may want to search the textrope
 
-            foreach (var dd in doc.Lines)
-            {
-                var line = doc.GetLineByNumber(dd.LineNumber);
-                var text = doc.GetText(line.Offset, line.Length).ToLower();
-                var eval = text.TrimStart();
-
-                try
+            if (doc != null)
+                foreach (var dd in doc.Lines)
                 {
+                    var line = doc.GetLineByNumber(dd.LineNumber);
+                    var text = doc.GetText(line.Offset, line.Length).ToLower();
+                    var eval = text.TrimStart();
 
-                    if (!IsValidFold(text, startFold, endFold))
-                        continue;
-
-                    if (eval.StartsWith(startFold))
+                    try
                     {
-                        startOffsets.Push(line.Offset);
-                        continue;
-                    }
 
+                        if (!IsValidFold(text, startFold, endFold))
+                            continue;
 
-                    if (eval.StartsWith(endFold) && startOffsets.Count > 0)
-                    {
-                        // Might Be for EndFolds
-                        bool valid;
-                        if (endFold == "end")
+                        if (eval.StartsWith(startFold))
                         {
-                            if (text.Length == endFold.Length)
-                                valid = true;
-                            else
+                            startOffsets.Push(line.Offset);
+                            continue;
+                        }
+
+
+                        if (eval.StartsWith(endFold) && startOffsets.Count > 0)
+                        {
+                            // Might Be for EndFolds
+                            bool valid;
+                            if (endFold == "end")
                             {
-                                var ee = text.ToCharArray(endFold.Length, 1);
-                                valid = !char.IsLetterOrDigit(ee[0]);
+                                if (text.Length == endFold.Length)
+                                    valid = true;
+                                else
+                                {
+                                    var ee = text.ToCharArray(endFold.Length, 1);
+                                    valid = !char.IsLetterOrDigit(ee[0]);
+                                }
+                            }
+                            else
+                                valid = true; // Not an End Statement
+                            if (valid)
+                            {
+                                //Add a new folder to the list
+                                var s = startOffsets.Pop();
+
+                                var e = line.Offset + text.Length;
+
+                                var str = doc.GetText(s + startFold.Length + 1, line.Offset - s - endFold.Length);
+
+
+                                var nf = new LanguageFold(s, e, str, startFold, endFold, defaultclosed);
+                                newFoldings.Add(nf);
                             }
                         }
                         else
-                            valid = true; // Not an End Statement
-                        if (valid)
-                        {
-                            //Add a new folder to the list
-                            var s = startOffsets.Pop();
+                            err++;
 
-                            var e = line.Offset + text.Length;
-
-                            var str = doc.GetText(s + startFold.Length + 1, line.Offset - s - endFold.Length);
-
-
-                            var nf = new LanguageFold(s, e, str, startFold, endFold, defaultclosed);
-                            newFoldings.Add(nf);
-                        }
                     }
-                    else
-                        err++;
+                    catch (Exception ex)
+                    {
+
+                        MessageViewModel.AddError("AbstractLanguageClass.CreateFoldingHelper", ex);
+                    }
 
                 }
-                catch (Exception ex)
-                {
-
-                    MessageViewModel.AddError("AbstractLanguageClass.CreateFoldingHelper", ex);
-                    continue;
-                }
-
-            }
 
             return newFoldings;
         }
@@ -502,8 +493,11 @@ namespace miRobotEditor.Languages
             return Return;
         }
 
-        protected void Dispose()
+// ReSharper disable FunctionRecursiveOnAllPaths
+        public void Dispose()
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
+            _bw.Dispose();
             Dispose();
         }
 
@@ -540,7 +534,9 @@ namespace miRobotEditor.Languages
             }
         }
 
+// ReSharper disable UnusedParameter.Local
         private string ShiftProgram(Editor doc, ShiftViewModel shift)
+// ReSharper restore UnusedParameter.Local
         {
             var splash = new FrmSplashScreen();
             //TODO: Need to put all of this into a thread.
@@ -558,7 +554,7 @@ namespace miRobotEditor.Languages
             var count = matches.Count;
             splash.Maximum = count;
 
-            var splashthread = new Thread(miRobotEditor.Forms.SplashScreen.ShowSplashScreen) { IsBackground = true };
+            var splashthread = new Thread(Forms.SplashScreen.ShowSplashScreen) { IsBackground = true };
 
             splashthread.Start();
 
@@ -577,8 +573,8 @@ namespace miRobotEditor.Languages
             // doc.SuspendLayout();
             foreach (Match m in r.Matches(doc.Text))
             {
-                miRobotEditor.Forms.SplashScreen.UpdateProgress((int)prog);
-                miRobotEditor.Forms.SplashScreen.UpdateStatusTextWithStatus(string.Format(Properties.Resources.ShiftingProgram, ((int)prog).ToString(CultureInfo.InvariantCulture)), TypeOfMessage.Success);
+                Forms.SplashScreen.UpdateProgress((int)prog);
+                Forms.SplashScreen.UpdateStatusTextWithStatus(string.Format(Properties.Resources.ShiftingProgram, ((int)prog).ToString(CultureInfo.InvariantCulture)), TypeOfMessage.Success);
 
                 prog = prog + increment;
 
@@ -622,8 +618,9 @@ namespace miRobotEditor.Languages
 
         #region Automatic ObjectBrowser
         string _rootName = string.Empty;
-        string TargetDirectory = "KRC";
-        bool _rootFound = false;
+        //TODO Split this up for a robot by robot basis
+        private const string TargetDirectory = "KRC";
+        bool _rootFound;
         public void GetRootDirectory(string dir)
         {
             //Search Backwards from current point to root directory
@@ -634,7 +631,7 @@ namespace miRobotEditor.Languages
 
             try
             {
-                while ((!_rootFound) && (dd.Parent.Name != TargetDirectory))
+                while (dd.Parent != null && ((!_rootFound) && (dd.Parent.Name != TargetDirectory)))
                 {
                     GetRootDirectory(dd.Parent.FullName);
                 }
@@ -642,38 +639,34 @@ namespace miRobotEditor.Languages
 
                 if (_rootFound) return;
 
-                _rootName = dd.Parent.Parent.Name != "C" ? dd.Parent.Parent.FullName : dd.Parent.Parent.Parent.FullName;
+                if (dd.Parent != null)
+                    if (dd.Parent.Parent != null)
+                        if (dd.Parent.Parent.Parent != null)
+                            _rootName = dd.Parent != null && dd.Parent.Parent.Name != "C" ? dd.Parent.Parent.FullName : dd.Parent.Parent.Parent.FullName;
 
                 var r = new DirectoryInfo(_rootName);
 
                 var f = r.GetDirectories();
 
 
-                if (f.Length >= 1)
-                {
-                    if ((f[0].Name == "C") && (f[1].Name == "KRC"))
-                        _rootName = r.FullName;
+                if (f.Length < 1) return;
+                if ((f[0].Name == "C") && (f[1].Name == "KRC"))
+                    _rootName = r.FullName;
 
-                    _rootFound = true;
+                _rootFound = true;
 
-                    GetRootFiles(_rootName);
-                    FileCount = Files.Count;
+                GetRootFiles(_rootName);
+                FileCount = Files.Count;
                     
-                    GetVariables();
-                    this._allVariables.AddRange(this.Functions);
-                    this._allVariables.AddRange(this.Fields);
-                    this._allVariables.AddRange(this.Positions);
-
-                }
-
-
-
-
-
-
+                GetVariables();
+                _allVariables.AddRange(Functions);
+                _allVariables.AddRange(Fields);
+                _allVariables.AddRange(Positions);
             }
             catch (Exception ex)
             {
+                MessageViewModel.AddError("Get Root Directory", ex);
+
             }
 
             // Need to get further to the root so that i can interrogate system files as well.
@@ -693,25 +686,28 @@ namespace miRobotEditor.Languages
                         var file = new FileInfo(f);
                         _files.Add(file);
                     }
-                    catch { }
+// ReSharper disable EmptyGeneralCatchClause
+                    catch
+// ReSharper restore EmptyGeneralCatchClause
+                    { }
 
                 }
 
-                this.GetRootFiles(d);
+                GetRootFiles(d);
             }
         }
 
 
-        BackgroundWorker bw;
+        BackgroundWorker _bw;
 
         void GetVariables()
         {
-            bw = new BackgroundWorker();
-            bw.DoWork += backgroundVariableWorker_DoWork;
+            _bw = new BackgroundWorker();
+            _bw.DoWork += backgroundVariableWorker_DoWork;
           
-            bw.RunWorkerCompleted += bw_RunWorkerCompleted;
+            _bw.RunWorkerCompleted += bw_RunWorkerCompleted;
         
-            bw.RunWorkerAsync();
+            _bw.RunWorkerAsync();
 
         }
 
@@ -723,13 +719,6 @@ namespace miRobotEditor.Languages
             RaisePropertyChanged("Positions");
 
         }
-
-        void backgroundVariableWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-
-            Progress = e.ProgressPercentage;
-        }
-
 
 
         void backgroundVariableWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -753,22 +742,22 @@ namespace miRobotEditor.Languages
 
 
         //TODO Signal Path for KUKARegex currently displays linear motion
-        private List<IVariable> FindMatches(Regex matchstring, string imgPath, string filepath)
+        private static IEnumerable<IVariable> FindMatches(Regex matchstring, string imgPath, string filepath)
         {
 
-            List<IVariable> _result = new List<IVariable>();
+            var result = new List<IVariable>();
             try
             {
-                var Text = File.ReadAllText(filepath);
+                var text = File.ReadAllText(filepath);
 
                 // Dont Include Empty Values
-                if (String.IsNullOrEmpty(matchstring.ToString())) return _result;
+                if (String.IsNullOrEmpty(matchstring.ToString())) return result;
 
-                var m = matchstring.Match(Text.ToLower());
+                var m = matchstring.Match(text.ToLower());
 
                 while (m.Success)
                 {
-                    _result.Add(new Variable
+                    result.Add(new Variable
                     {
                         Declaration = m.Groups[0].ToString(),
                         Offset = m.Index,
@@ -783,9 +772,10 @@ namespace miRobotEditor.Languages
             }
             catch (Exception ex)
             {
+                MessageViewModel.AddError("Find Matches",ex);
             }
 
-            return _result;
+            return result;
         }
         #endregion
 

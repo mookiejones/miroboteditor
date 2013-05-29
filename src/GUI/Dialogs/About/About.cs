@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using miRobotEditor.Classes;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.GUI.Dialogs.About
 {
@@ -11,7 +10,9 @@ namespace miRobotEditor.GUI.Dialogs.About
     /// <summary>
     /// Interaction logic for About.xaml
     /// </summary>
+// ReSharper disable RedundantExtendsListEntry
     public partial class About : Window
+// ReSharper restore RedundantExtendsListEntry
     {
         public About( )
         {
@@ -22,7 +23,7 @@ namespace miRobotEditor.GUI.Dialogs.About
         }
 
         
-        private void OnOKClick(object sender, RoutedEventArgs e)
+        private void OnOkClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
@@ -38,7 +39,7 @@ namespace miRobotEditor.GUI.Dialogs.About
             }
             catch (Exception ex)
             {
-                MessageViewModel.Instance.Add("Error In About Window", ex.ToString(), MSGIcon.ERROR);
+                MessageViewModel.Instance.Add("Error In About Window", ex.ToString(), MsgIcon.Error);
             }
         }
     }

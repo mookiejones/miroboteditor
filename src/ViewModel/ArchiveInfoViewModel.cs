@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data.OleDb;
 using System.IO;
-using miRobotEditor.ViewModel;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
 using miRobotEditor.Commands;
 using System.Collections.ObjectModel;
 using Ionic.Zip;
 using System.Diagnostics;
-using System.Windows.Data;
-using System.Globalization;
 using System.Windows;
-using miRobotEditor.Classes;
+
 namespace miRobotEditor.ViewModel
 {
     public class ArchiveInfoViewModel:ToolViewModel
@@ -66,7 +62,7 @@ namespace miRobotEditor.ViewModel
         private Visibility _counterVisibility = Visibility.Collapsed;
         public Visibility CounterVisibility { get { return _counterVisibility; } set { _counterVisibility = value; RaisePropertyChanged("CounterVisibility"); } }
 
-        private ProgressBarViewModel _progress = new ProgressBarViewModel();
+        private readonly ProgressBarViewModel _progress = new ProgressBarViewModel();
 
         private InfoFile _info = new InfoFile();
         public InfoFile Info { get { return _info; } set { _info = value; RaisePropertyChanged("Info"); } }
@@ -87,7 +83,11 @@ namespace miRobotEditor.ViewModel
 
         string _dbFile = string.Empty;
         public string DataBaseFile { get; set; }
-        private bool isKRC2 = true;
+// ReSharper disable ConvertToConstant.Local
+// ReSharper disable FieldCanBeMadeReadOnly.Local
+        private bool _isKRC2 = true;
+// ReSharper restore FieldCanBeMadeReadOnly.Local
+// ReSharper restore ConvertToConstant.Local
 
         private string _database = string.Empty;
         public string DataBase { get { return _database; } set { _database = value; RaisePropertyChanged("DataBase"); } }
@@ -95,19 +95,19 @@ namespace miRobotEditor.ViewModel
         public string InfoFile { get; set; }
 
 
-        ObservableCollection<DirectoryInfo> _root = new ObservableCollection<DirectoryInfo>();
-        ReadOnlyObservableCollection<DirectoryInfo> _readonlyRoot = null;
+        readonly ObservableCollection<DirectoryInfo> _root = new ObservableCollection<DirectoryInfo>();
+        readonly ReadOnlyObservableCollection<DirectoryInfo> _readonlyRoot = null;
         public ReadOnlyObservableCollection<DirectoryInfo> Root { get { return _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root); } }
 
         private static string StartupPath
         {
             get
             {
-                return System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+                return Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
             }
         }
 
-        private DirectoryInfo _rootpath = null;
+        private DirectoryInfo _rootpath;
         public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged("RootPath"); } }
         private string _languageText = String.Empty;
         public string LanguageText { get { return _languageText; } set { _languageText = value; RaisePropertyChanged("LanguageText"); } }
@@ -117,36 +117,38 @@ namespace miRobotEditor.ViewModel
 
 
 
+// ReSharper disable InconsistentNaming
         public ObservableCollection<Item> _inputs = new ObservableCollection<Item>();
-        ReadOnlyObservableCollection<Item> _readonlyinputs = null;
+// ReSharper restore InconsistentNaming
+        readonly ReadOnlyObservableCollection<Item> _readonlyinputs = null;
         public ReadOnlyObservableCollection<Item> Inputs { get { return _readonlyinputs ?? new ReadOnlyObservableCollection<Item>(_inputs); } }
 
-        ObservableCollection<Item> _outputs = new ObservableCollection<Item>();
-        ReadOnlyObservableCollection<Item> _readonlyOutputs = null;
+        readonly ObservableCollection<Item> _outputs = new ObservableCollection<Item>();
+        readonly ReadOnlyObservableCollection<Item> _readonlyOutputs = null;
         public ReadOnlyObservableCollection<Item> Outputs { get { return _readonlyOutputs ?? new ReadOnlyObservableCollection<Item>(_outputs); } }
 
-        ObservableCollection<Item> _anin = new ObservableCollection<Item>();
-        ReadOnlyObservableCollection<Item> _readonlyAnIN = null;
-        public ReadOnlyObservableCollection<Item> AnIn { get { return _readonlyAnIN ?? new ReadOnlyObservableCollection<Item>(_anin); } }
+        readonly ObservableCollection<Item> _anin = new ObservableCollection<Item>();
+        readonly ReadOnlyObservableCollection<Item> _readonlyAnIn = null;
+        public ReadOnlyObservableCollection<Item> AnIn { get { return _readonlyAnIn ?? new ReadOnlyObservableCollection<Item>(_anin); } }
 
-        ObservableCollection<Item> _anout = new ObservableCollection<Item>();
-        ReadOnlyObservableCollection<Item> _readonlyAnOut = null;
+        readonly ObservableCollection<Item> _anout = new ObservableCollection<Item>();
+        readonly ReadOnlyObservableCollection<Item> _readonlyAnOut = null;
         public ReadOnlyObservableCollection<Item> AnOut { get { return _readonlyAnOut ?? new ReadOnlyObservableCollection<Item>(_anout); } }
 
-        ObservableCollection<Item> _timer = new ObservableCollection<Item>();
-        ReadOnlyObservableCollection<Item> _readonlyTimer = null;
+        readonly ObservableCollection<Item> _timer = new ObservableCollection<Item>();
+        readonly ReadOnlyObservableCollection<Item> _readonlyTimer = null;
         public ReadOnlyObservableCollection<Item> Timer { get { return _readonlyTimer ?? new ReadOnlyObservableCollection<Item>(_timer); } }
 
-        ObservableCollection<Item> _flags = new ObservableCollection<Item>();
-        ReadOnlyObservableCollection<Item> _readonlyFlags = null;
+        readonly ObservableCollection<Item> _flags = new ObservableCollection<Item>();
+        readonly ReadOnlyObservableCollection<Item> _readonlyFlags = null;
         public ReadOnlyObservableCollection<Item> Flags { get { return _readonlyFlags ?? new ReadOnlyObservableCollection<Item>(_flags); } }
 
-        ObservableCollection<Item> _cycflags = new ObservableCollection<Item>();
-        ReadOnlyObservableCollection<Item> _readonlyCycFlags = null;
+        readonly ObservableCollection<Item> _cycflags = new ObservableCollection<Item>();
+        readonly ReadOnlyObservableCollection<Item> _readonlyCycFlags = null;
         public ReadOnlyObservableCollection<Item> CycFlags { get { return _readonlyCycFlags ?? new ReadOnlyObservableCollection<Item>(_cycflags); } }
 
-        ObservableCollection<Item> _counter = new ObservableCollection<Item>();
-        ReadOnlyObservableCollection<Item> _readonlyCounter = null;
+        readonly ObservableCollection<Item> _counter = new ObservableCollection<Item>();
+        readonly ReadOnlyObservableCollection<Item> _readonlyCounter = null;
         public ReadOnlyObservableCollection<Item> Counter { get { return _readonlyCounter ?? new ReadOnlyObservableCollection<Item>(_counter); } }
 
         #endregion
@@ -167,7 +169,7 @@ namespace miRobotEditor.ViewModel
         private RelayCommand _loadCommand;
         public ICommand LoadCommand
         {
-            get { return _loadCommand ?? (_loadCommand = new RelayCommand(param => this.GetSignals(), param => true)); }
+            get { return _loadCommand ?? (_loadCommand = new RelayCommand(param => GetSignals(), param => true)); }
         }
 
 
@@ -181,36 +183,34 @@ namespace miRobotEditor.ViewModel
             ofd.ShowDialog();
 
             _root.Clear();
-            if (File.Exists(ofd.FileName))
-            {
-                ArchivePath = ofd.FileName;
-                ArchiveZip = new ZipFile(ofd.FileName);
-                RaisePropertyChanged("ArchiveZip");
-                GetAllLangtextFromDatabase();
-                UnpackZip();
-                GetFiles(DirectoryPath);
-                GetAMInfo();
-                GetSignals();
-            }
+            if (!File.Exists(ofd.FileName)) return;
+            ArchivePath = ofd.FileName;
+            ArchiveZip = new ZipFile(ofd.FileName);
+            RaisePropertyChanged("ArchiveZip");
+            GetAllLangtextFromDatabase();
+            UnpackZip();
+            GetFiles(DirectoryPath);
+            GetAMInfo();
+            GetSignals();
         }
 
+// ReSharper disable UnusedMember.Local
         void ReadZip()
+// ReSharper restore UnusedMember.Local
         {
-            foreach (ZipEntry z in ArchiveZip.EntriesSorted)
-                if (z.IsDirectory)
-                    Console.WriteLine("Yes");
+            foreach (var z in ArchiveZip.EntriesSorted.Where(z => z.IsDirectory))
+                Console.WriteLine(z.FileName);
 
 
-            foreach (ZipEntry e in ArchiveZip.Entries)
-                if (e.IsDirectory)
-                    Console.WriteLine("Yes");
+            foreach (var e in ArchiveZip.Entries.Where(e => e.IsDirectory))
+                Console.WriteLine(e.FileName);
 
 
             RaisePropertyChanged("Root");
 
         }
-      
-        bool CheckPathExists(string path)
+
+        static bool CheckPathExists(string path)
         {
             // if archive path exists, allow to delete or rename
             if (!Directory.Exists(path)) return false;
@@ -234,7 +234,9 @@ namespace miRobotEditor.ViewModel
         {
             
           
+// ReSharper disable AssignNullToNotNullAttribute
            DirectoryPath= Path.Combine(StartupPath,Path.GetFileNameWithoutExtension(ArchivePath));
+// ReSharper restore AssignNullToNotNullAttribute
            var exists= CheckPathExists(DirectoryPath);
            if (exists) return;
 
@@ -248,7 +250,9 @@ namespace miRobotEditor.ViewModel
            _root.Add(new DirectoryInfo(DirectoryPath));
         }
      
+// ReSharper disable UnusedMember.Local
         void GetDirectories()
+// ReSharper restore UnusedMember.Local
         {
 
 //            Root = new ObservableCollection<DirectoryRecord>{  new DirectoryRecord { Info = new DirectoryInfo(folder)
@@ -257,51 +261,44 @@ namespace miRobotEditor.ViewModel
 
         void GetAMInfo()
         {
-            if (File.Exists(InfoFile))
+            if (!File.Exists(InfoFile)) return;
+            var file = File.ReadAllLines(InfoFile);
+            foreach (var sp in file.Select(f => f.Split('=')).Where(sp => sp.Length > 0))
             {
-                var file = File.ReadAllLines(InfoFile);
-                foreach (var f in file)
+                switch (sp[0])
                 {
-                    var sp = f.Split('=');
-                    if (sp.Length > 0)
-                    {
-                        switch (sp[0])
-                        {
-                            case "Name":
-                                Info.ArchiveName = sp[1];
-                                break;
-                            case "Config":
-                                Info.ArchiveConfigType = sp[1];
-                                break;
-                            case "DiskNo":
-                                Info.ArchiveDiskNo = sp[1];
-                                break;
-                            case "ID":
-                                Info.ArchiveID = sp[1];
-                                break;
-                            case "Date":
-                                Info.ArchiveDate = sp[1];
-                                break;
-                            case "RobName":
-                                Info.RobotName = sp[1];
-                                break;
-                            case "IRSerialNr":
-                                Info.RobotSerial = sp[1];
-                                break;
-                            case "Version":
-                                Info.KSSVersion = sp[1];
-                                break;
-                        }
-
-                    }
+                    case "Name":
+                        Info.ArchiveName = sp[1];
+                        break;
+                    case "Config":
+                        Info.ArchiveConfigType = sp[1];
+                        break;
+                    case "DiskNo":
+                        Info.ArchiveDiskNo = sp[1];
+                        break;
+                    case "ID":
+                        Info.ArchiveID = sp[1];
+                        break;
+                    case "Date":
+                        Info.ArchiveDate = sp[1];
+                        break;
+                    case "RobName":
+                        Info.RobotName = sp[1];
+                        break;
+                    case "IRSerialNr":
+                        Info.RobotSerial = sp[1];
+                        break;
+                    case "Version":
+                        Info.KSSVersion = sp[1];
+                        break;
                 }
             }
         }
 
         void GetFlags()
         {
-            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
-            string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'FLAG')";
+            var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+            const string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'FLAG')";
             using (var oldDbConnection = new OleDbConnection(connectionString))
             {
                 oldDbConnection.Open();
@@ -309,10 +306,9 @@ namespace miRobotEditor.ViewModel
                 {
                     using (var oleDbDataReader = oleDbCommand.ExecuteReader())
                     {
-                        string temp = string.Empty;
-                        while (oleDbDataReader.Read())
+                        while (oleDbDataReader != null && oleDbDataReader.Read())
                         {
-                            temp = oleDbDataReader.GetValue(0).ToString();
+                            var temp = oleDbDataReader.GetValue(0).ToString();
                             var sig = new Item(String.Format("$FLAG[{0}]", temp.Substring(8)), oleDbDataReader.GetValue(1).ToString());
                             _flags.Add(sig);
                         }
@@ -325,11 +321,13 @@ namespace miRobotEditor.ViewModel
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
+// ReSharper disable UnusedMember.Local
         List<Item> GetValues(string cmd, int index)
+// ReSharper restore UnusedMember.Local
         {
-            List<Item> Result = new List<Item>();
-            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
-            string cmdText = String.Format("SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = '{0}')",cmd);
+            var result = new List<Item>();
+            var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+            var cmdText = String.Format("SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = '{0}')",cmd);
             using (var oldDbConnection = new OleDbConnection(connectionString))
             {
                 oldDbConnection.Open();
@@ -337,23 +335,22 @@ namespace miRobotEditor.ViewModel
                 {
                     using (var oleDbDataReader = oleDbCommand.ExecuteReader())
                     {
-                        string temp = string.Empty;
-                        while (oleDbDataReader.Read())
+                        while (oleDbDataReader != null && oleDbDataReader.Read())
                         {
-                            temp = oleDbDataReader.GetValue(0).ToString();
+                            var temp = oleDbDataReader.GetValue(0).ToString();
                             var sig = new Item(String.Format("${1}[{0}]", temp.Substring(index),cmd), oleDbDataReader.GetValue(1).ToString());
-                            Result.Add(sig);
+                            result.Add(sig);
                         }
                     }
                 }
             }
-            return Result;
+            return result;
         }
 
         void GetTimers()
         {
-            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
-            string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'TIMER')";
+            var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+            const string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'TIMER')";
             using (var oldDbConnection = new OleDbConnection(connectionString))
             {
                 oldDbConnection.Open();
@@ -361,10 +358,9 @@ namespace miRobotEditor.ViewModel
                 {
                     using (var oleDbDataReader = oleDbCommand.ExecuteReader())
                     {
-                        string temp = string.Empty;
-                        while (oleDbDataReader.Read())
+                        while (oleDbDataReader != null && oleDbDataReader.Read())
                         {
-                            temp = oleDbDataReader.GetValue(0).ToString();
+                            var temp = oleDbDataReader.GetValue(0).ToString();
                             var sig = new Item(String.Format("$TIMER[{0}]", temp.Substring(9)), oleDbDataReader.GetValue(1).ToString());
                             _timer.Add(sig);
                         }
@@ -375,7 +371,9 @@ namespace miRobotEditor.ViewModel
             RaisePropertyChanged("TimerVisibility");
         }
 
+// ReSharper disable UnusedMember.Local
         void GetSignalsFromDataBase()
+// ReSharper restore UnusedMember.Local
         {
             var ofd = new OpenFileDialog { Title = "Select Database", Filter = "KUKA Connection Files (kuka_con.mdb)|kuka_con.mdb|All files (*.*)|*.*", Multiselect = false };
             ofd.ShowDialog();
@@ -389,8 +387,8 @@ namespace miRobotEditor.ViewModel
         {
             if (File.Exists(DataBaseFile))
             {
-                string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
-                string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'IO')";
+                var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+                const string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'IO')";
                 using (var oldDbConnection = new OleDbConnection(connectionString))
                 {
                     oldDbConnection.Open();
@@ -398,10 +396,9 @@ namespace miRobotEditor.ViewModel
                     {
                         using (var oleDbDataReader = oleDbCommand.ExecuteReader())
                         {
-                            string temp = string.Empty;
-                            while (oleDbDataReader.Read())
+                            while (oleDbDataReader != null && oleDbDataReader.Read())
                             {
-                                temp = oleDbDataReader.GetValue(0).ToString();
+                                var temp = oleDbDataReader.GetValue(0).ToString();
                                 Item sig;
 
                                 switch (temp.Substring(0, temp.IndexOf("_")))
@@ -410,24 +407,22 @@ namespace miRobotEditor.ViewModel
                                         sig = new Item(String.Format("$IN[{0}]", temp.Substring(3)), oleDbDataReader.GetValue(1).ToString());
 
                                         _inputs.Add(sig);
-                                        LanguageText += sig.ToString() + "\r\n";
+                                        LanguageText += sig + "\r\n";
                                         break;
                                     case "OUT":
                                         sig = new Item(String.Format("$OUT[{0}]", temp.Substring(4)), oleDbDataReader.GetValue(1).ToString());
                                         _outputs.Add(sig);
-                                        LanguageText += sig.ToString() + "\r\n";
+                                        LanguageText += sig + "\r\n";
                                         break;
                                     case "ANIN":
                                         sig = new Item(String.Format("$ANIN[{0}]", temp.Substring(5)), oleDbDataReader.GetValue(1).ToString());
-                                        this._anin.Add(sig);
-                                        LanguageText += sig.ToString() + "\r\n";
+                                        _anin.Add(sig);
+                                        LanguageText += sig + "\r\n";
                                         break;
                                     case "ANOUT":
                                         sig = new Item(String.Format("$ANOUT[{0}]", temp.Substring(6)), oleDbDataReader.GetValue(1).ToString());
-                                        this._anout.Add(sig);
-                                        LanguageText += sig.ToString() + "\r\n";
-                                        break;
-                                    default:
+                                        _anout.Add(sig);
+                                        LanguageText += sig + "\r\n";
                                         break;
                                 }
 
@@ -450,30 +445,30 @@ namespace miRobotEditor.ViewModel
         {
             LanguageText = string.Empty;
 
-            if (File.Exists(DataBaseFile))
+            if (!File.Exists(DataBaseFile)) return;
+            var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+            const string cmdText = "SELECT i.keystring, m.string FROM ITEMS i, messages m where i.key_id=m.key_id and m.language_id=99";
+            using (var oldDbConnection = new OleDbConnection(connectionString))
             {
-                string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
-                string cmdText = "SELECT i.keystring, m.string FROM ITEMS i, messages m where i.key_id=m.key_id and m.language_id=99";
-                using (var oldDbConnection = new OleDbConnection(connectionString))
+                oldDbConnection.Open();
+                using (var oleDbCommand = new OleDbCommand(cmdText, oldDbConnection))
                 {
-                    oldDbConnection.Open();
-                    using (var oleDbCommand = new OleDbCommand(cmdText, oldDbConnection))
+                    using (var oleDbDataReader = oleDbCommand.ExecuteReader())
                     {
-                        using (var oleDbDataReader = oleDbCommand.ExecuteReader())
+                        while (oleDbDataReader != null && oleDbDataReader.Read())
                         {
-                            while (oleDbDataReader.Read())
-                            {
-                                var str1 = oleDbDataReader.GetValue(0).ToString();
-                                var str2 = oleDbDataReader.GetValue(1).ToString();
-                                DataBase += string.Format("{0} {1}\r\n", str1, str2);
-                            }
+                            var str1 = oleDbDataReader.GetValue(0).ToString();
+                            var str2 = oleDbDataReader.GetValue(1).ToString();
+                            DataBase += string.Format("{0} {1}\r\n", str1, str2);
                         }
                     }
                 }
             }
         }
 
+// ReSharper disable UnusedMember.Local
         private void ImportFile(string sFile, bool bCsv)
+// ReSharper restore UnusedMember.Local
         {
             if (!File.Exists(sFile))
                 return;
@@ -488,8 +483,8 @@ namespace miRobotEditor.ViewModel
 
 
 
-            string[] array = File.ReadAllLines(sFile);
-            string text = " ";
+            var array = File.ReadAllLines(sFile);
+            var text = " ";
             if (bCsv)
                 text = ";";
 
@@ -497,15 +492,14 @@ namespace miRobotEditor.ViewModel
             var progress = new ProgressBarViewModel { Maximum = array.Length, Value = 0, IsVisible = true };
 
             System.Windows.Forms.Application.DoEvents();
-            string[] array2 = array;
+            var array2 = array;
             checked
             {
-                for (int i = 0; i < array2.Length; i++)
+                foreach (var text2 in array2)
                 {
-                    string text2 = array2[i];
                     if (text2.Contains(text))
                     {
-                        string[] array3 = text2.Split(text.ToCharArray(), 2);
+                        var array3 = text2.Split(text.ToCharArray(), 2);
 
                         if (array3[0].StartsWith("$IN[", StringComparison.CurrentCultureIgnoreCase))
                             array3[0] = "IN_" + array3[0].Substring(4, array3[0].Length - 5);
@@ -535,11 +529,9 @@ namespace miRobotEditor.ViewModel
 
                     }
                     progress.Value++;
-                    //   MyProject.Forms.FormMain.LangtextClose();
-
                 }
                 progress.IsVisible = false;
-                this.InitGrids();
+                InitGrids();
             }
         }
 
@@ -552,92 +544,94 @@ namespace miRobotEditor.ViewModel
 
 
             openFileDialog2.Multiselect = false;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                _dbFile = openFileDialog.FileName;
-                DataBase = _dbFile;
-                this.InitGrids();
-            }
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+            _dbFile = openFileDialog.FileName;
+            DataBase = _dbFile;
+            InitGrids();
         }
    
-        string[] LangText;
+#pragma warning disable 649
+        string[] _langText;
+#pragma warning restore 649
 
+// ReSharper disable UnusedMember.Local
         private void Export(string filename, bool iscsv)
+// ReSharper restore UnusedMember.Local
         {
-            string text = "";
-            string text2 = " ";
-            this._progress.Maximum = 9551;
-            this._progress.Value = 0;
-            this._progress.IsVisible = true;
+            var text = "";
+            var text2 = " ";
+            _progress.Maximum = 9551;
+            _progress.Value = 0;
+            _progress.IsVisible = true;
 
-            string pre = isKRC2 ? string.Empty : "$";
-            string post = isKRC2 ? "_" : "]";
+            var pre = _isKRC2 ? string.Empty : "$";
+            var post = _isKRC2 ? "_" : "]";
             if (iscsv)
                 text2 = ";";
 
             checked
             {
-                if (isKRC2)
+                if (_isKRC2)
                 {
                     for (var i = 1; i < 4096; i++)
                     {
-                        if (!String.IsNullOrEmpty(LangText[i]))
-                            text = string.Format("{0}IN{1}{2}{3}{4}\r\n", pre, post, i, text2, LangText[i]);
+                        if (!String.IsNullOrEmpty(_langText[i]))
+                            text = string.Format("{0}IN{1}{2}{3}{4}\r\n", pre, post, i, text2, _langText[i]);
 
                         _progress.Value++;
                     }
 
                     for (var i = 1; i < 4096; i++)
                     {
-                        if (!String.IsNullOrEmpty(LangText[i]))
-                            text = string.Format("{0}OUT{1}{2}{3}{4}\r\n", pre, post, i, text2, LangText[i]);
+                        if (!String.IsNullOrEmpty(_langText[i]))
+                            text = string.Format("{0}OUT{1}{2}{3}{4}\r\n", pre, post, i, text2, _langText[i]);
 
                         _progress.Value++;
                     }
 
                     for (var i = 1; i < 32; i++)
                     {
-                        if (!String.IsNullOrEmpty(LangText[i]))
-                            text = string.Format("{0}ANIN{1}{2}{3}{4}\r\n", pre, post, i, text2, LangText[i]);
+                        if (!String.IsNullOrEmpty(_langText[i]))
+                            text = string.Format("{0}ANIN{1}{2}{3}{4}\r\n", pre, post, i, text2, _langText[i]);
 
                         _progress.Value++;
                     }
 
                     for (var i = 1; i < 32; i++)
                     {
-                        if (!String.IsNullOrEmpty(LangText[i]))
-                            text = string.Format("{0}ANOUT{1}{2}{3}{4}\r\n", pre, post, i, text2, LangText[i]);
+                        if (!String.IsNullOrEmpty(_langText[i]))
+                            text = string.Format("{0}ANOUT{1}{2}{3}{4}\r\n", pre, post, i, text2, _langText[i]);
 
                         _progress.Value++;
                     }
                     for (var i = 1; i < 20; i++)
                     {
-                        if (!String.IsNullOrEmpty(LangText[i]))
-                            text = string.Format("{0}{1}{2}{3}{4}\r\n", isKRC2 ? "TimerText" : "$Timer[", post, i, text2, LangText[i]);
+                        if (!String.IsNullOrEmpty(_langText[i]))
+                            text = string.Format("{0}{1}{2}{3}{4}\r\n", _isKRC2 ? "TimerText" : "$Timer[", post, i, text2, _langText[i]);
 
                         _progress.Value++;
                     }
 
                     for (var i = 1; i < 20; i++)
                     {
-                        if (!String.IsNullOrEmpty(LangText[i]))
-                            text = string.Format("{0}{1}{2}{3}{4}\r\n", isKRC2 ? "CounterText" : "$Counter[", post, i, text2, LangText[i]);
+                        if (!String.IsNullOrEmpty(_langText[i]))
+                            text = string.Format("{0}{1}{2}{3}{4}\r\n", _isKRC2 ? "CounterText" : "$Counter[", post, i, text2, _langText[i]);
 
                         _progress.Value++;
                     }
 
                     for (var i = 1; i < 999; i++)
                     {
-                        if (!String.IsNullOrEmpty(LangText[i]))
-                            text = string.Format("{0}{1}{2}{3}{4}\r\n", isKRC2 ? "FlagText" : "$FLAG[", post, i, text2, LangText[i]);
+                        if (!String.IsNullOrEmpty(_langText[i]))
+                            text = string.Format("{0}{1}{2}{3}{4}\r\n", _isKRC2 ? "FlagText" : "$FLAG[", post, i, text2, _langText[i]);
 
                         _progress.Value++;
                     }
 
                     for (var i = 1; i < 256; i++)
                     {
-                        if (!String.IsNullOrEmpty(LangText[i]))
-                            text = string.Format("{0}{1}{2}{3}{4}\r\n", isKRC2 ? "NoticeText" : "$CycFlag[", post, i, text2, LangText[i]);
+                        if (!String.IsNullOrEmpty(_langText[i]))
+                            text = string.Format("{0}{1}{2}{3}{4}\r\n", _isKRC2 ? "NoticeText" : "$CycFlag[", post, i, text2, _langText[i]);
 
                         _progress.Value++;
                     }
@@ -645,7 +639,7 @@ namespace miRobotEditor.ViewModel
                 }
 
                 File.WriteAllText(filename, text);
-                this._progress.IsVisible = false;
+                _progress.IsVisible = false;
             }
 
         }
@@ -653,15 +647,17 @@ namespace miRobotEditor.ViewModel
         private void InitGrids()
         {
 
-            this._progress.Maximum = 5403;
-            this._progress.Value = 0;
-            this._progress.IsVisible = true;
+            _progress.Maximum = 5403;
+            _progress.Value = 0;
+            _progress.IsVisible = true;
 
             //            MyProject.Forms.FormMain.LangtextFillBuffer(this.sFileDb);
-            int num = 1;
+#pragma warning disable 219
+            var num = 1;
+#pragma warning restore 219
             checked
             {
-                for (int i = 1; i < 4096; i++)
+                for (var i = 1; i < 4096; i++)
                 {
                     _inputs.Add(new Item(String.Format("$IN[{0}]", i), string.Empty));
                     _outputs.Add(new Item(String.Format("$OUT[{0}]", i), string.Empty));
@@ -695,7 +691,7 @@ namespace miRobotEditor.ViewModel
                     _progress.Value++;
                 }
 
-                this._progress.IsVisible = false;
+                _progress.IsVisible = false;
             }
         }
 
@@ -707,7 +703,7 @@ namespace miRobotEditor.ViewModel
                 InfoFile = dir + "\\am.ini";
 
             if (File.Exists(dir + "\\C\\KRC\\Data\\kuka_con.mdb"))
-                DataBaseFile = dir + "\\C\\KRC\\Data\\kuka_con.mdb"; ;
+                DataBaseFile = dir + "\\C\\KRC\\Data\\kuka_con.mdb";
             if ((File.Exists(InfoFile)) && (File.Exists(DataBaseFile)))
                 return;
 
@@ -715,7 +711,9 @@ namespace miRobotEditor.ViewModel
                 {
                     foreach (var f in Directory.GetFiles(d))
                     {
-                        var file = Path.GetFileName(f).ToLower();
+                        var fileName = Path.GetFileName(f);
+                        if (fileName == null) continue;
+                        var file = fileName.ToLower();
                         Console.WriteLine(file);
                         switch(file)
                         {
@@ -727,124 +725,11 @@ namespace miRobotEditor.ViewModel
                                 break;
                         }
                     }
-                 
-                    this.GetFiles(d);
+
+                    GetFiles(d);
                 }
             
         }
 
-    }
-
-    public class InfoFile:ViewModelBase
-    {
-        private string _archivename = string.Empty;
-        private string _archiveconfigtype = string.Empty;
-        private string _archiveDiskNo = string.Empty;
-        private string _archiveID = string.Empty;
-        private string _archiveDate = string.Empty;
-        private string _archiveRobotName = string.Empty;
-        private string _archiveRobotSerial = string.Empty;
-        private string _archiveKssVersion = string.Empty;
-
-        public string ArchiveName { get { return _archivename; } set { _archivename = value; RaisePropertyChanged("ArchiveName"); } }
-        public string ArchiveConfigType { get { return _archiveconfigtype; } set { _archiveconfigtype = value; RaisePropertyChanged("ArchiveConfigType"); } }
-        public string ArchiveDiskNo { get { return _archiveDiskNo; } set { _archiveDiskNo = value; RaisePropertyChanged("ArchiveDiskNo"); } }
-        public string ArchiveID { get { return _archiveID; } set { _archiveID = value; RaisePropertyChanged("ArchiveID"); } }
-        public string ArchiveDate { get { return _archiveDate; } set { _archiveDate = value; RaisePropertyChanged("ArchiveDate"); } }
-        public string RobotName { get { return _archiveRobotName; } set { _archiveRobotName = value; RaisePropertyChanged("RobotName"); } }
-        public string RobotSerial { get { return _archiveRobotSerial; } set { _archiveRobotSerial = value; RaisePropertyChanged("RobotSerial"); } }
-        public string KSSVersion { get { return _archiveKssVersion; } set { _archiveKssVersion = value; RaisePropertyChanged("KSSVersion"); } }
-
-
-
-        private ObservableCollection<Technology> _technologies = new ObservableCollection<Technology>();
-        ReadOnlyObservableCollection<Technology> _readonlyTechnology = null;
-        public ReadOnlyObservableCollection<Technology> Technologies { get { return _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies); } }
-
-    }
-
-   
-
-    public class Technology
-    {
-        public string Name { get; set; }
-        public string Version { get; set; }
-    }
-
-      public class GetFileSystemInfosConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            try
-            {
-                if (value is DirectoryInfo)
-                {
-                    return ((DirectoryInfo)value).GetFileSystemInfos();
-                }
-            }
-            catch { }
-            return null;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-    }
-      public class GetFileIconConverter : IValueConverter
-      {
-          public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-          {
-              try
-              {
-                  switch (Path.GetExtension(value.ToString().ToLower()))
-                  {
-                      case ".src":
-                          var ico =  Utilities.LoadBitmap(Global.ImgSrc);
-                          return ico;
-                      case ".dat":
-                          return Utilities.LoadBitmap(Global.ImgDat);
-                      case ".sub":
-                          return Utilities.LoadBitmap(Global.ImgSps);
-                      default:
-                          break;
-                  }
-                
-
-              }
-              catch(Exception ex )
-              {
-                  MessageViewModel.AddError("Convert",ex);
-              }
-              return null;
-          }
-
-          public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-          {
-              throw new NotImplementedException();
-          }
-
-      }
- 
-
-    public class Item : ViewModelBase
-    {
-
-        public Item(string type, string description)
-        {
-            Type = type;
-            Description = description;
-        }
-        private string _type = string.Empty;
-        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged("Type"); } }
-
-        private string _description = string.Empty;
-        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
-
-        public override string ToString()
-        {
-            return String.Format("{0};{1}", Type, Description);
-        }
     }
 }

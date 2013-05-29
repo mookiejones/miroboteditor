@@ -168,19 +168,15 @@ namespace ISTUK.MathLibrary
             var num = 0;
             for (var k = 0; k < Rows; k++)
             {
-                if (k != i)
+                if (k == i) continue;
+                var num3 = 0;
+                for (var m = 0; m < Columns; m++)
                 {
-                    var num3 = 0;
-                    for (var m = 0; m < Columns; m++)
-                    {
-                        if (m != j)
-                        {
-                            matrix[num, num3] = base[k, m];
-                            num3++;
-                        }
-                    }
-                    num++;
+                    if (m == j) continue;
+                    matrix[num, num3] = base[k, m];
+                    num3++;
                 }
+                num++;
             }
             return matrix;
         }

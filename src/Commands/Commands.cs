@@ -1,8 +1,5 @@
-﻿using System;
-using miRobotEditor.Classes;
-using miRobotEditor.GUI;
-using System.Windows.Input;
-using System.Windows.Input.StylusPlugIns;
+﻿using System.Windows.Input;
+
 namespace miRobotEditor.Commands
 {
    public static class Commands
@@ -15,11 +12,9 @@ namespace miRobotEditor.Commands
         	get { 
         		return _changeIndentCommand ?? (_changeIndentCommand = new RelayCommand(param => Workspace.Instance.ActiveEditor.TextBox.ChangeIndent(param), param => true)); }
         }
-   	
-        
-   	private static object syncRoot = new object();
-   	
-   	public static RoutedCommand AddNewFileCommand = new RoutedCommand();
+
+
+       public static RoutedCommand AddNewFileCommand = new RoutedCommand();
    	
    	
     }

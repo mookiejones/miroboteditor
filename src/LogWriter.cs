@@ -2,7 +2,7 @@
 using System.IO;
 using System.ComponentModel;
 using System.Windows.Media;
-using System.Globalization;
+
 namespace miRobotEditor
 {
     /// <summary>
@@ -40,7 +40,7 @@ namespace miRobotEditor
         [Localizable(false)]
         public static void WriteLog(string message, Color color)
         {
-            string fn = string.Format("{0}{1}", App.StartupPath, @"\KRC Editor.log");
+            var fn = string.Format("{0}{1}", App.StartupPath, @"\KRC Editor.log");
             File.AppendAllText(fn,message + "/r/n",System.Text.Encoding.Default);
 
         }

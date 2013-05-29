@@ -23,7 +23,7 @@
 			<TextBlock Text="{Binding SelectedItem.AccountName}" />
 			<ListBox  x:Name="lb">
 			<ListBox.ItemContainerStyle>
-       			 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+       			 <Style TargetType="{x:Type ListBoxItem}" BasedOn="ListBoxItem">
 	            	<EventSetter Event="MouseDoubleClick" Handler="ConnectClick"/>
 		        </Style>
 		    </ListBox.ItemContainerStyle>

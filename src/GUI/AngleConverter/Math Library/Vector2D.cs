@@ -5,10 +5,12 @@ namespace ISTUK.MathLibrary
         public Vector2D() : base(2)
         {
         }
+// ReSharper disable RedundantOverridenMember
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
         }
+// ReSharper restore RedundantOverridenMember
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -29,17 +31,19 @@ namespace ISTUK.MathLibrary
             }
         }
 
-        public Vector2D(Vector2D vec) : base(2)
+        public Vector2D(Vector vec) : base(2)
         {
             base[0] = vec[0];
             base[1] = vec[1];
         }
 
-        public Vector2D(double x, double y) : base(2, new double[] { x, y })
+        public Vector2D(double x, double y) : base(2, new[] { x, y })
         {
         }
 
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector2D operator +(Vector2D v1, Vector2D v2)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector2D(v1 + v2);
         }
@@ -59,7 +63,9 @@ namespace ISTUK.MathLibrary
         {
             return !(v1 == v2);
         }
+// ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector2D operator /(Vector2D vec, double scalar)
+// ReSharper restore FunctionRecursiveOnAllPaths
         {
             return new Vector2D((Matrix) (vec / scalar));
         }

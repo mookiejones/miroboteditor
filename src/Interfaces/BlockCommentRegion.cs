@@ -20,7 +20,7 @@ namespace miRobotEditor.Interfaces
 		
         public override int GetHashCode()
         {
-            int hashCode = 0;
+            var hashCode = 0;
             unchecked {
                 if (CommentStart != null) hashCode += 1000000007 * CommentStart.GetHashCode();
                 if (CommentEnd != null) hashCode += 1000000009 * CommentEnd.GetHashCode();

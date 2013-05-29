@@ -1,7 +1,10 @@
+using System.ComponentModel;
+
 namespace ISTUK.MathLibrary
 {
     using System;
 
+    [Localizable(false)]
     public static class Intersect3D
     {
         public static IGeometricElement3D ElementToElement(IGeometricElement3D e1, IGeometricElement3D e2)
@@ -42,8 +45,8 @@ namespace ISTUK.MathLibrary
 
         public static IGeometricElement3D PlaneWithLine(Plane3D plane, Line3D line)
         {
-            Point3D origin = line.Origin;
-            double num = Vector.Dot(plane.Normal, line.Direction);
+            var origin = line.Origin;
+            var num = Vector.Dot(plane.Normal, line.Direction);
             if (Math.Abs(num) >= 1E-08)
             {
                 num = -((((plane.A * origin.X) + (plane.B * origin.Y)) + (plane.C * origin.Z)) + plane.D) / num;

@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace ISTUK.MathLibrary
 {
     using System;
-    using System.Collections.ObjectModel;
     using System.Globalization;
 
     [Localizable(false),Serializable]
@@ -18,17 +19,19 @@ namespace ISTUK.MathLibrary
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((Matrix) obj);
+            return obj.GetType() == GetType() && Equals((Matrix) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
+// ReSharper disable NonReadonlyFieldInGetHashCode
                 var hashCode = _columns;
                 hashCode = (hashCode*397) ^ (_elements != null ? _elements.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ _rows;
+                // ReSharper restore NonReadonlyFieldInGetHashCode
+
                 return hashCode;
             }
         }
@@ -42,7 +45,7 @@ namespace ISTUK.MathLibrary
             SetSize(0, 0);
         }
 
-        public Matrix(Collection<Point3D> points)
+        public Matrix(IList<Point3D> points)
         {
             SetSize(points.Count, 3);
             for (var i = 0; i < points.Count; i++)
@@ -126,7 +129,7 @@ namespace ISTUK.MathLibrary
             }
         }
 
-        public Matrix(Collection<Vector> vectors, MatrixDirection direction)
+        public Matrix(IList<Vector> vectors, MatrixDirection direction)
         {
             int num2;
             switch (direction)
@@ -338,19 +341,17 @@ namespace ISTUK.MathLibrary
                 {
                     for (var j = 0; j < Columns; j++)
                     {
-                        if (Math.Abs(this[i, j] - 0.0) > EPSILON)
+                        if (!(Math.Abs(this[i, j] - 0.0) > EPSILON)) continue;
+                        if (j <= columns)
                         {
-                            if (j <= columns)
-                            {
-                                return false;
-                            }
-                            if (Math.Abs(this[i, j] - 1.0) > EPSILON)
-                            {
-                                return false;
-                            }
-                            columns = j;
-                            break;
+                            return false;
                         }
+                        if (Math.Abs(this[i, j] - 1.0) > EPSILON)
+                        {
+                            return false;
+                        }
+                        columns = j;
+                        break;
                     }
                 }
             }
@@ -377,11 +378,9 @@ namespace ISTUK.MathLibrary
                 var num3 = -1;
                 for (var j = 0; j < Columns; j++)
                 {
-                    if (!IsColumnZeroBelowRow(j, i))
-                    {
-                        num3 = j;
-                        break;
-                    }
+                    if (IsColumnZeroBelowRow(j, i)) continue;
+                    num3 = j;
+                    break;
                 }
                 if (num3 == -1)
                 {
@@ -390,16 +389,14 @@ namespace ISTUK.MathLibrary
                 var naN = double.NaN;
                 for (var k = i; k < Rows; k++)
                 {
-                    if (Math.Abs(this[k, num3]) > 1E-05)
+                    if (!(Math.Abs(this[k, num3]) > 1E-05)) continue;
+                    if (i != k)
                     {
-                        if (i != k)
-                        {
-                            SwapRows(i, k);
-                            num = -num;
-                        }
-                        naN = this[i, num3];
-                        break;
+                        SwapRows(i, k);
+                        num = -num;
                     }
+                    naN = this[i, num3];
+                    break;
                 }
                 if (Math.Abs(naN - 1.0) > EPSILON)
                 {
@@ -411,12 +408,10 @@ namespace ISTUK.MathLibrary
                 var num8 = double.NaN;
                 for (var m = i + 1; m < Rows; m++)
                 {
-                    if (Math.Abs(this[m, num3] - 0.0) > EPSILON)
-                    {
-                        num7 = m;
-                        num8 = this[m, num3];
-                        break;
-                    }
+                    if (!(Math.Abs(this[m, num3] - 0.0) > EPSILON)) continue;
+                    num7 = m;
+                    num8 = this[m, num3];
+                    break;
                 }
                 if (num7 != -1)
                 {
@@ -552,15 +547,16 @@ namespace ISTUK.MathLibrary
         {
             try
             {
-                if (m1.Rows != m2.Rows || (m1.Columns != m2.Columns))
+                if (m2 != null && (m1 != null && (m1.Rows != m2.Rows || (m1.Columns != m2.Columns))))
                 {
                     return false;
                 }
+                Debug.Assert(m1 != null, "m1 != null");
                 for (var i = 0; i < m1.Rows; i++)
                 {
                     for (var j = 0; j < m1.Columns; j++)
                     {
-                        if (Math.Abs(m1[i, j] - m2[i, j]) > EPSILON)
+                        if (m2 != null && Math.Abs(m1[i, j] - m2[i, j]) > EPSILON)
                         {
                             return false;
                         }

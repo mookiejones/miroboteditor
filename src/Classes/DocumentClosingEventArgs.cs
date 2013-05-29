@@ -17,8 +17,8 @@ namespace miRobotEditor.Classes
     {
         internal DocumentClosingEventArgs(object document)
         {
-            this.Document = document;
-            this.Cancel = false;
+            Document = document;
+            Cancel = false;
         }
 
         /// <summary>

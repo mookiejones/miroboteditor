@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using miRobotEditor.Commands;
 namespace miRobotEditor.ViewModel
 {
@@ -35,9 +34,9 @@ namespace miRobotEditor.ViewModel
        private static StatusBarViewModel _instance;
        public static StatusBarViewModel Instance { get { return _instance ?? new StatusBarViewModel(); } set { _instance = value; } }
 
-       private int _line = 0;
-       private int _column = 0;
-       private int _offset = 0;
+       private int _line;
+       private int _column;
+       private int _offset;
        private string _robot = string.Empty;
        private string _name = string.Empty;
        public string Robot { get { return _robot; } set { _robot = value;RaisePropertyChanged("Robot"); } }

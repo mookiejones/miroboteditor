@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Reflection;
 using Application = System.Windows.Application;
@@ -15,7 +13,9 @@ namespace miRobotEditor
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+// ReSharper disable RedundantExtendsListEntry
     public partial class App : Application, ISingleInstanceApp
+// ReSharper restore RedundantExtendsListEntry
     {
         public static string StartupPath
         {
@@ -31,7 +31,7 @@ namespace miRobotEditor
     	 {
     	 	get
     	 	{
-	    	 	var asm = System.Reflection.Assembly.GetExecutingAssembly();
+	    	 	var asm = Assembly.GetExecutingAssembly();
 	    	 	return asm.GetName().Version.ToString();
     	 	}
     	 }
@@ -40,12 +40,14 @@ namespace miRobotEditor
     	 {
     	 	get 
     	 	{
-                return System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString();
+                return Assembly.GetExecutingAssembly().GetName().ToString();
     	 	}
     	 }
     
     	  private const string Unique = "My_Unique_Application_String";
+// ReSharper disable InconsistentNaming
     	  public static App _application;
+// ReSharper restore InconsistentNaming
           [STAThread]
           public static void Main()
           {
@@ -55,15 +57,13 @@ namespace miRobotEditor
               #endif
               if (!CheckEnvironment())
                   return;
-            if (SingleInstance<App>.InitializeAsFirstInstance(Unique))
-            {
-                  _application = new App();
+              if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
+              _application = new App();
 
-                  _application.InitializeComponent();                 
-                  _application.Run();
-                  // Allow single instance code to perform cleanup operations
-               SingleInstance<App>.Cleanup();
-           }
+              _application.InitializeComponent();                 
+              _application.Run();
+              // Allow single instance code to perform cleanup operations
+              SingleInstance<App>.Cleanup();
           }
 
 

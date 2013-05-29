@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
-using miRobotEditor.Classes;
-using System.Windows.Input;
-namespace miRobotEditor.ViewModel
+﻿namespace miRobotEditor.ViewModel
 {
     public class FunctionViewModel : ToolViewModel
     {

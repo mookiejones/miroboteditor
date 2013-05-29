@@ -83,11 +83,9 @@ namespace ISTUK.MathLibrary
             var column = -1;
             for (var i = 0; i < svd.W.Size; i++)
             {
-                if (svd.W[i] < positiveInfinity)
-                {
-                    positiveInfinity = svd.W[i];
-                    column = i;
-                }
+                if (!(svd.W[i] < positiveInfinity)) continue;
+                positiveInfinity = svd.W[i];
+                column = i;
             }
             return new Line2D(origin, new Vector2D(svd.V.GetColumn(column)));
         }

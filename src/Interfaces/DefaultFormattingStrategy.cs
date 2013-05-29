@@ -13,23 +13,21 @@ namespace miRobotEditor.Interfaces
 		
         public virtual void IndentLine(ITextEditor editor, IDocumentLine line)
         {
-            IEditor document = editor.Document;
-            int lineNumber = line.LineNumber;
-            if (lineNumber > 1)
-            {
-                document.GetLine(lineNumber - 1);
-                throw new NotImplementedException();
-                //string indentation = DocumentUtilitites.GetWhitespaceAfter(document, previousLine.Offset);
-                // copy indentation to line
-                //string newIndentation = DocumentUtilitites.GetWhitespaceAfter(document, line.Offset);
-                //document.Replace(line.Offset, newIndentation.Length, indentation);
-            }
+            var document = editor.Document;
+            var lineNumber = line.LineNumber;
+            if (lineNumber <= 1) return;
+            document.GetLine(lineNumber - 1);
+            throw new NotImplementedException();
+            //string indentation = DocumentUtilitites.GetWhitespaceAfter(document, previousLine.Offset);
+            // copy indentation to line
+            //string newIndentation = DocumentUtilitites.GetWhitespaceAfter(document, line.Offset);
+            //document.Replace(line.Offset, newIndentation.Length, indentation);
         }
 		
         public virtual void IndentLines(ITextEditor editor, int begin, int end)
         {
             using (editor.Document.OpenUndoGroup()) {
-                for (int i = begin; i <= end; i++) {
+                for (var i = begin; i <= end; i++) {
                     IndentLine(editor, editor.Document.GetLine(i));
                 }
             }
@@ -45,22 +43,22 @@ namespace miRobotEditor.Interfaces
         protected void SurroundSelectionWithSingleLineComment(ITextEditor editor, string comment)
         {
             using (editor.Document.OpenUndoGroup()) {
-                Location startPosition = editor.Document.OffsetToPosition(editor.SelectionStart);
-                Location endPosition = editor.Document.OffsetToPosition(editor.SelectionStart + editor.SelectionLength);
+                var startPosition = editor.Document.OffsetToPosition(editor.SelectionStart);
+                var endPosition = editor.Document.OffsetToPosition(editor.SelectionStart + editor.SelectionLength);
 				
                 // endLine is one above endPosition if no characters are selected on the last line (e.g. line selection from the margin)
-                int endLine = (endPosition.Column == 1 && endPosition.Line > startPosition.Line) ? endPosition.Line - 1 : endPosition.Line;
+                var endLine = (endPosition.Column == 1 && endPosition.Line > startPosition.Line) ? endPosition.Line - 1 : endPosition.Line;
 				
                 var lines = new List<IDocumentLine>();
-                bool removeComment = true;
+                var removeComment = true;
 				
-                for (int i = startPosition.Line; i <= endLine; i++) {
+                for (var i = startPosition.Line; i <= endLine; i++) {
                     lines.Add(editor.Document.GetLine(i));
                     if (!lines[i - startPosition.Line].Text.Trim().StartsWith(comment, StringComparison.Ordinal))
                         removeComment = false;
                 }
 				
-                foreach (IDocumentLine line in lines) {
+                foreach (var line in lines) {
                     if (removeComment) {
                         editor.Document.Remove(line.Offset + line.Text.IndexOf(comment, StringComparison.Ordinal), comment.Length);
                     } else {
@@ -76,16 +74,16 @@ namespace miRobotEditor.Interfaces
         protected void SurroundSelectionWithBlockComment(ITextEditor editor, string blockStart, string blockEnd)
         {
             using (editor.Document.OpenUndoGroup()) {
-                int startOffset = editor.SelectionStart;
-                int endOffset = editor.SelectionStart + editor.SelectionLength;
+                var startOffset = editor.SelectionStart;
+                var endOffset = editor.SelectionStart + editor.SelectionLength;
 				
                 if (editor.SelectionLength == 0) {
-                    IDocumentLine line = editor.Document.GetLineForOffset(editor.SelectionStart);
+                    var line = editor.Document.GetLineForOffset(editor.SelectionStart);
                     startOffset = line.Offset;
                     endOffset = line.Offset + line.Length;
                 }
 				
-                BlockCommentRegion region = FindSelectedCommentRegion(editor, blockStart, blockEnd);
+                var region = FindSelectedCommentRegion(editor, blockStart, blockEnd);
 				
                 if (region != null) {
                     editor.Document.Remove(region.EndOffset, region.CommentEnd.Length);
@@ -99,7 +97,7 @@ namespace miRobotEditor.Interfaces
 		
         public static BlockCommentRegion FindSelectedCommentRegion(ITextEditor editor, string commentStart, string commentEnd)
         {
-            IEditor document = editor.Document;
+            var document = editor.Document;
 			
             if (document.TextLength == 0) {
                 return null;
@@ -107,16 +105,16 @@ namespace miRobotEditor.Interfaces
 			
             // Find start of comment in selected text.
 
-            string selectedText = editor.SelectedText;
+            var selectedText = editor.SelectedText;
 			
-            int commentStartOffset = selectedText.IndexOf(commentStart, StringComparison.Ordinal);
+            var commentStartOffset = selectedText.IndexOf(commentStart, StringComparison.Ordinal);
             if (commentStartOffset >= 0) {
                 commentStartOffset += editor.SelectionStart;
             }
 
             // Find end of comment in selected text.
 			
-            int commentEndOffset = commentStartOffset >= 0 ? selectedText.IndexOf(commentEnd, commentStartOffset + commentStart.Length - editor.SelectionStart, StringComparison.Ordinal) : selectedText.IndexOf(commentEnd, StringComparison.Ordinal);
+            var commentEndOffset = commentStartOffset >= 0 ? selectedText.IndexOf(commentEnd, commentStartOffset + commentStart.Length - editor.SelectionStart, StringComparison.Ordinal) : selectedText.IndexOf(commentEnd, StringComparison.Ordinal);
 			
             if (commentEndOffset >= 0) {
                 commentEndOffset += editor.SelectionStart;
@@ -126,16 +124,16 @@ namespace miRobotEditor.Interfaces
             // selected text.
 
             if (commentStartOffset == -1) {
-                int offset = editor.SelectionStart + editor.SelectionLength + commentStart.Length - 1;
+                var offset = editor.SelectionStart + editor.SelectionLength + commentStart.Length - 1;
                 if (offset > document.TextLength) {
                     offset = document.TextLength;
                 }
-                string text = document.GetText(0, offset);
+                var text = document.GetText(0, offset);
                 commentStartOffset = text.LastIndexOf(commentStart, StringComparison.Ordinal);
                 if (commentStartOffset >= 0)
                 {
                     // Find end of comment before comment start.
-                    int commentEndBeforeStartOffset = text.IndexOf(commentEnd, commentStartOffset, editor.SelectionStart - commentStartOffset, StringComparison.Ordinal);
+                    var commentEndBeforeStartOffset = text.IndexOf(commentEnd, commentStartOffset, editor.SelectionStart - commentStartOffset, StringComparison.Ordinal);
                     if (commentEndBeforeStartOffset > commentStartOffset) {
                         commentStartOffset = -1;
                     }
@@ -146,11 +144,11 @@ namespace miRobotEditor.Interfaces
             // selected text.
 			
             if (commentEndOffset == -1) {
-                int offset = editor.SelectionStart + 1 - commentEnd.Length;
+                var offset = editor.SelectionStart + 1 - commentEnd.Length;
                 if (offset < 0) {
                     offset = editor.SelectionStart;
                 }
-                string text = document.GetText(offset, document.TextLength - offset);
+                var text = document.GetText(offset, document.TextLength - offset);
                 commentEndOffset = text.IndexOf(commentEnd, StringComparison.Ordinal);
                 if (commentEndOffset >= 0) {
                     commentEndOffset += offset;

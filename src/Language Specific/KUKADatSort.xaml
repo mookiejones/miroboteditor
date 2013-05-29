@@ -29,7 +29,7 @@
 			</Grid>	
 		</GroupBox>
 	<GroupBox Header="Sort options" Grid.Column="1">
-		<StackPanel Orientation="Verical">
+		<StackPanel Orientation="Vertical">
 		<RadioButton Content="Sort by datatypes"/>
 		<RadioButton Content="Sort Alphabetically"/>
 		</StackPanel>

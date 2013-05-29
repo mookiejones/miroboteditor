@@ -1,8 +1,11 @@
+using System.ComponentModel;
+
 namespace ISTUK.MathLibrary
 {
     using System;
     using System.Collections.ObjectModel;
 
+    [Localizable(false)]
     public class Sphere3D : IGeometricElement3D
     {
       

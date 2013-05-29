@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Text.RegularExpressions;
 using miRobotEditor.ViewModel;
-using miRobotEditor.Classes;
-using miRobotEditor.GUI;
 
 namespace miRobotEditor.Languages
 {

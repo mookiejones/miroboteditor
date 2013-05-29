@@ -1,6 +1,4 @@
-﻿using miRobotEditor.Classes;
-
-namespace miRobotEditor.ViewModel
+﻿namespace miRobotEditor.ViewModel
 {
     public class CustomToolTipViewModel:ViewModelBase
     {        

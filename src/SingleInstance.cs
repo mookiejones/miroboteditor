@@ -64,17 +64,18 @@ namespace miRobotEditor
         /// <summary>
         /// Application mutex.
         /// </summary>
-        private static Mutex singleInstanceMutex;
+// ReSharper disable StaticFieldInGenericType
+        private static Mutex _singleInstanceMutex;
+// ReSharper restore StaticFieldInGenericType
 
         /// <summary>
         /// IPC channel for communications.
         /// </summary>
-        private static IpcServerChannel channel;
+// ReSharper disable StaticFieldInGenericType
+        private static IpcServerChannel _channel;
+// ReSharper restore StaticFieldInGenericType
 
-        /// <summary>
-        /// List of command line arguments for the application.
-        /// </summary>
-        private static IList<string> commandLineArgs;
+        // ReSharper restore StaticFieldInGenericType
 
         #endregion
 
@@ -83,10 +84,7 @@ namespace miRobotEditor
         /// <summary>
         /// Gets list of command line arguments for the application.
         /// </summary>
-        public static IList<string> CommandLineArgs
-        {
-            get { return commandLineArgs; }
-        }
+        public static IList<string> CommandLineArgs { get; private set; }
 
         #endregion
 
@@ -99,7 +97,7 @@ namespace miRobotEditor
         /// <returns>True if this is the first instance of the application.</returns>
         public static bool InitializeAsFirstInstance( string uniqueName )
         {
-            commandLineArgs = GetCommandLineArgs(uniqueName);
+            CommandLineArgs = GetCommandLineArgs(uniqueName);
 
             // Build unique application Id and the IPC channel name.
             var applicationIdentifier = uniqueName + Environment.UserName;
@@ -108,14 +106,14 @@ namespace miRobotEditor
 
             // Create mutex based on unique application Id to check if this is the first instance of the application. 
             bool firstInstance;
-            singleInstanceMutex = new Mutex(true, applicationIdentifier, out firstInstance);
+            _singleInstanceMutex = new Mutex(true, applicationIdentifier, out firstInstance);
             if (firstInstance)
             {
                 CreateRemoteService(channelName);
             }
             else
             {
-                SignalFirstInstance(channelName, commandLineArgs);
+                SignalFirstInstance(channelName, CommandLineArgs);
             }
 
             return firstInstance;
@@ -126,17 +124,15 @@ namespace miRobotEditor
         /// </summary>
         public static void Cleanup()
         {
-            if (singleInstanceMutex != null)
+            if (_singleInstanceMutex != null)
             {
-                singleInstanceMutex.Close();
-                singleInstanceMutex = null;
+                _singleInstanceMutex.Close();
+                _singleInstanceMutex = null;
             }
 
-            if (channel != null)
-            {
-                ChannelServices.UnregisterChannel(channel);
-                channel = null;
-            }
+            if (_channel == null) return;
+            ChannelServices.UnregisterChannel(_channel);
+            _channel = null;
         }
 
         #endregion
@@ -206,13 +202,13 @@ namespace miRobotEditor
             props["exclusiveAddressUse"] = "false";
 
             // Create the IPC Server channel with the channel properties
-            channel = new IpcServerChannel(props, serverProvider);
+            _channel = new IpcServerChannel(props, serverProvider);
 
             // Register the channel with the channel services
-            ChannelServices.RegisterChannel(channel, true);
+            ChannelServices.RegisterChannel(_channel, true);
 
             // Expose the remote service with the REMOTE_SERVICE_NAME
-            var remoteService = new IPCRemoteService();
+            var remoteService = new IpcRemoteService();
             RemotingServices.Marshal(remoteService, RemoteServiceName);
         }
 
@@ -234,23 +230,20 @@ namespace miRobotEditor
             var remotingServiceUrl = IpcProtocol + channelName + "/" + RemoteServiceName;
 
             // Obtain a reference to the remoting service exposed by the server i.e the first instance of the application
-            var firstInstanceRemoteServiceReference = (IPCRemoteService)RemotingServices.Connect(typeof(IPCRemoteService), remotingServiceUrl);
+            var firstInstanceRemoteServiceReference = (IpcRemoteService)RemotingServices.Connect(typeof(IpcRemoteService), remotingServiceUrl);
 
             // Check that the remote service exists, in some cases the first instance may not yet have created one, in which case
             // the second instance should just exit
-            if (firstInstanceRemoteServiceReference != null)
+            if (firstInstanceRemoteServiceReference == null) return;
+            try
             {
-                try
-                {
-                    // Invoke a method of the remote service exposed by the first instance passing on the command line
-                    // arguments and causing the first instance to activate itself
-                    firstInstanceRemoteServiceReference.InvokeFirstInstance(args);
-                }
-                catch (RemotingException)
-                {
-                    //TODO Catch Remoting Exception, kill Instance and restart
-                }
-               
+                // Invoke a method of the remote service exposed by the first instance passing on the command line
+                // arguments and causing the first instance to activate itself
+                firstInstanceRemoteServiceReference.InvokeFirstInstance(args);
+            }
+            catch (RemotingException)
+            {
+                //TODO Catch Remoting Exception, kill Instance and restart
             }
         }
 
@@ -290,7 +283,7 @@ namespace miRobotEditor
         /// Remoting service class which is exposed by the server i.e the first instance and called by the second instance
         /// to pass on the command line arguments to the first instance and cause it to activate itself.
         /// </summary>
-        private class IPCRemoteService : MarshalByRefObject
+        private class IpcRemoteService : MarshalByRefObject
         {
             /// <summary>
             /// Activates the first instance of the application.
@@ -326,14 +319,14 @@ namespace miRobotEditor
     class InstanceOf
     {
         private static Editor _ieditor;
-        public static Editor IEditor
+        public static Editor Editor
         {
             get { return _ieditor ?? (_ieditor = new Editor()); }
             set { _ieditor = value; }
         }
 
         private static DocumentViewModel _idocument;
-        public static DocumentViewModel IDocument
+        public static DocumentViewModel Document
         {
             get { return _idocument ?? (_idocument = new DocumentViewModel(null)); }
             set { _idocument = value; }

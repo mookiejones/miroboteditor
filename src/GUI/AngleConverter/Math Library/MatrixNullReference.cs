@@ -9,6 +9,7 @@ namespace ISTUK.MathLibrary
             : base(message)
         {
         }
-        public MatrixNullReference() : base() { }
+        public MatrixNullReference()
+        { }
     }
 }

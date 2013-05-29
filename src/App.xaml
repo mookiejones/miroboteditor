@@ -1,31 +1,19 @@
 ﻿<Application x:Class="miRobotEditor.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:miEditor="clr-namespace:miRobotEditor"
              StartupUri="MainWindow.xaml"
               DispatcherUnhandledException="AppDispatcherUnhandledException"
              >
     <Application.Resources>        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
-                <ResourceDictionary Source="Themes/Styles.xaml" />
-                <ResourceDictionary Source="Themes/Generic.xaml"/>
-
-                <ResourceDictionary Source="Themes/ExtendedGridSplitter.xaml" />
-                <ResourceDictionary Source="Themes/AdjustST.xaml" />  
+                <ResourceDictionary Source="Themes/Styles.xaml" />                
                 <ResourceDictionary Source="Themes/ToolTipTemplate.xaml" />
-                <ResourceDictionary Source="Templates/EditorTemplate.xaml" />
-                <ResourceDictionary Source="Themes/MenuDictionary.xaml" />
-                <ResourceDictionary Source="Themes/ExplorerWindow.xaml" />               
+                <ResourceDictionary Source="Templates/MenuDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
-         
+            <miEditor:Workspace x:Key="Workspace"/>
+
         </ResourceDictionary>
-      
     </Application.Resources>
     <JumpList.JumpList>
         <JumpList ShowRecentCategory="True" ShowFrequentCategory="True"  >

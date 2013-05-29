@@ -6,8 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;
-using miRobotEditor.Classes;
+
 namespace miRobotEditor.ViewModel
 {
 	  /// <summary>
@@ -18,7 +17,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         /// Set to 'true' when the pane is visible.
         /// </summary>
-        private bool isVisible = true;
+        private bool _isVisible = true;
 
         /// <summary>
         /// Set to 'true' when the pane is visible.
@@ -27,16 +26,16 @@ namespace miRobotEditor.ViewModel
         {
             get
             {
-                return isVisible;
+                return _isVisible;
             }
             set
             {
-                if (isVisible == value)
+                if (_isVisible == value)
                 {
                     return;
                 }
 
-                isVisible = value;
+                _isVisible = value;
 
                 RaisePropertyChanged("IsVisible");
             }

@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace miRobotEditor.Forms
+﻿namespace miRobotEditor.Forms
 {
     /// <summary>
     /// Interaction logic for AttributeViewer.xaml

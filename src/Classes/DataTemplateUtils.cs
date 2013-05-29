@@ -7,9 +7,6 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 namespace miRobotEditor.Classes
 {
@@ -56,12 +53,7 @@ namespace miRobotEditor.Classes
         public static FrameworkElement InstanceTemplate(Type type, FrameworkElement element, object dataContext)
         {
             var dataTemplate = FindDataTemplate(type, element);
-            if (dataTemplate == null)
-            {
-                return null;
-            }
-
-            return InstanceTemplate(dataTemplate, dataContext);
+            return dataTemplate == null ? null : InstanceTemplate(dataTemplate, dataContext);
         }
 
         /// <summary>
