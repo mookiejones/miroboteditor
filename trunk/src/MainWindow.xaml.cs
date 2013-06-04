@@ -3,9 +3,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using AvalonDock;
-using AvalonDock.Layout;
-using AvalonDock.Layout.Serialization;
+using System.Windows.Controls;
+using MahApps.Metro;
+using Xceed.Wpf.AvalonDock;
+using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using miRobotEditor.Properties;
 using miRobotEditor.ViewModel;
 
@@ -18,10 +20,24 @@ namespace miRobotEditor
     [Localizable(false)]
     public partial class MainWindow
     {
+
+
         public static MainWindow Instance { get; set; }
-
-
         public DockingManager Dock { get { return DockManager; } set { DockManager = value; } }
+        private Theme _currentTheme = Theme.Dark;
+        private Accent _currentAccent = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
+      
+       
+        #region Constructor
+        public MainWindow()
+        {
+            Instance = this;
+            InitializeComponent();
+           ThemeManager.ChangeTheme(this, _currentAccent, _currentTheme);
+            KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);
+        }
+        #endregion
+
 
         public void LoadItems()
         {            
@@ -85,16 +101,10 @@ namespace miRobotEditor
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effects = DragDropEffects.Copy;
         }
 
-        public MainWindow()
-        {
-            Instance = this;        
-            InitializeComponent();
-            KeyDown += (s, e) =>   StatusBarViewModel.Instance.ManageKeys(s, e);
-        }
-        
-        
+      
+
+
        
-        
         /// <summary>
         /// Makes a call GUI threadsafe without waiting for the returned value.
         /// </summary>
@@ -174,14 +184,14 @@ namespace miRobotEditor
                 return;
             } 
         }
-        private void dockManager_DocumentClosing(object sender, AvalonDock.DocumentClosingEventArgs e)
-        {
-//            DummyDoc active = (sender as DockingManager).ActiveContent;
-  //          if (active.Source.IsModified)
+     //  private void dockManager_DocumentClosing(object sender, AvalonDock.DocumentClosingEventArgs e)
+     //  {
+     //          Workspace.Instance.Close(e.Document.Content as IDocument);
+     //  }
 
-            
-        }
+   
+        
 
-       
+     
     }
 }

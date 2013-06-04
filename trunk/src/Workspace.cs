@@ -1,4 +1,5 @@
 ﻿using System;
+using MahApps.Metro;
 using miRobotEditor.Forms;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using miRobotEditor.Properties;
 using miRobotEditor.Languages;
 using System.ComponentModel;
 using System.Windows;
-using AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Layout;
 using miRobotEditor.Pads;
 
 namespace miRobotEditor
@@ -34,7 +35,8 @@ namespace miRobotEditor
 
         #endregion
 
-        public static Workspace Instance { get; set; }
+        private static Workspace _instance;
+        public static Workspace Instance { get { return _instance ?? (_instance = new Workspace()); } set { _instance = value; } }
 
         #region Tools
 
@@ -66,6 +68,20 @@ namespace miRobotEditor
         #region Properties
         private bool _showSettings;
         public bool ShowSettings { get { return _showSettings; } set { _showSettings = value; RaisePropertyChanged("ShowSettings"); } }
+       
+        private Accent _accentBrush = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
+        public Accent AccentBrush { get { return _accentBrush; } set { _accentBrush = value;RaisePropertyChanged("AccentBrush"); } }
+
+        private Theme _currentTheme = Theme.Dark;
+        public Theme CurrentTheme { get { return _currentTheme; } set { _currentTheme = value;RaisePropertyChanged("CurrentTheme"); } }
+        private bool _showIO;
+        public bool ShowIO { get { return _showIO; } set { _showIO = value;RaisePropertyChanged("ShowIO"); } }
+
+        private bool _enableIO;
+        public bool EnableIO { get { return _enableIO; } set { _enableIO = value;RaisePropertyChanged("EnableIO"); } }
+
+        private  ILayoutUpdateStrategy _layoutInitializer;
+        public  ILayoutUpdateStrategy LayoutStrategy { get { return _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer()); } }
 
         readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
         readonly IEnumerable<ToolViewModel> _readonlyTools = null;
@@ -103,36 +119,57 @@ namespace miRobotEditor
 #pragma warning restore 67
         #endregion
 
+
+        void ExecuteShowIO()
+        {
+            ShowIO = !ShowIO;
+        }
         #region Commands
 
-        private RelayCommand _newFileCommand;
+        private RelayCommand _showIOCommand;
+        public ICommand ShowIOCommand
+        {
+            get { return _showIOCommand ?? (_showIOCommand = new RelayCommand(p => ExecuteShowIO(), p => true)); }
+        }
 
-      public ICommand NewFileCommand
+        #region NewFile
+        private RelayCommand _newFileCommand;
+         public ICommand NewFileCommand
         {
             get { return _newFileCommand ?? (_newFileCommand = new RelayCommand(p => AddNewFile(), p => true)); }
         }
-      private RelayCommand _showSettingsCommand;
+        #endregion
 
-      public ICommand ShowSettingsCommand
+         #region Change Theme
+
+        private RelayCommand _changeThemeCommand;
+        public ICommand ChangeThemeCommand
+        {
+            get
+            {
+                return _changeThemeCommand ??
+                       (_changeThemeCommand = new RelayCommand(p => ChangeTheme(p), p => true));
+            }
+        }
+         #endregion
+
+         #region Change Accent
+         private RelayCommand _changeAccentCommand;
+         public ICommand ChangeAccentCommand
+         {
+             get { return _changeAccentCommand ?? (_changeAccentCommand = new RelayCommand(p => ChangeAccent(p), p => true)); }
+         }
+         #endregion
+
+         #region ShowSettings
+         private RelayCommand _showSettingsCommand;
+         public ICommand ShowSettingsCommand
       {
           get { return _showSettingsCommand ?? (_showSettingsCommand = new RelayCommand(p => ExecuteShowSettings(), p => true)); }
       }
+        #endregion
 
-        private RelayCommand _closeWindowCommand;
-
-      public ICommand CloseWindowCommand
-        {
-            get { return _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand(p => CloseWindow(p), p => true)); }
-        }
-
-        private RelayCommand _showOptionsCommand;
-
-      public ICommand ShowOptionsCommand
-        {
-            get { return _showOptionsCommand ?? (_showOptionsCommand = new RelayCommand(p => ShowOptions(), p => true)); }
-        }
-
-
+       
         private RelayCommand _showAboutCommand;
 
       public ICommand ShowAboutCommand
@@ -149,7 +186,7 @@ namespace miRobotEditor
 
         private RelayCommand _importCommand;
 
-      public ICommand ImportCommand
+        public ICommand ImportCommand
         {
             get { return _importCommand ?? (_importCommand = new RelayCommand(p => ImportRobot(), p => (!(p is LanguageBase) | (p is Fanuc) | (p is Kawasaki) | p == null))); }
         }
@@ -170,19 +207,38 @@ namespace miRobotEditor
 
         private  RelayCommand _addToolCommand;
 
-      public ICommand AddToolCommand
+        public ICommand AddToolCommand
         {
             get { return _addToolCommand ?? (_addToolCommand = new RelayCommand(param => AddTool(param), param => true)); }
         }
 
         #endregion
-      #region Show Settings
+
+        #region Show Settings
+
       void ExecuteShowSettings()
       {
           ShowSettings = !ShowSettings;
       }
       #endregion
 
+
+        void ChangeAccent(object param)
+        {
+            AccentBrush = ThemeManager.DefaultAccents.First(x => x.Name == param.ToString());
+            ThemeManager.ChangeTheme(MainWindow.Instance,AccentBrush,CurrentTheme);
+        }
+
+        void ChangeTheme(object param)
+        {
+          
+           CurrentTheme = param.ToString() == "Light" ? Theme.Light : Theme.Dark;
+           ThemeManager.ChangeTheme(MainWindow.Instance, AccentBrush, CurrentTheme);
+           
+        }
+
+       
+  
       #region OpenFile
 
       /// <summary>
@@ -257,7 +313,6 @@ namespace miRobotEditor
             ActiveEditor = _files.Last();
         }
 
-
         public void LoadFile(IList<string> args)
         {
             for (var i = 1; i < args.Count; i++)
@@ -266,47 +321,29 @@ namespace miRobotEditor
             }
         }
 
-
-
         #endregion
 
         //This can probably move to the language class section
-        private static void ChangeViewAs(object param)
+        private void ChangeViewAs(object param)
         {
 
             var lang = param as AbstractLanguageClass;
 
+            if (Equals(ActiveEditor.FileLanguage, lang)) return;
+            
             switch (param.ToString())
             {
                 case "ABB":
-// ReSharper disable RedundantAssignment
-// ReSharper disable RedundantCast
-                    lang = (ABB)lang;
-// ReSharper restore RedundantCast
-// ReSharper restore RedundantAssignment
-                    //                        Workspace.Instance.ActiveEditor.FileLanguage = Workspace.Instance.ActiveEditor.FileLanguage as ABB;
-                    break;
+                    ActiveEditor.FileLanguage = (ABB)lang;
+                   break;
                 case "KUKA":
-// ReSharper disable RedundantAssignment
-                    lang = new KUKA();
-// ReSharper restore RedundantAssignment
-                    //                       Workspace.Instance.ActiveEditor.FileLanguage = new KUKA();
+                    ActiveEditor.FileLanguage = new KUKA();
                     break;
                 case "Fanuc":
-// ReSharper disable RedundantAssignment
-// ReSharper disable RedundantCast
-                    lang = (Fanuc)lang;
-// ReSharper restore RedundantCast
-// ReSharper restore RedundantAssignment
-                    //                        Workspace.Instance.ActiveEditor.FileLanguage = Workspace.Instance.ActiveEditor.FileLanguage as Fanuc;
+                    ActiveEditor.FileLanguage = (Fanuc)lang;
                     break;
                 case "Kawasaki":
-// ReSharper disable RedundantAssignment
-// ReSharper disable RedundantCast
-                    lang = (Kawasaki)lang;
-// ReSharper restore RedundantCast
-// ReSharper restore RedundantAssignment
-                    //Workspace.Instance.ActiveEditor.FileLanguage = Workspace.Instance.ActiveEditor.FileLanguage as Kawasaki;
+                    ActiveEditor.FileLanguage = (Kawasaki)lang;
                     break;
             }
 
@@ -317,34 +354,14 @@ namespace miRobotEditor
 
         public void Exit() { MainWindow.Instance.Close(); }
 
-        public void ShowOptions()
-        {
-            //TODO Need to Implement the ShowOptions
-            new Options.OptionsWindow().ShowDialog();
-              throw new NotImplementedException("ShowOptions");
-        
+        internal void Close(IDocument fileToClose)
+        {          
+                _files.Remove(fileToClose);
+            RaisePropertyChanged("ActiveEditor");
         }
 
-// ReSharper disable UnusedMember.Local
-// ReSharper disable UnusedParameter.Local
-        private void OnDocumentClosing(object sender, AvalonDock.DocumentClosingEventArgs e)
-// ReSharper restore UnusedParameter.Local
-// ReSharper restore UnusedMember.Local
-        {
-
-            //TODO Fix this now!
-            MessageViewModel.Instance.Add("Not Implemented", "Need to add OnDocumentClosing", MsgIcon.Error);
-        }
-
-// ReSharper disable UnusedMember.Local
-// ReSharper disable UnusedParameter.Local
-        private void WindowLoaded(object sender, RoutedEventArgs e)
-// ReSharper restore UnusedParameter.Local
-// ReSharper restore UnusedMember.Local
-        {
-         //   SendMessage("Application Started", System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
-            MessageView.Add("Application Started",App.ProductName,MsgIcon.Info);
-        }
+       
+       
 
 
         [Localizable(false)]
@@ -422,19 +439,7 @@ namespace miRobotEditor
                       AddTool("ArchiveInfo");
         }
 
-        public void CloseWindow(object param)
-        {
-            var ad = param as IDocument;
-            var docpane = MainWindow.Instance.DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
-            if (docpane == null) return;
-
-            foreach (var c in docpane.Children.Where(c => c.Content.Equals(ad)))
-            {
-                docpane.Children.Remove(c);
-                return;
-            }
-        }
-
+      
 
         public void BringToFront(string windowname)
         {
@@ -687,4 +692,5 @@ namespace miRobotEditor
  
 
     }
+
 }

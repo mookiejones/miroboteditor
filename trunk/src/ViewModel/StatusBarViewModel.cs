@@ -10,10 +10,9 @@ namespace miRobotEditor.ViewModel
        public StatusBarViewModel()
        {
 
-           Instance = this;
 
            //Get Initial Key Status
-           ManageKeys(this, null);
+          GetInitialKeyState();
        }
        #endregion
 
@@ -30,50 +29,55 @@ namespace miRobotEditor.ViewModel
 
        #endregion
 
+       #region Static Properties
+           private static StatusBarViewModel _instance;
+           public static StatusBarViewModel Instance { get { return _instance ?? (_instance=new StatusBarViewModel()); } }
+       #endregion
 
-       private static StatusBarViewModel _instance;
-       public static StatusBarViewModel Instance { get { return _instance ?? new StatusBarViewModel(); } set { _instance = value; } }
+       #region Status Bar Items
 
-       private int _line;
-       private int _column;
-       private int _offset;
-       private string _robot = string.Empty;
-       private string _name = string.Empty;
-       public string Robot { get { return _robot; } set { _robot = value;RaisePropertyChanged("Robot"); } }
-       private string _filesave = string.Empty;
-       public string FileSave { get { return _filesave; } set { _filesave = value; RaisePropertyChanged("FileSave"); } }
-        public int Line { get { return _line; } set { _line = value;RaisePropertyChanged("Line"); } }
-        public int Column { get { return _column; } set { _column = value; RaisePropertyChanged("Column"); } }
-        public int Offset { get { return _offset; } set { _offset = value; RaisePropertyChanged("Offset"); } }
-        public string Name{get{return _name;}set{_name = value;RaisePropertyChanged("Name");}}
-    
-        #region Status Bar Items
+
+
+        private bool _isScrollPressed;
+        public bool IsScrollPressed { get { return _isScrollPressed; } set { _isScrollPressed = value;RaisePropertyChanged("IsScrollPressed"); } }
+       private bool _isNumPressed;
+       public bool IsNumPressed { get { return _isNumPressed; } set { _isNumPressed = value; RaisePropertyChanged("IsNumPressed"); } }
+       private bool _isInsPressed;
+       public bool IsInsPressed { get { return _isInsPressed; } set { _isInsPressed = value; RaisePropertyChanged("IsInsPressed"); } }
+       private bool _isCapsPressed;
+       public bool IsCapsPressed { get { return _isCapsPressed; } set { _isCapsPressed = value; RaisePropertyChanged("IsCapsPressed"); } }
 
        
-
-        #region Properties
-        public bool IsScrollPressed { get; set; }
-        public bool IsNumPressed { get; set; }
-        public bool IsInsPressed { get; set; }
-        public bool IsCapsPressed { get; set; }
         #endregion
 
         public void ManageKeys(object sender, KeyEventArgs e)
+        {
+            if (e == null) return;
+            switch (e.Key)
+            {
+                case Key.Capital:
+                    IsCapsPressed = e.IsToggled;
+                    break;
+                case Key.Insert:
+                    IsInsPressed = e.IsToggled;
+                    break;
+                case Key.NumLock:
+                    IsNumPressed = e.IsToggled;
+                    break;
+                case Key.Scroll:
+                    IsScrollPressed = e.IsToggled;
+                    break;
+            }
+        }
+
+
+       void GetInitialKeyState()
         {
             IsCapsPressed = NativeMethods.GetKeyState((int)VKeyStates.CapsKey) != 0;
             IsInsPressed = NativeMethods.GetKeyState((int)VKeyStates.InsKey) != 0;
             IsNumPressed = NativeMethods.GetKeyState((int)VKeyStates.NumKey) != 0;
             IsScrollPressed = NativeMethods.GetKeyState((int)VKeyStates.ScrollKey) != 0;
-
-            RaisePropertyChanged("IsInsPressed");
-            RaisePropertyChanged("IsNumPressed");
-            RaisePropertyChanged("IsScrollPressed");
-
-            RaisePropertyChanged("IsCapsPressed");
-
-
         }
-
         private enum VKeyStates
         {
             /// <summary>
@@ -93,8 +97,6 @@ namespace miRobotEditor.ViewModel
             /// </summary>
             InsKey = 0x2d
         }
-
-        #endregion
 
     }
 }

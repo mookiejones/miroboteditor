@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:lang="clr-namespace:miRobotEditor.Languages"
-                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel">
+                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
+                    xmlns:languageSpecific="clr-namespace:miRobotEditor.Language_Specific">
     <DataTemplate DataType="{x:Type vm:SystemFunctionsViewModel}">
         <!--        <mah:MetroWindow Title="System Functions" Height="169" Width="201" ResizeMode="NoResize">-->
             <StackPanel Orientation="Vertical" >
@@ -145,4 +146,28 @@
                 <Button	Grid.Row="2"	Grid.Column="1"	VerticalAlignment="Top"	HorizontalAlignment="Left"	Height="25"	Width="65"	Content="Close"	Margin="125,0,0,0" />
             </Grid>
             </DataTemplate>
+    
+    <!-- Variable Viewer for KUKA -->
+    <DataTemplate DataType="{x:Type languageSpecific:KUKAVariableViewerViewModel}">
+      <StackPanel Orientation="Horizontal">
+          <StackPanel Orientation="Vertical">
+              <DataGrid ItemsSource="{Binding Variables}"/>                 
+                <GroupBox Header="IPAddress">
+                    <StackPanel>
+                        <TextBox Text="{Binding IPAddressString}"/>
+                        <Button Content="{Binding ConnectionButtonText}" IsEnabled="{Binding ConnectionButtonEnabled}"/>
+                    </StackPanel>
+                </GroupBox>
+          </StackPanel>          
+         
+      </StackPanel>  
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type languageSpecific:VariableAdder}">
+        <GroupBox Header="Add Variable">
+            <StackPanel Orientation="Vertical" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+                <TextBox Text="{Binding Text}"/>
+                <xctk:IntegerUpDown Value="{Binding Interval}"/>
+            </StackPanel>
+        </GroupBox>
+    </DataTemplate>
 </ResourceDictionary>
