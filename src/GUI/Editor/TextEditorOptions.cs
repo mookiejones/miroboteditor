@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Windows;
-using System.Windows.Controls;
 using System.Xml;
 using System.Xml.Serialization;
 using ICSharpCode.AvalonEdit;
@@ -10,7 +8,7 @@ using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using System.Windows.Media;
 using miRobotEditor.Languages;
-using System.Collections.ObjectModel;
+
 namespace miRobotEditor.GUI
 {
 
@@ -54,7 +52,9 @@ namespace miRobotEditor.GUI
             {
                 result = (EditorOptions)s.Deserialize(fs);
             }
-            catch (Exception)
+// ReSharper disable EmptyGeneralCatchClause
+            catch
+// ReSharper restore EmptyGeneralCatchClause
             {
 
             }
@@ -131,7 +131,8 @@ namespace miRobotEditor.GUI
         private Color _selectedBorderColor = Colors.Orange;
         public Color SelectedBorderColor { get { return _selectedBorderColor; } set { _selectedBorderColor = value; OnPropertyChanged("SelectedBorderColor"); } }
 
-        
+        private bool _allowScrollingBelowDocument;
+        public bool AllowScrollingBelowDocument{get { return _allowScrollingBelowDocument; }set { _allowScrollingBelowDocument = value;OnPropertyChanged("AllowScrollingBelowDocument"); }}
         private Color _lineNumbersFontColor = Colors.Gray;
         public Color LineNumbersFontColor{get { return _lineNumbersFontColor; }set { _lineNumbersFontColor = value;OnPropertyChanged("LineNumbersFontColor"); }}
 
@@ -168,7 +169,7 @@ namespace miRobotEditor.GUI
 
 
 
-        private double _borderThickness = 0.0;
+        private double _borderThickness;
         public double BorderThickness { get { return _borderThickness; } set { _borderThickness = value;OnPropertyChanged("BorderThickness"); } }
 
         [NonSerialized]
@@ -293,6 +294,7 @@ namespace miRobotEditor.GUI
             FlyoutOpacity = .85;
         }
 
+        [Localizable(false)]
         public string Title { get { return "Global Options"; } }
         private static GlobalOptions _instance;
         public static GlobalOptions Instance

@@ -57,9 +57,18 @@ namespace miRobotEditor.GUI
         #endregion
 
         #region ViewModel Properties
-        private int _line;
-        public int Line { get { return _line; } set { _line = value; OnPropertyChanged("Line"); } }
 
+        public int Line { get { return TextArea.Caret.Column; } }
+
+        /// <summary>
+        /// Used for displaying position in status bar
+        /// </summary>
+        public int Column { get { return TextArea.Caret.Column; } }
+        /// <summary>
+        /// Used for displaying position in status bar
+        /// </summary>
+        public int Offset { get { return TextArea.Caret.Offset; } }
+ 
         public new string Text { get { return base.Text; } set { base.Text = value; } }
 
         public string Title { get { return Path.GetFileName(Filename); }  }
@@ -281,6 +290,8 @@ namespace miRobotEditor.GUI
             _bracketRenderer.SetHighlight(bracketSearchResult);
         }
 
+
+     
         private void CaretPositionChanged(object sender, EventArgs e)
         {
             var s = sender as Caret;
@@ -289,21 +300,13 @@ namespace miRobotEditor.GUI
             if (s != null)
             {
 
-                Line = s.Line;
-            	
-                StatusBarViewModel.Instance.Line = s.Line;
-                StatusBarViewModel.Instance.Column = s.Column;
-
             OnPropertyChanged("Line");
             OnPropertyChanged("Column");
+            OnPropertyChanged("Offset");
             FileSave = !String.IsNullOrEmpty(Filename)? File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture): String.Empty;
 
                 
             }
-
-            if (s != null) StatusBarViewModel.Instance.Offset = s.Offset;
-            OnPropertyChanged("Offset");
-
 
 
             HighlightBrackets(sender, e);
@@ -432,7 +435,7 @@ namespace miRobotEditor.GUI
             {
                 case "TextChanged":
                     FindBookmarkMembers();
-                    IsModified = true;
+                    //IsModified = true;
                     UpdateFolds();
                     break;
             }
@@ -612,7 +615,7 @@ namespace miRobotEditor.GUI
                 
                 File.WriteAllText(Filename,Text);
 			
-            StatusBarViewModel.Instance.FileSave = File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture);
+            FileSave = File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture);
             IsModified = false;
             //_watcher.EnableRaisingEvents = true;
             // Suspend the calling thread until the file has been deleted. 
@@ -1147,36 +1150,19 @@ namespace miRobotEditor.GUI
         	
         	DocumentViewModel.Instance.TextBox = this;
 
-            if (File.Exists(Filename))
-            {
-                StatusBarViewModel.Instance.Name = Filename;
-            }
-
-            switch (FileLanguage.RobotType)
-            {
-                case Typlanguage.Fanuc:
-                case Typlanguage.ABB:
-                case Typlanguage.KUKA:
-                case Typlanguage.KAWASAKI:
-                    StatusBarViewModel.Instance.Robot = FileLanguage.RobotType.ToString();
-                    break;
-                default:
-                    StatusBarViewModel.Instance.Robot = String.Empty;
-                    break;
-            }
-           
             
             OnPropertyChanged("Line");
             OnPropertyChanged("Column");
             OnPropertyChanged("Offset");
+            OnPropertyChanged("RobotType");
             FileSave = !String.IsNullOrEmpty(Filename)? File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture): String.Empty;
 
         }
 
-        public int Column{get{return TextArea.Caret.Column;}}
-        public int Offset{get{return TextArea.Caret.Offset;}}
 
         private ToolTip _toolTip = new ToolTip();
+
+      
     }
 
     /// <summary>

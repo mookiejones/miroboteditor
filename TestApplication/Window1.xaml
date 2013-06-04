@@ -5,36 +5,25 @@
 	Title="TestApplication" Height="600" Width="600"
 	xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
     <mah:MetroWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+      
        
-        <XmlDataProvider x:Key="Options" Source="D:\\values.xml" XPath="EditorOptions/*"/>
-        <!-- User Authentication-->
-   <HierarchicalDataTemplate DataType="Color" ItemsSource="{Binding}">
-       <TextBlock Text="{Binding XPath=@Name}"/>
-   </HierarchicalDataTemplate>
-            <DataTemplate DataType="Color">
-                
-                <TextBlock Text="{Binding XPath=@Name}"></TextBlock>
-            </DataTemplate>
-
-        </ResourceDictionary>
+      
+            <!--The movement, rotation, and size of the Rectangle is 
+        specified by its RenderTransform.-->
+            <MatrixTransform x:Key="InitialMatrixTransform">
+                <MatrixTransform.Matrix>
+                    <Matrix OffsetX="200" OffsetY="200"/>
+                </MatrixTransform.Matrix>
+            </MatrixTransform>
+       
     </mah:MetroWindow.Resources>
-    <mah:MetroWindow.Flyouts>
-        <mah:Flyout x:Name="Fly" Background="Gray" Opacity="0.5" Header="Flyout" IsOpen="{Binding IsChecked, ElementName=toggle}" >
-            <TabControl>
-                <TabItem Header="Hello"/>
-            </TabControl>
-        </mah:Flyout>
-    </mah:MetroWindow.Flyouts>
+  
 <!--    <TreeView ItemsSource="{Binding Source={StaticResource mystuff}, XPath=.}" /> -->
 
-   <TreeView ItemsSource="{Binding Source={StaticResource Options}}"/>
-    
+    <Canvas>
+        <Rectangle Fill="Red" Name="manRect"
+                 Width="200" Height="200" 
+                 RenderTransform="{StaticResource InitialMatrixTransform}"
+                 IsManipulationEnabled="true" />
+    </Canvas>
 </mah:MetroWindow>

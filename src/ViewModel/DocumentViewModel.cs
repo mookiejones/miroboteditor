@@ -7,7 +7,9 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Windows.Input;
 using miRobotEditor.Classes;
+using miRobotEditor.Commands;
 using miRobotEditor.Languages;
 using miRobotEditor.GUI;
 using System.IO;
@@ -39,8 +41,41 @@ namespace miRobotEditor.ViewModel
                 FileLanguage.GetRootDirectory(Path.GetDirectoryName(filepath));
             Instance = this;
             TextBox.TextChanged += (s, e) => TextChanged(s);
+            TextBox.IsModified = false;
         }
 
+        private RelayCommand _closeCommand;
+        public ICommand CloseCommand
+        {
+            get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
+        }
+       
+        public void CloseWindow()
+        {
+
+            if (IsDirty)
+            {
+                var res = MessageBox.Show(string.Format("Save changes for file '{0}'?", FileName), "miRobotEditor", MessageBoxButton.YesNoCancel);
+                if (res == MessageBoxResult.Cancel)
+                    return;
+                if (res == MessageBoxResult.Yes)
+                {
+                    Save(TextBox);
+                }
+            }
+
+            Workspace.Instance.Close(this);
+        }
+
+        internal void Save(Editor txtBox)
+        {
+
+            if (txtBox.Filename == null)
+            {
+                txtBox.SaveAs();
+            }
+            IsDirty = false;
+        }
 
         #region Properties
 

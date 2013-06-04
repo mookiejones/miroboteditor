@@ -234,7 +234,7 @@ namespace miRobotEditor.Controls
             VerticalContentAlignment = VerticalAlignment.Stretch;
             Height = 20;
             CollapseMode = GridSplitterCollapseMode.Previous;
-            LayoutUpdated += delegate { _gridCollapseDirection = GetCollapseDirection(); };
+          //  LayoutUpdated += delegate { _gridCollapseDirection = GetCollapseDirection(); };
             Loaded += delegate { Collapse(); IsAnimated = true;
             };
 

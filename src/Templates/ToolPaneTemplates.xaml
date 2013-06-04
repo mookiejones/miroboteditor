@@ -9,7 +9,6 @@
                     xmlns:converters="clr-namespace:miRobotEditor.Converters"
                     xmlns:miRobotEditor="clr-namespace:miRobotEditor">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/miRobotEditor;component/Themes/Brushes.xaml" />
         <ResourceDictionary Source="/miRobotEditor;component/Templates/Generic.xaml" />
         <ResourceDictionary Source="/miRobotEditor;component/Templates/ExtendedGridSplitter.xaml"/>
     </ResourceDictionary.MergedDictionaries>
@@ -30,9 +29,9 @@
   
     <!-- object Broswer -->
     <DataTemplate DataType="{x:Type vm:ObjectBrowserViewModel}">
-        <Grid>
-            <mah:MetroAnimatedSingleRowTabControl DataContext="{Binding ActiveEditor.FileLanguage, IsAsync=True, Source={x:Static miRobotEditor:Workspace.Instance}}" >                  
-                <TabItem Header="Functions">
+        <Grid>            
+            <TabControl DataContext="{Binding ActiveEditor.FileLanguage, IsAsync=True, Source={x:Static miRobotEditor:Workspace.Instance}}" >                  
+                <TabItem Header="Functions" >
                     <templates:VisualVariableItem ItemsSource="{Binding Functions}"/>
                 </TabItem>
                 <TabItem Header="Fields">
@@ -75,7 +74,7 @@
                 <TabItem Header="Positions">
                     <templates:VisualVariableItem ItemsSource="{Binding Positions}"  />
                 </TabItem>
-            </mah:MetroAnimatedSingleRowTabControl >
+            </TabControl >
         </Grid>
     </DataTemplate>
 
@@ -211,14 +210,14 @@
     </DataTemplate>
   
    
-    
+   <!-- Notes --> 
     <DataTemplate x:Key="NotesWindowTemplate">
         <TextBox TextWrapping="Wrap" Background="DarkGray" BorderThickness="1"/>
     </DataTemplate>
 
     
     <DataTemplate DataType="{x:Type vm:FunctionViewModel}">
-        <ListView DataContext="{Binding ActiveEditor, IsAsync=True, Source={StaticResource Workspace}}"	Background="White"	Foreground="Black" SelectedItem="{Binding TextBox.SelectedVariable}" ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  ItemTemplate="{DynamicResource FunctionItemTemplate}"  />
+        <ListView DataContext="{Binding ActiveEditor, IsAsync=True, Source={x:Static miRobotEditor:Workspace.Instance}}"	Background="White"	Foreground="Black" SelectedItem="{Binding TextBox.SelectedVariable}" ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  ItemTemplate="{DynamicResource FunctionItemTemplate}"  />
     </DataTemplate>
     
     <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type classes:Variable}">
@@ -244,30 +243,28 @@
             </StackPanel>
         </DataTemplate>
 
-    <Style x:Key="{x:Type mah:Flyout}" TargetType="{x:Type mah:Flyout}">
+    <Style  TargetType="{x:Type mah:Flyout}">
         <Setter Property="Opacity" Value="0.35"/>
-        <Setter Property="Background" Value="{DynamicResource HighlightLightBrush}"/>
-    
-        <Style.Triggers>
+        <Style.Triggers>           
+            <Trigger Property="IsMouseOver" Value="False">                
+                <Setter Property="IsOpen" Value="False"/>
+            </Trigger>
             <EventTrigger RoutedEvent="MouseEnter" >
                 <BeginStoryboard>
                     <Storyboard>
-                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".95" Duration="0:0:1"/>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".95" Duration="0:0:0.5"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
             <EventTrigger RoutedEvent="MouseLeave" >
                 <BeginStoryboard>
                     <Storyboard>
-                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".25" Duration="0:0:1"/>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".25" Duration="0:0:0.5"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
 
         </Style.Triggers>
     </Style>
-
-
-
 
 </ResourceDictionary>

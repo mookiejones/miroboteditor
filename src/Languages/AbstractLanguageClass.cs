@@ -91,6 +91,8 @@ namespace miRobotEditor.Languages
             set { _robotmenuitems = value; RaisePropertyChanged("RobotMenuItems"); }
         }
 
+        public string Name { get { return RobotType == Typlanguage.None ? String.Empty : RobotType.ToString(); } }
+
         internal string DataName { get; private set; }
         internal string SourceName { get; private set; }
 
@@ -212,8 +214,6 @@ namespace miRobotEditor.Languages
 
         public abstract Regex StructRegex { get; }
         public abstract Regex SignalRegex { get; }
-
-
 
         /// <summary>
         /// Regular Expression for Functions
@@ -662,6 +662,8 @@ namespace miRobotEditor.Languages
                 _allVariables.AddRange(Functions);
                 _allVariables.AddRange(Fields);
                 _allVariables.AddRange(Positions);
+
+              
             }
             catch (Exception ex)
             {
@@ -673,23 +675,25 @@ namespace miRobotEditor.Languages
         }
 
 
-
+        private IOViewModel _ioModel;
+        public IOViewModel IOModel { get { return _ioModel; } set { _ioModel = value;RaisePropertyChanged("IOModel"); } }
+        private string kuka_con;
+        
         private void GetRootFiles(string dir)
         {
             foreach (var d in Directory.GetDirectories(dir))
             {
                 foreach (var f in Directory.GetFiles(d))
                 {
-
                     try
                     {
                         var file = new FileInfo(f);
-                        _files.Add(file);
+                        if (file.Name.ToLower() == "kuka_con.mdb")
+                            kuka_con = file.FullName;                           
+                            _files.Add(file);
                     }
-// ReSharper disable EmptyGeneralCatchClause
-                    catch
-// ReSharper restore EmptyGeneralCatchClause
-                    { }
+                    catch(Exception e)
+                    { MessageViewModel.AddError("Error When Getting Files for Object Browser",e);}
 
                 }
 
@@ -703,10 +707,8 @@ namespace miRobotEditor.Languages
         void GetVariables()
         {
             _bw = new BackgroundWorker();
-            _bw.DoWork += backgroundVariableWorker_DoWork;
-          
-            _bw.RunWorkerCompleted += bw_RunWorkerCompleted;
-        
+            _bw.DoWork += backgroundVariableWorker_DoWork;          
+            _bw.RunWorkerCompleted += bw_RunWorkerCompleted;        
             _bw.RunWorkerAsync();
 
         }
@@ -718,6 +720,10 @@ namespace miRobotEditor.Languages
             RaisePropertyChanged("Files");
             RaisePropertyChanged("Positions");
 
+
+            //TODO Open Variable Monitor
+            Workspace.Instance.EnableIO = File.Exists(kuka_con);
+            IOModel = new IOViewModel(kuka_con);
         }
 
 
@@ -737,7 +743,6 @@ namespace miRobotEditor.Languages
                 _enums.AddRange(FindMatches(EnumRegex, Global.ImgEnum, f.FullName));
                 _positions.AddRange(FindMatches(XYZRegex, Global.ImgXyz, f.FullName));
             }
-
         }
 
 

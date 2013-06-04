@@ -9,13 +9,22 @@
 
 using System.ComponentModel;
 using System.Linq;
-using AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Layout;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {
+
+
     [Localizable(false)]
-    class LayoutInitializer : ILayoutUpdateStrategy
+    public class LayoutInitializer : ILayoutUpdateStrategy
     {
+        public static ILayoutUpdateStrategy Strategy { get; set; }
+
+        public LayoutInitializer()
+        {
+            Strategy = this;
+        }
+
         public bool BeforeInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow, ILayoutContainer destinationContainer)
         {
 
