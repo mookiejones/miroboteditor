@@ -1,4 +1,0 @@
-C:\Programming\DMC Robot Editor Backup\miRobotEditor\src\MainApplication\obj\Debug\MainApplication.csprojResolveAssemblyReference.cache
-C:\Programming\DMC Robot Editor Backup\miRobotEditor\src\MainApplication\obj\Debug\Themes\generic.baml
-C:\Programming\DMC Robot Editor Backup\miRobotEditor\src\MainApplication\obj\Debug\App.g.cs
-C:\Programming\DMC Robot Editor Backup\miRobotEditor\src\MainApplication\obj\Debug\MainApplication_MarkupCompile.cache

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="EditorOptions" nillable="true" type="EditorOptions" />
+  <xs:complexType name="EditorOptions">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="SelectedTextBackground" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="BackgroundColor" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FontColor" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SelectedFontColor" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SelectedBorderColor" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LineNumbersFontColor" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="BorderColor" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LineNumbersForeground" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SelectedTextBorderColor" type="OptionColor" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SelectedBorderThickness" type="BorderThickness"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="BorderThickness" type="BorderThickness"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="HighlightedLineColor" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FoldToolTipBackgroundColor" type="OptionColor" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FoldToolTipBackgroundBorderColor" type="OptionColor" />
+      <xs:element minOccurs="1" maxOccurs="1" name="FoldToolTipBorderThickness" type="BorderThickness"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="WrapWords" type="Bool"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="HighlightCurrentLine" type="Bool"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="EnableAnimations" type="Bool"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="ShowLineNumbers" type="Bool"/>
+
+
+      <xs:element minOccurs="1" maxOccurs="1" name="MyDouble" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OptionColor">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Tag" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Color" type="Color" />
+    </xs:sequence>
+    <xs:attribute name="Name" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="BorderThickness">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:double"/>
+    </xs:sequence>
+    <xs:attribute name="Name" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="Bool">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:boolean"/>
+    </xs:sequence>
+    <xs:attribute name="Name" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="Color">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="A" type="xs:unsignedByte" />
+      <xs:element minOccurs="1" maxOccurs="1" name="R" type="xs:unsignedByte" />
+      <xs:element minOccurs="1" maxOccurs="1" name="G" type="xs:unsignedByte" />
+      <xs:element minOccurs="1" maxOccurs="1" name="B" type="xs:unsignedByte" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ScA" type="xs:float" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ScR" type="xs:float" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ScG" type="xs:float" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ScB" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OptionColor" nillable="true" type="OptionColor" />
+</xs:schema>
