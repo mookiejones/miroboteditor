@@ -104,7 +104,7 @@ namespace miRobotEditor.Language_Specific
             try
             {
                 // Finish asynchronous read into readBuffer and return number of bytes read.
-                int BytesRead = _client.GetStream().EndRead(ar);
+                var BytesRead = _client.GetStream().EndRead(ar);
                 if (BytesRead < 1)
                 {
                     // if no bytes were read server has close.  Disable input window.
@@ -113,10 +113,10 @@ namespace miRobotEditor.Language_Specific
                 }
                 // Convert the byte array the message was saved into, minus two for the
                 // Chr(13) and Chr(10)
-                string strMessage = System.Text.Encoding.ASCII.GetString(_readBuffer, 0, BytesRead - 2);
+                var strMessage = System.Text.Encoding.ASCII.GetString(_readBuffer, 0, BytesRead - 2);
                 ProcessCommands(strMessage);
                 // Start a new asynchronous read into readBuffer.
-                _client.GetStream().BeginRead(_readBuffer, 0, ReadBufferSize, new AsyncCallback(DoRead), null);
+                _client.GetStream().BeginRead(_readBuffer, 0, ReadBufferSize, DoRead, null);
 
             }
             catch (InvalidOperationException e)
@@ -187,7 +187,7 @@ namespace miRobotEditor.Language_Specific
                     var host = System.Net.Dns.GetHostName();
                     var ip = System.Net.Dns.GetHostEntry(host);
                     Console.WriteLine(ip.AddressList[0].ToString());
-                    SendData(String.Format("{0}|{1}{2}", "DISCONNECT", System.Net.Dns.GetHostName(), ip.AddressList[0].ToString()));
+                    SendData(String.Format("{0}|{1}{2}", "DISCONNECT", System.Net.Dns.GetHostName(), ip.AddressList[0]));
                 }
                 catch (InvalidOperationException ioe)
                 {
@@ -216,7 +216,7 @@ namespace miRobotEditor.Language_Specific
 
                 // Start an asynchronous read invoking DoRead to avoid lagging the user
                 // interface.
-                _client.GetStream().BeginRead(_readBuffer, 0, ReadBufferSize, new AsyncCallback(DoRead), null);
+                _client.GetStream().BeginRead(_readBuffer, 0, ReadBufferSize, DoRead, null);
                 // Make sure the window is showing before popping up connection dialog.               
                 AttemptConnect();
             }
@@ -434,11 +434,12 @@ namespace miRobotEditor.Language_Specific
                     myPane.Chart.Fill = new Fill(Color.White, Color.FromArgb(255, 255, 210), -45F);
             
                     // Add a caption and an arrow
-                    var myText = new TextObj("Interesting\nPoint", 230F, 70F);
-                    myText.FontSpec.FontColor = Color.Red;
-                    myText.Location.AlignH = AlignH.Center;
-                    myText.Location.AlignV = AlignV.Top;
-                    myPane.GraphObjList.Add(myText);
+                    var myText = new TextObj("Interesting\nPoint", 230F, 70F)
+                        {
+                            FontSpec = {FontColor = Color.Red},
+                            Location = {AlignH = AlignH.Center, AlignV = AlignV.Top}
+                        };
+            myPane.GraphObjList.Add(myText);
                     var myArrow = new ArrowObj(Color.Red, 12F, 230F, 70F, 280F, 55F);
                     myPane.GraphObjList.Add(myArrow);
             
@@ -449,7 +450,7 @@ namespace miRobotEditor.Language_Specific
 
         }
 
-        void Play(object param)
+        static void Play(object param)
         {
           //  switch (btnPlay.ImageIndex)
           //  {
@@ -540,9 +541,9 @@ namespace miRobotEditor.Language_Specific
                 get
                 {
                     var result = new PointPairList();
-                    for (int i = 0; i < _values.Count ; i++)
+                    foreach (var t in _values)
                     {
-                        result.Add(_values[i]);
+                        result.Add(t);
                     }
                     return result;
                 }
@@ -580,7 +581,7 @@ namespace miRobotEditor.Language_Specific
 
             public void UpdateVariable(string name, string value)
             {
-                Int32 plotterValue = -1;
+                var plotterValue = -1;
                 if (name == _varname)
                     _varValue = value;
                 // Determine of variable is bool

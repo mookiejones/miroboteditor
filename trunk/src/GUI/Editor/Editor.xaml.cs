@@ -579,17 +579,19 @@ namespace miRobotEditor.GUI
             }
 
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            ofd.ShowDialog().GetValueOrDefault();
+           var result =  ofd.ShowDialog().GetValueOrDefault();
 // ReSharper restore ReturnValueOfPureMethodIsNotUsed
-            
-            return ofd.FileName;
+            return result ? ofd.FileName : string.Empty;
+     
             	
         }
 
         public void SaveAs()
         {
-            Filename = GetFilename();
-
+            var result = GetFilename();
+            if (string.IsNullOrEmpty(result))
+                return;
+            Filename = result;
             var islocked = IsFileLocked(new FileInfo(Filename));
 
             if (islocked)
@@ -607,18 +609,22 @@ namespace miRobotEditor.GUI
         {
             //_watcher.EnableRaisingEvents = false;
             // _watcher.Text = Text;
+
             
             if (String.IsNullOrEmpty(Filename))
-            	Filename = GetFilename();
+            {
+                var result = GetFilename();
+                if (string.IsNullOrEmpty(result))
+                    return;
+                Filename = result;
+            }
 
             if (IsFileLocked(new FileInfo(Filename))) return;
                 
                 File.WriteAllText(Filename,Text);
 			
             FileSave = File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture);
-            IsModified = false;
-            //_watcher.EnableRaisingEvents = true;
-            // Suspend the calling thread until the file has been deleted. 
+            IsModified = false;          
         }
 
         #endregion
@@ -854,7 +860,7 @@ namespace miRobotEditor.GUI
         {
             var textEditorOptions = Options as EditorOptions;
 
-            if (!textEditorOptions.MouseWheelZoom) return;
+            if (textEditorOptions != null && !textEditorOptions.MouseWheelZoom) return;
             if (Keyboard.Modifiers != ModifierKeys.Control) return;
             if (e.Delta <= 0 || !(FontSize < LogicListFontSizeMax))
             {

@@ -3,11 +3,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using MahApps.Metro;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
+using miRobotEditor.Forms;
 using miRobotEditor.Properties;
 using miRobotEditor.ViewModel;
 
@@ -24,8 +24,10 @@ namespace miRobotEditor
 
         public static MainWindow Instance { get; set; }
         public DockingManager Dock { get { return DockManager; } set { DockManager = value; } }
+// ReSharper disable ConvertToConstant.Local
         private Theme _currentTheme = Theme.Dark;
-        private Accent _currentAccent = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
+        private readonly Accent _currentAccent = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
+        // ReSharper restore ConvertToConstant.Local
       
        
         #region Constructor
@@ -155,13 +157,14 @@ namespace miRobotEditor
             SaveLayout();
 
             Workspace.Instance.IsClosing = true;
-            App._application.Shutdown();
+            App.Application.Shutdown();
         }
 
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             LoadItems();
+            Splasher.CloseSplash();
         }
 
         private void SaveLayout()
@@ -184,14 +187,6 @@ namespace miRobotEditor
                 return;
             } 
         }
-     //  private void dockManager_DocumentClosing(object sender, AvalonDock.DocumentClosingEventArgs e)
-     //  {
-     //          Workspace.Instance.Close(e.Document.Content as IDocument);
-     //  }
-
-   
-        
-
      
     }
 }

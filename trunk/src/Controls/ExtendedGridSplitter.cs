@@ -352,7 +352,7 @@ namespace miRobotEditor.Controls
             if (_gridCollapseDirection == GridCollapseDirection.Rows)
             {
                 // Get the index of the row containing the splitter
-                int splitterIndex = (int)GetValue(Grid.RowProperty);
+                var splitterIndex = (int)GetValue(Grid.RowProperty);
 
                 // Determing the curent CollapseMode
                 if (CollapseMode == GridSplitterCollapseMode.Previous)
@@ -426,14 +426,6 @@ namespace miRobotEditor.Controls
                 }
             
             IsCollapsed = false;
-        }
-
-        /// <summary>
-        /// Determine the collapse direction based on the horizontal and vertical alignments
-        /// </summary>
-        private static GridCollapseDirection GetCollapseDirection()
-        {          
-            return GridCollapseDirection.Rows;
         }
 
         #endregion

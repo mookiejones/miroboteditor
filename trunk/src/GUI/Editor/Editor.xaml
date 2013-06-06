@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-             xmlns:lang="clr-namespace:miRobotEditor.Languages" xmlns:gui="clr-namespace:miRobotEditor.GUI"
+             xmlns:lang="clr-namespace:miRobotEditor.Languages"
+             xmlns:gui="clr-namespace:miRobotEditor.GUI"
              x:Class="miRobotEditor.GUI.Editor" 	           
              mc:Ignorable="d" 
              d:DesignHeight="300"
@@ -34,8 +35,6 @@
         </ResourceDictionary>
 
     </avalonedit:TextEditor.Resources>
-    
-
     <avalonedit:TextEditor.InputBindings>
         <KeyBinding Command="{Binding GotoCommand}" Key="G" Modifiers="Control"/>
         <KeyBinding Command="Find" Key="F" Modifiers="Control"/>

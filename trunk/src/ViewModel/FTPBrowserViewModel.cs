@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace miRobotEditor.ViewModel
+﻿namespace miRobotEditor.ViewModel
 {
     public class FTPBrowserViewModel:ToolViewModel
     {
@@ -24,7 +19,7 @@ namespace miRobotEditor.ViewModel
         //
         // Returns the folder name without having any path information
         //		
-        [System.Diagnostics.DebuggerStepThrough()]
+        [System.Diagnostics.DebuggerStepThrough]
         public static string SafeFolderName(string path)
         {
             var fileParts = path.Split('/');
