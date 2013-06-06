@@ -15,14 +15,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:miRobotEditor.ViewModel"
     xmlns:miRobotEditor="clr-namespace:miRobotEditor"
-    xmlns:languageSpecific="clr-namespace:miRobotEditor.Language_Specific"
     mc:Ignorable="d"
     x:Name="MetroWindow"
     SnapsToDevicePixels="True"
     x:Class="miRobotEditor.MainWindow"	
     WindowState="Maximized"	
     Closing="WindowClosing"                     
-    Title="{Binding ActiveEditor.Title, StringFormat=miRobotEditor:\= \{0\}}"
+    Title="{Binding ActiveEditor.FilePath, Mode=OneWay, StringFormat=miRobotEditor:\= \{0\}}"
     Loaded="WindowLoaded"
     AllowDrop="True"
     Icon="Properties/Resources/Editor.ico"
@@ -39,31 +38,21 @@
                 <ResourceDictionary Source="Templates/KUKASpecificTemplates.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-    
+            <!--    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+      -->      </ResourceDictionary.MergedDictionaries>
 
-            <Image x:Key="RedoImage" Source="Resources/Redo.png"/>
-            <Image x:Key="UndoImage" Source="Resources\Redo.png" RenderTransformOrigin="0.5,0.5">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1" />
-                        <SkewTransform/>
-                        <RotateTransform CenterX="-1"/>
-                        <TranslateTransform />
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
-            <Image x:Key="SaveFileImage" Source="Resources/Save.png"/>
-            <Image x:Key="NewFileImage" Source="Resources/newfile.png"/>
-            <Image x:Key="OpenImage" Source="Resources/folder_open.png"/>
-            <Image x:Key="CutImage" Source="Resources/Cut.png" />
+
             <Image x:Key="CopyImage" Source="Resources/Copy.png" />
             <Image x:Key="PasteImage" Source="Resources/paste.png" />
             <Image x:Key="FoldingDisabled" Source="Resources/foldingDisabled.png" />
             <Image x:Key="FoldingEnabled" Source="Resources/foldingEnabled.png" />
 
             <converters:ActiveEditorConverter x:Key="ActiveEditorConverter"/>     
+<!-- ReSharper disable Xaml.RedundantResource -->
+            <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
+<!-- ReSharper restore Xaml.RedundantResource -->
+                <Setter Property="Background" Value="Black"/>
+            </Style>
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
     <mah:MetroWindow.Flyouts>
@@ -153,7 +142,9 @@
                         <Image Source="/Resources\close.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <classes:RecentFileList/>
+                <MenuItem Header="Recent _Files">
+                    <classes:RecentFileList/>
+                </MenuItem>               
                 <MenuItem Header="E_xit"  Command="{Binding ExitCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Resources\exit.png" />
@@ -302,7 +293,11 @@
             </MenuItem>
             <MenuItem Header="Robot" ItemsSource="{Binding ActiveEditor.FileLanguage}">
                 <MenuItem.ItemTemplateSelector>
-                    <classes:MenuTemplateSelector/>
+                    <classes:MenuTemplateSelector>
+                        <classes:MenuTemplateSelector.ABBTemplate>
+                            <DataTemplate></DataTemplate>
+                        </classes:MenuTemplateSelector.ABBTemplate>
+                    </classes:MenuTemplateSelector>
                 </MenuItem.ItemTemplateSelector>            
             <MenuItem Header="Archive Viewer" Command="{Binding AddToolCommand}" CommandParameter="ArchiveInfo"/>
                 <MenuItem Header="Shift Program" Command="{Binding AddToolCommand}" CommandParameter="Shift"/>
@@ -427,7 +422,6 @@
             <Button  ToolTip="Increase Indent"  Command="{Binding ActiveEditor.TextBox.ChangeIndentCommand}"  CommandParameter="true"  >
                 <Image Source="/Resources\increaseindent.png" />
             </Button>
-
         </StackPanel>
 
         <ad:DockingManager		
@@ -450,12 +444,11 @@
                             <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}"/>                        
                             <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
                             <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
-                            <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
-                            
+                            <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>                          
                         </Style>
                     </classes:PanesStyleSelector.ToolStyle>
                     <classes:PanesStyleSelector.FileStyle>
-                        <Style TargetType="{x:Type ad:LayoutItem}">
+                        <Style TargetType="{x:Type ad:LayoutItem}">                            
                             <Setter Property="Title" Value="{Binding Model.Title}"/>
                             <Setter Property="ToolTip" Value="{Binding Model.FilePath}"/>
                             <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
@@ -474,15 +467,14 @@
                         </ad:LayoutAnchorablePaneGroup>
                         <ad:LayoutDocumentPane/>
                             <ad:LayoutAnchorablePane Name="RightPane" DockWidth="250"/>
-                    </ad:LayoutPanel>
-                  
+                    </ad:LayoutPanel>                  
                     <ad:LayoutAnchorablePane Name="BottomPane" DockHeight="200"/>
                 </ad:LayoutPanel>
             </ad:LayoutRoot>
         </ad:DockingManager>
         <StatusBar DataContext="{x:Static viewModel:StatusBarViewModel.Instance}" >
             <StatusBar.Resources>
-                <Style TargetType ="{x:Type StatusBarItem}" BasedOn="{StaticResource {x:Type StatusBarItem}}">                    
+                <Style TargetType ="{x:Type StatusBarItem}" >                    
                     <Setter Property="FontWeight" Value="Normal"/>
                     <Style.Triggers>
                         <Trigger Property="IsEnabled" Value="False">                           

@@ -68,8 +68,9 @@ namespace miRobotEditor
         #region Properties
         private bool _showSettings;
         public bool ShowSettings { get { return _showSettings; } set { _showSettings = value; RaisePropertyChanged("ShowSettings"); } }
-       
+        [NonSerialized]
         private Accent _accentBrush = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
+
         public Accent AccentBrush { get { return _accentBrush; } set { _accentBrush = value;RaisePropertyChanged("AccentBrush"); } }
 
         private Theme _currentTheme = Theme.Dark;
@@ -334,7 +335,9 @@ namespace miRobotEditor
             switch (param.ToString())
             {
                 case "ABB":
+// ReSharper disable RedundantCast
                     ActiveEditor.FileLanguage = (ABB)lang;
+
                    break;
                 case "KUKA":
                     ActiveEditor.FileLanguage = new KUKA();
@@ -345,6 +348,7 @@ namespace miRobotEditor
                 case "Kawasaki":
                     ActiveEditor.FileLanguage = (Kawasaki)lang;
                     break;
+                // ReSharper restore RedundantCast
             }
 
             //                ActiveEditor.TextBox.UpdateVisualText();
@@ -505,112 +509,8 @@ namespace miRobotEditor
             MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        /// <summary>
-        /// Allow the user to confirm whether they want to close a modified document.
-        /// </summary>
-        public bool QueryCloseModifiedDocument(IDocument document)
-        {
-            var msg = document.FilePath + " has been modified but not saved.\r\nDo you really want to close it?";
-            var result = MessageBox.Show( msg, "File modified but not saved", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            return result == MessageBoxResult.Yes;
-        }
-
-        /// <summary>
-        /// Allow the user to confirm whether they want to close the application 
-        /// when 1 or more documents are modified.
-        /// </summary>
-        public bool QueryCloseApplicationWhenDocumentsModified()
-        {
-            const string msg = "1 or more open files have been modified but not saved.\n" +"Do you really want to exit?";
-            var result = MessageBox.Show( msg, "File(s) modified but not saved", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            return result == MessageBoxResult.Yes;
-        }
-
-        /*    /// <summary>
-            /// Convenient accessor for the view-model.
-            /// </summary>
-            private MainViewModel ViewModel
-            {
-                get
-                {
-                    return (MainViewModel)this.DataContext;
-                }
-            }
-            /// <summary>
-            /// Event raised when the 'NewFile' command is executed.
-            /// </summary>
-            private void NewFile_Executed(object sender, ExecutedRoutedEventArgs e)
-            {
-                this.ViewModel.NewFile();
-            }
-
-            /// <summary>
-            /// Event raised when the 'OpenFile' command is executed.
-            /// </summary>
-            private void OpenFile_Executed(object sender, ExecutedRoutedEventArgs e)
-            {
-                this.ViewModel.OpenFile();
-            }
-
-            /// <summary>
-            /// Event raised when the 'SaveFile' command is executed.
-            /// </summary>
-            private void SaveFile_Executed(object sender, ExecutedRoutedEventArgs e)
-            {
-                this.ViewModel.SaveFile();
-            }
-
-            /// <summary>
-            /// Event raised when the 'SaveFileAs' command is executed.
-            /// </summary>
-            private void SaveFileAs_Executed(object sender, ExecutedRoutedEventArgs e)
-            {
-                this.ViewModel.SaveFileAs();
-            }
-
-            /// <summary>
-            /// Event raised when the 'SaveAllFiles' command is executed.
-            /// </summary>
-            private void SaveAllFiles_Executed(object sender, ExecutedRoutedEventArgs e)
-            {
-                this.ViewModel.SaveAllFiles();
-            }
-
-            /// <summary>
-            /// Event raised when the 'CloseFile' command is executed.
-            /// </summary>
-            private void CloseFile_Executed(object sender, ExecutedRoutedEventArgs e)
-            {
-                this.ViewModel.CloseFile();
-            }
-
-            /// <summary>
-            /// Event raised when the 'CloseAllFiles' command is executed.
-            /// </summary>
-            private void CloseAllFiles_Executed(object sender, ExecutedRoutedEventArgs e)
-            {
-                this.ViewModel.CloseAllFiles();
-            }
-
-            /// <summary>
-            /// Event raised when the 'ShowAllPanes' command is executed.
-            /// </summary>
-            private void ShowAllPanes_Executed(object sender, ExecutedRoutedEventArgs e)
-            {
-                this.ViewModel.ShowAllPanes();
-            }
-
-            /// <summary>
-            /// Event raised when the 'HideAllPanes' command is executed.
-            /// </summary>
-            private void HideAllPanes_Executed(object sender, ExecutedRoutedEventArgs e)
-            {
-                this.ViewModel.HideAllPanes();
-            }
-    */
-
-
-
+     
+     
         /// <summary>
         /// Event raised when AvalonDock has loaded.
         /// </summary>
@@ -646,48 +546,7 @@ namespace miRobotEditor
             //     }
             // }
         }
-        /*
-                /// <summary>
-                /// Event raised when a document is being closed by clicking the 'X' button in AvalonDock.
-                /// </summary>
-                private void avalonDockHost_DocumentClosing(object sender, DocumentClosingEventArgs e)
-                {
-                    var document = (DummyDoc)e.Document;
-                    if (!this.ViewModel.QueryCanCloseFile(document))
-                    {
-                        e.Cancel = true;
-                    }
-                }
-
-                /// <summary>
-                /// Event raised when the window is about to close.
-                /// </summary>
-                private void Window_Closing(object sender, CancelEventArgs e)
-                {
-                    //
-                    // Notify the view-model that the application is closing,
-                    // allows the view-model the chance to cancel application exit.
-                    //
-                    if (!this.ViewModel.OnApplicationClosing())
-                    {
-                        //
-                        // The view-model has cancelled application exit.
-                        // This will happen when the 1 or more documents have been modified but not saved
-                        // and the user has selected 'No' when asked to confirm application exit.
-                        //
-                        e.Cancel = true;
-                        return;
-                    }
-
-                    //
-                    // When the window is closing, save AvalonDock layout to a file.
-                    //
-            
-                    throw new NotImplementedException();
-                 //   avalonDockHost.DockingManager.SaveLayout(LayoutFileName);
-                }
-        
-        */
+ 
         #endregion
  
 

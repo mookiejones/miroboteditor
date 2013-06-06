@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUKA Language", "KUKATools\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serializeiation", "Serializeiation\Serializeiation.csproj", "{BCC3F540-B731-4B84-94DC-F080F8DFD2F6}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "miRobotEditorSetup", "miRobotEditorSetup\miRobotEditorSetup.wixproj", "{D609C895-C931-4EE8-A405-CCF1D0368133}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{45B602CC-02A1-474F-A91B-B605476CB277}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +93,26 @@ Global
 		{BCC3F540-B731-4B84-94DC-F080F8DFD2F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BCC3F540-B731-4B84-94DC-F080F8DFD2F6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BCC3F540-B731-4B84-94DC-F080F8DFD2F6}.Release|x86.ActiveCfg = Release|Any CPU
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Debug|x86.ActiveCfg = Debug|x86
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Debug|x86.Build.0 = Debug|x86
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Release|Any CPU.ActiveCfg = Release|x86
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Release|Mixed Platforms.Build.0 = Release|x86
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Release|x86.ActiveCfg = Release|x86
+		{D609C895-C931-4EE8-A405-CCF1D0368133}.Release|x86.Build.0 = Release|x86
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{45B602CC-02A1-474F-A91B-B605476CB277}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

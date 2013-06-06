@@ -12,8 +12,6 @@ namespace miRobotEditor.ViewModel
 {
     public class IOViewModel:ViewModelBase
     {
-
-
         #region Properties
 
         public Visibility DigInVisibility { get { return Inputs.Count > 0 ? Visibility.Visible : Visibility.Hidden; } }
@@ -121,22 +119,24 @@ namespace miRobotEditor.ViewModel
 
         #endregion
 
-
         private readonly BackgroundWorker _backgroundWorker;
+
+        #region Constructor
         public IOViewModel(string filename)
         {
             DataBaseFile = filename;
-
             _backgroundWorker = new BackgroundWorker();
             _backgroundWorker.DoWork +=_backgroundWorker_DoWork;
             _backgroundWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
             _backgroundWorker.RunWorkerAsync();
-
-           
         }
+        #endregion
+
+        #region Background Worker
         void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
              {
                  GetSignals();
+                 GetTimers();
                  GetAllLangtextFromDatabase();
              }
         void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -149,7 +149,10 @@ namespace miRobotEditor.ViewModel
                 RaisePropertyChanged("Flags");
                 RaisePropertyChanged("Timer");
             }
-
+        #endregion
+        /// <summary>
+        /// Gets Signals from kuka_con.mdb
+        /// </summary>
         void GetSignals()
         {
             if (File.Exists(DataBaseFile))
@@ -167,26 +170,28 @@ namespace miRobotEditor.ViewModel
                             {
                                 var temp = oleDbDataReader.GetValue(0).ToString();
                                 Item sig;
-
+                                var des = oleDbDataReader.GetValue(1).ToString();
+                                var description = des=="|EMPTY|"?"Spare":des;
                                 switch (temp.Substring(0, temp.IndexOf("_")))
                                 {
                                     case "IN":
-                                        sig = new Item(String.Format("$IN[{0}]", temp.Substring(3)), oleDbDataReader.GetValue(1).ToString());
+                                        sig = new Item(String.Format("$IN[{0}]", temp.Substring(3)), description);
                                         _inputs.Add(sig);
                                         LanguageText += sig + "\r\n";
                                         break;
                                     case "OUT":
-                                        sig = new Item(String.Format("$OUT[{0}]", temp.Substring(4)), oleDbDataReader.GetValue(1).ToString());
+                                        sig = new Item(String.Format("$OUT[{0}]", temp.Substring(4)), description);
+                                        if (!_outputs.Contains(sig))
                                         _outputs.Add(sig);
                                         LanguageText += sig + "\r\n";
                                         break;
                                     case "ANIN":
-                                        sig = new Item(String.Format("$ANIN[{0}]", temp.Substring(5)), oleDbDataReader.GetValue(1).ToString());
+                                        sig = new Item(String.Format("$ANIN[{0}]", temp.Substring(5)), description);
                                         _anin.Add(sig);
                                         LanguageText += sig + "\r\n";
                                         break;
                                     case "ANOUT":
-                                        sig = new Item(String.Format("$ANOUT[{0}]", temp.Substring(6)), oleDbDataReader.GetValue(1).ToString());
+                                        sig = new Item(String.Format("$ANOUT[{0}]", temp.Substring(6)), description);
                                         _anout.Add(sig);
                                         LanguageText += sig + "\r\n";
                                         break;
@@ -206,6 +211,9 @@ namespace miRobotEditor.ViewModel
             RaisePropertyChanged("DigitalVisibility");
 
         }
+        /// <summary>
+        /// Gets Flags from kuka_con.mdb
+        /// </summary>
         void GetFlags()
         {
             var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
@@ -229,6 +237,32 @@ namespace miRobotEditor.ViewModel
             FlagVisibility = Flags.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             RaisePropertyChanged("FlagVisibility");
 
+        }
+        /// <summary>
+        /// Gets Timers from kuka_con.mdb
+        /// </summary>
+        void GetTimers()
+        {
+            var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+            const string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'TIMER')";
+            using (var oldDbConnection = new OleDbConnection(connectionString))
+            {
+                oldDbConnection.Open();
+                using (var oleDbCommand = new OleDbCommand(cmdText, oldDbConnection))
+                {
+                    using (var oleDbDataReader = oleDbCommand.ExecuteReader())
+                    {
+                        while (oleDbDataReader != null && oleDbDataReader.Read())
+                        {
+                            var temp = oleDbDataReader.GetValue(0).ToString();
+                            var sig = new Item(String.Format("$TIMER[{0}]", temp.Substring(9)), oleDbDataReader.GetValue(1).ToString());
+                            _timer.Add(sig);
+                        }
+                    }
+                }
+            }
+            TimerVisibility = Timer.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            RaisePropertyChanged("TimerVisibility");
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
@@ -256,30 +290,6 @@ namespace miRobotEditor.ViewModel
                 }
             }
             return result;
-        }
-
-        void GetTimers()
-        {
-            var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
-            const string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'TIMER')";
-            using (var oldDbConnection = new OleDbConnection(connectionString))
-            {
-                oldDbConnection.Open();
-                using (var oleDbCommand = new OleDbCommand(cmdText, oldDbConnection))
-                {
-                    using (var oleDbDataReader = oleDbCommand.ExecuteReader())
-                    {
-                        while (oleDbDataReader != null && oleDbDataReader.Read())
-                        {
-                            var temp = oleDbDataReader.GetValue(0).ToString();
-                            var sig = new Item(String.Format("$TIMER[{0}]", temp.Substring(9)), oleDbDataReader.GetValue(1).ToString());
-                            _timer.Add(sig);
-                        }
-                    }
-                }
-            }
-            TimerVisibility = Timer.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-            RaisePropertyChanged("TimerVisibility");
         }
 
         // ReSharper disable UnusedMember.Local

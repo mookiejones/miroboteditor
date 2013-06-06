@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:io="clr-namespace:System.IO;assembly=mscorlib"
-                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel" xmlns:miRobotEditor="clr-namespace:miRobotEditor" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel" xmlns:miRobotEditor="clr-namespace:miRobotEditor">
 
     <!-- style to apply to DataGridTextColumn in edit mode  -->
 
@@ -144,11 +144,16 @@
         <TextBlock Text='{Binding Name}' FontSize="14" />
     </HierarchicalDataTemplate>
 
-
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Padding" Value="5,0,5,0"/>
+        <Setter Property="Foreground" Value="Black"/>        
+        <Setter Property="Background" Value="{Binding Path=AccentBrush.Name, Source={x:Static miRobotEditor:Workspace.Instance}}"/>
+    </Style>
+  
     <DataTemplate x:Key="ItemsTemplate">
-        <DataGrid ItemsSource="{Binding}" >
+        <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" BorderThickness="0">          
             <DataGrid.Columns>
-                <DataGridTextColumn  Foreground="{Binding TitleForeground, Source={x:Static miRobotEditor:MainWindow.Instance}}" Header="Type" Width="Auto" Binding="{Binding Type}"/>
+                <DataGridTextColumn Foreground="{Binding TitleForeground, Source={x:Static miRobotEditor:MainWindow.Instance}}" Header="Type"  Binding="{Binding Type}"/>
                 <DataGridTextColumn Foreground="{Binding TitleForeground, Source={x:Static miRobotEditor:MainWindow.Instance}}" Header="Description" Width="Auto" Binding="{Binding Description}"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -256,7 +261,7 @@
                     </TabItem>
                     <TabItem Header="Counters" Content="{Binding Counter}" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding CounterVisibility}"/>
                     <TabItem Header="Timers" Content="{Binding Timer}" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding TimerVisibility}"/>
-                    <TabItem Header="Flags" Content="{Binding Flag}" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding FlagVisibility}"/>
+                    <TabItem Header="Flags" Content="{Binding Flags}" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding FlagVisibility}"/>
                     <TabItem Header="CycFlags" Visibility="{Binding CyclicFlagVisibility}" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding CycFlags}"/>
                 </TabControl>
             </TabItem>

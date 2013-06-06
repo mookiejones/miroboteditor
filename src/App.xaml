@@ -15,8 +15,11 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml"/>
+            
             </ResourceDictionary.MergedDictionaries>
+<!-- ReSharper disable Xaml.RedundantResource -->
             <miEditor:Workspace x:Key="Workspace"  />
+<!-- ReSharper restore Xaml.RedundantResource -->
         </ResourceDictionary>
     </Application.Resources>
     <JumpList.JumpList>

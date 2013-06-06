@@ -21,7 +21,6 @@ namespace miRobotEditor.Languages
     [Localizable(false)]
     public abstract class AbstractLanguageClass : ViewModelBase,IDisposable
     {
-
         #region Constructors
 
         protected AbstractLanguageClass()
@@ -538,7 +537,7 @@ namespace miRobotEditor.Languages
         private string ShiftProgram(Editor doc, ShiftViewModel shift)
 // ReSharper restore UnusedParameter.Local
         {
-            var splash = new FrmSplashScreen();
+           
             //TODO: Need to put all of this into a thread.
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -552,17 +551,7 @@ namespace miRobotEditor.Languages
 
             var matches = r.Matches(doc.Text);
             var count = matches.Count;
-            splash.Maximum = count;
-
-            var splashthread = new Thread(Forms.SplashScreen.ShowSplashScreen) { IsBackground = true };
-
-            splashthread.Start();
-
-            // Spin for a while waiting for the started thread to become
-            // alive:
-            while (!splashthread.IsAlive)
-            {
-            }
+         
 
             // get divisible value for progress update
             Double prog = 0;
@@ -573,9 +562,7 @@ namespace miRobotEditor.Languages
             // doc.SuspendLayout();
             foreach (Match m in r.Matches(doc.Text))
             {
-                Forms.SplashScreen.UpdateProgress((int)prog);
-                Forms.SplashScreen.UpdateStatusTextWithStatus(string.Format(Properties.Resources.ShiftingProgram, ((int)prog).ToString(CultureInfo.InvariantCulture)), TypeOfMessage.Success);
-
+         
                 prog = prog + increment;
 
                 // ReSharper disable UnusedVariable
@@ -596,12 +583,8 @@ namespace miRobotEditor.Languages
             }
             //           doc.ResumeLayout();
 
-            splash.UpdateStatusTextWithStatus("Shift Operation Complete", TypeOfMessage.Success);
             Thread.Sleep(500);
 
-            splashthread.Abort();
-            splashthread.Join();
-            splash.CloseSplashScreen();
 
             stopwatch.Stop();
             Console.WriteLine("{0}ms to parse shift", stopwatch.ElapsedMilliseconds);
@@ -677,7 +660,7 @@ namespace miRobotEditor.Languages
 
         private IOViewModel _ioModel;
         public IOViewModel IOModel { get { return _ioModel; } set { _ioModel = value;RaisePropertyChanged("IOModel"); } }
-        private string kuka_con;
+        private string _kukaCon;
         
         private void GetRootFiles(string dir)
         {
@@ -689,7 +672,7 @@ namespace miRobotEditor.Languages
                     {
                         var file = new FileInfo(f);
                         if (file.Name.ToLower() == "kuka_con.mdb")
-                            kuka_con = file.FullName;                           
+                            _kukaCon = file.FullName;                           
                             _files.Add(file);
                     }
                     catch(Exception e)
@@ -702,15 +685,32 @@ namespace miRobotEditor.Languages
         }
 
 
+        #region Properties for Background Worker and StatusBar
+        private int _bwProgress;
+        public int BWProgress { get { return _bwProgress; } set { _bwProgress = value;RaisePropertyChanged("BWProgress"); } }
+        private int _bwFilesMin;
+        public int BWFilesMin { get { return _bwFilesMin; } set { _bwFilesMin = value;RaisePropertyChanged("BWFilesMin"); } }
+        private int _bwFilesMax;
+        public int BWFilesMax { get { return _bwFilesMax; } set { _bwFilesMax = value; RaisePropertyChanged("BWFilesMax"); } }
+        private Visibility _bwProgressVisibility = Visibility.Collapsed;
+        public Visibility BWProgressVisibility { get { return _bwProgressVisibility; } set { _bwProgressVisibility = value;RaisePropertyChanged("BWPRogressVisibility"); } }
+        #endregion
         BackgroundWorker _bw;
 
         void GetVariables()
         {
             _bw = new BackgroundWorker();
-            _bw.DoWork += backgroundVariableWorker_DoWork;          
+            BWProgressVisibility = Visibility.Visible;
+            _bw.DoWork += backgroundVariableWorker_DoWork;
+            _bw.WorkerReportsProgress = true;
+            _bw.ProgressChanged += _bw_ProgressChanged;
             _bw.RunWorkerCompleted += bw_RunWorkerCompleted;        
             _bw.RunWorkerAsync();
+        }
 
+        void _bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            BWProgress = e.ProgressPercentage;
         }
 
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -719,16 +719,17 @@ namespace miRobotEditor.Languages
             RaisePropertyChanged("Fields");
             RaisePropertyChanged("Files");
             RaisePropertyChanged("Positions");
-
+            BWProgressVisibility = Visibility.Collapsed;
 
             //TODO Open Variable Monitor
-            Workspace.Instance.EnableIO = File.Exists(kuka_con);
-            IOModel = new IOViewModel(kuka_con);
+            Workspace.Instance.EnableIO = File.Exists(_kukaCon);
+            IOModel = new IOViewModel(_kukaCon);
         }
-
 
         void backgroundVariableWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+             BWFilesMax = Files.Count;
+            var i = 0;
             _functions = new List<IVariable>();
             _fields = new List<IVariable>();
             _positions = new List<IVariable>();
@@ -742,6 +743,8 @@ namespace miRobotEditor.Languages
                 _signals.AddRange(FindMatches(SignalRegex, Global.ImgSignal, f.FullName));
                 _enums.AddRange(FindMatches(EnumRegex, Global.ImgEnum, f.FullName));
                 _positions.AddRange(FindMatches(XYZRegex, Global.ImgXyz, f.FullName));
+                i++;
+                _bw.ReportProgress(i);
             }
         }
 

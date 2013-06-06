@@ -29,8 +29,8 @@
   
     <!-- object Broswer -->
     <DataTemplate DataType="{x:Type vm:ObjectBrowserViewModel}">
-        <Grid>            
-            <TabControl DataContext="{Binding ActiveEditor.FileLanguage, IsAsync=True, Source={x:Static miRobotEditor:Workspace.Instance}}" >                  
+        <StackPanel Orientation="Vertical" DataContext="{Binding ActiveEditor.FileLanguage, IsAsync=True, Source={x:Static miRobotEditor:Workspace.Instance}}">
+            <TabControl  >
                 <TabItem Header="Functions" >
                     <templates:VisualVariableItem ItemsSource="{Binding Functions}"/>
                 </TabItem>
@@ -39,7 +39,7 @@
                 </TabItem>
                 <TabItem Header="Files">
                     <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Files}">
-                        <DataGrid.Columns>                            
+                        <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Name">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -75,7 +75,9 @@
                     <templates:VisualVariableItem ItemsSource="{Binding Positions}"  />
                 </TabItem>
             </TabControl >
-        </Grid>
+            <mah:MetroProgressBar VerticalAlignment="Bottom" Maximum="{Binding BWFilesMax}" Value="{Binding BWProgress}" Visibility="{Binding BWProgressVisibility}" IsIndeterminate="True"  />
+        </StackPanel>
+           
     </DataTemplate>
 
 

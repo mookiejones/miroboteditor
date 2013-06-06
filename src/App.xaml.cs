@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Windows.Threading;
 using System.Reflection;
-using Application = System.Windows.Application;
+using miRobotEditor.Forms;
 using MessageBox = System.Windows.MessageBox;
 using System.Diagnostics;
 using miRobotEditor.ViewModel;
@@ -13,9 +13,7 @@ namespace miRobotEditor
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-// ReSharper disable RedundantExtendsListEntry
-    public partial class App : Application, ISingleInstanceApp
-// ReSharper restore RedundantExtendsListEntry
+    public partial class App : ISingleInstanceApp
     {
         public static string StartupPath
         {
@@ -45,25 +43,27 @@ namespace miRobotEditor
     	 }
     
     	  private const string Unique = "My_Unique_Application_String";
-// ReSharper disable InconsistentNaming
-    	  public static App _application;
-// ReSharper restore InconsistentNaming
+    	  public static App Application;
+       
           [STAThread]
           public static void Main()
           {
+                Splasher.Splash = new SplashScreen();
+              Splasher.ShowSplash();
+
 
               #if DEBUG
               //Control.CheckForIllegalCrossThreadCalls = true;
               #endif
-              if (!CheckEnvironment())
-                  return;
-              if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
-              _application = new App();
+             //if (!CheckEnvironment())
+             //    return;
+             //if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
+              Application = new App();
 
-              _application.InitializeComponent();                 
-              _application.Run();
+              Application.InitializeComponent();                 
+              Application.Run();
               // Allow single instance code to perform cleanup operations
-              SingleInstance<App>.Cleanup();
+             // SingleInstance<App>.Cleanup();
           }
 
 

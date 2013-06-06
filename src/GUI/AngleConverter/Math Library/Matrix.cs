@@ -413,10 +413,13 @@ namespace ISTUK.MathLibrary
                     num8 = this[m, num3];
                     break;
                 }
-                if (num7 != -1)
+                switch (num7)
                 {
-                    AddRowTimesScalar(num7, i, -num8);
-                    goto Label_00CE;
+                    case -1:
+                        break;
+                    default:
+                        AddRowTimesScalar(num7, i, -num8);
+                        goto Label_00CE;
                 }
             }
             return num;

@@ -3,25 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:custom="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:miRobotEditor="clr-namespace:miRobotEditor"
              x:Class="miRobotEditor.Templates.VisualVariableItem" 
              mc:Ignorable="d" 
               AutoGenerateColumns="False"
               IsReadOnly="True"                
              d:DesignHeight="300" d:DesignWidth="300"
               ToolTipOpening="ToolTip_Opening"  
+    
                MouseDoubleClick="OnMouseDoubleClick" >
     <DataGrid.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-
+<!-- ReSharper disable Xaml.RedundantResource -->
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+<!-- ReSharper restore Xaml.RedundantResource -->
+            <Setter Property="Padding" Value="5,0,5,0"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{Binding Path=AccentBrush.Name, Source={x:Static miRobotEditor:Workspace.Instance}}"/>
+        </Style>
     </DataGrid.Resources>
- 
-    <DataGrid.Columns>
+    <DataGrid.Columns >
         <DataGridTemplateColumn  Width="Auto" IsReadOnly="True">
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>

@@ -17,7 +17,8 @@ namespace miRobotEditor.Classes
     public class RecentFileList : Separator
 	{
         private static RecentFileList _instance;
-        public static RecentFileList Instance { get { return _instance ?? (_instance= new RecentFileList()); } private set { _instance = value; } }
+        public static RecentFileList Instance { get { return _instance ?? (_instance= new RecentFileList()); }
+        }
 
 		public interface IPersist
 		{

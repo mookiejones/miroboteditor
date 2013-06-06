@@ -221,11 +221,8 @@
     <Compile Include="Forms\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmSplashScreen.xaml.cs">
-      <DependentUpon>frmSplashScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmSystemFunctions.xaml.cs">
-      <DependentUpon>frmSystemFunctions.xaml</DependentUpon>
+    <Compile Include="Forms\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\test.xaml.cs">
       <DependentUpon>test.xaml</DependentUpon>
@@ -550,13 +547,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Forms\frmSplashScreen.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Forms\SplashScreen.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Forms\frmSystemFunctions.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\test.xaml">
       <SubType>Designer</SubType>
@@ -649,6 +642,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Templates\EditorTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Templates\KUKA\KUKASystemFunctionsTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -808,6 +805,7 @@
     <Resource Include="Resources\property-blue.png" />
     <Resource Include="Languages\CompletionItems.xml" />
     <Resource Include="Resources\foldingDisabled.png" />
+    <Resource Include="Resources\splash.png" />
     <Content Include="Tracking\Changes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
