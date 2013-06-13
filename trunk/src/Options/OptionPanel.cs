@@ -1,5 +1,6 @@
 ﻿using System;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
+
 namespace miRobotEditor.Options
 {
     class OptionPanel : ViewModelBase, IOptionPanel

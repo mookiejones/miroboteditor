@@ -16,7 +16,7 @@
             
     Options="{x:Static gui:EditorOptions.Instance}"
       
-        GotFocus="TextEditorGotFocus" 
+        GotFocus="TextEditorGotFocus" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
     
             >   
     <avalonedit:TextEditor.Resources>

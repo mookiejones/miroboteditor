@@ -16,7 +16,7 @@
             <AdornedElementPlaceholder />
         </DockPanel>
     </ControlTemplate>
-    
+   
     <Style x:Key="TextBoxInError" TargetType="{x:Type TextBox}">
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">

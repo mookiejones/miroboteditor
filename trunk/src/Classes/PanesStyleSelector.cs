@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
+using miRobotEditor.Core;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Classes
 {

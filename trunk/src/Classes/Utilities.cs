@@ -29,24 +29,22 @@ namespace miRobotEditor.Classes
         }
 
 
-
         /// <summary>
         /// Converts a <see cref="System.Drawing.Image"/> into a WPF <see cref="BitmapSource"/>.
         /// </summary>
-        /// <param name="source">The source image.</param>
         /// <returns>A BitmapSource</returns>
 // ReSharper disable FunctionRecursiveOnAllPaths
-        public static BitmapSource ToBitmapSource(this Image source)
+//      public static BitmapSource ToBitmapSource(this Image source)
 // ReSharper restore FunctionRecursiveOnAllPaths
-        {
-            var bitmap = new Bitmap(source);
-
-            var bitSrc = bitmap.ToBitmapSource();
-
-            bitmap.Dispose();
-
-            return bitSrc;
-        }
+//      {
+//          var bitmap = new Bitmap(source);
+//
+//          var bitSrc = bitmap.ToBitmapSource();
+//
+//          bitmap.Dispose();
+//
+//          return bitSrc;
+//      }
 
         public static ImageSource GetIcon(string fileName)
         {

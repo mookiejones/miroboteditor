@@ -17,7 +17,6 @@ namespace miRobotEditor.ViewModel
 
             Grid.Loaded += Grid_Loaded;
 
-            //     TextBox = new Editor();
             ShowGrid = false;
             FileLanguage = lang;
             Source.FileLanguage = FileLanguage;
@@ -68,17 +67,17 @@ namespace miRobotEditor.ViewModel
 
 
         private Controls.ExtendedGridSplitter _grid = new Controls.ExtendedGridSplitter();
-        public Controls.ExtendedGridSplitter Grid { get { return _grid; } set { _grid = value; RaisePropertyChanged("Grid"); } }
+        public Controls.ExtendedGridSplitter Grid { get { return _grid; } set { _grid = value; RaisePropertyChanged(); } }
 
         private Editor _source = new Editor();
-        public Editor Source { get { return _source; } set { _source = value; RaisePropertyChanged("Source"); } }
+        public Editor Source { get { return _source; } set { _source = value; RaisePropertyChanged(); } }
         private Editor _data = new Editor();
-        public Editor Data { get { return _data; } set { _data = value; RaisePropertyChanged("Data"); } }
+        public Editor Data { get { return _data; } set { _data = value; RaisePropertyChanged(); } }
         private int _gridrow = 1;
         private int _datarow = 2;
 
-        public int GridRow { get { return _gridrow; } set { _gridrow = value; RaisePropertyChanged("GridRow"); } }
-        public int DataRow { get { return _datarow; } set { _datarow = value; RaisePropertyChanged("DataRow"); } }
+        public int GridRow { get { return _gridrow; } set { _gridrow = value; RaisePropertyChanged(); } }
+        public int DataRow { get { return _datarow; } set { _datarow = value; RaisePropertyChanged(); } }
 
         #endregion
 

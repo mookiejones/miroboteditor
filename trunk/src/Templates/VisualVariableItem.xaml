@@ -3,23 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:miRobotEditor="clr-namespace:miRobotEditor"
              x:Class="miRobotEditor.Templates.VisualVariableItem" 
              mc:Ignorable="d" 
               AutoGenerateColumns="False"
+               
               IsReadOnly="True"                
              d:DesignHeight="300" d:DesignWidth="300"
               ToolTipOpening="ToolTip_Opening"  
-    
-               MouseDoubleClick="OnMouseDoubleClick" >
+               MouseDoubleClick="OnMouseDoubleClick"  ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}" Style="{DynamicResource DataGridStyle}" >
     <DataGrid.Resources>
-<!-- ReSharper disable Xaml.RedundantResource -->
-        <Style TargetType="{x:Type DataGridColumnHeader}">
-<!-- ReSharper restore Xaml.RedundantResource -->
-            <Setter Property="Padding" Value="5,0,5,0"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="{Binding Path=AccentBrush.Name, Source={x:Static miRobotEditor:Workspace.Instance}}"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml"  />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
     </DataGrid.Resources>
     <DataGrid.Columns >
         <DataGridTemplateColumn  Width="Auto" IsReadOnly="True">
@@ -30,7 +28,7 @@
             </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
         <!--Name-->
-        <DataGridTextColumn Header="Name" Width="Auto" Binding="{Binding Name}"/>
+        <DataGridTextColumn Header="Name" Width="Auto"  Binding="{Binding Name}" />
         <!--Type-->
         <DataGridTextColumn Header="Type" Width="Auto"  Binding="{Binding Type}"/>
 

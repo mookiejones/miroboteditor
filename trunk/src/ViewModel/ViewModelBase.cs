@@ -1,27 +1,16 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using miRobotEditor.Annotations;
+
 
 namespace miRobotEditor.ViewModel
 {
     [Localizable(false)]
     public class ViewModelBase:SerializeBase,INotifyPropertyChanged 
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
       
-        protected  void RaisePropertyChanged(string propertyName)
-        {
-            try
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-            catch (System.Exception ex)
-            {
-                if (ex.Message == @"'#FF333333' is not a valid value for property 'BorderBrush'.")
-                    return;
-                MessageViewModel.AddError("Error on RaisePropertyChanged with " + propertyName,ex);
-            }
-        }
+      
         
         protected  void RaisePropertyChanging(string propertyName)
         {
@@ -34,7 +23,7 @@ namespace miRobotEditor.ViewModel
         {
             get { return _serializefile; }
             set{_serializefile=value;
-                RaisePropertyChanged("SerializeFileName");
+                RaisePropertyChanged();
             }
         }
 // ReSharper disable UnusedMember.Local
@@ -50,5 +39,13 @@ namespace miRobotEditor.ViewModel
         }
 
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

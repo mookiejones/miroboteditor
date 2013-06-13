@@ -10,8 +10,8 @@ namespace miRobotEditor
     /// </summary>
     public sealed class LogWriter
     {
-
-
+        //TODO Use this or get rid of it
+        //
         /// <summary>
         /// Constructor
         /// </summary>

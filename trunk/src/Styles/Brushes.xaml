@@ -5,15 +5,9 @@
     <SolidColorBrush x:Key="HighlightDarkBrush" Color="{DynamicResource HighlightDarkColor}" />
     <SolidColorBrush x:Key="HighlightLightBrush" Color="{DynamicResource HighlightLightColor}" />
 
-
-    <LinearGradientBrush x:Key="BrandingBrush" EndPoint="0,0.5" StartPoint="1,0.5">
-        <GradientStop Color="{DynamicResource HighlightDarkColor}" Offset="0" />
-        <GradientStop Color="Blue" Offset="1" />
-    </LinearGradientBrush>
-
     <!-- Background Brush -->
     <LinearGradientBrush x:Key="BackgroundBrush" MappingMode="Absolute" StartPoint="0,0" EndPoint="0,180">
-        <GradientStop Color="#FFDEDEDE" />
+        <GradientStop Color="#808080" />
         <GradientStop Color="White" Offset="1" />
     </LinearGradientBrush>
 </ResourceDictionary>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.CodeCompletion;
@@ -32,6 +34,10 @@ namespace miRobotEditor.Languages
             {
                 return EXT;
             }
+        }
+        internal override bool IsFileValid(FileInfo file)
+        {
+            return EXT.Any(e => file.Extension.ToLower() == e);
         }
 
         public static List<string> EXT

@@ -1,4 +1,6 @@
-﻿namespace miRobotEditor.ViewModel
+﻿using miRobotEditor.Core;
+
+namespace miRobotEditor.ViewModel
 {
     public class NotesViewModel:ToolViewModel
     {
@@ -13,6 +15,6 @@
         }
 
         private string _text = string.Empty;
-        public string Text { get { return _text; } set { _text = value; RaisePropertyChanged("Text"); } }
+        public string Text { get { return _text; } set { _text = value; RaisePropertyChanged(); } }
     }
 }

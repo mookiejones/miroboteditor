@@ -20,9 +20,7 @@ namespace miRobotEditor.Classes
 
             if (element != null && item != null && item is Task)
             {
-                var taskitem = item as Task;
-
-              // if (taskitem.Priority == 1)
+                // if (taskitem.Priority == 1)
               //     return
               //         element.FindResource("importantTaskTemplate") as DataTemplate;
               // else

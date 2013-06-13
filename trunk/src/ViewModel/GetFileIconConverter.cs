@@ -2,7 +2,9 @@
 using System.Globalization;
 using System.IO;
 using System.Windows.Data;
-using miRobotEditor.Classes;
+using miRobotEditor.Core;
+using Global = miRobotEditor.Classes.Global;
+using Utilities = miRobotEditor.Classes.Utilities;
 
 namespace miRobotEditor.ViewModel
 {

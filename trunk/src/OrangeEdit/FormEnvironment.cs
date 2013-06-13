@@ -1,7 +1,8 @@
-﻿using miRobotEditor.Commands;
-using System.Windows.Input;
-using miRobotEditor.ViewModel;
+﻿using System.Windows.Input;
+using miRobotEditor.Core;
 using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
+
 namespace miRobotEditor.OrangeEdit
 {
     class FormEnvironment:ViewModelBase
@@ -39,23 +40,23 @@ namespace miRobotEditor.OrangeEdit
 
         #region Properties 
         string _name = string.Empty;
-        public string Name { get { return _name; } set { _name = value; RaisePropertyChanged("Name"); } }
+        public string Name { get { return _name; } set { _name = value; RaisePropertyChanged(); } }
 
         string _directory = string.Empty;
-        public string Directory { get { return _directory; } set { _directory = value; RaisePropertyChanged("Directory"); } }
+        public string Directory { get { return _directory; } set { _directory = value; RaisePropertyChanged(); } }
 
 
         string _userTechPath = string.Empty;
-        public string UserTechPath { get { return _userTechPath; } set { _userTechPath = value; RaisePropertyChanged("UserTechPath"); } }
+        public string UserTechPath { get { return _userTechPath; } set { _userTechPath = value; RaisePropertyChanged(); } }
 
         string _dataPath = string.Empty;
-        public string DataPath { get { return _dataPath; } set { _dataPath = value; RaisePropertyChanged("DataPath"); } }
+        public string DataPath { get { return _dataPath; } set { _dataPath = value; RaisePropertyChanged(); } }
 
         string _r1Path = string.Empty;
-        public string R1Path { get { return _r1Path; } set { _r1Path = value; RaisePropertyChanged("R1Path"); } }
+        public string R1Path { get { return _r1Path; } set { _r1Path = value; RaisePropertyChanged(); } }
 
         private bool _activateEnabled;
-        public bool ActivateEnabled { get { return _activateEnabled; } set { _activateEnabled = value; RaisePropertyChanged("ActivateEnabled"); } }
+        public bool ActivateEnabled { get { return _activateEnabled; } set { _activateEnabled = value; RaisePropertyChanged(); } }
 
 
         #endregion

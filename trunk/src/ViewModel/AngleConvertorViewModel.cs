@@ -1,5 +1,6 @@
 ﻿using System;
 using ISTUK.MathLibrary;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
@@ -11,9 +12,9 @@ namespace miRobotEditor.ViewModel
 
         public static CartesianEnum CartesianType { get; set; }
         private ValueBoxViewModel _inputItems = new ValueBoxViewModel();
-        public ValueBoxViewModel InputItems { get { return _inputItems; } set { _inputItems = value; RaisePropertyChanged("InputItems");  } }
+        public ValueBoxViewModel InputItems { get { return _inputItems; } set { _inputItems = value; RaisePropertyChanged();  } }
         private ValueBoxViewModel _outputItems =new ValueBoxViewModel{IsReadOnly=true};
-        public ValueBoxViewModel OutputItems { get { return _outputItems; } set { _outputItems = value; RaisePropertyChanged("OutputItems");  } }
+        public ValueBoxViewModel OutputItems { get { return _outputItems; } set { _outputItems = value; RaisePropertyChanged();  } }
 
         #region Constructor
         public AngleConvertorViewModel():base("Angle Converter")
@@ -151,7 +152,7 @@ namespace miRobotEditor.ViewModel
         }
     }
 
-    public string Matrix {get{return _matrix; }set { _matrix = value;  RaisePropertyChanged("Matrix");  }  }
+    public string Matrix {get{return _matrix; }set { _matrix = value;  RaisePropertyChanged();  }  }
 
     // Nested Types
    

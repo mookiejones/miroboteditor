@@ -1,4 +1,5 @@
-﻿using miRobotEditor.ViewModel;
+﻿using miRobotEditor.Core;
+
 namespace miRobotEditor.Dialogs
 {
 	/// <summary>

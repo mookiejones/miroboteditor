@@ -3,10 +3,10 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using MahApps.Metro;
-using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
+using miRobotEditor.Annotations;
+using miRobotEditor.Core;
 using miRobotEditor.Forms;
 using miRobotEditor.Properties;
 using miRobotEditor.ViewModel;
@@ -23,11 +23,6 @@ namespace miRobotEditor
 
 
         public static MainWindow Instance { get; set; }
-        public DockingManager Dock { get { return DockManager; } set { DockManager = value; } }
-// ReSharper disable ConvertToConstant.Local
-        private Theme _currentTheme = Theme.Dark;
-        private readonly Accent _currentAccent = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
-        // ReSharper restore ConvertToConstant.Local
       
        
         #region Constructor
@@ -35,8 +30,8 @@ namespace miRobotEditor
         {
             Instance = this;
             InitializeComponent();
-           ThemeManager.ChangeTheme(this, _currentAccent, _currentTheme);
-            KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);
+          // ThemeManager.ChangeTheme(this, _currentAccent, _currentTheme);
+            KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);           
         }
         #endregion
 
@@ -52,7 +47,6 @@ namespace miRobotEditor
                 Workspace.Instance.AddNewFile();
 
             ProcessArgs();
-
         }
 
         static void OpenFile(string filename)
@@ -60,10 +54,11 @@ namespace miRobotEditor
             Workspace.Instance.Open(filename);
         }
 
+   
         private static void LoadOpenFiles()
         {
             var s = Settings.Default.OpenDocuments.Split(';');
-            for (var i = 0; i < s.Length - 1; i++)
+            for (var i = 0; i < s.Length - 1; i++) 
             {
                 if (File.Exists(s[i]))
                     OpenFile(s[i]);
@@ -163,17 +158,27 @@ namespace miRobotEditor
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+         //   LoadLayout();
             LoadItems();
             Splasher.CloseSplash();
         }
 
         private void SaveLayout()
         {
+/*
             var serializer = new XmlLayoutSerializer(DockManager);
             using (var stream = new StreamWriter(Global.DockConfig))
                 serializer.Serialize(stream);
+*/
         }
 
+        [UsedImplicitly]
+        private void LoadLayout()
+        {
+           
+            var serializer = new XmlLayoutSerializer(DockManager);
+            using (new StreamReader(Global.DockConfig)) serializer.Deserialize(Global.DockConfig);
+        }
 
         public void CloseWindow(object param)
         {

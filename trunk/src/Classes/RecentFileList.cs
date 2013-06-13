@@ -10,6 +10,7 @@ using System.Xml;
 using System.Diagnostics;
 using System.Text;
 using System.Reflection;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.Classes
 {
@@ -424,7 +425,7 @@ namespace miRobotEditor.Classes
 				}
 				catch (Exception ex)
 				{
-				    ViewModel.MessageViewModel.AddError("RecentFileList.ApplicationAttributes",ex);
+				    MessageViewModel.AddError("RecentFileList.ApplicationAttributes",ex);
 				}
 			}
 		}

@@ -94,4 +94,14 @@ namespace miRobotEditor.Templates
             throw new System.NotImplementedException();
         }
     }
+    public class IconSelector:DataTemplateSelector
+    {
+// ReSharper disable RedundantOverridenMember
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+
+            return base.SelectTemplate(item, container);
+        }
+// ReSharper restore RedundantOverridenMember
+    }
 }

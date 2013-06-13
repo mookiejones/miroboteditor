@@ -7,7 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
+
 namespace miRobotEditor.Options
 {
 	/// <summary>
@@ -16,9 +17,9 @@ namespace miRobotEditor.Options
 	public class BoolOption:ViewModelBase
 	{
 		private string _description = String.Empty;
-		public string Description {get{return _description;} set{_description=value;RaisePropertyChanged("Description");}}
+		public string Description {get{return _description;} set{_description=value;RaisePropertyChanged();}}
 		
 		private bool _value;
-		public bool Value{get{return _value;}set{_value=value;RaisePropertyChanged("Value");}}		
+		public bool Value{get{return _value;}set{_value=value;RaisePropertyChanged();}}		
 	}
 }

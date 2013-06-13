@@ -3,7 +3,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
+
 namespace miRobotEditor.Classes
 {
     public class VariableHelper
@@ -44,16 +45,16 @@ namespace miRobotEditor.Classes
         	private string _declaration = string.Empty;
         	private int _offset = -1;
             private string _description = string.Empty;
-            public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
+            public string Description { get { return _description; } set { _description = value; RaisePropertyChanged(); } }
 
-        	public BitmapImage Icon { get{return _icon;} set{_icon = value;RaisePropertyChanged("Icon");} }
-        	public string Name { get{return _name;} set{_name=value;RaisePropertyChanged("Name");} }
-            public string Type { get{return _type;} set{_type=value;RaisePropertyChanged("Type");} }
-            public string Path { get{return _path;} set{_path=value;RaisePropertyChanged("Path");} }
-            public string Value { get{return _value;} set{_value=value;RaisePropertyChanged("Value");} }
-            public int Offset { get{return _offset;} set{_offset=value;RaisePropertyChanged("Offset");} }
-            public string Comment { get{return _comment;} set{_comment=value;RaisePropertyChanged("Comment");} }
-            public string Declaration { get{return _declaration;} set{_declaration=value;RaisePropertyChanged("Declaration");} }
+        	public BitmapImage Icon { get{return _icon;} set{_icon = value;RaisePropertyChanged();} }
+        	public string Name { get{return _name;} set{_name=value;RaisePropertyChanged();} }
+            public string Type { get{return _type;} set{_type=value;RaisePropertyChanged();} }
+            public string Path { get{return _path;} set{_path=value;RaisePropertyChanged();} }
+            public string Value { get{return _value;} set{_value=value;RaisePropertyChanged();} }
+            public int Offset { get{return _offset;} set{_offset=value;RaisePropertyChanged();} }
+            public string Comment { get{return _comment;} set{_comment=value;RaisePropertyChanged();} }
+            public string Declaration { get{return _declaration;} set{_declaration=value;RaisePropertyChanged();} }
 
         }
 

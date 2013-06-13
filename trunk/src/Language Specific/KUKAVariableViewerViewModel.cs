@@ -342,9 +342,8 @@ namespace miRobotEditor.Language_Specific
                     try
                     {
                         //TODO Change Connect Method to accept ipaddress
-                        System.Net.IPAddress ipaddress;
                         if (IPAddressString.ToUpper(System.Globalization.CultureInfo.InvariantCulture).Trim() == "LOCALHOST") IPAddressString = "127.0.0.1";
-                        ipaddress = System.Net.IPAddress.Parse(IPAddressString);
+                        System.Net.IPAddress.Parse(IPAddressString);
                         Connect(IPAddressString);
                     }
                     catch (FormatException ex)

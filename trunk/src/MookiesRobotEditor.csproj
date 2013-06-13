@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>miRobotEditor</RootNamespace>
     <AssemblyName>miRobotEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <SourceAnalysisOverrideSettingsFile>C:\Users\cberman\AppData\Roaming\ICSharpCode/SharpDevelop4\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <SignAssembly>false</SignAssembly>
@@ -53,6 +54,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,6 +64,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
@@ -102,20 +105,20 @@
       <HintPath>..\packages\AvalonEdit.4.2.0.8783\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
-      <HintPath>..\..\..\..\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
+      <HintPath>..\packages\DotNetZipLib-DevKit-v1.9\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MahApps.Metro-master\MahApps.Metro-master\MahApps.Metro\bin\Debug\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\..\MahApps.Metro-master\MahApps.Metro-master\MahApps.Metro\bin\Debug\NET45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MahApps.Metro-master\MahApps.Metro-master\Lib\NET40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\MahApps.Metro-master\MahApps.Metro-master\MahApps.Metro\bin\Debug\NET45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -139,9 +142,6 @@
     </Reference>
     <Reference Include="Xceed.Wpf.Toolkit">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
-    <Reference Include="ZedGraph">
-      <HintPath>C:\Users\Charles\Google Drive\Work\Programming\Projects\ShowVar\ShowVar Client\bin\Debug\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -192,9 +192,6 @@
     <Compile Include="Controls\xmlReader.xaml.cs">
       <DependentUpon>xmlReader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ZedGraphUserWPF.xaml.cs">
-      <DependentUpon>ZedGraphUserWPF.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\DoubleToThicknessConverter.cs" />
     <Compile Include="Converters\FunctionVisibilityConverter.cs" />
     <Compile Include="ExplorerControl\Comparer.cs" />
@@ -223,9 +220,6 @@
     </Compile>
     <Compile Include="Forms\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\test.xaml.cs">
-      <DependentUpon>test.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Converters\VariableToFunctionConverter.cs" />
@@ -292,9 +286,6 @@
     <Compile Include="GUI\KUKA\AdjustST.cs" />
     <Compile Include="GUI\KUKA\frmAdjustST.cs" />
     <Compile Include="GUI\KUKA\ToolItems.cs" />
-    <Compile Include="GUI\Options\Options.xaml.cs">
-      <DependentUpon>Options.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Interfaces\AnchorMovementType.cs" />
     <Compile Include="Interfaces\BlockCommentRegion.cs" />
     <Compile Include="Interfaces\BookmarkImage.cs" />
@@ -326,8 +317,6 @@
     <Compile Include="Interfaces\StringTextBuffer.cs" />
     <Compile Include="Interfaces\TextChangeEventArgs.cs" />
     <Compile Include="Interfaces\TextSourceAdapter.cs" />
-    <Compile Include="IPaneViewModel.cs" />
-    <Compile Include="Language Specific\KUKAVariableViewerViewModel.cs" />
     <Compile Include="Languages\ABB.cs" />
     <Compile Include="Languages\AbstractLanguageClass.cs" />
     <Compile Include="Languages\AbstractPosition.cs" />
@@ -350,11 +339,7 @@
     <Compile Include="Options\IOptionPanel.cs" />
     <Compile Include="Options\OptionPanel.cs" />
     <Compile Include="OrangeEdit\FormEnvironment.cs" />
-    <Compile Include="PanesTemplateSelector.cs" />
-    <Compile Include="PaneViewModel.cs" />
-    <Compile Include="TestControl.xaml.cs">
-      <DependentUpon>TestControl.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ValidationRules\IsNumericValidationRule.cs" />
     <Compile Include="Converters\ActiveEditorConverter.cs" />
     <Compile Include="Converters\BooleanToTypeModeStringConverter.cs" />
@@ -383,7 +368,7 @@
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PanesStyleSelector.cs" />
+    <Compile Include="AvalonDockClasses.cs" />
     <Compile Include="Language Specific\KUKAFileInfo.cs" />
     <Compile Include="Language Specific\QuantecRemoteView.xaml.cs">
       <DependentUpon>QuantecRemoteView.xaml</DependentUpon>
@@ -440,7 +425,6 @@
     <Compile Include="ViewModel\CartesianPosition.cs" />
     <Compile Include="ViewModel\CartesianTypes.cs" />
     <Compile Include="ViewModel\CustomToolTipViewModel.cs" />
-    <Compile Include="ViewModel\DefaultToolPane.cs" />
     <Compile Include="ViewModel\DocumentViewModel.cs" />
     <Compile Include="ViewModel\DoubleValidationRule.cs" />
     <Compile Include="ViewModel\EnumtoInt32.cs" />
@@ -456,7 +440,6 @@
     <Compile Include="ViewModel\GlobalOptionsViewModel.cs" />
     <Compile Include="ViewModel\GotoViewModel.cs" />
     <Compile Include="ViewModel\IDocument.cs" />
-    <Compile Include="ViewModel\IMessage.cs" />
     <Compile Include="ViewModel\InfoFile.cs" />
     <Compile Include="ViewModel\IOViewModel.cs" />
     <Compile Include="ViewModel\Item.cs" />
@@ -465,13 +448,9 @@
     <Compile Include="ViewModel\KUKASpecificViewModels.cs" />
     <Compile Include="ViewModel\KukaViewModel.cs" />
     <Compile Include="ViewModel\LocalVariablesViewModel.cs" />
-    <Compile Include="ViewModel\MessageViewModel.cs" />
-    <Compile Include="ViewModel\MsgIcon.cs" />
     <Compile Include="ViewModel\NotesViewModel.cs" />
     <Compile Include="ViewModel\ObjectBrowserViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
-    <Compile Include="ViewModel\OutputWindowMessage.cs" />
-    <Compile Include="ViewModel\PaneViewModel.cs" />
     <Compile Include="ViewModel\ProgressBarViewModel.cs" />
     <Compile Include="ViewModel\SerializeBase.cs" />
     <Compile Include="ViewModel\ShiftViewModel.cs" />
@@ -479,11 +458,9 @@
     <Compile Include="ViewModel\SystemFunctionsViewModel.cs" />
     <Compile Include="ViewModel\Technology.cs" />
     <Compile Include="ViewModel\ToolTipViewModel.cs" />
-    <Compile Include="ViewModel\ToolViewModel.cs" />
     <Compile Include="ViewModel\UpdateCheckerViewModel.cs" />
     <Compile Include="ViewModel\UpdateRequiredHandler.cs" />
     <Compile Include="ViewModel\ValueBoxViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Workspace.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -525,10 +502,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ZedGraphUserWPF.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\KFDAssistant.xaml" />
     <Page Include="Dialogs\KFDDialog.xaml" />
     <Page Include="ExplorerControl\FileExplorerWindow.xaml">
@@ -551,10 +524,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\test.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="GUI\Dialogs\About\About.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -563,9 +532,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GUI\KUKA\frmAdjustST.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Options\Options.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Language Specific\KUKAObjectBrowser.xaml" />
@@ -613,6 +579,10 @@
     </Page>
     <Page Include="Pads\Options\BoolOptionControl.xaml" />
     <Page Include="Pads\Options\OptionsWindow.xaml" />
+    <Page Include="Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Templates\ArchiveInfoTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -645,10 +615,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Templates\KUKA\KUKASystemFunctionsTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Templates\OptionsTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -674,10 +640,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Templates\AdjustST.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -709,7 +671,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Languages\CompletionItemsSchema.xsd" />
     <None Include="Resources\Options.xsd">
       <SubType>Designer</SubType>
@@ -834,6 +798,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\miRobotEditor.Core\miRobotEditor.Core.csproj">
+      <Project>{5e11febd-9896-4cfd-ab7c-570684f23bfb}</Project>
+      <Name>miRobotEditor.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

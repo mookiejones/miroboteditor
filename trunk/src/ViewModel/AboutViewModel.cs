@@ -10,6 +10,7 @@ using System;
 using System.Text;
 using System.Reflection;
 using System.Globalization;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {

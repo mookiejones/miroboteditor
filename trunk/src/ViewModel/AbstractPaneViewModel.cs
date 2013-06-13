@@ -7,6 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
+using miRobotEditor.Core;
+
 namespace miRobotEditor.ViewModel
 {
 	  /// <summary>
@@ -37,7 +39,7 @@ namespace miRobotEditor.ViewModel
 
                 _isVisible = value;
 
-                RaisePropertyChanged("IsVisible");
+                RaisePropertyChanged();
             }
         }
     }

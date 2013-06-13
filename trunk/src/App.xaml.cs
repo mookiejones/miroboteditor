@@ -1,12 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Reflection;
+using miRobotEditor.Core;
 using miRobotEditor.Forms;
 using MessageBox = System.Windows.MessageBox;
 using System.Diagnostics;
-using miRobotEditor.ViewModel;
+
 namespace miRobotEditor
 {
 	
@@ -48,22 +50,23 @@ namespace miRobotEditor
           [STAThread]
           public static void Main()
           {
-                Splasher.Splash = new SplashScreen();
+
+              Splasher.Splash = new SplashScreen();
               Splasher.ShowSplash();
 
 
               #if DEBUG
-              //Control.CheckForIllegalCrossThreadCalls = true;
+              Control.CheckForIllegalCrossThreadCalls = true;
               #endif
-             //if (!CheckEnvironment())
-             //    return;
-             //if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
+             if (!CheckEnvironment())
+                 return;
+             if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
               Application = new App();
 
               Application.InitializeComponent();                 
               Application.Run();
               // Allow single instance code to perform cleanup operations
-             // SingleInstance<App>.Cleanup();
+              SingleInstance<App>.Cleanup();
           }
 
 

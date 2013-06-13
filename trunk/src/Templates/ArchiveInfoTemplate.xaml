@@ -228,11 +228,17 @@
             </TabControl>
         </Grid>
     </DataTemplate>
+   
+    
     <DataTemplate DataType="{x:Type vm:IOViewModel}">
         <TabControl VerticalAlignment="Stretch" Grid.Row="1" VerticalContentAlignment="Stretch"   >
+           
+            <TabItem Header="Language File">
+                <TextBox Text="{Binding DataBase}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto"/>
+            </TabItem>
             <TabItem Header="IO Points">
                 <TabItem.Resources>
-                    <Style TargetType="{x:Type DataGrid}">                        
+                    <Style TargetType="{x:Type DataGrid}">
                         <Setter Property="AlternatingRowBackground" Value="SkyBlue"/>
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="AutoGenerateColumns" Value="False"/>
@@ -264,9 +270,6 @@
                     <TabItem Header="Flags" Content="{Binding Flags}" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding FlagVisibility}"/>
                     <TabItem Header="CycFlags" Visibility="{Binding CyclicFlagVisibility}" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding CycFlags}"/>
                 </TabControl>
-            </TabItem>
-            <TabItem Header="Language File">
-                <TextBox Text="{Binding DataBase}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto"/>
             </TabItem>
         </TabControl>
     </DataTemplate>

@@ -1,5 +1,7 @@
 ﻿using System.Windows.Input;
-using miRobotEditor.Commands;
+using miRobotEditor.Core;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
+
 namespace miRobotEditor.ViewModel
 {
    public class StatusBarViewModel:ViewModelBase
@@ -39,13 +41,13 @@ namespace miRobotEditor.ViewModel
 
 
         private bool _isScrollPressed;
-        public bool IsScrollPressed { get { return _isScrollPressed; } set { _isScrollPressed = value;RaisePropertyChanged("IsScrollPressed"); } }
+        public bool IsScrollPressed { get { return _isScrollPressed; } set { _isScrollPressed = value;RaisePropertyChanged(); } }
        private bool _isNumPressed;
-       public bool IsNumPressed { get { return _isNumPressed; } set { _isNumPressed = value; RaisePropertyChanged("IsNumPressed"); } }
+       public bool IsNumPressed { get { return _isNumPressed; } set { _isNumPressed = value; RaisePropertyChanged(); } }
        private bool _isInsPressed;
-       public bool IsInsPressed { get { return _isInsPressed; } set { _isInsPressed = value; RaisePropertyChanged("IsInsPressed"); } }
+       public bool IsInsPressed { get { return _isInsPressed; } set { _isInsPressed = value; RaisePropertyChanged(); } }
        private bool _isCapsPressed;
-       public bool IsCapsPressed { get { return _isCapsPressed; } set { _isCapsPressed = value; RaisePropertyChanged("IsCapsPressed"); } }
+       public bool IsCapsPressed { get { return _isCapsPressed; } set { _isCapsPressed = value; RaisePropertyChanged(); } }
 
        
         #endregion

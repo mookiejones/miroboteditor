@@ -1,7 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows.Input;
-using miRobotEditor.Commands;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
+
 namespace miRobotEditor.Controls
 {
     /// <summary>
@@ -86,21 +87,21 @@ namespace miRobotEditor.Controls
         public bool UseRegex
         {
             get { return _useregex; }
-            set { _useregex = value;RaisePropertyChanged("UseRegex"); }
+            set { _useregex = value;RaisePropertyChanged(); }
         }
         private bool _matchcase;
 
         public bool MatchCase
         {
             get { return _matchcase; }
-            set { _matchcase = value; RaisePropertyChanged("MatchCase"); }
+            set { _matchcase = value; RaisePropertyChanged(); }
         }
         private bool _matchwholeword;
 
         public bool MatchWholeWord
         {
             get { return _matchwholeword; }
-            set { _matchwholeword = value; RaisePropertyChanged("MatchWholeWord"); }
+            set { _matchwholeword = value; RaisePropertyChanged(); }
         }
 
         public Regex RegexPattern
@@ -129,7 +130,7 @@ namespace miRobotEditor.Controls
             set
             {
                 _lookfor = value;
-                RaisePropertyChanged("LookFor");
+                RaisePropertyChanged();
             }
         }
 
@@ -137,14 +138,14 @@ namespace miRobotEditor.Controls
         public string ReplaceWith
         {
             get { return _replacewith; }
-            set { _replacewith = value;RaisePropertyChanged("ReplaceWith"); }
+            set { _replacewith = value;RaisePropertyChanged(); }
         }
 
         private string _searchresult = string.Empty;
         public string SearchResult
         {
             get { return _searchresult; }
-            set { _searchresult = value;RaisePropertyChanged("SearchResult"); }
+            set { _searchresult = value;RaisePropertyChanged(); }
         }
         #endregion
 

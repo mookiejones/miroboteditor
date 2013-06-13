@@ -2,8 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using miRobotEditor.Classes;
-using miRobotEditor.Commands;
+using miRobotEditor.Core;
 using miRobotEditor.ViewModel;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
 namespace miRobotEditor.Languages
 {
@@ -33,7 +34,7 @@ namespace miRobotEditor.Languages
         public int Progress
         {
             get { return _progress; }
-            set { _progress = value; RaisePropertyChanged("Progress"); }
+            set { _progress = value; RaisePropertyChanged(); }
         }
 
         private static DatCleanHelper _instance;
@@ -92,13 +93,13 @@ namespace miRobotEditor.Languages
             foreach (var v in ListItems)
                 v.IsSelected = true;
 
-            RaisePropertyChanged("NumberSelected");
+            RaisePropertyChanged("IgnoreTypes");
         }
         void InvertSelection()
         {
             foreach (var v in ListItems)
                 v.IsSelected = !v.IsSelected;
-            RaisePropertyChanged("NumberSelected");
+            RaisePropertyChanged("IgnoreTypes");
 
         }
         #endregion
@@ -117,29 +118,29 @@ namespace miRobotEditor.Languages
         public bool IgnoreTypes
         {
             get { return _ignoretypes; }
-            set { _ignoretypes = value; RaisePropertyChanged("Ignoretypes"); }
+            set { _ignoretypes = value; RaisePropertyChanged(); }
         }
         public bool ExclusiveTypes
         {
             get { return _exclusivetypes; }
-            set { _exclusivetypes = value; RaisePropertyChanged("ExclusiveTypes"); }
+            set { _exclusivetypes = value; RaisePropertyChanged(); }
         }
         public bool DeleteDeclaration
         {
             get { return _deletedeclaration; }
-            set { _deletedeclaration = value; RaisePropertyChanged("DeleteDeclaration"); }
+            set { _deletedeclaration = value; RaisePropertyChanged(); }
         }
         public bool CommentDeclaration
         {
             get { return _commentdeclaration; }
-            set { _commentdeclaration = value; RaisePropertyChanged("CommentDeclaration"); }
+            set { _commentdeclaration = value; RaisePropertyChanged(); }
         }
 
         private int _selectedVarIndex;
         public int SelectedVarIndex
         {
             get { return _selectedVarIndex; }
-            set { _selectedVarIndex = value; RaisePropertyChanged("SelectedVarIndex"); }
+            set { _selectedVarIndex = value; RaisePropertyChanged(); }
         }
         public ObservableCollection<String> UsedVarTypes
         {

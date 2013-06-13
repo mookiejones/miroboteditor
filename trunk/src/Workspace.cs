@@ -1,11 +1,11 @@
 ﻿using System;
 using MahApps.Metro;
+using miRobotEditor.Core;
 using miRobotEditor.Forms;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using miRobotEditor.Commands;
 using System.IO;
 using miRobotEditor.Classes;
 using miRobotEditor.ViewModel;
@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Windows;
 using Xceed.Wpf.AvalonDock.Layout;
 using miRobotEditor.Pads;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
 namespace miRobotEditor
 {
@@ -67,19 +68,19 @@ namespace miRobotEditor
 
         #region Properties
         private bool _showSettings;
-        public bool ShowSettings { get { return _showSettings; } set { _showSettings = value; RaisePropertyChanged("ShowSettings"); } }
+        public bool ShowSettings { get { return _showSettings; } set { _showSettings = value; RaisePropertyChanged(); } }
         [NonSerialized]
         private Accent _accentBrush = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
 
-        public Accent AccentBrush { get { return _accentBrush; } set { _accentBrush = value;RaisePropertyChanged("AccentBrush"); } }
+        public Accent AccentBrush { get { return _accentBrush; } set { _accentBrush = value;RaisePropertyChanged(); } }
 
         private Theme _currentTheme = Theme.Dark;
-        public Theme CurrentTheme { get { return _currentTheme; } set { _currentTheme = value;RaisePropertyChanged("CurrentTheme"); } }
+        public Theme CurrentTheme { get { return _currentTheme; } set { _currentTheme = value;RaisePropertyChanged(); } }
         private bool _showIO;
-        public bool ShowIO { get { return _showIO; } set { _showIO = value;RaisePropertyChanged("ShowIO"); } }
+        public bool ShowIO { get { return _showIO; } set { _showIO = value;RaisePropertyChanged(); } }
 
         private bool _enableIO;
-        public bool EnableIO { get { return _enableIO; } set { _enableIO = value;RaisePropertyChanged("EnableIO"); } }
+        public bool EnableIO { get { return _enableIO; } set { _enableIO = value;RaisePropertyChanged(); } }
 
         private  ILayoutUpdateStrategy _layoutInitializer;
         public  ILayoutUpdateStrategy LayoutStrategy { get { return _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer()); } }
@@ -90,7 +91,7 @@ namespace miRobotEditor
 
 
         private bool _isClosing;
-        public bool IsClosing { get { return _isClosing; } set { _isClosing = value; RaisePropertyChanged("IsClosing"); } }
+        public bool IsClosing { get { return _isClosing; } set { _isClosing = value; RaisePropertyChanged(); } }
 
         readonly ObservableCollection<IDocument> _files = new ObservableCollection<IDocument>();
         readonly ReadOnlyObservableCollection<IDocument> _readonyFiles = null;
@@ -108,9 +109,11 @@ namespace miRobotEditor
             } 
             set 
             {
+                
+               // if (_activeEditor.ContentId == value.ContentId) return;
                 _activeEditor = value;
                 _activeEditor.TextBox.Focus();
-                RaisePropertyChanged("ActiveEditor");
+                RaisePropertyChanged();
     //            if (ActiveEditorChanged != null)
     //                ActiveEditorChanged(this, EventArgs.Empty);
             } 
@@ -249,10 +252,11 @@ namespace miRobotEditor
 // ReSharper disable UnusedParameter.Local
         void OnOpen(object param)
 // ReSharper restore UnusedParameter.Local
-        {
-
+      {
+          var dir = ActiveEditor.FilePath ?? String.Empty;
             var dlg = new OpenFileDialog
             {
+                InitialDirectory=dir,
                 Filter = Resources.DefaultFilter,
                 Multiselect = true,
                 FilterIndex = Settings.Default.Filter,

@@ -1,4 +1,6 @@
-﻿namespace miRobotEditor.ViewModel
+﻿using miRobotEditor.Core;
+
+namespace miRobotEditor.ViewModel
 {
     public class FunctionViewModel : ToolViewModel
     {
