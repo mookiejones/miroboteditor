@@ -7,8 +7,10 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-using miRobotEditor.Commands;
 using System.Windows.Input;
+using miRobotEditor.Core;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
+
 namespace miRobotEditor.ViewModel
 {
 	/// <summary>

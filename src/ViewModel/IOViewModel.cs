@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using Ionic.Zip;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
@@ -30,43 +31,42 @@ namespace miRobotEditor.ViewModel
         }
 
         private Visibility _flagVisibility = Visibility.Collapsed;
-        public Visibility FlagVisibility { get { return _flagVisibility; } set { _flagVisibility = value; RaisePropertyChanged("FlagVisibility"); } }
+        public Visibility FlagVisibility { get { return _flagVisibility; } set { _flagVisibility = value; RaisePropertyChanged(); } }
 
         private Visibility _timerVisibility = Visibility.Collapsed;
-        public Visibility TimerVisibility { get { return _timerVisibility; } set { _timerVisibility = value; RaisePropertyChanged("TimerVisibility"); } }
+        public Visibility TimerVisibility { get { return _timerVisibility; } set { _timerVisibility = value; RaisePropertyChanged(); } }
 
         private Visibility _cyclicFlagVisibility = Visibility.Collapsed;
-        public Visibility CyclicFlagVisibility { get { return _cyclicFlagVisibility; } set { _cyclicFlagVisibility = value; RaisePropertyChanged("CyclicFlagVisibility"); } }
+        public Visibility CyclicFlagVisibility { get { return _cyclicFlagVisibility; } set { _cyclicFlagVisibility = value; RaisePropertyChanged(); } }
 
         private Visibility _counterVisibility = Visibility.Collapsed;
-        public Visibility CounterVisibility { get { return _counterVisibility; } set { _counterVisibility = value; RaisePropertyChanged("CounterVisibility"); } }
+        public Visibility CounterVisibility { get { return _counterVisibility; } set { _counterVisibility = value; RaisePropertyChanged(); } }
 
         private InfoFile _info = new InfoFile();
-        public InfoFile Info { get { return _info; } set { _info = value; RaisePropertyChanged("Info"); } }
+        public InfoFile Info { get { return _info; } set { _info = value; RaisePropertyChanged(); } }
 
 
         public string DirectoryPath { get; set; }
         private string _archivePath = " ";
-        public string ArchivePath { get { return _archivePath; } set { _archivePath = value; RaisePropertyChanged("ArchivePath"); } }
+        public string ArchivePath { get { return _archivePath; } set { _archivePath = value; RaisePropertyChanged(); } }
 
 
         private string _filecount = string.Empty;
-        public string FileCount { get { return _filecount; } set { _filecount = value; RaisePropertyChanged("FileCount"); } }
+        public string FileCount { get { return _filecount; } set { _filecount = value; RaisePropertyChanged(); } }
 
         public ZipFile ArchiveZip { get; set; }
         private string _buffersize = string.Empty;
 
-        public string BufferSize { get { return _buffersize; } set { _buffersize = value; RaisePropertyChanged("BufferSize"); } }
+        public string BufferSize { get { return _buffersize; } set { _buffersize = value; RaisePropertyChanged(); } }
 
         public string DataBaseFile { get; set; }
         // ReSharper disable ConvertToConstant.Local
         // ReSharper disable FieldCanBeMadeReadOnly.Local
-        private bool _isKRC2 = true;
         // ReSharper restore FieldCanBeMadeReadOnly.Local
         // ReSharper restore ConvertToConstant.Local
 
         private string _database = string.Empty;
-        public string DataBase { get { return _database; } set { _database = value; RaisePropertyChanged("DataBase"); } }
+        public string DataBase { get { return _database; } set { _database = value; RaisePropertyChanged(); } }
 
         public string InfoFile { get; set; }
 
@@ -76,11 +76,11 @@ namespace miRobotEditor.ViewModel
         public ReadOnlyObservableCollection<DirectoryInfo> Root { get { return _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root); } }
 
         private DirectoryInfo _rootpath;
-        public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged("RootPath"); } }
+        public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged(); } }
         private string _languageText = String.Empty;
-        public string LanguageText { get { return _languageText; } set { _languageText = value; RaisePropertyChanged("LanguageText"); } }
+        public string LanguageText { get { return _languageText; } set { _languageText = value; RaisePropertyChanged(); } }
         private string _databaseText = String.Empty;
-        public string DatabaseText { get { return _databaseText; } set { _databaseText = value; RaisePropertyChanged("DatabaseText"); } }
+        public string DatabaseText { get { return _databaseText; } set { _databaseText = value; RaisePropertyChanged(); } }
 
 
 

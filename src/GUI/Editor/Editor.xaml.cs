@@ -14,7 +14,6 @@ using System.Windows.Threading;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using miRobotEditor.Commands;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -25,14 +24,20 @@ using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Search;
+using miRobotEditor.Annotations;
 using miRobotEditor.Classes;
 using System.Collections.ObjectModel;
 using miRobotEditor.Controls;
+using miRobotEditor.Core;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.ViewModel;
 using ICSharpCode.AvalonEdit.Editing;
+using Global = miRobotEditor.Classes.Global;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
+using Utilities = miRobotEditor.Classes.Utilities;
+
 namespace miRobotEditor.GUI
 {
     
@@ -448,8 +453,6 @@ namespace miRobotEditor.GUI
         	
         	
         	try{
-        		
-        	
    		        var increase = Convert.ToBoolean(param);
 
         		var start = Document.GetLineByOffset(SelectionStart);
@@ -648,7 +651,15 @@ namespace miRobotEditor.GUI
 
         public void SetHighlighting()
         {
-            SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(Filename));
+            try
+            {
+                if (Filename!=null)
+                SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(Filename));
+            }
+            catch (Exception ex)
+            {
+                MessageViewModel.AddError(String.Format("Could not load Syntax Highlighting for {0}",Filename),ex);
+            }
         }
 
 
@@ -674,14 +685,18 @@ namespace miRobotEditor.GUI
                 CompletionWindow.CompletionList.CompletionData.Add(item);
             }
 
-            CompletionWindow.Closed += delegate { CompletionWindow = null; };
+            CompletionWindow.Closed += delegate { CompletionWindow = null;  };
             CompletionWindow.CloseWhenCaretAtBeginning = true;
+
             CompletionWindow.CompletionList.SelectItem(currentword);
             if (CompletionWindow.CompletionList.SelectedItem != null)
             CompletionWindow.Show();
 
+
+            CompletionWindow.Activate();
             if (IsModified)
                 UpdateFolds();
+           
         }
 
 
@@ -895,7 +910,7 @@ namespace miRobotEditor.GUI
 
 
             // Get XML Folding
-            if (Path.GetExtension(Filename) == ".xml")
+            if ((Path.GetExtension(Filename) == ".xml")||(Path.GetExtension(Filename)==".cfg"))
                 _foldingStrategy = new XmlFoldingStrategy();
             else if (FileLanguage != null)
                 _foldingStrategy = FileLanguage.FoldingStrategy;
@@ -1121,7 +1136,7 @@ namespace miRobotEditor.GUI
 
 
 
-        [Localizable(false)]
+        [Localizable(false), UsedImplicitly]
         private void InsertSnippet()
                 {
                     

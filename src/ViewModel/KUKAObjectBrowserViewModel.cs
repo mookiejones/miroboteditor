@@ -8,9 +8,11 @@
  */
 using System;
 using System.Windows.Controls;
-using miRobotEditor.Commands;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using miRobotEditor.Core;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
+
 namespace miRobotEditor.ViewModel
 {
     // ReSharper disable UnusedMember.Local
@@ -86,13 +88,13 @@ namespace miRobotEditor.ViewModel
         
 		
 		private ListViewItem _selectedItem = new ListViewItem();
-		public ListViewItem SelectedItem {get{return _selectedItem;}set{_selectedItem=value;RaisePropertyChanged("SelectedItem");}}
+		public ListViewItem SelectedItem {get{return _selectedItem;}set{_selectedItem=value;RaisePropertyChanged();}}
 		
 		private string _filterText = String.Empty;
-		public string FilterText {get{return _filterText;}set{_filterText=value;RaisePropertyChanged("FilterText");}}
+		public string FilterText {get{return _filterText;}set{_filterText=value;RaisePropertyChanged();}}
 		
 		private string _functions = "2";
-		public string Functions{get{return _functions;}set{_functions=value;RaisePropertyChanged("Functions");}}
+		public string Functions{get{return _functions;}set{_functions=value;RaisePropertyChanged();}}
 		
 
 

@@ -15,6 +15,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:miRobotEditor.ViewModel"
     xmlns:miRobotEditor="clr-namespace:miRobotEditor"
+   
     mc:Ignorable="d"
     x:Name="MetroWindow"
     SnapsToDevicePixels="True"
@@ -22,13 +23,20 @@
     WindowState="Maximized"	
     Closing="WindowClosing"                     
     Title="{Binding ActiveEditor.FilePath, Mode=OneWay, StringFormat=miRobotEditor:\= \{0\}}"
+    TitleForeground="Black"
     Loaded="WindowLoaded"
     AllowDrop="True"
     Icon="Properties/Resources/Editor.ico"
     Drop="DropFiles"	DragEnter="onDragEnter"
     DataContext="{DynamicResource Workspace}"   
     >
-    <mah:MetroWindow.Resources>
+    <Window.Background>
+        <LinearGradientBrush MappingMode="Absolute" StartPoint="0,0" EndPoint="0,180">
+            <GradientStop Color="#FFDEDEDE" />
+            <GradientStop Color="White" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Background>
+    <Window.Resources>
         <!--Explorer Window-->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -36,12 +44,7 @@
                 <ResourceDictionary Source="Templates/StatusBarTemplate.xaml" />
                 <ResourceDictionary Source="Templates/ArchiveInfoTemplate.xaml"/>
                 <ResourceDictionary Source="Templates/KUKASpecificTemplates.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-            <!--    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-      -->      </ResourceDictionary.MergedDictionaries>
-
-
+            </ResourceDictionary.MergedDictionaries>
             <Image x:Key="CopyImage" Source="Resources/Copy.png" />
             <Image x:Key="PasteImage" Source="Resources/paste.png" />
             <Image x:Key="FoldingDisabled" Source="Resources/foldingDisabled.png" />
@@ -51,12 +54,11 @@
 <!-- ReSharper disable Xaml.RedundantResource -->
             <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
 <!-- ReSharper restore Xaml.RedundantResource -->
-                <Setter Property="Background" Value="Black"/>
+                <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
             </Style>
         </ResourceDictionary>
-    </mah:MetroWindow.Resources>
-    <mah:MetroWindow.Flyouts>
-           
+    </Window.Resources>
+    <mah:MetroWindow.Flyouts>       
         <mah:Flyout Header="I/O" Position="Right" Content="{Binding ActiveEditor.FileLanguage.IOModel}" IsOpen="{Binding ShowIO}"  />
         <mah:Flyout Header="Options" Position="Right"  Content="{x:Static gui:EditorOptions.Instance}" IsOpen="{Binding ShowSettings}" >
             <mah:Flyout.Resources>
@@ -66,28 +68,26 @@
     </mah:MetroWindow.Flyouts> 
     <mah:MetroWindow.WindowCommands>
         <mah:WindowCommands>
-            <Button Content="Settings" Command="{Binding ShowSettingsCommand}"/>
+            <Button Content="Settings" Command="{Binding ShowSettingsCommand}" />
             <Button Content="Show IO" Command="{Binding ShowIOCommand}" Visibility="{Binding EnableIO, Converter={StaticResource BooleanToVisibilityConverter}}"/>            
         </mah:WindowCommands>
     </mah:MetroWindow.WindowCommands>
     <mah:MetroWindow.GlowBrush>       
         <SolidColorBrush Color="{DynamicResource HighlightLightColor}"/>
-    </mah:MetroWindow.GlowBrush>
-   
-        <mah:MetroWindow.InputBindings>
+    </mah:MetroWindow.GlowBrush>   
+        <Window.InputBindings>
     	<KeyBinding Command="{Binding ActiveEditor.CloseCommand}"  Gesture="Alt+C"/>
         <KeyBinding Key="F3" Modifiers="Shift" Command="Search" CommandParameter="something" />      
         <KeyBinding Key="F" Modifiers="Control" Gesture="CTRL+F" Command="Find" />
-        </mah:MetroWindow.InputBindings>
+        </Window.InputBindings>
     <Grid d:DataContext="{d:DesignInstance}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"  />
             <RowDefinition	Height="48" />
             <RowDefinition  Height="*" />
-            <RowDefinition  Height="*" />
             <RowDefinition 	Height="20" />
         </Grid.RowDefinitions>
-        <Menu IsMainMenu="True" Margin="10,2,0,0" >
+        <Menu Background="Transparent" IsMainMenu="True" Margin="10,2,0,0" >
             <Menu.Resources>
                 <Style TargetType="{x:Type Image}" >
                     <Setter Property="Height" Value="16"/>
@@ -247,17 +247,7 @@
                     <MenuItem Header="Blue" />
                     <MenuItem Header="Orange" />
                     <MenuItem Header="Purple"/>
-                    </MenuItem>                    
-                <MenuItem Header="Theme">
-                    <MenuItem.Resources>
-                        <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
-                            <Setter Property="Command" Value="{Binding ChangeThemeCommand}"/>
-                                <Setter Property="CommandParameter" Value="{Binding Header, RelativeSource={RelativeSource Self}}"/>
-                        </Style>
-                    </MenuItem.Resources>
-                    <MenuItem Header="Light"  />
-                    <MenuItem Header="Dark"  />
-                </MenuItem>
+                    </MenuItem>                                
                 </MenuItem>             
 
                 <MenuItem Header="View Whitespace" IsCheckable="true" IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True, Source={x:Static gui:EditorOptions.Instance}}" />
@@ -430,7 +420,7 @@
 			Grid.Row="2"        	
             AnchorablesSource="{Binding Tools}"
             DocumentsSource="{Binding Files}"        
-        	ActiveContent="{Binding ActiveEditor, Converter={StaticResource ActiveEditorConverter},Mode=TwoWay}" Grid.RowSpan="2" 
+        	ActiveContent="{Binding ActiveEditor, Converter={StaticResource ActiveEditorConverter},Mode=TwoWay}"  
             LayoutUpdateStrategy="{Binding LayoutStrategy, Mode=OneWay, Source={StaticResource Workspace}}"   >       
             
         	<!--             DocumentsSource="{Binding Files}"  -->
@@ -472,7 +462,7 @@
                 </ad:LayoutPanel>
             </ad:LayoutRoot>
         </ad:DockingManager>
-        <StatusBar DataContext="{x:Static viewModel:StatusBarViewModel.Instance}" >
+        <StatusBar DataContext="{x:Static viewModel:StatusBarViewModel.Instance}" Grid.Row="3">
             <StatusBar.Resources>
                 <Style TargetType ="{x:Type StatusBarItem}" >                    
                     <Setter Property="FontWeight" Value="Normal"/>

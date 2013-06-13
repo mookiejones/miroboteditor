@@ -3,24 +3,29 @@ using System.Diagnostics;
 using System.Security.Permissions;
 using System.Windows;
 using System.Windows.Threading;
+using miRobotEditor.Annotations;
 
 namespace miRobotEditor.Forms
 {
     /// <summary>
     /// Interaction logic for SplashScreen.xaml
     /// </summary>
-    public partial class SplashScreen : Window
+    public partial class SplashScreen
     {
+      
         public SplashScreen()
         {
             InitializeComponent();
-        }
+         }
+
     }
     /// <summary>
-    /// Helper to show or close given splash window
+    /// Helper to show or close given splash window3
     /// </summary>
     public static class Splasher
     {
+
+
         public static Window Splash { get; set; }
 
         /// <summary>
@@ -42,10 +47,9 @@ namespace miRobotEditor.Forms
         {
             if (Splash == null) return;
             Splash.Close();
-            if (Splash is IDisposable)
-                (Splash as IDisposable).Dispose();
         }
     }
+
     /// <summary>
     /// Message listener, singlton pattern.
     /// Inherit from DependencyObject to implement DataBinding.
@@ -126,16 +130,16 @@ namespace miRobotEditor.Forms
             {
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="f"></param>
-        /// <returns></returns>
-        private static object ExitFrames(object frame)
+
+        /// <summary />
+        /// <returns />
+        private static object ExitFrames([NotNull] object frame)
         {
+            if (frame == null) throw new ArgumentNullException("frame");
             ((DispatcherFrame)frame).Continue = false;
 
             return null;
         }
     }
+
 }

@@ -7,38 +7,39 @@
                     xmlns:classes="clr-namespace:miRobotEditor.Classes"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:miRobotEditor.Converters"
-                    xmlns:miRobotEditor="clr-namespace:miRobotEditor">
+                    xmlns:miRobotEditor="clr-namespace:miRobotEditor"
+                    xmlns:core="clr-namespace:miRobotEditor.Core;assembly=miRobotEditor.Core">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/miRobotEditor;component/Templates/Generic.xaml" />
         <ResourceDictionary Source="/miRobotEditor;component/Templates/ExtendedGridSplitter.xaml"/>
+        <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
     <converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter"/>
     <converters:WidthConverter x:Key="WidthConverter"/>
 
 
-        <!-- Local Variables-->
+    <!-- Local Variables-->
     <DataTemplate DataType="{x:Type vm:LocalVariablesViewModel}">
         <templates:VisualVariableItem DataContext="{Binding ActiveEditor, NotifyOnSourceUpdated=True, Source={x:Static miRobotEditor:Workspace.Instance}}" ItemsSource="{Binding TextBox.Variables}"/>
     </DataTemplate>
-    
+
     <!-- Notes Template -->
     <DataTemplate DataType="{x:Type vm:NotesViewModel}">
         <TextBox Text="{Binding Text}" TextWrapping="WrapWithOverflow" BorderBrush="DarkGray"/>
     </DataTemplate>
-  
     <!-- object Broswer -->
     <DataTemplate DataType="{x:Type vm:ObjectBrowserViewModel}">
-        <StackPanel Orientation="Vertical" DataContext="{Binding ActiveEditor.FileLanguage, IsAsync=True, Source={x:Static miRobotEditor:Workspace.Instance}}">
-            <TabControl  >
+        <Grid DataContext="{DynamicResource Workspace}">            
+            <TabControl  x:Name="Items" VerticalAlignment="Stretch" >                          
                 <TabItem Header="Functions" >
-                    <templates:VisualVariableItem ItemsSource="{Binding Functions}"/>
+                    <templates:VisualVariableItem ItemsSource="{Binding ActiveEditor.FileLanguage.Functions}"/>
                 </TabItem>
                 <TabItem Header="Fields">
-                    <templates:VisualVariableItem ItemsSource="{Binding Fields}"/>
+                    <templates:VisualVariableItem ItemsSource="{Binding ActiveEditor.FileLanguage.Fields}"/>
                 </TabItem>
                 <TabItem Header="Files">
-                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Files}">
+                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ActiveEditor.FileLanguage.Files}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Name">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -72,18 +73,21 @@
                     </DataGrid>
                 </TabItem>
                 <TabItem Header="Positions">
-                    <templates:VisualVariableItem ItemsSource="{Binding Positions}"  />
+                    <templates:VisualVariableItem ItemsSource="{Binding ActiveEditor.FileLanguage.Positions}"  />
                 </TabItem>
-            </TabControl >
-            <mah:MetroProgressBar VerticalAlignment="Bottom" Maximum="{Binding BWFilesMax}" Value="{Binding BWProgress}" Visibility="{Binding BWProgressVisibility}" IsIndeterminate="True"  />
-        </StackPanel>
-           
+                <TabItem Header="Signals">
+                    <templates:VisualVariableItem ItemsSource="{Binding ActiveEditor.FileLanguage.Signals}"  />
+                </TabItem>
+            </TabControl>
+            <mah:ProgressRing IsActive="True" IsLarge="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="{Binding ActiveEditor.FileLanguage.BWProgressVisibility}"  Foreground="{DynamicResource HighlightLightBrush}"  />
+        </Grid>
+
     </DataTemplate>
 
 
     <!-- Message View Model-->
-    <DataTemplate DataType="{x:Type vm:MessageViewModel}">
-        <DataGrid ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}" AutoGenerateColumns="False">
+    <DataTemplate DataType="{x:Type core:MessageViewModel}">
+        <DataGrid ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}" ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}" Style="{DynamicResource DataGridStyle}"  AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn  Width="Auto" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
@@ -110,13 +114,13 @@
                                 </StackPanel>
                             </ToolTip>
                         </TextBlock.ToolTip>
-                    </TextBlock>
+					</TextBlock>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:OutputWindowMessage}">
+    <DataTemplate DataType="{x:Type core:OutputWindowMessage}">
         <Label >
             <StackPanel>
                 <Image Source="{Binding Icon}"/>
@@ -168,17 +172,12 @@
 
     <!-- Generic Document -->
     <DataTemplate DataType="{x:Type vm:DocumentViewModel}">
-        <ContentPresenter Content="{Binding TextBox}" />
-    </DataTemplate>
-    
-    <!-- KUKA Document -->
-    <DataTemplate DataType="{x:Type vm:KukaViewModel}">
         <DockPanel>
             <DockPanel.Resources>
                 <Style TargetType="{x:Type ComboBox}">
                     <Setter Property="Opacity" Value="0.1"/>
                     <Setter Property="Height" Value="25"/>
-                    <Setter Property="ItemTemplate" Value="{DynamicResource FunctionItemTemplate}"/>                        
+                    <Setter Property="ItemTemplate" Value="{DynamicResource FunctionItemTemplate}"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Opacity" Value="1"/>
@@ -187,10 +186,31 @@
                 </Style>
             </DockPanel.Resources>
             <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  DockPanel.Dock="Top" />
-        <Grid DockPanel.Dock="Top" >
-            <Grid.InputBindings>                
-                <KeyBinding Command="{Binding ToggleGridCommand}" CommandTarget="{Binding Grid}" Key="T" Modifiers="Control"/>
-            </Grid.InputBindings>
+            <ContentPresenter Content="{Binding TextBox}" DockPanel.Dock="Top"/>
+        </DockPanel>
+       
+    </DataTemplate>
+
+    <!-- KUKA Document -->
+    <DataTemplate DataType="{x:Type vm:KukaViewModel}">
+        <DockPanel>
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type ComboBox}">
+                    <Setter Property="Opacity" Value="0.1"/>
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="ItemTemplate" Value="{DynamicResource FunctionItemTemplate}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Resources>
+            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  DockPanel.Dock="Top" />
+            <Grid DockPanel.Dock="Top" >
+                <Grid.InputBindings>
+                    <KeyBinding Command="{Binding ToggleGridCommand}" CommandTarget="{Binding Grid}" Key="T" Modifiers="Control"/>
+                </Grid.InputBindings>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="Auto"/>
@@ -207,65 +227,75 @@
     <DataTemplate DataType="{x:Type gui:Editor}">
         <DockPanel>
             <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}" DockPanel.Dock="Top"/>
-            <ContentPresenter Content="{Binding }" DockPanel.Dock="Top"/>
+            <ContentPresenter Content="{Binding ''}" DockPanel.Dock="Top"/>
         </DockPanel>
     </DataTemplate>
-  
-   
-   <!-- Notes --> 
+
+
+    <!-- Notes -->
     <DataTemplate x:Key="NotesWindowTemplate">
         <TextBox TextWrapping="Wrap" Background="DarkGray" BorderThickness="1"/>
     </DataTemplate>
 
-    
+
     <DataTemplate DataType="{x:Type vm:FunctionViewModel}">
         <ListView DataContext="{Binding ActiveEditor, IsAsync=True, Source={x:Static miRobotEditor:Workspace.Instance}}"	Background="White"	Foreground="Black" SelectedItem="{Binding TextBox.SelectedVariable}" ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  ItemTemplate="{DynamicResource FunctionItemTemplate}"  />
     </DataTemplate>
-    
+
     <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type classes:Variable}">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <Image Source="{Binding Icon}" DockPanel.Dock="Left"/>                            
-                <Label Content="{Binding Name}" Margin="5,0,0,0" HorizontalAlignment="Stretch">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <Image Source="{Binding Icon}" DockPanel.Dock="Left"/>
+            <Label Content="{Binding Name}" Margin="5,0,0,0" HorizontalAlignment="Stretch">
                 <Label.ToolTip>
-                        <GroupBox Header="{Binding Name}" FontWeight="ExtraBold" FontSize="14" Foreground="White">
-                            <GroupBox.Resources>
-                                <Style	TargetType="{x:Type TextBlock}">
-                                    <Setter Property="FontWeight" Value="Normal" />
+                    <GroupBox Header="{Binding Name}" FontWeight="ExtraBold" FontSize="14" Foreground="White">
+                        <GroupBox.Resources>
+                            <Style	TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontWeight" Value="Normal" />
                                 <Setter Property="Foreground" Value="Black"/>
                             </Style>
-                            </GroupBox.Resources>
-                            <StackPanel	Orientation="Vertical">
-                                <TextBlock Text="{Binding Offset, StringFormat=Offset:\=\{0\}}" Visibility="{Binding ShowOffset, Converter={StaticResource BoolToVisConverter}}" />
-                                <TextBlock Text="{Binding Returns, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowReturns, Converter={StaticResource BoolToVisConverter}}" />
-                                <TextBlock Text="{Binding Declaration, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowDeclaration, Converter={StaticResource BoolToVisConverter}}" />
-                            </StackPanel>
-                        </GroupBox>
+                        </GroupBox.Resources>
+                        <StackPanel	Orientation="Vertical">
+                            <TextBlock Text="{Binding Offset, StringFormat=Offset:\=\{0\}}" Visibility="{Binding ShowOffset, Converter={StaticResource BoolToVisConverter}}" />
+                            <TextBlock Text="{Binding Returns, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowReturns, Converter={StaticResource BoolToVisConverter}}" />
+                            <TextBlock Text="{Binding Declaration, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowDeclaration, Converter={StaticResource BoolToVisConverter}}" />
+                        </StackPanel>
+                    </GroupBox>
                 </Label.ToolTip>
             </Label>
-            </StackPanel>
-        </DataTemplate>
-
+        </StackPanel>
+    </DataTemplate>
     <Style  TargetType="{x:Type mah:Flyout}">
+        <Style.Resources>
+            <ResourceDictionary>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+                <Style TargetType="{x:Type CheckBox}">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </ResourceDictionary>
+        </Style.Resources>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
         <Setter Property="Opacity" Value="0.35"/>
-        <Style.Triggers>           
-            <Trigger Property="IsMouseOver" Value="False">                
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="IsOpen" Value="False"/>
             </Trigger>
-            <EventTrigger RoutedEvent="MouseEnter" >
+            <EventTrigger RoutedEvent="UIElement.MouseEnter" >
                 <BeginStoryboard>
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".95" Duration="0:0:0.5"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
-            <EventTrigger RoutedEvent="MouseLeave" >
+            <EventTrigger RoutedEvent="UIElement.MouseLeave" >
                 <BeginStoryboard>
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".25" Duration="0:0:0.5"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
-
         </Style.Triggers>
     </Style>
 

@@ -34,20 +34,26 @@ namespace miRobotEditor.GUI
            WriteXml();    
         }
 
+         private static string OptionsPath { get { return Path.Combine(App.StartupPath, "Options.xml"); } }
 
         private void WriteXml()
         {
             var s = new XmlSerializer(typeof(EditorOptions));
-            TextWriter writer = new StreamWriter(@"D:\values.xml");
+            TextWriter writer = new StreamWriter(OptionsPath);
             s.Serialize(writer, this);
             writer.Close();
         }
 
         private static EditorOptions ReadXml()
         {
-            var s = new XmlSerializer(typeof(EditorOptions));
-            var fs = new FileStream(@"D:\values.xml", FileMode.Open);
             var result = new EditorOptions();
+
+            if (!File.Exists(OptionsPath))
+                return result;
+
+            var s = new XmlSerializer(typeof(EditorOptions));
+            var fs = new FileStream(OptionsPath, FileMode.Open);
+           
             try
             {
                 result = (EditorOptions)s.Deserialize(fs);

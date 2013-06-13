@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media;
 using System.IO;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
@@ -31,7 +32,7 @@ namespace miRobotEditor.ViewModel
             {
                 if (_filePath == value) return;
                 _filePath = value;
-                RaisePropertyChanged("FilePath");
+                RaisePropertyChanged();
                 RaisePropertyChanged("FileName");
                 RaisePropertyChanged("Title");
 
@@ -67,7 +68,7 @@ namespace miRobotEditor.ViewModel
             {
                 if (_isDirty == value) return;
                 _isDirty = value;
-                RaisePropertyChanged("IsDirty");
+                RaisePropertyChanged();
                 RaisePropertyChanged("FileName");
             }
         }

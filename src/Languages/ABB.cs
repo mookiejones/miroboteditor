@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using miRobotEditor.ViewModel;
 using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.Document;
@@ -59,6 +60,11 @@ namespace miRobotEditor.Languages
         protected override string ShiftRegex
         {
             get { return @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))"; }
+        }
+
+        internal override bool IsFileValid(FileInfo file)
+        {
+            return EXT.Any(e => file.Extension.ToLower() == e);
         }
 
         internal override string FunctionItems

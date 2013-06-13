@@ -3,7 +3,8 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
+
 namespace miRobotEditor.GUI.Dialogs.About
 {
     

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net;
-using miRobotEditor.Commands;
 using System.Windows.Input;
+using miRobotEditor.Core;
 using miRobotEditor.Properties;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
+
 namespace miRobotEditor.ViewModel
 {
     public class UpdateCheckerViewModel : ViewModelBase
@@ -40,7 +42,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _updateapplication = value;
-                RaisePropertyChanged("UpdateApplication");
+                RaisePropertyChanged();
             }
         }
         public string UpdateText
@@ -65,7 +67,7 @@ namespace miRobotEditor.ViewModel
         public bool AskForUpdates
         {
             get { return Settings.Default.CheckForUpdates; }
-            set { Settings.Default.CheckForUpdates = value; RaisePropertyChanged("AskForUpdates"); }
+            set { Settings.Default.CheckForUpdates = value; RaisePropertyChanged(); }
         }
 
         #endregion

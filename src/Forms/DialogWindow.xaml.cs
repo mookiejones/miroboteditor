@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.Forms
 {
@@ -15,9 +16,9 @@ namespace miRobotEditor.Forms
         }
     }
 
-    public class DialogWindowViewModel : ViewModel.ViewModelBase
+    public class DialogWindowViewModel : ViewModelBase
     {
         private string _title;
-        public string Title { get { return _title; } set { _title = value;RaisePropertyChanged("Title"); } }
+        public string Title { get { return _title; } set { _title = value;RaisePropertyChanged(); } }
     }
 }

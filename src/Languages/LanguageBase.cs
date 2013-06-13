@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Text.RegularExpressions;
@@ -16,7 +17,10 @@ namespace miRobotEditor.Languages
     	{    		
     	}
 
-
+        internal override bool IsFileValid(FileInfo file)
+        {
+            return false;
+        }
 
         public override DocumentViewModel GetFile(string filename)
         {
@@ -56,8 +60,8 @@ namespace miRobotEditor.Languages
             var s = Regex.Split(section.Title, "æ");
 
             var start = section.StartOffset + s[0].Length;
-            var end = section.Length - (s[0].Length + s[1].Length);
-
+           // var end = section.Length - (s[0].Length + s[1].Length);
+            var end = section.Length - s[0].Length;//eval.IndexOf(s[1]);
 
             return doc.GetText(start, end);
         }

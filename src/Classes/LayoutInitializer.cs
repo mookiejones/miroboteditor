@@ -10,7 +10,8 @@
 using System.ComponentModel;
 using System.Linq;
 using Xceed.Wpf.AvalonDock.Layout;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
+
 namespace miRobotEditor.Classes
 {
 
@@ -94,10 +95,12 @@ namespace miRobotEditor.Classes
 
                 case DefaultToolPane.Bottom:
                     anchorableShown.AutoHideMinHeight = content.Height;
+                    anchorableShown.AutoHideHeight = 100;
                     break;
                 case DefaultToolPane.Right:
                 case DefaultToolPane.Left:
                     anchorableShown.AutoHideMinWidth = content.Width;
+                    anchorableShown.AutoHideWidth = content.Width;
                     break;
             }
         }

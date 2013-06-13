@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.ViewModel;
+using FileInfo = System.IO.FileInfo;
 
 namespace miRobotEditor.Languages
 {
@@ -18,6 +19,8 @@ namespace miRobotEditor.Languages
         /// </summary>
         /// <returns></returns>
 
+
+       
         public override List<string> SearchFilters
         {
             get { return new List<string> { "*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd" }; }
@@ -42,6 +45,11 @@ namespace miRobotEditor.Languages
         protected override string ShiftRegex
         {
             get { return @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))"; }
+        }
+
+        internal override bool IsFileValid(FileInfo file)
+        {
+            return false;
         }
 
         internal override string FunctionItems

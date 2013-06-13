@@ -1,4 +1,6 @@
-﻿namespace miRobotEditor.ViewModel
+﻿using miRobotEditor.Core;
+
+namespace miRobotEditor.ViewModel
 {
     public class ToolTipViewModel:ViewModelBase
     {
@@ -13,9 +15,9 @@
             }}
 
         private string _message = string.Empty;
-        public string Message {get { return _message; }set { _message = value;RaisePropertyChanged("Message"); }}
+        public string Message {get { return _message; }set { _message = value;RaisePropertyChanged(); }}
 
         private string _title = string.Empty;
-        public string Title { get { return _title; } set { _title = value; RaisePropertyChanged("Title"); } }
+        public string Title { get { return _title; } set { _title = value; RaisePropertyChanged(); } }
     }
 }

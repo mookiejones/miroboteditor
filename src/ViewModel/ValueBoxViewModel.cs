@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
@@ -12,19 +13,19 @@ namespace miRobotEditor.ViewModel
         private double _v2;
         private double _v3;
         private double _v4;
-        public double V1 { get { return _v1; } set { _v1 = value; RaisePropertyChanged("V1"); RaiseItemsChanged(); } }
-        public double V2 { get { return _v2; } set { _v2 = value; RaisePropertyChanged("V2"); RaiseItemsChanged(); } }
-        public double V3 { get { return _v3; } set { _v3 = value; RaisePropertyChanged("V3"); RaiseItemsChanged(); } }
-        public double V4 { get { return _v4; } set { _v4 = value; RaisePropertyChanged("V4"); RaiseItemsChanged(); } }
+        public double V1 { get { return _v1; } set { _v1 = value; RaisePropertyChanged(); RaiseItemsChanged(); } }
+        public double V2 { get { return _v2; } set { _v2 = value; RaisePropertyChanged(); RaiseItemsChanged(); } }
+        public double V3 { get { return _v3; } set { _v3 = value; RaisePropertyChanged(); RaiseItemsChanged(); } }
+        public double V4 { get { return _v4; } set { _v4 = value; RaisePropertyChanged(); RaiseItemsChanged(); } }
 
         private bool _isReadOnly;
-        public bool IsReadOnly { get { return _isReadOnly; } set { _isReadOnly = value; RaisePropertyChanged("IsReadOnly"); } }
+        public bool IsReadOnly { get { return _isReadOnly; } set { _isReadOnly = value; RaisePropertyChanged(); } }
 
         private string _header = String.Empty;
-        public string Header { get { return _header; } set { _header = value; RaisePropertyChanged("Header"); } }
+        public string Header { get { return _header; } set { _header = value; RaisePropertyChanged(); } }
 
         private Visibility _boxVisibility = Visibility.Visible;
-        public Visibility BoxVisibility { get { return _boxVisibility; } set { _boxVisibility = value; RaisePropertyChanged("BoxVisibility"); } }
+        public Visibility BoxVisibility { get { return _boxVisibility; } set { _boxVisibility = value; RaisePropertyChanged(); } }
 
 
 
@@ -35,7 +36,7 @@ namespace miRobotEditor.ViewModel
 
 
         private CartesianEnum _selectedItem = CartesianEnum.ABB_Quaternion;
-        public CartesianEnum SelectedItem { get { return _selectedItem; } set { _selectedItem = value; CheckVisibility(); RaisePropertyChanged("SelectedItem"); RaiseItemsChanged(); } }
+        public CartesianEnum SelectedItem { get { return _selectedItem; } set { _selectedItem = value; CheckVisibility(); RaisePropertyChanged(); RaiseItemsChanged(); } }
         #endregion
 
         void RaiseItemsChanged()

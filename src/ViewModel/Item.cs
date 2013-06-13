@@ -1,4 +1,5 @@
 ﻿using System;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
@@ -12,12 +13,12 @@ namespace miRobotEditor.ViewModel
         }
 
         private int _index;
-        public int Index { get { return _index; } set { _index = value;RaisePropertyChanged("Index"); } }
+        public int Index { get { return _index; } set { _index = value;RaisePropertyChanged(); } }
         private string _type = string.Empty;
-        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged("Type"); } }
+        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged(); } }
 
         private string _description = string.Empty;
-        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
+        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged(); } }
 
         public override string ToString()
         {

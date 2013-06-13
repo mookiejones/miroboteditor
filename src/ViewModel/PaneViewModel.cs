@@ -8,6 +8,7 @@
  */
 
 using System.Windows.Media;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
@@ -80,7 +81,7 @@ namespace miRobotEditor.ViewModel
             {
                 if (_isActive == value) return;
                 _isActive = value;
-                RaisePropertyChanged("IsActive");
+                RaisePropertyChanged();
             }
         }
 

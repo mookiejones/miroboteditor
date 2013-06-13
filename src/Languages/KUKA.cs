@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 using ICSharpCode.AvalonEdit.Snippets;
-using miRobotEditor.Classes;
+using miRobotEditor.Core;
 using miRobotEditor.GUI;
 using miRobotEditor.Properties;
 using ICSharpCode.AvalonEdit;
@@ -17,7 +18,9 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using miRobotEditor.Snippets;
 using miRobotEditor.ViewModel;
 using System.Windows.Input;
-using miRobotEditor.Commands;
+using Global = miRobotEditor.Classes.Global;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
+using Utilities = miRobotEditor.Classes.Utilities;
 
 namespace miRobotEditor.Languages
 {
@@ -59,7 +62,7 @@ namespace miRobotEditor.Languages
         
         #endregion
 
-
+        
         public Language_Specific.FileInfo GetFileInfo(string text)
         {
             return _fi.GetFileInfo(text);
@@ -117,7 +120,12 @@ namespace miRobotEditor.Languages
         		return new List<string> { ".dat", ".src", ".ini", ".sub", ".zip", ".kfd" };
         	}
         }
-       
+
+        internal override bool IsFileValid(FileInfo file)
+        {
+            return Ext.Any(e => file.Extension.ToLower() == e);
+        }
+
         ///
         /// Sets ComboBox Filter Items for searching
         /// <returns></returns>
@@ -514,6 +522,6 @@ namespace miRobotEditor.Languages
 
     }
 
-    //TODO Need to Tie this into Code
+   
 }
 

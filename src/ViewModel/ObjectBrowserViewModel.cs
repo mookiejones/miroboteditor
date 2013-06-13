@@ -2,6 +2,9 @@
 using System.IO;
 using System.Linq;
 using miRobotEditor.Classes;
+using miRobotEditor.Core;
+using Global = miRobotEditor.Classes.Global;
+using Utilities = miRobotEditor.Classes.Utilities;
 
 namespace miRobotEditor.ViewModel
 {
@@ -22,13 +25,13 @@ namespace miRobotEditor.ViewModel
         public static ObjectBrowserViewModel Instance { get { return _instance ?? new ObjectBrowserViewModel(); } set { _instance = value; } }
 
         private IVariable _selectedVariable;
-        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; Workspace.Instance.OpenFile(value); RaisePropertyChanged("SelectedVariable"); } }
+        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; Workspace.Instance.OpenFile(value); RaisePropertyChanged(); } }
 
         private int _progress;
-        public int Progress { get { return _progress; } set { _progress = value; RaisePropertyChanged("Progress"); } }
+        public int Progress { get { return _progress; } set { _progress = value; RaisePropertyChanged(); } }
 
         private int _progressMax;
-        public int ProgressMax { get { return _progressMax; } set { _progressMax = value; RaisePropertyChanged("ProgressMax"); } }
+        public int ProgressMax { get { return _progressMax; } set { _progressMax = value; RaisePropertyChanged(); } }
         #endregion
 
         public const string ToolContentId = "ObjectBrowserTool";
@@ -63,8 +66,6 @@ namespace miRobotEditor.ViewModel
             DefaultPane = DefaultToolPane.Bottom;
         }
 
-
-        public object DataContext { get { return Workspace.Instance.ActiveEditor; } }
 
         public ReadOnlyCollection<IVariable> GetVarForFile(string filename)
         {

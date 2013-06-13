@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Media;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.Classes
 {
@@ -17,7 +17,7 @@ namespace miRobotEditor.Classes
         public const string DockConfigPath =  "dockConfig.xml";
 
         [Localizable(false)]
-        public static string DockConfig { get { return System.AppDomain.CurrentDomain.BaseDirectory  + DockConfigPath; } }
+        public static string DockConfig { get { return AppDomain.CurrentDomain.BaseDirectory  + DockConfigPath; } }
         /// <summary>
         /// Used to help prevent from freezing when network directory doesnt exist
         /// </summary>

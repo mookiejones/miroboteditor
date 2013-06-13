@@ -1,6 +1,8 @@
 ﻿using System.Windows.Input;
-using miRobotEditor.Commands;
+using miRobotEditor.Core;
 using miRobotEditor.GUI;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
+
 namespace miRobotEditor.ViewModel
 {
     public class GotoViewModel:ViewModelBase
@@ -9,16 +11,16 @@ namespace miRobotEditor.ViewModel
 
         #region Properties
         private Editor _editor = new Editor();
-        public Editor Editor { get { return _editor; } set { _editor = value; RaisePropertyChanged("Editor"); } }
+        public Editor Editor { get { return _editor; } set { _editor = value; RaisePropertyChanged(); } }
 
         private string _description = string.Empty;
-        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
+        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged(); } }
 
         private int _enteredText;
-        public int EnteredText { get { return _enteredText; } set { _enteredText = value; RaisePropertyChanged("EnteredText"); } }
+        public int EnteredText { get { return _enteredText; } set { _enteredText = value; RaisePropertyChanged(); } }
 
         private int _selectedLine;
-        public int SelectedLine { get { return _selectedLine; } set { _selectedLine = value; RaisePropertyChanged("SelectedLine"); } }
+        public int SelectedLine { get { return _selectedLine; } set { _selectedLine = value; RaisePropertyChanged(); } }
         #endregion
 
         #region Constructor

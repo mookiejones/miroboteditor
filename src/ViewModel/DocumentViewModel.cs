@@ -28,15 +28,21 @@ namespace miRobotEditor.ViewModel
 
         public DocumentViewModel(string filepath, AbstractLanguageClass lang):base(filepath)
         {
-           
             FileLanguage = lang;
             InitializeViewModel(filepath);
-          
         }
 
         void InitializeViewModel(string filepath)
         {
             Load(filepath);
+            TextBox.FileLanguage = FileLanguage;
+           
+            TextBox.GotFocus += (s, e) => { TextBox = s as Editor; };
+            TextBox.TextChanged += (s, e) => TextChanged(s);
+            TextBox.IsModified = false;
+
+
+
             if (filepath != null)
                 FileLanguage.GetRootDirectory(Path.GetDirectoryName(filepath));
             Instance = this;
@@ -80,16 +86,13 @@ namespace miRobotEditor.ViewModel
         #region Properties
 
         private Visibility _visibility = Visibility.Visible;
-        public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged("Visibility"); } }
+        public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged(); } }
 
         public static DocumentViewModel Instance { get; set; }
         private AbstractLanguageClass _filelanguage = new LanguageBase();
-        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged("FileLanguage"); } }
+        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged(); } }
         private Editor _textBox = new Editor();
-        public Editor TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged("TextBox"); } }
-
-        public ICSharpCode.AvalonEdit.Document.TextDocument TextDocument { get; set; }
-        public ICSharpCode.AvalonEdit.Document.TextDocument Document { get; set; }
+        public Editor TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged(); } }
         #endregion
 
 
@@ -114,17 +117,12 @@ namespace miRobotEditor.ViewModel
             TextBox.FileLanguage = FileLanguage;
 
 
-#pragma warning disable 168
-            var loadDatFileOnly = Path.GetExtension(FilePath) == ".dat";
-#pragma warning restore 168
-
-
             //TODO Set Icon For File
-            TextBox.Filename = FilePath;
-            //TODO Come back to this;
-        //   TextBox.SetHighlighting();
-            TextBox.Text = FileLanguage.SourceText;
-
+            TextBox.Filename = filepath;           
+            TextBox.SetHighlighting();
+            if (File.Exists(filepath))
+            TextBox.Text = File.ReadAllText(filepath);
+            
 
             // Select Original File            
             RaisePropertyChanged("Title");

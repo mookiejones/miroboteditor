@@ -11,7 +11,9 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
+using MessageViewModel = miRobotEditor.Core.MessageViewModel;
+
 namespace miRobotEditor.Language_Specific
 {
 	/// <summary>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Document;
@@ -33,7 +35,10 @@ namespace miRobotEditor.Languages
                 return EXT;
             }
         }
-        
+        internal override bool IsFileValid(FileInfo file)
+        {
+            return EXT.Any(e => file.Extension.ToLower() == e);
+        }
         public static List<string> EXT{get{return new List<string> {".ls"};}}
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {

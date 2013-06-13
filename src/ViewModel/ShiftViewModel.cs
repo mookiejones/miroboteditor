@@ -1,4 +1,6 @@
-﻿namespace miRobotEditor.ViewModel
+﻿using miRobotEditor.Core;
+
+namespace miRobotEditor.ViewModel
 {
     public class ShiftViewModel:ToolViewModel
     {
@@ -8,11 +10,11 @@
         }
 
         private CartesianPosition _oldvalues = new CartesianPosition {Header="Old Values"};
-        public CartesianPosition OldValues { get { return _oldvalues; } set { _oldvalues = value; RaisePropertyChanged("OldValues"); } }
+        public CartesianPosition OldValues { get { return _oldvalues; } set { _oldvalues = value; RaisePropertyChanged(); } }
         private CartesianPosition _newvalues = new CartesianPosition{Header="New Values"};
-        public CartesianPosition NewValues { get { return _newvalues; } set { _newvalues = value; RaisePropertyChanged("NewValues"); } }
+        public CartesianPosition NewValues { get { return _newvalues; } set { _newvalues = value; RaisePropertyChanged(); } }
         private CartesianPosition _diffvalues = new CartesianPosition{Header="Difference"};
-        public CartesianPosition DiffValues { get { return _diffvalues; } set { _diffvalues = value; RaisePropertyChanged("DiffValues"); } }
+        public CartesianPosition DiffValues { get { return _diffvalues; } set { _diffvalues = value; RaisePropertyChanged(); } }
 
        
         private static ShiftViewModel _instance;
