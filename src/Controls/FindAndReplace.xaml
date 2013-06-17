@@ -1,0 +1,256 @@
+﻿<Window x:Class="miRobotEditor.Controls.FindandReplaceControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:miRobotEditor.Controls"
+             WindowStyle="ToolWindow"
+            Title="Find and Replace"
+            ShowInTaskbar="false"
+            ShowActivated="True"
+        
+             Width="523.6" Height="305.2" Background="LightGray">
+    <Window.DataContext>
+        <controls:FindReplaceViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/miRobotEditor.Core;component/Styles/Brushes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+           <Style x:Key="ExpressionStyle" TargetType="{x:Type Button}">
+               <Setter Property="Grid.Column" Value="1"/>
+               <Setter Property="Margin" Value="2,0,0,0"/>
+               <Setter Property="Content" Value="(a)+"/>
+               <Setter Property="ToolTip" Value="Expression Builder"/>
+            </Style>
+          
+            <Style x:Key="FindStyle" TargetType="{x:Type GroupBox}">
+                <Setter Property="Header" Value="Find What:"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox DisplayMemberPath="{Binding FindString}" SelectedItem="{Binding FindString}"  Text="{Binding FindString}" ItemsSource="{Binding FindString, NotifyOnSourceUpdated=True}" IsEditable="True"/>
+                                <Button  Style="{StaticResource ExpressionStyle}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="DirectoryStyle" TargetType="{x:Type GroupBox}">
+                <Setter Property="Header" Value="Look in:"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedValue="{Binding DirectoryString}"   ItemsSource="{Binding DirectoryItems}" IsEditable="True"/>
+                                <Button Grid.Column="1" Margin="2,0,0,0" Content="..." />
+                            </Grid>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ReplaceStyle" TargetType="{x:Type GroupBox}">
+                <Setter Property="Header" Value="Re_place with:"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Text="{Binding ReplaceString}" ItemsSource="{Binding ReplaceItems}" IsEditable="True"/>
+                                <Button  Style="{StaticResource ExpressionStyle}"/>
+                            </Grid>
+
+                        </DataTemplate>
+                    </Setter.Value>
+                    
+                </Setter>
+            </Style>
+           
+            <Style x:Key="FindNextStyle" TargetType="{x:Type Button}">
+                <Setter Property="Content" Value="_Find Next"/>
+                <Setter Property="Grid.Column" Value="2"/>
+                <Setter Property="Margin" Value="5,0,5,0"/>
+                <Setter Property="Command" Value="{Binding FindCommand}"/>
+              
+            </Style>
+            <Style x:Key="SkipFileStyle" BasedOn="{StaticResource FindNextStyle}" TargetType="Button">
+                <Setter Property="Content" Value="Sk_ip File"/>
+                <Setter Property="Grid.Row" Value="1"/>
+                <Setter Property="Command" Value="{Binding FindCommand}"/>
+                <Setter Property="Margin" Value="5,5,5,0"/>
+            </Style>
+            <Style x:Key="FindAllStyle" TargetType="{x:Type Button}">
+                <Setter Property="Content" Value="Find _All"/>
+                <Setter Property="Grid.Column" Value="3"/>
+                <Setter Property="Margin" Value="5,0,5,0"/>
+                <Setter Property="Command" Value="{Binding FindAllCommand}"/>
+
+            </Style>
+            <Style x:Key="ReplaceTextStyle" TargetType="{x:Type Button}">
+                <Setter Property="Content" Value="_Replace"/>              
+                <Setter Property="Grid.Column" Value="3"/>               
+                <Setter Property="Margin" Value="5,0,5,0"/>
+                <Setter Property="Command" Value="{Binding ReplaceCommand}"/>
+            </Style>
+            <Style x:Key="ReplaceAllStyle" TargetType="{x:Type Button}">
+                <Setter Property="Content" Value="Replace _All"/>
+                <Setter Property="Grid.Row" Value="1"/>
+                <Setter Property="Grid.Column" Value="3"/>
+                <Setter Property="Command" Value="{Binding ReplaceAllCommand}"/>
+                <Setter Property="Margin" Value="5,5,5,0"/>
+            </Style>
+            <Style x:Key="IncludeSubFoldersStyle" TargetType="{x:Type CheckBox}">
+                <Setter Property="IsChecked" Value="{Binding IncludeSubFolders}"/>
+                <Setter Property="Content" Value="Include su_b-folders"/>
+                <Setter Property="Margin" Value="6,5"/>
+            </Style>
+            <Style x:Key="FindOptionsStyle" TargetType="Expander">
+                <Setter Property="Header" Value="Find _options"/>
+                <Setter Property="Margin" Value="5.5,0,0,5"/>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" >
+                                <CheckBox Content="Match Whole Word" IsChecked="{Binding MatchWholeWord}" Margin="10,0,10,0"/>
+                                <CheckBox Content="Match Case" IsChecked="{Binding MatchCase}" Margin="10,5,10,0"/>
+                                <CheckBox Content="Use Wildcards" IsChecked="{Binding UseWildCards}" Margin="10,5,0,0"/>
+                                <TextBlock Text="Look at these file _types" Margin="10,5"/>
+                                <ComboBox Margin="10,0,10,10" Text="{Binding Filter}" ItemsSource="{Binding FilterItems}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+   
+    <TabControl Background="Transparent" Grid.Row="0">
+        <TabItem Header="Find in Files">
+            <StackPanel Orientation="Vertical" Margin="10,0,05,0">                   
+                    <GroupBox Header="Find What:" BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox DisplayMemberPath="{Binding FindString}" SelectedItem="{Binding FindString}"  Text="{Binding FindString}" ItemsSource="{Binding FindString, NotifyOnSourceUpdated=True}" IsEditable="True"/>
+                            <Button  Style="{StaticResource ExpressionStyle}"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox  Header="Look in:" BorderThickness="0">
+                      
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                            <ComboBox  Text="{Binding DirectoryString}"    ItemsSource="{Binding DirectoryItems}" IsEditable="True"/>
+                                            <Button Grid.Column="1" Margin="2,0,0,0" Content="..." />
+                                        </Grid>
+                                    
+                    </GroupBox>
+                    <CheckBox Style="{DynamicResource IncludeSubFoldersStyle}"/>
+                    <Expander Style="{DynamicResource FindOptionsStyle}"/>
+                  
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                        <Button  Style="{StaticResource FindNextStyle}"/>
+                            
+                            <Button  Style="{StaticResource FindAllStyle}" />
+                </Grid>
+                <Grid Margin="0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding ProgressString}" MinWidth="50" FontWeight="Normal"/>
+                    <ProgressBar Value="{Binding ProgressValue}" Grid.Column="1" Margin="5,0,0,0"/>
+                </Grid>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Replace in Files">
+            <StackPanel Orientation="Vertical">
+                    <GroupBox Header="Find What:" BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox DisplayMemberPath="{Binding FindString}" SelectedItem="{Binding FindString}"  Text="{Binding FindString}" ItemsSource="{Binding FindString, NotifyOnSourceUpdated=True}" IsEditable="True"/>
+                            <Button  Style="{StaticResource ExpressionStyle}"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Style="{StaticResource ReplaceStyle}"/>
+                    <GroupBox Header="Look in:" BorderThickness="0">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Text="{Binding DirectoryString}"    ItemsSource="{Binding DirectoryItems}" IsEditable="True"/>
+                            <Button Grid.Column="1" Margin="2,0,0,0" Content="..." />
+                        </Grid>
+
+                    </GroupBox>
+
+                    <CheckBox Style="{StaticResource IncludeSubFoldersStyle}" Margin="10,0,0,5"/>
+                <Expander Style="{StaticResource FindOptionsStyle}" />
+                <CheckBox Content="Keep _modified files open after Replace All" IsChecked="{Binding KeepModifiedFilesOpen}" Margin="5,5,0,0"/>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button  Style="{StaticResource FindNextStyle}" />
+                    <Button  Style="{StaticResource ReplaceTextStyle}" />
+                    <Button Style="{StaticResource SkipFileStyle}"  />
+                    <Button  Style="{StaticResource ReplaceAllStyle}" Grid.Row="1"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding ProgressString}" FontWeight="Normal"/>
+                    <ProgressBar Value="{Binding ProgressValue}" Grid.Column="1" Margin="0,0,10,0"/>
+                </Grid>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+        <TextBlock Text="{Binding StatusText}" Grid.Row="1"/>
+    </Grid>
+
+</Window>
