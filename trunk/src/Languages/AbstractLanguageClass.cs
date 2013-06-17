@@ -154,7 +154,7 @@ namespace miRobotEditor.Languages
 
         public static int FileCount { get; private set; }
 
-        readonly List<IVariable> _allVariables = new List<IVariable>();
+        internal readonly List<IVariable> _allVariables = new List<IVariable>();
         readonly ReadOnlyCollection<IVariable> _readOnlyAllVariables = null;
         public ReadOnlyCollection<IVariable> AllVariables { get { return _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables); } }
 
@@ -726,6 +726,8 @@ namespace miRobotEditor.Languages
         private static IEnumerable<IVariable> FindMatches(Regex matchstring, string imgPath, string filepath)
         {
 
+            //TODO Go Back and Change All Regex to be case insensitive
+          
             var result = new List<IVariable>();
             try
             {
@@ -734,7 +736,7 @@ namespace miRobotEditor.Languages
                 // Dont Include Empty Values
                 if (String.IsNullOrEmpty(matchstring.ToString())) return result;
 
-                var m = matchstring.Match(text.ToLower());
+                var m = matchstring.Match(text);
 
                 while (m.Success)
                 {

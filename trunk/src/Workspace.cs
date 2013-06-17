@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Xml.Serialization;
 using MahApps.Metro;
+using miRobotEditor.Controls;
 using miRobotEditor.Core;
 using miRobotEditor.Forms;
 using System.Collections.ObjectModel;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.IO;
 using miRobotEditor.Classes;
+using miRobotEditor.GUI;
 using miRobotEditor.ViewModel;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
@@ -118,6 +121,9 @@ namespace miRobotEditor
     //                ActiveEditorChanged(this, EventArgs.Empty);
             } 
         }
+
+
+
 #pragma warning disable 67
         public event EventHandler ActiveEditorChanged;
 #pragma warning restore 67
@@ -173,7 +179,25 @@ namespace miRobotEditor
       }
         #endregion
 
-       
+
+         private RelayCommand _showFindReplace;
+
+         public ICommand ShowFindReplaceCommand
+         {
+             get { return _showFindReplace ?? (_showFindReplace = new RelayCommand(p => ShowFindReplace(), p => true)); }
+         }
+
+       void ShowFindReplace()
+       {
+
+           
+           var fnr = new FindandReplaceControl(MainWindow.Instance) ;
+           var result = fnr.ShowDialog().GetValueOrDefault();
+
+          
+       }
+
+    
         private RelayCommand _showAboutCommand;
 
       public ICommand ShowAboutCommand
@@ -368,7 +392,26 @@ namespace miRobotEditor
             RaisePropertyChanged("ActiveEditor");
         }
 
-       
+
+        public void AddTool(ToolViewModel toolModel)
+        {
+            var tool = new LayoutAnchorable();
+            if (toolModel == null) return;
+            tool.Title = toolModel.Title;
+            tool.Content = toolModel;
+
+            // Does Content Exist Allready?
+            foreach (var t in Tools.Where(t => t.Title == toolModel.Title))
+            {
+                t.IsActive = true;
+                return;
+            }
+
+            toolModel.IsActive = true;
+            _tools.Add(toolModel);
+            toolModel.IsActive = true;
+            RaisePropertyChanged("Tools");
+        }
        
 
 

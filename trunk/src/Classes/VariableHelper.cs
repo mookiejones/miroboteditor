@@ -12,25 +12,22 @@ namespace miRobotEditor.Classes
 
         public static ICollectionView PositionView { get; set; }
         public static ICollectionView PositionCollection { get; set; }
-      
+
 
         public static Match FindMatches(Regex matchstring, string filename)
         {
-            using (var t = new StreamReader(filename))
-            {
-                var text = t.ReadToEnd();
+            var text = File.ReadAllText(filename);
 
 
-                // Dont Include Empty Values
-                if (String.IsNullOrEmpty(matchstring.ToString())) return null;
 
-                var m = matchstring.Match(text.ToLower());
-                return m;
+            // Dont Include Empty Values
+            if (String.IsNullOrEmpty(matchstring.ToString())) return null;
 
-            }
-
+            var m = matchstring.Match(text.ToLower());
+            return m;
 
         }
+
 
 
         public class VariableBase : ViewModelBase,IVariable

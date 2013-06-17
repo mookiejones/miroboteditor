@@ -216,6 +216,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         void GetFlags()
         {
+            if (!File.Exists(DataBaseFile)) return;
             var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
             const string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'FLAG')";
             using (var oldDbConnection = new OleDbConnection(connectionString))
