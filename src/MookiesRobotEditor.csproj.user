@@ -19,4 +19,7 @@
     <StartProgram>D:\Program Files %28x86%29\mi Editor\miRobotEditor.exe</StartProgram>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <StartProgram>D:\Program Files %28x86%29\mi Editor\miRobotEditor.exe</StartProgram>
+  </PropertyGroup>
 </Project>

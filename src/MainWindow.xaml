@@ -14,8 +14,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:miRobotEditor.ViewModel"
-    xmlns:miRobotEditor="clr-namespace:miRobotEditor"
-   
+    xmlns:miRobotEditor="clr-namespace:miRobotEditor"   
     mc:Ignorable="d"
     x:Name="MetroWindow"
     SnapsToDevicePixels="True"
@@ -79,6 +78,7 @@
     	<KeyBinding Command="{Binding ActiveEditor.CloseCommand}"  Gesture="Alt+C"/>
         <KeyBinding Key="F3" Modifiers="Shift" Command="Search" CommandParameter="something" />      
         <KeyBinding Key="F" Modifiers="Control" Gesture="CTRL+F" Command="Find" />
+        <KeyBinding Key="R" Modifiers="Shift+Control" Command="{Binding ShowFindReplaceCommand}"/>
         </Window.InputBindings>
     <Grid d:DataContext="{d:DesignInstance}">
         <Grid.RowDefinitions>
@@ -217,11 +217,18 @@
                     <MenuItem Header="Leading spaces to tabs"  CommandTarget="{Binding ActiveEditor.TextBox}" Command="ae:AvalonEditCommands.ConvertLeadingSpacesToTabs" />
                     <MenuItem Header="Indent Selection"  CommandTarget="{Binding ActiveEditor.TextBox}" Command="ae:AvalonEditCommands.IndentSelection" />
                 </MenuItem>
-
-                <MenuItem Header="Find" Command="ApplicationCommands.Find" CommandTarget="{Binding ActiveEditor.TextBox}"/>
-                <MenuItem Header="Find Next" Command="ae:SearchCommands.FindNext"  CommandTarget="{Binding ActiveEditor.TextBox}"/>
-                <MenuItem Header="Find Previous" Command="ae:SearchCommands.FindPrevious" CommandTarget="{Binding ActiveEditor.TextBox}" />
-                <MenuItem Header="Cancel Search" Command="ae:SearchCommands.CloseSearchPanel" CommandTarget="{Binding ActiveEditor.TextBox}" />
+                <Separator/>
+                <MenuItem Header="Find in Files" Command="{Binding ShowFindReplaceCommand}"/>
+                <MenuItem Header="Replace in Files" Command="{Binding ShowFindReplaceCommand}"/>
+                <Separator/>
+                <MenuItem Header="Find and Replace">                    
+                    <MenuItem Header="Find" Command="ApplicationCommands.Find" CommandTarget="{Binding ActiveEditor.TextBox}"/>
+                    <MenuItem Header="Find Next" Command="ae:SearchCommands.FindNext"  CommandTarget="{Binding ActiveEditor.TextBox}"/>
+                    <MenuItem Header="Find Previous" Command="ae:SearchCommands.FindPrevious" CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Cancel Search" Command="ae:SearchCommands.CloseSearchPanel" CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header ="Find and Replace" />
+                    
+                </MenuItem>
 
                 <Separator />
                 <MenuItem Header="Go To..." CommandTarget="{Binding ActiveEditor.TextBox}" />

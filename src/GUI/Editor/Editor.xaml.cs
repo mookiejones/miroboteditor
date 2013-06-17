@@ -35,7 +35,6 @@ using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.ViewModel;
 using ICSharpCode.AvalonEdit.Editing;
 using Global = miRobotEditor.Classes.Global;
-using RelayCommand = miRobotEditor.Commands.RelayCommand;
 using Utilities = miRobotEditor.Classes.Utilities;
 
 namespace miRobotEditor.GUI
@@ -79,7 +78,6 @@ namespace miRobotEditor.GUI
         public string Title { get { return Path.GetFileName(Filename); }  }
 
         public static DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(Editor), new PropertyMetadata((obj, args) => { var target = (Editor)obj; target.Text = (string)args.NewValue;}));
-
 
         private EDITORTYPE _editortype;
     	public EDITORTYPE EditorType {get{return _editortype;}set{_editortype =value; OnPropertyChanged("EditorType");}}
@@ -266,7 +264,7 @@ namespace miRobotEditor.GUI
 
             AddBindings();
             TextArea.TextEntered += TextEntered;
-            TextArea.TextEntering += TextEntering;
+         //   TextArea.TextEntering += TextEntering;
             TextArea.Caret.PositionChanged += CaretPositionChanged;
             DataContext = this;
         }
@@ -312,7 +310,6 @@ namespace miRobotEditor.GUI
 
                 
             }
-
 
             HighlightBrackets(sender, e);
         }
@@ -526,9 +523,14 @@ namespace miRobotEditor.GUI
 
         void Replace()
         {
+
+            //TODO Replaced the Find and replace form with the find and replace control that will parse through files as well.
             // Make sure we update the Editor _instance           
-            FindAndReplaceForm.Instance = new FindAndReplaceForm{Left = Mouse.GetPosition(this).X, Top = Mouse.GetPosition(this).Y};
-            FindAndReplaceForm.Instance.Show();
+//            FindAndReplaceForm.Instance = new FindAndReplaceForm{Left = Mouse.GetPosition(this).X, Top = Mouse.GetPosition(this).Y};
+ //           FindAndReplaceForm.Instance.Show();
+            FindandReplaceControl.Instance.Left = Mouse.GetPosition(this).X;
+            FindandReplaceControl.Instance.Top = Mouse.GetPosition(this).Y;
+
         }
 
 
@@ -678,6 +680,7 @@ namespace miRobotEditor.GUI
             if (currentword != null && (String.IsNullOrEmpty(currentword)) | currentword.Length < 3) return;
 
             CompletionWindow = new CompletionWindow(TextArea);
+          
            // FileLanguage.CompletionList(this, currentword, CompletionWindow.CompletionList.CompletionData);
             var items = GetCompletionItems();
             foreach (var item in items)
@@ -693,7 +696,7 @@ namespace miRobotEditor.GUI
             CompletionWindow.Show();
 
 
-            CompletionWindow.Activate();
+           // CompletionWindow.Activate();
             if (IsModified)
                 UpdateFolds();
            
@@ -709,8 +712,8 @@ namespace miRobotEditor.GUI
             var items = new List<ICompletionData>();
 
             items.AddRange(HighlightList());
-            items.AddRange(LocalCompletionList());
-
+          //  items.AddRange(LocalCompletionList());
+            items.AddRange(ObjectBrowserCompletionList());
             return items.ToArray();
         }
 
@@ -726,55 +729,58 @@ namespace miRobotEditor.GUI
             return items.ToArray();
         }
 
-        IEnumerable<ICompletionData> LocalCompletionList()
-        {
-            return (from v in Variables where (v.Type != "def") && (v.Type != "deffct") select new CodeCompletion(v.Name) {Image = v.Icon}).Cast<ICompletionData>().ToArray();
-        }
-// ReSharper disable UnusedMember.Local
-        IList<ICompletionData> ObjectBrowserCompletionList()
-// ReSharper restore UnusedMember.Local
-        {
-            var items = new List<ICompletionData>();
-
-            return items.ToArray();
+       
+        IEnumerable<ICompletionData> ObjectBrowserCompletionList()
+        { 
+            return (from v in FileLanguage.Fields where (v.Type != "def") && (v.Type != "deffct") select new CodeCompletion(v.Name) { Image = v.Icon }).Cast<ICompletionData>().ToArray();
         }
        
 
         #endregion
 
-        private void TextEntering(object sender, TextCompositionEventArgs e)
-        {
-            if (e.Text.Length <= 0 || CompletionWindow == null) return;
-            if (!char.IsLetterOrDigit(e.Text[0]))
-            {
-                // Whenever a non-letter is typed while the completion window is open,
-                // insert the currently selected element.
-                CompletionWindow.CompletionList.RequestInsertion(e);
-            }
-            // Do not set e.Handled=true.
-            // We still want to insert the character that was typed.
-        }
+    //  private void TextEntering(object sender, TextCompositionEventArgs e)
+    //  {
+    //    //  if (e.Text.Length <= 0 || CompletionWindow == null) return;
+    //    //  if (!char.IsLetterOrDigit(e.Text[0]))
+    //    //  {
+    //    //      // Whenever a non-letter is typed while the completion window is open,
+    //    //      // insert the currently selected element.
+    //    //      CompletionWindow.CompletionList.RequestInsertion(e);
+    //    //  }
+    //    //  // Do not set e.Handled=true.
+    //      // We still want to insert the character that was typed.
+    //  }
 
+        //Trying to fix
+        private void TextEditor_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (CompletionWindow == null) return;
+            if (e.Key==System.Windows.Input.Key.Tab)
+                CompletionWindow.CompletionList.RequestInsertion(e);
+            if (e.Key == Key.Return)
+                CompletionWindow = null;
+        }
         #endregion
 
         #region Search Replace Section
 
         public void ReplaceAll()
         {
-            var r = FindReplaceViewModel.Instance.RegexPattern;
-            var m = r.Match(Text);
-            while (m.Success)
-            {
-                Document.GetLineByOffset(m.Index);
-                r.Replace(FindReplaceViewModel.Instance.LookFor, FindReplaceViewModel.Instance.ReplaceWith, m.Index);
-                m = m.NextMatch();
-            }
+           var r = FindReplaceViewModel.Instance.RegexPattern;
+           var m = r.Match(Text);
+           while (m.Success)
+           {
+               Document.GetLineByOffset(m.Index);
+               r.Replace(FindReplaceViewModel.Instance.LookFor, FindReplaceViewModel.Instance.ReplaceWith, m.Index);
+               m = m.NextMatch();
+           }
         }
 
         public void ReplaceText()
         {
             FindText();
             SelectedText = SelectedText.Replace(SelectedText, FindReplaceViewModel.Instance.ReplaceWith);
+           
         }
 
         public void FindText()
@@ -829,6 +835,7 @@ namespace miRobotEditor.GUI
     
         public void SelectText(IVariable var)
         {
+            if (var == null) return;
         	if (var.Name == null) throw new ArgumentNullException("var");
 
             var d = Document.GetLineByOffset(var.Offset);
@@ -865,7 +872,11 @@ namespace miRobotEditor.GUI
 
         public void ShowFindDialog()
         {
-            FindAndReplaceForm.Instance.ShowDialog();
+
+            //TODO Remove this if new Find and replace form works.
+            //TODO Test this
+           // FindAndReplaceForm.Instance.ShowDialog();
+            FindandReplaceControl.Instance.ShowDialog();
         }
 
         #endregion
@@ -1182,6 +1193,8 @@ namespace miRobotEditor.GUI
 
 
         private ToolTip _toolTip = new ToolTip();
+
+       
 
       
     }

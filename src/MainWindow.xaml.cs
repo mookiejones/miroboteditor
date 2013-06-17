@@ -20,8 +20,6 @@ namespace miRobotEditor
     [Localizable(false)]
     public partial class MainWindow
     {
-
-
         public static MainWindow Instance { get; set; }
       
        
@@ -99,9 +97,6 @@ namespace miRobotEditor
         }
 
       
-
-
-       
         /// <summary>
         /// Makes a call GUI threadsafe without waiting for the returned value.
         /// </summary>

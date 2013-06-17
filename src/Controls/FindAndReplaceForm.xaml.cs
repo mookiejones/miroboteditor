@@ -63,8 +63,8 @@ namespace miRobotEditor.Controls
                        (_highlightallcommand = new RelayCommand(param => HighlightAll(), param => true));
             }
         }
-        private static RelayCommand _findallcommand;
-        public static ICommand FindAllCommand
+        private  RelayCommand _findallcommand;
+        public  ICommand FindAllCommand
         {
             get {
                 return _findallcommand ??
