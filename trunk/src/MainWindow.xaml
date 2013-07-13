@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
 <!-- ReSharper disable Xaml.StaticResourceNotResolved -->
+<!-- Title="{Binding ActiveEditor.FilePath, Mode=OneWay, StringFormat=miRobotEditor:\= \{0\}}" -->
 
 <mah:MetroWindow
     xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -21,20 +22,21 @@
     x:Class="miRobotEditor.MainWindow"	
     WindowState="Maximized"	
     Closing="WindowClosing"                     
-    Title="{Binding ActiveEditor.FilePath, Mode=OneWay, StringFormat=miRobotEditor:\= \{0\}}"
+    Title="{Binding Title, Mode=OneWay, StringFormat=miRobotEditor:\= \{0\}}"
     TitleForeground="Black"
+    
     Loaded="WindowLoaded"
     AllowDrop="True"
     Icon="Properties/Resources/Editor.ico"
     Drop="DropFiles"	DragEnter="onDragEnter"
-    DataContext="{DynamicResource Workspace}"   
+    DataContext="{DynamicResource Workspace}"  
     >
-    <Window.Background>
-        <LinearGradientBrush MappingMode="Absolute" StartPoint="0,0" EndPoint="0,180">
-            <GradientStop Color="#FFDEDEDE" />
-            <GradientStop Color="White" Offset="1" />
+    <mah:MetroWindow.Background>
+        <LinearGradientBrush EndPoint="0,180" MappingMode="Absolute" StartPoint="0,0">
+            <GradientStop Color="#FFDEDEDE"/>
+            <GradientStop Color="White" Offset="1"/>
         </LinearGradientBrush>
-    </Window.Background>
+    </mah:MetroWindow.Background>
     <Window.Resources>
         <!--Explorer Window-->
         <ResourceDictionary>

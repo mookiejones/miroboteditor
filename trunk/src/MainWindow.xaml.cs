@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using miRobotEditor.Annotations;
@@ -10,6 +11,9 @@ using miRobotEditor.Core;
 using miRobotEditor.Forms;
 using miRobotEditor.Properties;
 using miRobotEditor.ViewModel;
+using DataFormats = System.Windows.DataFormats;
+using DragDropEffects = System.Windows.DragDropEffects;
+using DragEventArgs = System.Windows.DragEventArgs;
 
 namespace miRobotEditor	
 {
@@ -21,8 +25,9 @@ namespace miRobotEditor
     public partial class MainWindow
     {
         public static MainWindow Instance { get; set; }
-      
-       
+
+
+
         #region Constructor
         public MainWindow()
         {
@@ -134,7 +139,8 @@ namespace miRobotEditor
         /// <param name="e"></param>
         private void WindowClosing(object sender, CancelEventArgs e)
         {
-            
+            Settings.Default.OpenDocuments = String.Empty;
+
             var docpane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             
             if (docpane != null)

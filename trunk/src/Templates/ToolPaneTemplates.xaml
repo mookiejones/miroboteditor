@@ -15,6 +15,7 @@
         <ResourceDictionary Source="/miRobotEditor;component/Templates/Generic.xaml" />
         <ResourceDictionary Source="/miRobotEditor;component/Templates/ExtendedGridSplitter.xaml"/>
         <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml"/>
+        <ResourceDictionary Source="/miRobotEditor;component/Templates/ObjectBrowserTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
     <converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter"/>
@@ -60,50 +61,6 @@
     <!-- Notes Template -->
     <DataTemplate DataType="{x:Type vm:NotesViewModel}">
         <TextBox Text="{Binding Text}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" TextWrapping="Wrap" BorderBrush="DarkGray"/>
-    </DataTemplate>
-    <!-- object Broswer -->
-    <DataTemplate DataType="{x:Type vm:ObjectBrowserViewModel}">
-        <Grid DataContext="{DynamicResource Workspace}">
-            <TabControl  x:Name="Items" VerticalAlignment="Stretch" >
-                <TabItem Header="Functions" >
-                    <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Style="{StaticResource DataGridStyle}" ColumnHeaderStyle="{StaticResource DataGridHeaderGlassEffect}"  ItemsSource="{Binding ActiveEditor.FileLanguage.Functions}">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn  Width="Auto" IsReadOnly="True" >
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding Icon}" Height="16" Width="16" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
-                            <DataGridTextColumn Header="Path" Width="*" Binding="{Binding Path}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-                <TabItem Header="Fields">
-                    <templates:VisualVariableItem ItemsSource="{Binding ActiveEditor.FileLanguage.Fields}"/>
-                </TabItem>
-                <TabItem Header="Files">
-                    <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Style="{StaticResource DataGridStyle}" ColumnHeaderStyle="{StaticResource DataGridHeaderGlassEffect}"  ItemsSource="{Binding ActiveEditor.FileLanguage.Files}">                       
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Size" Binding="{Binding Length}"/>
-                            <DataGridTextColumn Header="Type" Binding="{Binding Extension}"/>
-                            <DataGridTextColumn Header="Path" Width="*" Binding="{Binding FullName}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-                <TabItem Header="Positions">
-                    <templates:VisualVariableItem ItemsSource="{Binding ActiveEditor.FileLanguage.Positions}"  />
-                </TabItem>
-                <TabItem Header="Signals">
-                    <templates:VisualVariableItem ItemsSource="{Binding ActiveEditor.FileLanguage.Signals}"  />
-                </TabItem>
-            </TabControl>
-            <mah:ProgressRing IsActive="True" IsLarge="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="{Binding ActiveEditor.FileLanguage.BWProgressVisibility}"  Foreground="{DynamicResource HighlightLightBrush}"  />
-        </Grid>
-
     </DataTemplate>
 
 
