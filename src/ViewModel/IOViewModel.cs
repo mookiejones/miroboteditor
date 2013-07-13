@@ -202,6 +202,7 @@ namespace miRobotEditor.ViewModel
                     }
                 }
             }
+
             GetFlags();
             GetTimers();
             GetAllLangtextFromDatabase();
@@ -211,6 +212,7 @@ namespace miRobotEditor.ViewModel
             RaisePropertyChanged("DigitalVisibility");
 
         }
+
         /// <summary>
         /// Gets Flags from kuka_con.mdb
         /// </summary>

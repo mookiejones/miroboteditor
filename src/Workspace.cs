@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Xml.Serialization;
 using MahApps.Metro;
-using miRobotEditor.Controls;
 using miRobotEditor.Core;
 using miRobotEditor.Forms;
 using System.Collections.ObjectModel;
@@ -38,6 +36,132 @@ namespace miRobotEditor
         }
 
         #endregion
+
+        public string Title{
+            get
+            {
+                var fn = ActiveEditor.FilePath ?? string.Empty;
+                return ShortenPathname(fn, 100);
+        }
+        }
+
+
+        /// <summary>
+        /// Shortens a pathname for display purposes.
+        /// </summary>
+        /// <param labelName="pathname">The pathname to shorten.</param>
+        /// <param labelName="maxLength">The maximum number of characters to be displayed.</param>
+        /// <param name="pathname"> </param>
+        /// <param name="maxLength"> </param>
+        /// <remarks>Shortens a pathname by either removing consecutive components of a path
+        /// and/or by removing characters from the end of the filename and replacing
+        /// then with three elipses (...)
+        /// <para>In all cases, the root of the passed path will be preserved in it's entirety.</para>
+        /// <para>If a UNC path is used or the pathname and maxLength are particularly short,
+        /// the resulting path may be longer than maxLength.</para>
+        /// <para>This method expects fully resolved pathnames to be passed to it.
+        /// (Use Path.GetFullPath() to obtain this.)</para>
+        /// </remarks>
+        /// <returns></returns>
+        public static string ShortenPathname(string pathname, int maxLength)
+        {
+            if (pathname.Length <= maxLength) return pathname;
+
+            var root = Path.GetPathRoot(pathname);
+            if (root.Length > 3)
+                root += Path.DirectorySeparatorChar;
+
+            if (true)
+            {
+                var elements = pathname.Substring(root.Length).Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+                var filenameIndex = elements.GetLength(0) - 1;
+
+                if (elements.GetLength(0) == 1) // pathname is just a root and filename
+                {
+                    if (elements[0].Length > 5) // long enough to shorten
+                    {
+                        // if path is a UNC path, root may be rather long
+                        if (root.Length + 6 >= maxLength)
+                        {
+                            return root + elements[0].Substring(0, 3) + "...";
+                        }
+                        return pathname.Substring(0, maxLength - 3) + "...";
+                    }
+                }
+                else if ((root.Length + 4 + elements[filenameIndex].Length) > maxLength) // pathname is just a root and filename
+                {
+                    root += "...\\";
+
+                    var len = elements[filenameIndex].Length;
+                    if (len < 6)
+                        return root + elements[filenameIndex];
+
+                    if ((root.Length + 6) >= maxLength)
+                    {
+                        len = 3;
+                    }
+                    else
+                    {
+                        len = maxLength - root.Length - 3;
+                    }
+                    return root + elements[filenameIndex].Substring(0, len) + "...";
+                }
+                else if (elements.GetLength(0) == 2)
+                {
+                    return root + "...\\" + elements[1];
+                }
+                else
+                {
+                    var len = 0;
+                    var begin = 0;
+
+                    for (var i = 0; i < filenameIndex; i++)
+                    {
+                        if (elements[i].Length <= len) continue;
+                        begin = i;
+                        len = elements[i].Length;
+                    }
+
+                    var totalLength = pathname.Length - len + 3;
+                    var end = begin + 1;
+
+                    while (totalLength > maxLength)
+                    {
+                        if (begin > 0)
+                            totalLength -= elements[--begin].Length - 1;
+
+                        if (totalLength <= maxLength)
+                            break;
+
+                        if (end < filenameIndex)
+                            totalLength -= elements[++end].Length - 1;
+
+                        if (begin == 0 && end == filenameIndex)
+                            break;
+                    }
+
+                    // assemble final string
+
+                    for (var i = 0; i < begin; i++)
+                    {
+                        root += elements[i] + '\\';
+                    }
+
+                    root += "...\\";
+
+                    for (var i = end; i < filenameIndex; i++)
+                    {
+                        root += elements[i] + '\\';
+                    }
+
+                    return root + elements[filenameIndex];
+                }
+            }
+            return pathname;
+        }
+
+
 
         private static Workspace _instance;
         public static Workspace Instance { get { return _instance ?? (_instance = new Workspace()); } set { _instance = value; } }
@@ -117,6 +241,7 @@ namespace miRobotEditor
                 _activeEditor = value;
                 _activeEditor.TextBox.Focus();
                 RaisePropertyChanged();
+                RaisePropertyChanged("Title");
     //            if (ActiveEditorChanged != null)
     //                ActiveEditorChanged(this, EventArgs.Empty);
             } 
@@ -189,15 +314,13 @@ namespace miRobotEditor
 
        void ShowFindReplace()
        {
-
-           
            var fnr = new FindandReplaceControl(MainWindow.Instance) ;
-           var result = fnr.ShowDialog().GetValueOrDefault();
-
-          
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
+           fnr.ShowDialog().GetValueOrDefault();
+// ReSharper restore ReturnValueOfPureMethodIsNotUsed
        }
 
-    
+
         private RelayCommand _showAboutCommand;
 
       public ICommand ShowAboutCommand
@@ -277,10 +400,12 @@ namespace miRobotEditor
         void OnOpen(object param)
 // ReSharper restore UnusedParameter.Local
       {
-          var dir = ActiveEditor.FilePath ?? String.Empty;
+            var path = Path.GetDirectoryName(ActiveEditor.FilePath);
+            var dir = Directory.Exists(path)?path:"C:\\";
             var dlg = new OpenFileDialog
             {
-                InitialDirectory=dir,
+                // Find a way to check for network directory
+//                InitialDirectory="C:\\",
                 Filter = Resources.DefaultFilter,
                 Multiselect = true,
                 FilterIndex = Settings.Default.Filter,
@@ -344,6 +469,8 @@ namespace miRobotEditor
 
         public void LoadFile(IList<string> args)
         {
+
+            // Argument 0 is The Path of the main application so i start with argument 1
             for (var i = 1; i < args.Count; i++)
             {
                 Open(args[i]);
@@ -479,10 +606,8 @@ namespace miRobotEditor
                 _tools.Add(toolModel);
             }
             RaisePropertyChanged("Tools");
-
-    
-
         }
+
 
         private void ImportRobot()
         {
