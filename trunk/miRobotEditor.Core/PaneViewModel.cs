@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
+using System;
 using System.Windows.Media;
 
 namespace miRobotEditor.Core
@@ -25,10 +26,13 @@ namespace miRobotEditor.Core
             set
             {
                 if (_title == value) return;
+
+
                 _title = value;
                 RaisePropertyChanged();
             }
         }
+
 
         #endregion
 
