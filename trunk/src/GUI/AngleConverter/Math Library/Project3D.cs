@@ -24,7 +24,7 @@ namespace ISTUK.MathLibrary
                 return new Point3D(point);
             }
             var num = Vector.Dot(vectord, line.Direction);
-            //TODO CHECK THIS
+          
             //return new Point3D();
                             return (line.Origin + (Vector3D) ((Point3D) (line.Direction * num)));
         }

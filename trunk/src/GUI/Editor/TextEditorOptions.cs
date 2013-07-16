@@ -124,10 +124,13 @@ namespace miRobotEditor.GUI
         /// <summary>
         /// Selected Text Background
         /// </summary>
+        [NonSerialized]
         private Color _selectedTextBackground = Colors.SteelBlue;// { Color = Colors.SteelBlue, Opacity = 0.7 };
         public Color SelectedTextBackground { get { return _selectedTextBackground; } set { _selectedTextBackground = value; OnPropertyChanged("SelectedTextBackground"); } }
+        [NonSerialized]
         private Color _backgroundColor = Colors.White;// new SolidColorBrush { Color = Colors.White };
         public Color BackgroundColor { get { return _backgroundColor; } set { _backgroundColor = value; OnPropertyChanged("BackgroundColor"); } }
+        [NonSerialized]
         private Color _fontColor = Colors.Black;
         public Color FontColor { get { return _fontColor; } set { _fontColor = value; OnPropertyChanged("FontColor"); } }
         [NonSerialized]
@@ -136,9 +139,10 @@ namespace miRobotEditor.GUI
         [NonSerialized]
         private Color _selectedBorderColor = Colors.Orange;
         public Color SelectedBorderColor { get { return _selectedBorderColor; } set { _selectedBorderColor = value; OnPropertyChanged("SelectedBorderColor"); } }
-
+        [NonSerialized]
         private bool _allowScrollingBelowDocument;
         public bool AllowScrollingBelowDocument{get { return _allowScrollingBelowDocument; }set { _allowScrollingBelowDocument = value;OnPropertyChanged("AllowScrollingBelowDocument"); }}
+        [NonSerialized]
         private Color _lineNumbersFontColor = Colors.Gray;
         public Color LineNumbersFontColor{get { return _lineNumbersFontColor; }set { _lineNumbersFontColor = value;OnPropertyChanged("LineNumbersFontColor"); }}
 

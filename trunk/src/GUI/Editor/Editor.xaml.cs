@@ -384,7 +384,10 @@ namespace miRobotEditor.GUI
             // Dont Include Empty Values
             if (String.IsNullOrEmpty(matchstring.ToString())) return;
 
-            var m = matchstring.Match(Text.ToLower());
+            Match m;
+                m = matchstring.Match(Text.ToLowerInvariant());
+             
+
             while (m.Success)
             {
                 _variables.Add(new Variable
@@ -399,6 +402,26 @@ namespace miRobotEditor.GUI
                 var d = Document.GetLineByOffset(m.Index);
                 AddBookMark(d.LineNumber, imgPath);
                 m = m.NextMatch();
+            }
+            if (FileLanguage is Languages.KUKA)
+            {
+
+                m = matchstring.Match(String.Compare(Text, FileLanguage.SourceText) == 0 ? FileLanguage.DataText : FileLanguage.SourceText);
+                while (m.Success)
+                {
+                    _variables.Add(new Variable
+                    {
+                        Declaration = m.Groups[0].ToString(),
+                        Offset = m.Index,
+                        Type = m.Groups[1].ToString(),
+                        Name = m.Groups[2].ToString(),
+                        Value = m.Groups[3].ToString(),
+                        Path = Filename,
+                        Icon = Utilities.LoadBitmap(imgPath)
+                    });
+                   
+                    m = m.NextMatch();
+                }
             }
         }
 
@@ -419,7 +442,6 @@ namespace miRobotEditor.GUI
             FindMatches(FileLanguage.SignalRegex, Global.ImgSignal);
             FindMatches(FileLanguage.EnumRegex, Global.ImgEnum);
             FindMatches(FileLanguage.XYZRegex, Global.ImgXyz);         
-
         }
         
         #region Editor.Bindings

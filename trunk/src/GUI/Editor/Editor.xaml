@@ -43,6 +43,22 @@
     </avalonedit:TextEditor.InputBindings>
     <avalonedit:TextEditor.ContextMenu>
         <ContextMenu>
+            <MenuItem Header="Cut" Command="{Binding CutCommand}" InputGestureText="Ctrl+X">
+                <MenuItem.Icon>
+                    <Image Source="/miRobotEditor;component/Resources/Cut.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Copy" Command="{Binding CopyCommand}" InputGestureText="Ctrl+C">
+                <MenuItem.Icon>
+                    <Image Source="/miRobotEditor;component/Resources/Copy.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="_Paste" Command="{Binding PasteCommand}" InputGestureText="Ctrl+V">
+                <MenuItem.Icon>
+                    <Image Source="/miRobotEditor;component/Resources/Paste.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
             <MenuItem Header="Open all Folds"  Command="{Binding OpenAllFoldsCommand}" InputGestureText="Ctrl+M,O" IsTextSearchCaseSensitive="True"/>
             <MenuItem Header="Close all Folds" Command="{Binding CloseAllFoldsCommand}" InputGestureText="Ctrl,+,M,L" />
         </ContextMenu>
