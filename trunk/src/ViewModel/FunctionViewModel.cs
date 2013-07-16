@@ -13,8 +13,6 @@ namespace miRobotEditor.ViewModel
             DefaultPane = DefaultToolPane.Right;
 
         }
-
-
     }
 
 }

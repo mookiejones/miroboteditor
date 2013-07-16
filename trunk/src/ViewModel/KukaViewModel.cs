@@ -144,7 +144,6 @@ namespace miRobotEditor.ViewModel
         {
             if (var.Name == null) throw new ArgumentNullException("var");
 
-            //TODO Need to find out if this will work from Global Variables. Only Tested so far for Local Variable Window
 
             // Does Textbox have Variables
             if (TextBox.Variables == null)
@@ -178,7 +177,7 @@ namespace miRobotEditor.ViewModel
             }
 
         }
-
+     
 
         public new void Load(string filepath)
         {
@@ -188,7 +187,7 @@ namespace miRobotEditor.ViewModel
             Source.FileLanguage = FileLanguage;
             Grid.IsAnimated = false;
 
-            var loadDatFileOnly = Path.GetExtension(filepath) == ".dat";
+            var loadDatFileOnly = Path.GetExtension(filepath) == ".dat" && (!KUKA.OnlyDatExists(filepath));
             //TODO Set Icon For File
 
             IconSource = Utilities.LoadBitmap(Global.ImgSrc);

@@ -248,6 +248,7 @@ namespace miRobotEditor.ViewModel
         {
             var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
             const string cmdText = "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'TIMER')";
+            if (DataBaseFile == null) return;
             using (var oldDbConnection = new OleDbConnection(connectionString))
             {
                 oldDbConnection.Open();
