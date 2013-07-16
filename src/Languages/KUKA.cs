@@ -87,6 +87,16 @@ namespace miRobotEditor.Languages
             }
         }
 
+        /// <summary>
+        /// Determines if file should be loaded from dat only
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public static  bool OnlyDatExists(string filename)
+        {
+            return File.Exists(Path.Combine(Path.GetDirectoryName(filename), Path.GetFileNameWithoutExtension(filename) + ".src"));
+        }
+
         #region "_file Interface Info"
 
         [Localizable(false)]
@@ -481,7 +491,7 @@ namespace miRobotEditor.Languages
 
         public override Regex EnumRegex {get {return new Regex(@"^(ENUM)\s+([\d\w]+)\s+([\d\w,]+)",Ro);}}
         
-        public override Regex StructRegex {get {return new Regex("DECL STRUC|^STRUC",Ro);}}
+        public override Regex StructRegex {get {return new Regex(@"DECL STRUC|^STRUC\s([\w\d]+\s*)",Ro);}}
         
         //public override Regex MethodRegex {get {return new Regex("GLOBAL DEFFCT |^DEFFCT |GLOBAL DEF |^DEF |^EXT ",ro);}}
         public override Regex MethodRegex { get { return new Regex(@"^[GLOBAL ]*(DEF)+\s+([\w\d]+\s*)\(", Ro); } }
@@ -493,7 +503,7 @@ namespace miRobotEditor.Languages
             get { return @"((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\w\s]*)\(([\w\]\s:_\[,]*)\))" ; }
         }
         public override string CommentChar {get{return ";";}}
-        public override Regex SignalRegex { get { return new Regex(@"^([SIGNAL]+)\s+([\d\w]+)\s+([^\r\;]*)",Ro); } }
+        public override Regex SignalRegex { get { return new Regex(@"^(SIGNAL+)\s+([\d\w]+)\s+([^\r\;]*)",Ro); } }
         public override string ExtractXYZ(string positionstring)
         {
             var p = new PositionBase(positionstring);

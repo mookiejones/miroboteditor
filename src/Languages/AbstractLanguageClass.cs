@@ -34,6 +34,8 @@ namespace miRobotEditor.Languages
 
         protected AbstractLanguageClass(string filename)
         {
+            DataText = String.Empty;
+            SourceText = String.Empty;
             var dir = Path.GetDirectoryName(filename);
             var dirExists = dir != null && Directory.Exists(dir);
             var ext = Path.GetExtension(filename);
@@ -216,6 +218,7 @@ namespace miRobotEditor.Languages
         public abstract Regex SignalRegex { get; }
 
         internal abstract bool IsFileValid(FileInfo file);
+
         /// <summary>
         /// Regular Expression for Functions
         /// </summary>
@@ -446,28 +449,7 @@ namespace miRobotEditor.Languages
 
         #endregion
 
-      //Commented out on 6/11/2013
-      //  // ReSharper disable UnusedMember.Local
-      //  private static GroupCollection GetMatchCollection(string text, string matchstring)
-      //  // ReSharper restore UnusedMember.Local
-      //  {
-      //
-      //      var r = new Regex(matchstring, RegexOptions.IgnoreCase);
-      //      var m = r.Match(text);
-      //      return m.Success ? m.Groups : null;
-      //  }
-
-
-        // //Commented out on 6/11/2013
-// ReSh //arper disable FunctionRecursiveOnAllPaths
-        // public void Dispose()
-// ReSh //arper restore FunctionRecursiveOnAllPaths
-        // {
-        //     _bw.Dispose();
-        //     Dispose();
-        // }
-        //
-         internal void PositionVariables(string source, string data)
+          internal void PositionVariables(string source, string data)
         {
             // Get Positions
         }
