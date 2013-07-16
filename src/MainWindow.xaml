@@ -50,38 +50,64 @@
             <Image x:Key="PasteImage" Source="Resources/paste.png" />
             <Image x:Key="FoldingDisabled" Source="Resources/foldingDisabled.png" />
             <Image x:Key="FoldingEnabled" Source="Resources/foldingEnabled.png" />
+         
+            <DataTemplate x:Key="KUKAMenuItems">
+                <MenuItem Header="KUKA">
+                    <MenuItem Header="Archive Viewer" Command="{Binding AddToolCommand}" CommandParameter="ArchiveInfo"/>
+                    <MenuItem Header="Shift Program" Command="{Binding AddToolCommand}" CommandParameter="Shift"/>
+                    <MenuItem Header="KUKA">
+                        <MenuItem Header="test">
+                            <MenuItem.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding ActiveEditor.FileLanguage.MenuItems}"/>
+                            </MenuItem.ItemTemplate>
+                        </MenuItem>
+                        <MenuItem Header="CleanDat"  Command="{Binding AddToolCommand}"  CommandParameter="CleanDat"/>
+                        <MenuItem Header="Rename Positions"  Command="{Binding AddToolCommand}" />
+                        <MenuItem Header="ReverseOrder"/>
+                        <MenuItem Header="Mirror"/>
+                        <MenuItem Header="Adjust Status/Turn"/>
+                        <MenuItem Header="Sort DataList"/>
+                        <MenuItem Header="View I/O List"/>
+                    </MenuItem>
+                </MenuItem>
+            </DataTemplate>
+            <DataTemplate x:Key="FanucItems"/>
+            <DataTemplate x:Key="ABBItems"/>
+            <DataTemplate x:Key="KawasakiItems"/>
+            <DataTemplate x:Key="NachiItems"/>
 
-            <converters:ActiveEditorConverter x:Key="ActiveEditorConverter"/>     
-<!-- ReSharper disable Xaml.RedundantResource -->
+            <classes:MenuTemplateSelector x:Key="menuSelector" KUKATemplate="{StaticResource KUKAMenuItems}" ABBTemplate="{StaticResource ABBItems}" FanucTemplate="{StaticResource FanucItems}" NachiTemplate="{StaticResource NachiItems}" />
+            <converters:ActiveEditorConverter x:Key="ActiveEditorConverter"/>
+            <!-- ReSharper disable Xaml.RedundantResource -->
             <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
-<!-- ReSharper restore Xaml.RedundantResource -->
+                <!-- ReSharper restore Xaml.RedundantResource -->
                 <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <mah:MetroWindow.Flyouts>       
+    <mah:MetroWindow.Flyouts>
         <mah:Flyout Header="I/O" Position="Right" Content="{Binding ActiveEditor.FileLanguage.IOModel}" IsOpen="{Binding ShowIO}"  />
         <mah:Flyout Header="Options" Position="Right"  Content="{x:Static gui:EditorOptions.Instance}" IsOpen="{Binding ShowSettings}" >
             <mah:Flyout.Resources>
                 <ResourceDictionary Source="Templates\OptionsTemplate.xaml"/>
             </mah:Flyout.Resources>
         </mah:Flyout>
-    </mah:MetroWindow.Flyouts> 
+    </mah:MetroWindow.Flyouts>
     <mah:MetroWindow.WindowCommands>
         <mah:WindowCommands>
             <Button Content="Settings" Command="{Binding ShowSettingsCommand}" />
-            <Button Content="Show IO" Command="{Binding ShowIOCommand}" Visibility="{Binding EnableIO, Converter={StaticResource BooleanToVisibilityConverter}}"/>            
+            <Button Content="Show IO" Command="{Binding ShowIOCommand}" Visibility="{Binding EnableIO, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </mah:WindowCommands>
     </mah:MetroWindow.WindowCommands>
-    <mah:MetroWindow.GlowBrush>       
+    <mah:MetroWindow.GlowBrush>
         <SolidColorBrush Color="{DynamicResource HighlightLightColor}"/>
-    </mah:MetroWindow.GlowBrush>   
-        <Window.InputBindings>
-    	<KeyBinding Command="{Binding ActiveEditor.CloseCommand}"  Gesture="Alt+C"/>
-        <KeyBinding Key="F3" Modifiers="Shift" Command="Search" CommandParameter="something" />      
+    </mah:MetroWindow.GlowBrush>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ActiveEditor.CloseCommand}"  Gesture="Alt+C"/>
+        <KeyBinding Key="F3" Modifiers="Shift" Command="Search" CommandParameter="something" />
         <KeyBinding Key="F" Modifiers="Control" Gesture="CTRL+F" Command="Find" />
         <KeyBinding Key="R" Modifiers="Shift+Control" Command="{Binding ShowFindReplaceCommand}"/>
-        </Window.InputBindings>
+    </Window.InputBindings>
     <Grid d:DataContext="{d:DesignInstance}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"  />
@@ -95,7 +121,7 @@
                     <Setter Property="Height" Value="16"/>
                     <Setter Property="Width" Value="16"/>
                 </Style>
-                <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">                    
+                <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
                     <Style.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="10"/>
@@ -146,7 +172,7 @@
                 </MenuItem>
                 <MenuItem Header="Recent _Files">
                     <classes:RecentFileList/>
-                </MenuItem>               
+                </MenuItem>
                 <MenuItem Header="E_xit"  Command="{Binding ExitCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Resources\exit.png" />
@@ -223,13 +249,13 @@
                 <MenuItem Header="Find in Files" Command="{Binding ShowFindReplaceCommand}"/>
                 <MenuItem Header="Replace in Files" Command="{Binding ShowFindReplaceCommand}"/>
                 <Separator/>
-                <MenuItem Header="Find and Replace">                    
+                <MenuItem Header="Find and Replace">
                     <MenuItem Header="Find" Command="ApplicationCommands.Find" CommandTarget="{Binding ActiveEditor.TextBox}"/>
                     <MenuItem Header="Find Next" Command="ae:SearchCommands.FindNext"  CommandTarget="{Binding ActiveEditor.TextBox}"/>
                     <MenuItem Header="Find Previous" Command="ae:SearchCommands.FindPrevious" CommandTarget="{Binding ActiveEditor.TextBox}" />
                     <MenuItem Header="Cancel Search" Command="ae:SearchCommands.CloseSearchPanel" CommandTarget="{Binding ActiveEditor.TextBox}" />
                     <MenuItem Header ="Find and Replace" />
-                    
+
                 </MenuItem>
 
                 <Separator />
@@ -244,20 +270,20 @@
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Appearance">
-                <MenuItem Header="Accents">
-                    <MenuItem.Resources>
-                        <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
-                            <Setter Property="Command"  Value="{Binding ChangeAccentCommand}"/>
-                            <Setter Property="CommandParameter" Value="{Binding Header, RelativeSource={RelativeSource Self}}"/>
-                        </Style>
-                    </MenuItem.Resources>
-                    <MenuItem Header="Red" />                   
-                    <MenuItem Header="Green" />
-                    <MenuItem Header="Blue" />
-                    <MenuItem Header="Orange" />
-                    <MenuItem Header="Purple"/>
-                    </MenuItem>                                
-                </MenuItem>             
+                    <MenuItem Header="Accents">
+                        <MenuItem.Resources>
+                            <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                                <Setter Property="Command"  Value="{Binding ChangeAccentCommand}"/>
+                                <Setter Property="CommandParameter" Value="{Binding Header, RelativeSource={RelativeSource Self}}"/>
+                            </Style>
+                        </MenuItem.Resources>
+                        <MenuItem Header="Red" />
+                        <MenuItem Header="Green" />
+                        <MenuItem Header="Blue" />
+                        <MenuItem Header="Orange" />
+                        <MenuItem Header="Purple"/>
+                    </MenuItem>
+                </MenuItem>
 
                 <MenuItem Header="View Whitespace" IsCheckable="true" IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True, Source={x:Static gui:EditorOptions.Instance}}" />
                 <MenuItem Header="View EOL" IsCheckable="true" IsChecked="{Binding ShowEndOfLine, Source={x:Static gui:EditorOptions.Instance}}"/>
@@ -267,18 +293,18 @@
                     <MenuItem.Icon>
                         <Image Source="/Resources/line_numbers.png" />
                     </MenuItem.Icon>
-                </MenuItem>                
                 </MenuItem>
-                <MenuItem Header="View _as">
-                    <MenuItem Header="ABB" Command="{Binding ChangeViewAsCommand}" CommandParameter="ABB" />
-                    <MenuItem Header="KUKA" Command="{Binding ChangeViewAsCommand}" CommandParameter="KUKA" />
-                    <MenuItem Header="Fanuc" Command="{Binding ChangeViewAsCommand}" CommandParameter="Fanuc"/>
-                    <MenuItem Header="Nachi" Command="{Binding ChangeViewAsCommand}" CommandParameter="Nachi" />
-                    <MenuItem Header="Kawasaki" Command="{Binding ChangeViewAsCommand}" CommandParameter="Kawasaki" />
-                </MenuItem>
-            
+            </MenuItem>
+            <MenuItem Header="View _as">
+                <MenuItem Header="ABB" Command="{Binding ChangeViewAsCommand}" CommandParameter="ABB" />
+                <MenuItem Header="KUKA" Command="{Binding ChangeViewAsCommand}" CommandParameter="KUKA" />
+                <MenuItem Header="Fanuc" Command="{Binding ChangeViewAsCommand}" CommandParameter="Fanuc"/>
+                <MenuItem Header="Nachi" Command="{Binding ChangeViewAsCommand}" CommandParameter="Nachi" />
+                <MenuItem Header="Kawasaki" Command="{Binding ChangeViewAsCommand}" CommandParameter="Kawasaki" />
+            </MenuItem>
+
             <MenuItem  Header="Tools">
-                <MenuItem Header="Angle Converter" Command="{Binding AddToolCommand}"  CommandParameter="Angle Converter"/>               
+                <MenuItem Header="Angle Converter" Command="{Binding AddToolCommand}"  CommandParameter="Angle Converter"/>
             </MenuItem>
             <MenuItem Header="Window">
                 <MenuItem Header="Windows">
@@ -290,31 +316,7 @@
                     <MenuItem Header="Output Window"  Command="{Binding AddToolCommand}"  CommandParameter="Output Window" />
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Robot" ItemsSource="{Binding ActiveEditor.FileLanguage}">
-                <MenuItem.ItemTemplateSelector>
-                    <classes:MenuTemplateSelector>
-                        <classes:MenuTemplateSelector.ABBTemplate>
-                            <DataTemplate></DataTemplate>
-                        </classes:MenuTemplateSelector.ABBTemplate>
-                    </classes:MenuTemplateSelector>
-                </MenuItem.ItemTemplateSelector>            
-            <MenuItem Header="Archive Viewer" Command="{Binding AddToolCommand}" CommandParameter="ArchiveInfo"/>
-                <MenuItem Header="Shift Program" Command="{Binding AddToolCommand}" CommandParameter="Shift"/>
-                <MenuItem Header="KUKA">
-                    <MenuItem Header="test">
-                        <MenuItem.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding ActiveEditor.FileLanguage.MenuItems}"/>
-                        </MenuItem.ItemTemplate>
-                    </MenuItem>
-                    <MenuItem Header="CleanDat"  Command="{Binding AddToolCommand}"  CommandParameter="CleanDat"/>
-                    <MenuItem Header="Rename Positions"  Command="{Binding AddToolCommand}" />
-                    <MenuItem Header="ReverseOrder"/>
-                    <MenuItem Header="Mirror"/>
-                    <MenuItem Header="Adjust Status/Turn"/>
-                    <MenuItem Header="Sort DataList"/>
-                    <MenuItem Header="View I/O List"/>
-                </MenuItem>
-            </MenuItem>
+      <!--      <MenuItem Header="Robot" ItemsSource="{Binding ActiveEditor.FileLanguage.Files, Source={StaticResource Workspace}}" ItemTemplateSelector="{DynamicResource menuSelector}" /> -->
             <MenuItem Header="_Help">
                 <MenuItem Header="_View Help" />
                 <MenuItem Header="Report a _Bug" />
@@ -324,7 +326,7 @@
         <!-- Toolbar -->
         <StackPanel Orientation="Horizontal" Margin="10,0,0,0"  Grid.Row="1">
             <StackPanel.Resources>
-                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" >                     
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" >
                     <Setter Property="Height" Value="34"/>
                     <Setter Property="Width" Value="34"/>
                     <Setter Property="Margin" Value="5"/>
@@ -339,13 +341,13 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-<!-- ReSharper disable Xaml.RedundantResource -->
+                <!-- ReSharper disable Xaml.RedundantResource -->
                 <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" >
                     <Setter Property="Height" Value="34"/>
                     <Setter Property="Width" Value="34"/>
                     <Setter Property="Margin" Value="5"/>
                     <Setter Property="IsThreeState" Value="False"/>
-                    <Setter Property="IsTabStop" Value="False"/>                                 
+                    <Setter Property="IsTabStop" Value="False"/>
                     <Setter Property="Effect">
                         <Setter.Value>
                             <DropShadowEffect BlurRadius="10" Color="Black" Opacity="0.25" Direction="270" />
@@ -359,7 +361,7 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="ToolTip" Value="Hide Folds"/>
                             <Setter Property="Content" Value="{StaticResource FoldingEnabled}"/>
-                        </Trigger>                        
+                        </Trigger>
                     </Style.Triggers>
                 </Style>
                 <Style TargetType="{x:Type Image}">
@@ -372,13 +374,13 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Resources>
-           
+
             <Button Margin="5" Command="{Binding NewFileCommand}">
-                <Image Source="Resources\newfile.png" /> 
-            </Button> 
+                <Image Source="Resources\newfile.png" />
+            </Button>
             <Button Command="{Binding OpenFileCommand}">
                 <Image Source="Resources\folder_open.png"/>
-            </Button> 
+            </Button>
             <Button   Command="{Binding ActiveEditor.TextBox.SaveCommand,Mode=OneWay}">
                 <Image Source="Resources\Save.png"/>
             </Button>
@@ -393,17 +395,17 @@
                         </TransformGroup>
                     </Image.RenderTransform>
                 </Image>
-            </Button>        
+            </Button>
             <Button Command="{Binding ActiveEditor.TextBox.RedoCommand, Mode=OneWay}" >
                 <Image Source="Resources/Redo.png"/>
             </Button>
             <Button Command="{Binding ActiveEditor.TextBox.CutCommand, Mode=OneWay}"   >
                 <Image  Source="Resources/Cut.png" />
-            </Button>            
-            <Button Command="{Binding ActiveEditor.TextBox.CopyCommand, Mode=OneWay}" Content="{StaticResource CopyImage}"/>                   
+            </Button>
+            <Button Command="{Binding ActiveEditor.TextBox.CopyCommand, Mode=OneWay}" Content="{StaticResource CopyImage}"/>
             <Button Command="{Binding ActiveEditor.TextBox.PasteCommand, Mode=OneWay}" Content="{StaticResource PasteImage}"/>
-            <ToggleButton  IsChecked="{Binding EnableFolding, Source={x:Static gui:EditorOptions.Instance}}" />                 
-               
+            <ToggleButton  IsChecked="{Binding EnableFolding, Source={x:Static gui:EditorOptions.Instance}}" />
+
             <Button ToolTip="Expand Folds"  Command="{Binding ActiveEditor.TextBox.OpenAllFoldsCommand, Mode=OneWay}"     >
                 <Image Source="/Resources\expandfolds.png" />
             </Button>
@@ -430,24 +432,24 @@
             AnchorablesSource="{Binding Tools}"
             DocumentsSource="{Binding Files}"        
         	ActiveContent="{Binding ActiveEditor, Converter={StaticResource ActiveEditorConverter},Mode=TwoWay}"  
-            LayoutUpdateStrategy="{Binding LayoutStrategy, Mode=OneWay, Source={StaticResource Workspace}}"   >       
-            
-        	<!--             DocumentsSource="{Binding Files}"  -->
-           
-                <ad:DockingManager.LayoutItemContainerStyleSelector>
+            LayoutUpdateStrategy="{Binding LayoutStrategy, Mode=OneWay, Source={StaticResource Workspace}}"   >
+
+            <!--             DocumentsSource="{Binding Files}"  -->
+
+            <ad:DockingManager.LayoutItemContainerStyleSelector>
                 <classes:PanesStyleSelector>
                     <classes:PanesStyleSelector.ToolStyle>
                         <Style TargetType="{x:Type ad:LayoutAnchorableItem}">
                             <Setter Property="Title" Value="{Binding Model.Title}"/>
                             <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
-                            <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}"/>                        
+                            <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}"/>
                             <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
                             <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
-                            <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>                          
+                            <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
                         </Style>
                     </classes:PanesStyleSelector.ToolStyle>
                     <classes:PanesStyleSelector.FileStyle>
-                        <Style TargetType="{x:Type ad:LayoutItem}">                            
+                        <Style TargetType="{x:Type ad:LayoutItem}">
                             <Setter Property="Title" Value="{Binding Model.Title}"/>
                             <Setter Property="ToolTip" Value="{Binding Model.FilePath}"/>
                             <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
@@ -457,7 +459,7 @@
                     </classes:PanesStyleSelector.FileStyle>
                 </classes:PanesStyleSelector>
             </ad:DockingManager.LayoutItemContainerStyleSelector>
-           
+
             <ad:LayoutRoot>
                 <ad:LayoutPanel Orientation="Vertical">
                     <ad:LayoutPanel Orientation="Horizontal">
@@ -465,26 +467,26 @@
                             <ad:LayoutAnchorablePane Name="LeftPane"/>
                         </ad:LayoutAnchorablePaneGroup>
                         <ad:LayoutDocumentPane/>
-                            <ad:LayoutAnchorablePane Name="RightPane" DockWidth="250"/>
-                    </ad:LayoutPanel>                  
+                        <ad:LayoutAnchorablePane Name="RightPane" DockWidth="250"/>
+                    </ad:LayoutPanel>
                     <ad:LayoutAnchorablePane Name="BottomPane" DockHeight="200"/>
                 </ad:LayoutPanel>
             </ad:LayoutRoot>
         </ad:DockingManager>
         <StatusBar DataContext="{x:Static viewModel:StatusBarViewModel.Instance}" Grid.Row="3">
             <StatusBar.Resources>
-                <Style TargetType ="{x:Type StatusBarItem}" >                    
+                <Style TargetType ="{x:Type StatusBarItem}" >
                     <Setter Property="FontWeight" Value="Normal"/>
                     <Style.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">                           
+                        <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="FontWeight" Value="ExtraLight"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-                <Style TargetType="{x:Type TextBlock}">                  
+                <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="FontWeight" Value="Normal"/>
                     <Style.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">                         
+                        <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="FontWeight" Value="ExtraLight"/>
                         </Trigger>
                     </Style.Triggers>
