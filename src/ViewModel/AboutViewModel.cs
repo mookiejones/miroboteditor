@@ -19,12 +19,24 @@ namespace miRobotEditor.ViewModel
 	/// </summary>
 	public class AboutViewModel:ViewModelBase
 	{
+        /// <summary>
+        /// Copyright Information
+        /// </summary>
 		public string Copyright{get{return "Copyright 2012-2013 Charles Berman";}}
+        /// <summary>
+        /// Name of Application
+        /// </summary>
 		public string Name{get{return Assembly.GetExecutingAssembly().GetName().Name;}}
+        /// <summary>
+        /// Version Number
+        /// </summary>
 		public string Version{get{return Assembly.GetExecutingAssembly().GetName().Version.ToString();}}
 
 	    static string NetVersion {get{return Environment.Version.ToString();}}
 	    static string OSVersion{get{return Environment.OSVersion.ToString();}}
+        /// <summary>
+        /// Current Language
+        /// </summary>
 	    static string CurrentCulture{get{return CultureInfo.CurrentCulture.Name;}}
 
 	    static string WorkingSetMemory 

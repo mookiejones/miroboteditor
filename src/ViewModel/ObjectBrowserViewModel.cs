@@ -45,8 +45,6 @@ namespace miRobotEditor.ViewModel
         string GetDirectory()
 // ReSharper restore UnusedMember.Local
         {
-
-            //TODO Add Archive Functionality
             var dialog = new System.Windows.Forms.FolderBrowserDialog { Description = "Select Root Directory for Instance" };
 
             var fn = Workspace.Instance.ActiveEditor.TextBox.Filename;

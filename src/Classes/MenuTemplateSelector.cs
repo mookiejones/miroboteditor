@@ -11,23 +11,21 @@ namespace miRobotEditor.Classes
         public DataTemplate FanucTemplate { get; set; }
         public DataTemplate NachiTemplate { get; set; }
         public DataTemplate ABBTemplate { get; set; }
+        public DataTemplate KawasakiTemplate { get; set; }
 
         
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             var element = container as FrameworkElement;
-
-            if (element != null && item != null && item is Task)
-            {
-                // if (taskitem.Priority == 1)
-              //     return
-              //         element.FindResource("importantTaskTemplate") as DataTemplate;
-              // else
-              //     return
-              //         element.FindResource("myTaskTemplate") as DataTemplate;
-            }
-
+            if (Workspace.Instance.ActiveEditor.FileLanguage is Languages.KUKA)
+                return KUKATemplate;
+            if (Workspace.Instance.ActiveEditor.FileLanguage is Languages.ABB)
+                return ABBTemplate;
+            if (Workspace.Instance.ActiveEditor.FileLanguage is Languages.Fanuc)
+                return FanucTemplate;
+            if (Workspace.Instance.ActiveEditor.FileLanguage is Languages.Kawasaki)
+                return KawasakiTemplate;
             return null;
         }
     }
