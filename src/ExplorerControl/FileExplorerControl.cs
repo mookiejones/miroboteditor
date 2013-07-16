@@ -103,7 +103,8 @@ namespace miRobotEditor.GUI.ExplorerControl
 		    explorer.FillTreeNode(explorer.SelectedNode,explorer.SelectedNode.Tag.ToString());
 		    // TODO: Implement Refresh
 		}
-		
+
+   
 		void ContextOpening(object sender, CancelEventArgs e)
 		{
 			
