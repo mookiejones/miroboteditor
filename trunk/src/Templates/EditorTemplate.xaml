@@ -68,6 +68,8 @@
                             </TextBlock>
                             <Separator BorderThickness="5" BorderBrush="Black" />
                             <TextBlock Text="{Binding TextContent}" />
+                            <Separator/>
+                            <TextBlock Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"/>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>
