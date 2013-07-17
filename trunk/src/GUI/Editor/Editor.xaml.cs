@@ -1020,28 +1020,26 @@ namespace miRobotEditor.GUI
                 IsOpen = true
             };
 
-
-
-    //         foreach (var fld in _foldingManager.AllFoldings)
-    //         {
-    //
-    //             if (fld.StartOffset <= off && off <= fld.EndOffset && fld.IsFolded)
-    //             {
-    //             	toolTip = new System.Windows.Controls.ToolTip
-    //             	{
-    //             		Style = (Style)FindResource("FoldToolTipStyle"),
-    //             		DataContext = fld,
-    //             		PlacementTarget = this,
-    //             		IsOpen=true
-    //             	};
-    //
-    //                 
-    //                 return true;
-    //                
-    //                // e.Handled = true;
-    //             }
-    //     }
                 return true;
+        }
+        private bool GetCurrentFold(TextViewPosition loc,string positionvalue)
+        {
+            var off = Document.GetOffset(loc.Location);
+
+            var f = _foldingManager.GetFoldingsAt(off);
+            
+            if (f.Count == 0)
+                return false;
+            _toolTip = new ToolTip
+            {
+                Style = (Style)FindResource("FoldToolTipStyle"),
+                DataContext = f,
+                PlacementTarget = this,
+                IsOpen = true
+            };
+
+            _toolTip.Tag = "Positional Value = " + positionvalue;
+            return true;
         }
         private void Mouse_OnHover(object sender, MouseEventArgs e)
         {
@@ -1051,9 +1049,17 @@ namespace miRobotEditor.GUI
             var tvp =  GetPositionFromPoint(e.GetPosition(this));
 
 
-            if (tvp.HasValue)
+           
+            var s = FileLanguage.IsLineMotion(GetLine(tvp.Value.Line),this.Variables);
+     
+            if (!String.IsNullOrWhiteSpace(s))
+            {
+                // Line is position, 
+                e.Handled=GetCurrentFold((TextViewPosition)tvp,s);
+            }
+            else
+             if (tvp.HasValue)
               e.Handled =  GetCurrentFold((TextViewPosition)tvp);
-
 
             //TODO _variables
             //    toolTip.PlacementTarget = this;
