@@ -8,7 +8,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.ViewModel;
-
+using miRobotEditor.Classes;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -34,6 +34,11 @@ namespace miRobotEditor.Languages
             {
                 return EXT;
             }
+        }
+        public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
+        {
+            return string.Empty;
+
         }
         internal override bool IsFileValid(FileInfo file)
         {

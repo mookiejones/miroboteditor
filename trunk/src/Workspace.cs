@@ -396,9 +396,7 @@ namespace miRobotEditor
         /// Open file from menu entry
         /// </summary>
         /// <param name="param"></param>
-// ReSharper disable UnusedParameter.Local
         void OnOpen(object param)
-// ReSharper restore UnusedParameter.Local
       {
             var path = Path.GetDirectoryName(ActiveEditor.FilePath);
             var dir = Directory.Exists(path)?path:"C:\\";

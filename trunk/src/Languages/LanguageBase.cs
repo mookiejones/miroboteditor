@@ -6,7 +6,7 @@ using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Text.RegularExpressions;
 using miRobotEditor.ViewModel;
-
+using miRobotEditor.Classes;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -25,6 +25,10 @@ namespace miRobotEditor.Languages
         public override DocumentViewModel GetFile(string filename)
         {
             return new DocumentViewModel(filename);
+        }
+        public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
+        {
+            return string.Empty;
         }
 
     	#region Properties

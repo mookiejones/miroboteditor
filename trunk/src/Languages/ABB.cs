@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.CodeCompletion;
-
+using miRobotEditor.Classes;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -33,6 +33,12 @@ namespace miRobotEditor.Languages
             get { return new List<string> {".mod", ".prg"}; }
         }
 
+
+        public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
+        {
+            return string.Empty;
+
+        }
 
         /// <summary>
         /// Sets ComboBox Filter Items for searching
