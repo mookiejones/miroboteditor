@@ -3,27 +3,12 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	x:Class="TestApplication.Window1"
 	Title="TestApplication" Height="600" Width="600"
-	xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
-    <mah:MetroWindow.Resources>
-      
-       
-      
-            <!--The movement, rotation, and size of the Rectangle is 
-        specified by its RenderTransform.-->
-            <MatrixTransform x:Key="InitialMatrixTransform">
-                <MatrixTransform.Matrix>
-                    <Matrix OffsetX="200" OffsetY="200"/>
-                </MatrixTransform.Matrix>
-            </MatrixTransform>
-       
-    </mah:MetroWindow.Resources>
+	xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:viewModel="clr-namespace:TestApplication.ViewModel">
+    <mah:MetroWindow.DataContext>
+        <viewModel:TestAppViewModel/>
+    </mah:MetroWindow.DataContext>
+ 
   
 <!--    <TreeView ItemsSource="{Binding Source={StaticResource mystuff}, XPath=.}" /> -->
 
-    <Canvas>
-        <Rectangle Fill="Red" Name="manRect"
-                 Width="200" Height="200" 
-                 RenderTransform="{StaticResource InitialMatrixTransform}"
-                 IsManipulationEnabled="true" />
-    </Canvas>
 </mah:MetroWindow>
