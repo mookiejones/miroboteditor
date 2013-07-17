@@ -76,6 +76,9 @@ namespace miRobotEditor.Languages
         private DirectoryInfo _rootpath;
         public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged(); } }
 
+
+        internal const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
+
         private string _filename = String.Empty;
         public string FileName
         {
@@ -231,6 +234,15 @@ namespace miRobotEditor.Languages
 
 
         #region Abstract Methods
+
+        /// <summary>
+        /// Used with mouse hover event to determine if current line is motion. If it is, then its value is searched.
+        /// </summary>
+        /// <param name="lineValue"></param>
+        /// <returns>Positional Value</returns>
+        public abstract string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables);
+        
+
         public abstract DocumentViewModel GetFile(string filename);
 
         public abstract string ExtractXYZ(string positionstring);
@@ -702,6 +714,9 @@ namespace miRobotEditor.Languages
                 _bw.ReportProgress(i);
             }
         }
+
+       
+
 
 
         //TODO Signal Path for KUKARegex currently displays linear motion

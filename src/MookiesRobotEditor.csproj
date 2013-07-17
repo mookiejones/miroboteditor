@@ -693,6 +693,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Languages\CompletionItemsSchema.xsd" />
     <None Include="Resources\Options.xsd">
       <SubType>Designer</SubType>

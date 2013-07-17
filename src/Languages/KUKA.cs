@@ -21,7 +21,7 @@ using System.Windows.Input;
 using Global = miRobotEditor.Classes.Global;
 using RelayCommand = miRobotEditor.Commands.RelayCommand;
 using Utilities = miRobotEditor.Classes.Utilities;
-
+using miRobotEditor.Classes;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -161,6 +161,45 @@ namespace miRobotEditor.Languages
         }
   
         #endregion
+
+
+        public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
+        {
+            if (lineValue.Trim().StartsWith(";FOLD ",StringComparison.OrdinalIgnoreCase))
+                lineValue=lineValue.Replace(";FOLD",String.Empty);
+
+
+            if (lineValue.Trim().StartsWith("lin",StringComparison.OrdinalIgnoreCase)|lineValue.Trim().StartsWith("ptp",StringComparison.OrdinalIgnoreCase))
+            {
+
+
+            
+      
+
+
+
+                var split = lineValue.Trim().Split(' ');
+                Console.WriteLine();
+                //TODO Need to account for explicit commands
+
+                var pos = split[1];
+
+
+                var positions = from v in variables
+                                where v.Type.ToUpper() == "E6POS" && (v.Name.ToLower() == pos.ToLower() || v.Name.ToLower() == "x" + pos.ToLower())
+                              select v; 
+
+
+
+                foreach (var  p in positions)
+                {
+                    return p.Value;
+                }
+
+                // Parse Value
+            }
+            return string.Empty;
+        }
 
 
         //Used for Reverse Path
@@ -421,7 +460,7 @@ namespace miRobotEditor.Languages
         }
 
         
-        private const RegexOptions Ro = (int)RegexOptions.IgnoreCase+RegexOptions.Multiline;
+       
 
         public override DocumentViewModel GetFile(string filepath)
         {

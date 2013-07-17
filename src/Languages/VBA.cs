@@ -7,7 +7,7 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.ViewModel;
 using FileInfo = System.IO.FileInfo;
-
+using miRobotEditor.Classes;
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -24,6 +24,10 @@ namespace miRobotEditor.Languages
         public override List<string> SearchFilters
         {
             get { return new List<string> { "*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd" }; }
+        }
+        public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
+        {
+            return string.Empty;
         }
 
         public VBA(string file):base(file)
