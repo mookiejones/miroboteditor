@@ -552,6 +552,8 @@ namespace miRobotEditor.Languages
         public override Regex XYZRegex { get { return new Regex(@"^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)=?\{?([^}}]*)?\}?", Ro); } }
         #endregion
         
+
+        
         public static string GetDatFileName(string filename)
         {
         	return filename.Substring(0,filename.LastIndexOf('.')) + ".dat";
@@ -571,6 +573,86 @@ namespace miRobotEditor.Languages
         	
         }
 
+        public class Positions:ViewModelBase,IVariable
+        {
+            private bool _isSelected;
+            public bool IsSelected
+            {
+                get
+                {
+                    return _isSelected;
+                }
+                set
+                {
+                    _isSelected = value; RaisePropertyChanged("IsSelected");
+                }
+            }
+
+            private System.Windows.Media.Imaging.BitmapImage _icon;
+            public System.Windows.Media.Imaging.BitmapImage Icon
+            {
+                get { return _icon; }
+                set { _icon = value; RaisePropertyChanged("Icon"); }
+            }
+            private string _name;
+            public string Name
+            {
+                get { return _name; }
+                set { _name = value; RaisePropertyChanged("Name"); }
+            }
+
+                private String _type;
+            public string Type
+            {
+                get{return _type;}
+                set{_type=value;RaisePropertyChanged("Type");}
+            }
+            private string _path;
+
+            public string Path
+            {
+                get { return _path; }
+                set { _path = value; RaisePropertyChanged("Path"); }
+            }
+            private string _value;
+            public string Value
+            {
+                get
+                {
+                    return _value;
+                }
+                set
+                {
+                    _value = value; RaisePropertyChanged("Value");
+                }
+            }
+            private string _comment;
+            public string Comment
+            {
+                get { return _comment; }
+                set { _comment = value; RaisePropertyChanged("Value"); }
+            }
+            private string _declaration;
+            public string Declaration
+            {
+                get { return _declaration; }
+                set { _declaration = value; RaisePropertyChanged("Declaration"); }
+            }
+
+            private string _description;
+            public string Description
+            {
+                get { return _description; }
+                set { _description = value; RaisePropertyChanged("Description"); }
+            }
+
+            private int _offset;
+            public int Offset
+            {
+                get { return _offset; }
+                set { _offset = value; RaisePropertyChanged("Offset"); }
+            }
+        }
     }
 
    

@@ -385,20 +385,27 @@ namespace miRobotEditor.GUI
             if (String.IsNullOrEmpty(matchstring.ToString())) return;
 
             Match m;
-                m = matchstring.Match(Text.ToLowerInvariant());
+                m = matchstring.Match(Text);
              
 
             while (m.Success)
             {
-                _variables.Add(new Variable
-                                  {   Declaration=m.Groups[0].ToString(),
-                                      Offset = m.Index,
-                                      Type = m.Groups[1].ToString(),
-                                      Name = m.Groups[2].ToString(),
-                                      Value=m.Groups[3].ToString(),
-                                      Path = Filename,
-                                      Icon = Utilities.LoadBitmap(imgPath)
-                                  } );
+
+
+                var v = new Variable
+                {
+                    Declaration = m.Groups[0].ToString(),
+                    Offset = m.Index,
+                    Type = m.Groups[1].ToString(),
+                    Name = m.Groups[2].ToString(),
+                    Value = m.Groups[3].ToString(),
+                    Path = Filename,
+                    Icon = Utilities.LoadBitmap(imgPath)
+                };
+
+                //
+                v.Value = Regex.Replace(v.Value, "\r\n", String.Empty);
+                _variables.Add(v);
                 var d = Document.GetLineByOffset(m.Index);
                 AddBookMark(d.LineNumber, imgPath);
                 m = m.NextMatch();
@@ -1048,18 +1055,44 @@ namespace miRobotEditor.GUI
             //UpdateFolds();
             var tvp =  GetPositionFromPoint(e.GetPosition(this));
 
-
-           
-            var s = FileLanguage.IsLineMotion(GetLine(tvp.Value.Line),this.Variables);
+            string s = string.Empty;
+           if (tvp!=null)
+             s = FileLanguage.IsLineMotion(GetLine(tvp.Value.Line),this.Variables);
      
-            if (!String.IsNullOrWhiteSpace(s))
+
+            // Is Current Line a fold?
+
+            bool clf = IsCurrentLineFold(tvp);
+            if (clf)
             {
-                // Line is position, 
-                e.Handled=GetCurrentFold((TextViewPosition)tvp,s);
+                if (!String.IsNullOrWhiteSpace(s))
+                {
+
+
+                    e.Handled = GetCurrentFold((TextViewPosition)tvp, s);
+                }
+                else
+                {
+                    if (tvp.HasValue)
+                        e.Handled = GetCurrentFold((TextViewPosition)tvp);
+                }
             }
+
+
             else
-             if (tvp.HasValue)
-              e.Handled =  GetCurrentFold((TextViewPosition)tvp);
+            {                
+                if (!string.IsNullOrEmpty(s))
+                {
+                _toolTip = new ToolTip();
+                _toolTip.Content = GetLine(tvp.Value.Line).Substring(GetLine(tvp.Value.Line).IndexOf(":") + 1) + "\r\n" + s;
+                _toolTip.PlacementTarget = this;
+                _toolTip.IsOpen = true;
+                }
+                // Current Line is not a fold
+
+            }
+
+
 
             //TODO _variables
             //    toolTip.PlacementTarget = this;
@@ -1084,7 +1117,15 @@ namespace miRobotEditor.GUI
             //
         }
 
+        bool IsCurrentLineFold(TextViewPosition? tvp)
+        {
+            var off = Document.GetOffset(((TextViewPosition)tvp).Location);
 
+            var f = _foldingManager.GetFoldingsAt(off);
+
+            return (f.Count !=0);
+
+        }
         
         private void ToggleFolds()
         {

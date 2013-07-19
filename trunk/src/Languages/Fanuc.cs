@@ -37,6 +37,20 @@ namespace miRobotEditor.Languages
         }
         public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
         {
+            //"  64:J PR[15:G1 G2 Common Pos] 100% CNT50    ;"
+
+            var match = Regex.Match(lineValue, @"[\d]*\s?:(J|L)\s+(PR?\[[\d]+\])", RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                var positions = from v in variables
+                               where v.Name == match.Groups[2].ToString()
+                               select v;
+                foreach (var p in positions)
+                {
+                    return p.Value;
+                }
+            }
+
             return string.Empty;
 
         }
@@ -190,7 +204,7 @@ namespace miRobotEditor.Languages
 
         }
 
-        public override Regex XYZRegex { get { return new Regex(String.Empty); } }
+        public override Regex XYZRegex { get { return new Regex("()(P\\[[\\d]+\\]){\\s*GP[\\d]+([^}]*)",Ro); } }
         public override DocumentViewModel GetFile(string filepath)
         {
             return new DocumentViewModel(filepath);
