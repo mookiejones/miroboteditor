@@ -227,7 +227,7 @@ namespace miRobotEditor
         #endregion
 
         #region ActiveEditor
-        private static IDocument _activeEditor;
+        private  IDocument _activeEditor;
         public IDocument ActiveEditor 
         {
             get 
@@ -236,11 +236,14 @@ namespace miRobotEditor
             } 
             set 
             {
-                
+
+                Console.WriteLine(value.FileName);
                // if (_activeEditor.ContentId == value.ContentId) return;
                 _activeEditor = value;
+                
+                RaisePropertyChanged("ActiveEditor");
                 _activeEditor.TextBox.Focus();
-                RaisePropertyChanged();
+                _activeEditor.TextBox.InvalidateVisual();
                 RaisePropertyChanged("Title");
     //            if (ActiveEditorChanged != null)
     //                ActiveEditorChanged(this, EventArgs.Empty);
@@ -437,9 +440,7 @@ namespace miRobotEditor
                 fileViewModel.Load(filepath);
                 // Add file to Recent list
                 RecentFileList.Instance.InsertFile(filepath);
-                System.Windows.Shell.JumpList.AddToRecentCategory(filepath);
-
-            
+                System.Windows.Shell.JumpList.AddToRecentCategory(filepath);            
             }
             fileViewModel.IsActive = true;
             _files.Add(fileViewModel);
