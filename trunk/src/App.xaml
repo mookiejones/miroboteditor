@@ -3,19 +3,19 @@
 
              StartupUri="MainWindow.xaml"
               DispatcherUnhandledException="AppDispatcherUnhandledException"
-             >
-    <Application.Resources>        
+>
+    <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml"/>            
+                <ResourceDictionary Source="pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml" />
             </ResourceDictionary.MergedDictionaries>
-<!-- ReSharper disable Xaml.RedundantResource -->
-            <miEditor:Workspace x:Key="Workspace"  />
-<!-- ReSharper restore Xaml.RedundantResource -->
+            <!-- ReSharper disable Xaml.RedundantResource -->
+            <miEditor:Workspace x:Key="Workspace" />
+            <!-- ReSharper restore Xaml.RedundantResource -->
         </ResourceDictionary>
     </Application.Resources>
     <JumpList.JumpList>
-        <JumpList ShowRecentCategory="True" ShowFrequentCategory="True"  >
+        <JumpList ShowRecentCategory="True" ShowFrequentCategory="True">
             <JumpTask Title="Help" Description="Help Me!!!" />
         </JumpList>
     </JumpList.JumpList>

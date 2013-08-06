@@ -7,8 +7,7 @@
         {
             var item = new CartesianTypes
                 {
-                    ValueCartesianEnum = CartesianEnum.ABB_Quaternion,
-                    ValueCartesianString = "ABB Quaternion"
+                    ValueCartesianEnum = CartesianEnum.ABB_Quaternion,ValueCartesianString = "ABB Quaternion"
                 };
             Add(item);
             var types2 = new CartesianTypes

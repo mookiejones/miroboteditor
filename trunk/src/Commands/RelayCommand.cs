@@ -3,11 +3,12 @@
  * User: cberman
  * Date: 11/16/2012
  * Time: 10:24
- * 
+ *
  */
+
 using System;
-using System.Windows.Input;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace miRobotEditor.Commands
 {
@@ -16,10 +17,10 @@ namespace miRobotEditor.Commands
     {
         #region Fields
 
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        private readonly Action<object> _execute;
+        private readonly Predicate<object> _canExecute;
 
-        #endregion // Fields
+        #endregion Fields
 
         #region Constructors
 
@@ -36,7 +37,8 @@ namespace miRobotEditor.Commands
             _execute = execute;
             _canExecute = canExecute;
         }
-        #endregion // Constructors
+
+        #endregion Constructors
 
         #region ICommand Members
 
@@ -57,9 +59,10 @@ namespace miRobotEditor.Commands
             _execute(parameter);
         }
 
-        #endregion // ICommand Members
+        #endregion ICommand Members
 
         public event EventHandler OwnerChanged;
+
         protected virtual void OnOwnerChanged(EventArgs e)
         {
             if (OwnerChanged != null)

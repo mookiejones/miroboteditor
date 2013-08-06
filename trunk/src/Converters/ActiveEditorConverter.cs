@@ -17,8 +17,10 @@ namespace miRobotEditor.Converters
         {
             if (value is IDocument)
             {
-                return value;
-            }
+                return value; 
+            } 
+
+
 
             return Binding.DoNothing;
         }

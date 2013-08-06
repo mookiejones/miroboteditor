@@ -13,7 +13,7 @@ namespace miRobotEditor.Controls
     /// An updated version of the standard ExtendedGridSplitter control that includes a centered handle
     /// which allows complete collapsing and expanding of the appropriate grid column or row.
     /// </summary>
-    [Localizable(false),TemplatePart(Name = ElementHorizontalHandleName, Type = typeof(ToggleButton))]
+    [Localizable(false), TemplatePart(Name = ElementHorizontalHandleName, Type = typeof(ToggleButton))]
     [TemplatePart(Name = ElementLabelName, Type = typeof(ToggleButton))]
     [TemplatePart(Name = ElementSwitcharrowHandleName, Type = typeof(ToggleButton))]
     [TemplatePart(Name = ElementVerticalHandleName, Type = typeof(ToggleButton))]
@@ -22,9 +22,6 @@ namespace miRobotEditor.Controls
     public class ExtendedGridSplitter : GridSplitter
     {
         public static bool Animating = false;
-
-
-      
 
         #region TemplateParts
 
@@ -36,15 +33,14 @@ namespace miRobotEditor.Controls
         private const string ElementVerticalTemplateName = "VerticalTemplate";
         private const string ElementGridsplitterBackground = "GridSplitterBackground";
 
-
         public ToggleButton GridSplitterButton { get { return _elementVerticalGridSplitterButton; } set { _elementVerticalGridSplitterButton = value; } }
+
         private static ToggleButton _elementHorizontalGridSplitterButton;
         private static ToggleButton _elementVerticalGridSplitterButton;
 
-
         private Rectangle _elementGridSplitterBackground;
 
-        #endregion
+        #endregion TemplateParts
 
         #region Dependency Properties
 
@@ -56,12 +52,14 @@ namespace miRobotEditor.Controls
             get { return (GridSplitterCollapseMode)GetValue(CollapseModeProperty); }
             set { SetValue(CollapseModeProperty, value); }
         }
+
         /// <summary>
         /// Identifies the CollapseMode dependency property
         /// </summary>
         public static readonly DependencyProperty CollapseModeProperty = DependencyProperty.Register("CollapseMode", typeof(GridSplitterCollapseMode), typeof(ExtendedGridSplitter), new PropertyMetadata(GridSplitterCollapseMode.None, OnCollapseModePropertyChanged));
+
         /// <summary>
-        /// Gets or sets the style that customizes the appearance of the horizontal handle 
+        /// Gets or sets the style that customizes the appearance of the horizontal handle
         /// that is used to expand and collapse the ExtendedGridSplitter.
         /// </summary>
         public Style SwitchArrowStyle
@@ -71,7 +69,7 @@ namespace miRobotEditor.Controls
         }
 
         /// <summary>
-        /// Gets or sets the style that customizes the appearance of the horizontal handle 
+        /// Gets or sets the style that customizes the appearance of the horizontal handle
         /// that is used to expand and collapse the ExtendedGridSplitter.
         /// </summary>
         public Style LabelStyle
@@ -81,7 +79,7 @@ namespace miRobotEditor.Controls
         }
 
         /// <summary>
-        /// Gets or sets the style that customizes the appearance of the horizontal handle 
+        /// Gets or sets the style that customizes the appearance of the horizontal handle
         /// that is used to expand and collapse the ExtendedGridSplitter.
         /// </summary>
         public Color FocusColor
@@ -91,7 +89,7 @@ namespace miRobotEditor.Controls
         }
 
         /// <summary>
-        /// Gets or sets the style that customizes the appearance of the horizontal handle 
+        /// Gets or sets the style that customizes the appearance of the horizontal handle
         /// that is used to expand and collapse the ExtendedGridSplitter.
         /// </summary>
         public Color UnfocusColor
@@ -100,9 +98,8 @@ namespace miRobotEditor.Controls
             set { SetValue(UnfocusColorProperty, value); }
         }
 
-
         /// <summary>
-        /// Gets or sets the style that customizes the appearance of the horizontal handle 
+        /// Gets or sets the style that customizes the appearance of the horizontal handle
         /// that is used to expand and collapse the ExtendedGridSplitter.
         /// </summary>
         public Style HorizontalHandleStyle
@@ -137,7 +134,7 @@ namespace miRobotEditor.Controls
         public static readonly DependencyProperty SwitchArrowStyleProperty = DependencyProperty.Register("SwitchArrowStyle", typeof(Style), typeof(ExtendedGridSplitter), null);
 
         ///<summary>
-        /// Gets or sets the style that customizes the appearance of the vertical handle 
+        /// Gets or sets the style that customizes the appearance of the vertical handle
         /// that is used to expand and collapse the ExtendedGridSplitter.
         /// </summary>
         public Style VerticalHandleStyle
@@ -167,7 +164,7 @@ namespace miRobotEditor.Controls
         public static readonly DependencyProperty IsAnimatedProperty = DependencyProperty.Register("IsAnimated", typeof(bool), typeof(ExtendedGridSplitter), null);
 
         /// <summary>
-        /// Gets or sets a value that indicates if the target column is 
+        /// Gets or sets a value that indicates if the target column is
         /// currently collapsed.
         /// </summary>
         public bool IsCollapsed
@@ -207,7 +204,7 @@ namespace miRobotEditor.Controls
             if (s != null) s.OnCollapseModeChanged(value);
         }
 
-        #endregion
+        #endregion Dependency Properties
 
         #region Local Members
 
@@ -216,8 +213,8 @@ namespace miRobotEditor.Controls
         private double _savedActualValue;
         private const double AnimationTimeMillis = 200;
 
-        #endregion
-        
+        #endregion Local Members
+
         #region Control Instantiation
 
         /// <summary>
@@ -234,8 +231,10 @@ namespace miRobotEditor.Controls
             VerticalContentAlignment = VerticalAlignment.Stretch;
             Height = 20;
             CollapseMode = GridSplitterCollapseMode.Previous;
-          //  LayoutUpdated += delegate { _gridCollapseDirection = GetCollapseDirection(); };
-            Loaded += delegate { Collapse(); IsAnimated = true;
+            //  LayoutUpdated += delegate { _gridCollapseDirection = GetCollapseDirection(); };
+            Loaded += delegate
+            {
+                Collapse(); IsAnimated = true;
             };
 
             // All ExtendedGridSplitter visual states are handled by the parent GridSplitter class.
@@ -250,7 +249,6 @@ namespace miRobotEditor.Controls
             _elementHorizontalGridSplitterButton = GetTemplateChild(ElementHorizontalHandleName) as ToggleButton;
             _elementVerticalGridSplitterButton = GetTemplateChild(ElementVerticalHandleName) as ToggleButton;
             _elementGridSplitterBackground = GetTemplateChild(ElementGridsplitterBackground) as Rectangle;
-
 
             // Wire up the Checked and Unchecked events of the HorizontalGridSplitterHandle.
             if (_elementHorizontalGridSplitterButton != null)
@@ -273,7 +271,7 @@ namespace miRobotEditor.Controls
             OnIsCollapsedChanged(IsCollapsed);
         }
 
-        #endregion
+        #endregion Control Instantiation
 
         #region Protected Members
 
@@ -283,13 +281,12 @@ namespace miRobotEditor.Controls
         /// <param name="isCollapsed">The new value for the IsCollapsed property.</param>
         protected virtual void OnIsCollapsedChanged(bool isCollapsed)
         {
-                // Sets the target ToggleButton's IsChecked property equal
-                // to the provided isCollapsed property.
+            // Sets the target ToggleButton's IsChecked property equal
+            // to the provided isCollapsed property.
 
-                if (_elementVerticalGridSplitterButton != null)
-                    _elementVerticalGridSplitterButton.IsChecked = isCollapsed;
+            if (_elementVerticalGridSplitterButton != null)
+                _elementVerticalGridSplitterButton.IsChecked = isCollapsed;
         }
-
 
         /// <summary>
         /// Handles the property change event of the CollapseMode property.
@@ -297,44 +294,37 @@ namespace miRobotEditor.Controls
         /// <param name="collapseMode">The new value for the CollapseMode property.</param>
         protected virtual void OnCollapseModeChanged(GridSplitterCollapseMode collapseMode)
         {
-                      
-                if (_elementVerticalGridSplitterButton != null)
-                    _elementVerticalGridSplitterButton.Visibility = Visibility.Visible;
+            if (_elementVerticalGridSplitterButton != null)
+                _elementVerticalGridSplitterButton.Visibility = Visibility.Visible;
 
-                // Rotate the direction that the handle is facing depending on the CollapseMode.
-                switch (collapseMode)
-                {
-                    case GridSplitterCollapseMode.Previous:
-                        if (_elementVerticalGridSplitterButton != null)
-                        {
-  //                          if (Dispatcher.CheckAccess())
-  //                              _elementVerticalGridSplitterButton.RenderTransform.SetValue( ScaleTransform.ScaleXProperty, -1.0);
-  //                          else
-   //                             Dispatcher.BeginInvoke(new ChangeTransform(_elementVerticalGridSplitterButton.RenderTransform.SetValue),ScaleTransform.ScaleXProperty, -1.0));
-                                        
-                        }
-                        break;
-                    case GridSplitterCollapseMode.Next:
-                        if (_elementVerticalGridSplitterButton != null)
-                        {
-//                            if (Dispatcher.CheckAccess())
-//                                _elementVerticalGridSplitterButton.RenderTransform.SetValue(ScaleTransform.ScaleXProperty, -1.0);
-//                            else
-//                                Dispatcher.BeginInvoke(new ChangeTransform(_elementVerticalGridSplitterButton.RenderTransform.SetValue),ScaleTransform.ScaleXProperty, 1.0));
-                                        
-                        }
-                        break;
-                }
+            // Rotate the direction that the handle is facing depending on the CollapseMode.
+            switch (collapseMode)
+            {
+                case GridSplitterCollapseMode.Previous:
+                    if (_elementVerticalGridSplitterButton != null)
+                    {
+                        //                          if (Dispatcher.CheckAccess())
+                        //                              _elementVerticalGridSplitterButton.RenderTransform.SetValue( ScaleTransform.ScaleXProperty, -1.0);
+                        //                          else
+                        //                             Dispatcher.BeginInvoke(new ChangeTransform(_elementVerticalGridSplitterButton.RenderTransform.SetValue),ScaleTransform.ScaleXProperty, -1.0));
+                    }
+                    break;
 
-            
-
+                case GridSplitterCollapseMode.Next:
+                    if (_elementVerticalGridSplitterButton != null)
+                    {
+                        //                            if (Dispatcher.CheckAccess())
+                        //                                _elementVerticalGridSplitterButton.RenderTransform.SetValue(ScaleTransform.ScaleXProperty, -1.0);
+                        //                            else
+                        //                                Dispatcher.BeginInvoke(new ChangeTransform(_elementVerticalGridSplitterButton.RenderTransform.SetValue),ScaleTransform.ScaleXProperty, 1.0));
+                    }
+                    break;
+            }
         }
 
-        #endregion
+        #endregion Protected Members
 
         #region Collapse and Expand Methods
-
-       
 
         private static Grid _parentGrid;
 
@@ -387,7 +377,6 @@ namespace miRobotEditor.Controls
                 }
             }
             IsCollapsed = true;
-
         }
 
         /// <summary>
@@ -395,45 +384,45 @@ namespace miRobotEditor.Controls
         /// </summary>
         public void Expand()
         {
-
             var parentGrid = Parent as Grid;
             if (parentGrid != null)
                 _parentGrid = parentGrid;
-           
-                // Get the index of the row containing the splitter
-            const int splitterIndex = 1; 
 
-                // Determine the curent CollapseMode
-                if (CollapseMode == GridSplitterCollapseMode.Previous)
+            // Get the index of the row containing the splitter
+            const int splitterIndex = 1;
+
+            // Determine the curent CollapseMode
+            if (CollapseMode == GridSplitterCollapseMode.Previous)
+            {
+                // Expand the next row
+                if (IsAnimated)
                 {
-                    // Expand the next row
-                    if (IsAnimated)
-                    {
-                        if (parentGrid != null) AnimateExpand(parentGrid.RowDefinitions[splitterIndex + 1]);
-                    }
-                    else if (parentGrid != null)
-                        parentGrid.RowDefinitions[splitterIndex + 1].SetValue(RowDefinition.HeightProperty, _savedGridLength);
+                    if (parentGrid != null) AnimateExpand(parentGrid.RowDefinitions[splitterIndex + 1]);
                 }
-                else
+                else if (parentGrid != null)
+                    parentGrid.RowDefinitions[splitterIndex + 1].SetValue(RowDefinition.HeightProperty, _savedGridLength);
+            }
+            else
+            {
+                // Expand the previous row
+                if (IsAnimated)
                 {
-                    // Expand the previous row
-                    if (IsAnimated)
-                    {
-                        if (parentGrid != null) AnimateExpand(parentGrid.RowDefinitions[splitterIndex - 1]);
-                    }
-                    else if (parentGrid != null)
-                        parentGrid.RowDefinitions[splitterIndex - 1].SetValue(RowDefinition.HeightProperty, _savedGridLength);
+                    if (parentGrid != null) AnimateExpand(parentGrid.RowDefinitions[splitterIndex - 1]);
                 }
-            
+                else if (parentGrid != null)
+                    parentGrid.RowDefinitions[splitterIndex - 1].SetValue(RowDefinition.HeightProperty, _savedGridLength);
+            }
+
             IsCollapsed = false;
         }
 
-        #endregion
+        #endregion Collapse and Expand Methods
 
         #region Event Handlers and Throwers
 
         // Define Collapsed and Expanded evenets
         public event EventHandler<EventArgs> Collapsed;
+
         public event EventHandler<EventArgs> Expanded;
 
         /// <summary>
@@ -485,7 +474,6 @@ namespace miRobotEditor.Controls
             OnCollapsed(EventArgs.Empty);
         }
 
-
         /// <summary>
         /// Handles the Unchecked event of either the Vertical or Horizontal
         /// GridSplitterHandle ToggleButton.
@@ -509,7 +497,7 @@ namespace miRobotEditor.Controls
             OnExpanded(EventArgs.Empty);
         }
 
-        #endregion
+        #endregion Event Handlers and Throwers
 
         #region Collapse and Expand Animations
 
@@ -518,9 +506,10 @@ namespace miRobotEditor.Controls
         private RowDefinition _animatingRow;
 
 #pragma warning disable 169
+
         private static readonly DependencyProperty RowHeightAnimationProperty =
 #pragma warning restore 169
-            DependencyProperty.Register(
+ DependencyProperty.Register(
                 "RowHeightAnimation",
                 typeof(double),
                 typeof(ExtendedGridSplitter),
@@ -534,9 +523,8 @@ namespace miRobotEditor.Controls
                 extendedGridSplitter._animatingRow.Height = new GridLength((double)e.NewValue);
         }
 
-        #endregion
+        #endregion Property for animating rows
 
-  
         /// <summary>
         /// Uses DoubleAnimation and a StoryBoard to animated the collapsing
         /// of the specificed ColumnDefinition or RowDefinition.
@@ -550,14 +538,11 @@ namespace miRobotEditor.Controls
 
             // Add the animation to the StoryBoard
             sb.Children.Add(gridLengthAnimation);
-            
-                // Specify the target RowDefinition and property (Height) that will be altered by the animation.
-                _animatingRow = (RowDefinition)definition;
-                Storyboard.SetTarget(gridLengthAnimation, this);
-                Storyboard.SetTargetProperty(gridLengthAnimation, new PropertyPath("RowHeightAnimation"));
 
-              
-           
+            // Specify the target RowDefinition and property (Height) that will be altered by the animation.
+            _animatingRow = (RowDefinition)definition;
+            Storyboard.SetTarget(gridLengthAnimation, this);
+            Storyboard.SetTargetProperty(gridLengthAnimation, new PropertyPath("RowHeightAnimation"));
 
             gridLengthAnimation.From = _animatingRow.ActualHeight;
             gridLengthAnimation.To = 0;
@@ -579,13 +564,12 @@ namespace miRobotEditor.Controls
 
             // Add the animation to the StoryBoard
             sb.Children.Add(gridLengthAnimation);
-           
-                // Specify the target RowDefinition and property (Height) that will be altered by the animation.
-                _animatingRow = (RowDefinition)definition;
-                Storyboard.SetTarget(gridLengthAnimation, this);
-                Storyboard.SetTargetProperty(gridLengthAnimation, new PropertyPath("RowHeightAnimation"));
 
-           
+            // Specify the target RowDefinition and property (Height) that will be altered by the animation.
+            _animatingRow = (RowDefinition)definition;
+            Storyboard.SetTarget(gridLengthAnimation, this);
+            Storyboard.SetTargetProperty(gridLengthAnimation, new PropertyPath("RowHeightAnimation"));
+
             gridLengthAnimation.From = _animatingRow.ActualHeight;
             gridLengthAnimation.To = _savedActualValue;
 
@@ -593,7 +577,7 @@ namespace miRobotEditor.Controls
             sb.Begin();
         }
 
-        #endregion
+        #endregion Collapse and Expand Animations
 
         /// <summary>
         /// An enumeration that specifies the direction the ExtendedGridSplitter will
@@ -604,7 +588,8 @@ namespace miRobotEditor.Controls
             Rows
         }
     }
-     /// <summary>
+
+    /// <summary>
     /// Specifies different collapse modes of a ExtendedGridSplitter.
     /// </summary>
     public enum GridSplitterCollapseMode
@@ -613,11 +598,13 @@ namespace miRobotEditor.Controls
         /// The ExtendedGridSplitter cannot be collapsed or expanded.
         /// </summary>
         None = 0,
+
         /// <summary>
         /// The column (or row) to the right (or below) the
         /// splitter's column, will be collapsed.
         /// </summary>
         Next = 1,
+
         /// <summary>
         /// The column (or row) to the left (or above) the
         /// splitter's column, will be collapsed.
@@ -625,4 +612,3 @@ namespace miRobotEditor.Controls
         Previous = 2
     }
 }
-

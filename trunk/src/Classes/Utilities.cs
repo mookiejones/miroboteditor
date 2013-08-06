@@ -16,7 +16,6 @@ namespace miRobotEditor.Classes
         /// <returns></returns>
         public static BitmapImage LoadBitmap(Bitmap img)
         {
-        	
             var result = new BitmapImage();
             using (var ms = new MemoryStream())
             {
@@ -28,23 +27,22 @@ namespace miRobotEditor.Classes
             return result;
         }
 
-
         /// <summary>
         /// Converts a <see cref="System.Drawing.Image"/> into a WPF <see cref="BitmapSource"/>.
         /// </summary>
         /// <returns>A BitmapSource</returns>
-// ReSharper disable FunctionRecursiveOnAllPaths
-//      public static BitmapSource ToBitmapSource(this Image source)
-// ReSharper restore FunctionRecursiveOnAllPaths
-//      {
-//          var bitmap = new Bitmap(source);
-//
-//          var bitSrc = bitmap.ToBitmapSource();
-//
-//          bitmap.Dispose();
-//
-//          return bitSrc;
-//      }
+        // ReSharper disable FunctionRecursiveOnAllPaths
+        //      public static BitmapSource ToBitmapSource(this Image source)
+        // ReSharper restore FunctionRecursiveOnAllPaths
+        //      {
+        //          var bitmap = new Bitmap(source);
+        //
+        //          var bitSrc = bitmap.ToBitmapSource();
+        //
+        //          bitmap.Dispose();
+        //
+        //          return bitSrc;
+        //      }
 
         public static ImageSource GetIcon(string fileName)
         {
@@ -64,7 +62,6 @@ namespace miRobotEditor.Classes
         {
             try
             {
-
                 if (File.Exists(fileName))
                 {
                     var fi = new FileInfo(fileName);
@@ -83,6 +80,5 @@ namespace miRobotEditor.Classes
             }
             return null;
         }
-
     }
 }
