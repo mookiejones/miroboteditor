@@ -41,15 +41,17 @@ namespace miRobotEditor
 
         public void LoadItems()
         {            
-            //Load Files that were closed with the window the last time the Program was executed
-            LoadOpenFiles();
+          
 
             //If No open files, Open one
             var docpane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
-            if (docpane != null && docpane.ChildrenCount == 0)
+            LoadLayout();
+            ProcessArgs();
+            //Load Files that were closed with the window the last time the Program was executed
+            LoadOpenFiles();
+            if ((docpane != null && docpane.ChildrenCount == 0)&(Workspace.Instance.Files.Count<1))
                 Workspace.Instance.AddNewFile();
 
-            ProcessArgs();
         }
 
         static void OpenFile(string filename)
@@ -166,11 +168,11 @@ namespace miRobotEditor
 
         private void SaveLayout()
         {
-/*
+
             var serializer = new XmlLayoutSerializer(DockManager);
             using (var stream = new StreamWriter(Global.DockConfig))
                 serializer.Serialize(stream);
-*/
+
         }
 
         [UsedImplicitly]

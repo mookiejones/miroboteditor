@@ -97,7 +97,6 @@ namespace miRobotEditor.Languages
         {
             get { return new Regex(String.Empty); }
         }
-        private const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
         public override Regex XYZRegex
         {
             get { return new Regex(@"^[PERS ]*(robtarget|jointtarget) ([\w\d_]*)",Ro); }

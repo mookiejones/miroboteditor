@@ -30,7 +30,7 @@ namespace miRobotEditor
         public Workspace()
         {
             Instance = this;
-            AddNewFile();
+        
             _tools = new ObservableCollection<ToolViewModel> { ObjectBrowser,MessageView, Notes, LocalVariables, Functions, AngleConverter };
 
         }
@@ -40,7 +40,10 @@ namespace miRobotEditor
         public string Title{
             get
             {
-                var fn = ActiveEditor.FilePath ?? string.Empty;
+
+                string fn= string.Empty;
+                if (ActiveEditor == null) return fn;
+                fn = ActiveEditor.FilePath ?? string.Empty;
                 return ShortenPathname(fn, 100);
         }
         }
@@ -426,11 +429,25 @@ namespace miRobotEditor
             return fileViewModel;
         }
 
+        /// <summary>
+        /// Gets document type of file to open
+        /// </summary>
+        /// <param name="filepath">Destination of file</param>
+        /// <returns>Document Type</returns>
         private IDocument OpenFile(string filepath)
         {
-            var fileViewModel = _files.FirstOrDefault(fm => fm.FilePath == filepath);
+
+            var fileViewModel = _files.FirstOrDefault(fm => fm.ContentId == filepath);
+        
+
             if (fileViewModel != null)
+            {
+                fileViewModel.IsSelected = true;
+                fileViewModel.IsActive = true;
+                ActiveEditor = fileViewModel;
                 return fileViewModel;
+            }
+               
 
 
             fileViewModel = AbstractLanguageClass.GetViewModel(filepath);
@@ -442,8 +459,13 @@ namespace miRobotEditor
                 RecentFileList.Instance.InsertFile(filepath);
                 System.Windows.Shell.JumpList.AddToRecentCategory(filepath);            
             }
-            fileViewModel.IsActive = true;
+
+
+            // 7/23/2013 Changed order 
             _files.Add(fileViewModel);
+            fileViewModel.IsActive = true;
+            fileViewModel.IsSelected = true;
+          
             ActiveEditor = fileViewModel;
             return fileViewModel;
         }

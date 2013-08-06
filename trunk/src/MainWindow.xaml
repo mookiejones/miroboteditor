@@ -99,9 +99,6 @@
             <Button Content="Show IO" Command="{Binding ShowIOCommand}" Visibility="{Binding EnableIO, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </mah:WindowCommands>
     </mah:MetroWindow.WindowCommands>
-    <mah:MetroWindow.GlowBrush>
-        <SolidColorBrush Color="{DynamicResource HighlightLightColor}"/>
-    </mah:MetroWindow.GlowBrush>
     <Window.InputBindings>
         <KeyBinding Command="{Binding ActiveEditor.CloseCommand}"  Gesture="Alt+C"/>
         <KeyBinding Key="F3" Modifiers="Shift" Command="Search" CommandParameter="something" />

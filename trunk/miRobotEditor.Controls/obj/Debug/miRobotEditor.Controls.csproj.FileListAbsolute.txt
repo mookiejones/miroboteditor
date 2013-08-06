@@ -8,3 +8,13 @@ D:\Programming\miroboteditor\trunk\miRobotEditor.Controls\obj\Debug\miRobotEdito
 D:\Programming\miroboteditor\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls.csproj.GenerateResource.Cache
 D:\Programming\miroboteditor\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls.dll
 D:\Programming\miroboteditor\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls.pdb
+E:\Programming\trunk\miRobotEditor.Controls\bin\Debug\miRobotEditor.Controls.dll
+E:\Programming\trunk\miRobotEditor.Controls\bin\Debug\miRobotEditor.Controls.pdb
+E:\Programming\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls.csprojResolveAssemblyReference.cache
+E:\Programming\trunk\miRobotEditor.Controls\obj\Debug\Generic.baml
+E:\Programming\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls_MarkupCompile.cache
+E:\Programming\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls.g.resources
+E:\Programming\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls.Properties.Resources.resources
+E:\Programming\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls.csproj.GenerateResource.Cache
+E:\Programming\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls.dll
+E:\Programming\trunk\miRobotEditor.Controls\obj\Debug\miRobotEditor.Controls.pdb
