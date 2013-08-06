@@ -1,13 +1,14 @@
+using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Indentation;
+using ICSharpCode.AvalonEdit.Indentation.CSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using ICSharpCode.AvalonEdit.Indentation.CSharp;
-using ICSharpCode.AvalonEdit.Indentation;
-using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.Document;
+
 namespace miRobotEditor.Classes
 {
     internal sealed class IndentationClass
@@ -33,7 +34,8 @@ namespace miRobotEditor.Classes
             /// this property can be used to identify the type of block statement (if, while, switch)
             /// at the position of the '{'.
             /// </summary>
-            [Localizable(false)] public string LastWord;
+            [Localizable(false)]
+            public string LastWord;
 
             /// <summary>
             /// The type of bracket that opened this block (, [ or {
@@ -215,10 +217,12 @@ namespace miRobotEditor.Classes
                                 _blockComment = true;
                         }
                         break;
+
                     case '#':
                         if (!(_inChar || _blockComment || _inString))
                             _lineComment = true;
                         break;
+
                     case '"':
                         if (!(_inChar || _lineComment || _blockComment))
                         {
@@ -241,19 +245,21 @@ namespace miRobotEditor.Classes
                             }
                         }
                         break;
+
                     case '\'':
                         if (!(_inString || _lineComment || _blockComment))
                         {
                             _inChar = !_inChar;
                         }
                         break;
+
                     case '\\':
                         if ((_inString && !_verbatim) || _inChar)
                             _escape = true; // skip next character
                         break;
                 }
 
-                #endregion
+                #endregion Check for comment/string chars
 
                 if (_lineComment || _blockComment || _inString || _inChar)
                 {
@@ -310,6 +316,7 @@ namespace miRobotEditor.Classes
                         }
                         _block.Bracket = '{';
                         break;
+
                     case '}':
                         while (_block.Bracket != '{')
                         {
@@ -321,6 +328,7 @@ namespace miRobotEditor.Classes
                         _block.Continuation = false;
                         _block.ResetOneLineBlock();
                         break;
+
                     case '(':
                     case '[':
                         _blocks.Push(_block);
@@ -333,6 +341,7 @@ namespace miRobotEditor.Classes
                                      (i == line.Length - 1 ? set.IndentString : new String(' ', i + 1)));
                         _block.Bracket = c;
                         break;
+
                     case ')':
                         if (_blocks.Count == 0) break;
                         if (_block.Bracket == '(')
@@ -342,16 +351,19 @@ namespace miRobotEditor.Classes
                                 _block.Continuation = false;
                         }
                         break;
+
                     case ']':
                         if (_blocks.Count == 0) break;
                         if (_block.Bracket == '[')
                             _block = _blocks.Pop();
                         break;
+
                     case ';':
                     case ',':
                         _block.Continuation = false;
                         _block.ResetOneLineBlock();
                         break;
+
                     case ':':
                         if (_block.LastWord == "case"
                             || line.StartsWith("case ", StringComparison.Ordinal)
@@ -369,10 +381,10 @@ namespace miRobotEditor.Classes
                     _lastRealChar = c;
                 }
 
-                #endregion
+                #endregion Push/Pop the blocks
             }
 
-            #endregion
+            #endregion Parse char by char
 
             if (_wordBuilder.Length > 0)
                 _block.LastWord = _wordBuilder.ToString();
@@ -480,7 +492,7 @@ namespace miRobotEditor.Classes
                 return string.Empty;
             if (count == 1)
                 return text;
-            var b = new StringBuilder(text.Length*count);
+            var b = new StringBuilder(text.Length * count);
             for (var i = 0; i < count; i++)
                 b.Append(text);
             return b.ToString();
@@ -498,6 +510,7 @@ namespace miRobotEditor.Classes
                 case "using":
                 case "lock":
                     return true;
+
                 default:
                     return false;
             }
@@ -517,13 +530,16 @@ namespace miRobotEditor.Classes
             return true;
         }
     }
+
     internal sealed class IndentationSettings
     {
-        [Localizable(false)] public string IndentString = "\t";
+        [Localizable(false)]
+        public string IndentString = "\t";
 
         /// <summary>Leave empty lines empty.</summary>
         public bool LeaveEmptyLines = true;
     }
+
     [Localizable(false)]
     public class IndentationStrategy : DefaultIndentationStrategy
     {
@@ -574,7 +590,6 @@ namespace miRobotEditor.Classes
 
         public void UnIndentLine(TextDocument document, DocumentLine line)
         {
-
         }
 
         /// <inheritdoc cref="IIndentationStrategy.IndentLine"/>

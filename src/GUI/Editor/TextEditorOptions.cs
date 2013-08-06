@@ -46,13 +46,21 @@ namespace miRobotEditor.GUI
 
         private static EditorOptions ReadXml()
         {
-            var result = new EditorOptions();
+        	            var result = new EditorOptions();
 
             if (!File.Exists(OptionsPath))
                 return result;
 
+        	
+        	// Create Temporary File
+        	var filename = Path.GetTempFileName();
+        	filename =  Path.ChangeExtension(filename,"xml");
+        	File.Copy(OptionsPath,filename);
+
+
             var s = new XmlSerializer(typeof(EditorOptions));
-            var fs = new FileStream(OptionsPath, FileMode.Open);
+            var fs = new FileStream(filename, FileMode.Open);
+//            var fs = new FileStream(OptionsPath, FileMode.Open);
            
             try
             {
@@ -67,7 +75,7 @@ namespace miRobotEditor.GUI
             finally
             {
                 fs.Close();
-              
+                File.Delete(filename);
             }
 
             return result;

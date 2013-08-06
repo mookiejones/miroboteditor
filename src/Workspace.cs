@@ -197,36 +197,55 @@ namespace miRobotEditor
         #endregion
 
         #region Properties
+        #region ShowSettings
         private bool _showSettings;
         public bool ShowSettings { get { return _showSettings; } set { _showSettings = value; RaisePropertyChanged(); } }
+        #endregion
+
+        #region AccentBrush
         [NonSerialized]
         private Accent _accentBrush = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
-
         public Accent AccentBrush { get { return _accentBrush; } set { _accentBrush = value;RaisePropertyChanged(); } }
+        #endregion
 
+        #region Current theme
         private Theme _currentTheme = Theme.Dark;
         public Theme CurrentTheme { get { return _currentTheme; } set { _currentTheme = value;RaisePropertyChanged(); } }
+        #endregion
+
+        #region Show IO
         private bool _showIO;
         public bool ShowIO { get { return _showIO; } set { _showIO = value;RaisePropertyChanged(); } }
+        #endregion
+
+        #region Enable IO
 
         private bool _enableIO;
         public bool EnableIO { get { return _enableIO; } set { _enableIO = value;RaisePropertyChanged(); } }
 
-        private  ILayoutUpdateStrategy _layoutInitializer;
-        public  ILayoutUpdateStrategy LayoutStrategy { get { return _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer()); } }
+        #endregion
 
+        #region Layout Strategy
+        private  ILayoutUpdateStrategy _layoutStrategy;
+        public ILayoutUpdateStrategy LayoutStrategy { get { return _layoutStrategy ?? (_layoutStrategy = new LayoutInitializer()); } }
+        #endregion
+
+        #region Tools
         readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
         readonly IEnumerable<ToolViewModel> _readonlyTools = null;
-        public IEnumerable<ToolViewModel> Tools { get { return _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools); } }
+        public IEnumerable<ToolViewModel> Tools { get { return _readonlyTools ?? new ReadOnlyObservableCollection<ToolViewModel>(_tools); } }
+        #endregion
 
-
+        #region IsClosing
         private bool _isClosing;
         public bool IsClosing { get { return _isClosing; } set { _isClosing = value; RaisePropertyChanged(); } }
+        #endregion
 
+        #region Files
         readonly ObservableCollection<IDocument> _files = new ObservableCollection<IDocument>();
         readonly ReadOnlyObservableCollection<IDocument> _readonyFiles = null;
         public ReadOnlyObservableCollection<IDocument> Files { get { return _readonyFiles ?? new ReadOnlyObservableCollection<IDocument>(_files); } }
-
+        #endregion
         #endregion
 
         #region ActiveEditor
@@ -239,17 +258,17 @@ namespace miRobotEditor
             } 
             set 
             {
-
-                Console.WriteLine(value.FileName);
-               // if (_activeEditor.ContentId == value.ContentId) return;
-                _activeEditor = value;
-                
-                RaisePropertyChanged("ActiveEditor");
-                _activeEditor.TextBox.Focus();
-                _activeEditor.TextBox.InvalidateVisual();
-                RaisePropertyChanged("Title");
-    //            if (ActiveEditorChanged != null)
-    //                ActiveEditorChanged(this, EventArgs.Empty);
+                // if (_activeEditor.ContentId == value.ContentId) return;
+                        _activeEditor = value;
+                        lock (_activeEditor)
+                        {
+                        RaisePropertyChanged("ActiveEditor");
+                       // _activeEditor.TextBox.Focus();
+                      //  _activeEditor.TextBox.InvalidateVisual();
+                        RaisePropertyChanged("Title");
+                        //            if (ActiveEditorChanged != null)
+                        //                ActiveEditorChanged(this, EventArgs.Empty);
+                    }
             } 
         }
 

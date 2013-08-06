@@ -1,14 +1,15 @@
-﻿using System.Windows.Controls;
-using System.Windows;
-using miRobotEditor.Core;
+﻿using miRobotEditor.Core;
 using miRobotEditor.ViewModel;
+using System.Windows;
+using System.Windows.Controls;
+
 namespace miRobotEditor.Classes
 {
-   public class PanesStyleSelector : StyleSelector
+    public class PanesStyleSelector : StyleSelector
     {
-        public Style ToolStyle { get;set; }
+        public Style ToolStyle { get; set; }
 
-        public Style FileStyle{get;set;}
+        public Style FileStyle { get; set; }
 
         public override Style SelectStyle(object item, DependencyObject container)
         {

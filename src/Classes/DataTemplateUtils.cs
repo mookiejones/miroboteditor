@@ -3,14 +3,16 @@
  * User: cberman
  * Date: 4/15/2013
  * Time: 2:47 PM
- * 
+ *
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+
 using System;
 using System.Windows;
+
 namespace miRobotEditor.Classes
 {
-	   /// <summary>
+    /// <summary>
     /// Helper class for lookup of data-templates.
     /// </summary>
     internal static class DataTemplateUtils
