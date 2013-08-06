@@ -9,6 +9,7 @@ namespace miRobotEditor.ViewModel
 
         public FunctionViewModel() : base("Functions")
         {
+            
             ContentId = ToolContentId;
             DefaultPane = DefaultToolPane.Right;
 

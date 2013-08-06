@@ -123,8 +123,6 @@ namespace miRobotEditor.Languages
             return doc.GetText(start, end);
         }
 
-        private const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
-
         // public override string SignalRegex{get{return "DEFSIG_";}}
         public override Regex MethodRegex { get { return new Regex("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)",Ro); } }
         public override Regex StructRegex { get { return new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)", Ro); } }
