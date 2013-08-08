@@ -147,16 +147,12 @@ namespace miRobotEditor
                     // assemble final string
 
                     for (var i = 0; i < begin; i++)
-                    {
                         root += elements[i] + '\\';
-                    }
 
                     root += "...\\";
 
                     for (var i = end; i < filenameIndex; i++)
-                    {
                         root += elements[i] + '\\';
-                    }
 
                     return root + elements[filenameIndex];
                 }
