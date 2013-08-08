@@ -430,6 +430,9 @@
             DocumentsSource="{Binding Files}"        
         	ActiveContent="{Binding ActiveEditor, Converter={StaticResource ActiveEditorConverter},Mode=TwoWay}"  
             LayoutUpdateStrategy="{Binding LayoutStrategy, Mode=OneWay, Source={StaticResource Workspace}}"   >
+            <ad:DockingManager.Theme>
+                <ad:MetroTheme/>
+            </ad:DockingManager.Theme>
 
             <!--             DocumentsSource="{Binding Files}"  -->
 

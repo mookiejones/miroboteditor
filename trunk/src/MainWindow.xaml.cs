@@ -46,9 +46,12 @@ namespace miRobotEditor
             //If No open files, Open one
             var docpane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             LoadLayout();
+            
+            // Load files that were opened when i last closed the window
+            LoadOpenFiles();
+
             ProcessArgs();
             //Load Files that were closed with the window the last time the Program was executed
-            LoadOpenFiles();
             if ((docpane != null && docpane.ChildrenCount == 0)&(Workspace.Instance.Files.Count<1))
                 Workspace.Instance.AddNewFile();
 
@@ -73,7 +76,7 @@ namespace miRobotEditor
         /// <summary>
         /// Open file from parameters sent to program
         /// </summary>
-        private static void ProcessArgs()
+        private void ProcessArgs()
         {
             var args = Environment.GetCommandLineArgs();
 

@@ -246,6 +246,8 @@
             </Label>
         </StackPanel>
     </DataTemplate>
+    
+    
     <Style  TargetType="{x:Type mah:Flyout}">
         <Style.Resources>
             <ResourceDictionary>
