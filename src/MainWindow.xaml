@@ -23,8 +23,7 @@
     WindowState="Maximized"	
     Closing="WindowClosing"                     
     Title="{Binding Title, Mode=OneWay, StringFormat=miRobotEditor:\= \{0\}}"
-    TitleForeground="Black"
-    
+    TitleForeground="Black"    
     Loaded="WindowLoaded"
     AllowDrop="True"
     Icon="Properties/Resources/Editor.ico"
@@ -51,7 +50,7 @@
             <Image x:Key="FoldingDisabled" Source="Resources/foldingDisabled.png" />
             <Image x:Key="FoldingEnabled" Source="Resources/foldingEnabled.png" />
          
-            <DataTemplate x:Key="KUKAMenuItems">
+            <DataTemplate x:Key="KukaMenuItems">
                 <MenuItem Header="KUKA">
                     <MenuItem Header="Archive Viewer" Command="{Binding AddToolCommand}" CommandParameter="ArchiveInfo"/>
                     <MenuItem Header="Shift Program" Command="{Binding AddToolCommand}" CommandParameter="Shift"/>
@@ -76,7 +75,7 @@
             <DataTemplate x:Key="KawasakiItems"/>
             <DataTemplate x:Key="NachiItems"/>
 
-            <classes:MenuTemplateSelector x:Key="menuSelector" KUKATemplate="{StaticResource KUKAMenuItems}" ABBTemplate="{StaticResource ABBItems}" FanucTemplate="{StaticResource FanucItems}" NachiTemplate="{StaticResource NachiItems}" />
+            <classes:MenuTemplateSelector x:Key="MenuSelector" KUKATemplate="{StaticResource KukaMenuItems}" ABBTemplate="{StaticResource ABBItems}" FanucTemplate="{StaticResource FanucItems}" NachiTemplate="{StaticResource NachiItems}" />
             <converters:ActiveEditorConverter x:Key="ActiveEditorConverter"/>
             <!-- ReSharper disable Xaml.RedundantResource -->
             <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
@@ -493,15 +492,15 @@
                 </Style>
 
             </StatusBar.Resources>
-            <StatusBarItem Grid.Column="2" DataContext="{x:Static miRobotEditor:Workspace.Instance}" Content="{Binding ActiveEditor.TextBox.Line, StringFormat=Line \{0\}}" ContentStringFormat="{Binding ActiveEditor.TextBox.Line, StringFormat=Line \{0\}}" ToolTip="Current Line"/>
-            <StatusBarItem  Grid.Column="3" DataContext="{x:Static miRobotEditor:Workspace.Instance}" ToolTip="Column Position" Content="{Binding ActiveEditor.TextBox.Column, StringFormat=Col \{0\}}" ContentStringFormat="{Binding ActiveEditor.TextBox.Column, StringFormat=Col \{0\}}"  />
-            <StatusBarItem Grid.Column="4" DataContext="{x:Static miRobotEditor:Workspace.Instance}" ToolTip="Offset Position of Caret" Content="{Binding ActiveEditor.TextBox.Offset, StringFormat=Offset \{0\}}" ContentStringFormat="{Binding ActiveEditor.TextBox.Offset, StringFormat=Offset \{0\}}"  />
-            <StatusBarItem Grid.Column="5" DataContext="{x:Static miRobotEditor:Workspace.Instance}" ToolTip="Robot Type" Content="{Binding ActiveEditor.FileLanguage.Name}"  />
-            <StatusBarItem Grid.Column="6" DataContext="{x:Static miRobotEditor:Workspace.Instance}" ToolTip="Last Modified" Content="{Binding ActiveEditor.TextBox.FileSave}" />
-            <StatusBarItem Grid.Column="7" Content="INS"  ToolTip="Insert Mode" IsEnabled="{Binding IsInsPressed}" />
-            <StatusBarItem Grid.Column="8" Content="CAPS" ToolTip="Caps Lock"   IsEnabled="{Binding IsCapsPressed}" />
-            <StatusBarItem Grid.Column="9" Content="SCR" ToolTip="Scroll Lock"  IsEnabled="{Binding IsScrollPressed}"  />
-            <StatusBarItem Grid.Column="10" Content="NUM" ToolTip="Number Lock" IsEnabled="{Binding IsNumPressed}" />
+            <StatusBarItem DataContext="{x:Static miRobotEditor:Workspace.Instance}" Content="{Binding ActiveEditor.TextBox.Line, StringFormat=Line \{0\}}" ContentStringFormat="{Binding ActiveEditor.TextBox.Line, StringFormat=Line \{0\}}" ToolTip="Current Line"/>
+            <StatusBarItem Grid.Column="1" DataContext="{x:Static miRobotEditor:Workspace.Instance}" ToolTip="Column Position" Content="{Binding ActiveEditor.TextBox.Column, StringFormat=Col \{0\}}" ContentStringFormat="{Binding ActiveEditor.TextBox.Column, StringFormat=Col \{0\}}"  />
+            <StatusBarItem Grid.Column="2" DataContext="{x:Static miRobotEditor:Workspace.Instance}" ToolTip="Offset Position of Caret" Content="{Binding ActiveEditor.TextBox.Offset, StringFormat=Offset \{0\}}" ContentStringFormat="{Binding ActiveEditor.TextBox.Offset, StringFormat=Offset \{0\}}"  />
+            <StatusBarItem Grid.Column="3" DataContext="{x:Static miRobotEditor:Workspace.Instance}" ToolTip="Robot Type" Content="{Binding ActiveEditor.FileLanguage.Name}"  />
+            <StatusBarItem Grid.Column="4" DataContext="{x:Static miRobotEditor:Workspace.Instance}" ToolTip="Last Modified" Content="{Binding ActiveEditor.TextBox.FileSave}" />
+            <StatusBarItem Grid.Column="5" Content="INS"  ToolTip="Insert Mode" IsEnabled="{Binding IsInsPressed}" />
+            <StatusBarItem Grid.Column="6" Content="CAPS" ToolTip="Caps Lock"   IsEnabled="{Binding IsCapsPressed}" />
+            <StatusBarItem Grid.Column="7" Content="SCR" ToolTip="Scroll Lock"  IsEnabled="{Binding IsScrollPressed}"  />
+            <StatusBarItem Grid.Column="8" Content="NUM" ToolTip="Number Lock" IsEnabled="{Binding IsNumPressed}" />
         </StatusBar>
     </Grid>
 </mah:MetroWindow>

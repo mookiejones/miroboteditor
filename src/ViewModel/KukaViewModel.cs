@@ -213,14 +213,19 @@ namespace miRobotEditor.ViewModel
             RaisePropertyChanged("Title");
         }
 
+
+    
         void ToggleGrid()
         {
-
-            if (Grid.IsCollapsed)
-
+           
+            // Is Grid in start mode?
+//
+            if (_grid.IsCollapsed )
                 Grid.Expand();
             else
-                Grid.Collapse();
+               Grid.Collapse();
+
+                
 
         }
     }

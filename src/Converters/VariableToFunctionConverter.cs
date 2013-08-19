@@ -1,34 +1,25 @@
-﻿using System;
+﻿using miRobotEditor.Classes;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Data;
-using miRobotEditor.Classes;
+
 namespace miRobotEditor.Converters
 {
-    public class VariableToFunctionConverter:IValueConverter
+    public class VariableToFunctionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is ReadOnlyObservableCollection<IVariable>)
+            var val = value as ReadOnlyObservableCollection<IVariable>;
+
+            if (val.Count > 0 && val != null)
             {
-                var prev = value as ReadOnlyObservableCollection<IVariable>;
-
-                
-              // If Count is zero, hide the function window
-                if (prev.Count == 0)
-                {
-                    return new ObservableCollection<IVariable>();
-                }
                 var list = new ObservableCollection<IVariable>();
-               
 
-                foreach (var i in prev.Where(i => i.Type == "def"))
+                foreach (var i in val.Where(i => String.Equals(i.Type, "def", StringComparison.OrdinalIgnoreCase)))
                     list.Add(i);
 
-                var result = new ReadOnlyObservableCollection<IVariable>(list);
-
-
-                return result;
+                return new ReadOnlyObservableCollection<IVariable>(list);
             }
 
             return Binding.DoNothing;

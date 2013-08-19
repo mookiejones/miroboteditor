@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using miRobotEditor.Classes;
@@ -7,8 +8,12 @@ using miRobotEditor.Languages;
 
 namespace miRobotEditor.ViewModel
 {
+   
+
     public interface IDocument
     {
+
+      
         void Load(string filepath);
         void SelectText(IVariable variable);
         Visibility Visibility { get; set; }       
