@@ -41,8 +41,6 @@ namespace miRobotEditor.ViewModel
             TextBox.TextChanged += (s, e) => TextChanged(s);
             TextBox.IsModified = false;
 
-
-
             if (filepath != null)
                 FileLanguage.GetRootDirectory(Path.GetDirectoryName(filepath));
             Instance = this;
@@ -76,11 +74,22 @@ namespace miRobotEditor.ViewModel
         internal void Save(Editor txtBox)
         {
 
+            var fn = txtBox.Filename;
             if (txtBox.Filename == null)
             {
                 txtBox.SaveAs();
+
+                if (fn != txtBox.Filename)
+                    RaiseFileNameChanged();
+
             }
             IsDirty = false;
+        }
+
+        internal void RaiseFileNameChanged()
+        {
+            if (FilenameChanged != null)
+                FilenameChanged(this, new EventArgs());
         }
 
         #region Properties
@@ -99,6 +108,7 @@ namespace miRobotEditor.ViewModel
       
         protected void TextChanged(object sender)
         {
+            Console.WriteLine("Filename = {0}",FileName);
 
             TextBox = sender as Editor;
             if (TextBox != null) FileLanguage.RawText = TextBox.Text ;
@@ -146,5 +156,7 @@ namespace miRobotEditor.ViewModel
                 TextBox.SelectText(var);
         }
 
+
+        public event FileNameChangedEventHandler FilenameChanged;
     }
 }

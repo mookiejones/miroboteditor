@@ -628,7 +628,7 @@ namespace miRobotEditor.Languages
 
         private IOViewModel _ioModel;
 
-        public IOViewModel IOModel { get { return _ioModel; } set { _ioModel = value; RaisePropertyChanged(); } }
+        public IOViewModel IOModel { get { return _ioModel; } set { _ioModel = value; RaisePropertyChanged("IOModel"); } }
 
         private string _kukaCon;
 
@@ -657,7 +657,7 @@ namespace miRobotEditor.Languages
 
         private int _bwProgress;
 
-        public int BWProgress { get { return _bwProgress; } set { _bwProgress = value; RaisePropertyChanged(); } }
+        public int BWProgress { get { return _bwProgress; } set { _bwProgress = value; RaisePropertyChanged("BWProgress"); } }
 
         private int _bwFilesMin;
 

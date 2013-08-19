@@ -94,6 +94,7 @@ namespace miRobotEditor
 
             foreach (var t in files)
             {
+                //TODO This Magically Works
                 MessageViewModel.Instance.Add("File Dropped", String.Format("Opening:={0}", t), MsgIcon.Info);
                 Workspace.Instance.Open(t);
             }
