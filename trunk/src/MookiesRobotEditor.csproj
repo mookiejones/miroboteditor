@@ -216,6 +216,9 @@
     </Compile>
     <Compile Include="Controls\SplineBorder.cs" />
     <Compile Include="Controls\SwitchWindowsEventHandler.cs" />
+    <Compile Include="Controls\VisualVariableControl.xaml.cs">
+      <DependentUpon>VisualVariableControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\xmlReader.xaml.cs">
       <DependentUpon>xmlReader.xaml</DependentUpon>
     </Compile>
@@ -523,6 +526,10 @@
     <Page Include="Controls\SnippetPad.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\VisualVariableControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\xmlReader.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -16,7 +16,7 @@
                 <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml"  />
             </ResourceDictionary.MergedDictionaries>
            
-                <ToolTip x:Key="tooltip" Background="GhostWhite" BorderThickness="0" BorderBrush="Black">
+                <ToolTip x:Key="Tooltip" Background="GhostWhite" BorderThickness="0" BorderBrush="Black">
                   
                     <GroupBox>
                         <GroupBox.Header>                       
@@ -24,9 +24,6 @@
                                 <Image Source="{Binding Icon}"/>
                                 <TextBlock Text="{Binding Name}" Margin="10,0" FontWeight="Bold"/>
                             </StackPanel>
-                       
-                          
-                     
                     </GroupBox.Header>
                     <StackPanel Orientation="Vertical">
                        
@@ -45,7 +42,7 @@
         <DataGridTemplateColumn  Width="Auto" IsReadOnly="True" >
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                    <Image Source="{Binding Icon}" Height="16" Width="16" ToolTip="{StaticResource tooltip}"/>
+                    <Image Source="{Binding Icon}" Height="16" Width="16" ToolTip="{StaticResource Tooltip}"/>
                 </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
@@ -53,28 +50,28 @@
         <DataGridTemplateColumn  Width="Auto" IsReadOnly="True" Header="Name">
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" ToolTip="{StaticResource tooltip}"/>
+                    <TextBlock Text="{Binding Name}" ToolTip="{StaticResource Tooltip}"/>
                 </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
         <DataGridTemplateColumn  Width="Auto" IsReadOnly="True" Header="Type">
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Type}" ToolTip="{StaticResource tooltip}"/>
+                    <TextBlock Text="{Binding Type}" ToolTip="{StaticResource Tooltip}"/>
                 </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
         <DataGridTemplateColumn  Width="Auto" IsReadOnly="True" Header="Value">
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Value}" ToolTip="{StaticResource tooltip}"/>
+                    <TextBlock Text="{Binding Value}" ToolTip="{StaticResource Tooltip}"/>
                 </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
         <DataGridTemplateColumn  Width="*" IsReadOnly="True" Header="Path">
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path}" ToolTip="{StaticResource tooltip}"/>
+                    <TextBlock Text="{Binding Path}" ToolTip="{StaticResource Tooltip}"/>
                 </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
