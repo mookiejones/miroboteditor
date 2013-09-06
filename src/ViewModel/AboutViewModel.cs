@@ -32,14 +32,17 @@ namespace miRobotEditor.ViewModel
         /// </summary>
 		public string Version{get{return Assembly.GetExecutingAssembly().GetName().Version.ToString();}}
 
-	    static string NetVersion {get{return Environment.Version.ToString();}}
-	    static string OSVersion{get{return Environment.OSVersion.ToString();}}
+
+	    private string _company = "DMC Automation";
+        public string Company{get { return _company; }}
+	    public string NetVersion {get{return Environment.Version.ToString();}}
+	    public string OSVersion{get{return Environment.OSVersion.ToString();}}
         /// <summary>
         /// Current Language
         /// </summary>
-	    static string CurrentCulture{get{return CultureInfo.CurrentCulture.Name;}}
+	    public  string CurrentCulture{get{return CultureInfo.CurrentCulture.Name;}}
 
-	    static string WorkingSetMemory 
+	    public  string WorkingSetMemory 
 		{
 			get{
 				return GC.GetTotalMemory(true).ToString(CultureInfo.InvariantCulture);

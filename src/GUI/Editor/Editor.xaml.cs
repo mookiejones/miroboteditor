@@ -37,6 +37,7 @@ using System.Windows.Threading;
 using Global = miRobotEditor.Classes.Global;
 using Utilities = miRobotEditor.Classes.Utilities;
 
+// ReSharper disable once CheckNamespace
 namespace miRobotEditor.GUI
 {
     public delegate void FileNameChangedEventHandler(object sender, EventArgs e);
@@ -247,14 +248,14 @@ namespace miRobotEditor.GUI
 
         public ICommand FunctionWindowClickCommand
         {
-            get { return _functionWindowClickCommand ?? (_functionWindowClickCommand = new RelayCommand(param => OpenFunctionItem(param), param => true)); }
+            get { return _functionWindowClickCommand ?? (_functionWindowClickCommand = new RelayCommand(OpenFunctionItem, param => true)); }
         }
 
         private RelayCommand _changeIndentCommand;
 
         public ICommand ChangeIndentCommand
         {
-            get { return _changeIndentCommand ?? (_changeIndentCommand = new RelayCommand(param => ChangeIndent(param), param => true)); }
+            get { return _changeIndentCommand ?? (_changeIndentCommand = new RelayCommand(ChangeIndent, param => true)); }
         }
 
         #endregion Commands
@@ -403,8 +404,7 @@ namespace miRobotEditor.GUI
             // Dont Include Empty Values
             if (String.IsNullOrEmpty(matchstring.ToString())) return;
 
-            Match m;
-            m = matchstring.Match(Text);
+            var m = matchstring.Match(Text);
 
             while (m.Success)
             {
@@ -429,7 +429,7 @@ namespace miRobotEditor.GUI
             }
             if (FileLanguage is Languages.KUKA)
             {
-                m = matchstring.Match(String.Compare(Text, FileLanguage.SourceText) == 0 ? FileLanguage.DataText : FileLanguage.SourceText);
+                m = matchstring.Match(String.CompareOrdinal(Text, FileLanguage.SourceText) == 0 ? FileLanguage.DataText : FileLanguage.SourceText);
                 while (m.Success)
                 {
                     _variables.Add(new Variable
@@ -631,7 +631,7 @@ namespace miRobotEditor.GUI
 
             if (islocked)
                 return;
-            this.Tag = this.Filename;
+            Tag = Filename;
             File.WriteAllText(Filename, Text);
 
             //TODO Need to write stuff for changing filemodel;
@@ -750,7 +750,7 @@ namespace miRobotEditor.GUI
             return items.ToArray();
         }
 
-        public IList<ICompletionData> HighlightList()
+        public CodeCompletion[] HighlightList()
         {
             var items = new List<CodeCompletion>();
 
@@ -786,7 +786,7 @@ namespace miRobotEditor.GUI
         private void TextEditor_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (CompletionWindow == null) return;
-            if (e.Key == System.Windows.Input.Key.Tab)
+            if (e.Key == Key.Tab)
                 CompletionWindow.CompletionList.RequestInsertion(e);
             if (e.Key == Key.Return)
                 CompletionWindow = null;
@@ -1023,13 +1023,13 @@ namespace miRobotEditor.GUI
                 return false;
             _toolTip = new ToolTip
             {
-                Style = (Style)FindResource("FoldToolTipStyle"),
+                Style = (Style) FindResource("FoldToolTipStyle"),
                 DataContext = f,
                 PlacementTarget = this,
-                IsOpen = true
+                IsOpen = true,
+                Tag = "Positional Value = " + positionvalue
             };
 
-            _toolTip.Tag = "Positional Value = " + positionvalue;
             return true;
         }
 
@@ -1042,7 +1042,7 @@ namespace miRobotEditor.GUI
 
             string s = string.Empty;
             if (tvp != null)
-                s = FileLanguage.IsLineMotion(GetLine(tvp.Value.Line), this.Variables);
+                s = FileLanguage.IsLineMotion(GetLine(tvp.Value.Line), Variables);
 
             // Is Current Line a fold?
 
@@ -1051,7 +1051,7 @@ namespace miRobotEditor.GUI
             {
                 if (!String.IsNullOrWhiteSpace(s))
                 {
-                    e.Handled = GetCurrentFold((TextViewPosition)tvp, s);
+                    if (tvp != null) e.Handled = GetCurrentFold((TextViewPosition)tvp, s);
                 }
                 else
                 {
@@ -1064,10 +1064,14 @@ namespace miRobotEditor.GUI
             {
                 if (!string.IsNullOrEmpty(s))
                 {
-                    _toolTip = new ToolTip();
-                    _toolTip.Content = GetLine(tvp.Value.Line).Substring(GetLine(tvp.Value.Line).IndexOf(":") + 1) + "\r\n" + s;
-                    _toolTip.PlacementTarget = this;
-                    _toolTip.IsOpen = true;
+                    if (tvp != null)
+                        _toolTip = new ToolTip
+                        {
+                            Content =
+                                GetLine(tvp.Value.Line).Substring(GetLine(tvp.Value.Line).IndexOf(":", StringComparison.Ordinal) + 1) + "\r\n" + s,
+                            PlacementTarget = this,
+                            IsOpen = true
+                        };
                 }
                 // Current Line is not a fold
             }

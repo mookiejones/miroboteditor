@@ -235,6 +235,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 					    node.Nodes.Add(treeNode);
 					    treeNode.Nodes.Add("");
 					}
+
 					
 					var files = Directory.GetFiles(text, FileExplorerControl.Instance.Filter);
 					Array.Sort(files);
