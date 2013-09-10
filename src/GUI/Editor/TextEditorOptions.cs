@@ -1,17 +1,16 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
-using ICSharpCode.AvalonEdit;
+﻿using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using System.Windows.Media;
 using miRobotEditor.Languages;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Windows.Media;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace miRobotEditor.GUI
 {
-
     public interface IOptions
     {
         String Title { get; }
@@ -21,20 +20,21 @@ namespace miRobotEditor.GUI
     public sealed class EditorOptions : TextEditorOptions, IOptions
     {
         #region Constructor
+
         public EditorOptions()
-        {           
-//            ShowSpaces = true;
-            RegisterSyntaxHighlighting();
-
-        }
-#endregion
-
-         ~EditorOptions()
         {
-           WriteXml();    
+            //            ShowSpaces = true;
+            RegisterSyntaxHighlighting();
         }
 
-         private static string OptionsPath { get { return Path.Combine(App.StartupPath, "Options.xml"); } }
+        #endregion Constructor
+
+        ~EditorOptions()
+        {
+            WriteXml();
+        }
+
+        private static string OptionsPath { get { return Path.Combine(App.StartupPath, "Options.xml"); } }
 
         private void WriteXml()
         {
@@ -46,31 +46,28 @@ namespace miRobotEditor.GUI
 
         private static EditorOptions ReadXml()
         {
-        	            var result = new EditorOptions();
+            var result = new EditorOptions();
 
             if (!File.Exists(OptionsPath))
                 return result;
 
-        	
-        	// Create Temporary File
-        	var filename = Path.GetTempFileName();
-        	filename =  Path.ChangeExtension(filename,"xml");
-        	File.Copy(OptionsPath,filename);
-
+            // Create Temporary File
+            var filename = Path.GetTempFileName();
+            filename = Path.ChangeExtension(filename, "xml");
+            File.Copy(OptionsPath, filename);
 
             var s = new XmlSerializer(typeof(EditorOptions));
             var fs = new FileStream(filename, FileMode.Open);
-//            var fs = new FileStream(OptionsPath, FileMode.Open);
-           
+            //            var fs = new FileStream(OptionsPath, FileMode.Open);
+
             try
             {
                 result = (EditorOptions)s.Deserialize(fs);
             }
-// ReSharper disable EmptyGeneralCatchClause
+            // ReSharper disable EmptyGeneralCatchClause
             catch
-// ReSharper restore EmptyGeneralCatchClause
+            // ReSharper restore EmptyGeneralCatchClause
             {
-
             }
             finally
             {
@@ -79,24 +76,23 @@ namespace miRobotEditor.GUI
             }
 
             return result;
-
-
         }
 
         public static EditorOptions Instance
         {
             get
             {
-                return _instance ??(_instance= ReadXml());
-           
+                return _instance ?? (_instance = ReadXml());
             }
             set { _instance = value; }
         }
 
         private static EditorOptions _instance;
+
         #region Overrides
 
-        public override bool ShowSpaces { get { return base.ShowSpaces; } set { base.ShowSpaces = value;OnPropertyChanged("ShowSpaces"); } }
+        public override bool ShowSpaces { get { return base.ShowSpaces; } set { base.ShowSpaces = value; OnPropertyChanged("ShowSpaces"); } }
+
         //private bool _convertTabsToSpaces = false;
         //public override bool ConvertTabsToSpaces{get{return _convertTabsToSpaces;}set{_convertTabsToSpaces=value;OnPropertyChanged("ConvertTabsToSpaces");}}
 
@@ -105,7 +101,6 @@ namespace miRobotEditor.GUI
 
         //private bool _enableEmailHyperLinks = true;
         //public override bool EnableEmailHyperlinks { get { return _enableEmailHyperLinks; } set { _enableEmailHyperLinks = value; OnPropertyChanged("EnableEmailHyperlinks"); } }
-
 
         //private bool _enableHyperlinks = true;
         //public override bool EnableHyperlinks { get { return _enableHyperlinks; } set { _enableHyperlinks = value; OnPropertyChanged("EnableHyperlinks"); } }
@@ -122,8 +117,7 @@ namespace miRobotEditor.GUI
         //private bool _showTabs = true;
         //public override bool ShowTabs { get { return _showTabs; } set { _showTabs = value; OnPropertyChanged("ShowTabs"); } }
 
-
-        #endregion
+        #endregion Overrides
 
         //Background
 
@@ -134,30 +128,44 @@ namespace miRobotEditor.GUI
         /// </summary>
         [NonSerialized]
         private Color _selectedTextBackground = Colors.SteelBlue;// { Color = Colors.SteelBlue, Opacity = 0.7 };
+
         public Color SelectedTextBackground { get { return _selectedTextBackground; } set { _selectedTextBackground = value; OnPropertyChanged("SelectedTextBackground"); } }
+
         [NonSerialized]
         private Color _backgroundColor = Colors.White;// new SolidColorBrush { Color = Colors.White };
+
         public Color BackgroundColor { get { return _backgroundColor; } set { _backgroundColor = value; OnPropertyChanged("BackgroundColor"); } }
+
         [NonSerialized]
         private Color _fontColor = Colors.Black;
+
         public Color FontColor { get { return _fontColor; } set { _fontColor = value; OnPropertyChanged("FontColor"); } }
+
         [NonSerialized]
         private Color _selectedFontColor = Colors.White;
+
         public Color SelectedFontColor { get { return _selectedFontColor; } set { _selectedFontColor = value; OnPropertyChanged("SelectedFontColor"); } }
+
         [NonSerialized]
         private Color _selectedBorderColor = Colors.Orange;
+
         public Color SelectedBorderColor { get { return _selectedBorderColor; } set { _selectedBorderColor = value; OnPropertyChanged("SelectedBorderColor"); } }
+
         [NonSerialized]
         private bool _allowScrollingBelowDocument;
-        public bool AllowScrollingBelowDocument{get { return _allowScrollingBelowDocument; }set { _allowScrollingBelowDocument = value;OnPropertyChanged("AllowScrollingBelowDocument"); }}
+
+        public bool AllowScrollingBelowDocument { get { return _allowScrollingBelowDocument; } set { _allowScrollingBelowDocument = value; OnPropertyChanged("AllowScrollingBelowDocument"); } }
+
         [NonSerialized]
         private Color _lineNumbersFontColor = Colors.Gray;
-        public Color LineNumbersFontColor{get { return _lineNumbersFontColor; }set { _lineNumbersFontColor = value;OnPropertyChanged("LineNumbersFontColor"); }}
+
+        public Color LineNumbersFontColor { get { return _lineNumbersFontColor; } set { _lineNumbersFontColor = value; OnPropertyChanged("LineNumbersFontColor"); } }
 
         /// <summary>
         /// Border Color of editor window
         /// </summary>
         private Color _borderColor = Colors.Transparent;
+
         /// <summary>
         /// Border Color of editor window
         /// </summary>
@@ -167,28 +175,27 @@ namespace miRobotEditor.GUI
         /// Color of Line Numbers
         /// </summary>
         private Color _lineNumbersForeground = Colors.Gray;
+
         /// <summary>
         /// Color of Line Numbers
         /// </summary>
         public Color LineNumbersForeground { get { return _lineNumbersForeground; } set { _lineNumbersForeground = value; OnPropertyChanged("LineNumbersForeground"); } }
 
-
-
-
         [NonSerialized]
         private Color _selectedTextBorderColor = Colors.Orange;
+
         /// <summary>
         /// Color of Border for selected text
         /// </summary>
         public Color SelectedTextBorderColor { get { return _selectedTextBorderColor; } set { _selectedTextBorderColor = value; OnPropertyChanged("SelectedTextBorderColor"); } }
 
         private double _selectedBorderThickness = 1;
+
         public double SelectedBorderThickness { get { return _selectedBorderThickness; } set { _selectedBorderThickness = value; OnPropertyChanged("SelectedBorderThickness"); } }
 
-
-
         private double _borderThickness;
-        public double BorderThickness { get { return _borderThickness; } set { _borderThickness = value;OnPropertyChanged("BorderThickness"); } }
+
+        public double BorderThickness { get { return _borderThickness; } set { _borderThickness = value; OnPropertyChanged("BorderThickness"); } }
 
         [NonSerialized]
         private Color _selectedlinecolor = Colors.Yellow;
@@ -198,36 +205,38 @@ namespace miRobotEditor.GUI
         /// </summary>
         public Color HighlightedLineColor { get { return _selectedlinecolor; } set { _selectedlinecolor = value; OnPropertyChanged("HighlightedLineColor"); } }
 
-        #endregion
+        #endregion Colors
+
         #region Brushes
 
         [NonSerialized]
-        private Color _foldToolTipBackgroundColor =  Colors.Red;//{ BorderBrush = Brushes.Black, Background = Brushes.WhiteSmoke };
+        private Color _foldToolTipBackgroundColor = Colors.Red;//{ BorderBrush = Brushes.Black, Background = Brushes.WhiteSmoke };
+
         public Color FoldToolTipBackgroundColor { get { return _foldToolTipBackgroundColor; } set { _foldToolTipBackgroundColor = value; OnPropertyChanged("FoldToolTipBackgroundColor"); } }
 
         private Color _foldToolTipBackgroundBorderColor = Colors.WhiteSmoke;//{ BorderBrush = Brushes.Black, Background = Brushes.WhiteSmoke };
+
         public Color FoldToolTipBackgroundBorderColor { get { return _foldToolTipBackgroundBorderColor; } set { _foldToolTipBackgroundBorderColor = value; OnPropertyChanged("FoldToolTipBackgroundBorderColor"); } }
 
         private double _foldToolTipBorderThickness = 1;
-        public double FoldToolTipBorderThickness { get { return _foldToolTipBorderThickness; } set { _foldToolTipBorderThickness = value;OnPropertyChanged("FoldToolTipBorderThickness"); } }
 
-        #endregion
+        public double FoldToolTipBorderThickness { get { return _foldToolTipBorderThickness; } set { _foldToolTipBorderThickness = value; OnPropertyChanged("FoldToolTipBorderThickness"); } }
+
+        #endregion Brushes
 
         #region Boolean
 
         private bool _wrapWords = true;
+
         public bool WrapWords { get { return _wrapWords; } set { _wrapWords = value; OnPropertyChanged("WrapWords"); } }
 
-        #endregion
-
-
+        #endregion Boolean
 
         private bool _highlightcurrentline = true;
+
         public bool HighlightCurrentLine { get { return _highlightcurrentline; } set { _highlightcurrentline = value; } }
 
-
         #region Syntax Highlighting
-
 
         /// <summary>
         /// Loads all of syntax Highlighting
@@ -259,12 +268,9 @@ namespace miRobotEditor.GUI
             Register("ABB", ABB.EXT.ToArray());
         }
 
-        #endregion
+        #endregion Syntax Highlighting
 
-
-
-        bool _enableFolding = true;
-
+        private bool _enableFolding = true;
 
         /// <summary>
         /// Enable Code Folding
@@ -272,10 +278,7 @@ namespace miRobotEditor.GUI
         [DefaultValue(true)]
         public bool EnableFolding { get { return _enableFolding; } set { _enableFolding = value; OnPropertyChanged("EnableFolding"); } }
 
-
-
-
-        bool _mouseWheelZoom = true;
+        private bool _mouseWheelZoom = true;
 
         /// <summary>
         /// Allow Zooming of window by using MouseWheel
@@ -293,9 +296,11 @@ namespace miRobotEditor.GUI
         }
 
         private bool _enableAnimations = true;
+
         public bool EnableAnimations { get { return _enableAnimations; } set { _enableAnimations = value; OnPropertyChanged("EnableAnimations"); } }
 
         private bool _showlinenumbers = true;
+
         public bool ShowLineNumbers
         {
             get { return _showlinenumbers; }
@@ -305,7 +310,7 @@ namespace miRobotEditor.GUI
         public string Title { get { return "Text Editor Options"; } }
     }
 
-    public class GlobalOptions:IOptions
+    public class GlobalOptions : IOptions
     {
         private GlobalOptions()
         {
@@ -314,7 +319,9 @@ namespace miRobotEditor.GUI
 
         [Localizable(false)]
         public string Title { get { return "Global Options"; } }
+
         private static GlobalOptions _instance;
+
         public static GlobalOptions Instance
         {
             get { return _instance ?? (_instance = new GlobalOptions()); }
@@ -322,10 +329,10 @@ namespace miRobotEditor.GUI
         }
 
         #region Flyout Options
+
         [DefaultValue(0.75)]
         public double FlyoutOpacity { get; set; }
- 
-        #endregion
-    }
 
+        #endregion Flyout Options
+    }
 }

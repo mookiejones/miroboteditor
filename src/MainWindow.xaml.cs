@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
+using MahApps.Metro;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using miRobotEditor.Annotations;
 using miRobotEditor.Core;
 using miRobotEditor.Forms;
+using MahApps.Metro;
 using miRobotEditor.Properties;
 using miRobotEditor.ViewModel;
 using DataFormats = System.Windows.DataFormats;
@@ -27,13 +29,23 @@ namespace miRobotEditor
         public static MainWindow Instance { get; set; }
 
 
+        [NonSerialized]
+        private Accent _currentAccent = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
+
+        public Accent CurrentAccent { get { return _currentAccent; } set { _currentAccent = value;  } }
+
+
+        private Theme _currentTheme = ThemeManager.ThemeIsDark? Theme.Dark:Theme.Light;
+
+        public Theme Theme { get;  set; } 
 
         #region Constructor
         public MainWindow()
         {
+            
             Instance = this;
             InitializeComponent();
-          // ThemeManager.ChangeTheme(this, _currentAccent, _currentTheme);
+           ThemeManager.ChangeTheme(this, _currentAccent, _currentTheme);
             KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);           
         }
         #endregion

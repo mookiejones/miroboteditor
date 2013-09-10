@@ -208,7 +208,7 @@ namespace miRobotEditor
         [NonSerialized]
         private Accent _accentBrush = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
 
-        public Accent AccentBrush { get { return _accentBrush; } set { _accentBrush = value; RaisePropertyChanged(); } }
+        public Accent AccentBrush { get { return _accentBrush; } set { _accentBrush = value; RaisePropertyChanged("AccentBrush"); } }
 
         #endregion AccentBrush
 
@@ -216,7 +216,7 @@ namespace miRobotEditor
 
         private Theme _currentTheme = Theme.Dark;
 
-        public Theme CurrentTheme { get { return _currentTheme; } set { _currentTheme = value; RaisePropertyChanged(); } }
+        public Theme CurrentTheme { get { return _currentTheme; } set { _currentTheme = value; RaisePropertyChanged("CurrentTheme"); } }
 
         #endregion Current theme
 
@@ -472,14 +472,12 @@ namespace miRobotEditor
                 Open(file);
         }
 
-
-
         public IDocument Open(string filepath)
         {
             var fileViewModel = OpenFile(filepath);
-         
+
             ActiveEditor = fileViewModel;
-            ActiveEditor.TextBox.FilenameChanged+=TextBox_FilenameChanged;
+            ActiveEditor.TextBox.FilenameChanged += TextBox_FilenameChanged;
 
             ActiveEditor.IsActive = true;
             return fileViewModel;
@@ -494,14 +492,10 @@ namespace miRobotEditor
             fileViewModel.ContentId = editor.Filename;
             RaisePropertyChanged("Title");
 
-
-
             Console.WriteLine();
-
-
         }
 
-        void fileViewModel_FilenameChanged(object sender, EventArgs e)
+        private void fileViewModel_FilenameChanged(object sender, EventArgs e)
         {
         }
 
@@ -564,7 +558,6 @@ namespace miRobotEditor
 
             foreach (var file in args)
                 Open(file);
-
         }
 
         #endregion OpenFile

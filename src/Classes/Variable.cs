@@ -1,4 +1,6 @@
-﻿using miRobotEditor.Core;
+﻿using System;
+using System.Windows.Forms;
+using miRobotEditor.Core;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 
@@ -6,6 +8,22 @@ namespace miRobotEditor.Classes
 {
     public class Variable : ViewModelBase, IVariable
     {
+
+        private bool _isFiltered = false;
+        public bool IsFiltered{get { return _isFiltered; }set { _isFiltered = value; RaisePropertyChanged("IsFiltered");}}
+
+        public bool Contains(string value)
+        {
+            var result=false;
+            value = value.ToLower();
+            if (Description.ToLower().Contains(value)|Name.ToLower().Contains(value) |Type.ToLower().Contains(value) |Path.Contains(value)| Declaration.ToLower().Contains(value))
+            {
+                result = true;
+            }
+            IsFiltered = result;
+            return IsFiltered;
+
+        }
         private bool _isSelected;
 
         public bool IsSelected { get { return _isSelected; } set { _isSelected = value; RaisePropertyChanged(); } }
@@ -49,6 +67,8 @@ namespace miRobotEditor.Classes
 
     public interface IVariable
     {
+
+        bool Contains(string value);
         bool IsSelected { get; set; }
 
         BitmapImage Icon { get; set; }

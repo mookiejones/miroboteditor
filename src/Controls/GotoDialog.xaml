@@ -5,7 +5,7 @@
          xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:miRobotEditor="clr-namespace:miRobotEditor" mc:Ignorable="d"
+        xmlns:miRobotEditor="clr-namespace:miRobotEditor" x:Name="metroWindow" mc:Ignorable="d"
         x:Class="miRobotEditor.Controls.GotoDialog"
         Title="Go To Line"   
         ResizeMode="NoResize"         
@@ -14,13 +14,8 @@
         BorderThickness="1"
         Width="200"
         HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch" ShowActivated="False">
-    <mah:MetroWindow.Background>
-        <LinearGradientBrush MappingMode="Absolute" StartPoint="0,0" EndPoint="0,180">
-            <GradientStop Color="#FFDEDEDE" />
-            <GradientStop Color="White" Offset="1" />
-        </LinearGradientBrush>
-    </mah:MetroWindow.Background>
+        VerticalAlignment="Stretch" ShowActivated="False" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type miRobotEditor:MainWindow}}}" >
+
     <i:Interaction.Behaviors>
         <behaviours:BorderlessWindowBehavior/>
     </i:Interaction.Behaviors>
@@ -31,14 +26,14 @@
                 <Setter Property="Button.Width" Value="75"/>
                 <Setter Property="Margin" Value="5,0"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
-             </Style>
+            </Style>
         </StackPanel.Resources>
-        
+
         <TextBlock HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding ActiveEditor.TextBox.LineCount, StringFormat=Enter a Number between 0 and \{0\},Source={x:Static miRobotEditor:Workspace.Instance}}" Height="20"/>
         <TextBox  x:Name="EnteredText" TabIndex="1" TextAlignment="Center" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="{Binding EnteredText}"  Height="25" d:LayoutOverrides="Margin"/>
         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Margin="5">
-        <Button Command="{Binding OkCommand}" Click="Close"  Content="_OK"  />
-        <Button   Click="Close" Content="_Cancel"  />
+            <Button Command="{Binding OkCommand}" Click="Close"  Content="_OK"  />
+            <Button   Click="Close" Content="_Cancel"  />
         </StackPanel>
     </StackPanel>
 </mah:MetroWindow>

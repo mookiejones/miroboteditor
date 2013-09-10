@@ -10,7 +10,6 @@
 		<!-- Installation directory and files are defined in Files.wxs -->
 		<Directory Id="TARGETDIR" Name="SourceDir" />
 		<Feature Id="Complete" Title="Your Application" Description="Your description" Level="1" ConfigurableDirectory="INSTALLDIR">
-			<ComponentRef Id="MyComponent" />
 		</Feature>
 		<!-- 
 			Using the Wix UI library

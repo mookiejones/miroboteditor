@@ -211,7 +211,9 @@ namespace miRobotEditor.Controls
         private GridCollapseDirection _gridCollapseDirection = GridCollapseDirection.Rows;
         private GridLength _savedGridLength;
         private double _savedActualValue;
-        public double SavedActualValue{get { return _savedActualValue; }}
+
+        public double SavedActualValue { get { return _savedActualValue; } }
+
         private const double AnimationTimeMillis = 200;
 
         #endregion Local Members
@@ -339,7 +341,6 @@ namespace miRobotEditor.Controls
                 _parentGrid = parentGrid;
             else
                 parentGrid = _parentGrid;
-
 
             if (_gridCollapseDirection == GridCollapseDirection.Rows)
             {

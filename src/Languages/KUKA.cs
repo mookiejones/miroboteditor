@@ -548,6 +548,18 @@ namespace miRobotEditor.Languages
 
         public class Positions : ViewModelBase, IVariable
         {
+
+            public bool Contains(string value)
+            {
+                if (Description.Contains(value))
+                    return true;
+                if (Name.Contains(value)) return true;
+
+                if (Type.Contains(value)) return true;
+                if (Path.Contains(value)) return true;
+                if (Declaration.Contains(value)) return true;
+                return false;
+            }
             private bool _isSelected;
 
             public bool IsSelected

@@ -41,6 +41,7 @@ using Utilities = miRobotEditor.Classes.Utilities;
 namespace miRobotEditor.GUI
 {
     public delegate void FileNameChangedEventHandler(object sender, EventArgs e);
+
     /// <summary>
     /// Interaction logic for Editor.xaml
     /// </summary>
@@ -49,8 +50,8 @@ namespace miRobotEditor.GUI
     public partial class Editor : TextEditor, INotifyPropertyChanged
     // ReSharper restore RedundantExtendsListEntry
     {
+        public event FileNameChangedEventHandler FilenameChanged;
 
-         public event FileNameChangedEventHandler FilenameChanged;
         #region Constructor
 
         public Editor()
@@ -640,12 +641,10 @@ namespace miRobotEditor.GUI
             MessageViewModel.Add(new OutputWindowMessage { Title = "File Saved", Description = Filename, Icon = null });
         }
 
-
         private void RaiseFilenameChanged()
         {
             if (FilenameChanged != null)
                 FilenameChanged(this, new EventArgs());
-
         }
 
         public void Save()
@@ -668,7 +667,6 @@ namespace miRobotEditor.GUI
             FileSave = File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture);
             IsModified = false;
             MessageViewModel.Add(new OutputWindowMessage { Title = "File Saved", Description = Filename, Icon = null });
-
         }
 
         #endregion Editor.Bindings
