@@ -322,7 +322,7 @@
     <Compile Include="Interfaces\AnchorMovementType.cs" />
     <Compile Include="Interfaces\BlockCommentRegion.cs" />
     <Compile Include="Interfaces\BookmarkImage.cs" />
-    <Compile Include="Interfaces\ClassMemberBookmark.cs" />
+    <Compile Include="Classes\ClassMemberBookmark.cs" />
     <Compile Include="Interfaces\ColorizeAvalonEdit.cs" />
     <Compile Include="Interfaces\DefaultFormattingStrategy.cs" />
     <Compile Include="Interfaces\IBookmark.cs" />

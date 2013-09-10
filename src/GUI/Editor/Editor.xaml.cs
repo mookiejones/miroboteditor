@@ -113,6 +113,52 @@ namespace miRobotEditor.GUI
 
         #region Commands
 
+        #region RenumberLinesCommand
+        private RelayCommand _renumberLinesCommand;
+
+        public ICommand RenumberLinesCommand
+        {
+            get{return _renumberLinesCommand??(_renumberLinesCommand=new RelayCommand(RenumberLines,CanRenumberLines));}
+        }
+
+        void RenumberLines(object param)
+        {
+
+            var sb = new System.Text.StringBuilder();
+            var lines = Regex.Split(Text,"\r\n");
+            int i = 1;
+            foreach (var line in lines)
+            {
+                string newLine = line;
+                if (newLine.Length > 4)
+                {
+                    var match = Regex.Match(newLine.Trim().Substring(0, 4), "([ 0-9]+):");
+                    if (match.Success)
+                    {
+                        newLine = newLine.Replace(match.Groups[1] + ":", i + ":");
+                        i++;
+                    }
+                    
+                }
+
+                sb.AppendLine(newLine);
+
+            }
+
+            Text = sb.ToString();
+
+
+        }
+
+        bool CanRenumberLines(object param)
+        {
+            return FanucVisibility == Visibility.Visible;
+        }
+
+        public Visibility FanucVisibility{get { return FileLanguage is Fanuc?Visibility.Visible:Visibility.Collapsed; }}
+        #endregion
+
+
         private RelayCommand _undoCommand;
 
         public ICommand UndoCommand
@@ -140,12 +186,42 @@ namespace miRobotEditor.GUI
             get { return _saveCommand ?? (_saveCommand = new RelayCommand(p => Save(), p => CanSave())); }
         }
 
+        #region SaveAsCommand
+
         private RelayCommand _saveAsCommand;
 
         public ICommand SaveAsCommand
         {
-            get { return _saveAsCommand ?? (_saveAsCommand = new RelayCommand(p => SaveAs(), p => CanSave())); }
+            get { return _saveAsCommand ?? (_saveAsCommand = new RelayCommand(SaveAs, CanSaveAs)); }
         }
+
+
+        public void SaveAs(Object param)
+        {
+       
+            var result = GetFilename();
+            if (string.IsNullOrEmpty(result))
+                return;
+            Filename = result;
+            var islocked = IsFileLocked(new FileInfo(Filename));
+
+            if (islocked)
+                return;
+            Tag = Filename;
+            File.WriteAllText(Filename, Text);
+
+            //TODO Need to write stuff for changing filemodel;
+            RaiseFilenameChanged();
+            OnPropertyChanged("Title");
+            MessageViewModel.Add(new OutputWindowMessage { Title = "File Saved", Description = Filename, Icon = null });
+
+        }
+
+        bool CanSaveAs(object param)
+        {
+            return true;
+        }
+        #endregion
 
         private static RelayCommand _replaceCommand;
 
@@ -449,6 +525,10 @@ namespace miRobotEditor.GUI
             }
         }
 
+
+
+
+
         /// <summary>
         /// Find info for bookmark
         /// <remarks>Need to make sure Correct Priority is set. Whatever is set first will overwrite anything after</remarks>
@@ -622,25 +702,7 @@ namespace miRobotEditor.GUI
             return result ? ofd.FileName : string.Empty;
         }
 
-        public void SaveAs()
-        {
-            var result = GetFilename();
-            if (string.IsNullOrEmpty(result))
-                return;
-            Filename = result;
-            var islocked = IsFileLocked(new FileInfo(Filename));
-
-            if (islocked)
-                return;
-            Tag = Filename;
-            File.WriteAllText(Filename, Text);
-
-            //TODO Need to write stuff for changing filemodel;
-            RaiseFilenameChanged();
-            OnPropertyChanged("Title");
-            MessageViewModel.Add(new OutputWindowMessage { Title = "File Saved", Description = Filename, Icon = null });
-        }
-
+       
         private void RaiseFilenameChanged()
         {
             if (FilenameChanged != null)

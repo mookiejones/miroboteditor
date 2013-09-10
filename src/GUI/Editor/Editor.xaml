@@ -43,6 +43,7 @@
     </avalonedit:TextEditor.InputBindings>
     <avalonedit:TextEditor.ContextMenu>
         <ContextMenu>
+            <MenuItem Header="Renumber _Lines" Command="{Binding RenumberLinesCommand}" InputGestureText="Ctrl+L" Visibility="{Binding FanucVisibility}"/>
             <MenuItem Header="Cut" Command="{Binding CutCommand}" InputGestureText="Ctrl+X">
                 <MenuItem.Icon>
                     <Image Source="/miRobotEditor;component/Resources/Cut.png" />
