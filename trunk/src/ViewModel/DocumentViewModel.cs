@@ -77,7 +77,7 @@ namespace miRobotEditor.ViewModel
             var fn = txtBox.Filename;
             if (txtBox.Filename == null)
             {
-                txtBox.SaveAs();
+                txtBox.SaveAs(null);
 
                 if (fn != txtBox.Filename)
                     RaiseFileNameChanged();

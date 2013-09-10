@@ -487,7 +487,7 @@ namespace miRobotEditor
         {
             var editor = sender as Editor;
 
-            var fileViewModel = _files.FirstOrDefault(fi => fi.ContentId == editor.Tag);
+            var fileViewModel = _files.FirstOrDefault(fi => fi.ContentId ==editor.Tag);
 
             fileViewModel.ContentId = editor.Filename;
             RaisePropertyChanged("Title");
