@@ -1,17 +1,17 @@
-﻿using System;
+﻿using miRobotEditor.Core;
+using miRobotEditor.ViewModel;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Xml.Serialization;
-using miRobotEditor.Core;
-using System.Linq;
-using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.GUI
 {
@@ -21,41 +21,36 @@ namespace miRobotEditor.GUI
     public partial class FindandReplaceControl
     {
         private static FindandReplaceControl _instance;
+
         public static FindandReplaceControl Instance { get { return _instance ?? (_instance = new FindandReplaceControl()); } set { _instance = value; } }
-
-
 
         public FindandReplaceControl()
         {
             Instance = this;
             InitializeComponent();
-
         }
 
         public FindandReplaceControl(Window owner)
         {
             Instance = this;
             InitializeComponent();
-        
         }
     }
 
     [Serializable]
-    public class Results:ICollection 
+    public class Results : ICollection
     {
-
-        
-
         public Results()
         {
-            
         }
+
         public Results this[int index]
         {
             get { return (Results)_array[index]; }
         }
 
         private readonly ArrayList _array = new ArrayList();
+
         public IEnumerator GetEnumerator()
         {
             return _array.GetEnumerator();
@@ -63,18 +58,19 @@ namespace miRobotEditor.GUI
 
         public void CopyTo(Array array, int index)
         {
-            _array.CopyTo(array,index);
+            _array.CopyTo(array, index);
         }
 
         public void Add(FindReplaceResult item)
         {
             _array.Add(item);
         }
-        
-        public int Count { get { return _array.Count; }}
+
+        public int Count { get { return _array.Count; } }
+
         public object SyncRoot { get { return this; } }
+
         public bool IsSynchronized { get { return false; } }
-       
     }
 
     [Localizable(false)]
@@ -82,28 +78,33 @@ namespace miRobotEditor.GUI
     public class FindReplaceHistory
     {
         private List<string> _findItems = new List<string>(10);
-        public List<string> FindItems { get { return _findItems; } set { _findItems = value; } }
-        private List<string> _replaceItems = new List<string>(10);
-        public List<string> ReplaceItems { get { return _replaceItems; } set { _replaceItems = value; } }
-        private List<string> _directoryItems = new List<string>(10){"Current Window", "Current Selection", "Files"};
-        public List<string> DirectoryItems { get { return _directoryItems; } set { _directoryItems = value; } } 
 
+        public List<string> FindItems { get { return _findItems; } set { _findItems = value; } }
+
+        private List<string> _replaceItems = new List<string>(10);
+
+        public List<string> ReplaceItems { get { return _replaceItems; } set { _replaceItems = value; } }
+
+        private List<string> _directoryItems = new List<string>(10) { "Current Window", "Current Selection", "Files" };
+
+        public List<string> DirectoryItems { get { return _directoryItems; } set { _directoryItems = value; } }
     }
 
     [Serializable]
     public class FindReplaceViewModel : ToolViewModel
     {
         private const string HistoryPath = "D:\\History.xml";
-       
+
         ~FindReplaceViewModel()
-        { 
+        {
             var obj = History;
             var serializer = new XmlSerializer(typeof(FindReplaceHistory));
             TextWriter streamWriter = new StreamWriter(HistoryPath);
-            serializer.Serialize(streamWriter,History);
+            serializer.Serialize(streamWriter, History);
         }
 
         private FindReplaceHistory _history = new FindReplaceHistory();
+
         public FindReplaceHistory History { get { return _history; } set { _history = value; RaisePropertyChanged(); } }
 
         #region Members
@@ -114,27 +115,27 @@ namespace miRobotEditor.GUI
                 WorkerReportsProgress = true
             };
 
-        #endregion
+        #endregion Members
 
         #region DependencyProperties
-        public Results FindReplaceResults { get; set; } 
 
-         
+        public Results FindReplaceResults { get; set; }
 
         #region Include SubFolders
 
         private bool _includeSubFolders;
-        public bool IncludeSubFolders { get { return _includeSubFolders; } set { _includeSubFolders = value;RaisePropertyChanged(); } }
 
-        #endregion
+        public bool IncludeSubFolders { get { return _includeSubFolders; } set { _includeSubFolders = value; RaisePropertyChanged(); } }
+
+        #endregion Include SubFolders
 
         #region Keep Modified Files Open
 
         private bool _keepModifiedPropertiesOpen;
-        public bool KeepModifiedPropertiesOpen { get { return _keepModifiedPropertiesOpen; } set { _keepModifiedPropertiesOpen = value;RaisePropertyChanged(); } }
 
-        #endregion
+        public bool KeepModifiedPropertiesOpen { get { return _keepModifiedPropertiesOpen; } set { _keepModifiedPropertiesOpen = value; RaisePropertyChanged(); } }
 
+        #endregion Keep Modified Files Open
 
         private bool _inputIsValid;
 
@@ -147,8 +148,6 @@ namespace miRobotEditor.GUI
                 RaisePropertyChanged();
             }
         }
-
-
 
         #region Owner
 
@@ -164,18 +163,19 @@ namespace miRobotEditor.GUI
             }
         }
 
-        #endregion
+        #endregion Owner
 
         #region Filter Items
 
         private List<string> _filterItems = new List<string>();
-        public List<string> FilterItems { get { return _filterItems; } set { _filterItems = value;RaisePropertyChanged(); } }
+
+        public List<string> FilterItems { get { return _filterItems; } set { _filterItems = value; RaisePropertyChanged(); } }
 
         private string _filter;
-        public string Filter { get { return _filter; } set { _filter = value;RaisePropertyChanged(); } }
 
+        public string Filter { get { return _filter; } set { _filter = value; RaisePropertyChanged(); } }
 
-        #endregion
+        #endregion Filter Items
 
         #region Find Items property
 
@@ -191,12 +191,12 @@ namespace miRobotEditor.GUI
             }
         }
 
-
-        #endregion
+        #endregion Find Items property
 
         #region Replace items properties
 
         private string _replaceString;
+
         public string ReplaceString
         {
             get { return _replaceString; }
@@ -208,10 +208,10 @@ namespace miRobotEditor.GUI
         }
 
         private bool _replaceEnabled;
-        public bool ReplaceEnabled { get { return _replaceEnabled; } set { _replaceEnabled = value;RaisePropertyChanged(); } }
 
+        public bool ReplaceEnabled { get { return _replaceEnabled; } set { _replaceEnabled = value; RaisePropertyChanged(); } }
 
-        #endregion
+        #endregion Replace items properties
 
         #region Directory Properties
 
@@ -226,7 +226,8 @@ namespace miRobotEditor.GUI
                 RaisePropertyChanged();
             }
         }
-        #endregion
+
+        #endregion Directory Properties
 
         #region Match Whole Word
 
@@ -242,82 +243,87 @@ namespace miRobotEditor.GUI
             }
         }
 
-        #endregion
+        #endregion Match Whole Word
 
         #region Match Case
 
         private bool _matchCase;
 
-        public bool MatchCase{get { return _matchCase; }set{_matchCase = value;RaisePropertyChanged();}}
+        public bool MatchCase { get { return _matchCase; } set { _matchCase = value; RaisePropertyChanged(); } }
 
-        #endregion
+        #endregion Match Case
 
         #region Use WildCards
 
         private bool _useWildCards;
 
-        public bool UseWildCards{get { return _useWildCards; }set{_useWildCards = value;RaisePropertyChanged();}
+        public bool UseWildCards
+        {
+            get { return _useWildCards; }
+            set { _useWildCards = value; RaisePropertyChanged(); }
         }
 
-        #endregion
-
+        #endregion Use WildCards
 
         #region Progress
 
         private int _progressValue;
-        public int ProgressValue { get { return _progressValue; } set { _progressValue = value;RaisePropertyChanged(); } }
+
+        public int ProgressValue { get { return _progressValue; } set { _progressValue = value; RaisePropertyChanged(); } }
 
         private string _progressString;
-        public string ProgressString { get { return _progressString; } set { _progressString = value;RaisePropertyChanged(); } }
+
+        public string ProgressString { get { return _progressString; } set { _progressString = value; RaisePropertyChanged(); } }
 
         private Visibility _progressVisibility = Visibility.Collapsed;
-        public Visibility ProgressVisibility { get { return _progressVisibility; } set { _progressVisibility = value;RaisePropertyChanged(); } }
 
-        #endregion
+        public Visibility ProgressVisibility { get { return _progressVisibility; } set { _progressVisibility = value; RaisePropertyChanged(); } }
+
+        #endregion Progress
 
         #region Cancel
 
         private bool _cancelEnabled;
-        public bool CancelEnabled { get { return _cancelEnabled; } set { _cancelEnabled = value;RaisePropertyChanged(); } }
 
-        #endregion
+        public bool CancelEnabled { get { return _cancelEnabled; } set { _cancelEnabled = value; RaisePropertyChanged(); } }
+
+        #endregion Cancel
 
         #region Status
 
         private string _statusText;
-        public string StatusText { get { return _statusText; } set { _statusText = value;RaisePropertyChanged(); } }
 
-        #endregion
+        public string StatusText { get { return _statusText; } set { _statusText = value; RaisePropertyChanged(); } }
 
-        #endregion
+        #endregion Status
+
+        #endregion DependencyProperties
 
         #region Constructor
 
-        public FindReplaceViewModel(): base("Search Results")
+        public FindReplaceViewModel()
+            : base("Search Results")
         {
-
-
             Deserialize();
 
-            DefaultPane=DefaultToolPane.Bottom;
+            DefaultPane = DefaultToolPane.Bottom;
             StatusText = "...";
             _background.DoWork += _backgroundWorker_DoWork;
             _background.ProgressChanged += backgroundWorker_ProgressChanged;
             _background.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
         }
 
+        #endregion Constructor
 
-        #endregion
-
-
-        void Deserialize()
+        private void Deserialize()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(FindReplaceHistory));
             TextReader reader = new StreamReader(HistoryPath);
-            History=(FindReplaceHistory)serializer.Deserialize(reader);
-
+            History = (FindReplaceHistory)serializer.Deserialize(reader);
         }
+
         #region Commands
+
         [NonSerialized]
         private RelayCommand _findAllCommand;
 
@@ -325,6 +331,7 @@ namespace miRobotEditor.GUI
         {
             get { return _findAllCommand ?? (_findAllCommand = new RelayCommand(p => InitializeSearch(WorkType.FindAll), p => true)); }
         }
+
         [NonSerialized]
         private RelayCommand _replaceAllCommand;
 
@@ -360,7 +367,7 @@ namespace miRobotEditor.GUI
                                          DirectoryString == ("Current Window") | DirectoryString == "Current Selection"));
             }
         }
- 
+
         [NonSerialized]
         private RelayCommand _browseFoldersCommand;
 
@@ -373,14 +380,12 @@ namespace miRobotEditor.GUI
             }
         }
 
-        #endregion
-
+        #endregion Commands
 
         #region Methods
 
         private void BrowseForFolder()
         {
-
         }
 
         private int DoFind(BackgroundWorker worker)
@@ -393,35 +398,33 @@ namespace miRobotEditor.GUI
             //TODO Add FileTypes
 
             // Create new items found collection
-            FindReplaceResults=new Results();
+            FindReplaceResults = new Results();
             //Get all XML files in the directory
             var filesInDirectory = Directory.GetFiles(DirectoryString, "*.src");
 
             //Initialize total file count
             var totalFiles = filesInDirectory.GetLength(0);
-          
-                //Analyze each file in the directory
-                foreach (var file in filesInDirectory)
+
+            //Analyze each file in the directory
+            foreach (var file in filesInDirectory)
+            {
+                //Perform find and replace operation
+                if (FindAndReplace(file))
                 {
-
-                    //Perform find and replace operation
-                    if (FindAndReplace(file))
-                    {
-                        //The file was changed so increment variable
-                        filesAffectedCount++;
-                    }
-
-                    //Increment the counter
-                    counter++;
-
-                    //Report progress
-                    worker.ReportProgress((int) (counter/totalFiles*100.00));
+                    //The file was changed so increment variable
+                    filesAffectedCount++;
                 }
-              
+
+                //Increment the counter
+                counter++;
+
+                //Report progress
+                worker.ReportProgress((int)(counter / totalFiles * 100.00));
+            }
+
             //Return the total number of files changed
             return filesAffectedCount;
         }
-
 
         /// <summary>
         /// Performs the find and replace operation on a file.
@@ -435,17 +438,19 @@ namespace miRobotEditor.GUI
                 case WorkType.Find:
                     Find();
                     break;
+
                 case WorkType.FindAll:
                     return FindAll(file);
+
                 case WorkType.Replace:
                     Replace(file);
                     break;
+
                 case WorkType.ReplaceAll:
                     ReplaceAll(file);
                     break;
             }
 
-          
             //No match found and replaced
             return false;
         }
@@ -455,16 +460,13 @@ namespace miRobotEditor.GUI
             Workspace.Instance.ActiveEditor.TextBox.FindText(FindString);
         }
 
-      
         private bool FindAll(string filePath)
         {
-
             if (!History.DirectoryItems.Contains(DirectoryString))
                 History.DirectoryItems.Add(DirectoryString);
 
             if (!History.FindItems.Contains(FindString))
                 History.FindItems.Add(FindString);
-
 
             var filesFound = 0;
             //Create a new object to read a file
@@ -478,7 +480,6 @@ namespace miRobotEditor.GUI
 
             foreach (var i in temp)
             {
-
                 var m = matchstring.Match(i);
                 while (m.Success)
                 {
@@ -498,20 +499,17 @@ namespace miRobotEditor.GUI
             return filesFound > 0;
         }
 
-
         private void Replace(string file)
         {
-
         }
 
         private void ReplaceAll(string file)
         {
-
         }
 
-        Regex GetRegexSearch(string textToFind)
+        private Regex GetRegexSearch(string textToFind)
         {
-            return new Regex(GetSearchText(textToFind),GetRegExOptions());
+            return new Regex(GetSearchText(textToFind), GetRegExOptions());
         }
 
         /// <summary>
@@ -591,16 +589,17 @@ namespace miRobotEditor.GUI
         /// </summary>
         /// <returns>A value indicating if the user input is complete.</returns>
 
-        #endregion
+        #endregion Methods
 
         #region Events
+
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             //Create a work object and initialize
             var worker = sender as BackgroundWorker;
 
             //Run the find and replace operation and store total files affected in the result property
-            e.Result = (int) DoFind(worker);
+            e.Result = (int)DoFind(worker);
         }
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -629,16 +628,13 @@ namespace miRobotEditor.GUI
             Workspace.Instance.AddTool(this);
         }
 
-
-
         private void lnkBrowse_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //Select a directory to output files
             BrowseDirectory();
         }
 
-
-        #endregion
+        #endregion Events
 
         private enum WorkType
         {
@@ -647,7 +643,6 @@ namespace miRobotEditor.GUI
             Replace,
             ReplaceAll
         };
-
 
         private void UpdateComboBoxes(ICollection<string> box, string item)
         {
@@ -673,6 +668,7 @@ namespace miRobotEditor.GUI
                 case WorkType.FindAll:
                     UpdateComboBoxes(History.FindItems, FindString);
                     break;
+
                 case WorkType.Replace:
                 case WorkType.ReplaceAll:
                     UpdateComboBoxes(History.ReplaceItems, ReplaceString);
@@ -684,11 +680,10 @@ namespace miRobotEditor.GUI
             _background.RunWorkerAsync();
         }
 
-
         /* Implemented from old control
          */
 
-        #region  Commands
+        #region Commands
 
         private static RelayCommand _findpreviouscommand;
 
@@ -720,7 +715,7 @@ namespace miRobotEditor.GUI
             }
         }
 
-        #endregion
+        #endregion Commands
 
         private static FindReplaceViewModel _instance;
 
@@ -731,7 +726,6 @@ namespace miRobotEditor.GUI
         }
 
         #region Properties
-
 
         private bool _useregex;
 
@@ -751,7 +745,7 @@ namespace miRobotEditor.GUI
             {
                 var pattern = UseRegex == false ? Regex.Escape(LookFor) : LookFor;
                 var options = MatchCase ? 0 : 1;
-                return new Regex(pattern, (RegexOptions) options);
+                return new Regex(pattern, (RegexOptions)options);
             }
         }
 
@@ -796,7 +790,7 @@ namespace miRobotEditor.GUI
             }
         }
 
-        #endregion
+        #endregion Properties
 
         private static void FindPrevious()
         {
@@ -813,14 +807,12 @@ namespace miRobotEditor.GUI
             document.TextBox.ReplaceText();
         }
 
-
         private static void HighlightAll()
         {
             throw new NotImplementedException();
         }
-
-
     }
+
     [Serializable]
     public class FindReplaceResult
     {
@@ -847,8 +839,7 @@ namespace miRobotEditor.GUI
         /// String Searched for
         /// </summary>
         public Regex RegexString { get; set; }
+
         public String SearchString { get; set; }
     }
 }
-
-

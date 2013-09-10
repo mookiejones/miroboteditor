@@ -6,34 +6,25 @@
 			<!--miRobotEditor Installation Directory and files-->
 			<Directory Id="ProgramFilesFolder" Name="PFiles">
 				<Directory Id="miRobotEditorFolder" Name="miRobotEditor">
-					<Directory Id="INSTALLDIR" Name="$(var.PRODUCTMAJORVERSION)">
+					<Directory Id="INSTALLDIR" Name="1">
 						<Directory Id="BinFolder" Name="bin">
 							<Directory Id="ResourcesFolder" Name="Resources">
-								<Directory Id="NewDirectory" Name="data" />
-								<Directory Id="NewDirectory" Name="doc" />
-								<Directory Id="NewDirectory" Name="SyntaxHighlighting">
-									<Component Id="SyntaxHighlightingFiles" Guid="51A00583-910B-42F8-962C-E44A390D4F0A" DiskId="1">
-										<File Id="ABBHighlight.xshd" Name="ABBHighlight.xshd" Source="..\src\Controls\SyntaxHighlighting\ABBHighlight.xshd" />
-										<File Id="FanucHighlight.xshd" Name="FanucHighlight.xshd" Source="..\src\Controls\SyntaxHighlighting\FanucHighlight.xshd" />
-										<File Id="KAWASAKIHighlight.xshd" Name="KAWASAKIHighlight.xshd" Source="..\src\Controls\SyntaxHighlighting\KAWASAKIHighlight.xshd" />
-										<File Id="KFDHighlight.xshd" Name="KFDHighlight.xshd" Source="..\src\Controls\SyntaxHighlighting\KFDHighlight.xshd" />
-										<File Id="KUKAHighlight.xshd" Name="KUKAHighlight.xshd" Source="..\src\Controls\SyntaxHighlighting\KUKAHighlight.xshd" />
-										<File Id="NoneHighlight.xshd" Name="NoneHighlight.xshd" Source="..\src\Controls\SyntaxHighlighting\NoneHighlight.xshd" />
-										<File Id="Reference.xsd" Name="Reference.xsd" Source="..\src\Controls\SyntaxHighlighting\Reference.xsd" />
-										<File Id="RobotBaseHighlight.xshd" Name="RobotBaseHighlight.xshd" Source="..\src\Controls\SyntaxHighlighting\RobotBaseHighlight.xshd" />
-										<File Id="VBAHighlight.xshd" Name="VBAHighlight.xshd" Source="..\src\Controls\SyntaxHighlighting\VBAHighlight.xshd" />
-									</Component>
-								</Directory>
+								<Directory Id="NewdataDirectory" Name="data" />
+								<Directory Id="NewdocDirectory" Name="doc" />
+								
+								<Component Id="SyntaxHighlighting" Guid="7441E21B-B674-4A3F-AC51-CD6BB03C2653" DiskId="1">
+									<File Id="SyntaxHighlighting.ABBHighlight.xshd" Name="ABBHighlight.xshd" Source="..\src\Controls\SyntaxHighlighting\ABBHighlight.xshd" />
+								</Component>
 							</Directory>
 							<!-- File Associations-->
-							<Component Id="=KUKASrcFileAssociation" DiskId="1">
-								<RegistryValue Id="miRobotEditor.kukaSourceFile" Root="HKCR" Type="string" Key="miRobotEditor.kukaSourceFile" KeyPath="yes" />
+							<Component Id="KUKASrcFileAssociation" DiskId="1">
+								<RegistryValue Id="miRobotEditor.kukaSourceFile" Root="HKCR" Type="string" Key="miRobotEditor.kukaSourceFile" KeyPath="yes" Value="" />
 								<RegistryValue Id="miRobotEditor.kukaSourceFile.command" Root="HKCR" Type="string" Key="v.kukaSourceFile\shell\open\command" Value="&quot;[#miRobotEditor.exe]&quot; &quot;%1&quot;" />
 								<RegistryValue Id="miRobotEditor.kukaSourceFile.icon" Root="HKCR" Type="string" Key="v.kukaSourceFile\DefaultIcon" Value="&quot;[#src.ico]&quot;" />
 								<RegistryValue Id="miRobotEditor.kukaSourceFile.association" Root="HKCR" Type="string" Key=".src" Value="miRobotEditor.kukaSourceFile" />
 							</Component>
 							<Component Id="KUKADatFileAssociation" DiskId="1">
-								<RegistryValue Id="miRobotEditor.kukaDatFile" Root="HKCR" Type="string" Key="miRobotEditor.kukaDatFile" KeyPath="yes" />
+								<RegistryValue Id="miRobotEditor.kukaDatFile" Root="HKCR" Type="string" Key="miRobotEditor.kukaDatFile" KeyPath="yes" Value="" />
 								<RegistryValue Id="miRobotEditor.kukaDatFile.command" Root="HKCR" Type="string" Key="miRobotEditor.kukaDatFile\shell\open\command" Value="&quot;[#miRobotEditor.exe]&quot; &quot;%1&quot;" />
 								<RegistryValue Id="miRobotEditor.kukaDatFile.icon" Root="HKCR" Type="string" Key="miRobotEditor.kukaDatFile\DefaultIcon" Value="&quot;[#dat.ico]&quot;" />
 								<RegistryValue Id="miRobotEditor.kukaDatFile.association" Root="HKCR" Type="string" Key=".src" Value="miRobotEditor.kukaDatFile" />
@@ -51,15 +42,15 @@
 			<!-- miRobotEditor Start menu folder -->
 			<Directory Id="ProgramMenuFolder" Name="Programs">
 				<Component Id="miRobotEditorProgramMenuItems" Guid="B3561A6D-3DE0-4E46-8D8B-EEC57506ABA0">
-					<RegistryValue Id="miRobotEditorExeStartMenuShortcutRegistryKey" Key="Software\miRobotEditor\$(var.PRODUCTMAJORVERSION)" KeyPath="yes" Name="ProgramFilesShortcut" Root="HKCU" Type="string" Value="1" />
-					<Shortcut Directory="ProgramMenuFolder" Icon="miRobotEditoricon.exe" Id="miRobotEditorExeStartMenuShortcut" Name="miRobotEditor $(var.PRODUCTDISPLAYVERSION)" Target="[!miRobotEditor.exe]" WorkingDirectory=" BinFolder" />
+					<RegistryValue Id="miRobotEditorExeStartMenuShortcutRegistryKey" Key="Software\miRobotEditor\1" KeyPath="yes" Name="ProgramFilesShortcut" Root="HKCU" Type="string" Value="1" />
+					<Shortcut Directory="ProgramMenuFolder" Id="miRobotEditorExeStartMenuShortcut" Name="miRobotEditor 1" Target="[!miRobotEditor.exe]" WorkingDirectory="BinFolder" />
 				</Component>
 			</Directory>
 			<!--Desktop shortcuts -->
 			<Directory Id="DesktopFolder" Name="Desktop">
 				<Component Id="DesktopFolderItems" Guid="0D5B0019-950B-454A-A71F-D52B6CF05AF6">
-					<RegistryValue Id="miRobotEditorExeDesktopShortcutRegistrykey" Type="string" Root="HKCU" KeyPath="yes" Key="Software\miRobotEditor\$(var.PRODUCTMAJORVERSION)" Name="DesktopShortcut" Value="1" />
-					<Shortcut Id="miRobotEditorExeDesktopShortcut" Directory="DesktopFolder" Target="[!miRobotEditor.exe]" Name="miRoboEditor $(var.PRODUCTDISPLAYVERSION)" Icon="miRobotEditor.exe" WorkingDirectory="BinFolder" />
+					<RegistryValue Id="miRobotEditorExeDesktopShortcutRegistrykey" Type="string" Root="HKCU" KeyPath="yes" Key="Software\miRobotEditor\1" Name="DesktopShortcut" Value="1" />
+					<Shortcut Id="miRobotEditorExeDesktopShortcut" Directory="DesktopFolder" Target="[!miRobotEditor.exe]" Name="miRobotEditor 1" WorkingDirectory="BinFolder" />
 				</Component>
 			</Directory>
 		</DirectoryRef>

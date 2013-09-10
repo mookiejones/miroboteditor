@@ -55,7 +55,7 @@
 
     <!-- Local Variables-->
     <DataTemplate DataType="{x:Type vm:LocalVariablesViewModel}">
-        <templates:VisualVariableItem DataContext="{Binding ActiveEditor, NotifyOnSourceUpdated=True, Source={x:Static miRobotEditor:Workspace.Instance}}" ItemsSource="{Binding TextBox.Variables}" />
+        <templates:VisualVariableItem DataContext="{Binding ActiveEditor.TextBox.Variables, NotifyOnSourceUpdated=True, Source={x:Static miRobotEditor:Workspace.Instance}}"  />
     </DataTemplate>
 
     <!-- Notes Template -->
@@ -239,7 +239,7 @@
         </StackPanel>
     </DataTemplate>
 
-    <Style  TargetType="{x:Type mah:Flyout}">
+    <Style x:Key="{x:Type mah:Flyout}"  TargetType="{x:Type mah:Flyout}">
         <Style.Resources>
             <ResourceDictionary>
                 <Style TargetType="{x:Type TextBlock}">
@@ -251,7 +251,6 @@
             </ResourceDictionary>
         </Style.Resources>
         <Setter Property="Foreground" Value="Black" />
-        <Setter Property="Background" Value="{StaticResource BackgroundBrush}" />
         <Setter Property="Opacity" Value="0.35" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="False">
@@ -273,4 +272,47 @@
             </EventTrigger>
         </Style.Triggers>
     </Style>
+    <ControlTemplate x:Key="MenuItemControlTemplate1" TargetType="{x:Type MenuItem}">
+        <Grid SnapsToDevicePixels="True">
+            <Rectangle x:Name="Bg" Fill="#FFE0E0E0" Opacity="0.65" RadiusY="2" RadiusX="2" Stroke="#FFE0E0E0" StrokeThickness="1"/>
+            <Rectangle x:Name="InnerBorder" Margin="1" RadiusY="2" RadiusX="2" Stroke="Transparent" StrokeThickness="1"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition MinWidth="37"/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="GlyphPanel" Height="22" Margin="1" Visibility="Collapsed" Width="22">
+                    <Path x:Name="Glyph" Data="M0,5.1L1.7,5.2 3.4,7.1 8,0.4 9.2,0 3.3,10.8z" Fill="{DynamicResource BlackColorBrush}" FlowDirection="LeftToRight" Height="11" Width="9"/>
+                </Border>
+                <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="2" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                <TextBlock Grid.Column="4" Margin="{TemplateBinding Padding}" Text="{TemplateBinding InputGestureText}" Visibility="Collapsed"/>
+            </Grid>
+            <Popup x:Name="PART_Popup" AllowsTransparency="True" Focusable="False" HorizontalOffset="-2" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" Placement="Bottom" VerticalOffset="-3">
+                <ContentControl x:Name="SubMenuBorder" IsTabStop="False" Template="{DynamicResource {ComponentResourceKey ResourceId=SubmenuContent, TypeInTargetAssembly={x:Null}}}">
+                    <ScrollViewer CanContentScroll="True" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Cycle" Grid.IsSharedSizeScope="True" Margin="2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.TabNavigation="Cycle"/>
+                    </ScrollViewer>
+                </ContentControl>
+            </Popup>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSuspendingPopupAnimation" Value="True">
+                <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None"/>
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Stroke" TargetName="InnerBorder" Value="#D1DBF4FF"/>
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Fill" TargetName="Bg" Value="{DynamicResource HighlightBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource DisabledMenuItemBrush}"/>
+                <Setter Property="Background" TargetName="GlyphPanel" Value="#FFEEE9E9"/>
+                <Setter Property="BorderBrush" TargetName="GlyphPanel" Value="#FFDBD6D6"/>
+                <Setter Property="Fill" TargetName="Glyph" Value="#FF848589"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 </ResourceDictionary>

@@ -9,6 +9,18 @@ namespace miRobotEditor.Classes
 {
     public class VariableBase : ViewModelBase, IVariable
     {
+
+        public bool Contains(string value)
+        {
+            if (Description.Contains(value))
+                return true;
+            if (Name.Contains(value)) return true;
+
+            if (Type.Contains(value)) return true;
+            if (Path.Contains(value)) return true;
+            if (Declaration.Contains(value)) return true;
+            return false;
+        }
         public bool IsSelected { get; set; }
 
         private BitmapImage _icon;

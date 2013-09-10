@@ -1,18 +1,23 @@
-﻿using System.IO;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Data;
+using System.Windows.Forms.VisualStyles;
+using miRobotEditor.Classes;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using miRobotEditor.Classes;
 
 namespace miRobotEditor.Templates
 {
     /// <summary>
     /// Interaction logic for VisualVariableItem.xaml
     /// </summary>
-// ReSharper disable RedundantExtendsListEntry
-    public partial class VisualVariableItem : DataGrid
-// ReSharper restore RedundantExtendsListEntry
+    // ReSharper disable RedundantExtendsListEntry
+    public partial class VisualVariableItem : UserControl
+    // ReSharper restore RedundantExtendsListEntry
     {
         public VisualVariableItem()
         {
@@ -35,10 +40,11 @@ namespace miRobotEditor.Templates
             {
                 var item = cell.CurrentCell.Item as IVariable;
 
-                if ((item != null)&&(File.Exists(item.Path))) Workspace.Instance.OpenFile(item);
+                if ((item != null) && (File.Exists(item.Path))) Workspace.Instance.OpenFile(item);
             }
             e.Handled = true;
         }
+
         public T TryFindParent<T>(DependencyObject child) where T : DependencyObject
         {
             //get parent item
@@ -93,15 +99,27 @@ namespace miRobotEditor.Templates
         {
             throw new System.NotImplementedException();
         }
+
+
+        private ICollectionView defaultView;
+        private void FilterTextChanged(object sender, TextChangedEventArgs e)
+        {
+            defaultView = CollectionViewSource.GetDefaultView(this.DataContext);
+                        var text = (sender as TextBox).Text;
+
+            defaultView.Filter = w => ((IVariable) w).Contains(text);
+            myDataGrid.ItemsSource = defaultView;
+        }
     }
-    public class IconSelector:DataTemplateSelector
+
+    public class IconSelector : DataTemplateSelector
     {
-// ReSharper disable RedundantOverridenMember
+        // ReSharper disable RedundantOverridenMember
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-
             return base.SelectTemplate(item, container);
         }
-// ReSharper restore RedundantOverridenMember
+
+        // ReSharper restore RedundantOverridenMember
     }
 }
