@@ -48,11 +48,11 @@ namespace miRobotEditor
         public static void Main()
         {
             //     #if DEBUG
-            //     Control.CheckForIllegalCrossThreadCalls = true;
+                 Control.CheckForIllegalCrossThreadCalls = true;
             //     #endif
-            //    if (!CheckEnvironment())
-            //        return;
-            //    if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
+                if (!CheckEnvironment())
+                    return;
+                if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
             Splasher.Splash = new SplashScreen();
             Splasher.ShowSplash();
             Application = new App();
@@ -72,7 +72,7 @@ namespace miRobotEditor
             //      }
             //  }
             // Allow single instance code to perform cleanup operations
-            //    SingleInstance<App>.Cleanup();
+                SingleInstance<App>.Cleanup();
         }
 
         [Localizable(false)]

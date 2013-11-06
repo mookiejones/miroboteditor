@@ -1,4 +1,5 @@
-﻿using MahApps.Metro;
+﻿using System.Diagnostics;
+using MahApps.Metro;
 using miRobotEditor.Classes;
 using miRobotEditor.Core;
 using miRobotEditor.Forms;
@@ -28,8 +29,7 @@ namespace miRobotEditor
 
         public Workspace()
         {
-            Instance = this;
-
+            _instance = this;
             _tools = new ObservableCollection<ToolViewModel> { ObjectBrowser, MessageView, Notes, LocalVariables, Functions, AngleConverter };
         }
 
@@ -79,15 +79,13 @@ namespace miRobotEditor
 
                 if (elements.GetLength(0) == 1) // pathname is just a root and filename
                 {
-                    if (elements[0].Length > 5) // long enough to shorten
+                    if (elements[0].Length <= 5) return pathname;
+                    // if path is a UNC path, root may be rather long
+                    if (root.Length + 6 >= maxLength)
                     {
-                        // if path is a UNC path, root may be rather long
-                        if (root.Length + 6 >= maxLength)
-                        {
-                            return root + elements[0].Substring(0, 3) + "...";
-                        }
-                        return pathname.Substring(0, maxLength - 3) + "...";
+                        return root + elements[0].Substring(0, 3) + "...";
                     }
+                    return pathname.Substring(0, maxLength - 3) + "...";
                 }
                 else if ((root.Length + 4 + elements[filenameIndex].Length) > maxLength) // pathname is just a root and filename
                 {
@@ -159,7 +157,7 @@ namespace miRobotEditor
 
         private static Workspace _instance;
 
-        public static Workspace Instance { get { return _instance ?? (_instance = new Workspace()); } set { _instance = value; } }
+        public static Workspace Instance { get { return _instance ?? (_instance = new Workspace()); } }
 
         #region Tools
 
@@ -486,9 +484,11 @@ namespace miRobotEditor
         private void TextBox_FilenameChanged(object sender, EventArgs e)
         {
             var editor = sender as Editor;
-
+            Debug.Assert(editor != null, "editor != null");
             var fileViewModel = _files.FirstOrDefault(fi => fi.ContentId ==editor.Tag);
 
+            Debug.Assert(fileViewModel != null, "fileViewModel != null");
+            
             fileViewModel.ContentId = editor.Filename;
             RaisePropertyChanged("Title");
 
@@ -556,8 +556,8 @@ namespace miRobotEditor
         {
             // Argument 0 is The Path of the main application so i start with argument 1
 
-            foreach (var file in args)
-                Open(file);
+            for (int i = 1; i < args.Count;i++)
+                Open(args[i]);
         }
 
         #endregion OpenFile

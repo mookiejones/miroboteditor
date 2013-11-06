@@ -21,7 +21,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Global = miRobotEditor.Classes.Global;
 using RelayCommand = miRobotEditor.Commands.RelayCommand;
-using Utilities = miRobotEditor.Classes.Utilities; 
+using Utilities = miRobotEditor.Classes.Utilities;
 
 namespace miRobotEditor.Languages
 {
@@ -548,7 +548,6 @@ namespace miRobotEditor.Languages
 
         public class Positions : ViewModelBase, IVariable
         {
-
             public bool Contains(string value)
             {
                 if (Description.Contains(value))
@@ -560,6 +559,7 @@ namespace miRobotEditor.Languages
                 if (Declaration.Contains(value)) return true;
                 return false;
             }
+
             private bool _isSelected;
 
             public bool IsSelected
