@@ -315,11 +315,14 @@ namespace miRobotEditor.GUI
 
         #endregion Constructor
 
-        private void Deserialize()
+        private new void Deserialize()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(FindReplaceHistory));
-            TextReader reader = new StreamReader(HistoryPath);
-            History = (FindReplaceHistory)serializer.Deserialize(reader);
+            var serializer = new XmlSerializer(typeof(FindReplaceHistory));
+
+            using (var reader = new StreamReader(HistoryPath))
+            {
+                History = (FindReplaceHistory)serializer.Deserialize(reader);
+            }
         }
 
         #region Commands

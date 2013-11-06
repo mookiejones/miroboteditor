@@ -34,6 +34,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using System.Xml.Serialization;
 using Global = miRobotEditor.Classes.Global;
 using Utilities = miRobotEditor.Classes.Utilities;
 
@@ -114,18 +115,18 @@ namespace miRobotEditor.GUI
         #region Commands
 
         #region RenumberLinesCommand
+
         private RelayCommand _renumberLinesCommand;
 
         public ICommand RenumberLinesCommand
         {
-            get{return _renumberLinesCommand??(_renumberLinesCommand=new RelayCommand(RenumberLines,CanRenumberLines));}
+            get { return _renumberLinesCommand ?? (_renumberLinesCommand = new RelayCommand(RenumberLines, CanRenumberLines)); }
         }
 
-        void RenumberLines(object param)
+        private void RenumberLines(object param)
         {
-
             var sb = new System.Text.StringBuilder();
-            var lines = Regex.Split(Text,"\r\n");
+            var lines = Regex.Split(Text, "\r\n");
             int i = 1;
             foreach (var line in lines)
             {
@@ -138,26 +139,22 @@ namespace miRobotEditor.GUI
                         newLine = newLine.Replace(match.Groups[1] + ":", i + ":");
                         i++;
                     }
-                    
                 }
 
                 sb.AppendLine(newLine);
-
             }
 
             Text = sb.ToString();
-
-
         }
 
-        bool CanRenumberLines(object param)
+        private bool CanRenumberLines(object param)
         {
             return FanucVisibility == Visibility.Visible;
         }
 
-        public Visibility FanucVisibility{get { return FileLanguage is Fanuc?Visibility.Visible:Visibility.Collapsed; }}
-        #endregion
+        public Visibility FanucVisibility { get { return FileLanguage is Fanuc ? Visibility.Visible : Visibility.Collapsed; } }
 
+        #endregion RenumberLinesCommand
 
         private RelayCommand _undoCommand;
 
@@ -195,10 +192,8 @@ namespace miRobotEditor.GUI
             get { return _saveAsCommand ?? (_saveAsCommand = new RelayCommand(SaveAs, CanSaveAs)); }
         }
 
-
         public void SaveAs(Object param)
         {
-       
             var result = GetFilename();
             if (string.IsNullOrEmpty(result))
                 return;
@@ -214,14 +209,14 @@ namespace miRobotEditor.GUI
             RaiseFilenameChanged();
             OnPropertyChanged("Title");
             MessageViewModel.Add(new OutputWindowMessage { Title = "File Saved", Description = Filename, Icon = null });
-
         }
 
-        bool CanSaveAs(object param)
+        private bool CanSaveAs(object param)
         {
             return true;
         }
-        #endregion
+
+        #endregion SaveAsCommand
 
         private static RelayCommand _replaceCommand;
 
@@ -525,10 +520,6 @@ namespace miRobotEditor.GUI
             }
         }
 
-
-
-
-
         /// <summary>
         /// Find info for bookmark
         /// <remarks>Need to make sure Correct Priority is set. Whatever is set first will overwrite anything after</remarks>
@@ -702,7 +693,6 @@ namespace miRobotEditor.GUI
             return result ? ofd.FileName : string.Empty;
         }
 
-       
         private void RaiseFilenameChanged()
         {
             if (FilenameChanged != null)
@@ -1083,7 +1073,7 @@ namespace miRobotEditor.GUI
                 return false;
             _toolTip = new ToolTip
             {
-                Style = (Style) FindResource("FoldToolTipStyle"),
+                Style = (Style)FindResource("FoldToolTipStyle"),
                 DataContext = f,
                 PlacementTarget = this,
                 IsOpen = true,
@@ -1247,6 +1237,7 @@ namespace miRobotEditor.GUI
         [Localizable(false), UsedImplicitly]
         private void InsertSnippet()
         {
+            var snippets = new List<Snippet>();
 #pragma warning disable 168
             var loopCounter = new SnippetReplaceableTextElement { Text = "i" };
 #pragma warning restore 168
@@ -1267,13 +1258,23 @@ namespace miRobotEditor.GUI
                                                   new SnippetSelectionElement()
                                               }
                               };
-            snippet.Insert(TextArea);
+
+            snippets.Add(snippet);
+            var serial = new XmlSerializer(typeof(List<Snippet>));
+            var stream = new StreamWriter("c:\\snippet.xml");
+            serial.Serialize(stream, snippets);
+            //  snippet.Insert(TextArea);
         }
+
+        private bool snippetadded = false;
 
         private void TextEditorGotFocus(object sender, RoutedEventArgs e)
         {
             DocumentViewModel.Instance.TextBox = this;
 
+            if (!snippetadded)
+                InsertSnippet();
+            snippetadded = true;
             OnPropertyChanged("Line");
             OnPropertyChanged("Column");
             OnPropertyChanged("Offset");
