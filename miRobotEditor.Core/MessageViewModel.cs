@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
-using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 
 namespace miRobotEditor.Core
 {
@@ -20,7 +20,7 @@ namespace miRobotEditor.Core
 
 
         private OutputWindowMessage _selectedMessage ;
-        public OutputWindowMessage SelectedMessage {get{return _selectedMessage;}set{_selectedMessage=value;RaisePropertyChanged();}}
+        public OutputWindowMessage SelectedMessage { get { return _selectedMessage; } set { _selectedMessage = value; RaisePropertyChanged("SelectedMessage"); } }
 
         public ObservableCollection<IMessage> Messages { get; set; }
 
@@ -70,11 +70,7 @@ namespace miRobotEditor.Core
         }
 
 
-        void HandleMouseOver(object param)
-        {
-
-           SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
-        }
+     
 
         /// <summary>
         /// Create MessageBox window and displays
@@ -85,11 +81,7 @@ namespace miRobotEditor.Core
             System.Windows.MessageBox.Show(message);
         }
 
-        void ClearItems()
-        {
-        	Messages.Clear();//=new ObservableCollection<OutputWindowMessage>();
-        	RaisePropertyChanged("Messages");
-        }
+     
 
         public static void AddError(string message,Exception ex)
         {
@@ -116,17 +108,53 @@ namespace miRobotEditor.Core
         }
 
         #region Commands
-        private  RelayCommand _clearMessagesCommand;
-        public  ICommand ClearMessagesCommand
+
+        #region ClearMessagesCommand
+
+        private RelayCommand _clearMessagesCommand  ;
+        /// <summary>
+        /// Gets the ClearMessagesCommand.
+        /// </summary>
+        public RelayCommand ClearMessagesCommand
         {
-            get { return _clearMessagesCommand ?? (_clearMessagesCommand = new RelayCommand(param => ClearItems(), param => true)); }
+            get
+            {
+                return _clearMessagesCommand
+                    ?? (_clearMessagesCommand = new RelayCommand(ExecuteClearMessagesCommand));
+            }
         }
 
-        private RelayCommand _mouseOverCommand;
-        public ICommand MouseOverCommand
+        private void ExecuteClearMessagesCommand()
         {
-            get { return _mouseOverCommand ?? (_mouseOverCommand = new RelayCommand(p => HandleMouseOver(p), p => true)); }
+            Messages.Clear();//=new ObservableCollection<OutputWindowMessage>();
+            RaisePropertyChanged("Messages");   
         }
+        #endregion
+
+        #region MouseOvercommand
+
+        private RelayCommand<ListViewItem> _mouseOverCommand;
+        /// <summary>
+        /// Gets the MouseOvercommand.
+        /// </summary>
+        public RelayCommand<ListViewItem> MouseOvercommand
+        {
+            get
+            {
+                return _mouseOverCommand
+                    ?? (_mouseOverCommand = new RelayCommand<ListViewItem>(ExecuteMouseOvercommand));
+            }
+        }
+
+        private void ExecuteMouseOvercommand(ListViewItem item)
+        {
+            SelectedMessage = (OutputWindowMessage)item.Content;
+        }
+        #endregion
+
+      
+
+      
         #endregion
 
     }

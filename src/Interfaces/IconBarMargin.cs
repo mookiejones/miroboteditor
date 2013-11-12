@@ -14,6 +14,7 @@ using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
+using miRobotEditor.Classes;
 using miRobotEditor.Core;
 using Pen = System.Windows.Media.Pen;
 using System.Windows;

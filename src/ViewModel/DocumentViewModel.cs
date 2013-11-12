@@ -7,9 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Classes;
-using miRobotEditor.Commands;
 using miRobotEditor.Languages;
 using miRobotEditor.GUI;
 using System.IO;
@@ -37,7 +36,7 @@ namespace miRobotEditor.ViewModel
             Load(filepath);
             TextBox.FileLanguage = FileLanguage;
            
-            TextBox.GotFocus += (s, e) => { TextBox = s as Editor; };
+            TextBox.GotFocus += (s, e) => { TextBox = s as EditorClass; };
             TextBox.TextChanged += (s, e) => TextChanged(s);
             TextBox.IsModified = false;
 
@@ -48,11 +47,28 @@ namespace miRobotEditor.ViewModel
             TextBox.IsModified = false;
         }
 
+
+        #region CloseCommand
+
         private RelayCommand _closeCommand;
-        public ICommand CloseCommand
+        /// <summary>
+        /// Gets the CloseCommand.
+        /// </summary>
+        public RelayCommand CloseCommand
         {
-            get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
+            get
+            {
+                return _closeCommand
+                    ?? (_closeCommand = new RelayCommand(ExecuteCloseCommand));
+            }
         }
+
+        private void ExecuteCloseCommand()
+        {
+            CloseWindow();
+        }
+        #endregion
+    
        
         public void CloseWindow()
         {
@@ -71,13 +87,13 @@ namespace miRobotEditor.ViewModel
             Workspace.Instance.Close(this);
         }
 
-        internal void Save(Editor txtBox)
+        internal void Save(EditorClass txtBox)
         {
 
             var fn = txtBox.Filename;
             if (txtBox.Filename == null)
             {
-                txtBox.SaveAs(null);
+                txtBox.Save();
 
                 if (fn != txtBox.Filename)
                     RaiseFileNameChanged();
@@ -95,13 +111,13 @@ namespace miRobotEditor.ViewModel
         #region Properties
 
         private Visibility _visibility = Visibility.Visible;
-        public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged(); } }
+        public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged("Visibility"); } }
 
         public static DocumentViewModel Instance { get; set; }
         private AbstractLanguageClass _filelanguage = new LanguageBase();
-        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged(); } }
-        private Editor _textBox = new Editor();
-        public Editor TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged(); } }
+        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged("FileLanguage"); } }
+        private EditorClass _textBox = new EditorClass();
+        public EditorClass TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged("TextBox"); } }
         #endregion
 
 
@@ -110,7 +126,7 @@ namespace miRobotEditor.ViewModel
         {
             Console.WriteLine("Filename = {0}",FileName);
 
-            TextBox = sender as Editor;
+            TextBox = sender as EditorClass;
             if (TextBox != null) FileLanguage.RawText = TextBox.Text ;
 
 

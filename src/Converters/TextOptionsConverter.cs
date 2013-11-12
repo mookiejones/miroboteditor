@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Data;
-using miRobotEditor.GUI;
+using miRobotEditor.GUI.Editor;
+
 namespace miRobotEditor.Converters
 {
     [Localizable(false)]

@@ -1,16 +1,19 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Classes;
-using miRobotEditor.Commands;
-using System.Windows.Input;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
+
+    public delegate void MessageAddedHandler(object sender, EventArgs e);
     public class MessageViewModel:ToolViewModel
     {
         public const string ToolContentId = "MessageViewTool";
+        public event MessageAddedHandler MessageAdded;
 
         #region Properties
         private static MessageViewModel _instance;
@@ -24,6 +27,12 @@ namespace miRobotEditor.ViewModel
         public ObservableCollection<IMessage> Messages { get; set; }
 
         #endregion
+
+        void RaiseMessageAdded()
+        {
+            if (MessageAdded!=null)
+                MessageAdded(this,new EventArgs());
+        }
 
         #region Constructor
         public MessageViewModel():base("Output Window")
@@ -59,15 +68,11 @@ namespace miRobotEditor.ViewModel
         	Messages.Add(new OutputWindowMessage{Title=title, Description=message,Icon=img});
 
             if (forceactivate)
-                Workspace.Instance.BringToFront("Output Window");
+                RaiseMessageAdded();
         }
 
 
-        void HandleMouseOver(object param)
-        {
-
-           SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
-        }
+      
 
         /// <summary>
         /// Create MessageBox window and displays
@@ -105,74 +110,73 @@ namespace miRobotEditor.ViewModel
             Instance.Messages.Add(new OutputWindowMessage { Title = title, Description = message, Icon = icon });
 
             if (forceactivate)
-                Workspace.Instance.BringToFront("Output Window");
+                Instance.RaiseMessageAdded();
         }
 
         #region Commands
-        private  RelayCommand _clearMessagesCommand;
-        public  ICommand ClearMessagesCommand
+
+        
+   
+
+        #region ClearMessagesCommand
+
+        private RelayCommand _clearMessagesCommand;
+        /// <summary>
+        /// Gets the ClearMessagesCommand.
+        /// </summary>
+        public RelayCommand ClearMessagesCommand
         {
-            get { return _clearMessagesCommand ?? (_clearMessagesCommand = new RelayCommand(param => ClearItems(), param => true)); }
+            get
+            {
+                return _clearMessagesCommand
+                    ?? (_clearMessagesCommand = new RelayCommand(ExecuteClearMessagesCommand));
+            }
         }
 
-        private RelayCommand _mouseOverCommand;
-        public ICommand MouseOverCommand
+        private void ExecuteClearMessagesCommand()
         {
-            get { return _mouseOverCommand ?? (_mouseOverCommand = new RelayCommand(p => HandleMouseOver(p), p => true)); }
+            ClearItems();
         }
+        #endregion
+
+        private RelayCommand<ListViewItem> _mouseOverCommand;
+
+        /// <summary>
+        /// Gets the MouseOverCommand.
+        /// </summary>
+        public RelayCommand<ListViewItem> MouseOverCommand
+        {
+            get
+            {
+                return _mouseOverCommand
+                    ?? (_mouseOverCommand = new RelayCommand<ListViewItem>(ExecuteMouseOverCommand));
+            }
+        }
+
+        private void ExecuteMouseOverCommand(ListViewItem item)
+        {
+            SelectedMessage = (OutputWindowMessage)item.Content;
+        }
+
+      
         #endregion
 
     }
 
-    /*
-    public class MessageWindow
+ 
+    public enum MsgIcon { Error, Info }
+    public interface IMessage
     {
-        /// <summary>
-        /// Interface Message to reach Message Window
-        /// </summary>
-        /// <param name="msg"></param>
-        public static void Add(OutputWindowMessage msg)
-        {
-            MessageViewModel.Instance.Messages.Add(msg);
-        }
-        public static void AddError(Exception ex)
-        {
-            var trace = new System.Diagnostics.StackTrace();
-            var msg = new OutputWindowMessage();
-            msg.Title = "Internal Error";
-            msg.Description = String.Format("Internal error\r\n {0} \r\n in {1}", ex.Message, trace.GetFrame(1).GetMethod().Name);
-
-            MessageViewModel.Instance.Messages.Add(msg);
-
-        }
-
-
-
-      
-        public static void Add(OutputWindowMessage msg, bool debugonly)
-        {
-#if DEBUG
-            MessageViewModel.Instance.Messages.Add(msg);
-#endif
-
-        }
-
-        public static void Add(System.Exception ex)
-        {
-            OutputWindowMessage msg = new OutputWindowMessage();
-            msg.Title = "Exception";
-            msg.Description = ex.InnerException.InnerException + "\r\n" + ex.StackTrace;
-
-            MessageViewModel.Instance.Messages.Add(msg);
-        }
-
-
-
-        void HandleMouseOver(object sender)
-        {
-
-            MessageViewModel.Instance.SelectedMessage = (OutputWindowMessage)((ListViewItem)sender).Content;
-        }
+        BitmapImage Icon { get; set; }
+        string Time { get; set; }
+        string Title { get; set; }
+        string Description { get; set; }
     }
-    */
+    public class OutputWindowMessage : IMessage
+    {
+        public string Time { get; set; }
+        public string Description { get; set; }
+        public string Title { get; set; }
+        public BitmapImage Icon { get; set; }
+    }
 }

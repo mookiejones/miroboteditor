@@ -1,20 +1,22 @@
-﻿using miRobotEditor.Core;
+﻿using System.ComponentModel;
+using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.ViewModel
 {
+    [Localizable(false)]
     public class ProgressBarViewModel:ViewModelBase
     {
         private int _maximum = 100;
-        public int Maximum { get { return _maximum; } set { _maximum = value; RaisePropertyChanged(); } }
+        public int Maximum { get { return _maximum; } set { _maximum = value; RaisePropertyChanged("Maximum"); } }
 
         private int _minimum;
-        public int Minimum { get { return _minimum; } set { _minimum = value; RaisePropertyChanged(); } }
+        public int Minimum { get { return _minimum; } set { _minimum = value; RaisePropertyChanged("Minimum"); } }
 
         private int _value;
-        public int Value { get { return _value; } set { _value = value; RaisePropertyChanged(); } }
+        public int Value { get { return _value; } set { _value = value; RaisePropertyChanged("Value"); } }
 
         private bool _isVisible;
-        public bool IsVisible { get { return _isVisible; } set { _isVisible = value; RaisePropertyChanged(); } }
+        public bool IsVisible { get { return _isVisible; } set { _isVisible = value; RaisePropertyChanged("IsVisible"); } }
 
 
     }

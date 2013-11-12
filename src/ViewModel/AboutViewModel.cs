@@ -7,9 +7,11 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.ComponentModel;
 using System.Text;
 using System.Reflection;
 using System.Globalization;
+using GalaSoft.MvvmLight;
 using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
@@ -17,12 +19,14 @@ namespace miRobotEditor.ViewModel
 	/// <summary>
 	/// Description of AboutViewModel.
 	/// </summary>
+	[Localizable(false)]
 	public class AboutViewModel:ViewModelBase
 	{
         /// <summary>
         /// Copyright Information
         /// </summary>
-		public string Copyright{get{return "Copyright 2012-2013 Charles Berman";}}
+        [Localizable(false)]
+        public string Copyright{get{return "Copyright 2012-2013 Charles Berman";}}
         /// <summary>
         /// Name of Application
         /// </summary>
@@ -33,8 +37,8 @@ namespace miRobotEditor.ViewModel
 		public string Version{get{return Assembly.GetExecutingAssembly().GetName().Version.ToString();}}
 
 
-	    private string _company = "DMC Automation";
-        public string Company{get { return _company; }}
+	    private const string _company = "DMC Automation";
+	    public string Company{get { return _company; }}
 	    public string NetVersion {get{return Environment.Version.ToString();}}
 	    public string OSVersion{get{return Environment.OSVersion.ToString();}}
         /// <summary>

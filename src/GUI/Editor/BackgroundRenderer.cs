@@ -1,9 +1,11 @@
 ﻿// Background Renderer used to Color the Current line
+
 using System.Windows;
 using System.Windows.Media;
-using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Document;
-namespace miRobotEditor.GUI
+using ICSharpCode.AvalonEdit.Rendering;
+
+namespace miRobotEditor.GUI.Editor
 {
     /// <summary>
     /// Used for Highlighting Background

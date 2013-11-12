@@ -8,6 +8,7 @@
 // </summary>
 //-----------------------------------------------------------------------
 
+using miRobotEditor.Classes;
 using miRobotEditor.GUI;
 using miRobotEditor.ViewModel;
 using System;
@@ -320,11 +321,11 @@ namespace miRobotEditor
     /// </summary>
     internal class InstanceOf
     {
-        private static Editor _ieditor;
+        private static EditorClass _ieditor;
 
-        public static Editor Editor
+        public static EditorClass Editor
         {
-            get { return _ieditor ?? (_ieditor = new Editor()); }
+            get { return _ieditor ?? (_ieditor = new EditorClass()); }
             set { _ieditor = value; }
         }
 

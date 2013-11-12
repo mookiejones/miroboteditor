@@ -6,11 +6,12 @@ using System.Data.OleDb;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
+using GalaSoft.MvvmLight;
 using Ionic.Zip;
-using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
+    [Localizable(false)]
     public class IOViewModel:ViewModelBase
     {
         #region Properties
@@ -31,33 +32,33 @@ namespace miRobotEditor.ViewModel
         }
 
         private Visibility _flagVisibility = Visibility.Collapsed;
-        public Visibility FlagVisibility { get { return _flagVisibility; } set { _flagVisibility = value; RaisePropertyChanged(); } }
+        public Visibility FlagVisibility { get { return _flagVisibility; } set { _flagVisibility = value; RaisePropertyChanged("FlagVisibility"); } }
 
         private Visibility _timerVisibility = Visibility.Collapsed;
-        public Visibility TimerVisibility { get { return _timerVisibility; } set { _timerVisibility = value; RaisePropertyChanged(); } }
+        public Visibility TimerVisibility { get { return _timerVisibility; } set { _timerVisibility = value; RaisePropertyChanged("TimerVisibility"); } }
 
         private Visibility _cyclicFlagVisibility = Visibility.Collapsed;
-        public Visibility CyclicFlagVisibility { get { return _cyclicFlagVisibility; } set { _cyclicFlagVisibility = value; RaisePropertyChanged(); } }
+        public Visibility CyclicFlagVisibility { get { return _cyclicFlagVisibility; } set { _cyclicFlagVisibility = value; RaisePropertyChanged("CyclicFlagVisibility"); } }
 
         private Visibility _counterVisibility = Visibility.Collapsed;
-        public Visibility CounterVisibility { get { return _counterVisibility; } set { _counterVisibility = value; RaisePropertyChanged(); } }
+        public Visibility CounterVisibility { get { return _counterVisibility; } set { _counterVisibility = value; RaisePropertyChanged("CounterVisibility"); } }
 
         private InfoFile _info = new InfoFile();
-        public InfoFile Info { get { return _info; } set { _info = value; RaisePropertyChanged(); } }
+        public InfoFile Info { get { return _info; } set { _info = value; RaisePropertyChanged("Info"); } }
 
 
         public string DirectoryPath { get; set; }
         private string _archivePath = " ";
-        public string ArchivePath { get { return _archivePath; } set { _archivePath = value; RaisePropertyChanged(); } }
+        public string ArchivePath { get { return _archivePath; } set { _archivePath = value; RaisePropertyChanged("ArchivePath"); } }
 
 
         private string _filecount = string.Empty;
-        public string FileCount { get { return _filecount; } set { _filecount = value; RaisePropertyChanged(); } }
+        public string FileCount { get { return _filecount; } set { _filecount = value; RaisePropertyChanged("FileCount"); } }
 
         public ZipFile ArchiveZip { get; set; }
         private string _buffersize = string.Empty;
 
-        public string BufferSize { get { return _buffersize; } set { _buffersize = value; RaisePropertyChanged(); } }
+        public string BufferSize { get { return _buffersize; } set { _buffersize = value; RaisePropertyChanged("BufferSize"); } }
 
         public string DataBaseFile { get; set; }
         // ReSharper disable ConvertToConstant.Local
@@ -66,7 +67,7 @@ namespace miRobotEditor.ViewModel
         // ReSharper restore ConvertToConstant.Local
 
         private string _database = string.Empty;
-        public string DataBase { get { return _database; } set { _database = value; RaisePropertyChanged(); } }
+        public string DataBase { get { return _database; } set { _database = value; RaisePropertyChanged("DataBase"); } }
 
         public string InfoFile { get; set; }
 
@@ -76,11 +77,11 @@ namespace miRobotEditor.ViewModel
         public ReadOnlyObservableCollection<DirectoryInfo> Root { get { return _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root); } }
 
         private DirectoryInfo _rootpath;
-        public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged(); } }
+        public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged("RootPath"); } }
         private string _languageText = String.Empty;
-        public string LanguageText { get { return _languageText; } set { _languageText = value; RaisePropertyChanged(); } }
+        public string LanguageText { get { return _languageText; } set { _languageText = value; RaisePropertyChanged("LanguageText"); } }
         private string _databaseText = String.Empty;
-        public string DatabaseText { get { return _databaseText; } set { _databaseText = value; RaisePropertyChanged(); } }
+        public string DatabaseText { get { return _databaseText; } set { _databaseText = value; RaisePropertyChanged("DatabaseText"); } }
 
 
 
@@ -172,7 +173,7 @@ namespace miRobotEditor.ViewModel
                                 Item sig;
                                 var des = oleDbDataReader.GetValue(1).ToString();
                                 var description = des=="|EMPTY|"?"Spare":des;
-                                switch (temp.Substring(0, temp.IndexOf("_")))
+                                switch (temp.Substring(0, temp.IndexOf("_", StringComparison.Ordinal)))
                                 {
                                     case "IN":
                                         sig = new Item(String.Format("$IN[{0}]", temp.Substring(3)), description);

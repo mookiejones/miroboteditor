@@ -1,11 +1,10 @@
-﻿using miRobotEditor.Classes;
-using miRobotEditor.Commands;
+﻿using GalaSoft.MvvmLight.Command;
+using miRobotEditor.Classes;
 using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
 
 namespace miRobotEditor.ViewModel
 {
@@ -20,8 +19,8 @@ namespace miRobotEditor.ViewModel
             FileLanguage = lang;
             Source.FileLanguage = FileLanguage;
             Data.FileLanguage = FileLanguage;
-            Source.GotFocus += (s, e) => { TextBox = s as Editor; };
-            Data.GotFocus += (s, e) => { TextBox = s as Editor; };
+            Source.GotFocus += (s, e) => { TextBox = s as EditorClass; };
+            Data.GotFocus += (s, e) => { TextBox = s as EditorClass; };
             Source.TextChanged += (s, e) => TextChanged(s);
             Data.TextChanged += (s, e) => TextChanged(s);
             Source.IsModified = false;
@@ -43,43 +42,77 @@ namespace miRobotEditor.ViewModel
         #endregion Public Events
 
         #region Commands
-
         private RelayCommand _toggleGridCommand;
 
-        public ICommand ToggleGridCommand
+        /// <summary>
+        /// Gets the ToggleGridCommand.
+        /// </summary>
+        public RelayCommand ToggleGridCommand
         {
-            get { return _toggleGridCommand ?? (_toggleGridCommand = new RelayCommand(p => ToggleGrid(), p => Grid != null)); }
+            get
+            {
+                return _toggleGridCommand ?? (_toggleGridCommand = new RelayCommand(
+                    ExecuteToggleGridCommand,
+                    CanExecuteToggleGridCommand));
+            }
         }
+
+        private void ExecuteToggleGridCommand()
+        {
+            ToggleGrid();
+        }
+
+        private bool CanExecuteToggleGridCommand()
+        {
+            return Grid!=null;
+        }
+
+
+
+        #region CloseCommand
 
         private RelayCommand _closeCommand;
-
-        public new ICommand CloseCommand
+        /// <summary>
+        /// Gets the CloseCommand.
+        /// </summary>
+        public new  RelayCommand CloseCommand
         {
-            get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
+            get
+            {
+                return _closeCommand
+                    ?? (_closeCommand = new RelayCommand(ExecuteCloseCommand));
+            }
         }
 
+        private void ExecuteCloseCommand()
+        {
+            CloseWindow();
+        }
+        #endregion
+
+       
         #endregion Commands
 
         #region Properties
 
         private Controls.ExtendedGridSplitter _grid = new Controls.ExtendedGridSplitter();
 
-        public Controls.ExtendedGridSplitter Grid { get { return _grid; } set { _grid = value; RaisePropertyChanged(); } }
+        public Controls.ExtendedGridSplitter Grid { get { return _grid; } set { _grid = value; RaisePropertyChanged("Grid"); } }
 
-        private Editor _source = new Editor();
+        private EditorClass _source = new EditorClass();
 
-        public Editor Source { get { return _source; } set { _source = value; RaisePropertyChanged(); } }
+        public EditorClass Source { get { return _source; } set { _source = value; RaisePropertyChanged("Source"); } }
 
-        private Editor _data = new Editor();
+        private EditorClass _data = new EditorClass();
 
-        public Editor Data { get { return _data; } set { _data = value; RaisePropertyChanged(); } }
+        public EditorClass Data { get { return _data; } set { _data = value; RaisePropertyChanged("Data"); } }
 
         private int _gridrow = 1;
         private int _datarow = 2;
 
-        public int GridRow { get { return _gridrow; } set { _gridrow = value; RaisePropertyChanged(); } }
+        public int GridRow { get { return _gridrow; } set { _gridrow = value; RaisePropertyChanged("GridRow"); } }
 
-        public int DataRow { get { return _datarow; } set { _datarow = value; RaisePropertyChanged(); } }
+        public int DataRow { get { return _datarow; } set { _datarow = value; RaisePropertyChanged("DataRow"); } }
 
         #endregion Properties
 
@@ -94,7 +127,7 @@ namespace miRobotEditor.ViewModel
         /// Checks both boxes to determine if they should be saved or not
         /// </summary>
         /// <param name="txtBox"></param>
-        private void CheckClose(Editor txtBox)
+        private void CheckClose(EditorClass txtBox)
         {
             if (txtBox != null)
                 if (txtBox.IsModified)
@@ -129,7 +162,7 @@ namespace miRobotEditor.ViewModel
 
                     case false:
                         if (Data == null)
-                            Data = new Editor();
+                            Data = new EditorClass();
                         Data.Visibility = Visibility.Collapsed;
                         Grid.Visibility = Visibility.Collapsed;
                         break;

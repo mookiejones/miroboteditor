@@ -1,12 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Windows.Input;
-using miRobotEditor.Core;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Properties;
-using RelayCommand = miRobotEditor.Commands.RelayCommand;
-
 namespace miRobotEditor.ViewModel
 {
+    [Localizable(false)]
     public class UpdateCheckerViewModel : ViewModelBase
     {
 
@@ -20,17 +21,49 @@ namespace miRobotEditor.ViewModel
 
         #region Commands
 
-        private RelayCommand _updatecommand;
-        public ICommand UpdateCommand
-        {
-            get { return _updatecommand ?? (_updatecommand = new RelayCommand(param => Update(), param => true)); }
-        }
-        private RelayCommand _cancelcommand;
+        #region UpdateCommand
 
-        public ICommand CancelCommand
+        private RelayCommand _updateCommand;
+        /// <summary>
+        /// Gets the UpdateCommand.
+        /// </summary>
+        public RelayCommand UpdateCommand
         {
-            get { return _cancelcommand ?? (_cancelcommand = new RelayCommand(param => Cancel(), param => Version != null)); }
+            get
+            {
+                return _updateCommand
+                    ?? (_updateCommand = new RelayCommand(ExecuteUpdateCommand));
+            }
         }
+
+        private void ExecuteUpdateCommand()
+        {
+            Update();
+        }
+        #endregion
+
+
+        #region CancelCommand
+
+        private RelayCommand _cancelCommand;
+        /// <summary>
+        /// Gets the CancelCommand.
+        /// </summary>
+        public RelayCommand CancelCommand
+        {
+            get
+            {
+                return _cancelCommand
+                    ?? (_cancelCommand = new RelayCommand(ExecuteCancelCommand));
+            }
+        }
+
+        private void ExecuteCancelCommand()
+        {
+            Cancel();
+        }
+        #endregion
+      
         #endregion
 
 
@@ -42,7 +75,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _updateapplication = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("UpdateApplication");
             }
         }
         public string UpdateText
@@ -67,7 +100,7 @@ namespace miRobotEditor.ViewModel
         public bool AskForUpdates
         {
             get { return Settings.Default.CheckForUpdates; }
-            set { Settings.Default.CheckForUpdates = value; RaisePropertyChanged(); }
+            set { Settings.Default.CheckForUpdates = value; RaisePropertyChanged("AskForUpdates"); }
         }
 
         #endregion

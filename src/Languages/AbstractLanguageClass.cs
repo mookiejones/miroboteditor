@@ -1,8 +1,8 @@
-﻿using ICSharpCode.AvalonEdit.CodeCompletion;
+﻿using GalaSoft.MvvmLight;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
-using miRobotEditor.Core;
 using miRobotEditor.GUI;
 using miRobotEditor.ViewModel;
 using System;
@@ -16,7 +16,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Global = miRobotEditor.Classes.Global;
-using MessageViewModel = miRobotEditor.Core.MessageViewModel;
+using MessageViewModel = miRobotEditor.ViewModel.MessageViewModel;
 using Utilities = miRobotEditor.Classes.Utilities;
 
 namespace miRobotEditor.Languages
@@ -75,7 +75,7 @@ namespace miRobotEditor.Languages
 
         private DirectoryInfo _rootpath;
 
-        public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged(); } }
+        public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged("RootPath"); } }
 
         internal const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
 
@@ -84,7 +84,7 @@ namespace miRobotEditor.Languages
         public string FileName
         {
             get { return _filename; }
-            set { _filename = value; RaisePropertyChanged(); }
+            set { _filename = value; RaisePropertyChanged("FileName"); }
         }
 
         private MenuItem _robotmenuitems;
@@ -95,7 +95,7 @@ namespace miRobotEditor.Languages
             {
                 return _robotmenuitems;
             }
-            set { _robotmenuitems = value; RaisePropertyChanged(); }
+            set { _robotmenuitems = value; RaisePropertyChanged("RobotMenuItems"); }
         }
 
         public string Name { get { return RobotType == Typlanguage.None ? String.Empty : RobotType.ToString(); } }
@@ -257,8 +257,9 @@ namespace miRobotEditor.Languages
         /// Used with mouse hover event to determine if current line is motion. If it is, then its value is searched.
         /// </summary>
         /// <param name="lineValue"></param>
+        /// <param name="variables"></param>
         /// <returns>Positional Value</returns>
-        public abstract string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables);
+        public abstract string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables);
 
         public abstract DocumentViewModel GetFile(string filename);
 
@@ -285,40 +286,36 @@ namespace miRobotEditor.Languages
 
         public static DocumentViewModel GetViewModel(string filepath)
         {
-            if (!String.IsNullOrEmpty(filepath))
+            if (String.IsNullOrEmpty(filepath)) return new DocumentViewModel(null, new LanguageBase(filepath));
+            var extension = Path.GetExtension(filepath);
+            switch (extension.ToLower())
             {
-                var extension = Path.GetExtension(filepath);
-                if (extension != null)
-                    switch (extension.ToLower())
-                    {
-                        case ".as":
-                        case ".pg":
-                            return new DocumentViewModel(filepath, new Kawasaki(filepath));
+                case ".as":
+                case ".pg":
+                    return new DocumentViewModel(filepath, new Kawasaki(filepath));
 
-                        case ".src":
-                        case ".dat":
-                            return GetKUKAViewModel(filepath);
+                case ".src":
+                case ".dat":
+                    return GetKUKAViewModel(filepath);
 
-                        case ".rt":
-                        case ".sub":
-                        case ".kfd":
-                            return new DocumentViewModel(filepath, new KUKA(filepath));
+                case ".rt":
+                case ".sub":
+                case ".kfd":
+                    return new DocumentViewModel(filepath, new KUKA(filepath));
 
-                        case ".mod":
-                        case ".prg":
-                            return new DocumentViewModel(filepath, new ABB(filepath));
+                case ".mod":
+                case ".prg":
+                    return new DocumentViewModel(filepath, new ABB(filepath));
 
-                        case ".bas":
-                            return new DocumentViewModel(filepath, new VBA(filepath));
+                case ".bas":
+                    return new DocumentViewModel(filepath, new VBA(filepath));
 
-                        case ".ls":
-                            return new DocumentViewModel(filepath, new Fanuc(filepath));
+                case ".ls":
+                    return new DocumentViewModel(filepath, new Fanuc(filepath));
 
-                        default:
-                            return new DocumentViewModel(filepath, new LanguageBase(filepath));
-                    }
+                default:
+                    return new DocumentViewModel(filepath, new LanguageBase(filepath));
             }
-            return new DocumentViewModel(null, new LanguageBase(filepath));
         }
 
         private static DocumentViewModel GetKUKAViewModel(string filepath)
@@ -391,9 +388,9 @@ namespace miRobotEditor.Languages
             var lookfor = bSp ? s : e;
 
             //TODO Come Back and fix this
-            if (text.Substring(text.IndexOf(lookfor) + lookfor.Length).Length == 0) return true;
+            if (text.Substring(text.IndexOf(lookfor, StringComparison.Ordinal) + lookfor.Length).Length == 0) return true;
 
-            var cAfterString = text.Substring(text.IndexOf(lookfor) + lookfor.Length, 1);
+            var cAfterString = text.Substring(text.IndexOf(lookfor, StringComparison.Ordinal) + lookfor.Length, 1);
 
             var cc = Convert.ToChar(cAfterString);
             var isLetter = Char.IsLetterOrDigit(cc);
@@ -511,7 +508,7 @@ namespace miRobotEditor.Languages
         }
 
         // ReSharper disable UnusedParameter.Local
-        private string ShiftProgram(Editor doc, ShiftViewModel shift)
+        private string ShiftProgram(EditorClass doc, ShiftViewModel shift)
         // ReSharper restore UnusedParameter.Local
         {
             //TODO: Need to put all of this into a thread.
@@ -661,15 +658,15 @@ namespace miRobotEditor.Languages
 
         private int _bwFilesMin;
 
-        public int BWFilesMin { get { return _bwFilesMin; } set { _bwFilesMin = value; RaisePropertyChanged(); } }
+        public int BWFilesMin { get { return _bwFilesMin; } set { _bwFilesMin = value; RaisePropertyChanged("BWFilesMin"); } }
 
         private int _bwFilesMax;
 
-        public int BWFilesMax { get { return _bwFilesMax; } set { _bwFilesMax = value; RaisePropertyChanged(); } }
+        public int BWFilesMax { get { return _bwFilesMax; } set { _bwFilesMax = value; RaisePropertyChanged("BWFilesMax"); } }
 
         private Visibility _bwProgressVisibility = Visibility.Collapsed;
 
-        public Visibility BWProgressVisibility { get { return _bwProgressVisibility; } set { _bwProgressVisibility = value; RaisePropertyChanged(); } }
+        public Visibility BWProgressVisibility { get { return _bwProgressVisibility; } set { _bwProgressVisibility = value; RaisePropertyChanged("BWProgressVisibility"); } }
 
         #endregion Properties for Background Worker and StatusBar
 

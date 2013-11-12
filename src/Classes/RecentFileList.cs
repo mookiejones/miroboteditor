@@ -11,6 +11,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Classes
 {

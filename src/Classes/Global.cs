@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Media;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Classes
 {

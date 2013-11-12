@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace miRobotEditor
+namespace miRobotEditor.Classes
 {
     [Localizable(false), SuppressUnmanagedCodeSecurity]
     internal static class NativeMethods

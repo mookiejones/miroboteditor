@@ -1,4 +1,4 @@
-﻿namespace miRobotEditor.GUI
+﻿namespace miRobotEditor.GUI.Editor
 {
     /// <summary>
     /// Describes a pair of matching brackets found by IBracketSearcher.

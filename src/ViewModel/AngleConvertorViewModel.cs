@@ -12,9 +12,9 @@ namespace miRobotEditor.ViewModel
 
         public static CartesianEnum CartesianType { get; set; }
         private ValueBoxViewModel _inputItems = new ValueBoxViewModel();
-        public ValueBoxViewModel InputItems { get { return _inputItems; } set { _inputItems = value; RaisePropertyChanged();  } }
+        public ValueBoxViewModel InputItems { get { return _inputItems; } set { _inputItems = value; RaisePropertyChanged("InputItems");  } }
         private ValueBoxViewModel _outputItems =new ValueBoxViewModel{IsReadOnly=true};
-        public ValueBoxViewModel OutputItems { get { return _outputItems; } set { _outputItems = value; RaisePropertyChanged();  } }
+        public ValueBoxViewModel OutputItems { get { return _outputItems; } set { _outputItems = value; RaisePropertyChanged("OutputItems");  } }
 
         #region Constructor
         public AngleConvertorViewModel():base("Angle Converter")
@@ -152,7 +152,7 @@ namespace miRobotEditor.ViewModel
         }
     }
 
-    public string Matrix {get{return _matrix; }set { _matrix = value;  RaisePropertyChanged();  }  }
+    public string Matrix {get{return _matrix; }set { _matrix = value;  RaisePropertyChanged("Matrix");  }  }
 
     // Nested Types
    

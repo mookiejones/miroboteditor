@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>miRobotEditor</RootNamespace>
     <AssemblyName>miRobotEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -119,6 +119,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras.WPF4, Version=4.2.30.23173, Culture=neutral, PublicKeyToken=1673db7d5906b0ad, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvvmLightLibs.4.2.30.0\lib\net40\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.WPF4, Version=4.2.30.23173, Culture=neutral, PublicKeyToken=63eb5c012e0b3c1c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvvmLightLibs.4.2.30.0\lib\net40\GalaSoft.MvvmLight.WPF4.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=4.3.1.9429, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AvalonEdit.4.3.1.9430\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -127,15 +138,21 @@
       <HintPath>..\packages\DotNetZipLib-DevKit-v1.9\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro">
-      <HintPath>..\packages\MahApps.Metro.0.10.1.1\lib\net45\MahApps.Metro.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.0.10.1.1\lib\net40\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.0.10.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.4.2.30.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -198,7 +215,6 @@
     <Compile Include="Commands\AbstractMenuCommand.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\IMenuCommand.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Controls\ExtendedGridSplitter.cs" />
     <Compile Include="Controls\frmReverse.xaml.cs">
       <DependentUpon>frmReverse.xaml</DependentUpon>
@@ -301,8 +317,8 @@
     <Compile Include="GUI\Editor\DefaultBracketSearcher.cs" />
     <Compile Include="GUI\Editor\DefaultCompletionItem.cs" />
     <Compile Include="GUI\Editor\DefaultCompletionItemList.cs" />
-    <Compile Include="GUI\Editor\Editor.xaml.cs">
-      <DependentUpon>Editor.xaml</DependentUpon>
+    <Compile Include="GUI\Editor\EditorClass.xaml.cs">
+      <DependentUpon>EditorClass.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Editor\FindAndReplace.xaml.cs">
       <DependentUpon>FindAndReplace.xaml</DependentUpon>
@@ -373,6 +389,11 @@
     <Compile Include="Options\OptionPanel.cs" />
     <Compile Include="OrangeEdit\FormEnvironment.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="ValidationRules\IsNumericValidationRule.cs" />
     <Compile Include="Converters\ActiveEditorConverter.cs" />
     <Compile Include="Converters\BooleanToTypeModeStringConverter.cs" />
@@ -481,9 +502,12 @@
     <Compile Include="ViewModel\KUKASpecificViewModels.cs" />
     <Compile Include="ViewModel\KukaViewModel.cs" />
     <Compile Include="ViewModel\LocalVariablesViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MessageViewModel.cs" />
     <Compile Include="ViewModel\NotesViewModel.cs" />
     <Compile Include="ViewModel\ObjectBrowserViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
+    <Compile Include="ViewModel\PaneViewModel.cs" />
     <Compile Include="ViewModel\ProgressBarViewModel.cs" />
     <Compile Include="ViewModel\SerializeBase.cs" />
     <Compile Include="ViewModel\ShiftViewModel.cs" />
@@ -491,14 +515,16 @@
     <Compile Include="ViewModel\SystemFunctionsViewModel.cs" />
     <Compile Include="ViewModel\Technology.cs" />
     <Compile Include="ViewModel\ToolTipViewModel.cs" />
+    <Compile Include="ViewModel\ToolViewModel.cs" />
     <Compile Include="ViewModel\UpdateCheckerViewModel.cs" />
     <Compile Include="ViewModel\UpdateRequiredHandler.cs" />
     <Compile Include="ViewModel\ValueBoxViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Workspace.cs" />
-    <Page Include="App.xaml">
+    <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </ApplicationDefinition>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Parsers\E6Parser.cs" />
     <Compile Include="Converters\DoubleToStringConverter.cs" />
@@ -537,6 +563,10 @@
     </Page>
     <Page Include="Dialogs\KFDAssistant.xaml" />
     <Page Include="Dialogs\KFDDialog.xaml" />
+    <Page Include="Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExplorerControl\FileExplorerWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -560,7 +590,7 @@
     <Page Include="GUI\Dialogs\About\About.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GUI\Editor\Editor.xaml">
+    <Page Include="GUI\Editor\EditorClass.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -716,6 +746,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -845,10 +879,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\miRobotEditor.Core\miRobotEditor.Core.csproj">
-      <Project>{5e11febd-9896-4cfd-ab7c-570684f23bfb}</Project>
-      <Name>miRobotEditor.Core</Name>
-    </ProjectReference>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

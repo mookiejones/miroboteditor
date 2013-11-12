@@ -1,9 +1,13 @@
 ﻿using System.Diagnostics;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using MahApps.Metro;
 using miRobotEditor.Classes;
 using miRobotEditor.Core;
+using miRobotEditor.ExplorerControl;
 using miRobotEditor.Forms;
 using miRobotEditor.GUI;
+using miRobotEditor.GUI.Editor;
 using miRobotEditor.Languages;
 using miRobotEditor.Pads;
 using miRobotEditor.Properties;
@@ -15,14 +19,13 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using Xceed.Wpf.AvalonDock.Layout;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using RelayCommand = miRobotEditor.Commands.RelayCommand;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace miRobotEditor
 {
+    [Localizable(false)]
     public class Workspace : ViewModelBase
     {
         #region Constructor
@@ -87,7 +90,7 @@ namespace miRobotEditor
                     }
                     return pathname.Substring(0, maxLength - 3) + "...";
                 }
-                else if ((root.Length + 4 + elements[filenameIndex].Length) > maxLength) // pathname is just a root and filename
+                if ((root.Length + 4 + elements[filenameIndex].Length) > maxLength) // pathname is just a root and filename
                 {
                     root += "...\\";
 
@@ -105,7 +108,7 @@ namespace miRobotEditor
                     }
                     return root + elements[filenameIndex].Substring(0, len) + "...";
                 }
-                else if (elements.GetLength(0) == 2)
+                if (elements.GetLength(0) == 2)
                 {
                     return root + "...\\" + elements[1];
                 }
@@ -197,7 +200,7 @@ namespace miRobotEditor
 
         private bool _showSettings;
 
-        public bool ShowSettings { get { return _showSettings; } set { _showSettings = value; RaisePropertyChanged(); } }
+        public bool ShowSettings { get { return _showSettings; } set { _showSettings = value; RaisePropertyChanged("ShowSettings"); } }
 
         #endregion ShowSettings
 
@@ -222,7 +225,7 @@ namespace miRobotEditor
 
         private bool _showIO;
 
-        public bool ShowIO { get { return _showIO; } set { _showIO = value; RaisePropertyChanged(); } }
+        public bool ShowIO { get { return _showIO; } set { _showIO = value; RaisePropertyChanged("ShowIO"); } }
 
         #endregion Show IO
 
@@ -230,7 +233,7 @@ namespace miRobotEditor
 
         private bool _enableIO;
 
-        public bool EnableIO { get { return _enableIO; } set { _enableIO = value; RaisePropertyChanged(); } }
+        public bool EnableIO { get { return _enableIO; } set { _enableIO = value; RaisePropertyChanged("EnableIO"); } }
 
         #endregion Enable IO
 
@@ -255,7 +258,7 @@ namespace miRobotEditor
 
         private bool _isClosing;
 
-        public bool IsClosing { get { return _isClosing; } set { _isClosing = value; RaisePropertyChanged(); } }
+        public bool IsClosing { get { return _isClosing; } set { _isClosing = value; RaisePropertyChanged("IsClosing"); } }
 
         #endregion IsClosing
 
@@ -311,118 +314,294 @@ namespace miRobotEditor
 
         #region Commands
 
-        private RelayCommand _showIOCommand;
+        #region ShowIOCommand
 
-        public ICommand ShowIOCommand
+        private RelayCommand _showIOCommand;
+        /// <summary>
+        /// Gets the ShowIOCommand.
+        /// </summary>
+        public RelayCommand ShowIOCommand
         {
-            get { return _showIOCommand ?? (_showIOCommand = new RelayCommand(p => ExecuteShowIO(), p => true)); }
+            get
+            {
+                return _showIOCommand
+                    ?? (_showIOCommand = new RelayCommand(ExecuteShowIOCommand));
+            }
         }
+
+        private void ExecuteShowIOCommand()
+        {
+            ExecuteShowIO();
+        }
+        #endregion
 
         #region NewFile
 
-        private RelayCommand _newFileCommand;
 
-        public ICommand NewFileCommand
+        #region NewFileCommand
+
+        private RelayCommand _newFileCommand;
+        /// <summary>
+        /// Gets the NewFileCommand.
+        /// </summary>
+        public RelayCommand NewFileCommand
         {
-            get { return _newFileCommand ?? (_newFileCommand = new RelayCommand(p => AddNewFile(), p => true)); }
+            get
+            {
+                return _newFileCommand
+                    ?? (_newFileCommand = new RelayCommand(ExecuteNewFileCommand));
+            }
         }
+
+        private void ExecuteNewFileCommand()
+        {
+            AddNewFile();
+        }
+        #endregion
 
         #endregion NewFile
 
         #region Change Theme
 
-        private RelayCommand _changeThemeCommand;
+        #region MyCommand
 
-        public ICommand ChangeThemeCommand
+        private RelayCommand<string> _changeThemeCommand    ;
+        /// <summary>
+        /// Gets the MyCommand.
+        /// </summary>
+        public RelayCommand<string> ChangeThemeCommand  
         {
             get
             {
-                return _changeThemeCommand ??
-                       (_changeThemeCommand = new RelayCommand(ChangeTheme, p => true));
+                return _changeThemeCommand
+                    ?? (_changeThemeCommand = new RelayCommand<string>(ExecuteChangeThemeCommand));
             }
         }
+
+        private void ExecuteChangeThemeCommand(string value)
+        {
+            CurrentTheme =value == "Light" ? Theme.Light : Theme.Dark;
+            ThemeManager.ChangeTheme(MainWindow.Instance, AccentBrush, CurrentTheme);
+        }
+        #endregion
+      
 
         #endregion Change Theme
 
         #region Change Accent
 
-        private RelayCommand _changeAccentCommand;
 
-        public ICommand ChangeAccentCommand
+        #region ChangeAccentCommand
+
+        private RelayCommand<string> _changeAccentCommand;
+        /// <summary>
+        /// Gets the ChangeAccentCommand.
+        /// </summary>
+        public RelayCommand<string> ChangeAccentCommand
         {
-            get { return _changeAccentCommand ?? (_changeAccentCommand = new RelayCommand(ChangeAccent, p => true)); }
+            get
+            {
+                return _changeAccentCommand
+                    ?? (_changeAccentCommand = new RelayCommand<string>(ExecuteChangeAccentCommand));
+            }
         }
+
+        private void ExecuteChangeAccentCommand(string value)
+        {
+              AccentBrush = ThemeManager.DefaultAccents.First(x => x.Name == value);
+            ThemeManager.ChangeTheme(MainWindow.Instance, AccentBrush, CurrentTheme);
+        }
+        #endregion
+
+     
 
         #endregion Change Accent
 
-        #region ShowSettings
+        
+
+        #region ShowSettingsCommand
 
         private RelayCommand _showSettingsCommand;
-
-        public ICommand ShowSettingsCommand
+        /// <summary>
+        /// Gets the ShowSettingsCommand.
+        /// </summary>
+        public RelayCommand ShowSettingsCommand
         {
-            get { return _showSettingsCommand ?? (_showSettingsCommand = new RelayCommand(p => ExecuteShowSettings(), p => true)); }
+            get
+            {
+                return _showSettingsCommand
+                    ?? (_showSettingsCommand = new RelayCommand(ExecuteShowSettingsCommand));
+            }
         }
 
-        #endregion ShowSettings
-
-        private RelayCommand _showFindReplace;
-
-        public ICommand ShowFindReplaceCommand
+        private void ExecuteShowSettingsCommand()
         {
-            get { return _showFindReplace ?? (_showFindReplace = new RelayCommand(p => ShowFindReplace(), p => true)); }
+            ExecuteShowSettings();
+        }
+        #endregion
+
+
+
+
+        #region ShowFindReplaceCommand
+
+        private RelayCommand _showFindReplaceCommand;
+        /// <summary>
+        /// Gets the ShowFindReplaceCommand.
+        /// </summary>
+        public RelayCommand ShowFindReplaceCommand
+        {
+            get
+            {
+                return _showFindReplaceCommand
+                    ?? (_showFindReplaceCommand = new RelayCommand(ExecuteShowFindReplaceCommand));
+            }
         }
 
-        private void ShowFindReplace()
+        private void ExecuteShowFindReplaceCommand()
         {
             var fnr = new FindandReplaceControl(MainWindow.Instance);
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             fnr.ShowDialog().GetValueOrDefault();
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
+        #endregion
+
+
+
+        #region ShowAboutCommand
 
         private RelayCommand _showAboutCommand;
-
-        public ICommand ShowAboutCommand
+        /// <summary>
+        /// Gets the ShowAboutCommand.
+        /// </summary>
+        public RelayCommand ShowAboutCommand
         {
-            get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand(p => ShowAbout(), p => true)); }
+            get
+            {
+                return _showAboutCommand
+                    ?? (_showAboutCommand = new RelayCommand(ExecuteShowAboutCommand));
+            }
         }
+
+        private void ExecuteShowAboutCommand()
+        {
+            ShowAbout();
+        }
+        #endregion
+
+
+        #region ExitCommand
 
         private RelayCommand _exitCommand;
-
-        public ICommand ExitCommand
+        /// <summary>
+        /// Gets the ExitCommand.
+        /// </summary>
+        public RelayCommand ExitCommand
         {
-            get { return _exitCommand ?? (_exitCommand = new RelayCommand(p => Exit(), p => true)); }
+            get
+            {
+                return _exitCommand
+                    ?? (_exitCommand = new RelayCommand(ExecuteExitCommand));
+            }
         }
+
+        private void ExecuteExitCommand()
+        {
+            Exit();
+        }
+        #endregion
+
+
+        #region ImportCommand
 
         private RelayCommand _importCommand;
-
-        public ICommand ImportCommand
+        /// <summary>
+        /// Gets the ImportCommand.
+        /// </summary>
+        public RelayCommand ImportCommand
         {
-            get { return _importCommand ?? (_importCommand = new RelayCommand(p => ImportRobot(), p => (!(p is LanguageBase) | (p is Fanuc) | (p is Kawasaki) | p == null))); }
+            get
+            {
+                return _importCommand
+                    ?? (_importCommand = new RelayCommand(ExecuteImportCommand));
+            }
         }
+
+        private void ExecuteImportCommand()
+        {
+            ImportRobot();
+        }
+        #endregion
+
+
+        #region OpenFileCommand
 
         private RelayCommand _openFileCommand;
-
-        public ICommand OpenFileCommand
+        /// <summary>
+        /// Gets the OpenFileCommand.
+        /// </summary>
+        public RelayCommand OpenFileCommand
         {
-            get { return _openFileCommand ?? (_openFileCommand = new RelayCommand(OnOpen, p => true)); }
+            get
+            {
+                return _openFileCommand
+                    ?? (_openFileCommand = new RelayCommand(ExecuteOpenFileCommand));
+            }
         }
 
-        private RelayCommand _changeViewAsCommand;
-
-        public ICommand ChangeViewAsCommand
+        private void ExecuteOpenFileCommand()
         {
-            get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand(ChangeViewAs, param => true)); }
+            OnOpen(null);
+        }
+        #endregion
+
+
+        #region ChangeViewAsCommand
+
+        private RelayCommand<object> _changeViewAsCommand;
+        /// <summary>
+        /// Gets the ChangeViewAsCommand.
+        /// </summary>
+        public RelayCommand<object> ChangeViewAsCommand
+        {
+            get
+            {
+                return _changeViewAsCommand
+                    ?? (_changeViewAsCommand = new RelayCommand<object>(ExecuteChangeViewAsCommand));
+            }
         }
 
-        private RelayCommand _addToolCommand;
-
-        public ICommand AddToolCommand
+        private void ExecuteChangeViewAsCommand(object param)
         {
-            get { return _addToolCommand ?? (_addToolCommand = new RelayCommand(AddTool, param => true)); }
+            
+            ChangeViewAs(param);
+        }
+        #endregion
+
+
+        #region AddToolCommand
+
+        private RelayCommand<object> _addToolCommand;
+        /// <summary>
+        /// Gets the AddToolCommand.
+        /// </summary>
+        public RelayCommand<object> AddToolCommand
+        {
+            get
+            {
+                return _addToolCommand
+                    ?? (_addToolCommand = new RelayCommand<object>(ExecuteAddToolCommand));
+            }
         }
 
+        private void ExecuteAddToolCommand(object param)
+        {
+            AddTool(param);
+        }
+        #endregion
+
+      
         #endregion Commands
 
         #region Show Settings
@@ -434,18 +613,7 @@ namespace miRobotEditor
 
         #endregion Show Settings
 
-        private void ChangeAccent(object param)
-        {
-            AccentBrush = ThemeManager.DefaultAccents.First(x => x.Name == param.ToString());
-            ThemeManager.ChangeTheme(MainWindow.Instance, AccentBrush, CurrentTheme);
-        }
-
-        private void ChangeTheme(object param)
-        {
-            CurrentTheme = param.ToString() == "Light" ? Theme.Light : Theme.Dark;
-            ThemeManager.ChangeTheme(MainWindow.Instance, AccentBrush, CurrentTheme);
-        }
-
+  
         #region OpenFile
 
         /// <summary>
@@ -483,9 +651,9 @@ namespace miRobotEditor
 
         private void TextBox_FilenameChanged(object sender, EventArgs e)
         {
-            var editor = sender as Editor;
+            var editor = sender as EditorClass;
             Debug.Assert(editor != null, "editor != null");
-            var fileViewModel = _files.FirstOrDefault(fi => fi.ContentId ==editor.Tag);
+            var fileViewModel = _files.FirstOrDefault(fi => fi.ContentId ==editor.Tag.ToString());
 
             Debug.Assert(fileViewModel != null, "fileViewModel != null");
             
@@ -645,7 +813,7 @@ namespace miRobotEditor
                     break;
 
                 case "Explorer":
-                    tool.Content = new GUI.ExplorerControl.FileExplorerWindow();
+                    tool.Content = new FileExplorerWindow();
                     break;
 
                 case "Object Browser":

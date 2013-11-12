@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows.Media;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
-using System.Windows.Media;
 using miRobotEditor.Classes;
-namespace miRobotEditor.Languages
+
+namespace miRobotEditor.GUI.Editor
 {
     /// Implements AvalonEdit ICompletionData interface to provide the entries in the
     /// completion drop down.

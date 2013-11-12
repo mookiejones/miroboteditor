@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using miRobotEditor.ViewModel;
 using MessageBox = System.Windows.MessageBox;
 
 namespace miRobotEditor
@@ -44,36 +45,36 @@ namespace miRobotEditor
         private const string Unique = "My_Unique_Application_String";
         public static App Application;
 
-        [STAThread]
-        public static void Main()
-        {
-            //     #if DEBUG
-                 Control.CheckForIllegalCrossThreadCalls = true;
-            //     #endif
-                if (!CheckEnvironment())
-                    return;
-                if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
-            Splasher.Splash = new SplashScreen();
-            Splasher.ShowSplash();
-            Application = new App();
-
-            Application.InitializeComponent();
-            Application.Run();
-
-            //  var _tools = Workspace.Instance.Tools;
-            //  foreach (var tool in _tools)
-            //  {
-            //      if (tool is miRobotEditor.GUI.FindReplaceViewModel)
-            //      {
-            //          var obj = tool as miRobotEditor.GUI.FindReplaceViewModel;
-            //          System.Xml.Serialization.XmlSerializer serial = new System.Xml.Serialization.XmlSerializer(typeof(miRobotEditor.GUI.Results));
-            //          System.IO.TextWriter writer = new System.IO.StreamWriter("D:\\results.xml");
-            //          serial.Serialize(writer,obj.FindReplaceResults);
-            //      }
-            //  }
-            // Allow single instance code to perform cleanup operations
-                SingleInstance<App>.Cleanup();
-        }
+  //     [STAThread]
+  //     public static void Main()
+  //     {
+  //         //     #if DEBUG
+  //              Control.CheckForIllegalCrossThreadCalls = true;
+  //         //     #endif
+  //             if (!CheckEnvironment())
+  //                 return;
+  //             if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
+  //         Splasher.Splash = new SplashScreen();
+  //         Splasher.ShowSplash();
+  //         Application = new App();
+  //
+  //         Application.InitializeComponent();
+  //         Application.Run();
+  //
+  //         //  var _tools = Workspace.Instance.Tools;
+  //         //  foreach (var tool in _tools)
+  //         //  {
+  //         //      if (tool is miRobotEditor.GUI.FindReplaceViewModel)
+  //         //      {
+  //         //          var obj = tool as miRobotEditor.GUI.FindReplaceViewModel;
+  //         //          System.Xml.Serialization.XmlSerializer serial = new System.Xml.Serialization.XmlSerializer(typeof(miRobotEditor.GUI.Results));
+  //         //          System.IO.TextWriter writer = new System.IO.StreamWriter("D:\\results.xml");
+  //         //          serial.Serialize(writer,obj.FindReplaceResults);
+  //         //      }
+  //         //  }
+  //         // Allow single instance code to perform cleanup operations
+  //             SingleInstance<App>.Cleanup();
+  //     }
 
         [Localizable(false)]
         private static bool CheckEnvironment()
