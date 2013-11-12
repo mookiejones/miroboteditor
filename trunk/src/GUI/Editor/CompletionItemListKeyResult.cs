@@ -1,4 +1,4 @@
-﻿namespace miRobotEditor.Languages
+﻿namespace miRobotEditor.GUI.Editor
 {
     public enum CompletionItemListKeyResult
     {

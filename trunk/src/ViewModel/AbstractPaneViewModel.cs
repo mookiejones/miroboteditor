@@ -7,14 +7,16 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-using miRobotEditor.Core;
+using System.ComponentModel;
+using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.ViewModel
 {
 	  /// <summary>
     /// Abstract base class for an AvalonDock pane view-model.
     /// </summary>
-    public abstract class AbstractPaneViewModel : ViewModelBase
+	  [Localizable(false)]
+	  public abstract class AbstractPaneViewModel : ViewModelBase
     {
         /// <summary>
         /// Set to 'true' when the pane is visible.
@@ -39,7 +41,7 @@ namespace miRobotEditor.ViewModel
 
                 _isVisible = value;
 
-                RaisePropertyChanged();
+                RaisePropertyChanged("IsVisibile");
             }
         }
     }

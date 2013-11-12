@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using miRobotEditor.Languages;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.GUI.Editor
 {
     public class DefaultCompletionItemList : ICompletionItemList
     {

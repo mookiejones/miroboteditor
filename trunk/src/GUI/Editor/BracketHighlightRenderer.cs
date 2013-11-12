@@ -5,15 +5,14 @@
  * Time: 11:10 AM
  * 
  */
+
 using System;
 using System.Collections.Generic;
 using System.Windows.Media;
-
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 
-
-namespace miRobotEditor.GUI
+namespace miRobotEditor.GUI.Editor
 {
 	public class BracketHighlightRenderer : IBackgroundRenderer
 	{

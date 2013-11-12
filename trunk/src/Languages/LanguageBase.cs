@@ -1,6 +1,8 @@
-﻿using ICSharpCode.AvalonEdit.CodeCompletion;
+﻿using System.Collections.ObjectModel;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
+using miRobotEditor.GUI.Editor;
 using miRobotEditor.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -32,7 +34,7 @@ namespace miRobotEditor.Languages
             return new DocumentViewModel(filename);
         }
 
-        public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
+        public override string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables)
         {
             return string.Empty;
         }

@@ -8,8 +8,8 @@
  */
 
 using System.Windows.Input;
-using miRobotEditor.Core;
-using RelayCommand = miRobotEditor.Commands.RelayCommand;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace miRobotEditor.ViewModel
 {
@@ -24,26 +24,73 @@ namespace miRobotEditor.ViewModel
 		{
 			Instance=this;
 		}
-		
-		
-		
-		 private  RelayCommand _applyCommand;
-        public  ICommand ApplyCommand
+
+
+        #region ApplyCommand
+
+        private RelayCommand _applyCommand;
+        /// <summary>
+        /// Gets the ApplyCommand.
+        /// </summary>
+        public RelayCommand ApplyCommand
         {
-            get { return _applyCommand ?? (_applyCommand = new RelayCommand(param => Apply(), param => true)); }
+            get
+            {
+                return _applyCommand
+                    ?? (_applyCommand = new RelayCommand(ExecuteApplyCommand));
+            }
         }
-        
-        private  RelayCommand _okCommand;
-        public  ICommand OkCommand
+
+        private void ExecuteApplyCommand()
         {
-            get { return _okCommand ?? (_okCommand = new RelayCommand(param => Ok(), param => true)); }
+            Apply();
         }
-        
-        private  RelayCommand _cancelCommand;
-        public  ICommand CancelCommand
+        #endregion
+
+
+        #region OKCommand
+
+        private RelayCommand _okCommand;
+        /// <summary>
+        /// Gets the OKCommand.
+        /// </summary>
+        public RelayCommand OKCommand
         {
-            get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(param => Cancel(), param => true)); }
+            get
+            {
+                return _okCommand
+                    ?? (_okCommand = new RelayCommand(ExecuteOKCommand));
+            }
         }
+
+        private void ExecuteOKCommand()
+        {
+            Ok();
+        }
+        #endregion
+
+
+
+        #region CancelCommand
+
+        private RelayCommand _cancelCommand;
+        /// <summary>
+        /// Gets the CancelCommand.
+        /// </summary>
+        public RelayCommand CancelCommand
+        {
+            get
+            {
+                return _cancelCommand
+                    ?? (_cancelCommand = new RelayCommand(ExecuteCancelCommand));
+            }
+        }
+
+        private void ExecuteCancelCommand()
+        {
+            Cancel();
+        }
+        #endregion
 
 	    static void Apply(){}
 	    static void Ok(){}

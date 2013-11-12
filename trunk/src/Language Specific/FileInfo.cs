@@ -7,20 +7,22 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.AccessControl;
 using System.IO;
-using miRobotEditor.Core;
-using MessageViewModel = miRobotEditor.Core.MessageViewModel;
+using GalaSoft.MvvmLight;
+using MessageViewModel = miRobotEditor.ViewModel.MessageViewModel;
 
 namespace miRobotEditor.Pads
 {
   /// <summary>
     /// Wrapper for fileinfo for kuka robot
     /// </summary>
-    public class FileInfo :ViewModelBase
+  [Localizable(false)]
+  public class FileInfo :ViewModelBase
     {
         private readonly System.IO.FileInfo _fi;
       private readonly FileType _filetype = FileType.NONE;
@@ -28,7 +30,7 @@ namespace miRobotEditor.Pads
         public string Comment
         {
             get { return _comment; }
-            set { _comment = value; RaisePropertyChanged(); }
+            set { _comment = value; RaisePropertyChanged("Comment"); }
         }
         public string DirectoryName
         {
@@ -49,7 +51,7 @@ namespace miRobotEditor.Pads
         public bool IsReadOnly
         {
             get { return _fi.IsReadOnly; }
-            set { _fi.IsReadOnly = value; RaisePropertyChanged();} 
+            set { _fi.IsReadOnly = value; RaisePropertyChanged("IsReadOnly");} 
         }
        
      

@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace miRobotEditor.GUI
+namespace miRobotEditor.GUI.Editor
 {
     public interface IOptions
     {

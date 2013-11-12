@@ -7,29 +7,55 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
+using System.ComponentModel;
 using System.Windows.Media;
-using miRobotEditor.Core;
+using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.ViewModel
 {
 	/// <summary>
 	/// Description of PaneViewModel.
 	/// </summary>
+	[Localizable(false)]
 	public class PaneViewModel:ViewModelBase
 	{
 	    #region Title
 
-        private string _title;
+        
+        #region
+        /// <summary>
+        /// The <see cref="Title" /> property's name.
+        /// </summary>
+        public const string TitlePropertyName = "Title";
+
+        private string _title = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the Title property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// This property's value is broadcasted by the MessengerInstance when it changes.
+        /// </summary>
         public string Title
         {
-            get { return _title; }
+            get
+            {
+                return _title;
+            }
+
             set
             {
-                if (_title == value) return;
+                if (_title == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TitlePropertyName);
+                var oldValue = _title;
                 _title = value;
-                RaisePropertyChanged("Title");
+                RaisePropertyChanged(TitlePropertyName, oldValue, value, true);
             }
         }
+        #endregion
 
         #endregion
 
@@ -81,11 +107,12 @@ namespace miRobotEditor.ViewModel
             {
                 if (_isActive == value) return;
                 _isActive = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("IsActive");
             }
         }
 
         #endregion
 
 	}
+    public enum DefaultToolPane { Left, Right, Bottom, None };
 }

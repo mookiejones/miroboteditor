@@ -5,11 +5,12 @@
  * Time: 12:37
  * 
  */
+
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace miRobotEditor.GUI.ExplorerControl
+namespace miRobotEditor.ExplorerControl
 {
 	
 

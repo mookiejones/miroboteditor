@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.CodeCompletion;
+using miRobotEditor.GUI.Editor;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Classes;
 namespace miRobotEditor.Languages
@@ -35,7 +37,7 @@ namespace miRobotEditor.Languages
                 return EXT;
             }
         }
-        public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
+        public override string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables)
         {
             //"  64:J PR[15:G1 G2 Common Pos] 100% CNT50    ;"
 

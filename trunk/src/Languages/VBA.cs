@@ -1,10 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
+using miRobotEditor.GUI.Editor;
 using miRobotEditor.ViewModel;
 using FileInfo = System.IO.FileInfo;
 using miRobotEditor.Classes;
@@ -25,10 +27,7 @@ namespace miRobotEditor.Languages
         {
             get { return new List<string> { "*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd" }; }
         }
-        public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
-        {
-            return string.Empty;
-        }
+     
 
         public VBA(string file):base(file)
         {           
@@ -149,6 +148,11 @@ namespace miRobotEditor.Languages
         public override DocumentViewModel GetFile(string filepath)
         {
             return new DocumentViewModel(filepath);
+        }
+
+        public override string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables)
+        {
+            throw new NotImplementedException();
         }
     }
     }

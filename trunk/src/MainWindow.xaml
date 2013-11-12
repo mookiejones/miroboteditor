@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
 <!-- ReSharper disable Xaml.StaticResourceNotResolved -->
 <!-- Title="{Binding ActiveEditor.FilePath, Mode=OneWay, StringFormat=miRobotEditor:\= \{0\}}" -->
@@ -17,6 +17,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:miRobotEditor.ViewModel"
     xmlns:miRobotEditor="clr-namespace:miRobotEditor"
+    xmlns:editor="clr-namespace:miRobotEditor.GUI.Editor"
     mc:Ignorable="d"
     x:Name="MetroWindow"
     SnapsToDevicePixels="True"
@@ -28,8 +29,7 @@
     Loaded="WindowLoaded"
     AllowDrop="True"
     Icon="Properties/Resources/Editor.ico"
-    Drop="DropFiles"	DragEnter="onDragEnter"
-    DataContext="{x:Static root:Workspace.Instance}"
+    Drop="DropFiles"	DragEnter="onDragEnter"  
 >
     <mah:MetroWindow.Background>
         <LinearGradientBrush EndPoint="0,180" MappingMode="Absolute" StartPoint="0,0">
@@ -38,10 +38,10 @@
         </LinearGradientBrush>
     </mah:MetroWindow.Background>
     <Window.Resources>
-
         <!--Explorer Window-->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Templates/MenuDictionary.xaml"/>
                 <ResourceDictionary Source="Templates/ImageTemplates.xaml" />
                 <ResourceDictionary Source="Templates/ToolPaneTemplates.xaml" />
                 <ResourceDictionary Source="Templates/StatusBarTemplate.xaml" />
@@ -58,9 +58,12 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
+	<mah:MetroWindow.DataContext>
+		<Binding Mode="OneWay" Path="Workspace" Source="{StaticResource Locator}"/>
+	</mah:MetroWindow.DataContext>
     <mah:MetroWindow.Flyouts>
         <mah:Flyout Header="I/O" Position="Right" Content="{Binding ActiveEditor.FileLanguage.IOModel}" IsOpen="{Binding ShowIO}" />
-        <mah:Flyout Header="Options" Position="Right"  Content="{x:Static gui:EditorOptions.Instance}" IsOpen="{Binding ShowSettings}">
+        <mah:Flyout Header="Options" Position="Right"  Content="{x:Static editor:EditorOptions.Instance}" IsOpen="{Binding ShowSettings}">
             <mah:Flyout.Resources>
                 <ResourceDictionary Source="Templates\OptionsTemplate.xaml" />
             </mah:Flyout.Resources>
@@ -68,15 +71,15 @@
     </mah:MetroWindow.Flyouts>
     <mah:MetroWindow.WindowCommands>
         <mah:WindowCommands>
-            <Button Content="Settings" Command="{Binding ShowSettingsCommand}" />
-            <Button Content="Show IO" Command="{Binding ShowIOCommand}" Visibility="{Binding EnableIO, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Button Content="Settings" Command="{Binding ShowSettingsCommand, Mode=OneWay}" />
+            <Button Content="Show IO" Command="{Binding ShowIOCommand,Mode=OneWay}" Visibility="{Binding EnableIO, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </mah:WindowCommands>
     </mah:MetroWindow.WindowCommands>
     <Window.InputBindings>
-        <KeyBinding Command="{Binding ActiveEditor.CloseCommand}"  Gesture="Alt+C" />
+        <KeyBinding Command="{Binding ActiveEditor.CloseCommand,Mode=OneWay}"  Gesture="Alt+C" />
         <KeyBinding Key="F3" Modifiers="Shift" Command="Search" CommandParameter="something" />
         <KeyBinding Key="F" Modifiers="Control" Gesture="CTRL+F" Command="Find" />
-        <KeyBinding Key="R" Modifiers="Shift+Control" Command="{Binding ShowFindReplaceCommand}" />
+        <KeyBinding Key="R" Modifiers="Shift+Control" Command="{Binding ShowFindReplaceCommand,Mode=OneWay}" />
     </Window.InputBindings>
     <Grid d:DataContext="{d:DesignInstance}">
         <Grid.RowDefinitions>
@@ -112,12 +115,12 @@
             </Menu.Resources>
 
             <MenuItem  Header="_File">
-                <MenuItem Header="_New" Command="{Binding NewFileCommand}">
+                <MenuItem Header="_New" Command="{Binding NewFileCommand,Mode=OneWay}">
                     <MenuItem.Icon>
                         <Image Source="/Resources/newfile.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Open" Command="{Binding OpenFileCommand}">
+                <MenuItem Header="_Open" Command="{Binding OpenFileCommand,Mode=OneWay}">
                     <MenuItem.Icon>
                         <Image Source="/Resources\folder_open.png" />
                     </MenuItem.Icon>
@@ -135,7 +138,7 @@
                 <Separator />
                 <MenuItem	Header="Reload"  Command="{Binding ActiveEditor.TextBox.ReloadCommand, Mode=OneWay}" />
                 <Rectangle />
-                <MenuItem Header="_Import" Command="{Binding ImportCommand}" />
+                <MenuItem Header="_Import" Command="{Binding ImportCommand,Mode=OneWay}" />
                 <MenuItem Header="Print"  Command="ApplicationCommands.Print">
                     <MenuItem.Icon>
                         <Image Source="/Resources\Print.png" />
@@ -146,7 +149,7 @@
                         <Image Source="/Resources\print_preview.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Close" Command="{Binding ActiveEditor.CloseCommand}">
+                <MenuItem Header="_Close" Command="{Binding ActiveEditor.CloseCommand,Mode=OneWay}">
                     <MenuItem.Icon>
                         <Image Source="/Resources\close.png" />
                     </MenuItem.Icon>
@@ -154,7 +157,7 @@
                 <MenuItem Header="Recent _Files">
                     <classes:RecentFileList />
                 </MenuItem>
-                <MenuItem Header="E_xit"  Command="{Binding ExitCommand}">
+                <MenuItem Header="E_xit"  Command="{Binding ExitCommand,Mode=OneWay}">
                     <MenuItem.Icon>
                         <Image Source="/Resources\exit.png" />
                     </MenuItem.Icon>
@@ -206,8 +209,8 @@
                 </MenuItem>
                 <Rectangle />
                 <MenuItem Header="Formatting" x:Name="Formatting">
-                    <MenuItem Header="View Whitespace" IsCheckable="True" IsChecked="{Binding ShowSpaces, Source={x:Static gui:EditorOptions.Instance}}" />
-                    <MenuItem Header="Wordwrap" IsChecked="{Binding WrapWords, Source={x:Static gui:EditorOptions.Instance}}" />
+                    <MenuItem Header="View Whitespace" IsCheckable="True" IsChecked="{Binding ShowSpaces, Source={x:Static editor:EditorOptions.Instance}}" />
+                    <MenuItem Header="Wordwrap" IsChecked="{Binding WrapWords, Source={x:Static editor:EditorOptions.Instance}}" />
                     <Rectangle />
                     <MenuItem Header="Toggle Comment" />
                     <Rectangle />
@@ -264,11 +267,11 @@
                     </MenuItem>
                 </MenuItem>
 
-                <MenuItem Header="View Whitespace" IsCheckable="true" IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True, Source={x:Static gui:EditorOptions.Instance}}" />
-                <MenuItem Header="View EOL" IsCheckable="true" IsChecked="{Binding ShowEndOfLine, Source={x:Static gui:EditorOptions.Instance}}" />
-                <MenuItem Header="View Tabs" IsCheckable="true" IsChecked="{Binding ShowTabs, Source={x:Static gui:EditorOptions.Instance}}" />
-                <MenuItem Header="Wordwrap" IsCheckable="true" IsChecked="{Binding WrapWords, Source={x:Static gui:EditorOptions.Instance}}" />
-                <MenuItem Header="Line Numbers" IsCheckable="true" IsChecked="{Binding ShowLineNumbers, BindsDirectlyToSource=True, Source={x:Static gui:EditorOptions.Instance}}">
+                <MenuItem Header="View Whitespace" IsCheckable="true" IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True, Source={x:Static editor:EditorOptions.Instance}}" />
+                <MenuItem Header="View EOL" IsCheckable="true" IsChecked="{Binding ShowEndOfLine, Source={x:Static editor:EditorOptions.Instance}}" />
+                <MenuItem Header="View Tabs" IsCheckable="true" IsChecked="{Binding ShowTabs, Source={x:Static editor:EditorOptions.Instance}}" />
+                <MenuItem Header="Wordwrap" IsCheckable="true" IsChecked="{Binding WrapWords, Source={x:Static editor:EditorOptions.Instance}}" />
+                <MenuItem Header="Line Numbers" IsCheckable="true" IsChecked="{Binding ShowLineNumbers, BindsDirectlyToSource=True, Source={x:Static editor:EditorOptions.Instance}}">
                     <MenuItem.Icon>
                         <Image Source="/Resources/line_numbers.png" />
                     </MenuItem.Icon>
@@ -366,7 +369,7 @@
             <Button Command="{Binding ActiveEditor.TextBox.CutCommand, Mode=OneWay}" Content="{Binding Mode=OneWay, Source={StaticResource CutImage}}" />
             <Button Command="{Binding ActiveEditor.TextBox.CopyCommand, Mode=OneWay}" Content="{StaticResource CopyImage}" />
             <Button Command="{Binding ActiveEditor.TextBox.PasteCommand, Mode=OneWay}" Content="{StaticResource PasteImage}" />
-            <ToggleButton  IsChecked="{Binding EnableFolding, Source={x:Static gui:EditorOptions.Instance}}" />
+            <ToggleButton  IsChecked="{Binding EnableFolding, Source={x:Static editor:EditorOptions.Instance}}" />
 
             <Button ToolTip="Expand Folds"  Command="{Binding ActiveEditor.TextBox.OpenAllFoldsCommand, Mode=OneWay}" Content="{StaticResource ExpandFoldsImage}" />
 
@@ -375,15 +378,14 @@
 
             <Button  ToolTip="Increase Indent"  Command="{Binding ActiveEditor.TextBox.ChangeIndentCommand}"  CommandParameter="true" Content="{StaticResource IncreaseIndentImage}" />
         </StackPanel>
-
         <ad:DockingManager
 			x:Name="DockManager"
             Background="Transparent"
 			Grid.Row="2"
-            AnchorablesSource="{Binding Tools}"
-            DocumentsSource="{Binding Files}"
+            AnchorablesSource="{Binding Workspace.Tools, Source={StaticResource Locator}}"
+            DocumentsSource="{Binding  Workspace.Files, Source={StaticResource Locator}}"
         	ActiveContent="{Binding ActiveEditor, Converter={StaticResource ActiveEditorConverter},Mode=TwoWay}"
-            LayoutUpdateStrategy="{Binding LayoutStrategy, Mode=OneWay, Source={x:Static root:Workspace.Instance}}">
+            LayoutUpdateStrategy="{Binding Workspace.LayoutStrategy, Mode=OneWay, Source={StaticResource Locator}}">
             <ad:DockingManager.Theme>
                 <ad:MetroTheme />
             </ad:DockingManager.Theme>

@@ -25,13 +25,13 @@ namespace miRobotEditor.ViewModel
         public static ObjectBrowserViewModel Instance { get { return _instance ?? new ObjectBrowserViewModel(); } set { _instance = value; } }
 
         private IVariable _selectedVariable;
-        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; Workspace.Instance.OpenFile(value); RaisePropertyChanged(); } }
+        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; Workspace.Instance.OpenFile(value); RaisePropertyChanged("SelectedVariable"); } }
 
         private int _progress;
-        public int Progress { get { return _progress; } set { _progress = value; RaisePropertyChanged(); } }
+        public int Progress { get { return _progress; } set { _progress = value; RaisePropertyChanged("Progress"); } }
 
         private int _progressMax;
-        public int ProgressMax { get { return _progressMax; } set { _progressMax = value; RaisePropertyChanged(); } }
+        public int ProgressMax { get { return _progressMax; } set { _progressMax = value; RaisePropertyChanged("ProgressMax"); } }
         #endregion
 
         public const string ToolContentId = "ObjectBrowserTool";

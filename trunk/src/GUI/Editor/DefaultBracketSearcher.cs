@@ -1,6 +1,6 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
 
-namespace miRobotEditor.GUI
+namespace miRobotEditor.GUI.Editor
 {
     public class DefaultBracketSearcher : IBracketSearcher
     {

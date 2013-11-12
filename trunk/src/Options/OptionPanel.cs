@@ -1,5 +1,5 @@
 ﻿using System;
-using miRobotEditor.Core;
+using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.Options
 {

@@ -34,7 +34,7 @@ namespace miRobotEditor
 
         public Accent CurrentAccent { get { return _currentAccent; } set { _currentAccent = value; } }
 
-        private Theme _currentTheme = ThemeManager.ThemeIsDark ? Theme.Dark : Theme.Light;
+        private readonly Theme _currentTheme = ThemeManager.ThemeIsDark ? Theme.Dark : Theme.Light;
 
         public Theme Theme { get; set; }
 
@@ -168,8 +168,7 @@ namespace miRobotEditor
 
             SaveLayout();
 
-            Workspace.Instance.IsClosing = true;
-            App.Application.Shutdown();
+            Workspace.Instance.IsClosing = true;          
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)

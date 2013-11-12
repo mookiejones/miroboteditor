@@ -1,6 +1,4 @@
-﻿using miRobotEditor.Core;
-using miRobotEditor.ViewModel;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,10 +8,12 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 using System.Xml.Serialization;
+using GalaSoft.MvvmLight.Command;
+using miRobotEditor.Core;
+using miRobotEditor.ViewModel;
 
-namespace miRobotEditor.GUI
+namespace miRobotEditor.GUI.Editor
 {
     /// <summary>
     /// Interaction logic for FindandReplaceControl.xaml
@@ -105,7 +105,7 @@ namespace miRobotEditor.GUI
 
         private FindReplaceHistory _history = new FindReplaceHistory();
 
-        public FindReplaceHistory History { get { return _history; } set { _history = value; RaisePropertyChanged(); } }
+        public FindReplaceHistory History { get { return _history; } set { _history = value; RaisePropertyChanged("History"); } }
 
         #region Members
 
@@ -125,7 +125,7 @@ namespace miRobotEditor.GUI
 
         private bool _includeSubFolders;
 
-        public bool IncludeSubFolders { get { return _includeSubFolders; } set { _includeSubFolders = value; RaisePropertyChanged(); } }
+        public bool IncludeSubFolders { get { return _includeSubFolders; } set { _includeSubFolders = value; RaisePropertyChanged("IncludeSubFolders"); } }
 
         #endregion Include SubFolders
 
@@ -133,7 +133,7 @@ namespace miRobotEditor.GUI
 
         private bool _keepModifiedPropertiesOpen;
 
-        public bool KeepModifiedPropertiesOpen { get { return _keepModifiedPropertiesOpen; } set { _keepModifiedPropertiesOpen = value; RaisePropertyChanged(); } }
+        public bool KeepModifiedPropertiesOpen { get { return _keepModifiedPropertiesOpen; } set { _keepModifiedPropertiesOpen = value; RaisePropertyChanged("KeepModifiedPropertiesOpen"); } }
 
         #endregion Keep Modified Files Open
 
@@ -145,7 +145,7 @@ namespace miRobotEditor.GUI
             set
             {
                 _inputIsValid = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("InputIsValid");
             }
         }
 
@@ -159,7 +159,7 @@ namespace miRobotEditor.GUI
             set
             {
                 _owner = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Owner");
             }
         }
 
@@ -169,11 +169,11 @@ namespace miRobotEditor.GUI
 
         private List<string> _filterItems = new List<string>();
 
-        public List<string> FilterItems { get { return _filterItems; } set { _filterItems = value; RaisePropertyChanged(); } }
+        public List<string> FilterItems { get { return _filterItems; } set { _filterItems = value; RaisePropertyChanged("FilterItems"); } }
 
         private string _filter;
 
-        public string Filter { get { return _filter; } set { _filter = value; RaisePropertyChanged(); } }
+        public string Filter { get { return _filter; } set { _filter = value; RaisePropertyChanged("Filter"); } }
 
         #endregion Filter Items
 
@@ -187,7 +187,7 @@ namespace miRobotEditor.GUI
             set
             {
                 _findString = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("FindString");
             }
         }
 
@@ -203,13 +203,13 @@ namespace miRobotEditor.GUI
             set
             {
                 _replaceString = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("ReplaceString");
             }
         }
 
         private bool _replaceEnabled;
 
-        public bool ReplaceEnabled { get { return _replaceEnabled; } set { _replaceEnabled = value; RaisePropertyChanged(); } }
+        public bool ReplaceEnabled { get { return _replaceEnabled; } set { _replaceEnabled = value; RaisePropertyChanged("ReplaceEnabled"); } }
 
         #endregion Replace items properties
 
@@ -223,7 +223,7 @@ namespace miRobotEditor.GUI
             set
             {
                 _directoryString = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("DirectoryString");
             }
         }
 
@@ -239,7 +239,7 @@ namespace miRobotEditor.GUI
             set
             {
                 _matchWholeWord = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("MatchWholeWord");
             }
         }
 
@@ -249,7 +249,7 @@ namespace miRobotEditor.GUI
 
         private bool _matchCase;
 
-        public bool MatchCase { get { return _matchCase; } set { _matchCase = value; RaisePropertyChanged(); } }
+        public bool MatchCase { get { return _matchCase; } set { _matchCase = value; RaisePropertyChanged("MatchCase"); } }
 
         #endregion Match Case
 
@@ -260,7 +260,7 @@ namespace miRobotEditor.GUI
         public bool UseWildCards
         {
             get { return _useWildCards; }
-            set { _useWildCards = value; RaisePropertyChanged(); }
+            set { _useWildCards = value; RaisePropertyChanged("UseWildCards"); }
         }
 
         #endregion Use WildCards
@@ -269,15 +269,15 @@ namespace miRobotEditor.GUI
 
         private int _progressValue;
 
-        public int ProgressValue { get { return _progressValue; } set { _progressValue = value; RaisePropertyChanged(); } }
+        public int ProgressValue { get { return _progressValue; } set { _progressValue = value; RaisePropertyChanged("ProgressValue"); } }
 
         private string _progressString;
 
-        public string ProgressString { get { return _progressString; } set { _progressString = value; RaisePropertyChanged(); } }
+        public string ProgressString { get { return _progressString; } set { _progressString = value; RaisePropertyChanged("ProgressString"); } }
 
         private Visibility _progressVisibility = Visibility.Collapsed;
 
-        public Visibility ProgressVisibility { get { return _progressVisibility; } set { _progressVisibility = value; RaisePropertyChanged(); } }
+        public Visibility ProgressVisibility { get { return _progressVisibility; } set { _progressVisibility = value; RaisePropertyChanged("ProgressVisibility"); } }
 
         #endregion Progress
 
@@ -285,7 +285,7 @@ namespace miRobotEditor.GUI
 
         private bool _cancelEnabled;
 
-        public bool CancelEnabled { get { return _cancelEnabled; } set { _cancelEnabled = value; RaisePropertyChanged(); } }
+        public bool CancelEnabled { get { return _cancelEnabled; } set { _cancelEnabled = value; RaisePropertyChanged("CancelEnabled"); } }
 
         #endregion Cancel
 
@@ -293,7 +293,7 @@ namespace miRobotEditor.GUI
 
         private string _statusText;
 
-        public string StatusText { get { return _statusText; } set { _statusText = value; RaisePropertyChanged(); } }
+        public string StatusText { get { return _statusText; } set { _statusText = value; RaisePropertyChanged("StatusText"); } }
 
         #endregion Status
 
@@ -315,7 +315,7 @@ namespace miRobotEditor.GUI
 
         #endregion Constructor
 
-        private new void Deserialize()
+        private void Deserialize()
         {
             var serializer = new XmlSerializer(typeof(FindReplaceHistory));
 
@@ -327,60 +327,124 @@ namespace miRobotEditor.GUI
 
         #region Commands
 
-        [NonSerialized]
+
+        #region FindAllCommand
+
         private RelayCommand _findAllCommand;
-
-        public ICommand FindAllCommand
+        /// <summary>
+        /// Gets the FindAllCommand.
+        /// </summary>
+        public RelayCommand FindAllCommand
         {
-            get { return _findAllCommand ?? (_findAllCommand = new RelayCommand(p => InitializeSearch(WorkType.FindAll), p => true)); }
+            get
+            {
+                return _findAllCommand
+                    ?? (_findAllCommand = new RelayCommand(ExecuteFindAllCommand));
+            }
         }
 
-        [NonSerialized]
+        private void ExecuteFindAllCommand()
+        {
+            InitializeSearch(WorkType.FindAll);
+        }
+        #endregion
+
+
+        #region ReplaceAllCommand
+
         private RelayCommand _replaceAllCommand;
-
-        public ICommand ReplaceAllCommand
+        /// <summary>
+        /// Gets the ReplaceAllCommand.
+        /// </summary>
+        public RelayCommand ReplaceAllCommand
         {
-            get { return _replaceAllCommand ?? (_replaceAllCommand = new RelayCommand(p => InitializeSearch(WorkType.ReplaceAll), p => true)); }
+            get
+            {
+                return _replaceAllCommand
+                    ?? (_replaceAllCommand = new RelayCommand(ExecuteReplaceAllCommand));
+            }
         }
 
-        [NonSerialized]
+        private void ExecuteReplaceAllCommand()
+        {
+            InitializeSearch(WorkType.ReplaceAll);
+        }
+        #endregion
+
         private RelayCommand _findCommand;
 
-        public ICommand FindCommand
+        /// <summary>
+        /// Gets the FindCommand.
+        /// </summary>
+        public RelayCommand FindCommand
         {
             get
             {
-                return _findCommand ??
-                       (_findCommand =
-                        new RelayCommand(p => InitializeSearch(WorkType.Find), p => DirectoryString == ("Current Window") | DirectoryString == "Current Selection"));
+                return _findCommand ?? (_findCommand = new RelayCommand(
+                    ExecuteFindCommand,
+                    CanExecuteFindCommand));
             }
         }
 
-        [NonSerialized]
+        private void ExecuteFindCommand()
+        {
+            InitializeSearch(WorkType.Find);
+        }
+
+        private bool CanExecuteFindCommand()
+        {
+            return ( DirectoryString == ("Current Window") | DirectoryString == "Current Selection");
+        }
+
+
         private RelayCommand _replaceCommand;
 
-        public ICommand ReplaceCommand
+        /// <summary>
+        /// Gets the ReplaceCommand.
+        /// </summary>
+        public RelayCommand ReplaceCommand
         {
             get
             {
-                return _replaceCommand ??
-                       (_replaceCommand =
-                        new RelayCommand(p => InitializeSearch(WorkType.Replace),
-                                         p =>
-                                         DirectoryString == ("Current Window") | DirectoryString == "Current Selection"));
+                return _replaceCommand ?? (_replaceCommand = new RelayCommand(
+                    ExecuteReplaceCommand,
+                    CanExecuteReplaceCommand));
             }
         }
 
-        [NonSerialized]
+        private void ExecuteReplaceCommand()
+        {
+            InitializeSearch(WorkType.Replace);
+        }
+
+        private bool CanExecuteReplaceCommand()
+        {
+            return ( DirectoryString == ("Current Window") | DirectoryString == "Current Selection");
+        }
+
         private RelayCommand _browseFoldersCommand;
 
-        public ICommand BrowseFoldersCommand
+        /// <summary>
+        /// Gets the BrowseFoldersCommand.
+        /// </summary>
+        public RelayCommand BrowseFoldersCommand
         {
             get
             {
-                return _browseFoldersCommand ??
-                       (_browseFoldersCommand = new RelayCommand(p => BrowseForFolder(), p => true));
+                return _browseFoldersCommand ?? (_browseFoldersCommand = new RelayCommand(
+                    ExecuteBrowseFoldersCommand,
+                    CanExecuteBrowseFoldersCommand));
             }
+        }
+
+        private void ExecuteBrowseFoldersCommand()
+        {
+            BrowseForFolder();
+        }
+
+        private bool CanExecuteBrowseFoldersCommand()
+        {
+            return true;
         }
 
         #endregion Commands
@@ -436,7 +500,7 @@ namespace miRobotEditor.GUI
         /// <returns>A value indicating if the file has changed.</returns>
         private bool FindAndReplace(string file)
         {
-            switch (Work)
+            switch (_work)
             {
                 case WorkType.Find:
                     Find();
@@ -655,11 +719,11 @@ namespace miRobotEditor.GUI
             box.Add(item);
         }
 
-        private WorkType Work;
+        private WorkType _work;
 
         private void InitializeSearch(WorkType worktype)
         {
-            Work = worktype;
+            _work = worktype;
             ProgressString = "Working...";
             ProgressValue = 0;
             ProgressVisibility = Visibility.Visible;
@@ -688,35 +752,70 @@ namespace miRobotEditor.GUI
 
         #region Commands
 
-        private static RelayCommand _findpreviouscommand;
 
-        public static ICommand FindPreviousCommand
+        #region FindPreviousCommand
+
+        private RelayCommand _findPreviousCommand;
+        /// <summary>
+        /// Gets the FindPreviousCommand.
+        /// </summary>
+        public RelayCommand FindPreviousCommand
         {
             get
             {
-                return _findpreviouscommand ??
-                       (_findpreviouscommand = new RelayCommand(param => FindPrevious(), param => true));
+                return _findPreviousCommand
+                    ?? (_findPreviousCommand = new RelayCommand(ExecuteFindPreviousCommand));
             }
         }
 
-        private static RelayCommand _findnextcommand;
-
-        public static ICommand FindNextCommand
+        private void ExecuteFindPreviousCommand()
         {
-            get { return _findnextcommand ?? (_findnextcommand = new RelayCommand(param => FindNext(), param => true)); }
+            FindPrevious();
         }
+        #endregion
 
-        private static RelayCommand _replacecommand;
-        private static RelayCommand _highlightallcommand;
+        #region FindNextCommand
 
-        public static ICommand HighlightAllCommand
+        private RelayCommand _findNextCommand;
+        /// <summary>
+        /// Gets the FindNextCommand.
+        /// </summary>
+        public RelayCommand FindNextCommand
         {
             get
             {
-                return _highlightallcommand ??
-                       (_highlightallcommand = new RelayCommand(param => HighlightAll(), param => true));
+                return _findNextCommand
+                    ?? (_findNextCommand = new RelayCommand(ExecuteFindNextCommand));
             }
         }
+
+        private void ExecuteFindNextCommand()
+        {
+            FindNext();
+        }
+        #endregion
+
+
+        #region HighlightAllCommand
+
+        private RelayCommand _highlightAllCommand;
+        /// <summary>
+        /// Gets the HighlightAllCommand.
+        /// </summary>
+        public RelayCommand HighlightAllCommand
+        {
+            get
+            {
+                return _highlightAllCommand
+                    ?? (_highlightAllCommand = new RelayCommand(ExecuteHighlightAllCommand));
+            }
+        }
+
+        private void ExecuteHighlightAllCommand()
+        {
+            HighlightAll();
+        }
+        #endregion
 
         #endregion Commands
 
@@ -738,7 +837,7 @@ namespace miRobotEditor.GUI
             set
             {
                 _useregex = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("UseRegex");
             }
         }
 
@@ -765,7 +864,7 @@ namespace miRobotEditor.GUI
             set
             {
                 _lookfor = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("LookFor");
             }
         }
 
@@ -777,7 +876,7 @@ namespace miRobotEditor.GUI
             set
             {
                 _replacewith = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("ReplaceWith");
             }
         }
 
@@ -789,7 +888,7 @@ namespace miRobotEditor.GUI
             set
             {
                 _searchresult = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("SearchResult");
             }
         }
 

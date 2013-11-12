@@ -1,4 +1,4 @@
-﻿using miRobotEditor.Core;
+﻿using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.Languages
 {

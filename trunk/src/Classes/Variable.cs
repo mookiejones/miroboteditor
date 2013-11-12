@@ -1,15 +1,14 @@
-﻿using System;
-using System.Windows.Forms;
-using miRobotEditor.Core;
+﻿using GalaSoft.MvvmLight;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 
 namespace miRobotEditor.Classes
 {
+    [Localizable(false)]
     public class Variable : ViewModelBase, IVariable
     {
 
-        private bool _isFiltered = false;
+        private bool _isFiltered;
         public bool IsFiltered{get { return _isFiltered; }set { _isFiltered = value; RaisePropertyChanged("IsFiltered");}}
 
         public bool Contains(string value)
@@ -26,43 +25,43 @@ namespace miRobotEditor.Classes
         }
         private bool _isSelected;
 
-        public bool IsSelected { get { return _isSelected; } set { _isSelected = value; RaisePropertyChanged(); } }
+        public bool IsSelected { get { return _isSelected; } set { _isSelected = value; RaisePropertyChanged("IsSelected"); } }
 
         private BitmapImage _icon;
 
-        public BitmapImage Icon { get { return _icon; } set { _icon = value; RaisePropertyChanged(); } }
+        public BitmapImage Icon { get { return _icon; } set { _icon = value; RaisePropertyChanged("Icon"); } }
 
         private string _description = string.Empty;
 
-        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged(); } }
+        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
 
         private string _name = string.Empty;
 
-        public string Name { get { return _name; } set { _name = value; RaisePropertyChanged(); } }
+        public string Name { get { return _name; } set { _name = value; RaisePropertyChanged("Name"); } }
 
         private string _type = string.Empty;
 
-        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged(); } }
+        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged("Type"); } }
 
         private string _path = string.Empty;
 
-        public string Path { get { return _path; } set { _path = value; RaisePropertyChanged(); } }
+        public string Path { get { return _path; } set { _path = value; RaisePropertyChanged("Path"); } }
 
         private string _value = string.Empty;
 
-        public string Value { get { return _value; } set { _value = value; RaisePropertyChanged(); } }
+        public string Value { get { return _value; } set { _value = value; RaisePropertyChanged("Value"); } }
 
         private string _comment = string.Empty;
 
-        public string Comment { get { return _comment; } set { _comment = value; RaisePropertyChanged(); } }
+        public string Comment { get { return _comment; } set { _comment = value; RaisePropertyChanged("Comment"); } }
 
         private string _declaration = string.Empty;
 
-        public string Declaration { get { return _declaration; } set { _declaration = value; RaisePropertyChanged(); } }
+        public string Declaration { get { return _declaration; } set { _declaration = value; RaisePropertyChanged("Declaration"); } }
 
         private int _offset;
 
-        public int Offset { get { return _offset; } set { _offset = value; RaisePropertyChanged(); } }
+        public int Offset { get { return _offset; } set { _offset = value; RaisePropertyChanged("Offset"); } }
     }
 
     public interface IVariable

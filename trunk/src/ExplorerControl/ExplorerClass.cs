@@ -5,15 +5,16 @@
  * Time: 12:37
  * 
  */
+
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using miRobotEditor.Core;
+using miRobotEditor.ViewModel;
 
-namespace miRobotEditor.GUI.ExplorerControl
+namespace miRobotEditor.ExplorerControl
 {
     /// <summary>
 	/// Description of ExplorerClass.

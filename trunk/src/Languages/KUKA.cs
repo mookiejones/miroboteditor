@@ -1,12 +1,14 @@
-﻿using ICSharpCode.AvalonEdit;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
 using Microsoft.Win32;
 using miRobotEditor.Classes;
-using miRobotEditor.Core;
 using miRobotEditor.GUI;
+using miRobotEditor.GUI.Editor;
 using miRobotEditor.Properties;
 using miRobotEditor.Snippets;
 using miRobotEditor.ViewModel;
@@ -20,7 +22,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Global = miRobotEditor.Classes.Global;
-using RelayCommand = miRobotEditor.Commands.RelayCommand;
 using Utilities = miRobotEditor.Classes.Utilities;
 
 namespace miRobotEditor.Languages
@@ -49,12 +50,28 @@ namespace miRobotEditor.Languages
 
         #region Commands
 
-        private RelayCommand _systemFunctionCommand;
 
-        public ICommand SystemFunctionCommand
+        #region SystemFunctionCommand
+
+        private RelayCommand _systemFunctionCommand;
+        /// <summary>
+        /// Gets the SystemFunctionCommand.
+        /// </summary>
+        public RelayCommand SystemFunctionCommand
         {
-            get { return _systemFunctionCommand ?? (_systemFunctionCommand = new RelayCommand(p => FunctionGenerator.GetSystemFunctions(), p => true)); }
+            get
+            {
+                return _systemFunctionCommand
+                    ?? (_systemFunctionCommand = new RelayCommand(ExecuteSystemFunctionCommand));
+            }
         }
+
+        private void ExecuteSystemFunctionCommand()
+        {
+            FunctionGenerator.GetSystemFunctions();
+        }
+        #endregion
+     
 
         #endregion Commands
 
@@ -164,7 +181,7 @@ namespace miRobotEditor.Languages
 
         #endregion Code Completion Section
 
-        public override string IsLineMotion(string lineValue, IReadOnlyCollection<IVariable> variables)
+        public override string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables)
         {
             if (lineValue.Trim().StartsWith(";FOLD ", StringComparison.OrdinalIgnoreCase))
                 lineValue = lineValue.Replace(";FOLD", String.Empty);
@@ -212,7 +229,7 @@ namespace miRobotEditor.Languages
 
         // ReSharper restore FunctionNeverReturns
 
-        public static Editor ReversePath(Editor editor)
+        public static EditorClass ReversePath(EditorClass editor)
         {
             var points = new Collection<Collection<string>>();
             for (var i = 0; i <= (editor.Document.Lines.Count - 1); i++)

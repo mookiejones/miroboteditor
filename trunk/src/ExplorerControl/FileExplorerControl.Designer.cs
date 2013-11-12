@@ -5,7 +5,8 @@
  * Time: 12:37
  * 
  */
-namespace miRobotEditor.GUI.ExplorerControl
+
+namespace miRobotEditor.ExplorerControl
 {
 	partial class FileExplorerControl
 	{
@@ -44,7 +45,7 @@ namespace miRobotEditor.GUI.ExplorerControl
 			this.mnuPaste = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuRefresh = new System.Windows.Forms.ToolStripMenuItem();
-			this.explorer = new miRobotEditor.GUI.ExplorerControl.ExplorerClass();
+			this.explorer = new ExplorerClass();
 			this.imgList = new System.Windows.Forms.ImageList(this.components);
 			this.ctxFileExplorer.SuspendLayout();
 			this.SuspendLayout();
@@ -149,6 +150,6 @@ namespace miRobotEditor.GUI.ExplorerControl
 		private System.Windows.Forms.ToolStripMenuItem mnuCut;
 		private System.Windows.Forms.ToolStripMenuItem mnuCopy;
 		private System.Windows.Forms.ContextMenuStrip ctxFileExplorer;
-		private miRobotEditor.GUI.ExplorerControl.ExplorerClass explorer = new ExplorerClass();
+		private ExplorerClass explorer = new ExplorerClass();
 	}
 }

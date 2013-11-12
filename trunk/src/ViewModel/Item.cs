@@ -1,8 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
+using GalaSoft.MvvmLight;
 using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
+    [Localizable(false)]
     public class Item : ViewModelBase
     {
 
@@ -13,12 +16,12 @@ namespace miRobotEditor.ViewModel
         }
 
         private int _index;
-        public int Index { get { return _index; } set { _index = value;RaisePropertyChanged(); } }
+        public int Index { get { return _index; } set { _index = value;RaisePropertyChanged("Index"); } }
         private string _type = string.Empty;
-        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged(); } }
+        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged("Type"); } }
 
         private string _description = string.Empty;
-        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged(); } }
+        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
 
         public override string ToString()
         {

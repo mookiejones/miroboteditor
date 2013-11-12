@@ -1,8 +1,9 @@
-﻿using miRobotEditor.Interfaces;
-using System;
+﻿using System;
 using System.Windows.Input;
+using miRobotEditor.Core;
+using miRobotEditor.Interfaces;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.Classes
 {
     /// <summary>
     /// A bookmark that can be attached to an AvalonEdit TextDocument.

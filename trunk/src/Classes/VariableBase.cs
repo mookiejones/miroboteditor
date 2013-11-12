@@ -1,12 +1,14 @@
-﻿using miRobotEditor.Core;
+﻿using GalaSoft.MvvmLight;
 using miRobotEditor.Languages;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Classes
 {
+    [Localizable(false)]
     public class VariableBase : ViewModelBase, IVariable
     {
 
@@ -33,23 +35,23 @@ namespace miRobotEditor.Classes
         private string _comment;
         private string _description = string.Empty;
 
-        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged(); } }
+        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
 
-        public BitmapImage Icon { get { return _icon; } set { _icon = value; RaisePropertyChanged(); } }
+        public BitmapImage Icon { get { return _icon; } set { _icon = value; RaisePropertyChanged("Icon"); } }
 
-        public string Name { get { return _name; } set { _name = value; RaisePropertyChanged(); } }
+        public string Name { get { return _name; } set { _name = value; RaisePropertyChanged("Name"); } }
 
-        public string Comment { get { return _comment; } set { _comment = value; RaisePropertyChanged(); } }
+        public string Comment { get { return _comment; } set { _comment = value; RaisePropertyChanged("Comment"); } }
 
-        public string Path { get { return _path; } set { _path = value; RaisePropertyChanged(); } }
+        public string Path { get { return _path; } set { _path = value; RaisePropertyChanged("Path"); } }
 
-        public string Value { get { return _value; } set { _value = value; RaisePropertyChanged(); } }
+        public string Value { get { return _value; } set { _value = value; RaisePropertyChanged("Value"); } }
 
-        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged(); } }
+        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged("Type"); } }
 
-        public string Declaration { get { return _declaration; } set { _declaration = value; RaisePropertyChanged(); } }
+        public string Declaration { get { return _declaration; } set { _declaration = value; RaisePropertyChanged("Declaration"); } }
 
-        public int Offset { get { return _offset; } set { _offset = value; RaisePropertyChanged(); } }
+        public int Offset { get { return _offset; } set { _offset = value; RaisePropertyChanged("Offset"); } }
 
         // ReSharper disable UnusedAutoPropertyAccessor.Local
         public static List<IVariable> Variables { get; private set; }
@@ -87,7 +89,7 @@ namespace miRobotEditor.Classes
 
             var m = VariableHelper.FindMatches(s.Lang.XYZRegex, s.Filename);
             var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath);
-            var isxyz = fileNameWithoutExtension != null && fileNameWithoutExtension.Contains("XYZ");
+            var isxyz = fileNameWithoutExtension.Contains("XYZ");
             while (m.Success)
             {
                 var p = new Variable
@@ -116,7 +118,7 @@ namespace miRobotEditor.Classes
             var lang = Workspace.Instance.ActiveEditor.FileLanguage;
             var m = VariableHelper.FindMatches(regex, filename);
             var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath);
-            var isxyz = fileNameWithoutExtension != null && fileNameWithoutExtension.Contains("XYZ");
+            var isxyz = fileNameWithoutExtension.Contains("XYZ");
             if (m == null)
             {
                 MessageViewModel.Instance.Add("Variable for " + lang.RobotType, "Does not exist in VariableBase.GetVariables", MsgIcon.Error);

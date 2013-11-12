@@ -1,6 +1,7 @@
 ﻿using miRobotEditor.Interfaces;
+using miRobotEditor.Languages;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.GUI.Editor
 {
     public class DefaultCompletionItem : ICompletionItem
     {

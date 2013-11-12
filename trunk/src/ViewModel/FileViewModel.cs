@@ -32,7 +32,7 @@ namespace miRobotEditor.ViewModel
             {
                 if (_filePath == value) return;
                 _filePath = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("FilePath");
                 RaisePropertyChanged("FileName");
                 RaisePropertyChanged("Title");
 
@@ -68,7 +68,7 @@ namespace miRobotEditor.ViewModel
             {
                 if (_isDirty == value) return;
                 _isDirty = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("IsDirty");
                 RaisePropertyChanged("FileName");
             }
         }

@@ -1,30 +1,31 @@
-﻿using System.Windows.Input;
-using miRobotEditor.Core;
+﻿using System.ComponentModel;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using miRobotEditor.GUI;
-using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
 namespace miRobotEditor.ViewModel
 {
+    [Localizable(false)]
     public class GotoViewModel:ViewModelBase
     {
 
 
         #region Properties
-        private Editor _editor = new Editor();
-        public Editor Editor { get { return _editor; } set { _editor = value; RaisePropertyChanged(); } }
+        private EditorClass _editor = new EditorClass();
+        public EditorClass Editor { get { return _editor; } set { _editor = value; RaisePropertyChanged("Editor"); } }
 
         private string _description = string.Empty;
-        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged(); } }
+        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
 
         private int _enteredText;
-        public int EnteredText { get { return _enteredText; } set { _enteredText = value; RaisePropertyChanged(); } }
+        public int EnteredText { get { return _enteredText; } set { _enteredText = value; RaisePropertyChanged("EnteredText"); } }
 
         private int _selectedLine;
-        public int SelectedLine { get { return _selectedLine; } set { _selectedLine = value; RaisePropertyChanged(); } }
+        public int SelectedLine { get { return _selectedLine; } set { _selectedLine = value; RaisePropertyChanged("SelectedLine"); } }
         #endregion
 
         #region Constructor
-        public GotoViewModel(Editor editor)
+        public GotoViewModel(EditorClass editor)
         {
             Editor = editor;
         }
@@ -32,14 +33,28 @@ namespace miRobotEditor.ViewModel
         #endregion
 
         #region Commands
+
+        #region OKCommand
+
         private RelayCommand _okCommand;
-        public ICommand OkCommand
+        /// <summary>
+        /// Gets the OKCommand.
+        /// </summary>
+        public RelayCommand OKCommand
         {
             get
             {
-                return _okCommand ?? (_okCommand = new RelayCommand(param => Accept(), param => (true)));
+                return _okCommand
+                    ?? (_okCommand = new RelayCommand(ExecuteOKCommand));
             }
         }
+
+        private void ExecuteOKCommand()
+        {
+            Accept();
+        }
+        #endregion
+     
         #endregion
 
         void Accept()
