@@ -10,9 +10,9 @@ using System;
 using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Classes;
 using miRobotEditor.Languages;
-using miRobotEditor.GUI;
 using System.IO;
 using System.Windows;
+using miRobotEditor.Resources.StringResources;
 
 namespace miRobotEditor.ViewModel
 {
@@ -84,7 +84,7 @@ namespace miRobotEditor.ViewModel
                 }
             }
 
-            Workspace.Instance.Close(this);
+            WorkspaceViewModel.Instance.Close(this);
         }
 
         internal void Save(EditorClass txtBox)
@@ -111,20 +111,20 @@ namespace miRobotEditor.ViewModel
         #region Properties
 
         private Visibility _visibility = Visibility.Visible;
-        public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged("Visibility"); } }
+        public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged(@"Visibility"); } }
 
         public static DocumentViewModel Instance { get; set; }
         private AbstractLanguageClass _filelanguage = new LanguageBase();
-        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged("FileLanguage"); } }
+        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged(@"FileLanguage"); } }
         private EditorClass _textBox = new EditorClass();
-        public EditorClass TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged("TextBox"); } }
+        public EditorClass TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged(@"TextBox"); } }
         #endregion
 
 
       
         protected void TextChanged(object sender)
         {
-            Console.WriteLine("Filename = {0}",FileName);
+            Console.WriteLine(Findahome.FileNameIs, FileName);
 
             TextBox = sender as EditorClass;
             if (TextBox != null) FileLanguage.RawText = TextBox.Text ;

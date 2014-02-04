@@ -5,6 +5,7 @@ using miRobotEditor.Classes;
 using miRobotEditor.Core;
 using Global = miRobotEditor.Classes.Global;
 using Utilities = miRobotEditor.Classes.Utilities;
+using System.Windows.Media.Imaging;
 
 namespace miRobotEditor.ViewModel
 {
@@ -25,7 +26,14 @@ namespace miRobotEditor.ViewModel
         public static ObjectBrowserViewModel Instance { get { return _instance ?? new ObjectBrowserViewModel(); } set { _instance = value; } }
 
         private IVariable _selectedVariable;
-        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; Workspace.Instance.OpenFile(value); RaisePropertyChanged("SelectedVariable"); } }
+
+
+
+
+        public IVariable SelectedVariable { get { return _selectedVariable; } set { _selectedVariable = value; WorkspaceViewModel.Instance.OpenFile(value); RaisePropertyChanged("SelectedVariable"); } }
+
+
+
 
         private int _progress;
         public int Progress { get { return _progress; } set { _progress = value; RaisePropertyChanged("Progress"); } }
@@ -47,7 +55,7 @@ namespace miRobotEditor.ViewModel
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog { Description = "Select Root Directory for Instance" };
 
-            var fn = Workspace.Instance.ActiveEditor.TextBox.Filename;
+            var fn = WorkspaceViewModel.Instance.ActiveEditor.TextBox.Filename;
 
             if (Directory.Exists(fn))
                 dialog.SelectedPath = Path.GetDirectoryName(fn);
@@ -60,7 +68,11 @@ namespace miRobotEditor.ViewModel
         void Initialize()
         {
             ContentId = ToolContentId;
-            IconSource = Utilities.GetIcon(Global.IconObjectBrowser);
+
+
+            var logo = new BitmapImage();
+            logo.BeginInit();
+            IconSource = Utilities.GetIcon("ObjectBrowserImage");
             DefaultPane = DefaultToolPane.Bottom;
         }
 
@@ -70,7 +82,7 @@ namespace miRobotEditor.ViewModel
 
             // if (Positions != null) return Positions;
 
-            var ws = Workspace.Instance.ActiveEditor as KukaViewModel;
+            var ws = WorkspaceViewModel.Instance.ActiveEditor as KukaViewModel;
 
             if (ws == null) return null;
 

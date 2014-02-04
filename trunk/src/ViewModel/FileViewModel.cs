@@ -21,17 +21,38 @@ namespace miRobotEditor.ViewModel
             IsDirty = true;
             Title = FileName;
         }
+
         
-        
+
         #region FilePath
-        private string _filePath;
+        /// <summary>
+        /// The <see cref="FilePath" /> property's name.
+        /// </summary>
+        public const string FilePathPropertyName = "FilePath";
+
+        private string _filePath = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the FilePath property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string FilePath
         {
-            get { return _filePath; }
+            get
+            {
+                return _filePath;
+            }
+
             set
             {
-                if (_filePath == value) return;
+                if (_filePath == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(FilePathPropertyName);
                 _filePath = value;
+                RaisePropertyChanged(FilePathPropertyName);
                 RaisePropertyChanged("FilePath");
                 RaisePropertyChanged("FileName");
                 RaisePropertyChanged("Title");
@@ -43,7 +64,8 @@ namespace miRobotEditor.ViewModel
             }
         }
         #endregion
-
+        
+    
 
         public string FileName
         {
