@@ -36,7 +36,7 @@ namespace miRobotEditor.Languages
         }
 
 
-        public override string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables)
+        public override string IsLineMotion(string lineValue, ICollection<IVariable> variables)
         {
             return string.Empty;
 

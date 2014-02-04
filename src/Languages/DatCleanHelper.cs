@@ -248,7 +248,7 @@ namespace miRobotEditor.Languages
         {
             Instance = this;
             DefaultPane = DefaultToolPane.Right;
-            _filename = Workspace.Instance.ActiveEditor.FilePath;
+            _filename = WorkspaceViewModel.Instance.ActiveEditor.FilePath;
             Width = 619;
             Height = 506;
         }

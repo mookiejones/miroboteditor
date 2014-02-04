@@ -40,7 +40,7 @@ namespace miRobotEditor.Templates
             {
                 var item = cell.CurrentCell.Item as IVariable;
 
-                if ((item != null) && (File.Exists(item.Path))) Workspace.Instance.OpenFile(item);
+                if ((item != null) && (File.Exists(item.Path))) WorkspaceViewModel.Instance.OpenFile(item);
             }
             e.Handled = true;
         }

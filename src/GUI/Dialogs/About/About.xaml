@@ -16,7 +16,7 @@
             <!--            <Image Height="32" Width="32" Margin="5,0" Source="{Binding Image, Converter={StaticResource iconConverter}}" />
     -->
             <StackPanel Margin="5,5,5,5">
-                <TextBlock TextBlock.FontWeight="Bold" Margin="0,3" Text="{Binding Name}" />
+                <TextBlock FontWeight="Bold" Margin="0,3" Text="{Binding Name}" />
                 <TextBlock Margin="0,3" Text="{Binding Version}" />
                 <TextBlock Margin="0,3" Text="{Binding OSVersion}" />
                 <TextBlock Margin="0,3" Text="{Binding WorkingSetMemory}" />

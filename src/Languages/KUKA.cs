@@ -10,6 +10,7 @@ using miRobotEditor.Classes;
 using miRobotEditor.GUI;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Properties;
+using miRobotEditor.Resources.StringResources;
 using miRobotEditor.Snippets;
 using miRobotEditor.ViewModel;
 using System;
@@ -122,7 +123,8 @@ namespace miRobotEditor.Languages
         {
             using (var ofd = new System.Windows.Forms.OpenFileDialog())
             {
-                ofd.Filter = Resources.KUKA_SystemFileName_KUKA_VxWorks_File__vxWorks_rt_VxWorks_Debug__vxWorks_rt_vxWorks_debug;
+                ofd.Filter =
+                   ofd.Filter = Findahome.KUKA_SystemFileName_KUKA_VxWorks_File__vxWorks_rt_VxWorks_Debug__vxWorks_rt_vxWorks_debug;
                 ofd.InitialDirectory = @"C:\krc\bin\";
                 if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -181,7 +183,7 @@ namespace miRobotEditor.Languages
 
         #endregion Code Completion Section
 
-        public override string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables)
+        public override string IsLineMotion(string lineValue, ICollection<IVariable> variables)
         {
             if (lineValue.Trim().StartsWith(";FOLD ", StringComparison.OrdinalIgnoreCase))
                 lineValue = lineValue.Replace(";FOLD", String.Empty);

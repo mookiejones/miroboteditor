@@ -3,7 +3,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
-using miRobotEditor.GUI;
+using miRobotEditor.Resources.StringResources;
 using miRobotEditor.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -73,31 +73,117 @@ namespace miRobotEditor.Languages
 
         #region Properties
 
-        private DirectoryInfo _rootpath;
+        
 
-        public DirectoryInfo RootPath { get { return _rootpath; } set { _rootpath = value; RaisePropertyChanged("RootPath"); } }
+        #region RootPath
+        /// <summary>
+        /// The <see cref="RootPath" /> property's name.
+        /// </summary>
+        public const string RootPathPropertyName = "RootPath";
 
-        internal const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
+        private DirectoryInfo _rootPath = default(DirectoryInfo);
 
-        private string _filename = String.Empty;
+        /// <summary>
+        /// Sets and gets the RootPath property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public DirectoryInfo RootPath
+        {
+            get
+            {
+                return _rootPath;
+            }
 
+            set
+            {
+                if (_rootPath == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(RootPathPropertyName);
+                _rootPath = value;
+                RaisePropertyChanged(RootPathPropertyName);
+            }
+        }
+        #endregion
+
+        
+
+        #region FileName
+        /// <summary>
+        /// The <see cref="FileName" /> property's name.
+        /// </summary>
+        public const string FileNamePropertyName = "FileName";
+
+        private string _filename = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the FileName property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string FileName
         {
-            get { return _filename; }
-            set { _filename = value; RaisePropertyChanged("FileName"); }
+            get
+            {
+                return _filename;
+            }
+
+            set
+            {
+                if (_filename == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(FileNamePropertyName);
+                _filename = value;
+                RaisePropertyChanged(FileNamePropertyName);
+            }
         }
+        #endregion
 
-        private MenuItem _robotmenuitems;
+        
 
+        #region RobotMenuItems
+        /// <summary>
+        /// The <see cref="RobotMenuItems" /> property's name.
+        /// </summary>
+        public const string RobotMenuItemsPropertyName = "RobotMenuItems";
+
+        private MenuItem _robotmenuitemsItem = null;
+
+        /// <summary>
+        /// Sets and gets the RobotMenuItems property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public MenuItem RobotMenuItems
         {
             get
             {
-                return _robotmenuitems;
+                return _robotmenuitemsItem;
             }
-            set { _robotmenuitems = value; RaisePropertyChanged("RobotMenuItems"); }
-        }
 
+            set
+            {
+                if (_robotmenuitemsItem == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(RobotMenuItemsPropertyName);
+                _robotmenuitemsItem = value;
+                RaisePropertyChanged(RobotMenuItemsPropertyName);
+            }
+        }
+        #endregion
+        
+
+        internal const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
+
+     
+
+       
         public string Name { get { return RobotType == Typlanguage.None ? String.Empty : RobotType.ToString(); } }
 
         internal string DataName { get; private set; }
@@ -109,20 +195,111 @@ namespace miRobotEditor.Languages
 
         // ReSharper restore UnusedAutoPropertyAccessor.Local
 
-        private readonly ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
-        private readonly ReadOnlyObservableCollection<IVariable> _readOnlyBrowserVariables = null;
+        
 
-        public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable { get { return _readOnlyBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables); } }
+        #region ObjectBrowserVariables
+        /// <summary>
+        /// The <see cref="ObjectBrowserVariables" /> property's name.
+        /// </summary>
+        public const string ObjectBrowserVariablesPropertyName = "ObjectBrowserVariables";
 
-        private readonly ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
-        private readonly ReadOnlyObservableCollection<MenuItem> _readonlyMenuItems = null;
+        private ICollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
 
-        public ReadOnlyObservableCollection<MenuItem> MenuItems { get { return _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems); } }
+        /// <summary>
+        /// Sets and gets the ObjectBrowserVariables property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public ICollection<IVariable> ObjectBrowserVariables
+        {
+            get
+            {
+                return _objectBrowserVariables;
+            }
 
-        private readonly List<FileInfo> _files = new List<FileInfo>();
-        private readonly ReadOnlyCollection<FileInfo> _readOnlyFiles = null;
+            set
+            {
+                if (_objectBrowserVariables == value)
+                {
+                    return;
+                }
 
-        public ReadOnlyCollection<FileInfo> Files { get { return _readOnlyFiles ?? new ReadOnlyCollection<FileInfo>(_files); } }
+                RaisePropertyChanging(ObjectBrowserVariablesPropertyName);
+                _objectBrowserVariables = value;
+                RaisePropertyChanged(ObjectBrowserVariablesPropertyName);
+            }
+        }
+        #endregion
+
+        
+
+        #region MenuItems
+        /// <summary>
+        /// The <see cref="MenuItems" /> property's name.
+        /// </summary>
+        public const string MenuItemsPropertyName = "MenuItems";
+
+        private ICollection<MenuItem> _menuItems = new Collection<MenuItem>();
+
+        /// <summary>
+        /// Sets and gets the MenuItems property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public ICollection<MenuItem> MenuItems
+        {
+            get
+            {
+                return _menuItems;
+            }
+
+            set
+            {
+                if (_menuItems == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(MenuItemsPropertyName);
+                _menuItems = value;
+                RaisePropertyChanged(MenuItemsPropertyName);
+            }
+        }
+        #endregion
+
+        
+
+        #region Files
+        /// <summary>
+        /// The <see cref="Files" /> property's name.
+        /// </summary>
+        public const string FilesPropertyName = "Files";
+
+        private ICollection<FileInfo> _filesInfos = new ObservableCollection<FileInfo>();
+
+        /// <summary>
+        /// Sets and gets the Files property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public ICollection<FileInfo> Files
+        {
+            get
+            {
+                return _filesInfos;
+            }
+
+            set
+            {
+                if (_filesInfos == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(FilesPropertyName);
+                _filesInfos = value;
+                RaisePropertyChanged(FilesPropertyName);
+            }
+        }
+        #endregion
+        
 
         /// <summary>
         /// Text of _files For searching
@@ -169,41 +346,253 @@ namespace miRobotEditor.Languages
 
         public static int FileCount { get; private set; }
 
-        internal readonly List<IVariable> _allVariables = new List<IVariable>();
-        private readonly ReadOnlyCollection<IVariable> _readOnlyAllVariables = null;
+        
 
-        public ReadOnlyCollection<IVariable> AllVariables { get { return _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables); } }
+        #region AllVariables
+        /// <summary>
+        /// The <see cref="AllVariables" /> property's name.
+        /// </summary>
+        public const string AllVariablesPropertyName = "AllVariables";
 
-        private List<IVariable> _functions = new List<IVariable>();
-        private readonly ReadOnlyCollection<IVariable> _readOnlyFunctions = null;
+        private List<IVariable> _allVariables = new List<IVariable>();
 
-        public ReadOnlyCollection<IVariable> Functions { get { return _readOnlyFunctions ?? new ReadOnlyCollection<IVariable>(_functions); } }
+        /// <summary>
+        /// Sets and gets the AllVariables property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public List<IVariable> AllVariables
+        {
+            get
+            {
+                return _allVariables;
+            }
 
-        private List<IVariable> _fields = new List<IVariable>();
-        private readonly ReadOnlyCollection<IVariable> _readOnlyFields = null;
+            set
+            {
+                if (_allVariables == value)
+                {
+                    return;
+                }
 
-        public ReadOnlyCollection<IVariable> Fields { get { return _readOnlyFields ?? new ReadOnlyCollection<IVariable>(_fields); } }
+                RaisePropertyChanging(AllVariablesPropertyName);
+                _allVariables = value;
+                RaisePropertyChanged(AllVariablesPropertyName);
+            }
+        }
+        #endregion
+
+        
+
+        #region Functions
+        /// <summary>
+        /// The <see cref="Functions" /> property's name.
+        /// </summary>
+        public const string FunctionsPropertyName = "Functions";
+
+        private List<IVariable> _functionsVariables = new List<IVariable>();
+
+        /// <summary>
+        /// Sets and gets the Functions property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public List<IVariable> Functions
+        {
+            get
+            {
+                return _functionsVariables;
+            }
+
+            set
+            {
+                if (_functionsVariables == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(FunctionsPropertyName);
+                _functionsVariables = value;
+                RaisePropertyChanged(FunctionsPropertyName);
+            }
+        }
+        #endregion
+
+
+
+        #region Fields
+        /// <summary>
+        /// The <see cref="Fields" /> property's name.
+        /// </summary>
+        public const string FieldsPropertyName = "Functions";
+
+        private List<IVariable> _fieldsCollection = new List<IVariable>();
+
+        /// <summary>
+        /// Sets and gets the Functions property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public List<IVariable> Fields
+        {
+            get
+            {
+                return _fieldsCollection;
+            }
+
+            set
+            {
+                if (_fieldsCollection == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(FieldsPropertyName);
+                _fieldsCollection = value;
+                RaisePropertyChanged(FieldsPropertyName);
+            }
+        }
+        #endregion
+
+
+        
+
+        #region Positions
+        /// <summary>
+        /// The <see cref="Positions" /> property's name.
+        /// </summary>
+        public const string PositionsPropertyName = "Positions";
 
         private List<IVariable> _positions = new List<IVariable>();
-        private readonly ReadOnlyCollection<IVariable> _readOnlypositions = null;
 
-        public ReadOnlyCollection<IVariable> Positions { get { return _readOnlypositions ?? new ReadOnlyCollection<IVariable>(_positions); } }
+        /// <summary>
+        /// Sets and gets the Positions property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public List<IVariable> Positions
+        {
+            get
+            {
+                return _positions;
+            }
 
-        private readonly List<IVariable> _enums = new List<IVariable>();
-        private readonly ReadOnlyCollection<IVariable> _readOnlyenums = null;
+            set
+            {
+                if (_positions == value)
+                {
+                    return;
+                }
 
-        public ReadOnlyCollection<IVariable> Enums { get { return _readOnlyenums ?? new ReadOnlyCollection<IVariable>(_enums); } }
+                RaisePropertyChanging(PositionsPropertyName);
+                _positions = value;
+                RaisePropertyChanged(PositionsPropertyName);
+            }
+        }
+        #endregion
 
-        private readonly List<IVariable> _structures = new List<IVariable>();
-        private readonly ReadOnlyCollection<IVariable> _readOnlystructures = null;
+        
 
-        public ReadOnlyCollection<IVariable> Structures { get { return _readOnlystructures ?? new ReadOnlyCollection<IVariable>(_structures); } }
+        #region Enums
+        /// <summary>
+        /// The <see cref="Enums" /> property's name.
+        /// </summary>
+        public const string EnumsPropertyName = "Enums";
 
-        private readonly List<IVariable> _signals = new List<IVariable>();
-        private readonly ReadOnlyCollection<IVariable> _readOnlysignals = null;
+        private List<IVariable> _enumsVariables = new List<IVariable>();
 
-        public ReadOnlyCollection<IVariable> Signals { get { return _readOnlysignals ?? new ReadOnlyCollection<IVariable>(_signals); } }
+        /// <summary>
+        /// Sets and gets the Enums property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public List<IVariable> Enums
+        {
+            get
+            {
+                return _enumsVariables;
+            }
 
+            set
+            {
+                if (_enumsVariables == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(EnumsPropertyName);
+                _enumsVariables = value;
+                RaisePropertyChanged(EnumsPropertyName);
+            }
+        }
+        #endregion
+
+
+        
+
+        #region Structures
+        /// <summary>
+        /// The <see cref="Structures" /> property's name.
+        /// </summary>
+        public const string StructuresPropertyName = "Structures";
+
+        private List<IVariable> _structures = new List<IVariable>();
+
+        /// <summary>
+        /// Sets and gets the Structures property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public List<IVariable> Structures
+        {
+            get
+            {
+                return _structures;
+            }
+
+            set
+            {
+                if (_structures == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(StructuresPropertyName);
+                _structures = value;
+                RaisePropertyChanged(StructuresPropertyName);
+            }
+        }
+        #endregion
+
+        
+
+        #region Signals
+        /// <summary>
+        /// The <see cref="Signals" /> property's name.
+        /// </summary>
+        public const string SignalsPropertyName = "Signals";
+
+        private List<IVariable> _signalsVariables = new List<IVariable>();
+
+        /// <summary>
+        /// Sets and gets the Signals property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public List<IVariable> Signals
+        {
+            get
+            {
+                return _signalsVariables;
+            }
+
+            set
+            {
+                if (_signalsVariables == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(SignalsPropertyName);
+                _signalsVariables = value;
+                RaisePropertyChanged(SignalsPropertyName);
+            }
+        }
+        #endregion
+      
         #endregion Properties
 
         #region Abstract
@@ -259,7 +648,7 @@ namespace miRobotEditor.Languages
         /// <param name="lineValue"></param>
         /// <param name="variables"></param>
         /// <returns>Positional Value</returns>
-        public abstract string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables);
+        public abstract string IsLineMotion(string lineValue, ICollection<IVariable> variables);
 
         public abstract DocumentViewModel GetFile(string filename);
 
@@ -556,7 +945,7 @@ namespace miRobotEditor.Languages
             Thread.Sleep(500);
 
             stopwatch.Stop();
-            Console.WriteLine("{0}ms to parse shift", stopwatch.ElapsedMilliseconds);
+            Console.WriteLine(Findahome.TimeToParse, stopwatch.ElapsedMilliseconds);
 
             return doc.Text;
         }
@@ -617,7 +1006,7 @@ namespace miRobotEditor.Languages
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError("Get Root Directory", ex);
+                MessageViewModel.AddError(Findahome.GetRootDirectory, ex);
             }
 
             // Need to get further to the root so that i can interrogate system files as well.
@@ -640,10 +1029,10 @@ namespace miRobotEditor.Languages
                         var file = new FileInfo(f);
                         if (file.Name.ToLower() == "kuka_con.mdb")
                             _kukaCon = file.FullName;
-                        _files.Add(file);
+                        _filesInfos.Add(file);
                     }
                     catch (Exception e)
-                    { MessageViewModel.AddError("Error When Getting Files for Object Browser", e); }
+                    { MessageViewModel.AddError(Findahome.ErrorGettingFiles, e); }
                 }
 
                 GetRootFiles(d);
@@ -681,6 +1070,10 @@ namespace miRobotEditor.Languages
             _bw.ProgressChanged += _bw_ProgressChanged;
             _bw.RunWorkerCompleted += bw_RunWorkerCompleted;
             _bw.RunWorkerAsync();
+
+
+          
+
         }
 
         private void _bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -690,6 +1083,10 @@ namespace miRobotEditor.Languages
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+
+
+
+
             RaisePropertyChanged("Functions");
             RaisePropertyChanged("Fields");
             RaisePropertyChanged("Files");
@@ -699,27 +1096,30 @@ namespace miRobotEditor.Languages
             // Dispose of Background worker
             _bw = null;
             //TODO Open Variable Monitor
-            Workspace.Instance.EnableIO = File.Exists(_kukaCon);
+            WorkspaceViewModel.Instance.EnableIO = File.Exists(_kukaCon);
             IOModel = new IOViewModel(_kukaCon);
+
+
+          
         }
 
         private void backgroundVariableWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BWFilesMax = Files.Count;
             var i = 0;
-            _functions = new List<IVariable>();
-            _fields = new List<IVariable>();
+            _functionsVariables = new List<IVariable>();
+            _fieldsCollection = new List<IVariable>();
             _positions = new List<IVariable>();
             foreach (var f in Files)
             {
                 // Check to see if file is ok to check for values
                 if (IsFileValid(f))
                 {
-                    _functions.AddRange(FindMatches(MethodRegex, Global.ImgMethod, f.FullName));
+                    _functionsVariables.AddRange(FindMatches(MethodRegex, Global.ImgMethod, f.FullName));
                     _structures.AddRange(FindMatches(StructRegex, Global.ImgStruct, f.FullName));
-                    _fields.AddRange(FindMatches(FieldRegex, Global.ImgField, f.FullName));
-                    _signals.AddRange(FindMatches(SignalRegex, Global.ImgSignal, f.FullName));
-                    _enums.AddRange(FindMatches(EnumRegex, Global.ImgEnum, f.FullName));
+                    _fieldsCollection.AddRange(FindMatches(FieldRegex, Global.ImgField, f.FullName));
+                    _signalsVariables.AddRange(FindMatches(SignalRegex, Global.ImgSignal, f.FullName));
+                    _enumsVariables.AddRange(FindMatches(EnumRegex, Global.ImgEnum, f.FullName));
                     _positions.AddRange(FindMatches(XYZRegex, Global.ImgXyz, f.FullName));
                 }
                 i++;
@@ -759,7 +1159,7 @@ namespace miRobotEditor.Languages
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError("Find Matches", ex);
+                MessageViewModel.AddError(Findahome.FindMatches, ex);
             }
 
             return result;

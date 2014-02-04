@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
 using miRobotEditor.Core;
+using miRobotEditor.Resources;
+using miRobotEditor.Resources.StringResources;
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.GUI.Dialogs.About
@@ -19,7 +21,7 @@ namespace miRobotEditor.GUI.Dialogs.About
         public About( )
         {
             InitializeComponent();
-            var localUrl = Properties.Resources.Website;
+            var localUrl = Findahome.Website;
             Hyperlink.NavigateUri = new Uri(localUrl);
             HyperlinkText.Text = localUrl;
         }

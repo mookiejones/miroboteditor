@@ -2,8 +2,8 @@
                     xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/Styles\Brushes.xaml" />
-</ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/miRobotEditor.Resources;component/Brushes/Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <ItemsPanelTemplate x:Key="Sbitems">
         <Grid>

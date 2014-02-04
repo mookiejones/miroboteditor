@@ -1,5 +1,7 @@
 ﻿using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using miRobotEditor.GUI.Editor;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Commands
 {
@@ -24,11 +26,33 @@ namespace miRobotEditor.Commands
 
         private static void ExecuteChangeIndentCommand(object param)
         {
-            Workspace.Instance.ActiveEditor.TextBox.ChangeIndent(param);
+            WorkspaceViewModel.Instance.ActiveEditor.TextBox.ChangeIndent(param);
         }
         #endregion
-     
-   
+
+
+        #region ToggleIntellisenseCommand
+
+        private static RelayCommand<EditorOptions> _toggleIntellisenseCommand;
+        /// <summary>
+        /// Gets the ToggleIntellisenseCommand.
+        /// </summary>
+        public static RelayCommand<EditorOptions> ToggleIntellisenseCommand
+        {
+            get
+            {
+                return _toggleIntellisenseCommand
+                    ?? (_toggleIntellisenseCommand = new RelayCommand<EditorOptions>(ExecuteToggleIntellisense));
+            }
+        }
+
+        private static void ExecuteToggleIntellisense(EditorOptions options)
+        {
+            options.AllowIntellisense=!options.AllowIntellisense;
+        }
+        #endregion
+
+
 
         public static RoutedCommand AddNewFileCommand = new RoutedCommand();
     }

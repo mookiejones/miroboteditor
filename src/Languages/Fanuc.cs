@@ -37,7 +37,7 @@ namespace miRobotEditor.Languages
                 return EXT;
             }
         }
-        public override string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables)
+        public override string IsLineMotion(string lineValue, ICollection<IVariable> variables)
         {
             //"  64:J PR[15:G1 G2 Common Pos] 100% CNT50    ;"
 
