@@ -3,6 +3,8 @@ using miRobotEditor.Annotations;
 using miRobotEditor.Core;
 using miRobotEditor.Forms;
 using miRobotEditor.Properties;
+using miRobotEditor.Resources;
+using miRobotEditor.Resources.StringResources;
 using miRobotEditor.ViewModel;
 using System;
 using System.ComponentModel;
@@ -18,6 +20,9 @@ using DragEventArgs = System.Windows.DragEventArgs;
 namespace miRobotEditor
 {
     using Classes;
+    using GalaSoft.MvvmLight.Messaging;
+    using miRobotEditor.Classes.Messages;
+    using miRobotEditor.WindowMessages;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -48,7 +53,10 @@ namespace miRobotEditor
             InitializeComponent();
             ThemeManager.ChangeTheme(this, _currentAccent, _currentTheme);
             KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);
+            Messenger.Default.Register<GetFileMessage>(this,GetFileNames);
         }
+
+
 
         #endregion Constructor
 
@@ -64,25 +72,32 @@ namespace miRobotEditor
             LoadOpenFiles();
 
             ProcessArgs();
+
+
             //Load Files that were closed with the window the last time the Program was executed
-            if ((docpane != null && docpane.ChildrenCount == 0) & (Workspace.Instance.Files.Count < 1))
-                Workspace.Instance.AddNewFile();
+            if ((docpane != null && docpane.ChildrenCount == 0) & (WorkspaceViewModel.Instance.Files.Count < 1))
+                WorkspaceViewModel.Instance.AddNewFile();
         }
 
         #endregion · Public Methods ·
 
-        private static void OpenFile(string filename)
-        {
-            Workspace.Instance.Open(filename);
-        }
+    //   private static void OpenFile(string filename)
+    //   {
+    //       WorkspaceViewModel.Instance.Open(filename);
+    //   }
 
         private static void LoadOpenFiles()
         {
             var s = Settings.Default.OpenDocuments.Split(';');
+          
             for (var i = 0; i < s.Length - 1; i++)
             {
                 if (File.Exists(s[i]))
-                    OpenFile(s[i]);
+                {
+                    Messenger.Default.Send<OpenFileMessage>(new OpenFileMessage(s[i]));
+//                    OpenFile(s[i]);
+                }
+
             }
         }
 
@@ -95,7 +110,9 @@ namespace miRobotEditor
 
             for (var i = 1; i < args.Length; i++)
             {
-                OpenFile(args[i]);
+                Messenger.Default.Send<OpenFileMessage>(new OpenFileMessage(args[i]));
+
+//                OpenFile(args[i]);
             }
         }
 
@@ -107,8 +124,8 @@ namespace miRobotEditor
             foreach (var t in files)
             {
                 //TODO This Magically Works
-                MessageViewModel.Instance.Add("File Dropped", String.Format("Opening:={0}", t), MsgIcon.Info);
-                Workspace.Instance.Open(t);
+                MessageViewModel.Instance.Add(Findahome.FileDropped, String.Format(Findahome.OpeningFile, t), MsgIcon.Info);
+                WorkspaceViewModel.Instance.Open(t);
             }
         }
 
@@ -168,7 +185,7 @@ namespace miRobotEditor
 
             SaveLayout();
 
-            Workspace.Instance.IsClosing = true;          
+            WorkspaceViewModel.Instance.IsClosing = true;          
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -176,6 +193,7 @@ namespace miRobotEditor
             //   LoadLayout();
             LoadItems();
             Splasher.CloseSplash();
+            Console.WriteLine("Loaded Items");
         }
 
         private void SaveLayout()
@@ -188,8 +206,17 @@ namespace miRobotEditor
         [UsedImplicitly]
         private void LoadLayout()
         {
-            var serializer = new XmlLayoutSerializer(DockManager);
-            using (new StreamReader(Global.DockConfig)) serializer.Deserialize(Global.DockConfig);
+            try
+            {
+                var serializer = new XmlLayoutSerializer(DockManager);
+                if (File.Exists(Global.DockConfig))
+                    using (new StreamReader(Global.DockConfig)) serializer.Deserialize(Global.DockConfig);
+
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         public void CloseWindow(object param)
@@ -203,6 +230,12 @@ namespace miRobotEditor
                 docpane.Children.Remove(c);
                 return;
             }
+        }
+
+        private void GetFileNames(GetFileMessage msg)
+        {
+            msg.GetFile(this);
+            msg.Callback(msg);
         }
     }
 }
