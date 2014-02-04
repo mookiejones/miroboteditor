@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
+using miRobotEditor.Resources.StringResources;
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Classes
@@ -85,7 +86,7 @@ namespace miRobotEditor.Classes
             var s = e.Argument as WorkerArgs;
             if (s == null) return;
             var icon = Utilities.LoadBitmap(s.IconPath);
-            var lang = Workspace.Instance.ActiveEditor.FileLanguage;
+            var lang = WorkspaceViewModel.Instance.ActiveEditor.FileLanguage;
 
             var m = VariableHelper.FindMatches(s.Lang.XYZRegex, s.Filename);
             var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath);
@@ -115,13 +116,13 @@ namespace miRobotEditor.Classes
             var result = new List<IVariable>();
             var icon = Utilities.LoadBitmap(iconpath);
 
-            var lang = Workspace.Instance.ActiveEditor.FileLanguage;
+            var lang = WorkspaceViewModel.Instance.ActiveEditor.FileLanguage;
             var m = VariableHelper.FindMatches(regex, filename);
             var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(icon.UriSource.AbsolutePath);
             var isxyz = fileNameWithoutExtension.Contains("XYZ");
             if (m == null)
             {
-                MessageViewModel.Instance.Add("Variable for " + lang.RobotType, "Does not exist in VariableBase.GetVariables", MsgIcon.Error);
+                MessageViewModel.Instance.Add(ErrorResources.DoesNotExist,string.Format(ErrorResources.VariableNotExist, lang.RobotType), MsgIcon.Error);
                 return null;
             }
 

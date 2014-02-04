@@ -44,14 +44,19 @@ namespace miRobotEditor.Classes
         //          return bitSrc;
         //      }
 
-        public static ImageSource GetIcon(string fileName)
-        {
-            var bi = new BitmapImage();
-            bi.BeginInit();
-            bi.UriSource = new Uri(fileName);
-            bi.EndInit();
-            return bi;
-        }
+       public static ImageSource GetIcon(string resourcename)
+       {
+
+           System.Windows.Controls.Image img = App.Current.FindResource(resourcename) as System.Windows.Controls.Image;
+           return img.Source;
+
+        //  var bi = new BitmapImage();
+        //  bi.BeginInit();
+        //  bi.UriSource = new Uri(fileName);
+        //  bi.EndInit();
+        //  return bi;
+       }
+
 
         /// <summary>
         /// Load Bitmap and Convert to Bitmap Image
