@@ -43,7 +43,7 @@ namespace miRobotEditor.GUI.Editor
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            var currentWord = Workspace.Instance.ActiveEditor.TextBox.FindWord();
+            var currentWord = WorkspaceViewModel.Instance.ActiveEditor.TextBox.FindWord();
             var offs = completionSegment.Offset - currentWord.Length;
             // Create New AnchorSegment 
             textArea.Document.Replace(offs, currentWord.Length, Text);

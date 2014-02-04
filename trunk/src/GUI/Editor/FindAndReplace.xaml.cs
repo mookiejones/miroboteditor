@@ -524,7 +524,7 @@ namespace miRobotEditor.GUI.Editor
 
         private void Find()
         {
-            Workspace.Instance.ActiveEditor.TextBox.FindText(FindString);
+            WorkspaceViewModel.Instance.ActiveEditor.TextBox.FindText(FindString);
         }
 
         private bool FindAll(string filePath)
@@ -688,11 +688,11 @@ namespace miRobotEditor.GUI.Editor
             else
                 StatusText = string.Format("{0} files were updated by the operation", e.Result);
 
-            if (Workspace.Instance.Tools.Any(i => i.Name == "Search Results"))
+            if (WorkspaceViewModel.Instance.Tools.Any(i => i.Name == "Search Results"))
             {
                 return;
             }
-            Workspace.Instance.AddTool(this);
+            WorkspaceViewModel.Instance.AddTool(this);
         }
 
         private void lnkBrowse_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -901,7 +901,7 @@ namespace miRobotEditor.GUI.Editor
 
         private static void FindNext()
         {
-            Workspace.Instance.ActiveEditor.TextBox.FindText();
+            WorkspaceViewModel.Instance.ActiveEditor.TextBox.FindText();
         }
 
         private static void Replace(IDocument document)

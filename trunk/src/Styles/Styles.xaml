@@ -2,7 +2,7 @@
                       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="Brushes.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/miRobotEditor.Resources;component/Brushes/Brushes.xaml"/>
 </ResourceDictionary.MergedDictionaries>
         <Style x:Key="DataGridStyle"  TargetType="DataGrid">
             <Setter Property="RowBackground" Value="#FFFFFF" />
@@ -40,7 +40,9 @@
                             </Grid.ColumnDefinitions>
 
                             <Rectangle x:Name="BackgroundRectangle"  Stretch="Fill"  Fill="{DynamicResource HighlightDarkBrush}" Grid.ColumnSpan="2" Grid.RowSpan="2"  />
-                            <Border BorderBrush="Transparent" BorderThickness="1,1,1,1"  Grid.ColumnSpan="3" Grid.RowSpan="3">
+                            <Border BorderBrush="Transparent" BorderThickness="1,1,1,1"  Grid.ColumnSpan="3"
+                                    Grid.Column="0" Grid.Row="0"
+                                    Grid.RowSpan="3">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="0.5*"/>
@@ -52,7 +54,8 @@
                                    Background="#66000000" 
                                    Opacity="0"/>
                                     <!--glow-->
-                                    <Border Opacity="0" HorizontalAlignment="Stretch" x:Name="glow" Width="Auto" Grid.RowSpan="2"  Grid.ColumnSpan="3">
+                                    <Border Opacity="0" HorizontalAlignment="Stretch" x:Name="glow" Width="Auto"
+                                            Grid.Row="0" Grid.RowSpan="2"  Grid.ColumnSpan="3">
                                         <Border.Background>
                                             <RadialGradientBrush>
                                                 <RadialGradientBrush.RelativeTransform>
@@ -71,8 +74,8 @@
                                     <!--shine-->
                                     <Border HorizontalAlignment="Stretch" 
                                          Margin="0,0,0,0" x:Name="shine" 
-                                         Width="Auto" 
-                                         Grid.ColumnSpan="3">
+                                         Width="Auto"
+                                            Grid.Row="0" Grid.ColumnSpan="3">
                                         <Border.Background>
                                             <LinearGradientBrush EndPoint="0.5,0.9" 
                                                 StartPoint="0.5,0.1">
@@ -85,19 +88,19 @@
                                     </Border>
                                 </Grid>
                             </Border>
-                        <ContentPresenter x:Name="HeaderText"   Grid.RowSpan="2" 
-                                              
-                          Content="{TemplateBinding Content}" 
+                        <ContentPresenter x:Name="HeaderText" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+
+                                          Content="{TemplateBinding Content}" 
                           Cursor="{TemplateBinding Cursor}" 
                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
                           Margin="10,0,0,0" />
-                            <Rectangle Name="VerticalSeparator" 
-                           Grid.RowSpan="2" Grid.Column="2" 
+                            <Rectangle Name="VerticalSeparator"
+                                       Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" 
                            Width="1" VerticalAlignment="Stretch" 
                            Fill="{TemplateBinding SeparatorBrush}" 
                            Visibility="{TemplateBinding SeparatorVisibility}" />
-                            <Path Grid.RowSpan="2" Name="SortIcon" 
+                            <Path Grid.Row="0" Grid.RowSpan="2" Name="SortIcon" 
                           RenderTransformOrigin=".5,.5" 
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Center" Opacity="0" 

@@ -150,7 +150,7 @@ namespace miRobotEditor.Languages
             return new DocumentViewModel(filepath);
         }
 
-        public override string IsLineMotion(string lineValue, ReadOnlyCollection<IVariable> variables)
+        public override string IsLineMotion(string lineValue, ICollection<IVariable> variables)
         {
             throw new NotImplementedException();
         }

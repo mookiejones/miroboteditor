@@ -3,7 +3,7 @@
                     xmlns:controls="clr-namespace:miRobotEditor.Controls"
                     >
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Styles\Brushes.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/miRobotEditor.Resources;component/Brushes/Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style TargetType="TextBlock" x:Key="ExtendedTextBlock">  
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -189,7 +189,7 @@
                                
                                     <Path Data="M0,0 L0,16 S0,18 2,18 L60,18 s0,0 2,-1 L80,0" x:Name="border"   RenderTransformOrigin="0.5,0.5" Opacity="1"/>                     
                             </Border>
-                            <TextBlock Text="{TemplateBinding Tag}" HorizontalAlignment="Center" Style="{StaticResource ExtendedTextBlock}"/>
+                            <TextBlock Text="{TemplateBinding Tag}" Style="{StaticResource ExtendedTextBlock}"/>
 
                         </Grid>
                     </Grid>

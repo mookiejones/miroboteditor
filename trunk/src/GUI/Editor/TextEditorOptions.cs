@@ -226,6 +226,42 @@ namespace miRobotEditor.GUI.Editor
 
         #region Boolean
 
+        
+
+        #region AllowIntellisense
+        /// <summary>
+        /// The <see cref="AllowIntellisense" /> property's name.
+        /// </summary>
+        public const string AllowIntellisensePropertyName = "AllowIntellisense";
+
+        private bool _allowIntellisense = false;
+
+        /// <summary>
+        /// Sets and gets the AllowIntellisense property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool AllowIntellisense
+        {
+            get
+            {
+                return _allowIntellisense;
+            }
+
+            set
+            {
+                if (_allowIntellisense == value)
+                {
+                    return;
+                }
+
+                _allowIntellisense = value;
+                OnPropertyChanged(AllowIntellisensePropertyName);
+            }
+        }
+        #endregion
+        
+
+
         private bool _wrapWords = true;
 
         public bool WrapWords { get { return _wrapWords; } set { _wrapWords = value; OnPropertyChanged("WrapWords"); } }

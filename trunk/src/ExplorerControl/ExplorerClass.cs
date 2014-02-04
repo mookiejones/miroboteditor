@@ -12,6 +12,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using miRobotEditor.Resources.StringResources;
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.ExplorerControl
@@ -149,7 +150,7 @@ namespace miRobotEditor.ExplorerControl
 				}
 				catch (Exception ex)
 				{
-				    MessageViewModel.AddError("ExplorerClass",ex);				
+				    MessageViewModel.AddError(ErrorResources.ExplorerClassError,ex);				
 				}
 			}
 		}
@@ -280,7 +281,7 @@ namespace miRobotEditor.ExplorerControl
 				}
 				catch (Exception ex)
 				{
-				    MessageViewModel.AddError("ExplorerClass.FillTreeNode",ex);
+				    MessageViewModel.AddError(String.Format(ErrorResources.ExplorerClassError,"FillTreeNode"),ex);
 					Cursor = Cursors.Default;
 				}
 			}

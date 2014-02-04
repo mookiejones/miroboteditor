@@ -48,7 +48,7 @@
             
             <TextBox  x:Name="EnteredText" Text="{Binding EnteredText, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
             <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Margin="5" >
-                <Button x:Name="btnOK" Click="{Binding OkCommand}"  Content="_OK"/>
+                <Button x:Name="btnOK"   Content="_OK" Command="{Binding OKCommand, Mode=OneWay}"/>
                 <Button x:Name="btnCancel" Click="{Binding CancelCommand}" Content="_Cancel"  />
             </StackPanel>
         </StackPanel>
@@ -78,6 +78,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
+                                        <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
@@ -85,9 +86,9 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <Image Source="{Binding Icon}" Grid.RowSpan="3"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding SelectedMessage.Title , StringFormat=Title     \{0\}}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedMessage.Title , StringFormat=Title     \{0\}}"/>
                                     <Separator Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
-                                    <Separator />
+                                    <Separator Grid.Row="0" Grid.Column="0" />
                                     <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedMessage.Description , StringFormat=Description     \{0\}}"/>
                                 </Grid>
                             </DataTemplate>
