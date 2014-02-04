@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using miRobotEditor.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -374,7 +373,7 @@ namespace miRobotEditor.Classes
 
             if (File.Exists(filepath))
             {
-                Workspace.Instance.Open(filepath);
+                WorkspaceViewModel.Instance.Open(filepath);
             }
             else
                 PromptForDelete(filepath);
@@ -698,50 +697,57 @@ namespace miRobotEditor.Classes
                         ms.Position = 0;
                     }
 
-                    XmlTextReader x = null;
 
                     try
                     {
-                        x = new XmlTextReader(ms);
-
-                        while (x.Read())
+                        using (var x = new XmlTextReader(ms))
                         {
-                            switch (x.NodeType)
+
+                            while (x.Read())
                             {
-                                case XmlNodeType.XmlDeclaration:
-                                case XmlNodeType.Whitespace:
-                                    break;
+                                switch (x.NodeType)
+                                {
+                                    case XmlNodeType.XmlDeclaration:
+                                    case XmlNodeType.Whitespace:
+                                        break;
 
-                                case XmlNodeType.Element:
-                                    switch (x.Name)
-                                    {
-                                        case "RecentFiles": break;
+                                    case XmlNodeType.Element:
+                                        switch (x.Name)
+                                        {
+                                            case "RecentFiles":
+                                                break;
 
-                                        case "RecentFile":
-                                            if (list.Count < max) list.Add(x.GetAttribute(0));
-                                            break;
+                                            case "RecentFile":
+                                                if (list.Count < max) list.Add(x.GetAttribute(0));
+                                                break;
 
-                                        default: Debug.Assert(false); break;
-                                    }
-                                    break;
+                                            default:
+                                                Debug.Assert(false);
+                                                break;
+                                        }
+                                        break;
 
-                                case XmlNodeType.EndElement:
-                                    switch (x.Name)
-                                    {
-                                        case "RecentFiles": return list;
-                                        default: Debug.Assert(false); break;
-                                    }
-                                    break;
+                                    case XmlNodeType.EndElement:
+                                        switch (x.Name)
+                                        {
+                                            case "RecentFiles":
+                                                return list;
+                                            default:
+                                                Debug.Assert(false);
+                                                break;
+                                        }
+                                        break;
 
-                                default:
-                                    Debug.Assert(false);
-                                    break;
+                                    default:
+                                        Debug.Assert(false);
+                                        break;
+                                }
                             }
                         }
                     }
-                    finally
+                    catch(Exception ex)
                     {
-                        if (x != null) x.Close();
+                        Console.WriteLine(ex.ToString());
                     }
                 }
                 return list;
@@ -788,6 +794,7 @@ namespace miRobotEditor.Classes
                                 ss.Stream.Write(buffer, 0, bytes);
                             }
                         }
+
                     }
                     finally
                     {

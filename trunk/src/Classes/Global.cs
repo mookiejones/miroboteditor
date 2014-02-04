@@ -1,5 +1,4 @@
-﻿using miRobotEditor.Core;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Media;
@@ -62,6 +61,8 @@ namespace miRobotEditor.Classes
         /// </summary>
         public const string ImgInfo = "..\\..\\Resources\\info.png";
 
+
+       
         /// <summary>
         /// Constant ObjectBrowser Icon
         /// </summary>
@@ -75,22 +76,22 @@ namespace miRobotEditor.Classes
         /// <summary>
         /// Constant Variable Image
         /// </summary>
-        public const string ImgConst = "..\\..\\Resources\\vxconstant_icon.png";
+        public const string ImgConst = "ConstIconImage";
 
         /// <summary>
         /// Struct Variable Image
         /// </summary>
-        public const string ImgStruct = "..\\..\\Resources\\vxstruct_icon.png";
+        public const string ImgStruct = "StructIconImage";
 
         /// <summary>
         /// Method Variable Image
         /// </summary>
-        public const string ImgMethod = "..\\..\\Resources\\vxmethod_icon.png";
+        public const string ImgMethod = "FieldIconImage";
 
         /// <summary>
         /// Enum Variable Image
         /// </summary>
-        public const string ImgEnum = "..\\..\\Resources\\vxenum_icon.png";
+        public const string ImgEnum = "EnumIconImage";
 
         /// <summary>
         /// Field Variable Image
