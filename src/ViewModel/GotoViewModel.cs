@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using miRobotEditor.Classes;
 using miRobotEditor.GUI;
 
 namespace miRobotEditor.ViewModel

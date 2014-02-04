@@ -1,10 +1,7 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Classes;
-using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 
 namespace miRobotEditor.ViewModel

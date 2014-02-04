@@ -1,10 +1,11 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Classes;
-using miRobotEditor.GUI;
 using miRobotEditor.Languages;
+using miRobotEditor.Resources.StringResources;
 using System;
 using System.IO;
 using System.Windows;
+using strings = miRobotEditor.Properties.Resources;
 
 namespace miRobotEditor.ViewModel
 {
@@ -13,18 +14,21 @@ namespace miRobotEditor.ViewModel
         public KukaViewModel(string filepath, AbstractLanguageClass lang)
             : base(filepath, lang)
         {
-            Grid.Loaded += Grid_Loaded;
+            if (!IsInDesignMode)
+            {
+                Grid.Loaded += Grid_Loaded;
 
-            ShowGrid = false;
-            FileLanguage = lang;
-            Source.FileLanguage = FileLanguage;
-            Data.FileLanguage = FileLanguage;
-            Source.GotFocus += (s, e) => { TextBox = s as EditorClass; };
-            Data.GotFocus += (s, e) => { TextBox = s as EditorClass; };
-            Source.TextChanged += (s, e) => TextChanged(s);
-            Data.TextChanged += (s, e) => TextChanged(s);
-            Source.IsModified = false;
-            Data.IsModified = false;
+                ShowGrid = false;
+                FileLanguage = lang;
+                Source.FileLanguage = FileLanguage;
+                Data.FileLanguage = FileLanguage;
+                Source.GotFocus += (s, e) => { TextBox = s as EditorClass; };
+                Data.GotFocus += (s, e) => { TextBox = s as EditorClass; };
+                Source.TextChanged += (s, e) => TextChanged(s);
+                Data.TextChanged += (s, e) => TextChanged(s);
+                Source.IsModified = false;
+                Data.IsModified = false;
+            }
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -120,7 +124,7 @@ namespace miRobotEditor.ViewModel
         {
             CheckClose(Data);
             CheckClose(Source);
-            Workspace.Instance.Close(this);
+            WorkspaceViewModel.Instance.Close(this);
         }
 
         /// <summary>
@@ -132,7 +136,7 @@ namespace miRobotEditor.ViewModel
             if (txtBox != null)
                 if (txtBox.IsModified)
                 {
-                    var res = MessageBox.Show(string.Format("Save changes for file '{0}'?", txtBox.Filename), "miRobotEditor", MessageBoxButton.YesNoCancel);
+                    var res = MessageBox.Show(string.Format(Findahome.SaveChangesQuestion, txtBox.Filename), Findahome.AppName, MessageBoxButton.YesNoCancel);
                     if (res == MessageBoxResult.Cancel)
                         return;
                     if (res == MessageBoxResult.Yes)
