@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Messaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Classes.Messages;
+using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 using miRobotEditor.Properties;
 using miRobotEditor.WindowMessages;

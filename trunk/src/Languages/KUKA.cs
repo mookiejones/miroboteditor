@@ -9,8 +9,6 @@ using Microsoft.Win32;
 using miRobotEditor.Classes;
 using miRobotEditor.GUI;
 using miRobotEditor.GUI.Editor;
-using miRobotEditor.Properties;
-using miRobotEditor.Resources.StringResources;
 using miRobotEditor.Snippets;
 using miRobotEditor.ViewModel;
 using System;
@@ -21,7 +19,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Global = miRobotEditor.Classes.Global;
 using Utilities = miRobotEditor.Classes.Utilities;
 
@@ -124,7 +121,7 @@ namespace miRobotEditor.Languages
             using (var ofd = new System.Windows.Forms.OpenFileDialog())
             {
                 ofd.Filter =
-                   ofd.Filter = Findahome.KUKA_SystemFileName_KUKA_VxWorks_File__vxWorks_rt_VxWorks_Debug__vxWorks_rt_vxWorks_debug;
+                   ofd.Filter = ".rt";
                 ofd.InitialDirectory = @"C:\krc\bin\";
                 if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {

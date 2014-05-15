@@ -82,7 +82,7 @@ namespace miRobotEditor
             // used on another machine than it was installed on (e.g. "SharpDevelop on USB stick")
             if (Environment.Version < new Version(4, 0, 30319))
             {
-                MessageBox.Show(String.Format(Findahome.CheckEnvironment, Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
+                MessageBox.Show(String.Format("CheckEnvironment", Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
                 return false;
             }
             // Work around a WPF issue when %WINDIR% is set to an incorrect path

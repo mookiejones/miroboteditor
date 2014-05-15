@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using miRobotEditor.Classes;
-using miRobotEditor.GUI;
 
 namespace miRobotEditor.ViewModel
 {
@@ -12,8 +10,8 @@ namespace miRobotEditor.ViewModel
 
 
         #region Properties
-        private EditorClass _editor = new EditorClass();
-        public EditorClass Editor { get { return _editor; } set { _editor = value; RaisePropertyChanged("Editor"); } }
+        private GUI.EditorClass _editor = new GUI.EditorClass();
+        public GUI.EditorClass Editor { get { return _editor; } set { _editor = value; RaisePropertyChanged("Editor"); } }
 
         private string _description = string.Empty;
         public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
@@ -26,7 +24,7 @@ namespace miRobotEditor.ViewModel
         #endregion
 
         #region Constructor
-        public GotoViewModel(EditorClass editor)
+        public GotoViewModel(GUI.EditorClass editor)
         {
             Editor = editor;
         }

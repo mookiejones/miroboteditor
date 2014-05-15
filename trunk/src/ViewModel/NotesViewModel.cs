@@ -1,4 +1,6 @@
 ﻿
+using miRobotEditor.Core;
+
 namespace miRobotEditor.ViewModel
 {
     public class NotesViewModel:ToolViewModel
@@ -21,7 +23,6 @@ namespace miRobotEditor.ViewModel
         public const string TextPropertyName = "Text";
 
         private string _text = string.Empty;
-<<<<<<< .mine
 
         /// <summary>
         /// Sets and gets the Text property.
@@ -50,8 +51,5 @@ namespace miRobotEditor.ViewModel
         }
         #endregion
 
-=======
-        public string Text { get { return _text; } set { _text = value; RaisePropertyChanged("Text"); } }
->>>>>>> .r144
     }
 }
