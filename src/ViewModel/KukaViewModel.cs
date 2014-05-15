@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Classes;
+using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 using miRobotEditor.Resources.StringResources;
 using System;
@@ -103,13 +104,13 @@ namespace miRobotEditor.ViewModel
 
         public Controls.ExtendedGridSplitter Grid { get { return _grid; } set { _grid = value; RaisePropertyChanged("Grid"); } }
 
-        private EditorClass _source = new EditorClass();
+        private GUI.EditorClass _source = new GUI.EditorClass();
 
-        public EditorClass Source { get { return _source; } set { _source = value; RaisePropertyChanged("Source"); } }
+        public GUI.EditorClass Source { get { return _source; } set { _source = value; RaisePropertyChanged("Source"); } }
 
-        private EditorClass _data = new EditorClass();
+        private GUI.EditorClass _data = new GUI.EditorClass();
 
-        public EditorClass Data { get { return _data; } set { _data = value; RaisePropertyChanged("Data"); } }
+        public GUI.EditorClass Data { get { return _data; } set { _data = value; RaisePropertyChanged("Data"); } }
 
         private int _gridrow = 1;
         private int _datarow = 2;
@@ -131,12 +132,12 @@ namespace miRobotEditor.ViewModel
         /// Checks both boxes to determine if they should be saved or not
         /// </summary>
         /// <param name="txtBox"></param>
-        private void CheckClose(EditorClass txtBox)
+        private void CheckClose(GUI.EditorClass txtBox)
         {
             if (txtBox != null)
                 if (txtBox.IsModified)
                 {
-                    var res = MessageBox.Show(string.Format(Findahome.SaveChangesQuestion, txtBox.Filename), Findahome.AppName, MessageBoxButton.YesNoCancel);
+                    var res = MessageBox.Show(string.Format("Would you like to save Changes to {0}", txtBox.Filename), "Application Name", MessageBoxButton.YesNoCancel);
                     if (res == MessageBoxResult.Cancel)
                         return;
                     if (res == MessageBoxResult.Yes)
@@ -166,7 +167,7 @@ namespace miRobotEditor.ViewModel
 
                     case false:
                         if (Data == null)
-                            Data = new EditorClass();
+                            Data = new GUI.EditorClass();
                         Data.Visibility = Visibility.Collapsed;
                         Grid.Visibility = Visibility.Collapsed;
                         break;

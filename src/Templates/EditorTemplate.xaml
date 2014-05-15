@@ -3,13 +3,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:custom="http://metro.mahapps.com/winfx/xaml/shared"
                       xmlns:editor="clr-namespace:miRobotEditor.GUI.Editor"
-                    xmlns:classes="clr-namespace:miRobotEditor.Classes">
+                    xmlns:classes="clr-namespace:miRobotEditor.Classes"
+                    xmlns:gui="clr-namespace:miRobotEditor.GUI">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/miRobotEditor;component/Templates/Generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <custom:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter"/>
     <xctk:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
-    <Style x:Key="{x:Type classes:EditorClass}" TargetType="{x:Type classes:EditorClass}">        
+    <Style x:Key="{x:Type gui:EditorClass}" TargetType="{x:Type gui:EditorClass}">        
         <Setter Property="Background" Value="{Binding BackgroundColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static editor:EditorOptions.Instance}}"/>
         <Setter Property="BorderBrush" Value="{Binding BorderColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static editor:EditorOptions.Instance}}"/>
         <Setter Property="Foreground" Value="{Binding FontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static editor:EditorOptions.Instance}}"/>
@@ -21,7 +22,7 @@
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/> 
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="classes:EditorClass" >
+                <ControlTemplate TargetType="gui:EditorClass" >
                     <ControlTemplate.Resources>
                         <Style TargetType="avalonedit:TextArea">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -71,14 +72,14 @@
             
             VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}">
                         <avalonedit:TextEditor.InputBindings>
-                            <KeyBinding Command="{x:Static classes:EditorClass.GotoCommand}" CommandParameter="{Binding}" Key="G" Modifiers="Control" />
+                            <KeyBinding Command="{x:Static gui:EditorClass.GotoCommand}" CommandParameter="{Binding}" Key="G" Modifiers="Control" />
                             <KeyBinding Command="Find" Key="F" Modifiers="Control" />
-                            <KeyBinding Command="{x:Static classes:EditorClass.ReplaceCommand}" Key="R" Modifiers="Control" />
-                            <KeyBinding Key="F5" Command="{x:Static classes:EditorClass.ReloadCommand}" CommandParameter="{Binding}" />
+                            <KeyBinding Command="{x:Static gui:EditorClass.ReplaceCommand}" Key="R" Modifiers="Control" />
+                            <KeyBinding Key="F5" Command="{x:Static gui:EditorClass.ReloadCommand}" CommandParameter="{Binding}" />
                         </avalonedit:TextEditor.InputBindings>
                         <avalonedit:TextEditor.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Renumber _Lines" Command="{x:Static  classes:EditorClass.RenumberLinesCommand}" InputGestureText="Ctrl+L" Visibility="{Binding FanucVisibility}" CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <MenuItem Header="Renumber _Lines" Command="{x:Static  gui:EditorClass.RenumberLinesCommand}" InputGestureText="Ctrl+L" Visibility="{Binding FanucVisibility}" CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
                                 <MenuItem Header="Cut" Command="{Binding CutCommand}" InputGestureText="Ctrl+X">
                                     <MenuItem.Icon>
                                         <Image Source="/miRobotEditor;component/Resources/Cut.png" />
@@ -95,8 +96,8 @@
                                     </MenuItem.Icon>
                                 </MenuItem>
                                 <Separator />
-                                <MenuItem Header="Open all Folds"  Command="{x:Static classes:EditorClass.OpenAllFoldsCommand}" CommandParameter="{Binding Workspace.ActiveEditor.TextBox,Source={StaticResource Locator}}" InputGestureText="Ctrl+M,O" IsTextSearchCaseSensitive="True" />
-                                <MenuItem Header="Close all Folds" Command="{x:Static classes:EditorClass.CloseAllFoldsCommand}" CommandParameter="{Binding Workspace.ActiveEditor.TextBox,Source={StaticResource Locator}}" InputGestureText="Ctrl,+,M,L" />
+                                <MenuItem Header="Open all Folds"  Command="{x:Static gui:EditorClass.OpenAllFoldsCommand}" CommandParameter="{Binding Workspace.ActiveEditor.TextBox,Source={StaticResource Locator}}" InputGestureText="Ctrl+M,O" IsTextSearchCaseSensitive="True" />
+                                <MenuItem Header="Close all Folds" Command="{x:Static gui:EditorClass.CloseAllFoldsCommand}" CommandParameter="{Binding Workspace.ActiveEditor.TextBox,Source={StaticResource Locator}}" InputGestureText="Ctrl,+,M,L" />
                             </ContextMenu>
                         </avalonedit:TextEditor.ContextMenu>
                     </avalonedit:TextEditor>

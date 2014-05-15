@@ -3,6 +3,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
+using miRobotEditor.GUI;
 using miRobotEditor.Resources.StringResources;
 using miRobotEditor.ViewModel;
 using System;
@@ -945,7 +946,7 @@ namespace miRobotEditor.Languages
             Thread.Sleep(500);
 
             stopwatch.Stop();
-            Console.WriteLine(Findahome.TimeToParse, stopwatch.ElapsedMilliseconds);
+            Console.WriteLine("Time to parse", stopwatch.ElapsedMilliseconds);
 
             return doc.Text;
         }
@@ -1006,7 +1007,7 @@ namespace miRobotEditor.Languages
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError(Findahome.GetRootDirectory, ex);
+                MessageViewModel.AddError("Get Root Directory", ex);
             }
 
             // Need to get further to the root so that i can interrogate system files as well.
@@ -1032,7 +1033,7 @@ namespace miRobotEditor.Languages
                         _filesInfos.Add(file);
                     }
                     catch (Exception e)
-                    { MessageViewModel.AddError(Findahome.ErrorGettingFiles, e); }
+                    { MessageViewModel.AddError("ErrorGettingFiles", e); }
                 }
 
                 GetRootFiles(d);
@@ -1159,7 +1160,7 @@ namespace miRobotEditor.Languages
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError(Findahome.FindMatches, ex);
+                MessageViewModel.AddError("FindMatches", ex);
             }
 
             return result;

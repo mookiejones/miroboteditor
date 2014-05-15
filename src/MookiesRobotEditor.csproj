@@ -198,9 +198,8 @@
     <Compile Include="Classes\BookmarkBase.cs" />
     <Compile Include="Classes\CaretHighlightAdorner.cs" />
     <Compile Include="Classes\DataTemplateUtils.cs" />
-    <Compile Include="Classes\Delegates.cs" />
     <Compile Include="Classes\DocumentClosingEventArgs.cs" />
-    <Compile Include="Classes\EnumValues.cs" />
+    <Compile Include="Classes\EditorClass.cs" />
     <Compile Include="Classes\FileChangeWatcher.cs" />
     <Compile Include="Classes\Global.cs" />
     <Compile Include="Classes\IndentationClass.cs" />
@@ -211,6 +210,9 @@
     <Compile Include="Classes\Messages\GetFileMessage.cs" />
     <Compile Include="Classes\MethodVariable.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
+    <Compile Include="GUI\Editor\EditorClass.xaml.cs">
+      <DependentUpon>EditorClass.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Selectors\PanesStyleSelector.cs" />
     <Compile Include="Classes\RecentFileList.cs" />
     <Compile Include="Classes\TestEditorClass.cs" />
@@ -223,12 +225,6 @@
     <Compile Include="Commands\AbstractMenuCommand.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\IMenuCommand.cs" />
-    <Compile Include="Controls\AngleConverterControl.xaml.cs">
-      <DependentUpon>AngleConverterControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DocumentControl.xaml.cs">
-      <DependentUpon>DocumentControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ExtendedGridSplitter.cs" />
     <Compile Include="Controls\frmReverse.xaml.cs">
       <DependentUpon>frmReverse.xaml</DependentUpon>
@@ -237,33 +233,15 @@
       <DependentUpon>GotoDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\IErrorDisplayStrategy.cs" />
-    <Compile Include="Controls\KUKADocument.xaml.cs">
-      <DependentUpon>KUKADocument.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ListFromFileBox.xaml.cs">
       <DependentUpon>ListFromFileBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MenuControl.xaml.cs">
-      <DependentUpon>MenuControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\MessageControl.xaml.cs">
-      <DependentUpon>MessageControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\OptionsPanel.cs" />
-    <Compile Include="Controls\OutputWindowMessageControl.xaml.cs">
-      <DependentUpon>OutputWindowMessageControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SettingsFlyout.xaml.cs">
-      <DependentUpon>SettingsFlyout.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\SnippetPad.xaml.cs">
       <DependentUpon>SnippetPad.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SplineBorder.cs" />
     <Compile Include="Controls\SwitchWindowsEventHandler.cs" />
-    <Compile Include="Controls\ValueBoxViewModelControl.xaml.cs">
-      <DependentUpon>ValueBoxViewModelControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\xmlReader.xaml.cs">
       <DependentUpon>xmlReader.xaml</DependentUpon>
     </Compile>
@@ -417,14 +395,6 @@
     <Compile Include="Options\OptionPanel.cs" />
     <Compile Include="OrangeEdit\FormEnvironment.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Strings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Templates\Delete.xaml.cs">
-      <DependentUpon>Delete.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ValidationRules\IsNumericValidationRule.cs" />
     <Compile Include="Converters\ActiveEditorConverter.cs" />
     <Compile Include="Converters\BooleanToTypeModeStringConverter.cs" />
@@ -575,14 +545,6 @@
     <Compile Include="SingleInstance.cs" />
     <Compile Include="Tracking\Notes.cs" />
     <Compile Include="WindowMessages\OpenFileMessage.cs" />
-    <Page Include="Controls\AngleConverterControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\DocumentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\frmReverse.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -591,36 +553,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\KUKADocument.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\ListFromFileBox.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\MenuControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\MessageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\OutputWindowMessageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SettingsFlyout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SnippetPad.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ValueBoxViewModelControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\xmlReader.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -653,6 +591,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Dialogs\About\About.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Editor\EditorClass.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GUI\Editor\FindAndReplace.xaml">
@@ -715,19 +657,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Templates\Delete.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Templates\EditorControlTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Templates\FormTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Templates\ImageTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -815,10 +745,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Strings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -900,12 +826,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\miRobotEditor.Resources\miRobotEditor.Resources.csproj">
-      <Project>{9516daad-eba0-4bd5-9def-6ec35de7b785}</Project>
+      <Project>{8884e8e8-6b0a-45dc-b524-1e703c61d3a9}</Project>
       <Name>miRobotEditor.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\miRobotEditor.UIControls\miRobotEditor.UIControls.csproj">
-      <Project>{a53731b6-a1a6-4c68-b90e-d5b388807a2a}</Project>
-      <Name>miRobotEditor.UIControls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,6 +2,7 @@
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Classes;
+using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 
 namespace miRobotEditor.ViewModel
@@ -16,7 +17,7 @@ namespace miRobotEditor.ViewModel
         void SelectText(IVariable variable);
         Visibility Visibility { get; set; }       
         AbstractLanguageClass FileLanguage { get; set; }
-        EditorClass TextBox { get; set; }
+        GUI.EditorClass TextBox { get; set; }
         string FilePath { get; set; }
         ImageSource IconSource { get; set; }
         string FileName { get;  }

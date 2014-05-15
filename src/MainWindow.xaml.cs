@@ -124,7 +124,7 @@ namespace miRobotEditor
             foreach (var t in files)
             {
                 //TODO This Magically Works
-                MessageViewModel.Instance.Add(Findahome.FileDropped, String.Format(Findahome.OpeningFile, t), MsgIcon.Info);
+                MessageViewModel.Instance.Add("FileDropped", String.Format("OpeningFile {0}", t), MsgIcon.Info);
                 WorkspaceViewModel.Instance.Open(t);
             }
         }

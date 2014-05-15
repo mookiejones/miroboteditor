@@ -6,6 +6,7 @@ using miRobotEditor.Classes;
 using miRobotEditor.Core;
 using miRobotEditor.ExplorerControl;
 using miRobotEditor.Forms;
+using miRobotEditor.GUI;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Languages;
 using miRobotEditor.Pads;
@@ -513,9 +514,9 @@ namespace miRobotEditor
             {
                 // Find a way to check for network directory
                 //                InitialDirectory="C:\\",
-                Filter = Findahome.DefaultFilter,
+                Filter = Settings.Default.Filter,
                 Multiselect = true,
-                FilterIndex = Settings.Default.Filter,
+                FilterIndex = 1,
             };
 
             if (!dlg.ShowDialog().GetValueOrDefault()) return;

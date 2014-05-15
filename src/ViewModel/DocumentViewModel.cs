@@ -9,6 +9,7 @@
 using System;
 using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Classes;
+using miRobotEditor.GUI;
 using miRobotEditor.Languages;
 using System.IO;
 using System.Windows;
@@ -35,8 +36,8 @@ namespace miRobotEditor.ViewModel
         {
             Load(filepath);
             TextBox.FileLanguage = FileLanguage;
-           
-            TextBox.GotFocus += (s, e) => { TextBox = s as EditorClass; };
+
+            TextBox.GotFocus += (s, e) => { TextBox = s as GUI.EditorClass; };
             TextBox.TextChanged += (s, e) => TextChanged(s);
             TextBox.IsModified = false;
 
@@ -87,7 +88,7 @@ namespace miRobotEditor.ViewModel
             WorkspaceViewModel.Instance.Close(this);
         }
 
-        internal void Save(EditorClass txtBox)
+        internal void Save(GUI.EditorClass txtBox)
         {
 
             var fn = txtBox.Filename;
@@ -116,17 +117,17 @@ namespace miRobotEditor.ViewModel
         public static DocumentViewModel Instance { get; set; }
         private AbstractLanguageClass _filelanguage = new LanguageBase();
         public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged(@"FileLanguage"); } }
-        private EditorClass _textBox = new EditorClass();
-        public EditorClass TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged(@"TextBox"); } }
+        private GUI.EditorClass _textBox = new GUI.EditorClass();
+        public GUI.EditorClass TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged(@"TextBox"); } }
         #endregion
 
 
       
         protected void TextChanged(object sender)
         {
-            Console.WriteLine(Findahome.FileNameIs, FileName);
+            Console.WriteLine("File Name is {0}", FileName);
 
-            TextBox = sender as EditorClass;
+            TextBox = sender as GUI.EditorClass;
             if (TextBox != null) FileLanguage.RawText = TextBox.Text ;
 
 
