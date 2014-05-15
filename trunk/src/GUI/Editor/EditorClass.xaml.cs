@@ -773,7 +773,7 @@ namespace miRobotEditor.GUI
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError(StringResources.EditorChangeIndent, ex);
+                MessageViewModel.AddError("EditorChangeIndent", ex);
             }
         }
 
@@ -1053,7 +1053,7 @@ namespace miRobotEditor.GUI
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError(StringResources.EditorChangeIndent, ex);
+                MessageViewModel.AddError("EditorChangeIndent", ex);
             }
         }
 
@@ -1123,7 +1123,7 @@ namespace miRobotEditor.GUI
             }
             catch (IOException ex)
             {
-                MessageViewModel.AddError(StringResources.FileIsLocked, ex);
+                MessageViewModel.AddError("FileIsLocked", ex);
 
                 return true;
             }
@@ -1188,7 +1188,7 @@ namespace miRobotEditor.GUI
             base.OnOptionChanged(e);
             if (e.PropertyName == null)
                 return;
-            Console.WriteLine(StringResources.PropertyChanged, e.PropertyName);
+            Console.WriteLine("PropertyChanged", e.PropertyName);
             switch (e.PropertyName)
             {
                 case "EnableFolding":
@@ -1206,7 +1206,7 @@ namespace miRobotEditor.GUI
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError(String.Format(StringResources.CouldNotLoadSyntaxHighlighting, Filename), ex);
+                MessageViewModel.AddError(String.Format("CouldNotLoadSyntaxHighlighting", Filename), ex);
             }
         }
 
@@ -1691,7 +1691,7 @@ namespace miRobotEditor.GUI
 
         public static void Reload(EditorClass editor)
         {
-            var answer = MessageBox.Show(StringResources.QuestionReloadFile, StringResources.ReloadFile, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            var answer = MessageBox.Show("Reloading file", "Would you like to reload file", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
             if (!(answer == MessageBoxResult.OK | (!editor.IsModified))) return;
             editor.Load(editor.Filename);
             editor.UpdateFolds();
