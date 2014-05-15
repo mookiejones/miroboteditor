@@ -6,7 +6,8 @@
              xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
              xmlns:editor="clr-namespace:miRobotEditor.GUI.Editor"
              xmlns:gui="clr-namespace:miRobotEditor.GUI"
-             xmlns:resources="clr-namespace:miRobotEditor.Resources"
+             xmlns:stringResources="clr-namespace:miRobotEditor.Resources.StringResources;assembly=miRobotEditor.Resources"
+             xmlns:classes="clr-namespace:miRobotEditor.Classes"
              x:Class="miRobotEditor.GUI.EditorClass"
              x:Name="Editor"
              mc:Ignorable="d"
@@ -42,14 +43,14 @@
     </avalonedit:TextEditor.InputBindings>
     <avalonedit:TextEditor.ContextMenu>
         <ContextMenu>
-            <MenuItem Header="{x:Static resources:MenuResources.RenumberLines}" Command="{Binding RenumberLinesCommand}" InputGestureText="Ctrl+L" Visibility="{Binding FanucVisibility}" />
-            <MenuItem Header="{x:Static resources:MenuResources.Cut}" Command="{Binding CutCommand}" InputGestureText="Ctrl+X" Icon="{Binding Mode=OneWay, Source={StaticResource CutImage}}"/>
-            <MenuItem Header="{x:Static resources:MenuResources.Copy}" Command="{Binding CopyCommand}" InputGestureText="Ctrl+C" Icon="{Binding Mode=OneWay, Source={StaticResource CopyImage}}"/>
-            <MenuItem Header="{x:Static resources:MenuResources.Paste}" Command="{Binding PasteCommand}" InputGestureText="Ctrl+V" Icon="{Binding Mode=OneWay, Source={StaticResource PasteImage}}"/>
+            <MenuItem Header="{x:Static stringResources:MenuResources.RenumberLines}" Command="{Binding RenumberLinesCommand}" InputGestureText="Ctrl+L" Visibility="{Binding FanucVisibility}" />
+            <MenuItem Header="{x:Static stringResources:MenuResources.Cut}" Command="{Binding CutCommand}" InputGestureText="Ctrl+X" Icon="{Binding Mode=OneWay, Source={StaticResource CutImage}}"/>
+            <MenuItem Header="{x:Static stringResources:MenuResources.Copy}" Command="{Binding CopyCommand}" InputGestureText="Ctrl+C" Icon="{Binding Mode=OneWay, Source={StaticResource CopyImage}}"/>
+            <MenuItem Header="{x:Static stringResources:MenuResources.Paste}" Command="{Binding PasteCommand}" InputGestureText="Ctrl+V" Icon="{Binding Mode=OneWay, Source={StaticResource PasteImage}}"/>
             
             <Separator />
-            <MenuItem Header="{x:Static resources:MenuResources.OpenAllFolds}"  Command="{x:Static gui:EditorClass.OpenAllFoldsCommand}" CommandParameter="{Binding}" InputGestureText="Ctrl+M,O" IsTextSearchCaseSensitive="True" />
-            <MenuItem Header="{x:Static resources:MenuResources.CloseAllFolds}" Command="{x:Static gui:EditorClass.CloseAllFoldsCommand}" CommandParameter="{Binding}" InputGestureText="Ctrl,+,M,L" />
+            <MenuItem Header="{x:Static stringResources:MenuResources.OpenAllFolds}"  Command="{x:Static classes:EditorClass.OpenAllFoldsCommand}" CommandParameter="{Binding}" InputGestureText="Ctrl+M,O" IsTextSearchCaseSensitive="True" />
+            <MenuItem Header="{x:Static stringResources:MenuResources.CloseAllFolds}" Command="{x:Static classes:EditorClass.CloseAllFoldsCommand}" CommandParameter="{Binding}" InputGestureText="Ctrl,+,M,L" />
         </ContextMenu>
     </avalonedit:TextEditor.ContextMenu>
 </avalonedit:TextEditor>
