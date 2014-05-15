@@ -21,7 +21,7 @@ namespace miRobotEditor.GUI.Dialogs.About
         public About( )
         {
             InitializeComponent();
-            var localUrl = Findahome.Website;
+            var localUrl = "Website";
             Hyperlink.NavigateUri = new Uri(localUrl);
             HyperlinkText.Text = localUrl;
         }
