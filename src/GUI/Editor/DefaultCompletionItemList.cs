@@ -4,6 +4,8 @@ using miRobotEditor.Languages;
 
 namespace miRobotEditor.GUI.Editor
 {
+    //TODO UNUSED
+// ReSharper disable UnusedMember.Global
     public class DefaultCompletionItemList : ICompletionItemList
     {
         readonly List<ICompletionItem> _items = new List<ICompletionItem>();
@@ -82,4 +84,6 @@ namespace miRobotEditor.GUI.Editor
             item.Complete(context);
         }
     }
+    // ReSharper restore UnusedMember.Global
+
 }

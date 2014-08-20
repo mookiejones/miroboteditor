@@ -3,7 +3,7 @@
     /// <summary>
     /// Describes a pair of matching brackets found by IBracketSearcher.
     /// </summary>
-    public class BracketSearchResult
+    public sealed class BracketSearchResult
     {
         public int OpeningBracketOffset { get; private set; }
 		

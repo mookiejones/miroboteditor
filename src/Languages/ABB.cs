@@ -1,46 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using miRobotEditor.GUI.Editor;
+using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.CodeCompletion;
-using miRobotEditor.Classes;
+
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
-    public class ABB : AbstractLanguageClass
+    public sealed class ABB : AbstractLanguageClass
     {
-
-
-       
-
-        public ABB()
-        {
-            FoldingStrategy = new RegionFoldingStrategy();
-        }
-
         public ABB(string file) : base(file)
         {
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
+// ReSharper disable once InconsistentNaming
         public static List<string> EXT
         {
             get { return new List<string> {".mod", ".prg"}; }
         }
 
-
-        public override string IsLineMotion(string lineValue, ICollection<IVariable> variables)
-        {
-            return string.Empty;
-
-        }
 
         /// <summary>
         /// Sets ComboBox Filter Items for searching
@@ -63,7 +49,7 @@ namespace miRobotEditor.Languages
         }
 
 
-        internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
+        internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         protected override string ShiftRegex
         {
@@ -99,6 +85,7 @@ namespace miRobotEditor.Languages
         {
             get { return new Regex(String.Empty); }
         }
+        private const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
         public override Regex XYZRegex
         {
             get { return new Regex(@"^[PERS ]*(robtarget|jointtarget) ([\w\d_]*)",Ro); }
@@ -128,6 +115,10 @@ namespace miRobotEditor.Languages
         /// </summary>
         private class RegionFoldingStrategy : AbstractFoldingStrategy
         {
+
+           
+
+          
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
@@ -137,10 +128,12 @@ namespace miRobotEditor.Languages
                 return CreateNewFoldings(document);
             }
 
+           
+
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
-            private static IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
+            public override IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
                 var newFoldings = new List<NewFolding>();
 

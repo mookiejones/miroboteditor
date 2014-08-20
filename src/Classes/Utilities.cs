@@ -16,6 +16,7 @@ namespace miRobotEditor.Classes
         /// <returns></returns>
         public static BitmapImage LoadBitmap(Bitmap img)
         {
+        	
             var result = new BitmapImage();
             using (var ms = new MemoryStream())
             {
@@ -27,36 +28,32 @@ namespace miRobotEditor.Classes
             return result;
         }
 
+
         /// <summary>
         /// Converts a <see cref="System.Drawing.Image"/> into a WPF <see cref="BitmapSource"/>.
         /// </summary>
         /// <returns>A BitmapSource</returns>
-        // ReSharper disable FunctionRecursiveOnAllPaths
-        //      public static BitmapSource ToBitmapSource(this Image source)
-        // ReSharper restore FunctionRecursiveOnAllPaths
-        //      {
-        //          var bitmap = new Bitmap(source);
-        //
-        //          var bitSrc = bitmap.ToBitmapSource();
-        //
-        //          bitmap.Dispose();
-        //
-        //          return bitSrc;
-        //      }
+// ReSharper disable FunctionRecursiveOnAllPaths
+//      public static BitmapSource ToBitmapSource(this Image source)
+// ReSharper restore FunctionRecursiveOnAllPaths
+//      {
+//          var bitmap = new Bitmap(source);
+//
+//          var bitSrc = bitmap.ToBitmapSource();
+//
+//          bitmap.Dispose();
+//
+//          return bitSrc;
+//      }
 
-       public static ImageSource GetIcon(string resourcename)
-       {
-
-           System.Windows.Controls.Image img = App.Current.FindResource(resourcename) as System.Windows.Controls.Image;
-           return img.Source;
-
-        //  var bi = new BitmapImage();
-        //  bi.BeginInit();
-        //  bi.UriSource = new Uri(fileName);
-        //  bi.EndInit();
-        //  return bi;
-       }
-
+        public static ImageSource GetIcon(string fileName)
+        {
+            var bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(fileName);
+            bi.EndInit();
+            return bi;
+        }
 
         /// <summary>
         /// Load Bitmap and Convert to Bitmap Image
@@ -67,6 +64,7 @@ namespace miRobotEditor.Classes
         {
             try
             {
+
                 if (File.Exists(fileName))
                 {
                     var fi = new FileInfo(fileName);
@@ -85,5 +83,6 @@ namespace miRobotEditor.Classes
             }
             return null;
         }
+
     }
 }

@@ -2,25 +2,26 @@
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
 
 namespace miRobotEditor.Core
 {
 
     public delegate void MessageAddedHandler(object sender, EventArgs e);
-    public class MessageViewModel:ToolViewModel
+    public sealed class MessageViewModel:ToolViewModel
     {
-        public const string ToolContentId = "MessageViewTool";
+        private const string ToolContentId = "MessageViewTool";
         public event MessageAddedHandler MessageAdded;
 
         #region Properties
         private static MessageViewModel _instance;
-        public static MessageViewModel Instance { get { return _instance ?? new MessageViewModel(); } set { _instance = value; } }
+        public static MessageViewModel Instance { get { return _instance ?? new MessageViewModel(); }
+            private set { _instance = value; } }
 
 
 
         private OutputWindowMessage _selectedMessage ;
-        public OutputWindowMessage SelectedMessage { get { return _selectedMessage; } set { _selectedMessage = value; RaisePropertyChanged("SelectedMessage"); } }
+        public OutputWindowMessage SelectedMessage {get{return _selectedMessage;}set{_selectedMessage=value;RaisePropertyChanged();}}
 
         public ObservableCollection<IMessage> Messages { get; set; }
 
@@ -70,7 +71,11 @@ namespace miRobotEditor.Core
         }
 
 
-     
+        void HandleMouseOver(object param)
+        {
+
+           SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
+        }
 
         /// <summary>
         /// Create MessageBox window and displays
@@ -81,7 +86,11 @@ namespace miRobotEditor.Core
             System.Windows.MessageBox.Show(message);
         }
 
-     
+        void ClearItems()
+        {
+        	Messages.Clear();//=new ObservableCollection<OutputWindowMessage>();
+        	RaisePropertyChanged("Messages");
+        }
 
         public static void AddError(string message,Exception ex)
         {
@@ -108,71 +117,18 @@ namespace miRobotEditor.Core
         }
 
         #region Commands
-
-        #region ClearMessagesCommand
-
-        private RelayCommand _clearMessagesCommand  ;
-        /// <summary>
-        /// Gets the ClearMessagesCommand.
-        /// </summary>
-        public RelayCommand ClearMessagesCommand
+        private  RelayCommand _clearMessagesCommand;
+        public  ICommand ClearMessagesCommand
         {
-            get
-            {
-                return _clearMessagesCommand
-                    ?? (_clearMessagesCommand = new RelayCommand(ExecuteClearMessagesCommand));
-            }
+            get { return _clearMessagesCommand ?? (_clearMessagesCommand = new RelayCommand(param => ClearItems(), param => true)); }
         }
 
-        private void ExecuteClearMessagesCommand()
+        private RelayCommand _mouseOverCommand;
+        public ICommand MouseOverCommand
         {
-            Messages.Clear();//=new ObservableCollection<OutputWindowMessage>();
-            RaisePropertyChanged("Messages");   
+            get { return _mouseOverCommand ?? (_mouseOverCommand = new RelayCommand(HandleMouseOver, p => true)); }
         }
         #endregion
 
-        #region MouseOvercommand
-
-        private RelayCommand<ListViewItem> _mouseOverCommand;
-        /// <summary>
-        /// Gets the MouseOvercommand.
-        /// </summary>
-        public RelayCommand<ListViewItem> MouseOvercommand
-        {
-            get
-            {
-                return _mouseOverCommand
-                    ?? (_mouseOverCommand = new RelayCommand<ListViewItem>(ExecuteMouseOvercommand));
-            }
-        }
-
-        private void ExecuteMouseOvercommand(ListViewItem item)
-        {
-            SelectedMessage = (OutputWindowMessage)item.Content;
-        }
-        #endregion
-
-      
-
-      
-        #endregion
-
-    }
-
- 
-    public enum MsgIcon { Error, Info }
-    public interface IMessage
-    {
-        BitmapImage Icon { get; set; }
-        string Time { get; set; }
-        string Title { get; set; }
-        string Description { get; set; }
-    }
-    public class OutputWindowMessage : IMessage
-    {
-        public string Time { get; set; }
-        public string Description { get; set; }
-        public string Title { get; set; }
-        public BitmapImage Icon { get; set; }
     }
 }

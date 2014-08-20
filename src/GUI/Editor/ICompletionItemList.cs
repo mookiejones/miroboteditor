@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
-using miRobotEditor.GUI.Editor;
+using miRobotEditor.Languages;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.GUI.Editor
 {
+    //TODO UNUSED
     public interface ICompletionItemList
     {
         /// <summary>
         /// Gets the items in the list.
         /// </summary>
+// ReSharper disable UnusedMember.Global
         IEnumerable<ICompletionItem> Items { get; }
 
         /// <summary>
@@ -38,5 +40,7 @@ namespace miRobotEditor.Languages
         /// Performs code completion for the selected item.
         /// </summary>
         void Complete(CompletionContext context, ICompletionItem item);
+        // ReSharper restore UnusedMember.Global
+
     }
 }

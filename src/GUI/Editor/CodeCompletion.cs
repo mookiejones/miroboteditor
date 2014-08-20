@@ -10,7 +10,7 @@ namespace miRobotEditor.GUI.Editor
 {
     /// Implements AvalonEdit ICompletionData interface to provide the entries in the
     /// completion drop down.
-    public class CodeCompletion : ICompletionData
+    public sealed class CodeCompletion : ICompletionData
     {
         public CodeCompletion(IVariable variable) 
         {
@@ -43,7 +43,7 @@ namespace miRobotEditor.GUI.Editor
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            var currentWord = WorkspaceViewModel.Instance.ActiveEditor.TextBox.FindWord();
+            var currentWord = Workspace.Instance.ActiveEditor.TextBox.FindWord();
             var offs = completionSegment.Offset - currentWord.Length;
             // Create New AnchorSegment 
             textArea.Document.Replace(offs, currentWord.Length, Text);

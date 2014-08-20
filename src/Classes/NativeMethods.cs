@@ -5,7 +5,7 @@ using System.Security;
 
 namespace miRobotEditor.Classes
 {
-    [Localizable(false), SuppressUnmanagedCodeSecurity]
+    [Localizable(false),SuppressUnmanagedCodeSecurity]
     internal static class NativeMethods
     {
         /// <summary>
@@ -13,14 +13,18 @@ namespace miRobotEditor.Classes
         /// </summary>
         public delegate IntPtr MessageHandler(WM uMsg, IntPtr wParam, IntPtr lParam, out bool handled);
 
-        [Localizable(false), DllImport("shell32.dll", EntryPoint = "CommandLineToArgvW", CharSet = CharSet.Unicode)]
+        [Localizable(false),DllImport("shell32.dll", EntryPoint = "CommandLineToArgvW", CharSet = CharSet.Unicode)]
         private static extern IntPtr _CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string cmdLine, out int numArgs);
 
-        [Localizable(false), DllImport("kernel32.dll", EntryPoint = "LocalFree", SetLastError = true)]
+
+        [Localizable(false),DllImport("kernel32.dll", EntryPoint = "LocalFree", SetLastError = true)]
         private static extern IntPtr _LocalFree(IntPtr hMem);
+
 
         [DllImport("user32.dll")]
         internal static extern short GetKeyState(int keyCode);
+
+
 
         public static string[] CommandLineToArgvW(string cmdLine)
         {
@@ -46,14 +50,18 @@ namespace miRobotEditor.Classes
             }
             finally
             {
+
                 var p = _LocalFree(argv);
+#if TRACE
                 Console.WriteLine(IntPtr.Zero.Equals(p));
+#endif
                 // Otherwise LocalFree failed.
                 //Assert.AreEqual(IntPtr.Zero, p);
             }
         }
-    }
 
+    }
+// ReSharper disable once InconsistentNaming
     internal enum WM
     {
         // ReSharper disable InconsistentNaming
@@ -137,6 +145,7 @@ namespace miRobotEditor.Classes
         XBUTTONDBLCLK = 0x020D,
         MOUSEHWHEEL = 0x020E,
 
+
         CAPTURECHANGED = 0x0215,
 
         ENTERSIZEMOVE = 0x0231,
@@ -160,19 +169,17 @@ namespace miRobotEditor.Classes
         DWMWINDOWMAXIMIZEDCHANGE = 0x0321,
 
         #region Windows 7
-
         DWMSENDICONICTHUMBNAIL = 0x0323,
         DWMSENDICONICLIVEPREVIEWBITMAP = 0x0326,
-
-        #endregion Windows 7
+        #endregion
 
         USER = 0x0400,
 
         // This is the hard-coded message value used by WinForms for Shell_NotifyIcon.
         // It's relatively safe to reuse.
         TRAYMOUSEMESSAGE = 0x800, //WM_USER + 1024
-
         APP = 0x8000,
         // ReSharper restore InconsistentNaming
     }
+
 }

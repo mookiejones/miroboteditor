@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -9,8 +8,9 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.GUI.Editor;
+using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using miRobotEditor.Classes;
+
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -36,11 +36,6 @@ namespace miRobotEditor.Languages
             {
                 return EXT;
             }
-        }
-        public override string IsLineMotion(string lineValue, ICollection<IVariable> variables)
-        {
-            return string.Empty;
-
         }
         internal override bool IsFileValid(FileInfo file)
         {
@@ -79,11 +74,16 @@ namespace miRobotEditor.Languages
         {
             get { return @"(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)" ; }
         }
-    
-        internal override sealed AbstractFoldingStrategy FoldingStrategy{get;set;}
+
+        internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         private class RegionFoldingStrategy : AbstractFoldingStrategy
         {
+            public void UpdateFoldings(FoldingManager manager, TextDocument document)
+            {
+                throw new NotImplementedException();
+            }
+
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
@@ -93,10 +93,12 @@ namespace miRobotEditor.Languages
                 return CreateNewFoldings(document);
             }
 
+           
+
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
-            private static IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
+            public override IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
                 var newFoldings = new List<NewFolding>();
                 newFoldings.AddRange(CreateFoldingHelper(document, ".program", ".end", false));
@@ -124,6 +126,8 @@ namespace miRobotEditor.Languages
 
             return doc.GetText(start, end);
         }
+
+        private const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
 
         // public override string SignalRegex{get{return "DEFSIG_";}}
         public override Regex MethodRegex { get { return new Regex("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)",Ro); } }

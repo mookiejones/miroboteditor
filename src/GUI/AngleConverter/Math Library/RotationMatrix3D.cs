@@ -1,7 +1,7 @@
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
-    public class RotationMatrix3D : SquareMatrix
+    public sealed class RotationMatrix3D : SquareMatrix
     {
         
         public RotationMatrix3D() : base(3)
@@ -49,6 +49,7 @@ namespace ISTUK.MathLibrary
             return matrixd;
         }
 
+// ReSharper disable once InconsistentNaming
         public static RotationMatrix3D FromRPY(double roll, double pitch, double yaw)
         {
             return new RotationMatrix3D((RotateZ(yaw) * RotateY(pitch)) * RotateX(roll));
@@ -109,7 +110,7 @@ namespace ISTUK.MathLibrary
             return (RotationMatrix3D) Quaternion.FromAxisAngle(vector, angle);
         }
 
-        public static RotationMatrix3D RotateX(double angle)
+        private static RotationMatrix3D RotateX(double angle)
         {
             angle *= 0.017453292519943295;
             var matrixd = new RotationMatrix3D();
@@ -121,7 +122,7 @@ namespace ISTUK.MathLibrary
             return matrixd;
         }
 
-        public static RotationMatrix3D RotateY(double angle)
+        private static RotationMatrix3D RotateY(double angle)
         {
             angle *= 0.017453292519943295;
             var matrixd = new RotationMatrix3D();
@@ -133,7 +134,7 @@ namespace ISTUK.MathLibrary
             return matrixd;
         }
 
-        public static RotationMatrix3D RotateZ(double angle)
+        private static RotationMatrix3D RotateZ(double angle)
         {
             angle *= 0.017453292519943295;
             var matrixd = new RotationMatrix3D();
@@ -160,10 +161,6 @@ namespace ISTUK.MathLibrary
             get
             {
                 return new Vector3D(RPY[2], RPY[1], RPY[0]);
-            }
-            set
-            {
-                RPY = new Vector3D(value[2], value[1], value[0]);
             }
         }
 
@@ -236,17 +233,6 @@ namespace ISTUK.MathLibrary
                 z *= 57.295779513082323;
                 y *= 57.295779513082323;
                 return new Vector3D(num3 * 57.295779513082323, y, z);
-            }
-            set
-            {
-                var matrix = (RotateZ(value[2]) * RotateY(value[1])) * RotateX(value[0]);
-                for (var i = 0; i < 3; i++)
-                {
-                    for (var j = 0; j < 3; j++)
-                    {
-                        base[i, j] = matrix[i, j];
-                    }
-                }
             }
         }
     }

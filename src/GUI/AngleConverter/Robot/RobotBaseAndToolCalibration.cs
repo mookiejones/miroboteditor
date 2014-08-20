@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Linq;
-using ISTUK.MathLibrary;
 using System;
 using System.Collections.ObjectModel;
 

@@ -14,9 +14,7 @@ namespace miRobotEditor.Core
 	/// </summary>
 	public class ToolViewModel:PaneViewModel
 	{
-
-
-     public ToolViewModel(string name)
+        protected ToolViewModel(string name)
         {
             Name = name;
             Title = name;
@@ -38,6 +36,7 @@ namespace miRobotEditor.Core
         #region IsVisible
 
         private bool _isVisible = true;
+// ReSharper disable once UnusedMember.Global
         public bool IsVisible
         {
             get { return _isVisible; }
@@ -45,6 +44,7 @@ namespace miRobotEditor.Core
             {
                 if (_isVisible == value) return;
                 _isVisible = value;
+// ReSharper disable once RedundantArgumentDefaultValue
                 RaisePropertyChanged("IsVisible");
             }
         }

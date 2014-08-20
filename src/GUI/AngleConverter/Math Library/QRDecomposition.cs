@@ -1,10 +1,12 @@
 using System.ComponentModel;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
 
     [Localizable(false)]
+// ReSharper disable once UnusedMember.Global
+// ReSharper disable once InconsistentNaming
     public class QRDecomposition
     {
         private readonly int _columns;

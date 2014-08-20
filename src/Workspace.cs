@@ -1,100 +1,114 @@
-﻿using System.Diagnostics;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using MahApps.Metro;
-using miRobotEditor.Classes;
-using miRobotEditor.Core;
-using miRobotEditor.ExplorerControl;
-using miRobotEditor.Forms;
-using miRobotEditor.GUI;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Languages;
-using miRobotEditor.Pads;
-using miRobotEditor.Properties;
-using miRobotEditor.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Shell;
+using MahApps.Metro;
+using Microsoft.Win32;
+using miRobotEditor.Classes;
+using miRobotEditor.Core;
+using miRobotEditor.Forms;
+using miRobotEditor.GUI.ExplorerControl;
+using miRobotEditor.Languages;
+using miRobotEditor.Language_Specific;
+using miRobotEditor.Pads;
+using miRobotEditor.Properties;
+using miRobotEditor.ViewModel;
 using Xceed.Wpf.AvalonDock.Layout;
-using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
 namespace miRobotEditor
 {
-    [Localizable(false)]
     public class Workspace : ViewModelBase
     {
         #region Constructor
 
         public Workspace()
         {
-            _instance = this;
-            _tools = new ObservableCollection<ToolViewModel> { ObjectBrowser, MessageView, Notes, LocalVariables, Functions, AngleConverter };
+            Instance = this;
+            AddNewFile();
+            _tools = new ObservableCollection<ToolViewModel>
+            {
+                ObjectBrowser,
+                MessageView,
+                Notes,
+                LocalVariables,
+                Functions,
+                AngleConverter
+            };
         }
 
-        #endregion Constructor
+        #endregion
 
         public string Title
         {
             get
             {
-                string fn = string.Empty;
-                if (ActiveEditor == null) return fn;
-                fn = ActiveEditor.FilePath ?? string.Empty;
+                string fn = ActiveEditor.FilePath ?? string.Empty;
                 return ShortenPathname(fn, 100);
             }
         }
 
+
         /// <summary>
-        /// Shortens a pathname for display purposes.
+        ///     Shortens a pathname for display purposes.
         /// </summary>
         /// <param labelName="pathname">The pathname to shorten.</param>
         /// <param labelName="maxLength">The maximum number of characters to be displayed.</param>
         /// <param name="pathname"> </param>
         /// <param name="maxLength"> </param>
-        /// <remarks>Shortens a pathname by either removing consecutive components of a path
-        /// and/or by removing characters from the end of the filename and replacing
-        /// then with three elipses (...)
-        /// <para>In all cases, the root of the passed path will be preserved in it's entirety.</para>
-        /// <para>If a UNC path is used or the pathname and maxLength are particularly short,
-        /// the resulting path may be longer than maxLength.</para>
-        /// <para>This method expects fully resolved pathnames to be passed to it.
-        /// (Use Path.GetFullPath() to obtain this.)</para>
+        /// <remarks>
+        ///     Shortens a pathname by either removing consecutive components of a path
+        ///     and/or by removing characters from the end of the filename and replacing
+        ///     then with three elipses (...)
+        ///     <para>In all cases, the root of the passed path will be preserved in it's entirety.</para>
+        ///     <para>
+        ///         If a UNC path is used or the pathname and maxLength are particularly short,
+        ///         the resulting path may be longer than maxLength.
+        ///     </para>
+        ///     <para>
+        ///         This method expects fully resolved pathnames to be passed to it.
+        ///         (Use Path.GetFullPath() to obtain this.)
+        ///     </para>
         /// </remarks>
         /// <returns></returns>
-        public static string ShortenPathname(string pathname, int maxLength)
+        private static string ShortenPathname(string pathname, int maxLength)
         {
             if (pathname.Length <= maxLength) return pathname;
 
-            var root = Path.GetPathRoot(pathname);
+            string root = Path.GetPathRoot(pathname);
             if (root.Length > 3)
                 root += Path.DirectorySeparatorChar;
 
             if (true)
             {
-                var elements = pathname.Substring(root.Length).Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                string[] elements = pathname.Substring(root.Length)
+                    .Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
-                var filenameIndex = elements.GetLength(0) - 1;
+                int filenameIndex = elements.GetLength(0) - 1;
 
                 if (elements.GetLength(0) == 1) // pathname is just a root and filename
                 {
-                    if (elements[0].Length <= 5) return pathname;
-                    // if path is a UNC path, root may be rather long
-                    if (root.Length + 6 >= maxLength)
+                    if (elements[0].Length > 5) // long enough to shorten
                     {
-                        return root + elements[0].Substring(0, 3) + "...";
+                        // if path is a UNC path, root may be rather long
+                        if (root.Length + 6 >= maxLength)
+                        {
+                            return root + elements[0].Substring(0, 3) + "...";
+                        }
+                        return pathname.Substring(0, maxLength - 3) + "...";
                     }
-                    return pathname.Substring(0, maxLength - 3) + "...";
                 }
-                if ((root.Length + 4 + elements[filenameIndex].Length) > maxLength) // pathname is just a root and filename
+                else if ((root.Length + 4 + elements[filenameIndex].Length) > maxLength)
+                    // pathname is just a root and filename
                 {
                     root += "...\\";
 
-                    var len = elements[filenameIndex].Length;
+                    int len = elements[filenameIndex].Length;
                     if (len < 6)
                         return root + elements[filenameIndex];
 
@@ -108,24 +122,24 @@ namespace miRobotEditor
                     }
                     return root + elements[filenameIndex].Substring(0, len) + "...";
                 }
-                if (elements.GetLength(0) == 2)
+                else if (elements.GetLength(0) == 2)
                 {
                     return root + "...\\" + elements[1];
                 }
                 else
                 {
-                    var len = 0;
-                    var begin = 0;
+                    int len = 0;
+                    int begin = 0;
 
-                    for (var i = 0; i < filenameIndex; i++)
+                    for (int i = 0; i < filenameIndex; i++)
                     {
                         if (elements[i].Length <= len) continue;
                         begin = i;
                         len = elements[i].Length;
                     }
 
-                    var totalLength = pathname.Length - len + 3;
-                    var end = begin + 1;
+                    int totalLength = pathname.Length - len + 3;
+                    int end = begin + 1;
 
                     while (totalLength > maxLength)
                     {
@@ -144,13 +158,17 @@ namespace miRobotEditor
 
                     // assemble final string
 
-                    for (var i = 0; i < begin; i++)
+                    for (int i = 0; i < begin; i++)
+                    {
                         root += elements[i] + '\\';
+                    }
 
                     root += "...\\";
 
-                    for (var i = end; i < filenameIndex; i++)
+                    for (int i = end; i < filenameIndex; i++)
+                    {
                         root += elements[i] + '\\';
+                    }
 
                     return root + elements[filenameIndex];
                 }
@@ -158,20 +176,36 @@ namespace miRobotEditor
             return pathname;
         }
 
+        #region Properties
+
+        #region Workspace
+
         private static Workspace _instance;
 
-        public static Workspace Instance { get { return _instance ?? (_instance = new Workspace()); } }
+        public static Workspace Instance
+        {
+            get { return _instance ?? (_instance = new Workspace()); }
+            set { _instance = value; }
+        }
+
+        #endregion
 
         #region Tools
 
         //Object Browser
         private readonly ObjectBrowserViewModel _objectBrowser = null;
 
-        public ObjectBrowserViewModel ObjectBrowser { get { return _objectBrowser ?? new ObjectBrowserViewModel(); } }
+        public ObjectBrowserViewModel ObjectBrowser
+        {
+            get { return _objectBrowser ?? new ObjectBrowserViewModel(); }
+        }
 
         private readonly NotesViewModel _notes = null;
 
-        public NotesViewModel Notes { get { return _notes ?? new NotesViewModel(); } }
+        public NotesViewModel Notes
+        {
+            get { return _notes ?? new NotesViewModel(); }
+        }
 
         private readonly MessageViewModel _messageView = null;
 
@@ -182,130 +216,239 @@ namespace miRobotEditor
 
         private readonly FunctionViewModel _functions = null;
 
-        public FunctionViewModel Functions { get { return _functions ?? new FunctionViewModel(); } }
+        public FunctionViewModel Functions
+        {
+            get { return _functions ?? new FunctionViewModel(); }
+        }
+
 
         private readonly LocalVariablesViewModel _localVariables = null;
 
-        public LocalVariablesViewModel LocalVariables { get { return _localVariables ?? new LocalVariablesViewModel(); } }
+        public LocalVariablesViewModel LocalVariables
+        {
+            get { return _localVariables ?? new LocalVariablesViewModel(); }
+        }
+
 
         private readonly AngleConvertorViewModel _angleConverter = null;
 
-        public AngleConvertorViewModel AngleConverter { get { return _angleConverter ?? new AngleConvertorViewModel(); } }
+        public AngleConvertorViewModel AngleConverter
+        {
+            get { return _angleConverter ?? new AngleConvertorViewModel(); }
+        }
 
-        #endregion Tools
-
-        #region Properties
+        #endregion
 
         #region ShowSettings
 
         private bool _showSettings;
 
-        public bool ShowSettings { get { return _showSettings; } set { _showSettings = value; RaisePropertyChanged("ShowSettings"); } }
+        public bool ShowSettings
+        {
+            get { return _showSettings; }
+            set
+            {
+                _showSettings = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        #endregion ShowSettings
+        #endregion
 
-        #region AccentBrush
+        #region Accent
 
-        [NonSerialized]
-        private Accent _accentBrush = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
+        [NonSerialized] private Accent _accentBrush = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
 
-        public Accent AccentBrush { get { return _accentBrush; } set { _accentBrush = value; RaisePropertyChanged("AccentBrush"); } }
+        public Accent AccentBrush
+        {
+            get { return _accentBrush; }
+            set
+            {
+                _accentBrush = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        #endregion AccentBrush
+        #endregion
 
-        #region Current theme
+        #region Theme
 
-        private Theme _currentTheme = Theme.Dark;
+        private Theme _currentTheme = Theme.Light;
 
-        public Theme CurrentTheme { get { return _currentTheme; } set { _currentTheme = value; RaisePropertyChanged("CurrentTheme"); } }
+        public Theme CurrentTheme
+        {
+            get { return _currentTheme; }
+            set
+            {
+                _currentTheme = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        #endregion Current theme
+        #endregion
 
-        #region Show IO
+        #region ShowIO
+
+        /// <summary>
+        ///     The <see cref="ShowIO" /> property's name.
+        /// </summary>
+        public const string ShowIOPropertyName = "ShowIO";
 
         private bool _showIO;
 
-        public bool ShowIO { get { return _showIO; } set { _showIO = value; RaisePropertyChanged("ShowIO"); } }
+        /// <summary>
+        ///     Sets and gets the ShowIO property.
+        ///     Changes to that property's value raise the PropertyChanged event.
+        /// </summary>
+        public bool ShowIO
+        {
+            get { return _showIO; }
 
-        #endregion Show IO
+            set
+            {
+                if (_showIO == value)
+                {
+                    return;
+                }
 
-        #region Enable IO
+                RaisePropertyChanging(ShowIOPropertyName);
+                _showIO = value;
+                RaisePropertyChanged(ShowIOPropertyName);
+            }
+        }
+
+        #endregion
+
+        #region EnableIO
+
+        /// <summary>
+        ///     The <see cref="EnableIO" /> property's name.
+        /// </summary>
+        public const string EnableIOPropertyName = "EnableIO";
 
         private bool _enableIO;
 
-        public bool EnableIO { get { return _enableIO; } set { _enableIO = value; RaisePropertyChanged("EnableIO"); } }
+        /// <summary>
+        ///     Sets and gets the EnableIO property.
+        ///     Changes to that property's value raise the PropertyChanged event.
+        /// </summary>
+        public bool EnableIO
+        {
+            get { return _enableIO; }
 
-        #endregion Enable IO
+            set
+            {
+                if (_enableIO == value)
+                {
+                    return;
+                }
 
-        #region Layout Strategy
+                RaisePropertyChanging(EnableIOPropertyName);
+                _enableIO = value;
+                RaisePropertyChanged(EnableIOPropertyName);
+            }
+        }
 
-        private ILayoutUpdateStrategy _layoutStrategy;
+        #endregion
 
-        public ILayoutUpdateStrategy LayoutStrategy { get { return _layoutStrategy ?? (_layoutStrategy = new LayoutInitializer()); } }
+        #region LayoutStrategy
 
-        #endregion Layout Strategy
+        private ILayoutUpdateStrategy _layoutInitializer;
+
+        public ILayoutUpdateStrategy LayoutStrategy
+        {
+            get { return _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer()); }
+        }
+
+        #endregion
 
         #region Tools
 
         private readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
         private readonly IEnumerable<ToolViewModel> _readonlyTools = null;
 
-        public IEnumerable<ToolViewModel> Tools { get { return _readonlyTools ?? new ReadOnlyObservableCollection<ToolViewModel>(_tools); } }
+        public IEnumerable<ToolViewModel> Tools
+        {
+            get { return _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools); }
+        }
 
-        #endregion Tools
+        #endregion
 
         #region IsClosing
 
+        /// <summary>
+        ///     The <see cref="IsClosing" /> property's name.
+        /// </summary>
+        public const string IsClosingPropertyName = "IsClosing";
+
         private bool _isClosing;
 
-        public bool IsClosing { get { return _isClosing; } set { _isClosing = value; RaisePropertyChanged("IsClosing"); } }
+        /// <summary>
+        ///     Sets and gets the IsClosing property.
+        ///     Changes to that property's value raise the PropertyChanged event.
+        /// </summary>
+        public bool IsClosing
+        {
+            get { return _isClosing; }
 
-        #endregion IsClosing
+            set
+            {
+                if (_isClosing == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(IsClosingPropertyName);
+                _isClosing = value;
+                RaisePropertyChanged(IsClosingPropertyName);
+            }
+        }
+
+        #endregion
 
         #region Files
 
         private readonly ObservableCollection<IDocument> _files = new ObservableCollection<IDocument>();
         private readonly ReadOnlyObservableCollection<IDocument> _readonyFiles = null;
 
-        public ReadOnlyObservableCollection<IDocument> Files { get { return _readonyFiles ?? new ReadOnlyObservableCollection<IDocument>(_files); } }
+        public ReadOnlyObservableCollection<IDocument> Files
+        {
+            get { return _readonyFiles ?? new ReadOnlyObservableCollection<IDocument>(_files); }
+        }
 
-        #endregion Files
+        #endregion
 
-        #endregion Properties
+        #endregion
 
         #region ActiveEditor
 
-        private IDocument _activeEditor;
+        private static IDocument _activeEditor;
 
         public IDocument ActiveEditor
         {
-            get
-            {
-                return _activeEditor;
-            }
+            get { return _activeEditor; }
             set
             {
+                // if (_activeEditor.ContentId == value.ContentId) return;
                 _activeEditor = value;
-
-                lock (_activeEditor)
-                {
-                    //TODO 8/19/2013 Changed this and moved inside the lock;
-
-                    RaisePropertyChanged("ActiveEditor");
-                    RaisePropertyChanged("Title");
-                    //            if (ActiveEditorChanged != null)
-                    //                ActiveEditorChanged(this, EventArgs.Empty);
-                }
+                _activeEditor.TextBox.Focus();
+                RaisePropertyChanged("ActiveEditor");
+                RaisePropertyChanged("Title");
+                //            if (ActiveEditorChanged != null)
+                //                ActiveEditorChanged(this, EventArgs.Empty);
             }
         }
 
+
 #pragma warning disable 67
-
         public event EventHandler ActiveEditorChanged;
-
 #pragma warning restore 67
 
-        #endregion ActiveEditor
+        #endregion
+
+        #region Commands
+
+        #region ExecuteShowIO
 
         private void ExecuteShowIO()
         {
@@ -314,295 +457,168 @@ namespace miRobotEditor
 
         #region Commands
 
-        #region ShowIOCommand
-
         private RelayCommand _showIOCommand;
-        /// <summary>
-        /// Gets the ShowIOCommand.
-        /// </summary>
-        public RelayCommand ShowIOCommand
+
+        public ICommand ShowIOCommand
         {
-            get
-            {
-                return _showIOCommand
-                    ?? (_showIOCommand = new RelayCommand(ExecuteShowIOCommand));
-            }
+            get { return _showIOCommand ?? (_showIOCommand = new RelayCommand(p => ExecuteShowIO(), p => true)); }
         }
 
-        private void ExecuteShowIOCommand()
-        {
-            ExecuteShowIO();
-        }
         #endregion
 
         #region NewFile
 
-
-        #region NewFileCommand
-
         private RelayCommand _newFileCommand;
-        /// <summary>
-        /// Gets the NewFileCommand.
-        /// </summary>
-        public RelayCommand NewFileCommand
+
+        public ICommand NewFileCommand
         {
-            get
-            {
-                return _newFileCommand
-                    ?? (_newFileCommand = new RelayCommand(ExecuteNewFileCommand));
-            }
+            get { return _newFileCommand ?? (_newFileCommand = new RelayCommand(p => AddNewFile(), p => true)); }
         }
 
-        private void ExecuteNewFileCommand()
-        {
-            AddNewFile();
-        }
         #endregion
-
-        #endregion NewFile
 
         #region Change Theme
 
-        #region MyCommand
+        private RelayCommand _changeThemeCommand;
 
-        private RelayCommand<string> _changeThemeCommand    ;
-        /// <summary>
-        /// Gets the MyCommand.
-        /// </summary>
-        public RelayCommand<string> ChangeThemeCommand  
+        public ICommand ChangeThemeCommand
         {
             get
             {
-                return _changeThemeCommand
-                    ?? (_changeThemeCommand = new RelayCommand<string>(ExecuteChangeThemeCommand));
+                return _changeThemeCommand ??
+                       (_changeThemeCommand = new RelayCommand(p => ChangeTheme(p), p => true));
             }
         }
 
-        private void ExecuteChangeThemeCommand(string value)
-        {
-            CurrentTheme =value == "Light" ? Theme.Light : Theme.Dark;
-            ThemeManager.ChangeTheme(MainWindow.Instance, AccentBrush, CurrentTheme);
-        }
         #endregion
-      
-
-        #endregion Change Theme
 
         #region Change Accent
 
+        private RelayCommand _changeAccentCommand;
 
-        #region ChangeAccentCommand
-
-        private RelayCommand<string> _changeAccentCommand;
-        /// <summary>
-        /// Gets the ChangeAccentCommand.
-        /// </summary>
-        public RelayCommand<string> ChangeAccentCommand
+        public ICommand ChangeAccentCommand
         {
             get
             {
-                return _changeAccentCommand
-                    ?? (_changeAccentCommand = new RelayCommand<string>(ExecuteChangeAccentCommand));
+                return _changeAccentCommand ?? (_changeAccentCommand = new RelayCommand(p => ChangeAccent(p), p => true));
             }
         }
 
-        private void ExecuteChangeAccentCommand(string value)
-        {
-              AccentBrush = ThemeManager.DefaultAccents.First(x => x.Name == value);
-            ThemeManager.ChangeTheme(MainWindow.Instance, AccentBrush, CurrentTheme);
-        }
         #endregion
 
-     
-
-        #endregion Change Accent
-
-        
-
-        #region ShowSettingsCommand
+        #region ShowSettings
 
         private RelayCommand _showSettingsCommand;
-        /// <summary>
-        /// Gets the ShowSettingsCommand.
-        /// </summary>
-        public RelayCommand ShowSettingsCommand
+
+        public ICommand ShowSettingsCommand
         {
             get
             {
-                return _showSettingsCommand
-                    ?? (_showSettingsCommand = new RelayCommand(ExecuteShowSettingsCommand));
+                return _showSettingsCommand ??
+                       (_showSettingsCommand = new RelayCommand(p => ExecuteShowSettings(), p => true));
             }
         }
 
-        private void ExecuteShowSettingsCommand()
-        {
-            ExecuteShowSettings();
-        }
         #endregion
 
+        #region ShowFindReplace
 
+        private RelayCommand _showFindReplace;
 
-
-        #region ShowFindReplaceCommand
-
-        private RelayCommand _showFindReplaceCommand;
-        /// <summary>
-        /// Gets the ShowFindReplaceCommand.
-        /// </summary>
-        public RelayCommand ShowFindReplaceCommand
+        public ICommand ShowFindReplaceCommand
         {
-            get
-            {
-                return _showFindReplaceCommand
-                    ?? (_showFindReplaceCommand = new RelayCommand(ExecuteShowFindReplaceCommand));
-            }
+            get { return _showFindReplace ?? (_showFindReplace = new RelayCommand(p => ShowFindReplace(), p => true)); }
         }
 
-        private void ExecuteShowFindReplaceCommand()
+
+        private void ShowFindReplace()
         {
             var fnr = new FindandReplaceControl(MainWindow.Instance);
-            // ReSharper disable ReturnValueOfPureMethodIsNotUsed
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
             fnr.ShowDialog().GetValueOrDefault();
-            // ReSharper restore ReturnValueOfPureMethodIsNotUsed
+// ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
+
         #endregion
 
-
-
-        #region ShowAboutCommand
+        #region ShowAbout
 
         private RelayCommand _showAboutCommand;
-        /// <summary>
-        /// Gets the ShowAboutCommand.
-        /// </summary>
-        public RelayCommand ShowAboutCommand
+
+        public ICommand ShowAboutCommand
         {
-            get
-            {
-                return _showAboutCommand
-                    ?? (_showAboutCommand = new RelayCommand(ExecuteShowAboutCommand));
-            }
+            get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand(p => ShowAbout(), p => true)); }
         }
-
-        private void ExecuteShowAboutCommand()
-        {
-            ShowAbout();
-        }
-        #endregion
-
-
-        #region ExitCommand
 
         private RelayCommand _exitCommand;
-        /// <summary>
-        /// Gets the ExitCommand.
-        /// </summary>
-        public RelayCommand ExitCommand
-        {
-            get
-            {
-                return _exitCommand
-                    ?? (_exitCommand = new RelayCommand(ExecuteExitCommand));
-            }
-        }
 
-        private void ExecuteExitCommand()
-        {
-            Exit();
-        }
         #endregion
 
+        #region Exit
 
-        #region ImportCommand
+        public ICommand ExitCommand
+        {
+            get { return _exitCommand ?? (_exitCommand = new RelayCommand(p => Exit(), p => true)); }
+        }
+
+        #endregion
+
+        #region Import
 
         private RelayCommand _importCommand;
-        /// <summary>
-        /// Gets the ImportCommand.
-        /// </summary>
-        public RelayCommand ImportCommand
+
+        public ICommand ImportCommand
         {
             get
             {
-                return _importCommand
-                    ?? (_importCommand = new RelayCommand(ExecuteImportCommand));
+                return _importCommand ??
+                       (_importCommand =
+                           new RelayCommand(p => ImportRobot(),
+                               p => (!(p is LanguageBase) | (p is Fanuc) | (p is Kawasaki) | p == null)));
             }
         }
 
-        private void ExecuteImportCommand()
-        {
-            ImportRobot();
-        }
         #endregion
 
-
-        #region OpenFileCommand
+        #region Open File
 
         private RelayCommand _openFileCommand;
-        /// <summary>
-        /// Gets the OpenFileCommand.
-        /// </summary>
-        public RelayCommand OpenFileCommand
+
+        public ICommand OpenFileCommand
+        {
+            get { return _openFileCommand ?? (_openFileCommand = new RelayCommand(OnOpen, p => true)); }
+        }
+
+        #endregion
+
+        #region ChangeViewAs
+
+        private RelayCommand _changeViewAsCommand;
+
+        public ICommand ChangeViewAsCommand
         {
             get
             {
-                return _openFileCommand
-                    ?? (_openFileCommand = new RelayCommand(ExecuteOpenFileCommand));
+                return _changeViewAsCommand ??
+                       (_changeViewAsCommand = new RelayCommand(param => ChangeViewAs(param), param => true));
             }
         }
 
-        private void ExecuteOpenFileCommand()
-        {
-            OnOpen(null);
-        }
         #endregion
 
+        #region AddTool
 
-        #region ChangeViewAsCommand
+        private RelayCommand _addToolCommand;
 
-        private RelayCommand<object> _changeViewAsCommand;
-        /// <summary>
-        /// Gets the ChangeViewAsCommand.
-        /// </summary>
-        public RelayCommand<object> ChangeViewAsCommand
+        public ICommand AddToolCommand
         {
             get
             {
-                return _changeViewAsCommand
-                    ?? (_changeViewAsCommand = new RelayCommand<object>(ExecuteChangeViewAsCommand));
+                return _addToolCommand ?? (_addToolCommand = new RelayCommand(param => AddTool(param), param => true));
             }
         }
 
-        private void ExecuteChangeViewAsCommand(object param)
-        {
-            
-            ChangeViewAs(param);
-        }
         #endregion
-
-
-        #region AddToolCommand
-
-        private RelayCommand<object> _addToolCommand;
-        /// <summary>
-        /// Gets the AddToolCommand.
-        /// </summary>
-        public RelayCommand<object> AddToolCommand
-        {
-            get
-            {
-                return _addToolCommand
-                    ?? (_addToolCommand = new RelayCommand<object>(ExecuteAddToolCommand));
-            }
-        }
-
-        private void ExecuteAddToolCommand(object param)
-        {
-            AddTool(param);
-        }
-        #endregion
-
-      
-        #endregion Commands
 
         #region Show Settings
 
@@ -611,108 +627,95 @@ namespace miRobotEditor
             ShowSettings = !ShowSettings;
         }
 
-        #endregion Show Settings
+        #endregion
 
-  
+        private void ChangeAccent(object param)
+        {
+            AccentBrush = ThemeManager.Accents.First(x => x.Name == param.ToString());
+
+
+            ThemeManager.ChangeAppStyle(Application.Current, AccentBrush,
+                ThemeManager.GetAppTheme(CurrentTheme.ToString()));
+        }
+
+        private void ChangeTheme(object param)
+        {
+            CurrentTheme = param.ToString() == "Light" ? Theme.Light : Theme.Dark;
+            ThemeManager.ChangeAppStyle(Application.Current, AccentBrush,
+                ThemeManager.GetAppTheme(CurrentTheme.ToString()));
+            //      ThemeManager.ChangeTheme(MainWindow.Instance, AccentBrush, CurrentTheme);
+        }
+
         #region OpenFile
 
         /// <summary>
-        /// Open file from menu entry
+        ///     Open file from menu entry
         /// </summary>
         /// <param name="param"></param>
+// ReSharper disable UnusedParameter.Local
         private void OnOpen(object param)
+// ReSharper restore UnusedParameter.Local
         {
             var path = Path.GetDirectoryName(ActiveEditor.FilePath);
             var dir = Directory.Exists(path) ? path : "C:\\";
             var dlg = new OpenFileDialog
             {
                 // Find a way to check for network directory
-                //                InitialDirectory="C:\\",
+//                InitialDirectory="C:\\",
                 Filter = Resources.DefaultFilter,
                 Multiselect = true,
                 FilterIndex = Settings.Default.Filter,
             };
 
-            if (!dlg.ShowDialog().GetValueOrDefault()) return;
-            foreach (var file in dlg.FileNames)
-                Open(file);
+            dlg.InitialDirectory = path;
+            if (dlg.ShowDialog().GetValueOrDefault())
+            {
+                Open(dlg.FileName);
+            }
         }
+
 
         public IDocument Open(string filepath)
         {
             var fileViewModel = OpenFile(filepath);
-
             ActiveEditor = fileViewModel;
-            ActiveEditor.TextBox.FilenameChanged += TextBox_FilenameChanged;
-
             ActiveEditor.IsActive = true;
             return fileViewModel;
         }
 
-        private void TextBox_FilenameChanged(object sender, EventArgs e)
-        {
-            var editor = sender as EditorClass;
-            Debug.Assert(editor != null, "editor != null");
-            var fileViewModel = _files.FirstOrDefault(fi => fi.ContentId ==editor.Tag.ToString());
-
-            Debug.Assert(fileViewModel != null, "fileViewModel != null");
-            
-            fileViewModel.ContentId = editor.Filename;
-            RaisePropertyChanged("Title");
-
-            Console.WriteLine();
-        }
-
-        private void fileViewModel_FilenameChanged(object sender, EventArgs e)
-        {
-        }
-
-        /// <summary>
-        /// Gets document type of file to open
-        /// </summary>
-        /// <param name="filepath">Destination of file</param>
-        /// <returns>Document Type</returns>
         private IDocument OpenFile(string filepath)
         {
-            var fileViewModel = _files.FirstOrDefault(fm => fm.ContentId == filepath);
-
+            var fileViewModel = _files.FirstOrDefault(fm => fm.FilePath == filepath);
             if (fileViewModel != null)
-            {
-                fileViewModel.IsSelected = true;
-                fileViewModel.IsActive = true;
-                ActiveEditor = fileViewModel;
                 return fileViewModel;
-            }
+
 
             fileViewModel = AbstractLanguageClass.GetViewModel(filepath);
 
             if (File.Exists(filepath))
             {
                 fileViewModel.Load(filepath);
-                fileViewModel.TextBox.Tag = filepath;
                 // Add file to Recent list
                 RecentFileList.Instance.InsertFile(filepath);
-                System.Windows.Shell.JumpList.AddToRecentCategory(filepath);
+                JumpList.AddToRecentCategory(filepath);
             }
-
-            // 7/23/2013 Changed order
-            _files.Add(fileViewModel);
             fileViewModel.IsActive = true;
-            fileViewModel.IsSelected = true;
-
+            _files.Add(fileViewModel);
             ActiveEditor = fileViewModel;
             return fileViewModel;
         }
+
 
         public void OpenFile(IVariable variable)
         {
             // Am i using dock or ActiveEditor?
 
-            var fileViewModel = Open(variable.Path);
+            IDocument fileViewModel = Open(variable.Path);
 
             fileViewModel.SelectText(variable);
-            //            ActiveEditor.TextBox.SelectText(variable);
+//            ActiveEditor.TextBox.SelectText(variable);
         }
+
 
         public void AddNewFile()
         {
@@ -723,12 +726,13 @@ namespace miRobotEditor
         public void LoadFile(IList<string> args)
         {
             // Argument 0 is The Path of the main application so i start with argument 1
-
-            for (int i = 1; i < args.Count;i++)
+            for (int i = 1; i < args.Count; i++)
+            {
                 Open(args[i]);
+            }
         }
 
-        #endregion OpenFile
+        #endregion
 
         //This can probably move to the language class section
         private void ChangeViewAs(object param)
@@ -740,22 +744,20 @@ namespace miRobotEditor
             switch (param.ToString())
             {
                 case "ABB":
-                    // ReSharper disable RedundantCast
-                    ActiveEditor.FileLanguage = (ABB)lang;
-                    break;
+// ReSharper disable RedundantCast
+                    ActiveEditor.FileLanguage = (ABB) lang;
 
+                    break;
                 case "KUKA":
                     ActiveEditor.FileLanguage = new KUKA();
                     break;
-
                 case "Fanuc":
-                    ActiveEditor.FileLanguage = (Fanuc)lang;
+                    ActiveEditor.FileLanguage = (Fanuc) lang;
                     break;
-
                 case "Kawasaki":
-                    ActiveEditor.FileLanguage = (Kawasaki)lang;
+                    ActiveEditor.FileLanguage = (Kawasaki) lang;
                     break;
-                // ReSharper restore RedundantCast
+                    // ReSharper restore RedundantCast
             }
 
             //                ActiveEditor.TextBox.UpdateVisualText();
@@ -774,6 +776,7 @@ namespace miRobotEditor
             RaisePropertyChanged("ActiveEditor");
         }
 
+
         public void AddTool(ToolViewModel toolModel)
         {
             var tool = new LayoutAnchorable();
@@ -782,7 +785,7 @@ namespace miRobotEditor
             tool.Content = toolModel;
 
             // Does Content Exist Allready?
-            foreach (var t in Tools.Where(t => t.Title == toolModel.Title))
+            foreach (ToolViewModel t in Tools.Where(t => t.Title == toolModel.Title))
             {
                 t.IsActive = true;
                 return;
@@ -793,6 +796,7 @@ namespace miRobotEditor
             toolModel.IsActive = true;
             RaisePropertyChanged("Tools");
         }
+
 
         [Localizable(false)]
         private void AddTool(object parameter)
@@ -806,49 +810,40 @@ namespace miRobotEditor
                     toolModel = new AngleConvertorViewModel();
                     tool.AutoHideMinWidth = 219;
                     break;
-
                 case "Functions":
                     toolModel = new FunctionViewModel();
                     tool.AutoHideMinWidth = 300;
                     break;
-
                 case "Explorer":
                     tool.Content = new FileExplorerWindow();
                     break;
-
                 case "Object Browser":
                     toolModel = new ObjectBrowserViewModel();
                     break;
-
                 case "Output Window":
                     toolModel = new MessageViewModel();
                     break;
-
                 case "Notes":
                     toolModel = new NotesViewModel();
                     break;
-
                 case "ArchiveInfo":
                     toolModel = new ArchiveInfoViewModel();
                     break;
-
                 case "Rename Positions":
                     //TODO Change this
-                    tool.Content = new Language_Specific.RenamePositionWindow();
+                    tool.Content = new RenamePositionWindow();
                     break;
-
                 case "Shift":
                     //TODO Change this
                     tool.Content = new ShiftWindow();
                     break;
-
                 case "CleanDat":
                     toolModel = new DatCleanHelper();
                     tool.AutoHideMinWidth = DatCleanHelper.Instance.Width;
                     break;
-
                 default:
-                    MessageViewModel.Instance.Add("Not Implemented", String.Format("Add Tool Parameter of {0} not Implemented", name), MsgIcon.Error);
+                    MessageViewModel.Instance.Add("Not Implemented",
+                        String.Format("Add Tool Parameter of {0} not Implemented", name), MsgIcon.Error);
                     break;
             }
 
@@ -858,7 +853,7 @@ namespace miRobotEditor
                 tool.Content = toolModel;
 
                 // Does Content Exist Allready?
-                foreach (var t in Tools.Where(t => t.Title == toolModel.Title))
+                foreach (ToolViewModel t in Tools.Where(t => t.Title == toolModel.Title))
                 {
                     t.IsActive = true;
                     return;
@@ -870,22 +865,26 @@ namespace miRobotEditor
             RaisePropertyChanged("Tools");
         }
 
+
         private void ImportRobot()
         {
             BringToFront("Object Browser");
             AddTool("ArchiveInfo");
         }
 
+
         public void BringToFront(string windowname)
         {
             // Does Content Exist Allready?
-            foreach (var dd in MainWindow.Instance.DockManager.Layout.Descendents().OfType<LayoutAnchorable>())
+
+            foreach (
+                LayoutAnchorable dd in MainWindow.Instance.DockManager.Layout.Descendents().OfType<LayoutAnchorable>())
             {
                 if (dd.Title == windowname)
                     dd.IsActive = true;
-                Console.WriteLine(dd.Title);
             }
         }
+
 
         public void ShowAbout()
         {
@@ -895,13 +894,13 @@ namespace miRobotEditor
         #region IDialogProvider Interface
 
         /// <summary>
-        /// This method allows the user to select a file to open
-        /// (so the view-model can implement 'Open File' functionality).
+        ///     This method allows the user to select a file to open
+        ///     (so the view-model can implement 'Open File' functionality).
         /// </summary>
         public bool UserSelectsFileToOpen(out string filePath)
         {
             var openFileDialog = new OpenFileDialog();
-            var result = openFileDialog.ShowDialog();
+            bool? result = openFileDialog.ShowDialog();
             if (result.Value)
             {
                 filePath = openFileDialog.FileName;
@@ -912,15 +911,15 @@ namespace miRobotEditor
         }
 
         /// <summary>
-        /// This method allows the user to select a new filename for an existing file
-        /// (so the view-model can implement 'Save As' functionality).
+        ///     This method allows the user to select a new filename for an existing file
+        ///     (so the view-model can implement 'Save As' functionality).
         /// </summary>
         public bool UserSelectsNewFilePath(string oldFilePath, out string newFilePath)
         {
             var saveFileDialog = new SaveFileDialog();
             // saveFileDialog.FileName = ActiveEditor.Filename;
 
-            var result = saveFileDialog.ShowDialog();
+            bool? result = saveFileDialog.ShowDialog();
             if (result.Value)
             {
                 newFilePath = saveFileDialog.FileName;
@@ -931,22 +930,24 @@ namespace miRobotEditor
         }
 
         /// <summary>
-        /// Display an error message dialog box.
-        /// This allows the view-model to display error messages.
+        ///     Display an error message dialog box.
+        ///     This allows the view-model to display error messages.
         /// </summary>
         public void ErrorMessage(string msg)
         {
             MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        #endregion
+
         /// <summary>
-        /// Event raised when AvalonDock has loaded.
+        ///     Event raised when AvalonDock has loaded.
         /// </summary>
-        // ReSharper disable UnusedMember.Local
-        // ReSharper disable UnusedParameter.Local
+// ReSharper disable UnusedMember.Local
+// ReSharper disable UnusedParameter.Local
         private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
-        // ReSharper restore UnusedParameter.Local
-        // ReSharper restore UnusedMember.Local
+// ReSharper restore UnusedParameter.Local
+// ReSharper restore UnusedMember.Local
         {
             throw new NotImplementedException();
             // if (System.IO.File.Exists(LayoutFileName))
@@ -974,6 +975,8 @@ namespace miRobotEditor
             // }
         }
 
-        #endregion IDialogProvider Interface
+        #endregion
+
+        #endregion
     }
 }

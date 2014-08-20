@@ -1,144 +1,62 @@
-﻿using System.ComponentModel;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using System.Windows.Input;
+using miRobotEditor.Core;
 using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
 namespace miRobotEditor.OrangeEdit
 {
-    [Localizable(false)]
     class FormEnvironment:ViewModelBase
     {
         #region Commands
-
-        #region ActivateCommand
-
         private RelayCommand _activateCommand;
-        /// <summary>
-        /// Gets the ActivateCommand.
-        /// </summary>
-        public RelayCommand ActivateCommand
+        public ICommand ActivateCommand
         {
-            get
-            {
-                return _activateCommand
-                    ?? (_activateCommand = new RelayCommand(ExecuteActivateCommand));
-            }
+            get { return _activateCommand ?? (_activateCommand = new RelayCommand(param => Activate(), param => true)); }
         }
-
-        private void ExecuteActivateCommand()
-        {
-            Activate();
-        }
-        #endregion
-
-        #region CloseCommand
 
         private RelayCommand _closeCommand;
-        /// <summary>
-        /// Gets the CloseCommand.
-        /// </summary>
-        public RelayCommand CloseCommand
+        public ICommand CloseCommand
         {
-            get
-            {
-                return _closeCommand
-                    ?? (_closeCommand = new RelayCommand(ExecuteCloseCommand));
-            }
+            get { return _closeCommand ?? (_closeCommand = new RelayCommand(param => Close(), param => true)); }
         }
-
-        private void ExecuteCloseCommand()
-        {
-            Close();
-        }
-        #endregion
-
-
-        #region ActivateDefaultCommand
-
         private RelayCommand _activateDefaultCommand;
-        /// <summary>
-        /// Gets the ActivateDefaultCommand.
-        /// </summary>
-        public RelayCommand ActivateDefaultCommand
+        public ICommand ActivateDefaultCommand
         {
-            get
-            {
-                return _activateDefaultCommand
-                    ?? (_activateDefaultCommand = new RelayCommand(ExecuteActivateDefaultCommand));
-            }
+            get { return _activateDefaultCommand ?? (_activateDefaultCommand = new RelayCommand(param => ActivateDefault(), param => true)); }
         }
-
-        private void ExecuteActivateDefaultCommand()
-        {
-            ActivateDefault();
-        }
-
-        #region FolderCommand
-
         private RelayCommand _folderCommand;
-        /// <summary>
-        /// Gets the FolderCommand.
-        /// </summary>
-        public RelayCommand FolderCommand
+        public ICommand FolderCommand
         {
-            get
-            {
-                return _folderCommand
-                    ?? (_folderCommand = new RelayCommand(ExecuteFolderCommand));
-            }
+            get { return _folderCommand ?? (_folderCommand = new RelayCommand(param => Folder(), param => true)); }
         }
-
-        private void ExecuteFolderCommand()
-        {
-            Folder();
-        }
-        #endregion
-        #endregion
-
-        #region TextChangedCommand
 
         private RelayCommand _textChangedCommand;
-        /// <summary>
-        /// Gets the TextChangedCommand.
-        /// </summary>
-        public RelayCommand TextChangedCommand
+        public ICommand TextChangedCommand
         {
-            get
-            {
-                return _textChangedCommand
-                    ?? (_textChangedCommand = new RelayCommand(ExecuteTextChangedCommand));
-            }
+            get { return _textChangedCommand ?? (_textChangedCommand = new RelayCommand(param => TextChanged(), param => true)); }
         }
-
-        private void ExecuteTextChangedCommand()
-        {
-            TextChanged();
-        }
-        #endregion
-
-     
 
         #endregion
 
         #region Properties 
         string _name = string.Empty;
-        public string Name { get { return _name; } set { _name = value; RaisePropertyChanged("Name"); } }
+        public string Name { get { return _name; } set { _name = value; RaisePropertyChanged(); } }
 
         string _directory = string.Empty;
-        public string Directory { get { return _directory; } set { _directory = value; RaisePropertyChanged("Directory"); } }
+        public string Directory { get { return _directory; } set { _directory = value; RaisePropertyChanged(); } }
 
 
         string _userTechPath = string.Empty;
-        public string UserTechPath { get { return _userTechPath; } set { _userTechPath = value; RaisePropertyChanged("UserTechPath"); } }
+        public string UserTechPath { get { return _userTechPath; } set { _userTechPath = value; RaisePropertyChanged(); } }
 
         string _dataPath = string.Empty;
-        public string DataPath { get { return _dataPath; } set { _dataPath = value; RaisePropertyChanged("DataPath"); } }
+        public string DataPath { get { return _dataPath; } set { _dataPath = value; RaisePropertyChanged(); } }
 
         string _r1Path = string.Empty;
-        public string R1Path { get { return _r1Path; } set { _r1Path = value; RaisePropertyChanged("R1Path"); } }
+        public string R1Path { get { return _r1Path; } set { _r1Path = value; RaisePropertyChanged(); } }
 
         private bool _activateEnabled;
-        public bool ActivateEnabled { get { return _activateEnabled; } set { _activateEnabled = value; RaisePropertyChanged("ActivateEnabled"); } }
+        public bool ActivateEnabled { get { return _activateEnabled; } set { _activateEnabled = value; RaisePropertyChanged(); } }
 
 
         #endregion

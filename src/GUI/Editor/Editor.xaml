@@ -6,7 +6,8 @@
              xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
              xmlns:lang="clr-namespace:miRobotEditor.Languages"
              xmlns:gui="clr-namespace:miRobotEditor.GUI"
-             x:Class="miRobotEditor.GUI.Editor" 	           
+             xmlns:editor="clr-namespace:miRobotEditor.GUI.Editor"
+             x:Class="miRobotEditor.GUI.Editor.Editor" 	           
              mc:Ignorable="d" 
              d:DesignHeight="300"
              d:DesignWidth="300" 
@@ -25,7 +26,7 @@
                 <ResourceDictionary Source="/miRobotEditor;component/Templates/EditorTemplate.xaml"/>
                 <ResourceDictionary Source="/miRobotEditor;component/Templates/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type  lang:CodeCompletion}">
+            <DataTemplate DataType="{x:Type  editor:CodeCompletion}">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Background="Orange" Text="{Binding Text}"/>
                     <TextBlock Background="Red" Text="{Binding Description}"/>
@@ -40,28 +41,30 @@
         <KeyBinding Command="Find" Key="F" Modifiers="Control"/>
         <KeyBinding Command="{Binding ReplaceCommand}" Key="R" Modifiers="Control"/>
         <KeyBinding Key="F5" Command="{Binding ReloadCommand}"/>
+        <KeyBinding Key="D" Command="{Binding AddTimeStampCommand}" Modifiers="Ctrl"/>
     </avalonedit:TextEditor.InputBindings>
     <avalonedit:TextEditor.ContextMenu>
         <ContextMenu>
-            <MenuItem Header="Renumber _Lines" Command="{Binding RenumberLinesCommand}" InputGestureText="Ctrl+L" Visibility="{Binding FanucVisibility}"/>
             <MenuItem Header="Cut" Command="{Binding CutCommand}" InputGestureText="Ctrl+X">
                 <MenuItem.Icon>
                     <Image Source="/miRobotEditor;component/Resources/Cut.png" />
                 </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="Copy" Command="{Binding CopyCommand}" InputGestureText="Ctrl+C">
+            </MenuItem>           
+            <MenuItem Header="Copy" Command="{Binding CopyCommand,Mode=OneWay}" InputGestureText="Ctrl+C">
                 <MenuItem.Icon>
                     <Image Source="/miRobotEditor;component/Resources/Copy.png" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="_Paste" Command="{Binding PasteCommand}" InputGestureText="Ctrl+V">
+            <MenuItem Header="_Paste" Command="{Binding PasteCommand,Mode=OneWay}" InputGestureText="Ctrl+V">
                 <MenuItem.Icon>
                     <Image Source="/miRobotEditor;component/Resources/Paste.png" />
                 </MenuItem.Icon>
             </MenuItem>
             <Separator/>
-            <MenuItem Header="Open all Folds"  Command="{Binding OpenAllFoldsCommand}" InputGestureText="Ctrl+M,O" IsTextSearchCaseSensitive="True"/>
-            <MenuItem Header="Close all Folds" Command="{Binding CloseAllFoldsCommand}" InputGestureText="Ctrl,+,M,L" />
+            <MenuItem Header="Open all Folds"  Command="{Binding OpenAllFoldsCommand,Mode=OneWay}" InputGestureText="Ctrl+M,O" IsTextSearchCaseSensitive="True"/>
+            <MenuItem Header="Close all Folds" Command="{Binding CloseAllFoldsCommand,Mode=OneWay}" InputGestureText="Ctrl,+,M,L" />
+            <Separator/>
+            <MenuItem Header="Add Timestamp" Command="{Binding AddTimeStampCommand,Mode=OneWay}"  />
         </ContextMenu>
     </avalonedit:TextEditor.ContextMenu>
   

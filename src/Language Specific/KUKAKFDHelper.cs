@@ -7,21 +7,18 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using GalaSoft.MvvmLight;
 using miRobotEditor.Core;
-using MessageViewModel = miRobotEditor.ViewModel.MessageViewModel;
+using MessageViewModel = miRobotEditor.Core.MessageViewModel;
 
 namespace miRobotEditor.Language_Specific
 {
 	/// <summary>
 	/// Description of KUKAKFDHelper.
 	/// </summary>
-	[Localizable(false)]
 	public class KUKAKFDHelper:ViewModelBase
 	{
 #pragma warning disable 169
@@ -67,9 +64,8 @@ namespace miRobotEditor.Language_Specific
 			while (num<=255);
 			return String.Empty;
 		}
-
-	    [Localizable(false)]
-	    public bool IsNumber (ref string value)
+		
+		public bool IsNumber (ref string value)
 		{
 			const bool flag = false;
 			var str = value;
@@ -83,7 +79,7 @@ namespace miRobotEditor.Language_Specific
 				if (str.Substring(0,1) == "-")
 					str = str.Substring(2);
 				for (var i = str.Length -1;i >=0;i+= -1)
-					if (str2.IndexOf(str.Substring(i), StringComparison.Ordinal) == -1)
+					if (str2.IndexOf(str.Substring(i)) == -1)
 					    return false;
 			}
 			catch (Exception ex)
@@ -151,7 +147,7 @@ namespace miRobotEditor.Language_Specific
     try
     {
     	
-    	var start = sLine.IndexOf(sParam + " ", StringComparison.Ordinal);
+    	var start = sLine.IndexOf(sParam + " ");
         if (start == 0)
             return false;
 
@@ -1104,16 +1100,16 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	    try
 	    {
 	        var flag = false;
-	        var start = sLine.IndexOf(sParam + " ", StringComparison.Ordinal);
+	        var start = sLine.IndexOf(sParam + " ");
 	        if (start == 0)
 	            return str;
 
 	        start+=sParam.Length;
 	        sLine = sLine.Substring(start).Trim();
 	        
-	        var num2 = sLine.IndexOf(",", StringComparison.Ordinal);
-	        var num3 = sLine.IndexOf("}", StringComparison.Ordinal);
-	        var num4 = sLine.IndexOf("{", StringComparison.Ordinal);
+	        var num2 = sLine.IndexOf(",");
+	        var num3 = sLine.IndexOf("}");
+	        var num4 = sLine.IndexOf("{");
 	        
 	        start = 1;
 	        if (((num4 > 0) && (num4 < num3)) && ((num4 < num2) || (num2 == 0)))

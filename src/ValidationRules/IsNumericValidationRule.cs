@@ -4,8 +4,14 @@ using System.ComponentModel;
 namespace miRobotEditor.ValidationRules
 {
     [Localizable(false)]
+// ReSharper disable once UnusedMember.Global
     public class IsNumericValidationRule:ValidationRule,IDataErrorInfo
     {
+        public IsNumericValidationRule(string fieldName)
+        {
+            FieldName = fieldName;
+        }
+
         public string FieldName { get; set; }
 
         public string Error

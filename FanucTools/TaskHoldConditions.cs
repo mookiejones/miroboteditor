@@ -8,7 +8,7 @@
  */
 using System;
 using System.Collections.ObjectModel;
-using MookiesEditor.Core;
+
 namespace FanucTools
 {
 	/// <summary>

@@ -3,8 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 using miRobotEditor.Core;
-using miRobotEditor.Resources;
-using miRobotEditor.Resources.StringResources;
 using Global = miRobotEditor.Classes.Global;
 using Utilities = miRobotEditor.Classes.Utilities;
 
@@ -31,7 +29,7 @@ namespace miRobotEditor.ViewModel
             }
             catch(Exception ex )
             {
-                MessageViewModel.AddError(ErrorResources.ConvertError,ex);
+                MessageViewModel.AddError("Convert",ex);
             }
             return null;
         }

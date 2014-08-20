@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
 

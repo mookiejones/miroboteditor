@@ -17,31 +17,7 @@
 <MenuItem x:Key="FanucMenu"/>
 <MenuItem x:Key="KawasakiMenu"/>
 <MenuItem x:Key="NachiMenu"/>
-    <DataTemplate x:Key="KukaMenuItems">
-        <MenuItem Header="KUKA">
-            <MenuItem Header="Archive Viewer" Command="{Binding AddToolCommand}" CommandParameter="ArchiveInfo" />
-            <MenuItem Header="Shift Program" Command="{Binding AddToolCommand}" CommandParameter="Shift" />
-            <MenuItem Header="KUKA">
-                <MenuItem Header="test">
-                    <MenuItem.ItemTemplate>
-                        <HierarchicalDataTemplate ItemsSource="{Binding ActiveEditor.FileLanguage.MenuItems}" />
-                    </MenuItem.ItemTemplate>
-                </MenuItem>
-                <MenuItem Header="CleanDat"  Command="{Binding AddToolCommand}"  CommandParameter="CleanDat" />
-                <MenuItem Header="Rename Positions"  Command="{Binding AddToolCommand}" />
-                <MenuItem Header="ReverseOrder" />
-                <MenuItem Header="Mirror" />
-                <MenuItem Header="Adjust Status/Turn" />
-                <MenuItem Header="Sort DataList" />
-                <MenuItem Header="View I/O List" />
-            </MenuItem>
-        </MenuItem>
-    </DataTemplate>
-    <DataTemplate x:Key="FanucItems" />
-    <DataTemplate x:Key="ABBItems" />
-    <DataTemplate x:Key="KawasakiItems" />
-    <DataTemplate x:Key="NachiItems" />
-
+    
 
 
 

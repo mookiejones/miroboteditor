@@ -1,9 +1,7 @@
-﻿using System.ComponentModel;
-using GalaSoft.MvvmLight;
+﻿using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
-    [Localizable(false)]
     public class ToolTipViewModel:ViewModelBase
     {
 
@@ -17,9 +15,9 @@ namespace miRobotEditor.ViewModel
             }}
 
         private string _message = string.Empty;
-        public string Message {get { return _message; }set { _message = value;RaisePropertyChanged("Message"); }}
+        public string Message {get { return _message; }set { _message = value;RaisePropertyChanged(); }}
 
         private string _title = string.Empty;
-        public string Title { get { return _title; } set { _title = value; RaisePropertyChanged("Title"); } }
+        public string Title { get { return _title; } set { _title = value; RaisePropertyChanged(); } }
     }
 }

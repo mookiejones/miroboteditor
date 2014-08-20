@@ -19,7 +19,9 @@ namespace miRobotEditor.Languages
         string ContextPromptLexem { get; }
         Collection<string> FunctionItems { get; }
         string GetFile(string fileName, string filetype);
-        AbstractFoldingStrategy FoldingStrategy { get; set; }
+
+        //TODO Was XmlFoldingStrategy
+        XmlFoldingStrategy FoldingStrategy { get; set; }
         System.IO.Stream Intellisense { get; }
         ShiftClass ShiftProgram(IDocument doc, ShiftViewModel shift);
         IList<ICompletionData> CodeCollection { get; }

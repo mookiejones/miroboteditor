@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System;
 using System.Text.RegularExpressions;
@@ -7,9 +6,10 @@ using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.GUI.Editor;
+using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 using FileInfo = System.IO.FileInfo;
-using miRobotEditor.Classes;
+
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -27,7 +27,6 @@ namespace miRobotEditor.Languages
         {
             get { return new List<string> { "*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd" }; }
         }
-     
 
         public VBA(string file):base(file)
         {           
@@ -42,7 +41,7 @@ namespace miRobotEditor.Languages
         }
 
 
-
+        //Was XmlFoldingStrategy
         internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         protected override string ShiftRegex
@@ -78,8 +77,8 @@ namespace miRobotEditor.Languages
         /// </summary>
         public class RegionFoldingStrategy : AbstractFoldingStrategy
         {
+          
 
-    
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
@@ -92,7 +91,7 @@ namespace miRobotEditor.Languages
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
-            public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
+            public override IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
                 var newFoldings = new List<NewFolding>();
 
@@ -148,11 +147,6 @@ namespace miRobotEditor.Languages
         public override DocumentViewModel GetFile(string filepath)
         {
             return new DocumentViewModel(filepath);
-        }
-
-        public override string IsLineMotion(string lineValue, ICollection<IVariable> variables)
-        {
-            throw new NotImplementedException();
         }
     }
     }

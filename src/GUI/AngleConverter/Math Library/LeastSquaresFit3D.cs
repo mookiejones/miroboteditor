@@ -1,29 +1,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using miRobotEditor.Annotations;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
     using System.Collections.ObjectModel;
 
     [Localizable(false)]
-    public class LeastSquaresFit3D
+    public sealed class LeastSquaresFit3D
     {
         private Collection<Point3D> _measuredPoints;
         private NRSolver _solver;
-
-        public Vector3D AverageVector3D(Collection<Vector3D> vectors)
-        {
-
-
-            var count = vectors.Count;
-            var vectord = new Vector3D();
-            vectord = vectors.Aggregate(vectord, (current, vectord2) => current + vectord2);
-            var element = vectord / count;
-            CalculateErrors(vectors, element);
-            return element;
-        }
 
         private void CalculateErrors(IList<Point3D> points, IGeometricElement3D element)
         {
@@ -44,42 +33,6 @@ namespace ISTUK.MathLibrary
                 PointWithLargestError = i;
             }
             var count = points.Count;
-            AverageError = num / count;
-            StandardDeviationError = Math.Sqrt((count * num2) - (AverageError * AverageError)) / count;
-        }
-
-        private void CalculateErrors(IEnumerable<Vector3D> vectors, IGeometricElement3D element)
-        {
-            var points = new Collection<Point3D>();
-            foreach (var vectord in vectors)
-            {
-                points.Add(new Point3D(vectord.X, vectord.Y, vectord.Z));
-            }
-            CalculateErrors(points, element);
-        }
-
-        private void CalculateErrors(IList<Point3D> nominal, IList<Point3D> measured, TransformationMatrix3D transform)
-        {
-            Errors = new Collection<double>();
-            var num = 0.0;
-            var num2 = 0.0;
-            MaxError = 0.0;
-            PointWithLargestError = -1;
-            for (var i = 0; i < nominal.Count; i++)
-            {
-                var pointd = measured[i];
-                var vectord = ((Vector3D) pointd) - transform.Translation;
-                var pointd2 = new Point3D(new Vector3D(transform.Rotation.Inverse() * vectord));
-                var pointd3 = nominal[i];
-                var item = Distance3D.Between(pointd2, pointd3);
-                Errors.Add(item);
-                num += item;
-                num2 += item * item;
-                if (!(item > MaxError)) continue;
-                MaxError = item;
-                PointWithLargestError = i;
-            }
-            var count = nominal.Count;
             AverageError = num / count;
             StandardDeviationError = Math.Sqrt((count * num2) - (AverageError * AverageError)) / count;
         }
@@ -320,58 +273,6 @@ namespace ISTUK.MathLibrary
             return sphere;
         }
 
-        public TransformationMatrix3D PointToPointMapping(Collection<Point3D> nominal, Collection<Point3D> measured)
-        {
-            if (measured == null) throw new ArgumentNullException("measured");
-            if (nominal == null) throw new ArgumentNullException("nominal");
-
-            if (nominal.Count != measured.Count)
-            {
-                throw new MatrixException("Number of measured points does not equal number of nominal points");
-            }
-            var count = nominal.Count;
-            var pointd = Centroid(nominal);
-            var pointd2 = Centroid(measured);
-            var matrix = new Matrix(3, count);
-            var matrix2 = new Matrix(count, 3);
-            for (var i = 0; i < count; i++)
-            {
-                var vec = nominal[i] - pointd;
-                var vectord2 = measured[i] - pointd2;
-                matrix.SetColumn(i, vec);
-                matrix2.SetRow(i, vectord2);
-            }
-            var mat = new Matrix(matrix * matrix2);
-            var svd = new SVD(mat);
-            var matrix4 = SquareMatrix.Identity(3);
-            var num3 = new SquareMatrix(svd.U * svd.VT).Determinant();
-            matrix4[2, 2] = num3;
-            var rot = new RotationMatrix3D((svd.V * matrix4) * svd.UT);
-            var trans = (rot * pointd) - pointd2;
-            Transform = new TransformationMatrix3D(trans, rot);
-            CalculateErrors(nominal, measured, Transform);
-            return Transform;
-        }
-
-        public TransformationMatrix3D PointToPointMapping(Collection<Vector3D> nominal, Collection<Vector3D> measured)
-        {
-            if (nominal.Count != measured.Count)
-            {
-                throw new MatrixException("Number of measured vectors does not equal number of nominal vectors");
-            }
-            var list = new Collection<Point3D>();
-            var list2 = new Collection<Point3D>();
-            foreach (var vectord in nominal)
-            {
-                list.Add(new Point3D(vectord));
-            }
-            foreach (var vectord2 in measured)
-            {
-                list2.Add(new Point3D(vectord2));
-            }
-            return PointToPointMapping(list, list2);
-        }
-
         private static Vector VectorFromCircle3D(Circle3D initialGuess)
         {
             var vector = new Vector(7);
@@ -385,15 +286,15 @@ namespace ISTUK.MathLibrary
             return vector;
         }
 
-        public double AverageError { get; private set; }
+        private double AverageError { get; set; }
 
-        public Collection<double> Errors { get; private set; }
+        private Collection<double> Errors { get; set; }
 
-        public double MaxError { get; private set; }
+        private double MaxError { get; set; }
 
-        public int PointWithLargestError { get; private set; }
+        private int PointWithLargestError { [UsedImplicitly] get; set; }
 
-        public double RmsError
+        private double RmsError
         {
             get
             {
@@ -403,9 +304,9 @@ namespace ISTUK.MathLibrary
             }
         }
 
-        public double StandardDeviationError { get; private set; }
+        private double StandardDeviationError { [UsedImplicitly] get; set; }
 
-        public TransformationMatrix3D Transform { get; private set; }
+        private TransformationMatrix3D Transform { [UsedImplicitly] get; set; }
     }
 }
 

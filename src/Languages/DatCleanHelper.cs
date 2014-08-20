@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
 using miRobotEditor.Classes;
 using miRobotEditor.Core;
 using miRobotEditor.ViewModel;
-
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
 namespace miRobotEditor.Languages
 {
@@ -34,7 +34,7 @@ namespace miRobotEditor.Languages
         public int Progress
         {
             get { return _progress; }
-            set { _progress = value; RaisePropertyChanged("Progress"); }
+            set { _progress = value; RaisePropertyChanged(); }
         }
 
         private static DatCleanHelper _instance;
@@ -45,150 +45,49 @@ namespace miRobotEditor.Languages
         }
 
         #region Commands
-
-        #region CleanDatCmd
-
-        private RelayCommand _cleanDatCmdCommand;
-        /// <summary>
-        /// Gets the CleanDatCmd.
-        /// </summary>
-        public RelayCommand CleanDatCmd
+        public static RelayCommand Cleandat;
+        public static ICommand CleanDatCmd
         {
-            get
-            {
-                return _cleanDatCmdCommand
-                    ?? (_cleanDatCmdCommand = new RelayCommand(ExecuteCleanDatCmd));
-            }
+            get { return Cleandat ?? (Cleandat = new RelayCommand(param => Instance.CleanDat(), param => true)); }
         }
-
-        private void ExecuteCleanDatCmd()
-        {
-            Instance.CleanDat();
-        }
-        #endregion
-       
         public void CleanDat() { throw new NotImplementedException(); }
 
-
-        #region CheckedCmd
-
-        private RelayCommand _checkedCmdCommand;
-        /// <summary>
-        /// Gets the CheckedCmd.
-        /// </summary>
-        public RelayCommand CheckedCmd
+        private static RelayCommand _checked;
+        public static ICommand CheckedCmd
         {
-            get
-            {
-                return _checkedCmdCommand
-                    ?? (_checkedCmdCommand = new RelayCommand(ExecuteCheckedCmd));
-            }
+            get { return _checked ?? (_checked = new RelayCommand(param => Instance.Checked(), param => true)); }
         }
-
-        private void ExecuteCheckedCmd()
-        {
-            Instance.Checked();
-        }
-        #endregion
-
         public void Checked()
         {
             throw new NotImplementedException();
         }
 
-        #region DeleteVarTypeCmd
-
-        private RelayCommand _deleteVarTypeCmdCommand;
-        /// <summary>
-        /// Gets the DeleteVarTypeCmd.
-        /// </summary>
-        public RelayCommand DeleteVarTypeCmd
+        private static RelayCommand _deletevartype;
+        public static ICommand DeleteVarTypeCmd
         {
-            get
-            {
-                return _deleteVarTypeCmdCommand
-                    ?? (_deleteVarTypeCmdCommand = new RelayCommand(ExecuteDeleteVarTypeCmd));
-            }
+            get { return _deletevartype ?? (_deletevartype = new RelayCommand(param => Instance.DeleteVarType(), param => true)); }
         }
-
-        private void ExecuteDeleteVarTypeCmd()
-        {
-            Instance.DeleteVarType();
-        }
-        #endregion
-
-    
         public void DeleteVarType() { throw new NotImplementedException(); }
-
-
-        #region AddVarTypeCmd
-
-        private RelayCommand _addVarTypeCmdCommand;
-        /// <summary>
-        /// Gets the AddVarTypeCmd.
-        /// </summary>
-        public RelayCommand AddVarTypeCmd
+        private static RelayCommand _addvartype;
+        public static ICommand AddVarTypeCmd
         {
-            get
-            {
-                return _addVarTypeCmdCommand
-                    ?? (_addVarTypeCmdCommand = new RelayCommand(ExecuteAddVarTypeCmd));
-            }
+            get { return _addvartype ?? (_addvartype = new RelayCommand(param => Instance.AddVarType(), param => true)); }
         }
-
-        private void ExecuteAddVarTypeCmd()
-        {
-            Instance.AddVarType();
-        }
-        #endregion
-    
         public void AddVarType() { throw new NotImplementedException(); }
-
-
-
-        #region SelectAllCommand
-
-        private RelayCommand _selectAllCommand;
-        /// <summary>
-        /// Gets the SelectAllCommand.
-        /// </summary>
-        public RelayCommand SelectAllCommand
+        private static RelayCommand _selectallcommand;
+        public static ICommand SelectAllCommand
+        {
+            get { return _selectallcommand ?? (_selectallcommand = new RelayCommand(param => Instance.SelectAll(), param => true)); }
+        }
+        private static RelayCommand _invertselection;
+        public static ICommand InvertSelectionCommand
         {
             get
             {
-                return _selectAllCommand
-                    ?? (_selectAllCommand = new RelayCommand(ExecuteSelectAllCommand));
+                return _invertselection ??
+                       (_invertselection = new RelayCommand(param => Instance.InvertSelection(), param => true));
             }
         }
-
-        private void ExecuteSelectAllCommand()
-        {
-            Instance.SelectAll();
-        }
-        #endregion
-
-
-        #region InvertSelectionCommand
-
-        private RelayCommand _invertSelectionCommand;
-        /// <summary>
-        /// Gets the InvertSelectionCommand.
-        /// </summary>
-        public RelayCommand InvertSelectionCommand
-        {
-            get
-            {
-                return _invertSelectionCommand
-                    ?? (_invertSelectionCommand = new RelayCommand(ExecuteInvertSelectionCommand));
-            }
-        }
-
-        private void ExecuteInvertSelectionCommand()
-        {
-            Instance.InvertSelection();
-        }
-        #endregion
-     
         void SelectAll()
         {
             foreach (var v in ListItems)
@@ -205,6 +104,12 @@ namespace miRobotEditor.Languages
         }
         #endregion
 
+#pragma warning disable 169
+        private const int NItemsSelected = 0;
+#pragma warning restore 169
+#pragma warning disable 169
+        private const int NItemsTotal = 0;
+#pragma warning restore 169
         private bool _ignoretypes;
         private bool _exclusivetypes;
         private bool _deletedeclaration;
@@ -213,29 +118,29 @@ namespace miRobotEditor.Languages
         public bool IgnoreTypes
         {
             get { return _ignoretypes; }
-            set { _ignoretypes = value; RaisePropertyChanged("IgnoreTypes"); }
+            set { _ignoretypes = value; RaisePropertyChanged(); }
         }
         public bool ExclusiveTypes
         {
             get { return _exclusivetypes; }
-            set { _exclusivetypes = value; RaisePropertyChanged("ExclusiveTypes"); }
+            set { _exclusivetypes = value; RaisePropertyChanged(); }
         }
         public bool DeleteDeclaration
         {
             get { return _deletedeclaration; }
-            set { _deletedeclaration = value; RaisePropertyChanged("DeleteDeclaration"); }
+            set { _deletedeclaration = value; RaisePropertyChanged(); }
         }
         public bool CommentDeclaration
         {
             get { return _commentdeclaration; }
-            set { _commentdeclaration = value; RaisePropertyChanged("CommentDeclaration"); }
+            set { _commentdeclaration = value; RaisePropertyChanged(); }
         }
 
         private int _selectedVarIndex;
         public int SelectedVarIndex
         {
             get { return _selectedVarIndex; }
-            set { _selectedVarIndex = value; RaisePropertyChanged("SelectedVarIndex"); }
+            set { _selectedVarIndex = value; RaisePropertyChanged(); }
         }
         public ObservableCollection<String> UsedVarTypes
         {
@@ -248,7 +153,7 @@ namespace miRobotEditor.Languages
         {
             Instance = this;
             DefaultPane = DefaultToolPane.Right;
-            _filename = WorkspaceViewModel.Instance.ActiveEditor.FilePath;
+            _filename = Workspace.Instance.ActiveEditor.FilePath;
             Width = 619;
             Height = 506;
         }

@@ -3,14 +3,11 @@
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
 // <summary>
-//     This class checks to make sure that only one instance of
+//     This class checks to make sure that only one instance of 
 //     this application is running at a time.
 // </summary>
 //-----------------------------------------------------------------------
 
-using miRobotEditor.Classes;
-using miRobotEditor.GUI;
-using miRobotEditor.ViewModel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,11 +20,14 @@ using System.Runtime.Serialization.Formatters;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-
-namespace miRobotEditor
+using miRobotEditor.Classes;
+using miRobotEditor.GUI;
+using miRobotEditor.GUI.Editor;
+using miRobotEditor.ViewModel;
+namespace miRobotEditor 
 {
     /// <summary>
-    /// This class checks to make sure that only one instance of
+    /// This class checks to make sure that only one instance of 
     /// this application is running at a time.
     /// </summary>
     /// <remarks>
@@ -37,8 +37,9 @@ namespace miRobotEditor
     /// running as Administrator, can activate it with command line arguments.
     /// For most apps, this will not be much of an issue.
     /// </remarks>
-    public static class SingleInstance<TApplication>
-                where TApplication : Application, ISingleInstanceApp
+    public static class SingleInstance<TApplication>  
+                where   TApplication: Application ,  ISingleInstanceApp 
+                                    
     {
         #region Private Fields
 
@@ -65,22 +66,20 @@ namespace miRobotEditor
         /// <summary>
         /// Application mutex.
         /// </summary>
-        // ReSharper disable StaticFieldInGenericType
+// ReSharper disable StaticFieldInGenericType
         private static Mutex _singleInstanceMutex;
-
-        // ReSharper restore StaticFieldInGenericType
+// ReSharper restore StaticFieldInGenericType
 
         /// <summary>
         /// IPC channel for communications.
         /// </summary>
-        // ReSharper disable StaticFieldInGenericType
+// ReSharper disable StaticFieldInGenericType
         private static IpcServerChannel _channel;
+// ReSharper restore StaticFieldInGenericType
 
         // ReSharper restore StaticFieldInGenericType
 
-        // ReSharper restore StaticFieldInGenericType
-
-        #endregion Private Fields
+        #endregion
 
         #region Public Properties
 
@@ -89,16 +88,16 @@ namespace miRobotEditor
         /// </summary>
         public static IList<string> CommandLineArgs { get; private set; }
 
-        #endregion Public Properties
+        #endregion
 
         #region Public Methods
 
         /// <summary>
-        /// Checks if the instance of the application attempting to start is the first instance.
+        /// Checks if the instance of the application attempting to start is the first instance. 
         /// If not, activates the first instance.
         /// </summary>
         /// <returns>True if this is the first instance of the application.</returns>
-        public static bool InitializeAsFirstInstance(string uniqueName)
+        public static bool InitializeAsFirstInstance( string uniqueName )
         {
             CommandLineArgs = GetCommandLineArgs(uniqueName);
 
@@ -107,7 +106,7 @@ namespace miRobotEditor
 
             var channelName = String.Concat(applicationIdentifier, Delimiter, ChannelNameSuffix);
 
-            // Create mutex based on unique application Id to check if this is the first instance of the application.
+            // Create mutex based on unique application Id to check if this is the first instance of the application. 
             bool firstInstance;
             _singleInstanceMutex = new Mutex(true, applicationIdentifier, out firstInstance);
             if (firstInstance)
@@ -138,7 +137,7 @@ namespace miRobotEditor
             _channel = null;
         }
 
-        #endregion Public Methods
+        #endregion
 
         #region Private Methods
 
@@ -146,7 +145,7 @@ namespace miRobotEditor
         /// Gets command line args - for ClickOnce deployed applications, command line args may not be passed directly, they have to be retrieved.
         /// </summary>
         /// <returns>List of command line arg strings.</returns>
-        private static IList<string> GetCommandLineArgs(string uniqueApplicationName)
+        private static IList<string> GetCommandLineArgs( string uniqueApplicationName )
         {
             string[] args = null;
             if (AppDomain.CurrentDomain.ActivationContext == null)
@@ -158,9 +157,9 @@ namespace miRobotEditor
             {
                 // The application was clickonce deployed
                 // Clickonce deployed apps cannot recieve traditional commandline arguments
-                // As a workaround commandline arguments can be written to a shared location before
-                // the app is launched and the app can obtain its commandline arguments from the
-                // shared location
+                // As a workaround commandline arguments can be written to a shared location before 
+                // the app is launched and the app can obtain its commandline arguments from the 
+                // shared location               
                 var appFolderPath = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), uniqueApplicationName);
 
@@ -197,7 +196,7 @@ namespace miRobotEditor
         [Localizable(false)]
         private static void CreateRemoteService(string channelName)
         {
-            var serverProvider = new BinaryServerFormatterSinkProvider { TypeFilterLevel = TypeFilterLevel.Full };
+            var serverProvider = new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full};
             IDictionary props = new Dictionary<string, string>();
 
             props["name"] = channelName;
@@ -216,8 +215,8 @@ namespace miRobotEditor
         }
 
         /// <summary>
-        /// Creates a client channel and obtains a reference to the remoting service exposed by the server -
-        /// in this case, the remoting service exposed by the first instance. Calls a function of the remoting service
+        /// Creates a client channel and obtains a reference to the remoting service exposed by the server - 
+        /// in this case, the remoting service exposed by the first instance. Calls a function of the remoting service 
         /// class to pass on command line arguments from the second instance to the first and cause it to activate itself.
         /// </summary>
         /// <param name="channelName">Application's IPC channel name.</param>
@@ -278,7 +277,7 @@ namespace miRobotEditor
             ((TApplication)Application.Current).SignalExternalCommandLineArgs(args);
         }
 
-        #endregion Private Methods
+        #endregion
 
         #region Private Classes
 
@@ -313,33 +312,31 @@ namespace miRobotEditor
             }
         }
 
-        #endregion Private Classes
+        #endregion
     }
 
     /// <summary>
     /// Trying to Only Have one _instance of Each here
     /// </summary>
-    internal class InstanceOf
+    class InstanceOf
     {
-        private static EditorClass _ieditor;
-
-        public static EditorClass Editor
+        private static Editor _ieditor;
+        public static Editor Editor
         {
-            get { return _ieditor ?? (_ieditor = new EditorClass()); }
+            get { return _ieditor ?? (_ieditor = new Editor()); }
             set { _ieditor = value; }
         }
 
         private static DocumentViewModel _idocument;
-
         public static DocumentViewModel Document
         {
             get { return _idocument ?? (_idocument = new DocumentViewModel(null)); }
             set { _idocument = value; }
         }
     }
-
     public interface ISingleInstanceApp
     {
         bool SignalExternalCommandLineArgs(IList<string> args);
     }
+
 }

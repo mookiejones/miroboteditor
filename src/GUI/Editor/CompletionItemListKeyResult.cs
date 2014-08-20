@@ -19,6 +19,7 @@
         /// <summary>
         /// This key triggers cancellation of completion. The completion window will be closed.
         /// </summary>
+// ReSharper disable once UnusedMember.Global
         Cancel
     }
 }

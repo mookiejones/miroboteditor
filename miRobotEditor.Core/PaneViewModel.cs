@@ -7,7 +7,6 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-using System;
 using System.Windows.Media;
 
 namespace miRobotEditor.Core
@@ -19,41 +18,20 @@ namespace miRobotEditor.Core
 	{
 	    #region Title
 
-        
-        #region
-        /// <summary>
-        /// The <see cref="Title" /> property's name.
-        /// </summary>
-        public const string TitlePropertyName = "Title";
-
-        private string _title = string.Empty;
-
-        /// <summary>
-        /// Sets and gets the Title property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// This property's value is broadcasted by the MessengerInstance when it changes.
-        /// </summary>
+        private string _title;
         public string Title
         {
-            get
-            {
-                return _title;
-            }
-
+            get { return _title; }
             set
             {
-                if (_title == value)
-                {
-                    return;
-                }
+                if (_title == value) return;
 
-                RaisePropertyChanging(TitlePropertyName);
-                var oldValue = _title;
+
                 _title = value;
-                RaisePropertyChanged(TitlePropertyName, oldValue, value, true);
+                RaisePropertyChanged();
             }
         }
-        #endregion
+
 
         #endregion
 

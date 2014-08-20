@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DMC Automation")]
 [assembly: AssemblyProduct("DMC FileLanguage Editor")]
-[assembly: AssemblyCopyright("Copyright © DMC Automation 2012")]
+[assembly: AssemblyCopyright("Copyright © Mookie 2012 - 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -53,3 +53,4 @@ using System.Resources;
 [assembly: AssemblyVersion("1.0.0.*")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
+[assembly: GuidAttribute("DF4E7F27-F8FF-4AFC-977E-E21D58AADA86")]

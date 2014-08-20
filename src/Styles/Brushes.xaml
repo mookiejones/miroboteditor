@@ -10,4 +10,10 @@
         <GradientStop Color="#808080" />
         <GradientStop Color="White" Offset="1" />
     </LinearGradientBrush>
+
+
+    <LinearGradientBrush x:Key="WindowBackgroundBrush" EndPoint="0,180" MappingMode="Absolute" StartPoint="0,0">
+        <GradientStop Color="#FFDEDEDE"/>
+        <GradientStop Color="White" Offset="1"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

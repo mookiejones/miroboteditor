@@ -7,8 +7,6 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.ComponentModel;
-using MookiesEditor.Core;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using System.IO;

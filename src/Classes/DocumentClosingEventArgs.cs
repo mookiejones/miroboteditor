@@ -3,15 +3,14 @@
  * User: cberman
  * Date: 4/15/2013
  * Time: 2:48 PM
- *
+ * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-
 using System;
 
 namespace miRobotEditor.Classes
 {
-    /// <summary>
+	 /// <summary>
     /// Arguments to the DocumentClosing event.
     /// </summary>
     public sealed class DocumentClosingEventArgs : EventArgs

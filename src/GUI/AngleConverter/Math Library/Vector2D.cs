@@ -1,6 +1,6 @@
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
-    public class Vector2D : Vector
+    public sealed class Vector2D : Vector
     {
         public Vector2D() : base(2)
         {
@@ -15,7 +15,8 @@ namespace ISTUK.MathLibrary
         {
             return base.GetHashCode();
         }
-        public Vector2D(Matrix mat) : base(2)
+
+        private Vector2D(Matrix mat) : base(2)
         {
             if ((mat.Rows != 1) && (mat.Columns != 1))
             {

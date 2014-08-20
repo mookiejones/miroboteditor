@@ -1,40 +1,16 @@
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
-    using System;
-    using System.Collections.ObjectModel;
-
     [Localizable(false)]
     public sealed class Plane3D : IGeometricElement3D
     {
-
-        public Plane3D()
-        {
-            Point = new Point3D();
-            Normal = new Vector3D();
-        }
-
         public Plane3D(Point3D point, Vector3D normal)
         {
             Point = point;
             Normal = normal;
-        }
-
-        public Plane3D(Point3D p1, Point3D p2, Point3D p3)
-        {
-            var fitd = new LeastSquaresFit3D();
-            var points = new Collection<Point3D> { p1, p2, p3};
-            Point = fitd.Centroid(points);
-            var vectord = p2 - p1;
-            var vectord2 = p3 - p1;
-            Normal = new Vector3D(Vector3D.Cross(vectord, vectord2).Normalised());
-        }
-
-        public Plane3D(double a, double b, double c)
-        {
-            Normal = new Vector3D(a, b, c);
-            Normal.Normalise();
         }
 
         public static Plane3D FitToPoints(Collection<Point3D> points)

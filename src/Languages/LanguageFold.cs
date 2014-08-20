@@ -3,7 +3,7 @@ using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.ViewModel;
 namespace miRobotEditor.Languages
 {
-    public class LanguageFold : NewFolding
+    public sealed class LanguageFold : NewFolding
     {
     	
     	#region Properties
@@ -15,9 +15,6 @@ namespace miRobotEditor.Languages
         public ToolTipViewModel ToolTip { get; private set; }
 
     	#endregion
-        public LanguageFold()
-        {
-        }
 
 
         [Localizable(false)]
@@ -26,13 +23,13 @@ namespace miRobotEditor.Languages
             Name = System.String.Format("{0}æ{1}", startfold, endfold);
         	StartFold = startfold;
         	EndFold = endfold;
-        	DefaultClosed=closed;
+        	base.DefaultClosed=closed;
         	Start = start;
         	End = end;
         	Text = text;
             var title = text;
         	
-        	var p = title.IndexOf("\r\n");
+        	var p = title.IndexOf("\r\n", System.StringComparison.Ordinal);
         	var n = title.IndexOf('%');
         	
         	if (n>-1)

@@ -1,8 +1,8 @@
-namespace ISTUK.MathLibrary
-{
-    using System;
+using System;
 
-    public class SVD
+namespace miRobotEditor.GUI.AngleConverter
+{
+    public sealed class SVD
     {
         private readonly Matrix _u;
         private readonly SquareMatrix _v;
@@ -352,22 +352,6 @@ namespace ISTUK.MathLibrary
             }
         }
 
-        public int LargestSingularIndex
-        {
-            get
-            {
-                var num = W[0];
-                var num2 = 0;
-                for (var i = 1; i < W.Size; i++)
-                {
-                    if (!(W[i] > num)) continue;
-                    num = W[i];
-                    num2 = i;
-                }
-                return num2;
-            }
-        }
-
         public int SmallestSingularIndex
         {
             get
@@ -392,27 +376,11 @@ namespace ISTUK.MathLibrary
             }
         }
 
-        public Matrix UT
-        {
-            get
-            {
-                return U.Transpose();
-            }
-        }
-
         public SquareMatrix V
         {
             get
             {
                 return _v;
-            }
-        }
-
-        public SquareMatrix VT
-        {
-            get
-            {
-                return V.Transpose();
             }
         }
 
