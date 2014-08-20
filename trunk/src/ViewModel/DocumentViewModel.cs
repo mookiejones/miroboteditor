@@ -7,13 +7,14 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
 using miRobotEditor.Classes;
-using miRobotEditor.GUI;
+using miRobotEditor.Commands;
+using miRobotEditor.GUI.Editor;
 using miRobotEditor.Languages;
+using miRobotEditor.GUI;
 using System.IO;
 using System.Windows;
-using miRobotEditor.Resources.StringResources;
 
 namespace miRobotEditor.ViewModel
 {
@@ -36,10 +37,12 @@ namespace miRobotEditor.ViewModel
         {
             Load(filepath);
             TextBox.FileLanguage = FileLanguage;
-
-            TextBox.GotFocus += (s, e) => { TextBox = s as GUI.EditorClass; };
+           
+            TextBox.GotFocus += (s, e) => { TextBox = s as Editor; };
             TextBox.TextChanged += (s, e) => TextChanged(s);
             TextBox.IsModified = false;
+
+
 
             if (filepath != null)
                 FileLanguage.GetRootDirectory(Path.GetDirectoryName(filepath));
@@ -48,28 +51,11 @@ namespace miRobotEditor.ViewModel
             TextBox.IsModified = false;
         }
 
-
-        #region CloseCommand
-
         private RelayCommand _closeCommand;
-        /// <summary>
-        /// Gets the CloseCommand.
-        /// </summary>
-        public RelayCommand CloseCommand
+        public ICommand CloseCommand
         {
-            get
-            {
-                return _closeCommand
-                    ?? (_closeCommand = new RelayCommand(ExecuteCloseCommand));
-            }
+            get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
         }
-
-        private void ExecuteCloseCommand()
-        {
-            CloseWindow();
-        }
-        #endregion
-    
        
         public void CloseWindow()
         {
@@ -85,49 +71,37 @@ namespace miRobotEditor.ViewModel
                 }
             }
 
-            WorkspaceViewModel.Instance.Close(this);
+            Workspace.Instance.Close(this);
         }
 
-        internal void Save(GUI.EditorClass txtBox)
+        internal void Save(Editor txtBox)
         {
 
-            var fn = txtBox.Filename;
             if (txtBox.Filename == null)
             {
-                txtBox.Save();
-
-                if (fn != txtBox.Filename)
-                    RaiseFileNameChanged();
-
+                txtBox.SaveAs();
             }
             IsDirty = false;
-        }
-
-        internal void RaiseFileNameChanged()
-        {
-            if (FilenameChanged != null)
-                FilenameChanged(this, new EventArgs());
         }
 
         #region Properties
 
         private Visibility _visibility = Visibility.Visible;
-        public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged(@"Visibility"); } }
+        public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged(); } }
 
         public static DocumentViewModel Instance { get; set; }
         private AbstractLanguageClass _filelanguage = new LanguageBase();
-        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged(@"FileLanguage"); } }
-        private GUI.EditorClass _textBox = new GUI.EditorClass();
-        public GUI.EditorClass TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged(@"TextBox"); } }
+        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged(); } }
+        private Editor _textBox = new Editor();
+        public Editor TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged(); } }
         #endregion
 
 
       
         protected void TextChanged(object sender)
         {
-            Console.WriteLine("File Name is {0}", FileName);
 
-            TextBox = sender as GUI.EditorClass;
+            TextBox = sender as Editor;
             if (TextBox != null) FileLanguage.RawText = TextBox.Text ;
 
 
@@ -173,7 +147,5 @@ namespace miRobotEditor.ViewModel
                 TextBox.SelectText(var);
         }
 
-
-        public event FileNameChangedEventHandler FilenameChanged;
     }
 }

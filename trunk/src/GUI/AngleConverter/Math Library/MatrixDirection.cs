@@ -1,4 +1,4 @@
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     public enum MatrixDirection
     {

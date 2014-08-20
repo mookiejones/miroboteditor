@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace miRobotEditor.GUI.KUKA.AdjustST
+namespace miRobotEditor.GUI.KUKA
 {
     [Localizable(false)]
-    class ToolItems:List<string>
+    sealed class ToolItems:List<string>
     {
         public ToolItems()
         {

@@ -1,5 +1,3 @@
-using ISTUK.MathLibrary;
-
 namespace miRobotEditor.GUI.AngleConverter.Robot
 {
     public class Axis

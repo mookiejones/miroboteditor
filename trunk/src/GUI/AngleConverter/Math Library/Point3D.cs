@@ -1,10 +1,9 @@
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
-    using System;
-    using System.Collections.ObjectModel;
-
     [Localizable(false)]
     public sealed class Point3D : IGeometricElement3D
     {

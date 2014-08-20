@@ -6,7 +6,9 @@
  * 
  */
 
-namespace miRobotEditor.ExplorerControl
+using miRobotEditor.ExplorerControl;
+
+namespace miRobotEditor.GUI.ExplorerControl
 {
 	partial class FileExplorerControl
 	{
@@ -103,11 +105,9 @@ namespace miRobotEditor.ExplorerControl
 			// 
 			// explorer
 			// 
-			this.explorer.BackColor = System.Drawing.Color.White;
-			this.explorer.ContextMenuStrip = this.ctxFileExplorer;
+		    this.explorer.ContextMenuStrip = this.ctxFileExplorer;
 			this.explorer.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.explorer.ForeColor = System.Drawing.Color.Black;
-			this.explorer.HideSelection = false;
+		    this.explorer.HideSelection = false;
 			this.explorer.ImageIndex = 0;
 			this.explorer.ImageList = this.imgList;
 			this.explorer.Location = new System.Drawing.Point(0, 0);

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>miRobotEditor</RootNamespace>
     <AssemblyName>miRobotEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -21,43 +21,49 @@
     <DelaySign>False</DelaySign>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <NoStdLib>False</NoStdLib>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <RunCodeAnalysis>False</RunCodeAnalysis>
     <RunSourceAnalysis>False</RunSourceAnalysis>
     <StartupObject>miRobotEditor.App</StartupObject>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>C:\work\software\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://localhost/miRobotEditor/</UpdateUrl>
+    <TargetCulture>en-US</TargetCulture>
+    <ProductName>miRobotEditor</ProductName>
+    <PublisherName>Mookie</PublisherName>
+    <SuiteName>miRobotEditor</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <DisallowUrlActivation>true</DisallowUrlActivation>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
+    <UseApplicationTrust>true</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>false</BootstrapperEnabled>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <ExpressionBlendVersion>12.0.40612.10</ExpressionBlendVersion>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
-    <Optimize>False</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -68,11 +74,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <StartAction>Project</StartAction>
-    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <RegisterForComInterop>False</RegisterForComInterop>
@@ -95,7 +101,9 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup />
-  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>miRobotEditor.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
@@ -118,43 +126,24 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.Extras.WPF4, Version=4.2.30.23173, Culture=neutral, PublicKeyToken=1673db7d5906b0ad, processorArchitecture=MSIL">
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.1.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmLightLibs.4.2.30.0\lib\net40\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.WPF4, Version=4.2.30.23173, Culture=neutral, PublicKeyToken=63eb5c012e0b3c1c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmLightLibs.4.2.30.0\lib\net40\GalaSoft.MvvmLight.WPF4.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.AvalonEdit, Version=4.3.1.9429, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonEdit.4.3.1.9430\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+      <HintPath>..\packages\AvalonEdit.5.0.1-pre\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZipLib-DevKit-v1.9\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro">
-      <HintPath>..\packages\MahApps.Metro.0.10.1.1\lib\net40\MahApps.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="MahApps.Metro, Version=0.14.0.98, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Ookii.Dialogs.Wpf">
-      <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.0.14.0-ALPHA98\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.4.2.30.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.0.14.0-ALPHA98\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -167,55 +156,56 @@
     <Reference Include="WindowsFormsIntegration">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Expression">
-      <HintPath>..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.Expression.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Wpf.DataGrid">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\DropFileCommand.cs" />
     <Compile Include="Classes\BookmarkBase.cs" />
-    <Compile Include="Classes\CaretHighlightAdorner.cs" />
+    <Compile Include="Classes\ClassMemberBookmark.cs" />
     <Compile Include="Classes\DataTemplateUtils.cs" />
     <Compile Include="Classes\DocumentClosingEventArgs.cs" />
-    <Compile Include="Classes\EditorClass.cs" />
     <Compile Include="Classes\FileChangeWatcher.cs" />
     <Compile Include="Classes\Global.cs" />
     <Compile Include="Classes\IndentationClass.cs" />
     <Compile Include="Classes\LayoutInitializer.cs" />
-    <Compile Include="Classes\LineColorizer.cs" />
     <Compile Include="Classes\MenuTemplateSelector.cs" />
     <Compile Include="Classes\Messages\MessageType.cs" />
-    <Compile Include="Classes\Messages\GetFileMessage.cs" />
     <Compile Include="Classes\MethodVariable.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
-    <Compile Include="GUI\Editor\EditorClass.xaml.cs">
-      <DependentUpon>EditorClass.xaml</DependentUpon>
+    <Compile Include="ClassMemberBookmark.cs" />
+    <Compile Include="FindReplaceResult.cs" />
+    <Compile Include="GUI\DefaultBracketSearcher.cs" />
+    <Compile Include="GUI\KUKA\AdjustST\AdjustST.cs" />
+    <Compile Include="GUI\TextEditorOptions.cs" />
+    <Compile Include="Interfaces\IFoldingStrategy.cs" />
+    <Compile Include="Languages\ICompletionItem.cs" />
+    <Compile Include="Languages\ISnippetCompletionItem.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Selectors\PanesStyleSelector.cs" />
+    <Compile Include="Classes\PanesStyleSelector.cs" />
     <Compile Include="Classes\RecentFileList.cs" />
-    <Compile Include="Classes\TestEditorClass.cs" />
     <Compile Include="Classes\TraceWriter.cs" />
     <Compile Include="Classes\Utilities.cs" />
     <Compile Include="Classes\Variable.cs" />
@@ -225,6 +215,7 @@
     <Compile Include="Commands\AbstractMenuCommand.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\IMenuCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Controls\ExtendedGridSplitter.cs" />
     <Compile Include="Controls\frmReverse.xaml.cs">
       <DependentUpon>frmReverse.xaml</DependentUpon>
@@ -247,8 +238,6 @@
     </Compile>
     <Compile Include="Converters\DoubleToThicknessConverter.cs" />
     <Compile Include="Converters\FunctionVisibilityConverter.cs" />
-    <Compile Include="Converters\TempConverter.cs" />
-    <Compile Include="Converters\TitleConverter.cs" />
     <Compile Include="ExplorerControl\Comparer.cs" />
     <Compile Include="ExplorerControl\ExplorerClass.cs">
       <SubType>Component</SubType>
@@ -323,28 +312,22 @@
     <Compile Include="GUI\Editor\CodeCompletion.cs" />
     <Compile Include="GUI\Editor\CompletionContext.cs" />
     <Compile Include="GUI\Editor\CompletionItemListKeyResult.cs" />
-    <Compile Include="GUI\Editor\DefaultBracketSearcher.cs" />
     <Compile Include="GUI\Editor\DefaultCompletionItem.cs" />
     <Compile Include="GUI\Editor\DefaultCompletionItemList.cs" />
-    <Compile Include="GUI\Editor\FindAndReplace.xaml.cs">
-      <DependentUpon>FindAndReplace.xaml</DependentUpon>
+    <Compile Include="GUI\Editor\Editor.xaml.cs">
+      <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Editor\IBracketSearcher.cs" />
-    <Compile Include="GUI\Editor\ICompletionItem.cs" />
     <Compile Include="GUI\Editor\ICompletionItemList.cs" />
     <Compile Include="GUI\Editor\ICompletionListWindow.cs" />
     <Compile Include="GUI\Editor\ICompletionWindow.cs" />
     <Compile Include="GUI\Editor\IFancyCompletionItem.cs" />
-    <Compile Include="GUI\Editor\ISnippetCompletionItem.cs" />
     <Compile Include="GUI\Editor\MyBracketSearcher.cs" />
-    <Compile Include="GUI\Editor\TextEditorOptions.cs" />
-    <Compile Include="GUI\KUKA\AdjustST.cs" />
     <Compile Include="GUI\KUKA\frmAdjustST.cs" />
     <Compile Include="GUI\KUKA\ToolItems.cs" />
     <Compile Include="Interfaces\AnchorMovementType.cs" />
     <Compile Include="Interfaces\BlockCommentRegion.cs" />
     <Compile Include="Interfaces\BookmarkImage.cs" />
-    <Compile Include="Classes\ClassMemberBookmark.cs" />
     <Compile Include="Interfaces\ColorizeAvalonEdit.cs" />
     <Compile Include="Interfaces\DefaultFormattingStrategy.cs" />
     <Compile Include="Interfaces\IBookmark.cs" />
@@ -423,7 +406,6 @@
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AvalonDockClasses.cs" />
     <Compile Include="Language Specific\KUKAFileInfo.cs" />
     <Compile Include="Language Specific\QuantecRemoteView.xaml.cs">
       <DependentUpon>QuantecRemoteView.xaml</DependentUpon>
@@ -451,10 +433,6 @@
       <DependentUpon>RenamePositionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Language Specific\SystemFunctionsViewModel.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Pads\ClipboardPad.cs" />
     <Compile Include="Pads\Shift\ShiftBase.xaml.cs">
       <DependentUpon>ShiftBase.xaml</DependentUpon>
@@ -483,9 +461,9 @@
     <Compile Include="ViewModel\DocumentViewModel.cs" />
     <Compile Include="ViewModel\DoubleValidationRule.cs" />
     <Compile Include="ViewModel\EnumtoInt32.cs" />
-    <Compile Include="ViewModel\FileModel.cs" />
     <Compile Include="ViewModel\FileOptionsViewModel.cs" />
     <Compile Include="ViewModel\FileViewModel.cs" />
+    <Compile Include="ViewModel\FindReplaceViewModel.cs" />
     <Compile Include="ViewModel\FTPAccount.cs" />
     <Compile Include="ViewModel\FTPAccountWindowViewModel.cs" />
     <Compile Include="ViewModel\FTPBrowserViewModel.cs" />
@@ -504,33 +482,24 @@
     <Compile Include="ViewModel\KUKASpecificViewModels.cs" />
     <Compile Include="ViewModel\KukaViewModel.cs" />
     <Compile Include="ViewModel\LocalVariablesViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\MessageViewModel.cs" />
     <Compile Include="ViewModel\NotesViewModel.cs" />
     <Compile Include="ViewModel\ObjectBrowserViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
-    <Compile Include="ViewModel\PaneViewModel.cs" />
     <Compile Include="ViewModel\ProgressBarViewModel.cs" />
     <Compile Include="ViewModel\SerializeBase.cs" />
     <Compile Include="ViewModel\ShiftViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\SystemFunctionsViewModel.cs" />
     <Compile Include="ViewModel\Technology.cs" />
-    <Compile Include="ViewModel\ToolsViewModel.cs" />
     <Compile Include="ViewModel\ToolTipViewModel.cs" />
-    <Compile Include="ViewModel\ToolViewModel.cs" />
     <Compile Include="ViewModel\UpdateCheckerViewModel.cs" />
     <Compile Include="ViewModel\UpdateRequiredHandler.cs" />
     <Compile Include="ViewModel\ValueBoxViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\AboutViewModelView.xaml.cs">
-      <DependentUpon>AboutViewModelView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\WorkspaceViewModel.cs" />
-    <ApplicationDefinition Include="App.xaml">
+    <Compile Include="Workspace.cs" />
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Parsers\E6Parser.cs" />
     <Compile Include="Converters\DoubleToStringConverter.cs" />
@@ -544,7 +513,6 @@
     <Compile Include="Settings.cs" />
     <Compile Include="SingleInstance.cs" />
     <Compile Include="Tracking\Notes.cs" />
-    <Compile Include="WindowMessages\OpenFileMessage.cs" />
     <Page Include="Controls\frmReverse.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -566,10 +534,6 @@
     </Page>
     <Page Include="Dialogs\KFDAssistant.xaml" />
     <Page Include="Dialogs\KFDDialog.xaml" />
-    <Page Include="Dictionary1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ExplorerControl\FileExplorerWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -593,11 +557,7 @@
     <Page Include="GUI\Dialogs\About\About.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GUI\Editor\EditorClass.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Editor\FindAndReplace.xaml">
+    <Page Include="GUI\Editor\Editor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -649,6 +609,10 @@
     </Page>
     <Page Include="Pads\Options\BoolOptionControl.xaml" />
     <Page Include="Pads\Options\OptionsWindow.xaml" />
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -717,6 +681,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Templates\ExplorerWindow.xaml" />
     <Page Include="Templates\ExtendedGridSplitter.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -730,10 +698,6 @@
     <Page Include="ViewModel\IOListBox.xaml">
       <DependentUpon>ArchiveInfoViewModel.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\AboutViewModelView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -749,6 +713,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Languages\CompletionItemsSchema.xsd" />
+    <Resource Include="Resources\Entypo.ttf" />
+    <None Include="Resources\Options.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ViewModel\app.config" />
     <Resource Include="Images\folder_open.png" />
     <EmbeddedResource Include="Controls\SyntaxHighlighting\ABBHighlight.xshd" />
@@ -766,6 +734,7 @@
     <None Include="GUI\AngleConverter\Math Library\ve-B629.tmp" />
     <None Include="Interfaces\ve-BEC0.tmp" />
     <None Include="miRobotEditor.pfx" />
+    <Resource Include="Resources\editor.png" />
     <None Include="Snippets\KUKA.Snippet" />
     <EmbeddedResource Include="ExplorerControl\FileExplorerControl.resx">
       <DependentUpon>FileExplorerControl.cs</DependentUpon>
@@ -783,22 +752,73 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\foldingEnabled.png" />
     <Resource Include="Tracking\todo.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\binoculars.png" />
+    <Resource Include="Resources\close.png" />
+    <Resource Include="Resources\Copy.png" />
+    <Resource Include="Resources\Cut.png" />
     <Resource Include="Properties\Resources\Editor.ico" />
+    <Resource Include="Resources\error.png" />
+    <Resource Include="Resources\exit.png" />
+    <Resource Include="Resources\folder_open.png" />
+    <Resource Include="Resources\line_numbers.png" />
+    <Resource Include="Resources\new_edit_find_replace.png" />
+    <Resource Include="Resources\paste.png" />
+    <Resource Include="Resources\Print.png" />
+    <Resource Include="Resources\print_preview.png" />
+    <Resource Include="Resources\Redo.png" />
+    <Resource Include="Resources\Save.png" />
+    <Resource Include="Resources\save_all.png" />
+    <Resource Include="Resources\search.png" />
+    <Resource Include="Resources\select_all.png" />
+    <Resource Include="Resources\vxenum_icon.png" />
+    <Resource Include="Resources\vxevent_icon.png" />
+    <Resource Include="Resources\vxfield_icon.png" />
+    <EmbeddedResource Include="Resources\vxmethod_icon.png" />
+    <Resource Include="Resources\vxmodule_icon.png" />
+    <Resource Include="Resources\vxproperty_icon.png">
+      <DependentUpon>vxmodule_icon.png</DependentUpon>
+    </Resource>
+    <Resource Include="Resources\vxstruct_icon.png" />
+    <Resource Include="Resources\vxvaluetype_icon.png" />
+    <Resource Include="Resources\expandfolds.png" />
     <Resource Include="Images\HTabGroup.png" />
     <Resource Include="Images\Locked.png" />
-    <None Include="Images\editor.ico" />
+    <Content Include="Images\editor.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\objectbrowser.png" />
+    <Resource Include="Resources\newfile.png" />
+    <Resource Include="Resources\stock_notes.png" />
+    <Resource Include="Resources\decreaseIndent.png" />
+    <Resource Include="Resources\editdelete.png" />
+    <Resource Include="Resources\folder.png" />
+    <Resource Include="Resources\increaseindent.png" />
+    <Resource Include="Resources\lineendings.png" />
+    <Resource Include="Resources\showspaces.png" />
+    <Resource Include="Resources\collapsefolds.png" />
+    <Resource Include="Resources\comment.png" />
+    <Resource Include="Resources\refresh_yellow.png" />
+    <Resource Include="Resources\spsfile.png" />
+    <Resource Include="Resources\srcfile.png" />
+    <Resource Include="Resources\vxXYZ_icon.png" />
+    <Resource Include="Resources\info.png" />
+    <Resource Include="Resources\document.png" />
+    <Resource Include="Resources\property-blue.png" />
     <Resource Include="Languages\CompletionItems.xml" />
-    <None Include="Resources\Editor.ico" />
+    <Resource Include="Resources\foldingDisabled.png" />
+    <Resource Include="Resources\splash.png" />
+    <Resource Include="Resources\Entypo-license.txt" />
+    <Resource Include="Editor.ico" />
     <Content Include="Tracking\Changes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\ErrorProvider\" />
-    <Folder Include="GUI\KUKA\AdjustST\" />
     <Folder Include="ResourceDictionaries\LocalizedStrings\" />
   </ItemGroup>
   <ItemGroup>
@@ -825,13 +845,26 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\miRobotEditor.Resources\miRobotEditor.Resources.csproj">
-      <Project>{8884e8e8-6b0a-45dc-b524-1e703c61d3a9}</Project>
-      <Name>miRobotEditor.Resources</Name>
+    <ProjectReference Include="..\miRobotEditor.Core\miRobotEditor.Core.csproj">
+      <Project>{5e11febd-9896-4cfd-ab7c-570684f23bfb}</Project>
+      <Name>miRobotEditor.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <FileAssociation Include=".dat">
+      <Visible>False</Visible>
+      <Description>KUKA Dat file</Description>
+      <Progid>dat</Progid>
+      <DefaultIcon>Images\editor.ico</DefaultIcon>
+    </FileAssociation>
+    <FileAssociation Include=".src">
+      <Visible>False</Visible>
+      <Description>KUKA Source File</Description>
+      <Progid>src</Progid>
+      <DefaultIcon>Images\editor.ico</DefaultIcon>
+    </FileAssociation>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

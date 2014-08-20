@@ -1,4 +1,4 @@
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
     using System.Runtime.InteropServices;
@@ -190,18 +190,7 @@ namespace ISTUK.MathLibrary
             return new SquareMatrix(Matrix.NaN(size, size));
         }
 
-        //public static SquareMatrix operator *(SquareMatrix lhs, SquareMatrix rhs)
-        //{
-        //    try
-        //    {
-        //        return new SquareMatrix(lhs * rhs);
-        //    }
-        //    catch (StackOverflowException ex)
-        //    {
-        //        Console.WriteLine(ex.ToString());
-        //        return new SquareMatrix();
-        //    }
-        //}
+       
 
         public SquareMatrix Power(int power)
         {

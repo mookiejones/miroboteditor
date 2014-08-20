@@ -68,8 +68,8 @@ namespace miRobotEditor.Interfaces
         /// </summary>
         public event EventHandler TextChanged
         {
-            add { TextSource.TextChanged += value; }
-            remove { TextSource.TextChanged -= value; }
+            add { } //TextSource.TextChanged += value; }
+            remove { } // TextSource.TextChanged -= value; }
         }
 
         public char GetCharAt(int offset)

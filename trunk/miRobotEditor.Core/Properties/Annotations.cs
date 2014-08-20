@@ -15,7 +15,6 @@
  */
 
 using System;
-using System.ComponentModel;
 
 namespace miRobotEditor.Core.Annotations
 {
@@ -282,8 +281,8 @@ namespace miRobotEditor.Core.Annotations
       ForceFullStates = forceFullStates;
     }
 
-    public string FDT { get; private set; }
-    public bool ForceFullStates { get; private set; }
+      private string FDT { get; set; }
+      private bool ForceFullStates { get; set; }
   }
 
   /// <summary>

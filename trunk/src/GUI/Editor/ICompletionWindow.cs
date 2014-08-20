@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.GUI.Editor
 {
     /// <summary>
     /// Base interface for IInsightWindow and ICompletionListWindow.
@@ -10,11 +10,13 @@ namespace miRobotEditor.Languages
         /// <summary>
         /// Closes the window.
         /// </summary>
+// ReSharper disable once UnusedMember.Global
         void Close();
 
         /// <summary>
         /// Occurs after the window was closed.
         /// </summary>
+// ReSharper disable EventNeverSubscribedTo.Global
         event EventHandler Closed;
 
         /// <summary>
@@ -49,5 +51,7 @@ namespace miRobotEditor.Languages
         /// Has no effect if CloseAutomatically is false.
         /// </summary>
         int EndOffset { get; set; }
+        // ReSharper restore EventNeverSubscribedTo.Global
+
     }
 }

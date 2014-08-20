@@ -1,8 +1,12 @@
 ﻿using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 
+
+//TODO Unused
 namespace miRobotEditor.GUI.Editor
+   
 {
+// ReSharper disable UnusedMember.Global
     public class DefaultCompletionItem : ICompletionItem
     {
         public string Text { get; private set; }
@@ -22,4 +26,6 @@ namespace miRobotEditor.GUI.Editor
             context.EndOffset = context.StartOffset + Text.Length;
         }
     }
+    // ReSharper restore UnusedMember.Global
+
 }

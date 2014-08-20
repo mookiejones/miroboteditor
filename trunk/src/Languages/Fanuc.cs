@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -9,8 +8,9 @@ using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using miRobotEditor.GUI.Editor;
+using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using miRobotEditor.Classes;
+
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
@@ -36,25 +36,6 @@ namespace miRobotEditor.Languages
             {
                 return EXT;
             }
-        }
-        public override string IsLineMotion(string lineValue, ICollection<IVariable> variables)
-        {
-            //"  64:J PR[15:G1 G2 Common Pos] 100% CNT50    ;"
-
-            var match = Regex.Match(lineValue, @"[\d]*\s?:(J|L)\s+(PR?\[[\d]+\])", RegexOptions.IgnoreCase);
-            if (match.Success)
-            {
-                var positions = from v in variables
-                               where v.Name == match.Groups[2].ToString()
-                               select v;
-                foreach (var p in positions)
-                {
-                    return p.Value;
-                }
-            }
-
-            return string.Empty;
-
         }
         internal override bool IsFileValid(FileInfo file)
         {
@@ -98,11 +79,13 @@ namespace miRobotEditor.Languages
         {
             get { return   "(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)" ; }
         }
-    
-        internal override sealed AbstractFoldingStrategy FoldingStrategy{get;set;}
+
+        internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         public class RegionFoldingStrategy : AbstractFoldingStrategy
         {
+           
+
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
@@ -118,7 +101,7 @@ namespace miRobotEditor.Languages
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
-            public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
+            public override IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
                 var newFoldings = new List<NewFolding>();
 
@@ -206,7 +189,7 @@ namespace miRobotEditor.Languages
 
         }
 
-        public override Regex XYZRegex { get { return new Regex("()(P\\[[\\d]+\\]){\\s*GP[\\d]+([^}]*)",Ro); } }
+        public override Regex XYZRegex { get { return new Regex(String.Empty); } }
         public override DocumentViewModel GetFile(string filepath)
         {
             return new DocumentViewModel(filepath);

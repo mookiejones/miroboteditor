@@ -1,6 +1,6 @@
 using System;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     [Serializable]
     public class MatrixNullReference : NullReferenceException

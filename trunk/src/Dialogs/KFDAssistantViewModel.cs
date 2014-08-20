@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using miRobotEditor.Core;
+﻿using miRobotEditor.Core;
 
 namespace miRobotEditor.Dialogs
 {

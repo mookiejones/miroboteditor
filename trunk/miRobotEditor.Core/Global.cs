@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Windows.Media;
 
 namespace miRobotEditor.Core
 {
@@ -13,7 +12,7 @@ namespace miRobotEditor.Core
         /// <summary>
         /// XML Configuration File For Docking Manager
         /// </summary>
-        public const string DockConfigPath =  "dockConfig.xml";
+        private const string DockConfigPath =  "dockConfig.xml";
 
         [Localizable(false)]
         public static string DockConfig { get { return AppDomain.CurrentDomain.BaseDirectory  + DockConfigPath; } }
@@ -132,9 +131,9 @@ namespace miRobotEditor.Core
         /// </summary>
         /// <param name="message"></param>
         /// <param name="showmessage"></param>
-        public static void ErrorHandler(string message, bool showmessage)
+        private static void ErrorHandler(string message, bool showmessage)
         {
-        	Console.WriteLine(message);
+        	//Console.WriteLine(message);
         	
         	
         	if (showmessage)

@@ -1,7 +1,6 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
-using miRobotEditor.GUI.Editor;
 
-namespace miRobotEditor.GUI
+namespace miRobotEditor.GUI.Editor
 {
     /// <summary>
     /// Allows language specific search for matching brackets.

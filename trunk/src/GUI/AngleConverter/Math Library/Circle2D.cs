@@ -1,20 +1,14 @@
 using System.ComponentModel;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
 
     [Localizable(false)]
-    public class Circle2D : IFormattable
+    public sealed class Circle2D : IFormattable
     {
         private readonly Point2D _origin;
         private readonly double _radius;
-
-        public Circle2D()
-        {
-            _origin = new Point2D();
-            _radius = 0.0;
-        }
 
         public Circle2D(Point2D origin, double radius)
         {

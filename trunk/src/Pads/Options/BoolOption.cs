@@ -6,23 +6,20 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-
 using System;
-using System.ComponentModel;
-using GalaSoft.MvvmLight;
+using miRobotEditor.Core;
 
-namespace miRobotEditor.Pads.Options
+namespace miRobotEditor.Options
 {
 	/// <summary>
 	/// Description of OptionsBoolDescription.
 	/// </summary>
-	[Localizable(false)]
 	public class BoolOption:ViewModelBase
 	{
 		private string _description = String.Empty;
-		public string Description {get{return _description;} set{_description=value;RaisePropertyChanged("Description");}}
+		public string Description {get{return _description;} set{_description=value;RaisePropertyChanged();}}
 		
 		private bool _value;
-		public bool Value{get{return _value;}set{_value=value;RaisePropertyChanged("Value");}}		
+		public bool Value{get{return _value;}set{_value=value;RaisePropertyChanged();}}		
 	}
 }

@@ -1,6 +1,5 @@
-﻿using System.ComponentModel;
-using System.Windows;
-using GalaSoft.MvvmLight;
+﻿using System.Windows;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.Forms
 {
@@ -17,10 +16,9 @@ namespace miRobotEditor.Forms
         }
     }
 
-    [Localizable(false)]
     public class DialogWindowViewModel : ViewModelBase
     {
         private string _title;
-        public string Title { get { return _title; } set { _title = value;RaisePropertyChanged("Title"); } }
+        public string Title { get { return _title; } set { _title = value;RaisePropertyChanged(); } }
     }
 }

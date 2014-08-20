@@ -5,7 +5,7 @@ namespace miRobotEditor.Commands
 {
     public abstract class AbstractCommand : ICommand
     {
-        private object _owner;
+        object _owner;
 
         /// <summary>
         /// Returns the owner of the command.
@@ -28,6 +28,7 @@ namespace miRobotEditor.Commands
         /// </summary>
         public abstract void Run();
 
+
         protected virtual void OnOwnerChanged(EventArgs e)
         {
             if (OwnerChanged != null)
@@ -35,7 +36,6 @@ namespace miRobotEditor.Commands
                 OwnerChanged(this, e);
             }
         }
-
         protected virtual void OnCanExecuteChanged(EventArgs e)
         {
             if (CanExecuteChanged != null)
@@ -43,16 +43,15 @@ namespace miRobotEditor.Commands
                 CanExecuteChanged(this, e);
             }
         }
-
         public event EventHandler OwnerChanged;
-
+    	
         public event EventHandler CanExecuteChanged;
-
+    	
         public void Execute(object parameter)
         {
             throw new NotImplementedException();
         }
-
+    	
         public bool CanExecute(object parameter)
         {
             throw new NotImplementedException();

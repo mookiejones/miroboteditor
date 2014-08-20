@@ -1,14 +1,13 @@
+using System;
 using System.ComponentModel;
+using System.Globalization;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
-    using System;
-    using System.Globalization;
-
     [Localizable(false)]
-    public class Point2D : IFormattable
+    public sealed class Point2D : IFormattable
     {
-        protected bool Equals(Point2D other)
+        private bool Equals(Point2D other)
         {
             return Equals(Position, other.Position);
         }

@@ -10,9 +10,9 @@ namespace miRobotEditor.Classes
     /// </summary>
     public class BookmarkBase : IBookmark
     {
-        private Location _location;
+        Location _location;
 
-        private IEditor _document;
+        IEditor _document;
 
         public IEditor Document
         {
@@ -34,7 +34,7 @@ namespace miRobotEditor.Classes
             }
         }
 
-        private void CreateAnchor()
+        void CreateAnchor()
         {
             if (_document != null)
             {
@@ -55,7 +55,7 @@ namespace miRobotEditor.Classes
             }
         }
 
-        private void AnchorDeleted(object sender, EventArgs e)
+        void AnchorDeleted(object sender, EventArgs e)
         {
             // the anchor just became invalid, so don't try to use it again
             _location = Location.Empty;
@@ -146,10 +146,9 @@ namespace miRobotEditor.Classes
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        // ReSharper disable InconsistentNaming
+// ReSharper disable InconsistentNaming
         public static readonly IImage defaultBookmarkImage = null;// = new ResourceServiceImage("Bookmarks.ToggleMark");
-
-        // ReSharper restore InconsistentNaming
+// ReSharper restore InconsistentNaming
 
         public static IImage DefaultBookmarkImage
         {
@@ -181,4 +180,5 @@ namespace miRobotEditor.Classes
         {
         }
     }
+
 }

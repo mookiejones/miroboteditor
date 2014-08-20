@@ -1,4 +1,4 @@
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
 
@@ -108,24 +108,22 @@ namespace ISTUK.MathLibrary
             }
             return -1;
         }
-        public static double CircleToCircle(Circle3D circle, Circle3D point)
+
+// ReSharper disable UnusedParameter.Local
+        private static double LineToCircle(Circle3D circle, Line3D point)
+// ReSharper restore UnusedParameter.Local
         {
             throw new NotImplementedException();
         }
 
-        public static double LineToCircle(Circle3D circle, Line3D point)
-        {
-            throw new NotImplementedException();
-        }
-       
-        public static double LineToLine(Line3D line1, Line3D line2)
+        private static double LineToLine(Line3D line1, Line3D line2)
         {
             Point3D pointd;
             Point3D pointd2;
             return LineToLine(line1, line2, out pointd, out pointd2);
         }
 
-        public static double LineToLine(Line3D line1, Line3D line2, out Point3D closestPoint1, out Point3D closestPoint2)
+        private static double LineToLine(Line3D line1, Line3D line2, out Point3D closestPoint1, out Point3D closestPoint2)
         {
             double num7;
             double num8;
@@ -158,11 +156,6 @@ namespace ISTUK.MathLibrary
             return Math.Sqrt(num9);
         }
 
-        public static double PlaneToCircle(Circle3D circle, Plane3D point)
-        {
-            throw new NotImplementedException();
-        }
-
         public static double PointToCircle(Circle3D circle, Point3D point)
         {
             var plane = new Plane3D(circle.Origin, circle.Normal);
@@ -175,17 +168,17 @@ namespace ISTUK.MathLibrary
             return PointToPoint(point, pointd2);
         }
 
-        public static double PointToLine(Line3D line, Point3D point)
+        private static double PointToLine(Line3D line, Point3D point)
         {
             return Vector3D.Cross(line.Direction, line.Origin - point).Length();
         }
 
-        public static double PointToPlane(Plane3D plane, Point3D point)
+        private static double PointToPlane(Plane3D plane, Point3D point)
         {
             return Vector.Dot(plane.Normal, point - plane.Point);
         }
 
-        public static double PointToPoint(Point3D p1, Point3D p2)
+        private static double PointToPoint(Point3D p1, Point3D p2)
         {
             return ((p1 - p2)).Length();
         }

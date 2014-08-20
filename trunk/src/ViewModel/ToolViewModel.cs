@@ -7,9 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-using miRobotEditor.ViewModel;
-
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModel
 {
     /// <summary>
 	/// Description of ToolViewModel.
@@ -47,7 +45,7 @@ namespace miRobotEditor.Core
             {
                 if (_isVisible == value) return;
                 _isVisible = value;
-                RaisePropertyChanged("IsVisible");
+                RaisePropertyChanged();
             }
         }
 

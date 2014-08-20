@@ -1,31 +1,33 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace miRobotEditor.Classes
 {
-    public class MenuTemplateSelector : DataTemplateSelector
+    public class MenuTemplateSelector:DataTemplateSelector
     {
+
         public DataTemplate KUKATemplate { get; set; }
-
         public DataTemplate FanucTemplate { get; set; }
-
         public DataTemplate NachiTemplate { get; set; }
-
         public DataTemplate ABBTemplate { get; set; }
 
-        public DataTemplate KawasakiTemplate { get; set; }
+        
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             var element = container as FrameworkElement;
-            if (WorkspaceViewModel.Instance.ActiveEditor.FileLanguage is Languages.KUKA)
-                return KUKATemplate;
-            if (WorkspaceViewModel.Instance.ActiveEditor.FileLanguage is Languages.ABB)
-                return ABBTemplate;
-            if (WorkspaceViewModel.Instance.ActiveEditor.FileLanguage is Languages.Fanuc)
-                return FanucTemplate;
-            if (WorkspaceViewModel.Instance.ActiveEditor.FileLanguage is Languages.Kawasaki)
-                return KawasakiTemplate;
+
+            if (element != null && item != null && item is Task)
+            {
+                // if (taskitem.Priority == 1)
+              //     return
+              //         element.FindResource("importantTaskTemplate") as DataTemplate;
+              // else
+              //     return
+              //         element.FindResource("myTaskTemplate") as DataTemplate;
+            }
+
             return null;
         }
     }

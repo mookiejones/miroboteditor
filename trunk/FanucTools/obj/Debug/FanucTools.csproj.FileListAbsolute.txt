@@ -1,0 +1,2 @@
+E:\Programming\miroboteditor\FanucTools\obj\Debug\FanucTools.csprojResolveAssemblyReference.cache
+C:\Programming\miroboteditor\FanucTools\obj\Debug\FanucTools.csprojResolveAssemblyReference.cache

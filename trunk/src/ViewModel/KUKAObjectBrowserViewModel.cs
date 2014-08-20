@@ -7,11 +7,11 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.ComponentModel;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using miRobotEditor.Core;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
 namespace miRobotEditor.ViewModel
 {
@@ -20,7 +20,6 @@ namespace miRobotEditor.ViewModel
 	/// <summary>
 	/// Description of KUKAObjectBrowserViewModel.
 	/// </summary>
-	[Localizable(false)]
 	public class KUKAObjectBrowserViewModel:ViewModelBase
 	{
 		public class FunctionClass
@@ -78,38 +77,24 @@ namespace miRobotEditor.ViewModel
         public ReadOnlyObservableCollection<StructureClass> StructureItems { get { return _readonlyStructureItems ?? new ReadOnlyObservableCollection<StructureClass>(_structureItems); } }
 		
 		public static KUKAObjectBrowserViewModel Instance{get;set;}
+		
+		private  RelayCommand _clearFilterCommand;
 
-
-        #region ClearFilterCommand
-
-        private RelayCommand _clearFilterCommand;
-        /// <summary>
-        /// Gets the ClearFilterCommand.
-        /// </summary>
-        public RelayCommand ClearFilterCommand
+        public  ICommand ClearFilterCommand
         {
-            get
-            {
-                return _clearFilterCommand
-                    ?? (_clearFilterCommand = new RelayCommand(ExecuteClearFilterCommand));
-            }
+        	get { 
+        		return _clearFilterCommand ?? (_clearFilterCommand = new RelayCommand(param => FilterText = String.Empty, param => (!String.IsNullOrEmpty(FilterText)))); }
         }
-
-        private void ExecuteClearFilterCommand()
-        {
-            FilterText = String.Empty;
-        }
-        #endregion
-	
+        
 		
 		private ListViewItem _selectedItem = new ListViewItem();
-		public ListViewItem SelectedItem {get{return _selectedItem;}set{_selectedItem=value;RaisePropertyChanged("SelectedItem");}}
+		public ListViewItem SelectedItem {get{return _selectedItem;}set{_selectedItem=value;RaisePropertyChanged();}}
 		
 		private string _filterText = String.Empty;
-		public string FilterText {get{return _filterText;}set{_filterText=value;RaisePropertyChanged("FilterText");}}
+		public string FilterText {get{return _filterText;}set{_filterText=value;RaisePropertyChanged();}}
 		
 		private string _functions = "2";
-		public string Functions{get{return _functions;}set{_functions=value;RaisePropertyChanged("Functions");}}
+		public string Functions{get{return _functions;}set{_functions=value;RaisePropertyChanged();}}
 		
 
 

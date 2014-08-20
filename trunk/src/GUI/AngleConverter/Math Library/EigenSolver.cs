@@ -1,7 +1,8 @@
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
 
+// ReSharper disable once UnusedMember.Global
     public class EigenSolver
     {
         private readonly Vector _diag;

@@ -7,26 +7,22 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 
 namespace miRobotEditor.GUI.Editor
 {
-	public class BracketHighlightRenderer : IBackgroundRenderer
+	public sealed class BracketHighlightRenderer : IBackgroundRenderer
 	{
 		BracketSearchResult _result;
 		Pen _borderPen;
 		Brush _backgroundBrush;
 	    readonly TextView _textView;
-		
-		public static readonly Color DefaultBackground = Color.FromArgb(100, 0, 0, 255);
-		public static readonly Color DefaultBorder = Color.FromArgb(52, 0, 0, 255);
-		
-		public const string BracketHighlight = "Bracket highlight";
-		
-		public void SetHighlight(BracketSearchResult result)
+
+	    private static readonly Color DefaultBackground = Color.FromArgb(100, 0, 0, 255);
+
+	    public void SetHighlight(BracketSearchResult result)
 		{
 		    if (_result == result) return;
 		    _result = result;
@@ -78,6 +74,7 @@ namespace miRobotEditor.GUI.Editor
 				drawingContext.DrawGeometry(_backgroundBrush, _borderPen, geometry);
 		}
 		
+/*
 		public static void ApplyCustomizationsToRendering(BracketHighlightRenderer renderer, IEnumerable<Color> customizations)
 		{
 			renderer.UpdateColors(DefaultBackground, DefaultBorder);
@@ -91,5 +88,6 @@ namespace miRobotEditor.GUI.Editor
 				//}
 			}
 		}
+*/
 	}
 }

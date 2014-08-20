@@ -1,19 +1,13 @@
 using System.ComponentModel;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
 
-    public class Line2D : IFormattable
+    public sealed class Line2D : IFormattable
     {
         private readonly Vector2D _direction;
         private readonly Vector2D _origin;
-
-        public Line2D()
-        {
-            _origin = new Vector2D();
-            _direction = new Vector2D();
-        }
 
         public Line2D(Vector2D origin, Vector2D direction)
         {

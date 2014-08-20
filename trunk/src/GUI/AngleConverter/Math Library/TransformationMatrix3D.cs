@@ -1,4 +1,4 @@
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
     using System.Collections.ObjectModel;
@@ -151,7 +151,7 @@ namespace ISTUK.MathLibrary
             return new Vector3D(matrix[0, 0], matrix[1, 0], matrix[2, 0]);
         }
 
-        public override string ToString(string format)
+        public virtual string ToString(string format)
         {
             return ToString(format, null);
         }

@@ -147,10 +147,10 @@
     <Style TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="Padding" Value="5,0,5,0"/>
         <Setter Property="Foreground" Value="Black"/>        
-        <Setter Property="Background" Value="{Binding Path=Workspace.AccentBrush.Name, Source={StaticResource Locator}}"/>
+        <Setter Property="Background" Value="{Binding Path=AccentBrush.Name, Source={x:Static miRobotEditor:Workspace.Instance}}"/>
     </Style>
   
-    <DataTemplate x:Key="ItemsTemplate">    
+    <DataTemplate x:Key="ItemsTemplate">
         <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" BorderThickness="0">          
             <DataGrid.Columns>
                 <DataGridTextColumn Foreground="{Binding TitleForeground, Source={x:Static miRobotEditor:MainWindow.Instance}}" Header="Type"  Binding="{Binding Type}"/>

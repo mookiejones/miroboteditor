@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.GUI.Editor
 {
     /// <summary>
     /// Base interface for IInsightWindow and ICompletionListWindow.
@@ -10,6 +10,7 @@ namespace miRobotEditor.Languages
         /// <summary>
         /// Closes the window.
         /// </summary>
+// ReSharper disable UnusedMember.Global
         void Close();
 
         /// <summary>
@@ -49,5 +50,7 @@ namespace miRobotEditor.Languages
         /// Has no effect if CloseAutomatically is false.
         /// </summary>
         int EndOffset { get; set; }
+        // ReSharper restore UnusedMember.Global
+
     }
 }

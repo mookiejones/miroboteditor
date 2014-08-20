@@ -1,4 +1,3 @@
-using ISTUK.MathLibrary;
 using System.Collections.ObjectModel;
 
 namespace miRobotEditor.GUI.AngleConverter.Robot

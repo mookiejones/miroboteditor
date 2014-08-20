@@ -1,6 +1,6 @@
 using System;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     public static class Project3D
     {

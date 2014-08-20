@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Media;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.Classes
 {
@@ -14,16 +14,15 @@ namespace miRobotEditor.Classes
         /// <summary>
         /// XML Configuration File For Docking Manager
         /// </summary>
-        public const string DockConfigPath = "dockConfig.xml";
+        public const string DockConfigPath =  "dockConfig.xml";
 
         [Localizable(false)]
-        public static string DockConfig { get { return AppDomain.CurrentDomain.BaseDirectory + DockConfigPath; } }
-
+        public static string DockConfig { get { return AppDomain.CurrentDomain.BaseDirectory  + DockConfigPath; } }
         /// <summary>
         /// Used to help prevent from freezing when network directory doesnt exist
         /// </summary>
         /// <param name="filename"></param>
-        /// <returns></returns>
+        /// <returns></returns>  
         public static bool DoesDirectoryExist(string filename)
         {
             var f = new FileInfo(filename);
@@ -44,6 +43,8 @@ namespace miRobotEditor.Classes
             return false;
         }
 
+
+    
         /// <summary>
         /// Log File
         /// </summary>
@@ -61,8 +62,6 @@ namespace miRobotEditor.Classes
         /// </summary>
         public const string ImgInfo = "..\\..\\Resources\\info.png";
 
-
-       
         /// <summary>
         /// Constant ObjectBrowser Icon
         /// </summary>
@@ -76,53 +75,43 @@ namespace miRobotEditor.Classes
         /// <summary>
         /// Constant Variable Image
         /// </summary>
-        public const string ImgConst = "ConstIconImage";
-
+        public const string ImgConst = "..\\..\\Resources\\vxconstant_icon.png";
         /// <summary>
         /// Struct Variable Image
         /// </summary>
-        public const string ImgStruct = "StructIconImage";
-
+        public const string ImgStruct = "..\\..\\Resources\\vxstruct_icon.png";
         /// <summary>
         /// Method Variable Image
         /// </summary>
-        public const string ImgMethod = "FieldIconImage";
-
+        public const string ImgMethod = "..\\..\\Resources\\vxmethod_icon.png";
         /// <summary>
         /// Enum Variable Image
         /// </summary>
-        public const string ImgEnum = "EnumIconImage";
-
+        public const string ImgEnum = "..\\..\\Resources\\vxenum_icon.png";
         /// <summary>
         /// Field Variable Image
         /// </summary>
         public const string ImgField = "..\\..\\Resources\\vxfield_icon.png";
-
         /// <summary>
         /// Value Variable Image
         /// </summary>
         public const string ImgValue = "..\\..\\Resources\\vxvaluetype_icon.png";
-
         /// <summary>
         /// Signal Variable Image
         /// </summary>
         public const string ImgSignal = "..\\..\\Resources\\vxevent_icon.png";
-
         /// <summary>
         /// XYZ Position Variable Image
         /// </summary>
         public const string ImgXyz = "..\\..\\Resources\\vxXYZ_icon.png";
-
         /// <summary>
         /// Source File Image
         /// </summary>
         public const string ImgSrc = "..\\..\\Resources\\srcfile.png";
-
         /// <summary>
         /// Dat File Image
         /// </summary>
         public const string ImgDat = "..\\..\\Resources\\datfile.png";
-
         /// <summary>
         /// SPS File Image
         /// </summary>
@@ -151,14 +140,16 @@ namespace miRobotEditor.Classes
         /// </summary>
         /// <param name="message"></param>
         /// <param name="showmessage"></param>
-        public static void ErrorHandler(string message, bool showmessage)
+        private static void ErrorHandler(string message, bool showmessage)
         {
-            Console.WriteLine(message);
-            TraceWriter.Trace(message);
-            LogWriter.WriteLog(message, showmessage ? Colors.Red : Colors.Gray);
 
-            if (showmessage)
-                MessageViewModel.ShowMessage(message);
+        	Console.WriteLine(message);
+        	TraceWriter.Trace(message);
+        	LogWriter.WriteLog(message,showmessage?Colors.Red:Colors.Gray);
+        	
+        	if (showmessage)
+            MessageViewModel.ShowMessage(message);
         }
+        	
     }
 }

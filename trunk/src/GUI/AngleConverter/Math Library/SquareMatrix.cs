@@ -1,4 +1,4 @@
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
     using System;
 
@@ -116,6 +116,8 @@ namespace ISTUK.MathLibrary
         }
 
         private const double EPSILON = 0.0001;
+// ReSharper disable once UnusedMember.Global
+// ReSharper disable once InconsistentNaming
         public void LUDecomposition(out SquareMatrix l, out SquareMatrix u)
         {
             l = new SquareMatrix(Size);
@@ -186,18 +188,7 @@ namespace ISTUK.MathLibrary
             return new SquareMatrix( NaN(size, size));
         }
 
-        //public static SquareMatrix operator *(SquareMatrix lhs, SquareMatrix rhs)
-        //{
-        //    try
-        //    {
-        //        return new SquareMatrix(lhs * rhs);
-        //    }
-        //    catch (StackOverflowException ex)
-        //    {
-        //        Console.WriteLine(ex.ToString());
-        //        return new SquareMatrix();
-        //    }
-        //}
+       
 
         public SquareMatrix Power(int power)
         {

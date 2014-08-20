@@ -1,4 +1,4 @@
-﻿namespace miRobotEditor.ExplorerControl
+﻿namespace miRobotEditor.GUI.ExplorerControl
 {
     /// <summary>
     /// Interaction logic for FileExplorerWindow.xaml

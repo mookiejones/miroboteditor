@@ -1,120 +1,86 @@
-﻿using MahApps.Metro;
-using miRobotEditor.Annotations;
-using miRobotEditor.Core;
-using miRobotEditor.Forms;
-using miRobotEditor.Properties;
-using miRobotEditor.Resources;
-using miRobotEditor.Resources.StringResources;
-using miRobotEditor.ViewModel;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using MahApps.Metro;
+using MahApps.Metro.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
+using miRobotEditor.Annotations;
+using miRobotEditor.Core;
+using miRobotEditor.Forms;
+using miRobotEditor.Properties;
+using miRobotEditor.ViewModel;
 using DataFormats = System.Windows.DataFormats;
 using DragDropEffects = System.Windows.DragDropEffects;
 using DragEventArgs = System.Windows.DragEventArgs;
 
-namespace miRobotEditor
+namespace miRobotEditor	
 {
     using Classes;
-    using GalaSoft.MvvmLight.Messaging;
-    using miRobotEditor.Classes.Messages;
-    using miRobotEditor.WindowMessages;
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     [Localizable(false)]
-    public partial class MainWindow
+    public partial class MainWindow:MetroWindow
     {
-        #region · Members ·
-
         public static MainWindow Instance { get; set; }
 
-        [NonSerialized]
-        private Accent _currentAccent = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
 
-        public Accent CurrentAccent { get { return _currentAccent; } set { _currentAccent = value; } }
-
-        private readonly Theme _currentTheme = ThemeManager.ThemeIsDark ? Theme.Dark : Theme.Light;
-
-        public Theme Theme { get; set; }
-
-        #endregion · Members ·
 
         #region Constructor
-
         public MainWindow()
         {
             Instance = this;
             InitializeComponent();
-            ThemeManager.ChangeTheme(this, _currentAccent, _currentTheme);
-            KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);
-            Messenger.Default.Register<GetFileMessage>(this,GetFileNames);
+            ThemeManager.ChangeAppTheme(App.Current,"Light");
+//           ThemeManager.ChangeTheme(this, _currentAccent, _currentTheme);
+            KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);           
         }
+        #endregion
 
-
-
-        #endregion Constructor
-
-        #region · Public Methods ·
-
-        public void LoadItems()
-        {
+        private void LoadItems()
+        {            
+            //Load Files that were closed with the window the last time the Program was executed
+            LoadOpenFiles();
             //If No open files, Open one
             var docpane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
-            LoadLayout();
-
-            // Load files that were opened when i last closed the window
-            LoadOpenFiles();
+            if (docpane != null && docpane.ChildrenCount == 0)
+                Workspace.Instance.AddNewFile();
 
             ProcessArgs();
-
-
-            //Load Files that were closed with the window the last time the Program was executed
-            if ((docpane != null && docpane.ChildrenCount == 0) & (WorkspaceViewModel.Instance.Files.Count < 1))
-                WorkspaceViewModel.Instance.AddNewFile();
         }
 
-        #endregion · Public Methods ·
+        static void OpenFile(string filename)
+        {
+            Workspace.Instance.Open(filename);
+        }
 
-    //   private static void OpenFile(string filename)
-    //   {
-    //       WorkspaceViewModel.Instance.Open(filename);
-    //   }
-
+   
         private static void LoadOpenFiles()
         {
             var s = Settings.Default.OpenDocuments.Split(';');
-          
-            for (var i = 0; i < s.Length - 1; i++)
+            for (var i = 0; i < s.Length - 1; i++) 
             {
                 if (File.Exists(s[i]))
-                {
-                    Messenger.Default.Send<OpenFileMessage>(new OpenFileMessage(s[i]));
-//                    OpenFile(s[i]);
-                }
-
+                    OpenFile(s[i]);
             }
         }
 
         /// <summary>
         /// Open file from parameters sent to program
         /// </summary>
-        private void ProcessArgs()
+        private static void ProcessArgs()
         {
             var args = Environment.GetCommandLineArgs();
 
             for (var i = 1; i < args.Length; i++)
             {
-                Messenger.Default.Send<OpenFileMessage>(new OpenFileMessage(args[i]));
-
-//                OpenFile(args[i]);
+                OpenFile(args[i]);
             }
         }
+
 
         [Localizable(false)]
         private void DropFiles(object sender, DragEventArgs e)
@@ -123,9 +89,8 @@ namespace miRobotEditor
 
             foreach (var t in files)
             {
-                //TODO This Magically Works
-                MessageViewModel.Instance.Add("FileDropped", String.Format("OpeningFile {0}", t), MsgIcon.Info);
-                WorkspaceViewModel.Instance.Open(t);
+                MessageViewModel.Instance.Add("File Dropped", String.Format("Opening:={0}", t), MsgIcon.Info);
+                Workspace.Instance.Open(t);
             }
         }
 
@@ -136,12 +101,13 @@ namespace miRobotEditor
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effects = DragDropEffects.Copy;
         }
 
+      
         /// <summary>
         /// Makes a call GUI threadsafe without waiting for the returned value.
         /// </summary>
         public static void SafeThreadAsyncCall(Action method)
         {
-            //      SynchronizingObject.BeginInvoke(method, emptyObjectArray);
+     //      SynchronizingObject.BeginInvoke(method, emptyObjectArray);
         }
 
         public static void CallLater(TimeSpan delay, Action method)
@@ -154,7 +120,7 @@ namespace miRobotEditor
             SafeThreadAsyncCall(
                 delegate
                 {
-                    var t = new System.Windows.Forms.Timer { Interval = Math.Max(1, delayMilliseconds) };
+                    var t = new System.Windows.Forms.Timer {Interval = Math.Max(1, delayMilliseconds)};
                     t.Tick += delegate
                     {
                         t.Stop();
@@ -165,6 +131,7 @@ namespace miRobotEditor
                 });
         }
 
+      
         /// <summary>
         /// Takes Place on Application Closing
         /// </summary>
@@ -173,50 +140,45 @@ namespace miRobotEditor
         private void WindowClosing(object sender, CancelEventArgs e)
         {
             Settings.Default.OpenDocuments = String.Empty;
-
             var docpane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
-
+            
             if (docpane != null)
-                foreach (var d in docpane.Children.Select(doc => doc.Content as DocumentViewModel).Where(d => d != null && d.FilePath != null))
+                foreach (var d in docpane.Children.Select(doc => doc.Content as DocumentViewModel).Where(d => d != null && d.FilePath!=null))
                 {
                     Settings.Default.OpenDocuments += d.FilePath + ';';
                 }
+
             Settings.Default.Save();
 
             SaveLayout();
 
-            WorkspaceViewModel.Instance.IsClosing = true;          
+            Workspace.Instance.IsClosing = true;
+            App.Application.Shutdown();
         }
+
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            //   LoadLayout();
+         //   LoadLayout();
             LoadItems();
             Splasher.CloseSplash();
-            Console.WriteLine("Loaded Items");
         }
 
         private void SaveLayout()
         {
+/*
             var serializer = new XmlLayoutSerializer(DockManager);
             using (var stream = new StreamWriter(Global.DockConfig))
                 serializer.Serialize(stream);
+*/
         }
 
         [UsedImplicitly]
         private void LoadLayout()
         {
-            try
-            {
-                var serializer = new XmlLayoutSerializer(DockManager);
-                if (File.Exists(Global.DockConfig))
-                    using (new StreamReader(Global.DockConfig)) serializer.Deserialize(Global.DockConfig);
+            var serializer = new XmlLayoutSerializer(DockManager);
+            using (new StreamReader(Global.DockConfig)) serializer.Deserialize(Global.DockConfig);
 
-            }
-            catch(Exception ex)
-            {
-
-            }
         }
 
         public void CloseWindow(object param)
@@ -224,18 +186,14 @@ namespace miRobotEditor
             var ad = param as IDocument;
             var docpane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (docpane == null) return;
-
+			
             foreach (var c in docpane.Children.Where(c => c.Content.Equals(ad)))
             {
                 docpane.Children.Remove(c);
                 return;
-            }
-        }
+            } 
 
-        private void GetFileNames(GetFileMessage msg)
-        {
-            msg.GetFile(this);
-            msg.Callback(msg);
         }
+     
     }
 }

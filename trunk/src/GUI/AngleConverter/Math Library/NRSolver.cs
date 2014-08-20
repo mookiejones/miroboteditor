@@ -1,8 +1,8 @@
-namespace ISTUK.MathLibrary
-{
-    using System;
+using System;
 
-    public class NRSolver
+namespace miRobotEditor.GUI.AngleConverter
+{
+    public sealed class NRSolver
     {
         private const int MaxIterations = 20;
         private const double StopCondition = 1E-07;

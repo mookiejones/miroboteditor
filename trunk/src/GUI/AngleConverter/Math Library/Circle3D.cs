@@ -1,12 +1,11 @@
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace ISTUK.MathLibrary
+namespace miRobotEditor.GUI.AngleConverter
 {
-    using System;
-    using System.Collections.ObjectModel;
-
     [Localizable(false)]
-    public class Circle3D : IGeometricElement3D
+    public sealed class Circle3D : IGeometricElement3D
     {
         
 
@@ -15,20 +14,6 @@ namespace ISTUK.MathLibrary
             Origin = new Point3D();
             Normal = new Vector3D();
             Radius = 0.0;
-        }
-
-        public Circle3D(Circle3D circle)
-        {
-            Origin = circle.Origin;
-            Normal = circle.Normal;
-            Radius = circle.Radius;
-        }
-
-        public Circle3D(Point3D origin, Vector3D normal, double radius)
-        {
-            Origin = origin;
-            Normal = normal;
-            Radius = radius;
         }
 
         public static Circle3D FitToPoints(Collection<Point3D> points)
@@ -46,11 +31,6 @@ namespace ISTUK.MathLibrary
         public override string ToString()
         {
             return ToString(null, null);
-        }
-
-        public string ToString(string format)
-        {
-            return ToString(format, null);
         }
 
         public string ToString(string format, IFormatProvider formatProvider)

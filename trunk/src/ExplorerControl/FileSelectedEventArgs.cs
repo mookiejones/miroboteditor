@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace miRobotEditor.ExplorerControl
+namespace miRobotEditor.GUI.ExplorerControl
 {
     public class FileSelectedEventArgs:EventArgs
     {

@@ -5,12 +5,12 @@
  * Time: 12:37
  * 
  */
-
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using miRobotEditor.ExplorerControl;
 
-namespace miRobotEditor.ExplorerControl
+namespace miRobotEditor.GUI.ExplorerControl
 {
 	
 
@@ -104,8 +104,7 @@ namespace miRobotEditor.ExplorerControl
 		    explorer.FillTreeNode(explorer.SelectedNode,explorer.SelectedNode.Tag.ToString());
 		    // TODO: Implement Refresh
 		}
-
-   
+		
 		void ContextOpening(object sender, CancelEventArgs e)
 		{
 			

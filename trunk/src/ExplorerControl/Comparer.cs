@@ -2,7 +2,7 @@
 using System.Collections;
 using System.IO;
 
-namespace miRobotEditor.ExplorerControl
+namespace miRobotEditor.GUI.ExplorerControl
 {
     class Comparer:IComparer
     {

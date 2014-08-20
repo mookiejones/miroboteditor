@@ -1,6 +1,6 @@
 ﻿namespace miRobotEditor.ViewModel
 {
-    public class Technology
+    public abstract class Technology
     {
         public string Name { get; set; }
         public string Version { get; set; }

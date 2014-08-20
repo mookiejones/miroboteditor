@@ -1,8 +1,8 @@
 ﻿namespace miRobotEditor.Languages
 {
-    public class ShiftClass
+    public sealed class ShiftClass
     {
-        public string Source { get; set; }
-        public string Data { get; set; }
+        public string Source { private get; set; }
+        public string Data { private get; set; }
     }
 }

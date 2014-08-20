@@ -1,28 +1,23 @@
-﻿using System.Collections.ObjectModel;
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Classes;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Text.RegularExpressions;
+using miRobotEditor.GUI.Editor;
+using miRobotEditor.Interfaces;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
-    public class LanguageBase : AbstractLanguageClass
+    public sealed class LanguageBase : AbstractLanguageClass
     {
-        public LanguageBase()
-        {
-        }
-
-        public LanguageBase(string file)
-            : base(file)
-        {
-        }
+    	public LanguageBase(){}
+    	public LanguageBase(string file):base(file)
+    	{    		
+    	}
 
         internal override bool IsFileValid(FileInfo file)
         {
@@ -34,13 +29,7 @@ namespace miRobotEditor.Languages
             return new DocumentViewModel(filename);
         }
 
-        public override string IsLineMotion(string lineValue, ICollection<IVariable> variables)
-        {
-            return string.Empty;
-        }
-
-        #region Properties
-
+    	#region Properties
         /// <summary>
         /// Sets ComboBox Filter Items for searching
         /// </summary>
@@ -49,7 +38,7 @@ namespace miRobotEditor.Languages
         {
             get
             {
-                return DefaultSearchFilters;
+               return DefaultSearchFilters;
             }
         }
 
@@ -57,7 +46,7 @@ namespace miRobotEditor.Languages
         /// Sets ComboBox Filter Items for searching
         /// </summary>
         /// <returns></returns>
-        public static List<string> DefaultSearchFilters
+        private static List<string> DefaultSearchFilters
         {
             get
             {
@@ -65,7 +54,7 @@ namespace miRobotEditor.Languages
             }
         }
 
-        #endregion Properties
+        #endregion
 
         internal override string FoldTitle(FoldingSection section, ICSharpCode.AvalonEdit.Document.TextDocument doc)
         {
@@ -73,11 +62,12 @@ namespace miRobotEditor.Languages
             var s = Regex.Split(section.Title, "æ");
 
             var start = section.StartOffset + s[0].Length;
-            // var end = section.Length - (s[0].Length + s[1].Length);
+           // var end = section.Length - (s[0].Length + s[1].Length);
             var end = section.Length - s[0].Length;//eval.IndexOf(s[1]);
 
             return doc.GetText(start, end);
         }
+
 
         internal override Typlanguage RobotType { get { return Typlanguage.None; } }
 
@@ -98,39 +88,35 @@ namespace miRobotEditor.Languages
             get { throw new NotImplementedException(); }
         }
 
+       
         #region Code Completion Section
-
-        internal override IList<ICompletionData> CodeCompletion
+            internal override IList<ICompletionData> CodeCompletion
         {
             get
             {
-                var codeCompletionList = new List<ICompletionData> { new CodeCompletion("Item1") };
+                var codeCompletionList = new List<ICompletionData> {new CodeCompletion("Item1")};
                 return codeCompletionList;
             }
         }
+        #endregion
 
-        #endregion Code Completion Section
-
-        #region Regular Expressions
-
-        public override Regex MethodRegex { get { return new Regex(String.Empty); } }
-
-        public override Regex StructRegex { get { return new Regex(String.Empty); } }
-
-        public override Regex FieldRegex { get { return new Regex(String.Empty); } }
-
-        public override Regex EnumRegex { get { return new Regex(String.Empty); } }
-
-        public override string CommentChar
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+            
+            #region Regular Expressions
+            public override Regex MethodRegex {get {return new Regex(String.Empty);}}
+    	
+		public override Regex StructRegex {get {return new Regex(String.Empty);}}
+    	
+		public override Regex FieldRegex{get {return new Regex(String.Empty);}}
+    	
+		public override Regex EnumRegex {get {return new Regex(String.Empty);}}
+    	
+		public override string CommentChar {
+			get {
+				throw new NotImplementedException();
+			}
+		}
 
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
-
         public override string ExtractXYZ(string positionstring)
         {
             var p = new PositionBase(positionstring);
@@ -138,7 +124,6 @@ namespace miRobotEditor.Languages
         }
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
-
-        #endregion Regular Expressions
+            #endregion
     }
 }

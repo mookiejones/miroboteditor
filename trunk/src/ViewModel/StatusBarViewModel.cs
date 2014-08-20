@@ -1,13 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using System.Windows.Input;
 using miRobotEditor.Classes;
+using miRobotEditor.Core;
+using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
 namespace miRobotEditor.ViewModel
 {
-    [Localizable(false)]
-    public class StatusBarViewModel:ViewModelBase
+   public sealed class StatusBarViewModel:ViewModelBase
    {
 
 
@@ -23,19 +21,13 @@ namespace miRobotEditor.ViewModel
 
        #region Commands
 
-
-       private RelayCommand<object> _keyPressedCommand;
-       public RelayCommand<object> KeyPressedCommand
+       private RelayCommand _keyPressedCommand;
+       public ICommand KeyPressedCommand
        {
            get
            {
-               return _keyPressedCommand ?? (_keyPressedCommand = new RelayCommand<object>(ExecuteManageKeys));
+               return _keyPressedCommand ?? (_keyPressedCommand = new RelayCommand(param => ManageKeys(param,null), param => true));
            }
-       }
-
-       private void ExecuteManageKeys(object sender)
-       {
-           ManageKeys(sender,null);
        }
 
        #endregion
@@ -50,13 +42,13 @@ namespace miRobotEditor.ViewModel
 
 
         private bool _isScrollPressed;
-        public bool IsScrollPressed { get { return _isScrollPressed; } set { _isScrollPressed = value;RaisePropertyChanged("IsScrollPressed"); } }
+        public bool IsScrollPressed { get { return _isScrollPressed; } set { _isScrollPressed = value;RaisePropertyChanged(); } }
        private bool _isNumPressed;
-       public bool IsNumPressed { get { return _isNumPressed; } set { _isNumPressed = value; RaisePropertyChanged("IsNumPressed"); } }
+       public bool IsNumPressed { get { return _isNumPressed; } set { _isNumPressed = value; RaisePropertyChanged(); } }
        private bool _isInsPressed;
-       public bool IsInsPressed { get { return _isInsPressed; } set { _isInsPressed = value; RaisePropertyChanged("IsInsPressed"); } }
+       public bool IsInsPressed { get { return _isInsPressed; } set { _isInsPressed = value; RaisePropertyChanged(); } }
        private bool _isCapsPressed;
-       public bool IsCapsPressed { get { return _isCapsPressed; } set { _isCapsPressed = value; RaisePropertyChanged("IsCapsPressed"); } }
+       public bool IsCapsPressed { get { return _isCapsPressed; } set { _isCapsPressed = value; RaisePropertyChanged(); } }
 
        
         #endregion

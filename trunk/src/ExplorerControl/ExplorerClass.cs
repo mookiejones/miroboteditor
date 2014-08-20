@@ -8,24 +8,24 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using miRobotEditor.Resources.StringResources;
-using miRobotEditor.ViewModel;
+using miRobotEditor.Core;
+using miRobotEditor.GUI.ExplorerControl;
 
 namespace miRobotEditor.ExplorerControl
 {
     /// <summary>
 	/// Description of ExplorerClass.
 	/// </summary>
-	public class ExplorerClass:TreeView,IComparable
+	public sealed class ExplorerClass:TreeView,IComparable
 	{
 
         //TODO Fix this
 // ReSharper disable InconsistentNaming
 #pragma warning disable 169
+// ReSharper disable UnusedMember.Local
 		private const int FOLDER = 0;
 		private const int FOLDEROPEN=1;
 		private const int REMOVABLE = 5;
@@ -34,6 +34,7 @@ namespace miRobotEditor.ExplorerControl
 		private const int GENERICFILE=6;
 		private const int NETWORK=7;
         // ReSharper restore InconsistentNaming
+        // ReSharper restore UnusedMember.Local
 #pragma warning restore 169
 
 
@@ -51,23 +52,9 @@ namespace miRobotEditor.ExplorerControl
 		public ExplorerClass()
 		{
 			HideSelection = false;
-            BackColor = Color.White;
-            ForeColor = Color.Black;
 		}
 
-	    public override sealed Color ForeColor
-	    {
-	        get { return base.ForeColor; }
-	        set { base.ForeColor = value; }
-	    }
-
-	    public override sealed Color BackColor
-	    {
-	        get { return base.BackColor; }
-	        set { base.BackColor = value; }
-	    }
-
-	    public void AddRobotNode(string sFile, string sName)
+        public void AddRobotNode(string sFile, string sName)
 		{
 			SelectedNode = Nodes.Add(sFile, sName, 11, 11);
 			SelectedNode.ToolTipText = sFile;
@@ -150,7 +137,7 @@ namespace miRobotEditor.ExplorerControl
 				}
 				catch (Exception ex)
 				{
-				    MessageViewModel.AddError(ErrorResources.ExplorerClassError,ex);				
+				    MessageViewModel.AddError("ExplorerClass",ex);				
 				}
 			}
 		}
@@ -237,7 +224,6 @@ namespace miRobotEditor.ExplorerControl
 					    node.Nodes.Add(treeNode);
 					    treeNode.Nodes.Add("");
 					}
-
 					
 					var files = Directory.GetFiles(text, FileExplorerControl.Instance.Filter);
 					Array.Sort(files);
@@ -281,7 +267,7 @@ namespace miRobotEditor.ExplorerControl
 				}
 				catch (Exception ex)
 				{
-				    MessageViewModel.AddError(String.Format(ErrorResources.ExplorerClassError,"FillTreeNode"),ex);
+				    MessageViewModel.AddError("ExplorerClass.FillTreeNode",ex);
 					Cursor = Cursors.Default;
 				}
 			}
