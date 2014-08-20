@@ -1,4 +1,4 @@
-﻿<Window x:Class="miRobotEditor.Language_Specific.RenamePositionWindow"
+﻿<Window x:Class="miRobotEditor.RenamePositionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="RenamePositionWindow" Height="300" Width="300">

@@ -195,9 +195,9 @@ namespace miRobotEditor.Languages
         readonly ReadOnlyObservableCollection<MenuItem> _readonlyMenuItems = null;
         public IEnumerable<MenuItem> MenuItems { get { return _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems); } }
 
-        readonly List<FileInfo> _files = new List<FileInfo>();
-        readonly ReadOnlyCollection<FileInfo> _readOnlyFiles = null;
-        public ReadOnlyCollection<FileInfo> Files { get { return _readOnlyFiles ?? new ReadOnlyCollection<FileInfo>(_files); } }
+        readonly List<System.IO.FileInfo> _files = new List<System.IO.FileInfo>();
+        readonly ReadOnlyCollection<System.IO.FileInfo> _readOnlyFiles = null;
+        public ReadOnlyCollection<System.IO.FileInfo> Files { get { return _readOnlyFiles ?? new ReadOnlyCollection<System.IO.FileInfo>(_files); } }
 
         /// <summary>
         /// Text of _files For searching
@@ -306,7 +306,7 @@ namespace miRobotEditor.Languages
         public abstract Regex StructRegex { get; }
         public abstract Regex SignalRegex { get; }
 
-        internal abstract bool IsFileValid(FileInfo file);
+        internal abstract bool IsFileValid(System.IO.FileInfo file);
 
         /// <summary>
         /// Regular Expression for Functions
@@ -709,7 +709,7 @@ namespace miRobotEditor.Languages
                 {
                     try
                     {
-                        var file = new FileInfo(f);
+                        var file = new System.IO.FileInfo(f);
                         if (file.Name.ToLower() == "kuka_con.mdb")
                             _kukaCon = file.FullName;                           
                             _files.Add(file);

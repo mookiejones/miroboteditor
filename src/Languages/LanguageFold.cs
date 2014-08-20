@@ -8,7 +8,7 @@ namespace miRobotEditor.Languages
     	
     	#region Properties
     	public string StartFold{get;private set;}
-    	public string EndFold{get;private set;}
+        internal string EndFold{get; set;}
         public string Text { get; private set; }
         public int Start{get;private set;}
         public int End{get;private set;}
@@ -23,7 +23,7 @@ namespace miRobotEditor.Languages
             Name = System.String.Format("{0}æ{1}", startfold, endfold);
         	StartFold = startfold;
         	EndFold = endfold;
-        	base.DefaultClosed=closed;
+        	DefaultClosed=closed;
         	Start = start;
         	End = end;
         	Text = text;

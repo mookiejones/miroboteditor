@@ -37,7 +37,7 @@ namespace miRobotEditor.Languages
                 return EXT;
             }
         }
-        internal override bool IsFileValid(FileInfo file)
+        internal override bool IsFileValid(System.IO.FileInfo file)
         {
             return EXT.Any(e => file.Extension.ToLower() == e);
         }
@@ -98,7 +98,7 @@ namespace miRobotEditor.Languages
             /// <summary>
             /// Create <see cref="NewFolding"/>s for the specified document.
             /// </summary>
-            public override IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
+            private IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
                 var newFoldings = new List<NewFolding>();
                 newFoldings.AddRange(CreateFoldingHelper(document, ".program", ".end", false));

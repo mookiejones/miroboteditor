@@ -1,5 +1,6 @@
-﻿namespace miRobotEditor.Language_Specific
+﻿namespace miRobotEditor
 {
+// ReSharper disable once ClassCanBeSealed.Global
     public class FileInfo
     {
 

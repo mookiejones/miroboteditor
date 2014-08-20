@@ -19,7 +19,7 @@ namespace miRobotEditor.Languages
     	{    		
     	}
 
-        internal override bool IsFileValid(FileInfo file)
+        internal override bool IsFileValid(System.IO.FileInfo file)
         {
             return false;
         }

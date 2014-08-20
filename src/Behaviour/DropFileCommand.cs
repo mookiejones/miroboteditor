@@ -22,6 +22,7 @@
         typeof(DropFileCommand),
         new PropertyMetadata(null, OnDropCommandChange));
 
+/*
     /// <summary>
     /// Setter method of the attached DropCommand <seealso cref="ICommand"/> property
     /// </summary>
@@ -31,13 +32,14 @@
     {
       source.SetValue(DropCommandProperty, value);
     }
+*/
 
     /// <summary>
     /// Getter method of the attached DropCommand <seealso cref="ICommand"/> property
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static ICommand GetDropCommand(DependencyObject source)
+    private static ICommand GetDropCommand(DependencyObject source)
     {
       return (ICommand)source.GetValue(DropCommandProperty);
     }

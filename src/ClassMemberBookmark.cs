@@ -15,10 +15,8 @@ namespace miRobotEditor
     /// <summary>
     /// Description of ClassMemberBookmark.
     /// </summary>
-    public class ClassMemberBookmark : IBookmark
+    public sealed class ClassMemberBookmark : IBookmark
     {
-        private readonly int _linenumber;
-
         public ClassMemberBookmark(int lineNumber, IImage image)
         {
             Image = image;

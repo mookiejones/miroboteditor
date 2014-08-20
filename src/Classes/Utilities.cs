@@ -67,7 +67,7 @@ namespace miRobotEditor.Classes
 
                 if (File.Exists(fileName))
                 {
-                    var fi = new FileInfo(fileName);
+                    var fi = new System.IO.FileInfo(fileName);
                     var bitmap = new BitmapImage(new Uri(fi.FullName));
                     bitmap.Freeze();
                     return bitmap;

@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml"/>            
             </ResourceDictionary.MergedDictionaries>
 <!-- ReSharper disable Xaml.RedundantResource -->
+            <!-- ReSharper disable once InconsistentNaming -->
             <Image x:Key="ico" Source="Resources/objectbrowser.png" />
             <miEditor:Workspace x:Key="Workspace"  />
 <!-- ReSharper restore Xaml.RedundantResource -->

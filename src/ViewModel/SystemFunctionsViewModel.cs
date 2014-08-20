@@ -2,19 +2,19 @@
 
 namespace miRobotEditor.ViewModel
 {
-    public class SystemFunctionsViewModel : ViewModelBase
+    public abstract class SystemFunctionsViewModel : ViewModelBase
     {
         private bool _structures = true;
-        public bool Structures { get { return _structures; } set { _structures = value; RaisePropertyChanged(); } }
+        public bool Structures { get { return _structures; } set { _structures = value; RaisePropertyChanged("Structures"); } }
 
         private bool _variables = true;
-        public bool Variables { get { return _variables; } set { _variables = value; RaisePropertyChanged(); } }
+        public bool Variables { get { return _variables; } set { _variables = value; RaisePropertyChanged("Variables"); } }
 
         private bool _programs = true;
-        public bool Programs { get { return _programs; } set { _programs = value; RaisePropertyChanged(); } }
+        public bool Programs { get { return _programs; } set { _programs = value; RaisePropertyChanged("Programs"); } }
 
         private bool _functions = true;
-        public bool Functions { get { return _functions; } set { _functions = value; RaisePropertyChanged(); } }
+        public bool Functions { get { return _functions; } set { _functions = value; RaisePropertyChanged("Functions"); } }
 
 
         public void ShowDialog()

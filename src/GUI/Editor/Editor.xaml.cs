@@ -36,7 +36,7 @@ using miRobotEditor.Languages;
 using miRobotEditor.ViewModel;
 using Global = miRobotEditor.Classes.Global;
 using Utilities = miRobotEditor.Classes.Utilities;
-
+using FileInfo = System.IO.FileInfo;
 namespace miRobotEditor.GUI.Editor
 {
     
@@ -652,7 +652,7 @@ namespace miRobotEditor.GUI.Editor
         }
 
 
-        private bool IsFileLocked(FileInfo file)
+        private bool IsFileLocked(System.IO.FileInfo file)
         {
             FileStream stream = null;
 
@@ -704,7 +704,7 @@ namespace miRobotEditor.GUI.Editor
             if (string.IsNullOrEmpty(result))
                 return;
             Filename = result;
-            var islocked = IsFileLocked(new FileInfo(Filename));
+            var islocked = IsFileLocked(new System.IO.FileInfo(Filename));
 
             if (islocked)
                 return;
@@ -731,7 +731,7 @@ namespace miRobotEditor.GUI.Editor
                 Filename = result;
             }
 
-            if (IsFileLocked(new FileInfo(Filename))) return;
+            if (IsFileLocked(new System.IO.FileInfo(Filename))) return;
                 
                 File.WriteAllText(Filename,Text);
 			
@@ -1343,30 +1343,7 @@ namespace miRobotEditor.GUI.Editor
             drawingContext.DrawGeometry(null, _pen, _geometry);
         }
     }
-    /// <summary>
-    /// Dont think im using this
-    /// </summary>
-    public class LineColorizer : DocumentColorizingTransformer
-    {
-        public string TextToSelect { get; set; }
-        public int StartOffset { get; set; }
-        public int EndOffset { get; set; }
-
-        protected override void ColorizeLine(DocumentLine line)
-        {
-            if (line.Length == 0)
-                return;
-
-            if (line.Offset < StartOffset || line.Offset > EndOffset)
-                return;
-
-            var start = line.Offset > StartOffset ? line.Offset : StartOffset;
-            var end = EndOffset > line.EndOffset ? line.EndOffset : EndOffset;
-
-            ChangeLinePart(start, end, element => element.TextRunProperties.SetBackgroundBrush(Brushes.Red));
-
-        }
-    }
+   
     public enum EDITORTYPE { SOURCE, DATA };
 
  
