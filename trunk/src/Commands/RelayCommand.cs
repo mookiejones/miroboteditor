@@ -12,7 +12,7 @@ using System.Diagnostics;
 namespace miRobotEditor.Commands
 {
     [DebuggerStepThrough]
-    public class RelayCommand : ICommand
+    public sealed class RelayCommand : ICommand
     {
         #region Fields
 
@@ -60,7 +60,8 @@ namespace miRobotEditor.Commands
         #endregion // ICommand Members
 
         public event EventHandler OwnerChanged;
-        protected virtual void OnOwnerChanged(EventArgs e)
+
+        private void OnOwnerChanged(EventArgs e)
         {
             if (OwnerChanged != null)
             {

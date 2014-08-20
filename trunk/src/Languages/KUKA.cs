@@ -58,13 +58,13 @@ namespace miRobotEditor.Languages
 
         #region Private Members
 
-        readonly Language_Specific.FileInfo _fi = new Language_Specific.FileInfo();
+        readonly FileInfo _fi = new FileInfo();
         internal override Typlanguage RobotType { get { return Typlanguage.KUKA; } }
         
         #endregion
 
         
-        public Language_Specific.FileInfo GetFileInfo(string text)
+        public FileInfo GetFileInfo(string text)
         {
             return _fi.GetFileInfo(text);
         }
@@ -132,7 +132,7 @@ namespace miRobotEditor.Languages
         	}
         }
 
-        internal override bool IsFileValid(FileInfo file)
+        internal override bool IsFileValid(System.IO.FileInfo file)
         {
             return Ext.Any(e => file.Extension.ToLower() == e);
         }
@@ -367,7 +367,7 @@ namespace miRobotEditor.Languages
                 return newFoldings;
             }
 
-            public override IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
+            public  IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
                 var newFoldings = new List<LanguageFold>();
 

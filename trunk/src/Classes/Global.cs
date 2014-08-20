@@ -25,7 +25,7 @@ namespace miRobotEditor.Classes
         /// <returns></returns>  
         public static bool DoesDirectoryExist(string filename)
         {
-            var f = new FileInfo(filename);
+            var f = new System.IO.FileInfo(filename);
             if (f.DirectoryName != null)
             {
                 var d = new DirectoryInfo(f.DirectoryName);

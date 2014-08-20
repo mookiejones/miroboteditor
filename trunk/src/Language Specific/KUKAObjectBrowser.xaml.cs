@@ -9,7 +9,7 @@
 
 using System.Windows;
 
-namespace miRobotEditor.Language_Specific
+namespace miRobotEditor
 {
 	/// <summary>
 	/// Interaction logic for KUKAObjectBrowser.xaml

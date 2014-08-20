@@ -256,18 +256,39 @@ namespace miRobotEditor
         #endregion
 
         #region Accent
+        [NonSerialized]
+        private Accent _accentBrush = ThemeManager.Accents.First(x => x.Name == "Blue");
 
-        [NonSerialized] private Accent _accentBrush = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
+        /// <summary>
+        /// The <see cref="AccentBrush" /> property's name.
+        /// </summary>
+        public const string AccentBrushPropertyName = "AccentBrush";
 
+
+        /// <summary>
+        /// Sets and gets the AccentBrush property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public Accent AccentBrush
         {
-            get { return _accentBrush; }
+            get
+            {
+                return _accentBrush;
+            }
+
             set
             {
+                if (_accentBrush == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(AccentBrushPropertyName);
                 _accentBrush = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(AccentBrushPropertyName);
             }
         }
+
 
         #endregion
 
@@ -379,7 +400,7 @@ namespace miRobotEditor
         /// <summary>
         ///     The <see cref="IsClosing" /> property's name.
         /// </summary>
-        public const string IsClosingPropertyName = "IsClosing";
+        private const string IsClosingPropertyName = "IsClosing";
 
         private bool _isClosing;
 
@@ -411,7 +432,7 @@ namespace miRobotEditor
         private readonly ObservableCollection<IDocument> _files = new ObservableCollection<IDocument>();
         private readonly ReadOnlyObservableCollection<IDocument> _readonyFiles = null;
 
-        public ReadOnlyObservableCollection<IDocument> Files
+        public IEnumerable<IDocument> Files
         {
             get { return _readonyFiles ?? new ReadOnlyObservableCollection<IDocument>(_files); }
         }
@@ -432,6 +453,7 @@ namespace miRobotEditor
                 // if (_activeEditor.ContentId == value.ContentId) return;
                 _activeEditor = value;
                 _activeEditor.TextBox.Focus();
+// ReSharper disable once RedundantArgumentDefaultValue
                 RaisePropertyChanged("ActiveEditor");
                 RaisePropertyChanged("Title");
                 //            if (ActiveEditorChanged != null)
@@ -440,9 +462,6 @@ namespace miRobotEditor
         }
 
 
-#pragma warning disable 67
-        public event EventHandler ActiveEditorChanged;
-#pragma warning restore 67
 
         #endregion
 
@@ -486,7 +505,7 @@ namespace miRobotEditor
             get
             {
                 return _changeThemeCommand ??
-                       (_changeThemeCommand = new RelayCommand(p => ChangeTheme(p), p => true));
+                       (_changeThemeCommand = new RelayCommand(ChangeTheme, p => true));
             }
         }
 
@@ -500,7 +519,7 @@ namespace miRobotEditor
         {
             get
             {
-                return _changeAccentCommand ?? (_changeAccentCommand = new RelayCommand(p => ChangeAccent(p), p => true));
+                return _changeAccentCommand ?? (_changeAccentCommand = new RelayCommand(ChangeAccent, p => true));
             }
         }
 
@@ -600,7 +619,7 @@ namespace miRobotEditor
             get
             {
                 return _changeViewAsCommand ??
-                       (_changeViewAsCommand = new RelayCommand(param => ChangeViewAs(param), param => true));
+                       (_changeViewAsCommand = new RelayCommand(ChangeViewAs, param => true));
             }
         }
 
@@ -614,7 +633,7 @@ namespace miRobotEditor
         {
             get
             {
-                return _addToolCommand ?? (_addToolCommand = new RelayCommand(param => AddTool(param), param => true));
+                return _addToolCommand ?? (_addToolCommand = new RelayCommand(AddTool, param => true));
             }
         }
 
@@ -640,7 +659,9 @@ namespace miRobotEditor
 
         private void ChangeTheme(object param)
         {
+#pragma warning disable 618
             CurrentTheme = param.ToString() == "Light" ? Theme.Light : Theme.Dark;
+#pragma warning restore 618
             ThemeManager.ChangeAppStyle(Application.Current, AccentBrush,
                 ThemeManager.GetAppTheme(CurrentTheme.ToString()));
             //      ThemeManager.ChangeTheme(MainWindow.Instance, AccentBrush, CurrentTheme);
@@ -657,7 +678,6 @@ namespace miRobotEditor
 // ReSharper restore UnusedParameter.Local
         {
             var path = Path.GetDirectoryName(ActiveEditor.FilePath);
-            var dir = Directory.Exists(path) ? path : "C:\\";
             var dlg = new OpenFileDialog
             {
                 // Find a way to check for network directory
@@ -665,9 +685,9 @@ namespace miRobotEditor
                 Filter = Resources.DefaultFilter,
                 Multiselect = true,
                 FilterIndex = Settings.Default.Filter,
+                InitialDirectory = path,
             };
 
-            dlg.InitialDirectory = path;
             if (dlg.ShowDialog().GetValueOrDefault())
             {
                 Open(dlg.FileName);
@@ -765,7 +785,7 @@ namespace miRobotEditor
             //                DummyDocViewModel.Instance.TextBox.UpdateVisualText();
         }
 
-        public void Exit()
+        private void Exit()
         {
             MainWindow.Instance.Close();
         }
