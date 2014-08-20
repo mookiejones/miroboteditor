@@ -479,7 +479,6 @@
     <Compile Include="ViewModel\Item.cs" />
     <Compile Include="ViewModel\ItemsChangedEventHandler.cs" />
     <Compile Include="ViewModel\KUKAObjectBrowserViewModel.cs" />
-    <Compile Include="ViewModel\KUKASpecificViewModels.cs" />
     <Compile Include="ViewModel\KukaViewModel.cs" />
     <Compile Include="ViewModel\LocalVariablesViewModel.cs" />
     <Compile Include="ViewModel\NotesViewModel.cs" />
