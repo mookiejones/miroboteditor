@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MookiesRobotEditor", "src\M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miRobotEditor.Core", "miRobotEditor.Core\miRobotEditor.Core.csproj", "{5E11FEBD-9896-4CFD-AB7C-570684F23BFB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extra Tools To sort Through", "Extra Tools To sort Through", "{A6716C0D-88FF-477E-9728-2CB82478ECD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KUKA Tools", "KUKA Tools", "{AA9ECB13-EBDC-4020-8B34-B023615BB556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUKATools", "KUKATools\KUKATools.csproj", "{ABE76D9C-054F-4998-A916-B166879E3191}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +45,16 @@ Global
 		{5E11FEBD-9896-4CFD-AB7C-570684F23BFB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5E11FEBD-9896-4CFD-AB7C-570684F23BFB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5E11FEBD-9896-4CFD-AB7C-570684F23BFB}.Release|x86.ActiveCfg = Release|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{ABE76D9C-054F-4998-A916-B166879E3191}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,5 +62,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A2DB7828-113C-4334-8676-0002887BA4FC} = {6A633BB1-A338-499A-8C2F-ED781C41BB64}
 		{5E11FEBD-9896-4CFD-AB7C-570684F23BFB} = {6A633BB1-A338-499A-8C2F-ED781C41BB64}
+		{ABE76D9C-054F-4998-A916-B166879E3191} = {AA9ECB13-EBDC-4020-8B34-B023615BB556}
 	EndGlobalSection
 EndGlobal
