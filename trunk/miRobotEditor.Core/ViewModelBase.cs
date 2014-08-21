@@ -6,8 +6,7 @@ namespace miRobotEditor.Core
 {
 
 
-        [Localizable(false)]
-        public class ViewModelBase : SerializeBase,INotifyPropertyChanged 
+        public class ViewModelBase : SerializeBase,INotifyPropertyChanged ,INotifyPropertyChanging
         {
             public event PropertyChangingEventHandler PropertyChanging;
 
@@ -19,33 +18,10 @@ namespace miRobotEditor.Core
                     PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
             }
 
-            private string _serializefile;
-            public override string SerializeFileName
-            {
-                get { return _serializefile; }
-                set
-                {
-                    _serializefile = value;
-                    RaisePropertyChanged();
-                }
-            }
-            // ReSharper disable UnusedMember.Local
-            void BringToFront()
-            // ReSharper restore UnusedMember.Local
-            {
-
-            }
-
-            public void SendMessage(string title, string message, MsgIcon icon, bool forceshow = true)
-            {
-                MessageViewModel.Instance.Add(title, message, icon, forceshow);
-            }
-
-
             public event PropertyChangedEventHandler PropertyChanged;
 
             [NotifyPropertyChangedInvocator]
-            protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+            protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
             {
                 var handler = PropertyChanged;
                 if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));

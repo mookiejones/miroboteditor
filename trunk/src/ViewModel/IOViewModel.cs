@@ -310,9 +310,9 @@ namespace miRobotEditor.ViewModel
 
         #endregion
 
-        public OleDbConnection GetDBConnection()
+        private OleDbConnection GetDBConnection()
         {
-            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+            var connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + @";";
 
 
             // Test Connection
@@ -323,6 +323,7 @@ namespace miRobotEditor.ViewModel
                 oleDbConnection.Open();
                 oleDbConnection.Close();
             }
+// ReSharper disable once UnusedVariable
             catch (Exception ex)
             {
                 oleDbConnection = null;

@@ -6,11 +6,9 @@
  * 
  */
 
-using miRobotEditor.ExplorerControl;
-
-namespace miRobotEditor.GUI.ExplorerControl
+namespace miRobotEditor.ExplorerControl
 {
-	partial class FileExplorerControl
+    sealed partial class FileExplorerControl
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.

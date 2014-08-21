@@ -11,6 +11,7 @@ using MahApps.Metro;
 using Microsoft.Win32;
 using miRobotEditor.Classes;
 using miRobotEditor.Core;
+using miRobotEditor.ExplorerControl;
 using miRobotEditor.Forms;
 using miRobotEditor.GUI.ExplorerControl;
 using miRobotEditor.Languages;

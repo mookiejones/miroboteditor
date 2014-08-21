@@ -1,0 +1,9 @@
+﻿<Window x:Class="KUKATools.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <StackPanel>
+        <Button Content="Get Autologon Username" Click="GetAutoLogonUsername_clicked"/>
+        <Button Content="Change Login Info" Click="ChangeLoginInfo_Clicked"/>
+    </StackPanel>
+</Window>
