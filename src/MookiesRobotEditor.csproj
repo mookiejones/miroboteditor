@@ -178,7 +178,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviour\DropFileCommand.cs" />
     <Compile Include="Classes\BookmarkBase.cs" />
     <Compile Include="Classes\ClassMemberBookmark.cs" />
     <Compile Include="Classes\DataTemplateUtils.cs" />
@@ -193,6 +192,9 @@
     <Compile Include="Classes\NativeMethods.cs" />
     <Compile Include="ClassMemberBookmark.cs" />
     <Compile Include="FindReplaceResult.cs" />
+    <Compile Include="Flyouts\OptionsFlyout.xaml.cs">
+      <DependentUpon>OptionsFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\DefaultBracketSearcher.cs" />
     <Compile Include="GUI\KUKA\AdjustST\AdjustST.cs" />
     <Compile Include="GUI\TextEditorOptions.cs" />
@@ -537,6 +539,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Flyouts\OptionsFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -817,6 +823,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Behaviour\" />
     <Folder Include="Controls\ErrorProvider\" />
     <Folder Include="ResourceDictionaries\LocalizedStrings\" />
   </ItemGroup>

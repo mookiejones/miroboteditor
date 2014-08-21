@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Reflection;
@@ -52,9 +53,11 @@ namespace miRobotEditor
           public static void Main()
           {
 
+             
+#if !DEBUG
               Splasher.Splash = new SplashScreen();
               Splasher.ShowSplash();
-
+#endif
 
               #if DEBUG
               Control.CheckForIllegalCrossThreadCalls = true;

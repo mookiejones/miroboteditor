@@ -12,7 +12,7 @@ using System.Diagnostics;
 namespace miRobotEditor.Core
 {
     [DebuggerStepThrough]
-    public class RelayCommand : ICommand
+    public sealed class RelayCommand : ICommand
     {
         #region Fields
 
@@ -22,11 +22,6 @@ namespace miRobotEditor.Core
         #endregion // Fields
 
         #region Constructors
-
-        public RelayCommand(Action<object> execute)
-            : this(execute, null)
-        {
-        }
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
@@ -59,8 +54,10 @@ namespace miRobotEditor.Core
 
         #endregion // ICommand Members
 
+// ReSharper disable once EventNeverSubscribedTo.Global
         public event EventHandler OwnerChanged;
-        protected virtual void OnOwnerChanged(EventArgs e)
+
+        private void OnOwnerChanged(EventArgs e)
         {
             if (OwnerChanged != null)
             {

@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="miRobotEditor.GUI.ExplorerControl.FileExplorerWindow"
+﻿<UserControl x:Class="miRobotEditor.ExplorerControl.FileExplorerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:explorerControl="clr-namespace:miRobotEditor.GUI.ExplorerControl"
-                     >
+                     xmlns:explorerControl1="clr-namespace:miRobotEditor.ExplorerControl">
     <WindowsFormsHost>
-        <explorerControl:FileExplorerControl/>
+        <explorerControl1:FileExplorerControl/>
     </WindowsFormsHost>
 </UserControl>

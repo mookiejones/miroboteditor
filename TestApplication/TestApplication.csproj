@@ -87,6 +87,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -107,6 +109,11 @@
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="KUKA Authentication\Authentication.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Authentication.xsd</DependentUpon>
+    </Compile>
     <Compile Include="TextInputToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -115,15 +122,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\WPFAssemblyInfo.cs" />
-    <Compile Include="ViewModel\TestAppViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="WatermarkTextBox.cs" />
-    <Compile Include="Window1.xaml.cs">
+    <Compile Include="MainWindow.xaml.cs">
       <SubType>Code</SubType>
-      <DependentUpon>Window1.xaml</DependentUpon>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Window1.xaml" />
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -154,7 +164,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Authentication.xml">
+    <Content Include="KUKA Authentication\Authentication.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -176,7 +186,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="KUKA Authentication\Authentication.xsc">
+      <DependentUpon>Authentication.xsd</DependentUpon>
+    </None>
+    <None Include="KUKA Authentication\Authentication.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Authentication.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="KUKA Authentication\Authentication.xss">
+      <DependentUpon>Authentication.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)xsd_Make.bat" "$(ProjectDir)"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

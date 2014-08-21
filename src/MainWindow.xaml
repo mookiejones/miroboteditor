@@ -15,7 +15,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:miRobotEditor.ViewModel"
-    xmlns:miRobotEditor="clr-namespace:miRobotEditor"   
+    xmlns:miRobotEditor="clr-namespace:miRobotEditor"
+    xmlns:flyouts="clr-namespace:miRobotEditor.Flyouts"
     mc:Ignorable="d"
     x:Name="MetroWindow"
     SnapsToDevicePixels="True"
@@ -59,12 +60,10 @@
         <Binding Mode="OneWay" Source="{StaticResource WindowBackgroundBrush}"/>
     </mah:MetroWindow.Background>
     <mah:MetroWindow.Flyouts>
-
-
         <mah:FlyoutsControl>
             <mah:Flyout Header="I/O" Position="Right" Content="{Binding ActiveEditor.FileLanguage.IOModel}" IsOpen="{Binding ShowIO}"  />
             <!-- mah:Flyout Header="Options" Position="Right"  Content="{x:Static gui:EditorOptions.Instance}" IsOpen="{Binding ShowSettings}" -->
-
+          
             <mah:Flyout Header="Options" Position="Right"  Content="{StaticResource EditorOptions}" IsOpen="{Binding ShowSettings}" >
                 <mah:Flyout.Resources>
                     <ResourceDictionary Source="Templates\OptionsTemplate.xaml"/>
@@ -74,8 +73,8 @@
     </mah:MetroWindow.Flyouts>
     <mah:MetroWindow.WindowCommands>
         <mah:WindowCommands>
-            <Button Content="Settings" Command="{Binding ShowSettingsCommand}" />
-            <Button Content="Show IO" Command="{Binding ShowIOCommand}" Visibility="{Binding EnableIO, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <ToggleButton Content="Settings" Command="{Binding ShowSettingsCommand}"/>
+            <ToggleButton Content="Show IO" Command="{Binding ShowIOCommand}" Visibility="{Binding EnableIO, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </mah:WindowCommands>
     </mah:MetroWindow.WindowCommands>
     <mah:MetroWindow.GlowBrush>

@@ -343,8 +343,10 @@ namespace miRobotEditor.GUI.Editor
         void InitializeMyControl()
         {
             TextArea.LeftMargins.Insert(0, _iconBarMargin);
-            var searchInputHandler = new SearchInputHandler(TextArea);
-            TextArea.DefaultInputHandler.NestedInputHandlers.Add(searchInputHandler);
+//            var searchInputHandler = new SearchInputHandler(TextArea);
+           var searchPanel =  SearchPanel.Install(TextArea);
+
+//           TextArea.DefaultInputHandler.NestedInputHandlers.Add(searchPanel);
 
             AddBindings();
            TextArea.TextEntered += TextEntered;
