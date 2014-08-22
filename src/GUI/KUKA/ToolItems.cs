@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace miRobotEditor.GUI.KUKA
 {
     [Localizable(false)]
-    sealed class ToolItems:List<string>
+    internal sealed class ToolItems : List<string>
     {
         public ToolItems()
         {
@@ -42,6 +42,5 @@ namespace miRobotEditor.GUI.KUKA
             Add("31");
             Add("32");
         }
-
     }
 }

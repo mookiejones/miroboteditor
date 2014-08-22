@@ -1,22 +1,27 @@
 ﻿using System.Windows.Controls;
+
 namespace miRobotEditor.Controls
 {
-    class OptionsPanel:UserControl
+    internal class OptionsPanel : UserControl
     {
-
         public OptionsPanel()
         {
             DataContext = this;
         }
 
 
-
 // ReSharper disable UnusedMember.Local
-        object Owner { get; set; }
+        private object Owner { get; set; }
 //        object Control { get; }
-        void LoadOptions() { }
-        bool SaveOptions() { return true; }
-        // ReSharper restore UnusedMember.Local
+        private void LoadOptions()
+        {
+        }
 
+        private bool SaveOptions()
+        {
+            return true;
+        }
+
+        // ReSharper restore UnusedMember.Local
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
-using ICSharpCode.AvalonEdit.Folding;
-using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Text.RegularExpressions;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
@@ -14,62 +16,19 @@ namespace miRobotEditor.Languages
     [Localizable(false)]
     public sealed class LanguageBase : AbstractLanguageClass
     {
-    	public LanguageBase(){}
-    	public LanguageBase(string file):base(file)
-    	{    		
-    	}
-
-        internal override bool IsFileValid(System.IO.FileInfo file)
+        public LanguageBase()
         {
-            return false;
         }
 
-        public override DocumentViewModel GetFile(string filename)
+        public LanguageBase(string file) : base(file)
         {
-            return new DocumentViewModel(filename);
-        }
-
-    	#region Properties
-        /// <summary>
-        /// Sets ComboBox Filter Items for searching
-        /// </summary>
-        /// <returns></returns>
-        public override List<string> SearchFilters
-        {
-            get
-            {
-               return DefaultSearchFilters;
-            }
-        }
-
-        /// <summary>
-        /// Sets ComboBox Filter Items for searching
-        /// </summary>
-        /// <returns></returns>
-        private static List<string> DefaultSearchFilters
-        {
-            get
-            {
-                return new List<string> { "*.*" };
-            }
-        }
-
-        #endregion
-
-        internal override string FoldTitle(FoldingSection section, ICSharpCode.AvalonEdit.Document.TextDocument doc)
-        {
-            if (doc == null) throw new ArgumentNullException("doc");
-            var s = Regex.Split(section.Title, "æ");
-
-            var start = section.StartOffset + s[0].Length;
-           // var end = section.Length - (s[0].Length + s[1].Length);
-            var end = section.Length - s[0].Length;//eval.IndexOf(s[1]);
-
-            return doc.GetText(start, end);
         }
 
 
-        internal override Typlanguage RobotType { get { return Typlanguage.None; } }
+        internal override Typlanguage RobotType
+        {
+            get { return Typlanguage.None; }
+        }
 
         internal override string FunctionItems
         {
@@ -88,9 +47,9 @@ namespace miRobotEditor.Languages
             get { throw new NotImplementedException(); }
         }
 
-       
         #region Code Completion Section
-            internal override IList<ICompletionData> CodeCompletion
+
+        internal override IList<ICompletionData> CodeCompletion
         {
             get
             {
@@ -98,32 +57,105 @@ namespace miRobotEditor.Languages
                 return codeCompletionList;
             }
         }
+
         #endregion
 
-            
-            #region Regular Expressions
-            public override Regex MethodRegex {get {return new Regex(String.Empty);}}
-    	
-		public override Regex StructRegex {get {return new Regex(String.Empty);}}
-    	
-		public override Regex FieldRegex{get {return new Regex(String.Empty);}}
-    	
-		public override Regex EnumRegex {get {return new Regex(String.Empty);}}
-    	
-		public override string CommentChar {
-			get {
-				throw new NotImplementedException();
-			}
-		}
+        #region Regular Expressions
 
-        public override Regex SignalRegex { get { return new Regex(String.Empty); } }
+        private static ObservableCollection<Snippet> _snippets;
+
+        public override Regex MethodRegex
+        {
+            get { return new Regex(String.Empty); }
+        }
+
+        public override Regex StructRegex
+        {
+            get { return new Regex(String.Empty); }
+        }
+
+        public override Regex FieldRegex
+        {
+            get { return new Regex(String.Empty); }
+        }
+
+        public override Regex EnumRegex
+        {
+            get { return new Regex(String.Empty); }
+        }
+
+        public override string CommentChar
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override Regex SignalRegex
+        {
+            get { return new Regex(String.Empty); }
+        }
+
+        public override Regex XYZRegex
+        {
+            get { return new Regex(String.Empty); }
+        }
+
+        public override ObservableCollection<Snippet> GetSnippets()
+        {
+            if (_snippets != null)
+                return _snippets;
+            throw new NotImplementedException();
+        }
+
         public override string ExtractXYZ(string positionstring)
         {
             var p = new PositionBase(positionstring);
             return p.ExtractFromMatch();
         }
 
-        public override Regex XYZRegex { get { return new Regex(String.Empty); } }
-            #endregion
+        #endregion
+
+        internal override bool IsFileValid(System.IO.FileInfo file)
+        {
+            return false;
+        }
+
+        public override DocumentViewModel GetFile(string filename)
+        {
+            return new DocumentViewModel(filename);
+        }
+
+        internal override string FoldTitle(FoldingSection section, TextDocument doc)
+        {
+            if (doc == null) throw new ArgumentNullException("doc");
+            string[] s = Regex.Split(section.Title, "æ");
+
+            int start = section.StartOffset + s[0].Length;
+            // var end = section.Length - (s[0].Length + s[1].Length);
+            int end = section.Length - s[0].Length; //eval.IndexOf(s[1]);
+
+            return doc.GetText(start, end);
+        }
+
+        #region Properties
+
+        /// <summary>
+        ///     Sets ComboBox Filter Items for searching
+        /// </summary>
+        /// <returns></returns>
+        public override List<string> SearchFilters
+        {
+            get { return DefaultSearchFilters; }
+        }
+
+        /// <summary>
+        ///     Sets ComboBox Filter Items for searching
+        /// </summary>
+        /// <returns></returns>
+        private static List<string> DefaultSearchFilters
+        {
+            get { return new List<string> {"*.*"}; }
+        }
+
+        #endregion
     }
 }

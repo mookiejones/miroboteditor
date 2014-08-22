@@ -1,9 +1,8 @@
+using System;
 using System.ComponentModel;
 
 namespace miRobotEditor.GUI.AngleConverter
 {
-    using System;
-
     [Localizable(false)]
     public sealed class Line3D : IGeometricElement3D
     {
@@ -14,9 +13,24 @@ namespace miRobotEditor.GUI.AngleConverter
             Direction.Normalise();
         }
 
+        public Vector3D Direction { get; private set; }
+
+        public Point3D Origin { get; private set; }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return string.Format("Line: Origin={0}, Direction={1}", Origin.ToString(format, formatProvider),
+                Direction.ToString(format, formatProvider));
+        }
+
+        TransformationMatrix3D IGeometricElement3D.Position
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public Point3D GetPoint(double u)
         {
-            var vectord = new Vector3D(u * Direction);
+            var vectord = new Vector3D(u*Direction);
             return (Origin + vectord);
         }
 
@@ -24,24 +38,5 @@ namespace miRobotEditor.GUI.AngleConverter
         {
             return string.Format("Line: Origin={0}, Direction={1}", Origin, Direction);
         }
-
-        public string ToString(string format, IFormatProvider formatProvider)
-        {
-            return string.Format("Line: Origin={0}, Direction={1}", Origin.ToString(format, formatProvider), Direction.ToString(format, formatProvider));
-        }
-
-        public Vector3D Direction { get; private set; }
-
-        TransformationMatrix3D IGeometricElement3D.Position
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public Point3D Origin { get; private set; }
-       
     }
 }
-

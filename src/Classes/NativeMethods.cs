@@ -5,19 +5,20 @@ using System.Security;
 
 namespace miRobotEditor.Classes
 {
-    [Localizable(false),SuppressUnmanagedCodeSecurity]
+    [Localizable(false), SuppressUnmanagedCodeSecurity]
     internal static class NativeMethods
     {
         /// <summary>
-        /// Delegate declaration that matches WndProc signatures.
+        ///     Delegate declaration that matches WndProc signatures.
         /// </summary>
         public delegate IntPtr MessageHandler(WM uMsg, IntPtr wParam, IntPtr lParam, out bool handled);
 
-        [Localizable(false),DllImport("shell32.dll", EntryPoint = "CommandLineToArgvW", CharSet = CharSet.Unicode)]
-        private static extern IntPtr _CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string cmdLine, out int numArgs);
+        [Localizable(false), DllImport("shell32.dll", EntryPoint = "CommandLineToArgvW", CharSet = CharSet.Unicode)]
+        private static extern IntPtr _CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string cmdLine,
+            out int numArgs);
 
 
-        [Localizable(false),DllImport("kernel32.dll", EntryPoint = "LocalFree", SetLastError = true)]
+        [Localizable(false), DllImport("kernel32.dll", EntryPoint = "LocalFree", SetLastError = true)]
         private static extern IntPtr _LocalFree(IntPtr hMem);
 
 
@@ -25,10 +26,9 @@ namespace miRobotEditor.Classes
         internal static extern short GetKeyState(int keyCode);
 
 
-
         public static string[] CommandLineToArgvW(string cmdLine)
         {
-            var argv = IntPtr.Zero;
+            IntPtr argv = IntPtr.Zero;
             try
             {
                 int numArgs;
@@ -40,9 +40,9 @@ namespace miRobotEditor.Classes
                 }
                 var result = new string[numArgs];
 
-                for (var i = 0; i < numArgs; i++)
+                for (int i = 0; i < numArgs; i++)
                 {
-                    var currArg = Marshal.ReadIntPtr(argv, i * Marshal.SizeOf(typeof(IntPtr)));
+                    IntPtr currArg = Marshal.ReadIntPtr(argv, i*Marshal.SizeOf(typeof (IntPtr)));
                     result[i] = Marshal.PtrToStringUni(currArg);
                 }
 
@@ -50,8 +50,7 @@ namespace miRobotEditor.Classes
             }
             finally
             {
-
-                var p = _LocalFree(argv);
+                IntPtr p = _LocalFree(argv);
 #if TRACE
                 Console.WriteLine(IntPtr.Zero.Equals(p));
 #endif
@@ -59,8 +58,8 @@ namespace miRobotEditor.Classes
                 //Assert.AreEqual(IntPtr.Zero, p);
             }
         }
-
     }
+
 // ReSharper disable once InconsistentNaming
     internal enum WM
     {
@@ -169,8 +168,10 @@ namespace miRobotEditor.Classes
         DWMWINDOWMAXIMIZEDCHANGE = 0x0321,
 
         #region Windows 7
+
         DWMSENDICONICTHUMBNAIL = 0x0323,
         DWMSENDICONICLIVEPREVIEWBITMAP = 0x0326,
+
         #endregion
 
         USER = 0x0400,
@@ -181,5 +182,4 @@ namespace miRobotEditor.Classes
         APP = 0x8000,
         // ReSharper restore InconsistentNaming
     }
-
 }

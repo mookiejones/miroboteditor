@@ -4,10 +4,6 @@ namespace miRobotEditor.Commands
 {
     public interface IMenuCommand : ICommand
     {
-        bool IsEnabled
-        {
-            get;
-            set;
-        }
+        bool IsEnabled { get; set; }
     }
 }

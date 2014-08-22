@@ -6,29 +6,27 @@ namespace miRobotEditor.Controls
 {
     public class SplineBorder : Control
     {
-
         public SplineBorder()
         {
             RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
         }
 
-
         #region Thickness
 
         /// <summary>
-        /// Thickness Dependency Property
+        ///     Thickness Dependency Property
         /// </summary>
         public static readonly DependencyProperty ThicknessProperty =
-            DependencyProperty.Register("Thickness", typeof(double), typeof(SplineBorder),
+            DependencyProperty.Register("Thickness", typeof (double), typeof (SplineBorder),
                 new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
-        /// Gets or sets the Thickness property.  This dependency property 
-        /// indicates the border thickness.
+        ///     Gets or sets the Thickness property.  This dependency property
+        ///     indicates the border thickness.
         /// </summary>
         public double Thickness
         {
-            get { return (double)GetValue(ThicknessProperty); }
+            get { return (double) GetValue(ThicknessProperty); }
             set { SetValue(ThicknessProperty, value); }
         }
 
@@ -37,19 +35,19 @@ namespace miRobotEditor.Controls
         #region Fill
 
         /// <summary>
-        /// Fill Dependency Property
+        ///     Fill Dependency Property
         /// </summary>
         public static readonly DependencyProperty FillProperty =
-            DependencyProperty.Register("Fill", typeof(Brush), typeof(SplineBorder),
+            DependencyProperty.Register("Fill", typeof (Brush), typeof (SplineBorder),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
-        /// Gets or sets the Fill property.  This dependency property 
-        /// indicates the fill color.
+        ///     Gets or sets the Fill property.  This dependency property
+        ///     indicates the fill color.
         /// </summary>
         public Brush Fill
         {
-            get { return (Brush)GetValue(FillProperty); }
+            get { return (Brush) GetValue(FillProperty); }
             set { SetValue(FillProperty, value); }
         }
 
@@ -58,19 +56,19 @@ namespace miRobotEditor.Controls
         #region Stroke
 
         /// <summary>
-        /// Stroke Dependency Property
+        ///     Stroke Dependency Property
         /// </summary>
         public static readonly DependencyProperty StrokeProperty =
-            DependencyProperty.Register("Stroke", typeof(Brush), typeof(SplineBorder),
+            DependencyProperty.Register("Stroke", typeof (Brush), typeof (SplineBorder),
                 new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
-        /// Gets or sets the Stroke property.  This dependency property 
-        /// indicates the stroke brush.
+        ///     Gets or sets the Stroke property.  This dependency property
+        ///     indicates the stroke brush.
         /// </summary>
         public Brush Stroke
         {
-            get { return (Brush)GetValue(StrokeProperty); }
+            get { return (Brush) GetValue(StrokeProperty); }
             set { SetValue(StrokeProperty, value); }
         }
 
@@ -79,37 +77,45 @@ namespace miRobotEditor.Controls
         #region BottomBorderMargin
 
         /// <summary>
-        /// BottomBorderMargin Dependency Property
+        ///     BottomBorderMargin Dependency Property
         /// </summary>
         public static readonly DependencyProperty BottomBorderMarginProperty =
-            DependencyProperty.Register("BottomBorderMargin", typeof(double), typeof(SplineBorder),
+            DependencyProperty.Register("BottomBorderMargin", typeof (double), typeof (SplineBorder),
                 new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
-        /// Gets or sets the BottomBorderMargin property.  This dependency property 
-        /// indicates the adjustment for the bottom margin.
+        ///     Gets or sets the BottomBorderMargin property.  This dependency property
+        ///     indicates the adjustment for the bottom margin.
         /// </summary>
         public double BottomBorderMargin
         {
-            get { return (double)GetValue(BottomBorderMarginProperty); }
+            get { return (double) GetValue(BottomBorderMarginProperty); }
             set { SetValue(BottomBorderMarginProperty, value); }
         }
 
         #endregion
-
-
 
         protected override void OnRender(DrawingContext drawingContext)
         {
             var pgFill = new PathGeometry();
             var pfFill = new PathFigure {IsFilled = true, IsClosed = true, StartPoint = new Point(ActualWidth, 0.0)};
 
-            var q1Fill = new QuadraticBezierSegment { Point1 = new Point(ActualWidth * 2 / 3, 0.0), Point2 = new Point(ActualWidth / 2.0, ActualHeight / 2.0), IsStroked = false };
+            var q1Fill = new QuadraticBezierSegment
+            {
+                Point1 = new Point(ActualWidth*2/3, 0.0),
+                Point2 = new Point(ActualWidth/2.0, ActualHeight/2.0),
+                IsStroked = false
+            };
             pfFill.Segments.Add(q1Fill);
-            var q2Fill = new QuadraticBezierSegment { Point1 = new Point(ActualWidth / 3, ActualHeight), Point2 = new Point(0, ActualHeight), IsStroked = false };
+            var q2Fill = new QuadraticBezierSegment
+            {
+                Point1 = new Point(ActualWidth/3, ActualHeight),
+                Point2 = new Point(0, ActualHeight),
+                IsStroked = false
+            };
             pfFill.Segments.Add(q2Fill);
 
-            pfFill.Segments.Add(new LineSegment { Point = new Point(ActualWidth, ActualHeight), IsStroked = false });
+            pfFill.Segments.Add(new LineSegment {Point = new Point(ActualWidth, ActualHeight), IsStroked = false});
 
             pgFill.Figures.Add(pfFill);
 
@@ -117,11 +123,19 @@ namespace miRobotEditor.Controls
 
             var pgBorder = new PathGeometry();
             var pfBorder = new PathFigure
-                               {IsFilled = false, IsClosed = false, StartPoint = new Point(ActualWidth, Thickness/2)};
+            {IsFilled = false, IsClosed = false, StartPoint = new Point(ActualWidth, Thickness/2)};
 
-            var q1Border = new QuadraticBezierSegment { Point1 = new Point(ActualWidth * 2 / 3, 0.0), Point2 = new Point(ActualWidth / 2.0, ActualHeight / 2.0) };
+            var q1Border = new QuadraticBezierSegment
+            {
+                Point1 = new Point(ActualWidth*2/3, 0.0),
+                Point2 = new Point(ActualWidth/2.0, ActualHeight/2.0)
+            };
             pfBorder.Segments.Add(q1Border);
-            var q2Border = new QuadraticBezierSegment { Point1 = new Point(ActualWidth / 3, ActualHeight), Point2 = new Point(0.0, ActualHeight - BottomBorderMargin) };
+            var q2Border = new QuadraticBezierSegment
+            {
+                Point1 = new Point(ActualWidth/3, ActualHeight),
+                Point2 = new Point(0.0, ActualHeight - BottomBorderMargin)
+            };
             pfBorder.Segments.Add(q2Border);
 
             pgBorder.Figures.Add(pfBorder);

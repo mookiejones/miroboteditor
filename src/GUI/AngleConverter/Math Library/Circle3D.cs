@@ -7,13 +7,27 @@ namespace miRobotEditor.GUI.AngleConverter
     [Localizable(false)]
     public sealed class Circle3D : IGeometricElement3D
     {
-        
-
         public Circle3D()
         {
             Origin = new Point3D();
             Normal = new Vector3D();
             Radius = 0.0;
+        }
+
+        public Vector3D Normal { get; set; }
+
+        public Point3D Origin { get; set; }
+
+        public double Radius { get; set; }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return string.Format("Circle3D: Centre {0}, Normal {1}, Radius {2:F2}", Origin, Normal, Radius);
+        }
+
+        public TransformationMatrix3D Position
+        {
+            get { return new TransformationMatrix3D((Vector3D) Origin, RotationMatrix3D.Identity()); }
         }
 
         public static Circle3D FitToPoints(Collection<Point3D> points)
@@ -32,24 +46,5 @@ namespace miRobotEditor.GUI.AngleConverter
         {
             return ToString(null, null);
         }
-
-        public string ToString(string format, IFormatProvider formatProvider)
-        {
-            return string.Format("Circle3D: Centre {0}, Normal {1}, Radius {2:F2}", Origin, Normal, Radius);
-        }
-
-        public Vector3D Normal { get; set; }
-
-        public Point3D Origin { get; set; }
-        public TransformationMatrix3D Position
-        {
-            get
-            {
-                return new TransformationMatrix3D((Vector3D)Origin, RotationMatrix3D.Identity());
-            }
-        }
-
-        public double Radius { get; set; }
     }
 }
-

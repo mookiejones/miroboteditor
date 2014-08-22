@@ -6,171 +6,170 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Controls;
+using GalaSoft.MvvmLight;
 using miRobotEditor.Core;
-using MessageViewModel = miRobotEditor.Core.MessageViewModel;
 
 namespace miRobotEditor.Language_Specific
 {
-	/// <summary>
-	/// Description of KUKAKFDHelper.
-	/// </summary>
-	public class KUKAKFDHelper:ViewModelBase
-	{
-#pragma warning disable 169
-		List<String> _ilf = new List<String>();
-		private string _tqTriggerId = string.Empty;
-
-#pragma warning disable 649
-		String[,] _sParam;
-#pragma warning restore 649
-#pragma warning disable 649
-		String[,] _sVar;
-#pragma warning restore 649
-		
-// ReSharper disable UnusedMember.Local
-		int ParamCount()
-		{
-			var num2 = 1;
-			do
-			{
-				if (String.IsNullOrEmpty(_sParam[num2,0]))
-				    return num2;
-				    
-				    num2++;
-			}
-			while (num2 <=255);
-			return 0;
-		}
-		
-		string ParamGetByIndex(int sIndex, int iField = 0)
-		{
-			return _sParam[sIndex,iField];
-		}
-		
-		private string ParamGet(string sPar, int iField=5)
-		{
-			var num = 1;
-			do
-			{
-				if (_sParam[num,0] == sPar.ToLower())
-					return _sParam[num,iField];
-				num++;
-			}
-			while (num<=255);
-			return String.Empty;
-		}
-		
-		public bool IsNumber (ref string value)
-		{
-			const bool flag = false;
-			var str = value;
-			const string str2 = "0123456789";
-			
-			try
-			{
-				if (str.Length == 0)
-					return false;
-				
-				if (str.Substring(0,1) == "-")
-					str = str.Substring(2);
-				for (var i = str.Length -1;i >=0;i+= -1)
-					if (str2.IndexOf(str.Substring(i)) == -1)
-					    return false;
-			}
-			catch (Exception ex)
-			{
-                MessageViewModel.AddError("KUKAKFDHELPER",ex);
-
-			}
-			return flag;
-		}
-
-		private int VarCount
-		{
-			get
-			{
-				for (var i = _sVar.GetUpperBound(0);i>=0;i+= -1)
-					if (!String.IsNullOrEmpty(_sVar[i,0]))
-						return i;
-				
-				return -1;
-			}
-		}
-
-		
-
- 
-
-		
-		List<Label> _labelCollection = new List<Label>();
-		Panel _ilfPanel;
-		Label _ilfCommand = new Label();
-
-	    static string StartupPath
-		{
-			get{
-				var s=				System.Reflection.Assembly.GetExecutingAssembly().Location;
-				return s;
-			}
-		}
-		
-		private void LoadBasisFiles()
-		{
-			try
-			{
-				if (!Directory.Exists(StartupPath + @"\TPBasis"))
-					MessageViewModel.Add("KFD","TPBasis path ",null,false);
-				else
-				{
-				    foreach (var str in from str in Directory.GetFiles(StartupPath + @"\TPBasis\") let extension = Path.GetExtension(str) where extension != null && extension.ToLower() == ".kfd" select str)
-				    {
-				        LoadFile(str, "TPBasis");
-				    }
-				    MessageViewModel.Add("KFD", "TPBasis initialization complete", null, false);
-				}
-			}
-			catch (Exception ex)
-			{
-                MessageViewModel.AddError("KUKAKFDHelper LoadBasisFiles",ex);
-			}
-		}
-		
-
- private bool CheckPar(string sLine, string sParam)
-{
-    var flag = false;
-    try
+    /// <summary>
+    ///     Description of KUKAKFDHelper.
+    /// </summary>
+    public class KUKAKFDHelper : ViewModelBase
     {
-    	
-    	var start = sLine.IndexOf(sParam + " ");
-        if (start == 0)
-            return false;
+#pragma warning disable 169
+        private List<String> _ilf = new List<String>();
+        private string _tqTriggerId = string.Empty;
 
-        start += sParam.Length;
-        var num2 = sLine.IndexOf("}", start, StringComparison.Ordinal);
-        var num3 = sLine.IndexOf(":", start, StringComparison.Ordinal);
-        var num4 = sLine.IndexOf(",", start, StringComparison.Ordinal);
-        if ((((num3 < num2) && (num3 > 0)) || ((num4 < num2) && (num4 > 0))) || (num2 == 0))
+#pragma warning disable 649
+        private String[,] _sParam;
+#pragma warning restore 649
+#pragma warning disable 649
+        private String[,] _sVar;
+#pragma warning restore 649
+
+// ReSharper disable UnusedMember.Local
+        private int ParamCount()
+        {
+            int num2 = 1;
+            do
+            {
+                if (String.IsNullOrEmpty(_sParam[num2, 0]))
+                    return num2;
+
+                num2++;
+            } while (num2 <= 255);
+            return 0;
+        }
+
+        private string ParamGetByIndex(int sIndex, int iField = 0)
+        {
+            return _sParam[sIndex, iField];
+        }
+
+        private string ParamGet(string sPar, int iField = 5)
+        {
+            int num = 1;
+            do
+            {
+                if (_sParam[num, 0] == sPar.ToLower())
+                    return _sParam[num, iField];
+                num++;
+            } while (num <= 255);
+            return String.Empty;
+        }
+
+        public bool IsNumber(ref string value)
+        {
+            const bool flag = false;
+            string str = value;
+            const string str2 = "0123456789";
+
+            try
+            {
+                if (str.Length == 0)
+                    return false;
+
+                if (str.Substring(0, 1) == "-")
+                    str = str.Substring(2);
+                for (int i = str.Length - 1; i >= 0; i += -1)
+                    if (str2.IndexOf(str.Substring(i)) == -1)
+                        return false;
+            }
+            catch (Exception ex)
+            {
+                MessageViewModel.AddError("KUKAKFDHELPER", ex);
+            }
+            return flag;
+        }
+
+        private int VarCount
+        {
+            get
+            {
+                for (int i = _sVar.GetUpperBound(0); i >= 0; i += -1)
+                    if (!String.IsNullOrEmpty(_sVar[i, 0]))
+                        return i;
+
+                return -1;
+            }
+        }
+
+
+        private List<Label> _labelCollection = new List<Label>();
+        private Panel _ilfPanel;
+        private Label _ilfCommand = new Label();
+
+        private static string StartupPath
+        {
+            get
+            {
+                string s = Assembly.GetExecutingAssembly().Location;
+                return s;
+            }
+        }
+
+        private void LoadBasisFiles()
+        {
+            try
+            {
+                if (!Directory.Exists(StartupPath + @"\TPBasis"))
+                    MessageViewModel.Add("KFD", "TPBasis path ", null, false);
+                else
+                {
+                    foreach (string str in from str in Directory.GetFiles(StartupPath + @"\TPBasis\")
+                        let extension = Path.GetExtension(str)
+                        where extension != null && extension.ToLower() == ".kfd"
+                        select str)
+                    {
+                        LoadFile(str, "TPBasis");
+                    }
+                    MessageViewModel.Add("KFD", "TPBasis initialization complete", null, false);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageViewModel.AddError("KUKAKFDHelper LoadBasisFiles", ex);
+            }
+        }
+
+
+        private bool CheckPar(string sLine, string sParam)
+        {
+            bool flag = false;
+            try
+            {
+                int start = sLine.IndexOf(sParam + " ");
+                if (start == 0)
+                    return false;
+
+                start += sParam.Length;
+                int num2 = sLine.IndexOf("}", start, StringComparison.Ordinal);
+                int num3 = sLine.IndexOf(":", start, StringComparison.Ordinal);
+                int num4 = sLine.IndexOf(",", start, StringComparison.Ordinal);
+                if ((((num3 < num2) && (num3 > 0)) || ((num4 < num2) && (num4 > 0))) || (num2 == 0))
 // ReSharper disable RedundantAssignment
-            num2 = num3;
+                    num2 = num3;
 // ReSharper restore RedundantAssignment
 
-        flag = true;
-    }
-    catch (Exception ex)
-    {
-                MessageViewModel.AddError("KFDHelper.CheckPar",ex);
-    }
-    return flag;
- }
-		private void CreateControls()
-		{
-			/*
+                flag = true;
+            }
+            catch (Exception ex)
+            {
+                MessageViewModel.AddError("KFDHelper.CheckPar", ex);
+            }
+            return flag;
+        }
+
+        private void CreateControls()
+        {
+            /*
 		}
 		    int index = 0;
 		    try
@@ -449,12 +448,14 @@ namespace miRobotEditor.Language_Specific
 		        this.SendErrorMsg();
 		    }
 		    */
-		}
+        }
+
 // ReSharper disable UnusedParameter.Local
-private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, string sCmdShow, string sTpName = "", string sTpVersion = "")
+        private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, string sCmdShow,
+            string sTpName = "", string sTpVersion = "")
 // ReSharper restore UnusedParameter.Local
-{
-	/*
+        {
+            /*
 }
     Font font = new Font(this.sFont, 20f, FontStyle.Regular, GraphicsUnit.Pixel, 0);
     try
@@ -762,13 +763,13 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
         this.IlfCancel();
     }
     */
-}
+        }
 
 // ReSharper disable UnusedParameter.Local
-		private void ExecuteScript(string sScript)
+        private void ExecuteScript(string sScript)
 // ReSharper restore UnusedParameter.Local
-		{
-			/*
+        {
+            /*
 		}
 		    int num;
 		    string str;
@@ -1090,51 +1091,51 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 		        ProjectData.ClearProjectError();
 		    }
 		    */
-		}
+        }
 
- 
-	private string GetPar(string sLine, string sParam)
-	{
-	    var str = "";
 
-	    try
-	    {
-	        var flag = false;
-	        var start = sLine.IndexOf(sParam + " ");
-	        if (start == 0)
-	            return str;
+        private string GetPar(string sLine, string sParam)
+        {
+            string str = "";
 
-	        start+=sParam.Length;
-	        sLine = sLine.Substring(start).Trim();
-	        
-	        var num2 = sLine.IndexOf(",");
-	        var num3 = sLine.IndexOf("}");
-	        var num4 = sLine.IndexOf("{");
-	        
-	        start = 1;
-	        if (((num4 > 0) && (num4 < num3)) && ((num4 < num2) || (num2 == 0)))
-	        {
-	            start = num4;
-	            flag = true;
-	        }
-	        if ((flag || ((num3 < num2) && (num3 > 0))) || (num2 == 0))
-	            num2 = num3;
-	
-	        str = sLine.Substring(start,num2-start).Trim().Trim(new[]{'"'}).Replace("/;",";");
-	    }
-	    catch (Exception ex)
-	    {
-	    	MessageViewModel.AddError("KFDHelper.GetPar",ex);
-	    }
-	    return str;
-	}
+            try
+            {
+                bool flag = false;
+                int start = sLine.IndexOf(sParam + " ");
+                if (start == 0)
+                    return str;
+
+                start += sParam.Length;
+                sLine = sLine.Substring(start).Trim();
+
+                int num2 = sLine.IndexOf(",");
+                int num3 = sLine.IndexOf("}");
+                int num4 = sLine.IndexOf("{");
+
+                start = 1;
+                if (((num4 > 0) && (num4 < num3)) && ((num4 < num2) || (num2 == 0)))
+                {
+                    start = num4;
+                    flag = true;
+                }
+                if ((flag || ((num3 < num2) && (num3 > 0))) || (num2 == 0))
+                    num2 = num3;
+
+                str = sLine.Substring(start, num2 - start).Trim().Trim(new[] {'"'}).Replace("/;", ";");
+            }
+            catch (Exception ex)
+            {
+                MessageViewModel.AddError("KFDHelper.GetPar", ex);
+            }
+            return str;
+        }
 
 // ReSharper disable UnusedParameter.Local
- 	private string GetParam(string sLine)
+        private string GetParam(string sLine)
 // ReSharper restore UnusedParameter.Local
- 	{
- 	    const string str = "";
- 	    /*
+        {
+            const string str = "";
+            /*
  	}
     
     try
@@ -1291,16 +1292,16 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
         ProjectData.ClearProjectError();
     }
     */
-    return str;
- 	}
+            return str;
+        }
 
 
 // ReSharper disable UnusedParameter.Local
-	    private int GetParamWidth(string sText)
+        private int GetParamWidth(string sText)
 // ReSharper restore UnusedParameter.Local
-	    {
-	        const int num = -1;
-	        /*
+        {
+            const int num = -1;
+            /*
 	    try
 	    {
 	        Graphics graphics = this.CreateGraphics();
@@ -1315,16 +1316,16 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	        this.SendErrorMsg();
 	    }
 	    */
-	    return num;
-	    }
+            return num;
+        }
 
 
 // ReSharper disable UnusedParameter.Local
-	    private string GetScriptPar(string sLine, string sPar)
+        private string GetScriptPar(string sLine, string sPar)
 // ReSharper restore UnusedParameter.Local
-	    {
-	        const string str = "";
-	        /*
+        {
+            const string str = "";
+            /*
 	    try
 	    {
 	        int start = (Strings.InStr(sLine.Replace("(", " ").Replace(",", " "), " " + sPar + " ", CompareMethod.Text) + Strings.Len(sPar)) + 1;
@@ -1342,15 +1343,15 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	        this.SendErrorMsg();
 	    }
 	    */
-	   	    return str;
-	    }
+            return str;
+        }
 
 // ReSharper disable UnusedParameter.Local
-	    private string GetScriptPar2(string sLine, string sPar)
+        private string GetScriptPar2(string sLine, string sPar)
 // ReSharper restore UnusedParameter.Local
-	    {
-	        const string str = "";
-	        /*
+        {
+            const string str = "";
+            /*
 	    try
 	    {
 	        int num4;
@@ -1375,16 +1376,16 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 	        this.SendErrorMsg();
 	    }
 	    */
-	    return str;
-	    }
+            return str;
+        }
 
 
 // ReSharper disable UnusedParameter.Local
-	    private string GetStrucVal(string sLine, string sVar)
+        private string GetStrucVal(string sLine, string sVar)
 // ReSharper restore UnusedParameter.Local
-	    {
-	        const string str = "";
-	        /*
+        {
+            const string str = "";
+            /*
 		   
 		    try
 		    {
@@ -1414,19 +1415,19 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 		        this.SendErrorMsg();
 		    }
 		    */
-		    return str;
-	    }
+            return str;
+        }
 
 
 // ReSharper disable UnusedParameter.Local
-	    private string GetVarFromDat(string sVarIn)
+        private string GetVarFromDat(string sVarIn)
 // ReSharper restore UnusedParameter.Local
-		{
+        {
 #pragma warning disable 168
-		    var strArray = new string[1];
+            var strArray = new string[1];
 #pragma warning restore 168
-		    const string str = "";
-		    /*
+            const string str = "";
+            /*
 		    try
 		    {
 		        int num3;
@@ -1498,15 +1499,15 @@ private void KfdCreateIlf(string sTpTyp, string sFile, string sTp, string sCmd, 
 		        this.SendErrorMsg();
 		    }
 		    */
-		    return str;
-		}
+            return str;
+        }
 
- 
+
 // ReSharper disable UnusedParameter.Local
-private static void LoadFile(string sFile, string sTyp)
+        private static void LoadFile(string sFile, string sTyp)
 // ReSharper restore UnusedParameter.Local
-		{
-			/*
+        {
+            /*
 		}
 		    try
 		    {
@@ -1605,17 +1606,17 @@ private static void LoadFile(string sFile, string sTyp)
 		        this.SendErrorMsg();
 		    }
 		    */
-		}
-		
+        }
+
 // ReSharper disable UnusedParameter.Local
-private bool ReDeclFromDat(string sName, string sVal)
+        private bool ReDeclFromDat(string sName, string sVal)
 // ReSharper restore UnusedParameter.Local
-{
+        {
 #pragma warning disable 168
-    var strArray = new string[1];
+            var strArray = new string[1];
 #pragma warning restore 168
-    const bool flag = false;
-    /*
+            const bool flag = false;
+            /*
     try
     {
         bool flag2;
@@ -1699,17 +1700,16 @@ private bool ReDeclFromDat(string sName, string sVal)
         this.SendErrorMsg();
     }
     */
-    return flag;
-}
+            return flag;
+        }
 
- 
 
 // ReSharper disable UnusedParameter.Local
-private bool ScriptReDecl(string sPar1, string sPar2)
+        private bool ScriptReDecl(string sPar1, string sPar2)
 // ReSharper restore UnusedParameter.Local
-{
-    const bool flag = false;
-    /*
+        {
+            const bool flag = false;
+            /*
 		    try
 		    {
 		        string str3;
@@ -1753,15 +1753,15 @@ private bool ScriptReDecl(string sPar1, string sPar2)
 		        this.SendErrorMsg();
 		    }
 		    */
-		    return flag;
-}
+            return flag;
+        }
 
 // ReSharper disable UnusedParameter.Local
-	    private bool ScriptSetVar(string sPar1, string sPar2)
+        private bool ScriptSetVar(string sPar1, string sPar2)
 // ReSharper restore UnusedParameter.Local
-	    {
-	        const bool flag = false;
-	        /*
+        {
+            const bool flag = false;
+            /*
     try
     {
         int num = this.ParamCount();
@@ -1786,23 +1786,23 @@ private bool ScriptReDecl(string sPar1, string sPar2)
         this.SendErrorMsg();
     }
     */
-    return flag;
-	    }
+            return flag;
+        }
 
 
 // ReSharper disable UnusedParameter.Local
-	    private bool ScriptShowVar(string sPar1, string sPar2)
+        private bool ScriptShowVar(string sPar1, string sPar2)
 // ReSharper restore UnusedParameter.Local
-{
+        {
 #pragma warning disable 168
- 	var strArray = new List<string>(1);
+            var strArray = new List<string>(1);
 #pragma warning restore 168
 #pragma warning disable 168
-    var expression = String.Empty;
+            string expression = String.Empty;
 #pragma warning restore 168
-    const bool flag = false;
+            const bool flag = false;
 #pragma warning disable 168
-    var scTmp = String.Empty;
+            string scTmp = String.Empty;
 #pragma warning restore 168
 /*
     try
@@ -1888,17 +1888,17 @@ private bool ScriptReDecl(string sPar1, string sPar2)
         this.SendErrorMsg();
     }
     */
-    return flag;
-}
- 
+            return flag;
+        }
 
- public bool SetVarFromDat(string sVarIn, string sVal, bool bRefresh = true)
-{
+
+        public bool SetVarFromDat(string sVarIn, string sVal, bool bRefresh = true)
+        {
 #pragma warning disable 168
-    var strArray = new string[1];
+            var strArray = new string[1];
 #pragma warning restore 168
-    const bool flag = false;
-    /*
+            const bool flag = false;
+            /*
     try
     {
         int num3;
@@ -2004,12 +2004,13 @@ private bool ScriptReDecl(string sPar1, string sPar2)
     }
     */
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
-    return flag;
+            return flag;
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
-}
+        }
 
- private void UpdateControls()
-		{/*
+        private void UpdateControls()
+        {
+/*
 		    try
 		    {
 		        int sNo = 1;
@@ -2062,13 +2063,12 @@ private bool ScriptReDecl(string sPar1, string sPar2)
 		        this.SendErrorMsg();
 		    }
 		    */
-		}
+        }
 
- 
 
- private void UpdateControlsSet()
-{
- 	/*
+        private void UpdateControlsSet()
+        {
+            /*
     try
     {
         string str;
@@ -2147,11 +2147,11 @@ private bool ScriptReDecl(string sPar1, string sPar2)
         this.SendErrorMsg();
     }
     */
-}
+        }
 
- private void LoadUserFiles()
-{
-    /*
+        private void LoadUserFiles()
+        {
+            /*
     try
     {
         foreach (string str in Directory.GetFiles(this.sEnvPathTpUser))
@@ -2169,9 +2169,7 @@ private bool ScriptReDecl(string sPar1, string sPar2)
 }
 */
 #pragma warning restore 169
-    // ReSharper restore UnusedMember.Local
-
+            // ReSharper restore UnusedMember.Local
+        }
+    }
 }
-}
-}
-

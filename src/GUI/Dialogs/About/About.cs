@@ -7,23 +7,22 @@ using miRobotEditor.Core;
 
 namespace miRobotEditor.GUI.Dialogs.About
 {
-    
     /// <summary>
-    /// Interaction logic for About.xaml
+    ///     Interaction logic for About.xaml
     /// </summary>
 // ReSharper disable RedundantExtendsListEntry
     public partial class About : Window
 // ReSharper restore RedundantExtendsListEntry
     {
-        public About( )
+        public About()
         {
             InitializeComponent();
-            var localUrl = Properties.Resources.Website;
+            string localUrl = Properties.Resources.Website;
             Hyperlink.NavigateUri = new Uri(localUrl);
             HyperlinkText.Text = localUrl;
         }
 
-        
+
         private void OnOkClick(object sender, RoutedEventArgs e)
         {
             Close();
@@ -31,10 +30,10 @@ namespace miRobotEditor.GUI.Dialogs.About
 
         private void HandleLinkClick(object sender, RequestNavigateEventArgs e)
         {
-            var hyperlink = (Hyperlink)sender;
+            var hyperlink = (Hyperlink) sender;
             try
             {
-                var fileName = hyperlink.NavigateUri.ToString();
+                string fileName = hyperlink.NavigateUri.ToString();
                 Process.Start(new ProcessStartInfo(fileName));
                 e.Handled = true;
             }

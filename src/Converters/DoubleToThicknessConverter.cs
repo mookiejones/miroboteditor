@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+
 namespace miRobotEditor.Converters
 {
-    public class DoubleToThicknessConverter:IValueConverter
+    public class DoubleToThicknessConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

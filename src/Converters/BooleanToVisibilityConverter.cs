@@ -8,12 +8,14 @@ namespace miRobotEditor.Converters
 {
     public class BooleanToVisibilityConverter : IValueConverter
     {
+        public Boolean InvertVisibility { get; set; }
+
         [Localizable(false)]
         public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
-            if (targetType == typeof(Visibility))
+            if (targetType == typeof (Visibility))
             {
-                var visible = System.Convert.ToBoolean(value, culture);
+                bool visible = System.Convert.ToBoolean(value, culture);
 
                 if (InvertVisibility)
                     visible = !visible;
@@ -24,13 +26,8 @@ namespace miRobotEditor.Converters
 
         public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
-           // throw new InvalidOperationException("Converter cannot convert back.");
-            return ((Visibility)value)==Visibility.Visible;
-
+            // throw new InvalidOperationException("Converter cannot convert back.");
+            return ((Visibility) value) == Visibility.Visible;
         }
-
-        public Boolean InvertVisibility { get; set; }
-
     }
-
 }

@@ -8,12 +8,21 @@ namespace miRobotEditor.GUI.Editor
 // ReSharper disable UnusedMember.Global
     public class DefaultCompletionItemList : ICompletionItemList
     {
-        readonly List<ICompletionItem> _items = new List<ICompletionItem>();
+        private readonly List<ICompletionItem> _items = new List<ICompletionItem>();
+
+        private readonly List<ISnippetCompletionItem> _snippetItems = new List<ISnippetCompletionItem>();
 
         public List<ICompletionItem> Items
         {
             get { return _items; }
         }
+
+        /// <summary>
+        ///     Allows the insertion of a single space in front of the completed text.
+        /// </summary>
+        public bool InsertSpace { get; set; }
+
+        public IEnumerable<ISnippetCompletionItem> Snippets { get; private set; }
 
         /// <inheritdoc />
         public virtual bool ContainsAllAvailableItems
@@ -21,23 +30,10 @@ namespace miRobotEditor.GUI.Editor
             get { return true; }
         }
 
-        /// <summary>
-        /// Sorts the items by their text.
-        /// </summary>
-        public void SortItems()	// PERF this is called twice
-        {
-            // the user might use method names is his language, so sort using CurrentCulture
-            _items.Sort((a, b) =>
-                {
-                    var r = string.Compare(a.Text, b.Text, StringComparison.CurrentCultureIgnoreCase);
-                    return r != 0 ? r : string.Compare(a.Text, b.Text, StringComparison.CurrentCulture);
-                });
-        }
-
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public int PreselectionLength { get; set; }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public ICompletionItem SuggestedItem { get; set; }
 
         IEnumerable<ICompletionItem> ICompletionItemList.Items
@@ -45,12 +41,7 @@ namespace miRobotEditor.GUI.Editor
             get { return _items; }
         }
 
-        /// <summary>
-        /// Allows the insertion of a single space in front of the completed text.
-        /// </summary>
-        public bool InsertSpace { get; set; }
-
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public virtual CompletionItemListKeyResult ProcessInput(char key)
         {
             if (key == ' ' && InsertSpace)
@@ -67,7 +58,7 @@ namespace miRobotEditor.GUI.Editor
             return CompletionItemListKeyResult.InsertionKey;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public virtual void Complete(CompletionContext context, ICompletionItem item)
         {
             if (context == null)
@@ -83,7 +74,20 @@ namespace miRobotEditor.GUI.Editor
             }
             item.Complete(context);
         }
-    }
-    // ReSharper restore UnusedMember.Global
 
+        /// <summary>
+        ///     Sorts the items by their text.
+        /// </summary>
+        public void SortItems() // PERF this is called twice
+        {
+            // the user might use method names is his language, so sort using CurrentCulture
+            _items.Sort((a, b) =>
+            {
+                int r = string.Compare(a.Text, b.Text, StringComparison.CurrentCultureIgnoreCase);
+                return r != 0 ? r : string.Compare(a.Text, b.Text, StringComparison.CurrentCulture);
+            });
+        }
+    }
+
+    // ReSharper restore UnusedMember.Global
 }

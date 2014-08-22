@@ -4,12 +4,15 @@ using System.ComponentModel;
 namespace miRobotEditor.Interfaces
 {
     /// <summary>
-    /// A line/column position.
-    /// NRefactory lines/columns are counting from one.
+    ///     A line/column position.
+    ///     NRefactory lines/columns are counting from one.
     /// </summary>
     public struct Location : IComparable<Location>, IEquatable<Location>
     {
         public static readonly Location Empty = new Location(-1, -1);
+
+        private int _x;
+        private int _y;
 
         public Location(int column, int line)
         {
@@ -17,10 +20,17 @@ namespace miRobotEditor.Interfaces
             _y = line;
         }
 
-        private int _x;
-        private int _y;
-        public int X { get { return _x; } set { _x = value; } }
-        public int Y { get { return _y; } set { _y = value; } }
+        public int X
+        {
+            get { return _x; }
+            set { _x = value; }
+        }
+
+        public int Y
+        {
+            get { return _y; }
+            set { _y = value; }
+        }
 
         public int Line
         {
@@ -36,10 +46,21 @@ namespace miRobotEditor.Interfaces
 
         public bool IsEmpty
         {
-            get
-            {
-                return X <= 0 && Y <= 0;
-            }
+            get { return X <= 0 && Y <= 0; }
+        }
+
+        public int CompareTo(Location other)
+        {
+            if (this == other)
+                return 0;
+            if (this < other)
+                return -1;
+            return 1;
+        }
+
+        public bool Equals(Location other)
+        {
+            return this == other;
         }
 
         [Localizable(false)]
@@ -50,18 +71,13 @@ namespace miRobotEditor.Interfaces
 
         public override int GetHashCode()
         {
-            return unchecked(87 * X.GetHashCode() ^ Y.GetHashCode());
+            return unchecked(87*X.GetHashCode() ^ Y.GetHashCode());
         }
 
         public override bool Equals(object obj)
         {
             if (!(obj is Location)) return false;
-            return (Location)obj == this;
-        }
-
-        public bool Equals(Location other)
-        {
-            return this == other;
+            return (Location) obj == this;
         }
 
         public static bool operator ==(Location a, Location b)
@@ -100,15 +116,6 @@ namespace miRobotEditor.Interfaces
         public static bool operator >=(Location a, Location b)
         {
             return !(a < b);
-        }
-
-        public int CompareTo(Location other)
-        {
-            if (this == other)
-                return 0;
-            if (this < other)
-                return -1;
-            return 1;
         }
     }
 }

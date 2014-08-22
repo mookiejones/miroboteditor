@@ -6,14 +6,17 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+
 using System;
+using System.Globalization;
 using System.Windows.Data;
 using miRobotEditor.ViewModel;
+
 namespace miRobotEditor.Converters
 {
-	  class ActiveEditorConverter : IValueConverter
+    internal class ActiveEditorConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is IDocument)
             {
@@ -23,9 +26,9 @@ namespace miRobotEditor.Converters
             return Binding.DoNothing;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is  IDocument)
+            if (value is IDocument)
                 return value;
 
             return Binding.DoNothing;

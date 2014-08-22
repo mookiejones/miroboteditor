@@ -1,11 +1,11 @@
-﻿using miRobotEditor.Core;
+﻿using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.Dialogs
 {
-	/// <summary>
-	/// Description of KFDAssistantViewModel.
-	/// </summary>
-	public class KFDAssistantViewModel:ViewModelBase
-	{
-	}
+    /// <summary>
+    ///     Description of KFDAssistantViewModel.
+    /// </summary>
+    public class KFDAssistantViewModel : ViewModelBase
+    {
+    }
 }

@@ -3,7 +3,7 @@
 namespace miRobotEditor.GUI.KUKA
 {
     /// <summary>
-    /// Interaction logic for frmAdjustST.xaml
+    ///     Interaction logic for frmAdjustST.xaml
     /// </summary>
 // ReSharper disable RedundantExtendsListEntry
     public partial class FrmAdjustSt : Window

@@ -1,7 +1,7 @@
 ﻿namespace miRobotEditor.Controls
 {
     /// <summary>
-    /// Interaction logic for SnippetPad.xaml
+    ///     Interaction logic for SnippetPad.xaml
     /// </summary>
     public partial class SnippetPad
     {

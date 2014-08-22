@@ -3,7 +3,7 @@
 namespace miRobotEditor.GUI.Editor
 {
     /// <summary>
-    /// Completion item that supports complex content and description.
+    ///     Completion item that supports complex content and description.
     /// </summary>
 
 // ReSharper disable UnusedMember.Global
@@ -12,6 +12,6 @@ namespace miRobotEditor.GUI.Editor
         object Content { get; }
         new object Description { get; }
     }
-    // ReSharper restore UnusedMember.Global
 
+    // ReSharper restore UnusedMember.Global
 }

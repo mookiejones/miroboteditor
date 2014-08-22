@@ -1,24 +1,23 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
-using System.Drawing;
 
 namespace miRobotEditor.Controls
 {
     /// <summary>
-    /// Interaction logic for GotoDialog.xaml
+    ///     Interaction logic for GotoDialog.xaml
     /// </summary>
-    public partial class GotoDialog 
+    public partial class GotoDialog
     {
-       
-
         public GotoDialog()
         {
-                InitializeComponent();
+            InitializeComponent();
         }
 
         private void Close(object sender, RoutedEventArgs e)
         {
-            var btn = sender as System.Windows.Controls.Button;
+            var btn = sender as Button;
             if (btn != null)
                 switch (btn.Content.ToString())
                 {
@@ -33,17 +32,15 @@ namespace miRobotEditor.Controls
     }
 
 
-
     public interface IImage
     {
         /// <summary>
-        /// Gets the image as WPF ImageSource.
+        ///     Gets the image as WPF ImageSource.
         /// </summary>
         ImageSource ImageSource { get; }
 
         Bitmap Bitmap { get; }
 
         Icon Icon { get; }
-
     }
 }

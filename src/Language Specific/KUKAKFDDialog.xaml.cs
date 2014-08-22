@@ -6,7 +6,7 @@ using System.Windows.Controls;
 namespace miRobotEditor.Controls
 {
     /// <summary>
-    /// Interaction logic for KUKAKFDDialog.xaml
+    ///     Interaction logic for KUKAKFDDialog.xaml
     /// </summary>
 // ReSharper disable RedundantExtendsListEntry
     public partial class KUKAKFDDialog : Window
@@ -17,11 +17,7 @@ namespace miRobotEditor.Controls
             InitializeComponent();
         }
 
-        public int Num
-        {
-            get;
-            private set;
-        }
+        public int Num { get; private set; }
 
 
         [Localizable(false)]

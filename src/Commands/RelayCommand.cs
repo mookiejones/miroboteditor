@@ -5,9 +5,10 @@
  * Time: 10:24
  * 
  */
+
 using System;
-using System.Windows.Input;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace miRobotEditor.Commands
 {
@@ -16,8 +17,8 @@ namespace miRobotEditor.Commands
     {
         #region Fields
 
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        private readonly Predicate<object> _canExecute;
+        private readonly Action<object> _execute;
 
         #endregion // Fields
 
@@ -36,6 +37,7 @@ namespace miRobotEditor.Commands
             _execute = execute;
             _canExecute = canExecute;
         }
+
         #endregion // Constructors
 
         #region ICommand Members

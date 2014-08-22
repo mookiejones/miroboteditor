@@ -8,15 +8,14 @@
 
 namespace miRobotEditor.Controls
 {
-	/// <summary>
-	/// Interaction logic for ListFromFileBox.xaml
-	/// </summary>
-	public partial class ListFromFileBox
-	{
-		public ListFromFileBox()
-		{
-			InitializeComponent();
-		}
-	}
-	
+    /// <summary>
+    ///     Interaction logic for ListFromFileBox.xaml
+    /// </summary>
+    public partial class ListFromFileBox
+    {
+        public ListFromFileBox()
+        {
+            InitializeComponent();
+        }
+    }
 }

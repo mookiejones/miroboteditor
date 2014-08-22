@@ -1,23 +1,26 @@
 ﻿using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 
-
 //TODO Unused
+
 namespace miRobotEditor.GUI.Editor
-   
+
 {
 // ReSharper disable UnusedMember.Global
     public class DefaultCompletionItem : ICompletionItem
     {
+        public DefaultCompletionItem(string text)
+        {
+            Text = text;
+        }
+
         public string Text { get; private set; }
         public virtual string Description { get; set; }
         public virtual IImage Image { get; set; }
 
-        public virtual double Priority { get { return 0; } }
-
-        public DefaultCompletionItem(string text)
+        public virtual double Priority
         {
-            Text = text;
+            get { return 0; }
         }
 
         public virtual void Complete(CompletionContext context)
@@ -26,6 +29,6 @@ namespace miRobotEditor.GUI.Editor
             context.EndOffset = context.StartOffset + Text.Length;
         }
     }
-    // ReSharper restore UnusedMember.Global
 
+    // ReSharper restore UnusedMember.Global
 }

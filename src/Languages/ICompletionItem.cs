@@ -10,18 +10,15 @@ namespace miRobotEditor.Languages
         IImage Image { get; }
 
         /// <summary>
-        /// Performs code completion for the item.
+        ///     Gets a priority value for the completion data item.
+        ///     When selecting items by their start characters, the item with the highest
+        ///     priority is selected first.
         /// </summary>
-        void Complete(CompletionContext context);
+        double Priority { get; }
 
         /// <summary>
-        /// Gets a priority value for the completion data item.
-        /// When selecting items by their start characters, the item with the highest
-        /// priority is selected first.
+        ///     Performs code completion for the item.
         /// </summary>
-        double Priority
-        {
-            get;
-        }
+        void Complete(CompletionContext context);
     }
 }

@@ -5,22 +5,22 @@ using System.Windows.Media.Imaging;
 namespace miRobotEditor.Interfaces
 {
     /// <summary>
-    /// Represents an image.
+    ///     Represents an image.
     /// </summary>
     public interface IImage
     {
         /// <summary>
-        /// Gets the image as WPF ImageSource.
+        ///     Gets the image as WPF ImageSource.
         /// </summary>
         ImageSource ImageSource { get; }
 
         /// <summary>
-        /// Gets the image as System.Drawing.Bitmap.
+        ///     Gets the image as System.Drawing.Bitmap.
         /// </summary>
         BitmapImage Bitmap { get; }
 
         /// <summary>
-        /// Gets the image as System.Drawing.Icon.
+        ///     Gets the image as System.Drawing.Icon.
         /// </summary>
         Icon Icon { get; }
     }
@@ -73,5 +73,6 @@ namespace miRobotEditor.Interfaces
     //         }
     //     }
 }
+
 //
 //

@@ -4,110 +4,27 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using ICSharpCode.AvalonEdit.Indentation.CSharp;
-using ICSharpCode.AvalonEdit.Indentation;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Indentation;
+using ICSharpCode.AvalonEdit.Indentation.CSharp;
+
 namespace miRobotEditor.Classes
 {
     internal sealed class IndentationClass
     {
-        /// <summary>
-        /// An indentation block. Tracks the state of the indentation.
-        /// </summary>
-        private struct Block
-        {
-            /// <summary>
-            /// The indentation outside of the block.
-            /// </summary>
-            public string OuterIndent;
-
-            /// <summary>
-            /// The indentation inside the block.
-            /// </summary>
-            public string InnerIndent;
-
-            /// <summary>
-            /// The last word that was seen inside this block.
-            /// Because parenthesis open a sub-block and thus don't change their parent's LastWord,
-            /// this property can be used to identify the type of block statement (if, while, switch)
-            /// at the position of the '{'.
-            /// </summary>
-            [Localizable(false)] public string LastWord;
-
-            /// <summary>
-            /// The type of bracket that opened this block (, [ or {
-            /// </summary>
-            public char Bracket;
-
-            /// <summary>
-            /// Gets whether there's currently a line continuation going on inside this block.
-            /// </summary>
-            public bool Continuation;
-
-            /// <summary>
-            /// Gets whether there's currently a 'one-line-block' going on. 'one-line-blocks' occur
-            /// with if statements that don't use '{}'. They are not represented by a Block instance on
-            /// the stack, but are instead handled similar to line continuations.
-            /// This property is an integer because there might be multiple nested one-line-blocks.
-            /// As soon as there is a finished statement, OneLineBlock is reset to 0.
-            /// </summary>
-            public int OneLineBlock;
-
-            /// <summary>
-            /// The previous value of one-line-block before it was reset.
-            /// Used to restore the indentation of 'else' to the correct level.
-            /// </summary>
-            public int PreviousOneLineBlock;
-
-            public void ResetOneLineBlock()
-            {
-                PreviousOneLineBlock = OneLineBlock;
-                OneLineBlock = 0;
-            }
-
-            /// <summary>
-            /// Gets the line number where this block started.
-            /// </summary>
-            public int StartLine;
-
-            public void Indent(IndentationSettings set)
-            {
-                Indent(set.IndentString);
-            }
-
-            public void Indent(string indentationString)
-            {
-                OuterIndent = InnerIndent;
-                InnerIndent += indentationString;
-                Continuation = false;
-                ResetOneLineBlock();
-                LastWord = "";
-            }
-
-            [Localizable(false)]
-            public override string ToString()
-            {
-                return string.Format(
-                    CultureInfo.InvariantCulture,
-                    "[Block StartLine={0}, LastWord='{1}', Continuation={2}, OneLineBlock={3}, PreviousOneLineBlock={4}]",
-                    StartLine, LastWord, Continuation, OneLineBlock, PreviousOneLineBlock);
-            }
-        }
-
-        private StringBuilder _wordBuilder;
-        private Stack<Block> _blocks; // blocks contains all blocks outside of the current
         private Block _block; // block is the current block
 
-        private bool _inString;
-        private bool _inChar;
-        private bool _verbatim;
-        private bool _escape;
-
-        private bool _lineComment;
         private bool _blockComment;
+        private Stack<Block> _blocks; // blocks contains all blocks outside of the current
+        private bool _escape;
+        private bool _inChar;
+        private bool _inString;
 
         private char _lastRealChar; // last non-comment char
+        private bool _lineComment;
+        private bool _verbatim;
+        private StringBuilder _wordBuilder;
 
         public void Reformat(IDocumentAccessor doc, IndentationSettings set)
         {
@@ -124,16 +41,16 @@ namespace miRobotEditor.Classes
             _wordBuilder = new StringBuilder();
             _blocks = new Stack<Block>();
             _block = new Block
-                        {
-                            InnerIndent = "",
-                            OuterIndent = "",
-                            Bracket = '{',
-                            Continuation = false,
-                            LastWord = "",
-                            OneLineBlock = 0,
-                            PreviousOneLineBlock = 0,
-                            StartLine = 0
-                        };
+            {
+                InnerIndent = "",
+                OuterIndent = "",
+                Bracket = '{',
+                Continuation = false,
+                LastWord = "",
+                OneLineBlock = 0,
+                PreviousOneLineBlock = 0,
+                StartLine = 0
+            };
 
             _inString = false;
             _inChar = false;
@@ -149,7 +66,7 @@ namespace miRobotEditor.Classes
         [Localizable(false)]
         public void Step(IDocumentAccessor doc, IndentationSettings set)
         {
-            var line = doc.Text;
+            string line = doc.Text;
             if (set.LeaveEmptyLines && line.Length == 0) return; // leave empty lines empty
             line = line.TrimStart();
 
@@ -171,9 +88,9 @@ namespace miRobotEditor.Classes
             if (TrimEnd(doc))
                 line = doc.Text.TrimStart();
 
-            var oldBlock = _block;
-            var startInComment = _blockComment;
-            var startInString = (_inString && _verbatim);
+            Block oldBlock = _block;
+            bool startInComment = _blockComment;
+            bool startInString = (_inString && _verbatim);
 
             #region Parse char by char
 
@@ -184,13 +101,13 @@ namespace miRobotEditor.Classes
 
             _lastRealChar = '\n';
 
-            var c = ' ';
-            var nextchar = line[0];
-            for (var i = 0; i < line.Length; i++)
+            char c = ' ';
+            char nextchar = line[0];
+            for (int i = 0; i < line.Length; i++)
             {
                 if (_lineComment) break; // cancel parsing current line
 
-                var lastchar = c;
+                char lastchar = c;
                 c = nextchar;
                 nextchar = i + 1 < line.Length ? line[i + 1] : '\n';
 
@@ -329,8 +246,8 @@ namespace miRobotEditor.Classes
                         else
                             _block.StartLine = doc.LineNumber;
                         _block.Indent(Repeat(set.IndentString, oldBlock.OneLineBlock) +
-                                     (oldBlock.Continuation ? set.IndentString : "") +
-                                     (i == line.Length - 1 ? set.IndentString : new String(' ', i + 1)));
+                                      (oldBlock.Continuation ? set.IndentString : "") +
+                                      (i == line.Length - 1 ? set.IndentString : new String(' ', i + 1)));
                         _block.Bracket = c;
                         break;
                     case ')':
@@ -439,7 +356,7 @@ namespace miRobotEditor.Classes
                     // use indent StringBuilder to get the indentation of the current line
                     indent.Length = 0;
                     line = doc.Text; // get untrimmed line
-                    foreach (var t in line.TakeWhile(Char.IsWhiteSpace))
+                    foreach (char t in line.TakeWhile(Char.IsWhiteSpace))
                     {
                         indent.Append(t);
                     }
@@ -481,7 +398,7 @@ namespace miRobotEditor.Classes
             if (count == 1)
                 return text;
             var b = new StringBuilder(text.Length*count);
-            for (var i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
                 b.Append(text);
             return b.ToString();
         }
@@ -506,7 +423,7 @@ namespace miRobotEditor.Classes
         [Localizable(false)]
         private static bool TrimEnd(IDocumentAccessor doc)
         {
-            var line = doc.Text;
+            string line = doc.Text;
             if (!Char.IsWhiteSpace(line[line.Length - 1])) return false;
 
             // one space after an empty comment is allowed
@@ -516,7 +433,91 @@ namespace miRobotEditor.Classes
             doc.Text = line.TrimEnd();
             return true;
         }
+
+        /// <summary>
+        ///     An indentation block. Tracks the state of the indentation.
+        /// </summary>
+        private struct Block
+        {
+            /// <summary>
+            ///     The type of bracket that opened this block (, [ or {
+            /// </summary>
+            public char Bracket;
+
+            /// <summary>
+            ///     Gets whether there's currently a line continuation going on inside this block.
+            /// </summary>
+            public bool Continuation;
+
+            /// <summary>
+            ///     The indentation inside the block.
+            /// </summary>
+            public string InnerIndent;
+
+            /// <summary>
+            ///     The last word that was seen inside this block.
+            ///     Because parenthesis open a sub-block and thus don't change their parent's LastWord,
+            ///     this property can be used to identify the type of block statement (if, while, switch)
+            ///     at the position of the '{'.
+            /// </summary>
+            [Localizable(false)] public string LastWord;
+
+            /// <summary>
+            ///     Gets whether there's currently a 'one-line-block' going on. 'one-line-blocks' occur
+            ///     with if statements that don't use '{}'. They are not represented by a Block instance on
+            ///     the stack, but are instead handled similar to line continuations.
+            ///     This property is an integer because there might be multiple nested one-line-blocks.
+            ///     As soon as there is a finished statement, OneLineBlock is reset to 0.
+            /// </summary>
+            public int OneLineBlock;
+
+            /// <summary>
+            ///     The indentation outside of the block.
+            /// </summary>
+            public string OuterIndent;
+
+            /// <summary>
+            ///     The previous value of one-line-block before it was reset.
+            ///     Used to restore the indentation of 'else' to the correct level.
+            /// </summary>
+            public int PreviousOneLineBlock;
+
+            /// <summary>
+            ///     Gets the line number where this block started.
+            /// </summary>
+            public int StartLine;
+
+            public void ResetOneLineBlock()
+            {
+                PreviousOneLineBlock = OneLineBlock;
+                OneLineBlock = 0;
+            }
+
+            public void Indent(IndentationSettings set)
+            {
+                Indent(set.IndentString);
+            }
+
+            public void Indent(string indentationString)
+            {
+                OuterIndent = InnerIndent;
+                InnerIndent += indentationString;
+                Continuation = false;
+                ResetOneLineBlock();
+                LastWord = "";
+            }
+
+            [Localizable(false)]
+            public override string ToString()
+            {
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    "[Block StartLine={0}, LastWord='{1}', Continuation={2}, OneLineBlock={3}, PreviousOneLineBlock={4}]",
+                    StartLine, LastWord, Continuation, OneLineBlock, PreviousOneLineBlock);
+            }
+        }
     }
+
     internal sealed class IndentationSettings
     {
         [Localizable(false)] public string IndentString = "\t";
@@ -524,28 +525,29 @@ namespace miRobotEditor.Classes
         /// <summary>Leave empty lines empty.</summary>
         public bool LeaveEmptyLines = true;
     }
+
     [Localizable(false)]
     public class IndentationStrategy : DefaultIndentationStrategy
     {
+        private string _indentationString = "\t";
+
         /// <summary>
-        /// Creates a new CSharpIndentationStrategy.
+        ///     Creates a new CSharpIndentationStrategy.
         /// </summary>
         public IndentationStrategy()
         {
         }
 
         /// <summary>
-        /// Creates a new CSharpIndentationStrategy and initializes the settings using the text editor options.
+        ///     Creates a new CSharpIndentationStrategy and initializes the settings using the text editor options.
         /// </summary>
         public IndentationStrategy(TextEditorOptions options)
         {
             IndentationString = options.IndentationString;
         }
 
-        private string _indentationString = "\t";
-
         /// <summary>
-        /// Gets/Sets the indentation string.
+        ///     Gets/Sets the indentation string.
         /// </summary>
         public string IndentationString
         {
@@ -559,7 +561,7 @@ namespace miRobotEditor.Classes
         }
 
         /// <summary>
-        /// Performs indentation using the specified document accessor.
+        ///     Performs indentation using the specified document accessor.
         /// </summary>
         /// <param name="document">Object used for accessing the document line-by-line</param>
         /// <param name="keepEmptyLines">Specifies whether empty lines should be kept</param>
@@ -567,24 +569,23 @@ namespace miRobotEditor.Classes
         {
             if (document == null)
                 throw new ArgumentNullException("document");
-            var settings = new IndentationSettings { IndentString = IndentationString, LeaveEmptyLines = keepEmptyLines };
+            var settings = new IndentationSettings {IndentString = IndentationString, LeaveEmptyLines = keepEmptyLines};
             var r = new IndentationClass();
             r.Reformat(document, settings);
         }
 
         public void UnIndentLine(TextDocument document, DocumentLine line)
         {
-
         }
 
-        /// <inheritdoc cref="IIndentationStrategy.IndentLine"/>
+        /// <inheritdoc cref="IIndentationStrategy.IndentLine" />
         public override void IndentLine(TextDocument document, DocumentLine line)
         {
-            var lineNr = line.LineNumber;
+            int lineNr = line.LineNumber;
             var acc = new TextDocumentAccessor(document, lineNr, lineNr);
             Indent(acc, false);
 
-            var t = acc.Text;
+            string t = acc.Text;
             if (t.Length == 0)
             {
                 // use AutoIndentation for new lines in comments / verbatim strings.
@@ -592,7 +593,7 @@ namespace miRobotEditor.Classes
             }
         }
 
-        /// <inheritdoc cref="IIndentationStrategy.IndentLines"/>
+        /// <inheritdoc cref="IIndentationStrategy.IndentLines" />
         public override void IndentLines(TextDocument document, int beginLine, int endLine)
         {
             Indent(new TextDocumentAccessor(document, beginLine, endLine), true);

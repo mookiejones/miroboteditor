@@ -6,17 +6,19 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+
 using System;
 using System.Windows;
+
 namespace miRobotEditor.Classes
 {
-	   /// <summary>
-    /// Helper class for lookup of data-templates.
+    /// <summary>
+    ///     Helper class for lookup of data-templates.
     /// </summary>
     internal static class DataTemplateUtils
     {
         /// <summary>
-        /// Find a DataTemplate for the specified type in the visual-tree.
+        ///     Find a DataTemplate for the specified type in the visual-tree.
         /// </summary>
         public static DataTemplate FindDataTemplate(Type type, FrameworkElement element)
         {
@@ -26,7 +28,7 @@ namespace miRobotEditor.Classes
                 return dataTemplate;
             }
 
-            if (type.BaseType != null && type.BaseType != typeof(object))
+            if (type.BaseType != null && type.BaseType != typeof (object))
             {
                 dataTemplate = FindDataTemplate(type.BaseType, element);
                 if (dataTemplate != null)
@@ -35,7 +37,7 @@ namespace miRobotEditor.Classes
                 }
             }
 
-            foreach (var interfaceType in type.GetInterfaces())
+            foreach (Type interfaceType in type.GetInterfaces())
             {
                 dataTemplate = FindDataTemplate(interfaceType, element);
                 if (dataTemplate != null)
@@ -48,20 +50,20 @@ namespace miRobotEditor.Classes
         }
 
         /// <summary>
-        /// Find a data-template for the specified type and instance a visual from it.
+        ///     Find a data-template for the specified type and instance a visual from it.
         /// </summary>
         public static FrameworkElement InstanceTemplate(Type type, FrameworkElement element, object dataContext)
         {
-            var dataTemplate = FindDataTemplate(type, element);
+            DataTemplate dataTemplate = FindDataTemplate(type, element);
             return dataTemplate == null ? null : InstanceTemplate(dataTemplate, dataContext);
         }
 
         /// <summary>
-        /// Instance a visual element from a data template.
+        ///     Instance a visual element from a data template.
         /// </summary>
         public static FrameworkElement InstanceTemplate(DataTemplate dataTemplate, object dataContext)
         {
-            var element = (FrameworkElement)dataTemplate.LoadContent();
+            var element = (FrameworkElement) dataTemplate.LoadContent();
             element.DataContext = dataContext;
             return element;
         }

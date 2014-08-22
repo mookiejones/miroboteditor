@@ -9,7 +9,9 @@ namespace miRobotEditor.GUI.AngleConverter
             : base(message)
         {
         }
+
         public MatrixNullReference()
-        { }
+        {
+        }
     }
 }

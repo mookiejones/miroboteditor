@@ -1,39 +1,41 @@
-﻿using System.ComponentModel;
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using System;
-using System.Text.RegularExpressions;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using FileInfo = System.IO.FileInfo;
 
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
     public class VBA : AbstractLanguageClass
     {
-
         /// <summary>
-        /// Sets ComboBox Filter Items for searching
+        ///     Sets ComboBox Filter Items for searching
         /// </summary>
         /// <returns></returns>
+        private static ObservableCollection<Snippet> _snippets;
 
-
-       
-        public override List<string> SearchFilters
+        public VBA(string file) : base(file)
         {
-            get { return new List<string> { "*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd" }; }
-        }
-
-        public VBA(string file):base(file)
-        {           
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        internal override Typlanguage RobotType { get { return Typlanguage.VBA; } }
+        public override List<string> SearchFilters
+        {
+            get { return new List<string> {"*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd"}; }
+        }
+
+        internal override Typlanguage RobotType
+        {
+            get { return Typlanguage.VBA; }
+        }
 
         internal override string SourceFile
         {
@@ -49,40 +51,66 @@ namespace miRobotEditor.Languages
             get { return @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))"; }
         }
 
-        internal override bool IsFileValid(System.IO.FileInfo file)
-        {
-            return false;
-        }
-
         internal override string FunctionItems
         {
-            get { return  @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)" ; }
+            get { return @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)"; }
+        }
+
+        public override Regex MethodRegex
+        {
+            get { return new Regex("( sub )", RegexOptions.IgnoreCase); }
+        }
+
+        public override Regex StructRegex
+        {
+            get { return new Regex("( struc )", RegexOptions.IgnoreCase); }
+        }
+
+        public override Regex FieldRegex
+        {
+            get { return new Regex("( boolean )", RegexOptions.IgnoreCase); }
+        }
+
+        public override Regex EnumRegex
+        {
+            get { return new Regex("( enum )", RegexOptions.IgnoreCase); }
+        }
+
+        public override string CommentChar
+        {
+            get { return "'"; }
+        }
+
+        public override Regex SignalRegex
+        {
+            get { return new Regex(String.Empty); }
+        }
+
+        public override Regex XYZRegex
+        {
+            get { return new Regex(String.Empty); }
         }
 
         #region Folding Section
 
-
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
-            var s = Regex.Split(section.Title, "æ");
+            string[] s = Regex.Split(section.Title, "æ");
 
-            var start = section.StartOffset + s[0].Length;
-            var end = section.Length - (s[0].Length + s[1].Length);
+            int start = section.StartOffset + s[0].Length;
+            int end = section.Length - (s[0].Length + s[1].Length);
 
 
             return doc.GetText(start, end);
         }
+
         /// <summary>
-        /// The class to generate the foldings, it implements ICSharpCode.TextEditor.Document.IFoldingStrategy
+        ///     The class to generate the foldings, it implements ICSharpCode.TextEditor.Document.IFoldingStrategy
         /// </summary>
         public class RegionFoldingStrategy : AbstractFoldingStrategy
         {
-          
-
-         
-
             /// <summary>
-            /// Create <see cref="NewFolding"/>s for the specified document.
+            ///     Create <see cref="NewFolding" />s for the specified document.
             /// </summary>
             public virtual IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
@@ -101,16 +129,15 @@ namespace miRobotEditor.Languages
                 newFoldings.Sort((a, b) => a.StartOffset.CompareTo(b.StartOffset));
                 return newFoldings;
             }
-               /// <summary>
-            /// Create <see cref="NewFolding"/>s for the specified document.
+
+            /// <summary>
+            ///     Create <see cref="NewFolding" />s for the specified document.
             /// </summary>
             public override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
             {
                 firstErrorOffset = -1;
                 return CreateNewFoldings(document);
             }
-
-          
         }
 
         #endregion
@@ -125,30 +152,29 @@ namespace miRobotEditor.Languages
                 return codeCompletionList;
             }
         }
+
         #endregion
 
-        public override Regex MethodRegex { get { return new Regex("( sub )", RegexOptions.IgnoreCase); } }
+        public override ObservableCollection<Snippet> GetSnippets()
+        {
+            if (_snippets != null)
+                return _snippets;
+            throw new NotImplementedException();
+        }
 
-        public override Regex StructRegex { get { return new Regex("( struc )", RegexOptions.IgnoreCase); } }
+        internal override bool IsFileValid(System.IO.FileInfo file)
+        {
+            return false;
+        }
 
-        public override Regex FieldRegex { get { return new Regex("( boolean )", RegexOptions.IgnoreCase); } }
-
-        public override Regex EnumRegex { get { return new Regex("( enum )", RegexOptions.IgnoreCase); } }
-
-        public override string CommentChar { get { return "'"; } }
-
-        public override Regex SignalRegex { get { return new Regex(String.Empty); } }
         public override string ExtractXYZ(string positionstring)
         {
             return String.Empty;
         }
-
-        public override Regex XYZRegex { get { return new Regex(String.Empty); } }
 
         public override DocumentViewModel GetFile(string filepath)
         {
             return new DocumentViewModel(filepath);
         }
     }
-    }
-
+}

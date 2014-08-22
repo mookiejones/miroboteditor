@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+
 namespace miRobotEditor.GUI.Dialogs
 {
     public class IconConverter : IValueConverter
@@ -16,12 +17,14 @@ namespace miRobotEditor.GUI.Dialogs
                 using (Stream stream = new MemoryStream(1000))
                 {
                     (value as Icon).Save(stream);
-                    bitmapDecoder = new IconBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                    bitmapDecoder = new IconBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat,
+                        BitmapCacheOption.OnLoad);
                 }
                 return bitmapDecoder.Frames[0];
             }
             return null;
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value;

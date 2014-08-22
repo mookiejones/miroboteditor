@@ -3,7 +3,7 @@
 namespace miRobotEditor.Forms
 {
     /// <summary>
-    /// Interaction logic for AboutWindow.xaml
+    ///     Interaction logic for AboutWindow.xaml
     /// </summary>
 // ReSharper disable RedundantExtendsListEntry
     public partial class AboutWindow : Window
@@ -13,10 +13,10 @@ namespace miRobotEditor.Forms
         {
             InitializeComponent();
         }
-        
-		void CloseClick(object sender, RoutedEventArgs e)
-		{
-			Close();
-		}
+
+        private void CloseClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

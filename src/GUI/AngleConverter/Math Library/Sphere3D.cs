@@ -1,15 +1,12 @@
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace miRobotEditor.GUI.AngleConverter
 {
-    using System;
-    using System.Collections.ObjectModel;
-
     [Localizable(false)]
     public class Sphere3D : IGeometricElement3D
     {
-      
-
         public Sphere3D()
         {
             Origin = new Point3D();
@@ -28,6 +25,19 @@ namespace miRobotEditor.GUI.AngleConverter
             Radius = radius;
         }
 
+        public Point3D Origin { get; set; }
+        public double Radius { get; set; }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return string.Format("Sphere3D: Centre {0:F2} Radius {1:F2}", Origin, Radius);
+        }
+
+        public TransformationMatrix3D Position
+        {
+            get { return new TransformationMatrix3D((Vector3D) Origin, RotationMatrix3D.Identity()); }
+        }
+
         public static Sphere3D FitToPoints(Collection<Point3D> points)
         {
             var fitd = new LeastSquaresFit3D();
@@ -43,22 +53,5 @@ namespace miRobotEditor.GUI.AngleConverter
         {
             return ToString(format, null);
         }
-
-        public string ToString(string format, IFormatProvider formatProvider)
-        {
-            return string.Format("Sphere3D: Centre {0:F2} Radius {1:F2}", Origin, Radius);
-        }
-
-        public Point3D Origin { get; set; }
-        public TransformationMatrix3D Position
-        {
-            get
-            {
-                return new TransformationMatrix3D((Vector3D) Origin, RotationMatrix3D.Identity());
-            }
-        }
-
-        public double Radius { get; set; }
     }
 }
-
