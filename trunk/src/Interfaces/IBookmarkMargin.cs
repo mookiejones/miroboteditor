@@ -4,19 +4,18 @@ using System.Collections.Generic;
 namespace miRobotEditor.Core
 
 {
-
     /// <summary>
-    /// The bookmark margin.
+    ///     The bookmark margin.
     /// </summary>
     public interface IBookmarkMargin
     {
         /// <summary>
-        /// Gets the list of bookmarks.
+        ///     Gets the list of bookmarks.
         /// </summary>
         IList<IBookmark> Bookmarks { get; }
 
         /// <summary>
-        /// Redraws the bookmark margin. Bookmarks need to call this method when the Image changes.
+        ///     Redraws the bookmark margin. Bookmarks need to call this method when the Image changes.
         /// </summary>
         void Redraw();
 

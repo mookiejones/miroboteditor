@@ -8,89 +8,113 @@
 
 using System;
 using System.Globalization;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.AccessControl;
-using System.IO;
+using System.Windows;
+using GalaSoft.MvvmLight;
 using miRobotEditor.Core;
-using MessageViewModel = miRobotEditor.Core.MessageViewModel;
 
 namespace miRobotEditor.Pads
 {
-  /// <summary>
-    /// Wrapper for fileinfo for kuka robot
+    /// <summary>
+    ///     Wrapper for fileinfo for kuka robot
     /// </summary>
-    public class FileInfo :ViewModelBase
+    public class FileInfo : ViewModelBase
     {
         private readonly System.IO.FileInfo _fi;
-      private readonly FileType _filetype = FileType.NONE;
+        private readonly FileType _filetype = FileType.NONE;
         private string _comment = string.Empty;
+
+        public FileInfo(String path)
+        {
+            _fi = new System.IO.FileInfo(path);
+            _filetype = GetFileType();
+        }
+
         public string Comment
         {
             get { return _comment; }
-            set { _comment = value; RaisePropertyChanged(); }
+            set
+            {
+                _comment = value;
+                RaisePropertyChanged();
+            }
         }
+
         public string DirectoryName
         {
             get { return _fi.DirectoryName; }
         }
-        
+
         public DirectoryInfo Directory
         {
             get { return _fi.Directory; }
         }
-       
-       
+
 
         /// <summary>
-        /// Gets or Sets a value that determines if the current file is read only.
+        ///     Gets or Sets a value that determines if the current file is read only.
         /// </summary>
         /// <returns>true if the current file is read only; otherwise, false</returns>
         public bool IsReadOnly
         {
             get { return _fi.IsReadOnly; }
-            set { _fi.IsReadOnly = value; RaisePropertyChanged();} 
+            set
+            {
+                _fi.IsReadOnly = value;
+                RaisePropertyChanged();
+            }
         }
-       
-     
-       /// <summary>
-       ///  Gets the size, in bytes, of the current file.
-       /// </summary>
-       /// <returns>The size of the current file in bytes.</returns>
-       /// <exception cref="IOException"></exception>
+
+
+        /// <summary>
+        ///     Gets the size, in bytes, of the current file.
+        /// </summary>
+        /// <returns>The size of the current file in bytes.</returns>
+        /// <exception cref="IOException"></exception>
         public long Length
         {
             get { return _fi.Length; }
         }
-        
+
         /// <summary>
-        /// Wrapper for Length
+        ///     Wrapper for Length
         /// </summary>
         public string Size
         {
-        	get{return Length.ToString(CultureInfo.InvariantCulture);}
+            get { return Length.ToString(CultureInfo.InvariantCulture); }
         }
-        
-       
+
+
         /// <summary>
-        /// Gets the name of the file
+        ///     Gets the name of the file
         /// </summary>
-        ///<returns>The name of the file.</returns>
+        /// <returns>The name of the file.</returns>
         public string Name
         {
             get { return _fi.Name; }
         }
 
-        
+        public string Filetype
+        {
+            get { return _filetype.ToString(); }
+        }
+
+        public bool Visible { get; set; }
+
+
         /// <summary>
-        /// Creates a System.IO.StreamWriter that appends text to the file represented
-        /// by this instance of teh System.IO.FileInfo
+        ///     Creates a System.IO.StreamWriter that appends text to the file represented
+        ///     by this instance of teh System.IO.FileInfo
         /// </summary>
         /// <returns>A New StreamWriter</returns>
         public StreamWriter AppendText()
         {
             return _fi.AppendText();
         }
+
         //
         // Summary:
         //     Copies an existing file to a new file, disallowing the overwriting of an
@@ -135,26 +159,25 @@ namespace miRobotEditor.Pads
         {
             return _fi.CopyTo(destFileName);
         }
-        
-        
-        
-        
-        
+
+
         /// <summary>
-        /// Copies an existing file to a new file, allowing the overwriting of an existing file.
+        ///     Copies an existing file to a new file, allowing the overwriting of an existing file.
         /// </summary>
         /// <param name="destFileName">The name of the new file to copy to.</param>
         /// <param name="overwrite">true to allow an existing file to be overwritten; otherwise, false.</param>
-        /// <returns> A new file, or an overwrite of an existing file if overwrite is true. If
-        ///  the file exists and overwrite is false, an System.IO.IOException is thrown.</returns>
+        /// <returns>
+        ///     A new file, or an overwrite of an existing file if overwrite is true. If
+        ///     the file exists and overwrite is false, an System.IO.IOException is thrown.
+        /// </returns>
         public System.IO.FileInfo CopyTo(string destFileName, bool overwrite)
         {
             return _fi.CopyTo(destFileName, overwrite);
         }
-        
-        
+
+
         /// <summary>
-        /// Creates a file
+        ///     Creates a file
         /// </summary>
         /// <returns>A new file</returns>
         public FileStream Create()
@@ -162,75 +185,82 @@ namespace miRobotEditor.Pads
             return _fi.Create();
         }
 
-        
+
         /// <summary>
-        /// Creates a System.IO.StreamWriter that writes a new text file.
+        ///     Creates a System.IO.StreamWriter that writes a new text file.
         /// </summary>
         /// <returns>A new StreamWriter</returns>
         public StreamWriter CreateText()
         {
             return _fi.CreateText();
         }
-        
-       
-        
+
+
         /// <summary>
-        ///   Decrypts a file that was encrypted by the current account using the System.IO.FileInfo.Encrypt() method.
+        ///     Decrypts a file that was encrypted by the current account using the System.IO.FileInfo.Encrypt() method.
         /// </summary>
         [ComVisible(false)]
         public void Decrypt()
         {
             _fi.Decrypt();
         }
-        
-    
+
+
         /// <summary>
-        /// Permanently deletes a file.
+        ///     Permanently deletes a file.
         /// </summary>
         [SecuritySafeCritical]
-        public  void Delete()
+        public void Delete()
         {
             _fi.Delete();
         }
-                
+
         /// <summary>
-        ///  Encrypts a file so that only the account used to encrypt the file can decrypt it.
+        ///     Encrypts a file so that only the account used to encrypt the file can decrypt it.
         /// </summary>
         [ComVisible(false)]
         public void Encrypt()
         {
             _fi.Encrypt();
         }
-        
-       
+
+
         /// <summary>
-        /// Gets a System.Security.AccessControl.FileSecurity object that encapsulates
-        /// the access control list (ACL) entries for the file described by the current
-        /// System.IO.FileInfo object.</summary>
-        /// <returns>A System.Security.AccessControl.FileSecurity object that encapsulates the
-        /// access control rules for the current file.</returns>
+        ///     Gets a System.Security.AccessControl.FileSecurity object that encapsulates
+        ///     the access control list (ACL) entries for the file described by the current
+        ///     System.IO.FileInfo object.
+        /// </summary>
+        /// <returns>
+        ///     A System.Security.AccessControl.FileSecurity object that encapsulates the
+        ///     access control rules for the current file.
+        /// </returns>
         public FileSecurity GetAccessControl()
         {
             return _fi.GetAccessControl();
         }
-        
-      
-        
+
+
         /// <summary>
-        /// Gets a System.Security.AccessControl.FileSecurity object that encapsulates
-		/// the specified type of access control list (ACL) entries for the file described
-		/// by the current System.IO.FileInfo object.
+        ///     Gets a System.Security.AccessControl.FileSecurity object that encapsulates
+        ///     the specified type of access control list (ACL) entries for the file described
+        ///     by the current System.IO.FileInfo object.
         /// </summary>
-        /// <param name="includeSections">One of the System.Security.AccessControl.AccessControlSections values that specifies which group of access control entries to retrieve. </param>
-        /// <returns>A System.Security.AccessControl.FileSecurity object that encapsulates the access control rules for the current file.</returns>
+        /// <param name="includeSections">
+        ///     One of the System.Security.AccessControl.AccessControlSections values that specifies
+        ///     which group of access control entries to retrieve.
+        /// </param>
+        /// <returns>
+        ///     A System.Security.AccessControl.FileSecurity object that encapsulates the access control rules for the current
+        ///     file.
+        /// </returns>
         public FileSecurity GetAccessControl(AccessControlSections includeSections)
         {
             return _fi.GetAccessControl(includeSections);
         }
-        
-        
+
+
         /// <summary>
-        /// Moves a specified file to a new location, providing the option to specify a new file name.
+        ///     Moves a specified file to a new location, providing the option to specify a new file name.
         /// </summary>
         /// <param name="destFileName">The path to move the file to, which can specify a different file name.</param>
         [SecuritySafeCritical]
@@ -238,7 +268,7 @@ namespace miRobotEditor.Pads
         {
             _fi.MoveTo(destFileName);
         }
-        
+
         //
         // Summary:
         //     Opens a file in the specified mode.
@@ -267,6 +297,7 @@ namespace miRobotEditor.Pads
         {
             return _fi.Open(mode);
         }
+
         //
         // Summary:
         //     Opens a file in the specified mode with read, write, or read/write access.
@@ -309,6 +340,7 @@ namespace miRobotEditor.Pads
         {
             return _fi.Open(mode, access);
         }
+
         //
         // Summary:
         //     Opens a file in the specified mode with read, write, or read/write access
@@ -358,6 +390,7 @@ namespace miRobotEditor.Pads
         {
             return Open(mode, access, share);
         }
+
         //
         // Summary:
         //     Creates a read-only System.IO.FileStream.
@@ -378,6 +411,7 @@ namespace miRobotEditor.Pads
         {
             return _fi.OpenRead();
         }
+
         //
         // Summary:
         //     Creates a System.IO.StreamReader with UTF8 encoding that reads from an existing
@@ -403,6 +437,7 @@ namespace miRobotEditor.Pads
         {
             return _fi.OpenText();
         }
+
         //
         // Summary:
         //     Creates a write-only System.IO.FileStream.
@@ -422,6 +457,7 @@ namespace miRobotEditor.Pads
         {
             return _fi.OpenWrite();
         }
+
         //
         // Summary:
         //     Replaces the contents of a specified file with the file described by the
@@ -460,6 +496,7 @@ namespace miRobotEditor.Pads
         {
             return _fi.Replace(destinationFileName, destinationBackupFileName);
         }
+
         //
         // Summary:
         //     Replaces the contents of a specified file with the file described by the
@@ -498,12 +535,13 @@ namespace miRobotEditor.Pads
         //   System.PlatformNotSupportedException:
         //     The current operating system is not Microsoft Windows NT or later.
         [ComVisible(false)]
-        public System.IO.FileInfo Replace(string destinationFileName, string destinationBackupFileName, bool ignoreMetadataErrors)
+        public System.IO.FileInfo Replace(string destinationFileName, string destinationBackupFileName,
+            bool ignoreMetadataErrors)
         {
             return _fi.Replace(destinationFileName, destinationBackupFileName, ignoreMetadataErrors);
         }
 
-        
+
         //
         // Summary:
         //     Applies access control list (ACL) entries described by a System.Security.AccessControl.FileSecurity
@@ -540,24 +578,10 @@ namespace miRobotEditor.Pads
         //     A string representing the path.
         public override string ToString()
         {
-        	
-            System.Windows.MessageBox.Show(_fi.ToString(), "fi (FileInfo).ToString()");
+            MessageBox.Show(_fi.ToString(), "fi (FileInfo).ToString()");
             return _fi.ToString();
         }
 
-
-        public string Filetype
-        {
-            get { return _filetype.ToString(); }
-        }
-
-      public bool Visible { get; set; }
-
-      public FileInfo(String path)
-        {
-            _fi = new System.IO.FileInfo(path);
-            _filetype = GetFileType();
-        }
 
         private FileType GetFileType()
         {
@@ -574,7 +598,7 @@ namespace miRobotEditor.Pads
                     case "ini":
                         return FileType.INI;
                     case "kfd":
-                        return FileType.KFD;                   
+                        return FileType.KFD;
                     case "sps":
                         return FileType.SPS;
                     default:
@@ -583,12 +607,20 @@ namespace miRobotEditor.Pads
             }
             catch (Exception ex)
             {
-                MessageViewModel.AddError("FileInfo",ex);
-              }
+                MessageViewModel.AddError("FileInfo", ex);
+            }
 
-            return FileType.NONE ;
+            return FileType.NONE;
         }
 
-            enum FileType{SRC,DAT,INI,KFD,SPS,NONE};
+        private enum FileType
+        {
+            SRC,
+            DAT,
+            INI,
+            KFD,
+            SPS,
+            NONE
+        };
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+
 namespace miRobotEditor.Converters
 {
-    public class BooleanToTypeModeStringConverter:IValueConverter
+    public class BooleanToTypeModeStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

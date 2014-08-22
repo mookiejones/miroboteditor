@@ -11,16 +11,16 @@ using System.Windows;
 
 namespace miRobotEditor
 {
-	/// <summary>
-	/// Interaction logic for KUKAObjectBrowser.xaml
-	/// </summary>
+    /// <summary>
+    ///     Interaction logic for KUKAObjectBrowser.xaml
+    /// </summary>
 // ReSharper disable RedundantExtendsListEntry
-	public partial class KUKAObjectBrowser : Window
+    public partial class KUKAObjectBrowser : Window
 // ReSharper restore RedundantExtendsListEntry
-	{
-		public KUKAObjectBrowser()
-		{
-			InitializeComponent();
-		}
-	}
+    {
+        public KUKAObjectBrowser()
+        {
+            InitializeComponent();
+        }
+    }
 }

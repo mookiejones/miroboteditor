@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
@@ -11,11 +12,11 @@ namespace CREATOR
     {
         protected override void ColorizeLine(DocumentLine line)
         {
-            var lineStartOffset = line.Offset;
-            var text = CurrentContext.Document.GetText(line);
-            var start = 0;
+            int lineStartOffset = line.Offset;
+            string text = CurrentContext.Document.GetText(line);
+            int start = 0;
             int index;
-            while ((index = text.IndexOf("AvalonEdit", start, System.StringComparison.Ordinal)) >= 0)
+            while ((index = text.IndexOf("AvalonEdit", start, StringComparison.Ordinal)) >= 0)
             {
                 ChangeLinePart(
                     lineStartOffset + index, // startOffset
@@ -24,7 +25,7 @@ namespace CREATOR
                     {
                         // This lambda gets called once for every VisualLineElement
                         // between the specified offsets.
-                        var tf = element.TextRunProperties.Typeface;
+                        Typeface tf = element.TextRunProperties.Typeface;
                         // Replace the typeface with a modified version of
                         // the same typeface
                         element.TextRunProperties.SetTypeface(new Typeface(
@@ -32,7 +33,7 @@ namespace CREATOR
                             FontStyles.Italic,
                             FontWeights.Bold,
                             tf.Stretch
-                        ));
+                            ));
                     });
                 start = index + 1; // search for next occurrence
             }

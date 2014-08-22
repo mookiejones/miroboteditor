@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Windows.Controls;
 using System.Windows.Data;
 using miRobotEditor.ViewModel;
-using System.Windows.Controls;
+
 namespace miRobotEditor.Converters
 {
     [Localizable(false)]
@@ -18,14 +19,14 @@ namespace miRobotEditor.Converters
             }
 
             if (value is CartesianEnum)
-            switch ((CartesianEnum)value)
-            {
-                case CartesianEnum.ABB_Quaternion:
-                case CartesianEnum.Axis_Angle:
-                    return "25*";
-                default:
-                    return "33*";
-            }
+                switch ((CartesianEnum) value)
+                {
+                    case CartesianEnum.ABB_Quaternion:
+                    case CartesianEnum.Axis_Angle:
+                        return "25*";
+                    default:
+                        return "33*";
+                }
             return null;
         }
 

@@ -1,14 +1,14 @@
+using System;
+using System.Collections.ObjectModel;
+
 namespace miRobotEditor.GUI.AngleConverter
 {
-    using System;
-    using System.Collections.ObjectModel;
-
     [Serializable]
     public class TransformationMatrix3D : SquareMatrix
     {
         public TransformationMatrix3D() : base(4)
         {
-            for (var i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 base[i, i] = 1.0;
             }
@@ -21,9 +21,9 @@ namespace miRobotEditor.GUI.AngleConverter
                 throw new MatrixException("Matrix is not the correct size to convert to a TransformationMatrix3D");
             }
             var matrix = new SquareMatrix(3);
-            for (var i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                for (var k = 0; k < 3; k++)
+                for (int k = 0; k < 3; k++)
                 {
                     matrix[i, k] = mat[i, k];
                 }
@@ -32,9 +32,9 @@ namespace miRobotEditor.GUI.AngleConverter
             {
                 throw new MatrixException("Matrix does not contain a valid rotation");
             }
-            for (var j = 0; j < 4; j++)
+            for (int j = 0; j < 4; j++)
             {
-                for (var m = 0; m < 4; m++)
+                for (int m = 0; m < 4; m++)
                 {
                     base[j, m] = mat[j, m];
                 }
@@ -49,7 +49,7 @@ namespace miRobotEditor.GUI.AngleConverter
 
         public TransformationMatrix3D(Vector3D trans) : base(4)
         {
-            for (var i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 base[i, i] = 1.0;
             }
@@ -58,7 +58,7 @@ namespace miRobotEditor.GUI.AngleConverter
 
         public TransformationMatrix3D(Vector3D trans, RotationMatrix3D rot) : base(4)
         {
-            for (var i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 base[i, i] = 1.0;
             }
@@ -66,12 +66,50 @@ namespace miRobotEditor.GUI.AngleConverter
             Translation = trans;
         }
 
+        public RotationMatrix3D Rotation
+        {
+            get
+            {
+                var matrixd = new RotationMatrix3D();
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        matrixd[i, j] = base[i, j];
+                    }
+                }
+                return matrixd;
+            }
+            set
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        base[i, j] = value[i, j];
+                    }
+                }
+            }
+        }
+
+        public Vector3D Translation
+        {
+            get { return new Vector3D(base[0, 3], base[1, 3], base[2, 3]); }
+            set
+            {
+                base[0, 3] = value[0];
+                base[1, 3] = value[1];
+                base[2, 3] = value[2];
+            }
+        }
+
         public static TransformationMatrix3D FromXYZABC(double x, double y, double z, double a, double b, double c)
         {
             return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromABC(a, b, c));
         }
 
-        public static TransformationMatrix3D FromXYZEulerZYZ(double x, double y, double z, double z1, double y1, double z2)
+        public static TransformationMatrix3D FromXYZEulerZYZ(double x, double y, double z, double z1, double y1,
+            double z2)
         {
             return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromEulerZYZ(z1, y1, z2));
         }
@@ -84,7 +122,7 @@ namespace miRobotEditor.GUI.AngleConverter
         public static TransformationMatrix3D Identity()
         {
             var matrixd = new TransformationMatrix3D();
-            for (var i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 matrixd[i, i] = 1.0;
             }
@@ -104,27 +142,29 @@ namespace miRobotEditor.GUI.AngleConverter
         public static Collection<Point3D> operator *(TransformationMatrix3D transform, Collection<Point3D> points)
         {
             var list = new Collection<Point3D>();
-            foreach (var pointd in points)
+            foreach (Point3D pointd in points)
             {
-                list.Add(transform * pointd);
+                list.Add(transform*pointd);
             }
             return list;
         }
+
         public static Collection<Point3D> Multiply(TransformationMatrix3D transform, Collection<Point3D> points)
         {
             var list = new Collection<Point3D>();
-            foreach (var pointd in points)
+            foreach (Point3D pointd in points)
             {
-                list.Add(transform * pointd);
+                list.Add(transform*pointd);
             }
             return list;
         }
+
         public static Collection<Vector3D> operator *(TransformationMatrix3D transform, Collection<Vector3D> vectors)
         {
             var list = new Collection<Vector3D>();
-            foreach (var vectord in vectors)
+            foreach (Vector3D vectord in vectors)
             {
-                list.Add(transform * vectord);
+                list.Add(transform*vectord);
             }
             return list;
         }
@@ -132,7 +172,7 @@ namespace miRobotEditor.GUI.AngleConverter
         public static Point3D operator *(TransformationMatrix3D mat, Point3D pt)
         {
             var vectord = new Vector3D(pt.X, pt.Y, pt.Z);
-            var vectord2 = mat * vectord;
+            Vector3D vectord2 = mat*vectord;
             return new Point3D(vectord2.X, vectord2.Y, vectord2.Z);
         }
 
@@ -146,8 +186,8 @@ namespace miRobotEditor.GUI.AngleConverter
 
         public static Vector3D operator *(TransformationMatrix3D mat, Vector3D vec)
         {
-            var vector = new Vector(4, new[] { vec[0], vec[1], vec[2], 1.0 });
-            Matrix matrix = mat * vector;
+            var vector = new Vector(4, new[] {vec[0], vec[1], vec[2], 1.0});
+            Matrix matrix = mat*vector;
             return new Vector3D(matrix[0, 0], matrix[1, 0], matrix[2, 0]);
         }
 
@@ -158,85 +198,50 @@ namespace miRobotEditor.GUI.AngleConverter
 
         public override string ToString(string format, IFormatProvider formatProvider)
         {
-          
             if (format.ToUpperInvariant().StartsWith("RPY"))
             {
-                var translation = Translation;
-                var rpy = Rotation.RPY;
-                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { translation.X, translation.Y, translation.Z, rpy.X, rpy.Y, rpy.Z });
+                Vector3D translation = Translation;
+                Vector3D rpy = Rotation.RPY;
+                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}",
+                    new object[] {translation.X, translation.Y, translation.Z, rpy.X, rpy.Y, rpy.Z});
             }
             if (format.ToUpperInvariant().StartsWith("ABC"))
             {
-                var vectord3 = Translation;
-                var abc = Rotation.ABC;
-                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { vectord3.X, vectord3.Y, vectord3.Z, abc.X, abc.Y, abc.Z });
+                Vector3D vectord3 = Translation;
+                Vector3D abc = Rotation.ABC;
+                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}",
+                    new object[] {vectord3.X, vectord3.Y, vectord3.Z, abc.X, abc.Y, abc.Z});
             }
             if (format.ToUpperInvariant().StartsWith("QUATERNION"))
             {
-                var vectord5 = Translation;
+                Vector3D vectord5 = Translation;
                 var rotation = (Quaternion) Rotation;
-                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}", new object[] { vectord5.X, vectord5.Y, vectord5.Z, rotation.X, rotation.Y, rotation.Z, rotation.W });
+                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}",
+                    new object[] {vectord5.X, vectord5.Y, vectord5.Z, rotation.X, rotation.Y, rotation.Z, rotation.W});
             }
             if (format.ToUpperInvariant().StartsWith("ABBQUATERNION"))
             {
-                var vectord6 = Translation;
+                Vector3D vectord6 = Translation;
                 var quaternion2 = (Quaternion) Rotation;
-                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}", new object[] { vectord6.X, vectord6.Y, vectord6.Z, quaternion2.W, quaternion2.X, quaternion2.Y, quaternion2.Z });
+                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}",
+                    new object[]
+                    {vectord6.X, vectord6.Y, vectord6.Z, quaternion2.W, quaternion2.X, quaternion2.Y, quaternion2.Z});
             }
             if (format.ToUpperInvariant().StartsWith("ABG"))
             {
-                var vectord7 = Translation;
-                var abg = Rotation.ABG;
-                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { vectord7.X, vectord7.Y, vectord7.Z, abg.X, abg.Y, abg.Z });
+                Vector3D vectord7 = Translation;
+                Vector3D abg = Rotation.ABG;
+                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}",
+                    new object[] {vectord7.X, vectord7.Y, vectord7.Z, abg.X, abg.Y, abg.Z});
             }
             if (format.ToUpperInvariant().StartsWith("EULERZYZ"))
             {
-                var vectord9 = Translation;
-                var eulerZYZ = Rotation.EulerZYZ;
-                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[] { vectord9.X, vectord9.Y, vectord9.Z, eulerZYZ.X, eulerZYZ.Y, eulerZYZ.Z });
+                Vector3D vectord9 = Translation;
+                Vector3D eulerZYZ = Rotation.EulerZYZ;
+                return string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}",
+                    new object[] {vectord9.X, vectord9.Y, vectord9.Z, eulerZYZ.X, eulerZYZ.Y, eulerZYZ.Z});
             }
             return base.ToString(format, formatProvider);
         }
-
-        public RotationMatrix3D Rotation
-        {
-            get
-            {
-                var matrixd = new RotationMatrix3D();
-                for (var i = 0; i < 3; i++)
-                {
-                    for (var j = 0; j < 3; j++)
-                    {
-                        matrixd[i, j] = base[i, j];
-                    }
-                }
-                return matrixd;
-            }
-            set
-            {
-                for (var i = 0; i < 3; i++)
-                {
-                    for (var j = 0; j < 3; j++)
-                    {
-                        base[i, j] = value[i, j];
-                    }
-                }
-            }
-        }
-
-        public Vector3D Translation
-        {
-            get
-            {
-                return new Vector3D(base[0, 3], base[1, 3], base[2, 3]);
-            }
-            set
-            {
-                base[0, 3] = value[0];
-                base[1, 3] = value[1];
-                base[2, 3] = value[2];
-            }
-        }
     }
 }
-

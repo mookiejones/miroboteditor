@@ -4,15 +4,13 @@ using System.Windows.Controls;
 
 namespace miRobotEditor.Classes
 {
-    public class MenuTemplateSelector:DataTemplateSelector
+    public class MenuTemplateSelector : DataTemplateSelector
     {
-
         public DataTemplate KUKATemplate { get; set; }
         public DataTemplate FanucTemplate { get; set; }
         public DataTemplate NachiTemplate { get; set; }
         public DataTemplate ABBTemplate { get; set; }
 
-        
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -21,11 +19,11 @@ namespace miRobotEditor.Classes
             if (element != null && item != null && item is Task)
             {
                 // if (taskitem.Priority == 1)
-              //     return
-              //         element.FindResource("importantTaskTemplate") as DataTemplate;
-              // else
-              //     return
-              //         element.FindResource("myTaskTemplate") as DataTemplate;
+                //     return
+                //         element.FindResource("importantTaskTemplate") as DataTemplate;
+                // else
+                //     return
+                //         element.FindResource("myTaskTemplate") as DataTemplate;
             }
 
             return null;

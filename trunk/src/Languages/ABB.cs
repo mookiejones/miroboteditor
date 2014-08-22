@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using System.Text.RegularExpressions;
-using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Folding;
-using ICSharpCode.AvalonEdit.CodeCompletion;
 
 namespace miRobotEditor.Languages
 {
     [Localizable(false)]
     public sealed class ABB : AbstractLanguageClass
     {
+        private const RegexOptions Ro = (int) RegexOptions.IgnoreCase + RegexOptions.Multiline;
+        private static ObservableCollection<Snippet> _snippets;
+
         public ABB(string file) : base(file)
         {
             FoldingStrategy = new RegionFoldingStrategy();
@@ -29,7 +34,7 @@ namespace miRobotEditor.Languages
 
 
         /// <summary>
-        /// Sets ComboBox Filter Items for searching
+        ///     Sets ComboBox Filter Items for searching
         /// </summary>
         /// <returns></returns>
         public override List<string> SearchFilters
@@ -56,14 +61,9 @@ namespace miRobotEditor.Languages
             get { return @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))"; }
         }
 
-        internal override bool IsFileValid(System.IO.FileInfo file)
-        {
-            return EXT.Any(e => file.Extension.ToLower() == e);
-        }
-
         internal override string FunctionItems
         {
-            get { return  @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)" ; }
+            get { return @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)"; }
         }
 
         public override Regex MethodRegex
@@ -78,19 +78,28 @@ namespace miRobotEditor.Languages
 
         public override Regex FieldRegex
         {
-            get { return new Regex(@"^([^\r\n]*)(tooldata|wobjdata|num|mecunit|string|datapos|intnum|bool|signaldo|dignaldi|signalgo|signalgi)\s+([\$0-9a-zA-Z_\[\],\$]+)(:=)?([^\r\n]*)", RegexOptions.IgnoreCase); }
+            get
+            {
+                return
+                    new Regex(
+                        @"^([^\r\n]*)(tooldata|wobjdata|num|mecunit|string|datapos|intnum|bool|signaldo|dignaldi|signalgo|signalgi)\s+([\$0-9a-zA-Z_\[\],\$]+)(:=)?([^\r\n]*)",
+                        RegexOptions.IgnoreCase);
+            }
         }
 
         public override Regex EnumRegex
         {
             get { return new Regex(String.Empty); }
         }
-        private const RegexOptions Ro = (int)RegexOptions.IgnoreCase + RegexOptions.Multiline;
+
         public override Regex XYZRegex
         {
-            get { return new Regex(@"^[PERS ]*(robtarget|jointtarget) ([\w\d_]*)",Ro); }
+            get { return new Regex(@"^[PERS ]*(robtarget|jointtarget) ([\w\d_]*)", Ro); }
         }
+
         //@"^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)(=\{[^}}]*\})?"
+
+
         public override string CommentChar
         {
             get { return "!"; }
@@ -102,25 +111,55 @@ namespace miRobotEditor.Languages
             get { return new Regex("SignalDI|SignalDO|SignalGI|SignalGO"); }
         }
 
+        internal override bool IsFileValid(System.IO.FileInfo file)
+        {
+            return EXT.Any(e => file.Extension.ToLower() == e);
+        }
+
+        public override ObservableCollection<Snippet> GetSnippets()
+        {
+            if (_snippets != null)
+                return _snippets;
+            throw new NotImplementedException();
+        }
+
         public override string ExtractXYZ(string positionstring)
         {
             var p = new PositionBase(positionstring);
             return p.ExtractFromMatch();
-        }   
+        }
+
+        internal override string FoldTitle(FoldingSection section, TextDocument doc)
+        {
+            string[] s = Regex.Split(section.Title, "æ");
+
+            int start = section.StartOffset + s[0].Length;
+            int end = section.Length - (s[0].Length + s[1].Length);
+
+
+            return doc.GetText(start, end);
+        }
+
+        public override DocumentViewModel GetFile(string filepath)
+        {
+            switch (Path.GetExtension(filepath))
+            {
+                case ".prg":
+                case ".mod":
+                    return new DocumentViewModel(filepath);
+            }
+            return null;
+        }
 
         #region Folding Section
 
         /// <summary>
-        /// The class to generate the foldings, it implements ICSharpCode.TextEditor.Document.IFoldingStrategy
+        ///     The class to generate the foldings, it implements ICSharpCode.TextEditor.Document.IFoldingStrategy
         /// </summary>
         private class RegionFoldingStrategy : AbstractFoldingStrategy
         {
-
-           
-
-          
             /// <summary>
-            /// Create <see cref="NewFolding"/>s for the specified document.
+            ///     Create <see cref="NewFolding" />s for the specified document.
             /// </summary>
             public override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
             {
@@ -128,10 +167,9 @@ namespace miRobotEditor.Languages
                 return CreateNewFoldings(document);
             }
 
-           
 
             /// <summary>
-            /// Create <see cref="NewFolding"/>s for the specified document.
+            ///     Create <see cref="NewFolding" />s for the specified document.
             /// </summary>
             public virtual IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
@@ -162,27 +200,5 @@ namespace miRobotEditor.Languages
         #region Indentation
 
         #endregion
-
-        internal override string FoldTitle(FoldingSection section, TextDocument doc)
-        {
-            var s = Regex.Split(section.Title, "æ");
-
-            var start = section.StartOffset + s[0].Length;
-            var end = section.Length - (s[0].Length + s[1].Length);
-
-
-            return doc.GetText(start, end);
-        }
-
-        public override DocumentViewModel GetFile(string filepath)
-        {
-            switch (Path.GetExtension(filepath))
-            {
-                case ".prg":
-                case ".mod":
-                    return new DocumentViewModel(filepath);
-            }
-            return null;
-        }
     }
 }

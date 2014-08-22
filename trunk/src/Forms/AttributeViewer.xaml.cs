@@ -1,9 +1,9 @@
 ﻿namespace miRobotEditor.Forms
 {
     /// <summary>
-    /// Interaction logic for AttributeViewer.xaml
+    ///     Interaction logic for AttributeViewer.xaml
     /// </summary>
-    public partial class AttributeViewer 
+    public partial class AttributeViewer
     {
         public AttributeViewer()
         {

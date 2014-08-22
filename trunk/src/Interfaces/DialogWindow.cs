@@ -2,14 +2,13 @@
 
 namespace miRobotEditor.Interfaces
 {
-    class DialogWindow
+    internal class DialogWindow
     {
 // ReSharper disable UnusedMember.Local
-        string Title { get; set; }
-        string Description { get; set; }
-        ICommand OkCommand { get; set; }
-        ICommand CancelCommand { get; set; }
+        private string Title { get; set; }
+        private string Description { get; set; }
+        private ICommand OkCommand { get; set; }
+        private ICommand CancelCommand { get; set; }
         // ReSharper restore UnusedMember.Local
-
     }
 }

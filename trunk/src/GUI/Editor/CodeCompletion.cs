@@ -4,7 +4,9 @@ using System.Windows.Media;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
+using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Classes;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.GUI.Editor
 {
@@ -12,7 +14,9 @@ namespace miRobotEditor.GUI.Editor
     /// completion drop down.
     public sealed class CodeCompletion : ICompletionData
     {
-        public CodeCompletion(IVariable variable) 
+        private string _description = string.Empty;
+
+        public CodeCompletion(IVariable variable)
         {
             Text = variable.Name;
             Image = variable.Icon;
@@ -26,9 +30,8 @@ namespace miRobotEditor.GUI.Editor
             Text = text;
         }
 
-        public ImageSource Image{get;set;}
+        public ImageSource Image { get; set; }
         public string Text { get; private set; }
-        private string _description = string.Empty;
 
         // Use this property if you want to show a fancy UIElement in the list.
         public object Content
@@ -37,14 +40,23 @@ namespace miRobotEditor.GUI.Editor
         }
 
 
-
         [Localizable(false)]
-        public object Description { get { return String.IsNullOrEmpty(_description)?null:String.Format("Description for {0} \r\n {1}", Text, _description); } set { _description = (string)value; } }
+        public object Description
+        {
+            get
+            {
+                return String.IsNullOrEmpty(_description)
+                    ? null
+                    : String.Format("Description for {0} \r\n {1}", Text, _description);
+            }
+            set { _description = (string) value; }
+        }
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            var currentWord = Workspace.Instance.ActiveEditor.TextBox.FindWord();
-            var offs = completionSegment.Offset - currentWord.Length;
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            string currentWord = main.ActiveEditor.TextBox.FindWord();
+            int offs = completionSegment.Offset - currentWord.Length;
             // Create New AnchorSegment 
             textArea.Document.Replace(offs, currentWord.Length, Text);
         }
@@ -59,8 +71,7 @@ namespace miRobotEditor.GUI.Editor
 
     #endregion
 
-        #region Interfaces
+    #region Interfaces
 
     #endregion
- }
-
+}

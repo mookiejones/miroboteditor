@@ -9,7 +9,5 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
         EulerZYZ,
         Quaternions
         // ReSharper restore UnusedMember.Global
-
     }
 }
-

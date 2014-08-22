@@ -2,7 +2,6 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
 {
     public class Axis
     {
-      
         public Axis()
         {
         }
@@ -18,7 +17,5 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
 
 
         public Vector3D Point { get; set; }
-
     }
 }
-

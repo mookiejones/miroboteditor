@@ -13,15 +13,25 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
             _jointPositions = new Collection<double>();
         }
 
+        private Collection<Joint> Joints { get; set; }
+
+        private TransformationMatrix3D ToolFrame
+        {
+            get { return _toolframe; }
+            set { _toolframe = new TransformationMatrix3D(value); }
+        }
+
         public static Robot AbsoluteToRelative(Robot absoluteModel)
         {
             var robot = new Robot();
             robot.AddJoint(new Joint(absoluteModel.Joints[0]));
-            for (var i = 1; i < absoluteModel.Joints.Count; i++)
+            for (int i = 1; i < absoluteModel.Joints.Count; i++)
             {
-                robot.AddJoint(new Joint(absoluteModel.Joints[i - 1].Transform.Inverse() * absoluteModel.Joints[i].Transform));
+                robot.AddJoint(
+                    new Joint(absoluteModel.Joints[i - 1].Transform.Inverse()*absoluteModel.Joints[i].Transform));
             }
-            robot.ToolFrame = absoluteModel.Joints[absoluteModel.Joints.Count - 1].Transform.Inverse() * absoluteModel.ToolFrame;
+            robot.ToolFrame = absoluteModel.Joints[absoluteModel.Joints.Count - 1].Transform.Inverse()*
+                              absoluteModel.ToolFrame;
             return robot;
         }
 
@@ -42,25 +52,10 @@ namespace miRobotEditor.GUI.AngleConverter.Robot
             {
                 throw new MatrixException("Wrong number of arguments");
             }
-            for (var i = 0; i < jointPositions.Length; i++)
+            for (int i = 0; i < jointPositions.Length; i++)
             {
                 SetJointPosition(i, jointPositions[i]);
             }
         }
-
-        private Collection<Joint> Joints { get; set; }
-
-        private TransformationMatrix3D ToolFrame
-        {
-            get
-            {
-                return _toolframe;
-            }
-            set
-            {
-                _toolframe = new TransformationMatrix3D(value);
-            }
-        }     
     }
 }
-

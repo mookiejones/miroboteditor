@@ -11,16 +11,16 @@ using System.Windows;
 
 namespace miRobotEditor.Dialogs
 {
-	/// <summary>
-	/// Interaction logic for KFDDialog.xaml
-	/// </summary>
+    /// <summary>
+    ///     Interaction logic for KFDDialog.xaml
+    /// </summary>
 // ReSharper disable RedundantExtendsListEntry
-	public partial class KFDDialog : Window
+    public partial class KFDDialog : Window
 // ReSharper restore RedundantExtendsListEntry
-	{
-		public KFDDialog()
-		{
-			InitializeComponent();
-		}
-	}
+    {
+        public KFDDialog()
+        {
+            InitializeComponent();
+        }
+    }
 }

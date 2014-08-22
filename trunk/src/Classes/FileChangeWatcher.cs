@@ -1,10 +1,9 @@
 ﻿using System;
 
-
 //TODO Fix all of this 
+
 namespace miRobotEditor.Classes
 {
-
 // ReSharper disable once UnusedMember.Global
     internal sealed class FileChangeWatcher : IDisposable
     {
@@ -205,9 +204,9 @@ namespace miRobotEditor.Classes
 			}
 		}
       * */
+
         public void Dispose()
         {
         }
     }
-     
 }

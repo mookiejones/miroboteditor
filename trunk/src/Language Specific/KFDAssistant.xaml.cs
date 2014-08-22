@@ -10,17 +10,17 @@ using System.Windows;
 
 namespace miRobotEditor
 {
-	/// <summary>
-	/// Interaction logic for KFDAssistant.xaml
-	/// </summary>
+    /// <summary>
+    ///     Interaction logic for KFDAssistant.xaml
+    /// </summary>
 // ReSharper disable RedundantExtendsListEntry
 // ReSharper disable once UnusedMember.Global
-	public partial class KFDAssistant : Window
+    public partial class KFDAssistant : Window
 // ReSharper restore RedundantExtendsListEntry
-	{
-		public KFDAssistant()
-		{
-			InitializeComponent();
-		}
-	}
+    {
+        public KFDAssistant()
+        {
+            InitializeComponent();
+        }
+    }
 }

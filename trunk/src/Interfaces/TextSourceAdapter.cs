@@ -1,6 +1,6 @@
-﻿
+﻿using System;
+using System.IO;
 using ICSharpCode.AvalonEdit.Document;
-using System;
 
 namespace miRobotEditor.Interfaces
 {
@@ -21,7 +21,7 @@ namespace miRobotEditor.Interfaces
         }
 
         /// <summary>
-        /// Creates an immutable snapshot of this text buffer.
+        ///     Creates an immutable snapshot of this text buffer.
         /// </summary>
         public virtual ITextBuffer CreateSnapshot()
         {
@@ -29,8 +29,8 @@ namespace miRobotEditor.Interfaces
         }
 
         /// <summary>
-        /// Creates an immutable snapshot of a part of this text buffer.
-        /// Unlike all other methods in this interface, this method is thread-safe.
+        ///     Creates an immutable snapshot of a part of this text buffer.
+        ///     Unlike all other methods in this interface, this method is thread-safe.
         /// </summary>
         public ITextBuffer CreateSnapshot(int offset, int length)
         {
@@ -38,17 +38,17 @@ namespace miRobotEditor.Interfaces
         }
 
         /// <summary>
-        /// Creates a new TextReader to read from this text buffer.
+        ///     Creates a new TextReader to read from this text buffer.
         /// </summary>
-        public System.IO.TextReader CreateReader()
+        public TextReader CreateReader()
         {
             return TextSource.CreateReader();
         }
 
         /// <summary>
-        /// Creates a new TextReader to read from this text buffer.
+        ///     Creates a new TextReader to read from this text buffer.
         /// </summary>
-        public System.IO.TextReader CreateReader(int offset, int length)
+        public TextReader CreateReader(int offset, int length)
         {
             return TextSource.CreateSnapshot(offset, length).CreateReader();
         }
@@ -64,7 +64,7 @@ namespace miRobotEditor.Interfaces
         }
 
         /// <summary>
-        /// Is raised when the Text property changes.
+        ///     Is raised when the Text property changes.
         /// </summary>
         public event EventHandler TextChanged
         {

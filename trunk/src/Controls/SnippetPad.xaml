@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SnippetPad" Height="300" Width="300">
     <Grid>
-        <ListView >
+        <ListView>
             <ListView.View>
-                <GridView>                    
-                </GridView>
+                <GridView />
             </ListView.View>
         </ListView>
 

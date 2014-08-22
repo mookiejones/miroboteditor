@@ -6,9 +6,12 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Editing;
@@ -16,17 +19,19 @@ using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
 using miRobotEditor.Classes;
 using miRobotEditor.Core;
-using Pen = System.Windows.Media.Pen;
-using System.Windows;
 
 namespace miRobotEditor.Interfaces
 {
     /// <summary>
-    /// Icon bar: contains breakpoints and other icons.
+    ///     Icon bar: contains breakpoints and other icons.
     /// </summary>
     public class IconBarMargin : AbstractMargin, IDisposable
     {
-        readonly IBookmarkMargin _manager;
+        private readonly IBookmarkMargin _manager;
+        private IBookmark _dragDropBookmark; // bookmark being dragged (!=null if drag'n'drop is active)
+        private double _dragDropCurrentPoint;
+        private double _dragDropStartPoint;
+        private bool _dragStarted; // whether drag'n'drop operation has started (mouse was moved minimum distance)
 
         public IconBarMargin(IBookmarkMargin manager)
         {
@@ -36,8 +41,14 @@ namespace miRobotEditor.Interfaces
         }
 
         #region OnTextViewChanged
-        
-        /// <inheritdoc/>
+
+        public virtual void Dispose()
+        {
+            TextView = null; // detach from TextView (will also detach from manager)
+            GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc />
         protected override void OnTextViewChanged(TextView oldTextView, TextView newTextView)
         {
             if (oldTextView != null)
@@ -53,8 +64,9 @@ namespace miRobotEditor.Interfaces
             }
             InvalidateVisual();
         }
-        [System.Diagnostics.DebuggerStepThrough]
-        void OnRedrawRequested(object sender, EventArgs e)
+
+        [DebuggerStepThrough]
+        private void OnRedrawRequested(object sender, EventArgs e)
         {
             // Don't invalidate the IconBarMargin if it'll be invalidated again once the
             // visual lines become valid.
@@ -64,58 +76,54 @@ namespace miRobotEditor.Interfaces
             }
         }
 
-        public virtual void Dispose()
-        {
-            TextView = null; // detach from TextView (will also detach from manager)
-            GC.SuppressFinalize(this);
-        }
         #endregion
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters)
         {
             // accept clicks even when clicking on the background
             return new PointHitTestResult(this, hitTestParameters.HitPoint);
         }
 
-        /// <inheritdoc/>
-        [System.Diagnostics.DebuggerStepThrough]
+        /// <inheritdoc />
+        [DebuggerStepThrough]
         protected override Size MeasureOverride(Size availableSize)
         {
             return new Size(18, 0);
         }
 
 
-        [System.Diagnostics.DebuggerStepThrough]
+        [DebuggerStepThrough]
         protected override void OnRender(DrawingContext drawingContext)
         {
-            var renderSize = RenderSize;
+            Size renderSize = RenderSize;
             drawingContext.DrawRectangle(SystemColors.ControlBrush, null,
-                                         new Rect(0, 0, renderSize.Width, renderSize.Height));
+                new Rect(0, 0, renderSize.Width, renderSize.Height));
             drawingContext.DrawLine(new Pen(SystemColors.ControlDarkBrush, 1),
-                                    new Point(renderSize.Width - 0.5, 0),
-                                    new Point(renderSize.Width - 0.5, renderSize.Height));
+                new Point(renderSize.Width - 0.5, 0),
+                new Point(renderSize.Width - 0.5, renderSize.Height));
 
-            var textView = TextView;
+            TextView textView = TextView;
             if (textView == null || !textView.VisualLinesValid) return;
             // create a dictionary line number => first bookmark
             var bookmarkDict = new Dictionary<int, IBookmark>();
-            foreach (var bm in _manager.Bookmarks)
+            foreach (IBookmark bm in _manager.Bookmarks)
             {
-                var line = bm.LineNumber;
+                int line = bm.LineNumber;
                 IBookmark existingBookmark;
                 if (!bookmarkDict.TryGetValue(line, out existingBookmark) || bm.ZOrder > existingBookmark.ZOrder)
                     bookmarkDict[line] = bm;
             }
-            var pixelSize = PixelSnapHelpers.GetPixelSize(this);
+            Size pixelSize = PixelSnapHelpers.GetPixelSize(this);
             Rect rect;
-            foreach (var line in textView.VisualLines)
+            foreach (VisualLine line in textView.VisualLines)
             {
-                var lineNumber = line.FirstDocumentLine.LineNumber;
+                int lineNumber = line.FirstDocumentLine.LineNumber;
                 IBookmark bm;
 
                 if (!bookmarkDict.TryGetValue(lineNumber, out bm)) continue;
-                var lineMiddle = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextMiddle) - textView.VerticalOffset;
+                double lineMiddle = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextMiddle) -
+                                    textView.VerticalOffset;
                 rect = new Rect(0, PixelSnapHelpers.Round(lineMiddle - 8, pixelSize.Height), 16, 16);
                 if (_dragDropBookmark == bm && _dragStarted)
                     drawingContext.PushOpacity(0.5);
@@ -128,19 +136,14 @@ namespace miRobotEditor.Interfaces
             drawingContext.DrawImage((_dragDropBookmark.Image ?? BookmarkBase.defaultBookmarkImage).ImageSource, rect);
         }
 
-        IBookmark _dragDropBookmark; // bookmark being dragged (!=null if drag'n'drop is active)
-        double _dragDropStartPoint;
-        double _dragDropCurrentPoint;
-        bool _dragStarted; // whether drag'n'drop operation has started (mouse was moved minimum distance)
-
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             CancelDragDrop();
             base.OnMouseDown(e);
-            var line = GetLineFromMousePosition(e);
+            int line = GetLineFromMousePosition(e);
             if (!e.Handled && line > 0)
             {
-                var bm = GetBookmarkFromLine(line);
+                IBookmark bm = GetBookmarkFromLine(line);
                 if (bm != null)
                 {
                     bm.MouseDown(e);
@@ -159,10 +162,13 @@ namespace miRobotEditor.Interfaces
                 e.Handled = true;
         }
 
-        IBookmark GetBookmarkFromLine(int line)
+        private IBookmark GetBookmarkFromLine(int line)
         {
             IBookmark[] result = {null};
-            foreach (var bm in _manager.Bookmarks.Where(bm => bm.LineNumber == line).Where(bm => result[0] == null || bm.ZOrder > result[0].ZOrder))
+            foreach (
+                IBookmark bm in
+                    _manager.Bookmarks.Where(bm => bm.LineNumber == line)
+                        .Where(bm => result[0] == null || bm.ZOrder > result[0].ZOrder))
             {
                 result[0] = bm;
             }
@@ -175,24 +181,24 @@ namespace miRobotEditor.Interfaces
             base.OnLostMouseCapture(e);
         }
 
-        void StartDragDrop(IBookmark bm, MouseEventArgs e)
+        private void StartDragDrop(IBookmark bm, MouseEventArgs e)
         {
             _dragDropBookmark = bm;
             _dragDropStartPoint = _dragDropCurrentPoint = e.GetPosition(this).Y;
             if (TextView == null) return;
-            var area = TextView.Services.GetService(typeof(TextArea)) as TextArea;
+            var area = TextView.Services.GetService(typeof (TextArea)) as TextArea;
             if (area != null)
                 area.PreviewKeyDown += TextAreaPreviewKeyDown;
         }
 
-        void CancelDragDrop()
+        private void CancelDragDrop()
         {
             if (_dragDropBookmark == null) return;
             _dragDropBookmark = null;
             _dragStarted = false;
             if (TextView != null)
             {
-                var area = TextView.Services.GetService(typeof(TextArea)) as TextArea;
+                var area = TextView.Services.GetService(typeof (TextArea)) as TextArea;
                 if (area != null)
                     area.PreviewKeyDown -= TextAreaPreviewKeyDown;
             }
@@ -200,7 +206,7 @@ namespace miRobotEditor.Interfaces
             InvalidateVisual();
         }
 
-        void TextAreaPreviewKeyDown(object sender, KeyEventArgs e)
+        private void TextAreaPreviewKeyDown(object sender, KeyEventArgs e)
         {
             // any key press cancels drag'n'drop
             CancelDragDrop();
@@ -208,12 +214,12 @@ namespace miRobotEditor.Interfaces
                 e.Handled = true;
         }
 
-        int GetLineFromMousePosition(MouseEventArgs e)
+        private int GetLineFromMousePosition(MouseEventArgs e)
         {
-            var textView = TextView;
+            TextView textView = TextView;
             if (textView == null)
                 return 0;
-            var vl = textView.GetVisualLineFromVisualTop(e.GetPosition(textView).Y + textView.ScrollOffset.Y);
+            VisualLine vl = textView.GetVisualLineFromVisualTop(e.GetPosition(textView).Y + textView.ScrollOffset.Y);
             return vl == null ? 0 : vl.FirstDocumentLine.LineNumber;
         }
 
@@ -230,7 +236,7 @@ namespace miRobotEditor.Interfaces
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
-            var line = GetLineFromMousePosition(e);
+            int line = GetLineFromMousePosition(e);
             if (!e.Handled && _dragDropBookmark != null)
             {
                 if (_dragStarted)
@@ -242,7 +248,7 @@ namespace miRobotEditor.Interfaces
                 CancelDragDrop();
             }
             if (e.Handled || line == 0) return;
-            var bm = GetBookmarkFromLine(line);
+            IBookmark bm = GetBookmarkFromLine(line);
             if (bm != null)
             {
                 bm.MouseUp(e);
@@ -273,4 +279,3 @@ namespace miRobotEditor.Interfaces
         }
     }
 }
-

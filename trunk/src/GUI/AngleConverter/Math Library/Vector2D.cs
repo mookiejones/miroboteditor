@@ -5,16 +5,8 @@ namespace miRobotEditor.GUI.AngleConverter
         public Vector2D() : base(2)
         {
         }
+
 // ReSharper disable RedundantOverridenMember
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-// ReSharper restore RedundantOverridenMember
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
 
         private Vector2D(Matrix mat) : base(2)
         {
@@ -26,7 +18,7 @@ namespace miRobotEditor.GUI.AngleConverter
             {
                 mat = mat.Transpose();
             }
-            for (var i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 base[i] = mat[i, 0];
             }
@@ -38,8 +30,19 @@ namespace miRobotEditor.GUI.AngleConverter
             base[1] = vec[1];
         }
 
-        public Vector2D(double x, double y) : base(2, new[] { x, y })
+        public Vector2D(double x, double y) : base(2, new[] {x, y})
         {
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+// ReSharper restore RedundantOverridenMember
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
 // ReSharper disable FunctionRecursiveOnAllPaths
@@ -48,32 +51,37 @@ namespace miRobotEditor.GUI.AngleConverter
         {
             return new Vector2D(v1 + v2);
         }
+
         public static Vector2D Add(Vector2D v1, Vector2D v2)
         {
             return new Vector2D(v1 + v2);
         }
+
         public static bool operator ==(Vector2D v1, Vector2D v2)
         {
             return (v1 == v2);
         }
+
         public static bool Equals(Vector2D v1, Vector2D v2)
         {
             return (v1 == v2);
         }
+
         public static bool operator !=(Vector2D v1, Vector2D v2)
         {
             return !(v1 == v2);
         }
+
 // ReSharper disable FunctionRecursiveOnAllPaths
         public static Vector2D operator /(Vector2D vec, double scalar)
 // ReSharper restore FunctionRecursiveOnAllPaths
         {
-            return new Vector2D((Matrix) (vec / scalar));
+            return new Vector2D((Matrix) (vec/scalar));
         }
+
         public static Vector2D Divide(Vector2D vec, double scalar)
         {
-            return new Vector2D((Matrix)(vec / scalar));
+            return new Vector2D((Matrix) (vec/scalar));
         }
     }
 }
-

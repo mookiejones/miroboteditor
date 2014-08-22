@@ -1,5 +1,6 @@
 ﻿// Background Renderer used to Color the Current line
 
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
@@ -8,12 +9,11 @@ using ICSharpCode.AvalonEdit.Rendering;
 namespace miRobotEditor.GUI.Editor
 {
     /// <summary>
-    /// Used for Highlighting Background
+    ///     Used for Highlighting Background
     /// </summary>
-    [System.Diagnostics.DebuggerStepThrough]
+    [DebuggerStepThrough]
     public sealed class BackgroundRenderer : IBackgroundRenderer
     {
-
         private readonly DocumentLine _line;
 
         public BackgroundRenderer(DocumentLine line)
@@ -26,10 +26,11 @@ namespace miRobotEditor.GUI.Editor
             textView.EnsureVisualLines();
 
             if (_line.IsDeleted) return;
-            var segment = new TextSegment { StartOffset = _line.Offset, EndOffset = _line.EndOffset };
-            foreach (var r in BackgroundGeometryBuilder.GetRectsForSegment(textView, segment))
+            var segment = new TextSegment {StartOffset = _line.Offset, EndOffset = _line.EndOffset};
+            foreach (Rect r in BackgroundGeometryBuilder.GetRectsForSegment(textView, segment))
             {
-                drawingContext.DrawRoundedRectangle(new SolidColorBrush( EditorOptions.Instance.HighlightedLineColor), new Pen(Brushes.Red, 0),new Rect(r.Location, new Size(textView.ActualWidth, r.Height)), 3, 3);
+                drawingContext.DrawRoundedRectangle(new SolidColorBrush(EditorOptions.Instance.HighlightedLineColor),
+                    new Pen(Brushes.Red, 0), new Rect(r.Location, new Size(textView.ActualWidth, r.Height)), 3, 3);
             }
         }
 

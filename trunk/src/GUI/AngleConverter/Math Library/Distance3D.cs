@@ -1,20 +1,18 @@
+using System;
+
 namespace miRobotEditor.GUI.AngleConverter
 {
-    using System;
-
     public static class Distance3D
     {
-        enum TYP3D { Point3D, Line3D, Plane3D, Circle3D, Sphere3D,None }
-
 // ReSharper disable InconsistentNaming
         private static TYP3D getType(IGeometricElement3D geo)
 // ReSharper restore InconsistentNaming
         {
             if (geo is Point3D)
                 return TYP3D.Point3D;
-            if(geo is Line3D)
+            if (geo is Line3D)
                 return TYP3D.Line3D;
-            if(geo is Plane3D)
+            if (geo is Plane3D)
                 return TYP3D.Plane3D;
             if (geo is Circle3D)
                 return TYP3D.Circle3D;
@@ -24,6 +22,7 @@ namespace miRobotEditor.GUI.AngleConverter
 
             return TYP3D.None;
         }
+
         public static double Between(IGeometricElement3D e1, IGeometricElement3D e2)
         {
             if (e1 is Point3D)
@@ -42,7 +41,6 @@ namespace miRobotEditor.GUI.AngleConverter
                     case TYP3D.Sphere3D:
                         return PointToSphere(e2 as Sphere3D, point3D);
                 }
-
             }
             else if (e1 is Line3D)
             {
@@ -59,7 +57,6 @@ namespace miRobotEditor.GUI.AngleConverter
                     case TYP3D.Circle3D:
                         return LineToCircle(e2 as Circle3D, line3D);
                 }
-
             }
             else if (e1 is Plane3D)
             {
@@ -74,7 +71,6 @@ namespace miRobotEditor.GUI.AngleConverter
                     case TYP3D.Sphere3D:
                         throw new NotImplementedException();
                 }
-
             }
             else if (e1 is Circle3D)
             {
@@ -104,7 +100,6 @@ namespace miRobotEditor.GUI.AngleConverter
                         throw new NotImplementedException();
                 }
                 throw new NotImplementedException();
-                
             }
             return -1;
         }
@@ -123,45 +118,46 @@ namespace miRobotEditor.GUI.AngleConverter
             return LineToLine(line1, line2, out pointd, out pointd2);
         }
 
-        private static double LineToLine(Line3D line1, Line3D line2, out Point3D closestPoint1, out Point3D closestPoint2)
+        private static double LineToLine(Line3D line1, Line3D line2, out Point3D closestPoint1,
+            out Point3D closestPoint2)
         {
             double num7;
             double num8;
             double num9;
-            var origin = line1.Origin;
-            var pointd2 = line2.Origin;
-            var direction = line1.Direction;
-            var vectord2 = line2.Direction;
-            var vectord3 = origin - pointd2;
-            var num = Vector.Dot(-direction, vectord2);
-            var num2 = Vector.Dot(vectord3, direction);
-            var num3 = vectord3.Length() * vectord3.Length();
-            var num4 = Math.Abs(1.0 - (num * num));
+            Point3D origin = line1.Origin;
+            Point3D pointd2 = line2.Origin;
+            Vector3D direction = line1.Direction;
+            Vector3D vectord2 = line2.Direction;
+            Vector3D vectord3 = origin - pointd2;
+            double num = Vector.Dot(-direction, vectord2);
+            double num2 = Vector.Dot(vectord3, direction);
+            double num3 = vectord3.Length()*vectord3.Length();
+            double num4 = Math.Abs(1.0 - (num*num));
             if (num4 > 1E-05)
             {
-                var num5 = Vector.Dot(-vectord3, vectord2);
-                var num6 = 1.0 / num4;
-                num7 = ((num * num5) - num2) * num6;
-                num8 = ((num * num2) - num5) * num6;
-                num9 = ((num7 * ((num7 + (num * num8)) + (2.0 * num2))) + (num8 * (((num * num7) + num8) + (2.0 * num5)))) + num3;
+                double num5 = Vector.Dot(-vectord3, vectord2);
+                double num6 = 1.0/num4;
+                num7 = ((num*num5) - num2)*num6;
+                num8 = ((num*num2) - num5)*num6;
+                num9 = ((num7*((num7 + (num*num8)) + (2.0*num2))) + (num8*(((num*num7) + num8) + (2.0*num5)))) + num3;
             }
             else
             {
                 num7 = -num2;
                 num8 = 0.0;
-                num9 = (num2 * num7) + num3;
+                num9 = (num2*num7) + num3;
             }
-            closestPoint1 = origin + new Vector3D(num7 * direction);
-            closestPoint2 = pointd2 + new Vector3D(num8 * vectord2);
+            closestPoint1 = origin + new Vector3D(num7*direction);
+            closestPoint2 = pointd2 + new Vector3D(num8*vectord2);
             return Math.Sqrt(num9);
         }
 
         public static double PointToCircle(Circle3D circle, Point3D point)
         {
             var plane = new Plane3D(circle.Origin, circle.Normal);
-            var pointd = Project3D.PointOntoPlane(plane, point);
+            Point3D pointd = Project3D.PointOntoPlane(plane, point);
             Between(point, pointd);
-            var vectord = circle.Origin - pointd;
+            Vector3D vectord = circle.Origin - pointd;
             vectord.Normalise();
             //Point3D pointd2 = circle.Origin + ((Point3D) (vectord * circle.Radius));
             var pointd2 = new Point3D();
@@ -187,6 +183,15 @@ namespace miRobotEditor.GUI.AngleConverter
         {
             return (((point - sphere.Origin)).Length() - sphere.Radius);
         }
+
+        private enum TYP3D
+        {
+            Point3D,
+            Line3D,
+            Plane3D,
+            Circle3D,
+            Sphere3D,
+            None
+        }
     }
 }
-
