@@ -1,32 +1,24 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace miRobotEditor.Parsers
 {
     // This file was Auto Generated with TokenIcer
-    using System.Collections.Generic;
-    using System.Text.RegularExpressions;
-
+    
     /// <summary>
-    /// TokenParser
+    ///     TokenParser
     /// </summary>
     /// <remarks>
-    /// TokenParser is the main parser engine for converting input into lexical tokens.
+    ///     TokenParser is the main parser engine for converting input into lexical tokens.
     /// </remarks>
     [Localizable(false)]
     public class E6Parser : AbstractParser
     {
         // This dictionary will store our RegEx rules
-        private readonly Dictionary<Tokens, string> _tokens;
         // This dictionary will store our matches
-        private readonly Dictionary<Tokens, MatchCollection> _regExMatchCollection;
-        // This input string will store the string to parse
-        private string _inputString;
-        // This index is used internally so the parser knows where it left off
-        private int _index;
-
-        // This is our token enumeration. It holds every token defined in the grammar
         /// <summary>
-        /// Tokens is an enumeration of all possible token values.
+        ///     Tokens is an enumeration of all possible token values.
         /// </summary>
         public enum Tokens
         {
@@ -55,31 +47,23 @@ namespace miRobotEditor.Parsers
             COMMA = 20,
             MINUS = 21
 // ReSharper restore InconsistentNaming
-
         }
 
-        // A public setter for our input string
-        /// <summary>
-        /// InputString Property
-        /// </summary>
-        /// <value>
-        /// The string value that holds the input string.
-        /// </value>
-        public string InputString
-        {
-            set
-            {
-                _inputString = value;
-                PrepareRegex();
-            }
-        }
+        private readonly Dictionary<Tokens, MatchCollection> _regExMatchCollection;
+        private readonly Dictionary<Tokens, string> _tokens;
+        // This input string will store the string to parse
+        // This index is used internally so the parser knows where it left off
+        private int _index;
+        private string _inputString;
+
+        // This is our token enumeration. It holds every token defined in the grammar
 
         // Our Constructor, which simply initializes values
         /// <summary>
-        /// Default Constructor
+        ///     Default Constructor
         /// </summary>
         /// <remarks>
-        /// The constructor initalizes memory and adds all of the tokens to the token dictionary.
+        ///     The constructor initalizes memory and adds all of the tokens to the token dictionary.
         /// </remarks>
         public E6Parser()
         {
@@ -112,9 +96,24 @@ namespace miRobotEditor.Parsers
             _tokens.Add(Tokens.MINUS, "\\-");
         }
 
+        /// <summary>
+        ///     InputString Property
+        /// </summary>
+        /// <value>
+        ///     The string value that holds the input string.
+        /// </value>
+        public string InputString
+        {
+            set
+            {
+                _inputString = value;
+                PrepareRegex();
+            }
+        }
+
         // This function preloads the matches based on our rules and the input string
         /// <summary>
-        /// PrepareRegex prepares the regex for parsing by pre-matching the Regex tokens.
+        ///     PrepareRegex prepares the regex for parsing by pre-matching the Regex tokens.
         /// </summary>
         private void PrepareRegex()
         {
@@ -128,9 +127,9 @@ namespace miRobotEditor.Parsers
         // ResetParser() will reset the parser.
         // Keep in mind that you must set the input string again
         /// <summary>
-        /// ResetParser resets the parser to its inital state. Reloading InputString is required.
+        ///     ResetParser resets the parser to its inital state. Reloading InputString is required.
         /// </summary>
-        /// <seealso cref="InputString"/>
+        /// <seealso cref="InputString" />
         public void ResetParser()
         {
             _index = 0;
@@ -140,15 +139,15 @@ namespace miRobotEditor.Parsers
 
         // GetToken() retrieves the next token and returns a token object
         /// <summary>
-        /// GetToken gets the next token in queue
+        ///     GetToken gets the next token in queue
         /// </summary>
         /// <remarks>
-        /// GetToken attempts to the match the next character(s) using the
-        /// Regex rules defined in the dictionary. If a match can not be
-        /// located, then an Undefined token will be created with an empty
-        /// string value. In addition, the token pointer will be incremented
-        /// by one so that this token doesn't attempt to get identified again by
-        /// GetToken()
+        ///     GetToken attempts to the match the next character(s) using the
+        ///     Regex rules defined in the dictionary. If a match can not be
+        ///     located, then an Undefined token will be created with an empty
+        ///     string value. In addition, the token pointer will be incremented
+        ///     by one so that this token doesn't attempt to get identified again by
+        ///     GetToken()
         /// </remarks>
         public Token GetToken()
         {
@@ -188,9 +187,9 @@ namespace miRobotEditor.Parsers
         // Peek() will retrieve a PeekToken object and will allow you to see the next token
         // that GetToken() will retrieve.
         /// <summary>
-        /// Returns the next token that GetToken() will return.
+        ///     Returns the next token that GetToken() will return.
         /// </summary>
-        /// <seealso cref="Peek(AbstractParser.PeekToken)"/>
+        /// <seealso cref="Peek(AbstractParser.PeekToken)" />
         public PeekToken Peek()
         {
             return Peek(new PeekToken(_index, new Token(Tokens.UNDEFINED, string.Empty)));
@@ -199,13 +198,13 @@ namespace miRobotEditor.Parsers
         // This is an overload for Peek(). By passing in the last PeekToken object
         // received from Peek(), you can peek ahead to the next token, and the token after that, etc...
         /// <summary>
-        /// Returns the next token after the Token passed here
+        ///     Returns the next token after the Token passed here
         /// </summary>
         /// <param name="peekToken">The PeekToken token returned from a previous Peek() call</param>
-        /// <seealso cref="Peek()"/>
+        /// <seealso cref="Peek()" />
         public PeekToken Peek(PeekToken peekToken)
         {
-            var oldIndex = _index;
+            int oldIndex = _index;
 
             _index = peekToken.TokenIndex;
 
@@ -218,10 +217,10 @@ namespace miRobotEditor.Parsers
             foreach (var pair in _tokens)
             {
                 var r = new Regex(pair.Value);
-                var m = r.Match(_inputString, _index);
+                Match m = r.Match(_inputString, _index);
 
                 if (!m.Success || m.Index != _index) continue;
-                
+
                 _index += m.Length;
                 var pt = new PeekToken(_index, new Token(pair.Key, m.Value));
                 _index = oldIndex;
@@ -231,11 +230,5 @@ namespace miRobotEditor.Parsers
             _index = oldIndex;
             return pt2;
         }
-
-
-      
     }
 }
-
-
-

@@ -6,20 +6,22 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+
 using System;
+using System.IO;
+using System.Windows;
 using System.Windows.Input;
+using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Classes;
 using miRobotEditor.Commands;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Languages;
-using miRobotEditor.GUI;
-using System.IO;
-using System.Windows;
 
 namespace miRobotEditor.ViewModel
 {
-    public class DocumentViewModel : FileViewModel,IDocument
+    public class DocumentViewModel : FileViewModel, IDocument
     {
+        private RelayCommand _closeCommand;
 
         public DocumentViewModel(string filepath) : base(filepath)
         {
@@ -27,88 +29,16 @@ namespace miRobotEditor.ViewModel
             ContentId = filepath;
         }
 
-        public DocumentViewModel(string filepath, AbstractLanguageClass lang):base(filepath)
+        public DocumentViewModel(string filepath, AbstractLanguageClass lang) : base(filepath)
         {
             FileLanguage = lang;
             InitializeViewModel(filepath);
         }
 
-        void InitializeViewModel(string filepath)
-        {
-            Load(filepath);
-            TextBox.FileLanguage = FileLanguage;
-           
-            TextBox.GotFocus += (s, e) => { TextBox = s as Editor; };
-            TextBox.TextChanged += (s, e) => TextChanged(s);
-            TextBox.IsModified = false;
-
-
-
-            if (filepath != null)
-                FileLanguage.GetRootDirectory(Path.GetDirectoryName(filepath));
-            Instance = this;
-            TextBox.TextChanged += (s, e) => TextChanged(s);
-            TextBox.IsModified = false;
-        }
-
-        private RelayCommand _closeCommand;
         public ICommand CloseCommand
         {
             get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
         }
-       
-        public void CloseWindow()
-        {
-
-            if (IsDirty)
-            {
-                var res = MessageBox.Show(string.Format("Save changes for file '{0}'?", FileName), "miRobotEditor", MessageBoxButton.YesNoCancel);
-                if (res == MessageBoxResult.Cancel)
-                    return;
-                if (res == MessageBoxResult.Yes)
-                {
-                    Save(TextBox);
-                }
-            }
-
-            Workspace.Instance.Close(this);
-        }
-
-        internal void Save(Editor txtBox)
-        {
-
-            if (txtBox.Filename == null)
-            {
-                txtBox.SaveAs();
-            }
-            IsDirty = false;
-        }
-
-        #region Properties
-
-        private Visibility _visibility = Visibility.Visible;
-        public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged(); } }
-
-        public static DocumentViewModel Instance { get; set; }
-        private AbstractLanguageClass _filelanguage = new LanguageBase();
-        public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged(); } }
-        private Editor _textBox = new Editor();
-        public Editor TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged(); } }
-        #endregion
-
-
-      
-        protected void TextChanged(object sender)
-        {
-
-            TextBox = sender as Editor;
-            if (TextBox != null) FileLanguage.RawText = TextBox.Text ;
-
-
-            RaisePropertyChanged("Title");
-        }
-
-
 
         public void Load(string filepath)
         {
@@ -119,21 +49,21 @@ namespace miRobotEditor.ViewModel
 
 
             //TODO Set Icon For File
-            TextBox.Filename = filepath;           
+            TextBox.Filename = filepath;
             TextBox.SetHighlighting();
             if (File.Exists(filepath))
-            TextBox.Text = File.ReadAllText(filepath);
-            
+                TextBox.Text = File.ReadAllText(filepath);
+
 
             // Select Original File            
             RaisePropertyChanged("Title");
         }
 
         /// <summary>
-        /// Select Text from variable offset
+        ///     Select Text from variable offset
         /// </summary>
         /// <remarks>
-        /// Selects appropriate editor that text resides in.
+        ///     Selects appropriate editor that text resides in.
         /// </remarks>
         public void SelectText(IVariable var)
         {
@@ -142,10 +72,101 @@ namespace miRobotEditor.ViewModel
             //TODO Need to find out if this will work from Global Variables. Only Tested so far for Local Variable Window
 
             // Is Offset of textbox greater than desired value?
-            var enoughlines = TextBox.Text.Length >= var.Offset;
+            bool enoughlines = TextBox.Text.Length >= var.Offset;
             if (enoughlines)
                 TextBox.SelectText(var);
         }
 
+        private void InitializeViewModel(string filepath)
+        {
+            Load(filepath);
+            TextBox.FileLanguage = FileLanguage;
+
+            TextBox.GotFocus += (s, e) => { TextBox = s as Editor; };
+            TextBox.TextChanged += (s, e) => TextChanged(s);
+            TextBox.IsModified = false;
+
+
+            if (filepath != null)
+                FileLanguage.GetRootDirectory(Path.GetDirectoryName(filepath));
+            Instance = this;
+            TextBox.TextChanged += (s, e) => TextChanged(s);
+            TextBox.IsModified = false;
+        }
+
+        public void CloseWindow()
+        {
+            if (IsDirty)
+            {
+                MessageBoxResult res = MessageBox.Show(string.Format("Save changes for file '{0}'?", FileName),
+                    "miRobotEditor", MessageBoxButton.YesNoCancel);
+                if (res == MessageBoxResult.Cancel)
+                    return;
+                if (res == MessageBoxResult.Yes)
+                {
+                    Save(TextBox);
+                }
+            }
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            main.Close(this);
+        }
+
+        internal void Save(Editor txtBox)
+        {
+            if (txtBox.Filename == null)
+            {
+                txtBox.SaveAs();
+            }
+            IsDirty = false;
+        }
+
+        protected void TextChanged(object sender)
+        {
+            TextBox = sender as Editor;
+            if (TextBox != null) FileLanguage.RawText = TextBox.Text;
+
+
+            RaisePropertyChanged("Title");
+        }
+
+        #region Properties
+
+        private AbstractLanguageClass _filelanguage = new LanguageBase();
+        private Editor _textBox = new Editor();
+        private Visibility _visibility = Visibility.Visible;
+
+        public static DocumentViewModel Instance { get; set; }
+
+        public Visibility Visibility
+        {
+            get { return _visibility; }
+            set
+            {
+                _visibility = value;
+                RaisePropertyChanged("Visibility");
+            }
+        }
+
+        public AbstractLanguageClass FileLanguage
+        {
+            get { return _filelanguage; }
+            set
+            {
+                _filelanguage = value;
+                RaisePropertyChanged("FileLanguage");
+            }
+        }
+
+        public Editor TextBox
+        {
+            get { return _textBox; }
+            set
+            {
+                _textBox = value;
+                RaisePropertyChanged("TextBox");
+            }
+        }
+
+        #endregion
     }
 }

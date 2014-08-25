@@ -7,8 +7,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
+using GalaSoft.MvvmLight;
 using Ionic.Zip;
-using miRobotEditor.Core;
+using miRobotEditor.Classes;
 
 namespace miRobotEditor.ViewModel
 {
@@ -34,18 +35,6 @@ namespace miRobotEditor.ViewModel
         private readonly ReadOnlyCollection<Item> _readonlyinputs = null;
         private readonly ObservableCollection<DirectoryInfo> _root = new ObservableCollection<DirectoryInfo>();
         private readonly List<Item> _timer = new List<Item>();
-        private string _archivePath = " ";
-        private string _buffersize = string.Empty;
-        private Visibility _counterVisibility = Visibility.Collapsed;
-        private Visibility _cyclicFlagVisibility = Visibility.Collapsed;
-        private string _database = string.Empty;
-        private string _databaseText = String.Empty;
-        private string _filecount = string.Empty;
-        private Visibility _flagVisibility = Visibility.Collapsed;
-        private InfoFile _info = new InfoFile();
-        private string _languageText = String.Empty;
-        private DirectoryInfo _rootpath;
-        private Visibility _timerVisibility = Visibility.Collapsed;
 
         public Visibility DigInVisibility
         {
@@ -88,91 +77,318 @@ namespace miRobotEditor.ViewModel
             }
         }
 
+
+        
+        #region FlagVisibility
+        /// <summary>
+        /// The <see cref="FlagVisibility" /> property's name.
+        /// </summary>
+        public const string FlagVisibilityPropertyName = "FlagVisibility";
+
+        private Visibility _flagVisibility = Visibility.Collapsed;
+
+        /// <summary>
+        /// Sets and gets the FlagVisibility property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public Visibility FlagVisibility
         {
-            get { return _flagVisibility; }
+            get
+            {
+                return _flagVisibility;
+            }
+
             set
             {
+                if (_flagVisibility == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(FlagVisibilityPropertyName);
                 _flagVisibility = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(FlagVisibilityPropertyName);
             }
         }
+        #endregion
 
+        
+        #region TimerVisibility
+        /// <summary>
+        /// The <see cref="TimerVisibility" /> property's name.
+        /// </summary>
+        public const string TimerVisibilityPropertyName = "TimerVisibility";
+
+        private Visibility _timerVisibility = Visibility.Collapsed;
+
+        /// <summary>
+        /// Sets and gets the TimerVisibility property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public Visibility TimerVisibility
         {
-            get { return _timerVisibility; }
+            get
+            {
+                return _timerVisibility;
+            }
+
             set
             {
+                if (_timerVisibility == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TimerVisibilityPropertyName);
                 _timerVisibility = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(TimerVisibilityPropertyName);
             }
         }
+        #endregion
+        
+        #region CyclicFlagVisibility
+        /// <summary>
+        /// The <see cref="CyclicFlagVisibility" /> property's name.
+        /// </summary>
+        public const string CyclicFlagVisibilityPropertyName = "CyclicFlagVisibility";
 
+        private Visibility _cyclicFlagVisibility = Visibility.Collapsed;
+
+        /// <summary>
+        /// Sets and gets the CyclicFlagVisibility property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public Visibility CyclicFlagVisibility
         {
-            get { return _cyclicFlagVisibility; }
+            get
+            {
+                return _cyclicFlagVisibility;
+            }
+
             set
             {
+                if (_cyclicFlagVisibility == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(CyclicFlagVisibilityPropertyName);
                 _cyclicFlagVisibility = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(CyclicFlagVisibilityPropertyName);
             }
         }
+        #endregion
 
+        
+        #region CounterVisibility
+        /// <summary>
+        /// The <see cref="CounterVisibility" /> property's name.
+        /// </summary>
+        public const string CounterVisibilityPropertyName = "CounterVisibility";
+
+        private Visibility _counterVisibility = Visibility.Collapsed;
+
+        /// <summary>
+        /// Sets and gets the CounterVisibility property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public Visibility CounterVisibility
         {
-            get { return _counterVisibility; }
+            get
+            {
+                return _counterVisibility;
+            }
+
             set
             {
+                if (_counterVisibility == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(CounterVisibilityPropertyName);
                 _counterVisibility = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(CounterVisibilityPropertyName);
             }
         }
+        #endregion
 
+        
+        #region Info
+        /// <summary>
+        /// The <see cref="Info" /> property's name.
+        /// </summary>
+        public const string InfoPropertyName = "Info";
+
+        private InfoFile _info = new InfoFile();
+
+        /// <summary>
+        /// Sets and gets the Info property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public InfoFile Info
         {
-            get { return _info; }
+            get
+            {
+                return _info;
+            }
+
             set
             {
+                if (_info == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(InfoPropertyName);
                 _info = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(InfoPropertyName);
             }
         }
+        #endregion
 
+        
+        #region ArchivePath
+        /// <summary>
+        /// The <see cref="ArchivePath" /> property's name.
+        /// </summary>
+        public const string ArchivePathPropertyName = "ArchivePath";
+
+        private string _archivePath = @" ";
+
+        /// <summary>
+        /// Sets and gets the ArchivePath property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public string ArchivePath
+        {
+            get
+            {
+                return _archivePath;
+            }
+
+            set
+            {
+                if (_archivePath == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(ArchivePathPropertyName);
+                _archivePath = value;
+                RaisePropertyChanged(ArchivePathPropertyName);
+            }
+        }
+        #endregion
 
         public string DirectoryPath { get; set; }
 
-        public string ArchivePath
-        {
-            get { return _archivePath; }
-            set
-            {
-                _archivePath = value;
-                RaisePropertyChanged();
-            }
-        }
+        
+        #region FileCount
+        /// <summary>
+        /// The <see cref="FileCount" /> property's name.
+        /// </summary>
+        public const string FileCountPropertyName = "FileCount";
 
+        private string _fileCount = String.Empty;
 
+        /// <summary>
+        /// Sets and gets the FileCount property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string FileCount
         {
-            get { return _filecount; }
+            get
+            {
+                return _fileCount;
+            }
+
             set
             {
-                _filecount = value;
-                RaisePropertyChanged();
+                if (_fileCount == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(FileCountPropertyName);
+                _fileCount = value;
+                RaisePropertyChanged(FileCountPropertyName);
             }
         }
+        #endregion
+
+
 
         public ZipFile ArchiveZip { get; set; }
 
+
+        
+        #region BufferSize
+        /// <summary>
+        /// The <see cref="BufferSize" /> property's name.
+        /// </summary>
+        public const string BufferSizePropertyName = "BufferSize";
+
+        private string _bufferSize = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the BufferSize property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string BufferSize
         {
-            get { return _buffersize; }
+            get
+            {
+                return _bufferSize;
+            }
+
             set
             {
-                _buffersize = value;
-                RaisePropertyChanged();
+                if (_bufferSize == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(BufferSizePropertyName);
+                _bufferSize = value;
+                RaisePropertyChanged(BufferSizePropertyName);
             }
         }
+        #endregion
+
+        
+        #region DataBase
+        /// <summary>
+        /// The <see cref="DataBase" /> property's name.
+        /// </summary>
+        public const string DataBasePropertyName = "DataBase";
+
+        private string _database = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the DataBase property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public string DataBase
+        {
+            get
+            {
+                return _database;
+            }
+
+            set
+            {
+                if (_database == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(DataBasePropertyName);
+                _database = value;
+                RaisePropertyChanged(DataBasePropertyName);
+            }
+        }
+        #endregion
 
         public string DataBaseFile { get; set; }
         // ReSharper disable ConvertToConstant.Local
@@ -180,15 +396,6 @@ namespace miRobotEditor.ViewModel
         // ReSharper restore FieldCanBeMadeReadOnly.Local
         // ReSharper restore ConvertToConstant.Local
 
-        public string DataBase
-        {
-            get { return _database; }
-            set
-            {
-                _database = value;
-                RaisePropertyChanged();
-            }
-        }
 
         public string InfoFile { get; set; }
 
@@ -198,35 +405,112 @@ namespace miRobotEditor.ViewModel
             get { return _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root); }
         }
 
+
+
+        
+        #region RootPath
+        /// <summary>
+        /// The <see cref="RootPath" /> property's name.
+        /// </summary>
+        public const string RootPathPropertyName = "RootPath";
+
+        private DirectoryInfo _rootPath = null;
+
+        /// <summary>
+        /// Sets and gets the RootPath property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public DirectoryInfo RootPath
         {
-            get { return _rootpath; }
+            get
+            {
+                return _rootPath;
+            }
+
             set
             {
-                _rootpath = value;
-                RaisePropertyChanged();
+                if (_rootPath == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(RootPathPropertyName);
+                _rootPath = value;
+                RaisePropertyChanged(RootPathPropertyName);
             }
         }
+        #endregion
 
+
+        
+        #region LanguageText
+        /// <summary>
+        /// The <see cref="LanguageText" /> property's name.
+        /// </summary>
+        public const string LanguageTextPropertyName = "LanguageText";
+
+        private string _languageText = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the LanguageText property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string LanguageText
         {
-            get { return _languageText; }
+            get
+            {
+                return _languageText;
+            }
+
             set
             {
+                if (_languageText == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(LanguageTextPropertyName);
                 _languageText = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(LanguageTextPropertyName);
             }
         }
+        #endregion
 
+        
+        #region DatabaseText
+        /// <summary>
+        /// The <see cref="DatabaseText" /> property's name.
+        /// </summary>
+        public const string DatabaseTextPropertyName = "DatabaseText";
+
+        private string _databaseText = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the DatabaseText property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string DatabaseText
         {
-            get { return _databaseText; }
+            get
+            {
+                return _databaseText;
+            }
+
             set
             {
+                if (_databaseText == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(DatabaseTextPropertyName);
                 _databaseText = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(DatabaseTextPropertyName);
             }
         }
+        #endregion
+
+       
 
 
         public ReadOnlyCollection<Item> Inputs
@@ -312,7 +596,7 @@ namespace miRobotEditor.ViewModel
 
         private OleDbConnection GetDBConnection()
         {
-            var connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + @";";
+            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + @";";
 
 
             // Test Connection

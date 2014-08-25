@@ -39,7 +39,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _progress = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Progress");
             }
         }
 
@@ -142,7 +142,7 @@ namespace miRobotEditor.Languages
         {
             foreach (IVariable v in ListItems)
                 v.IsSelected = !v.IsSelected;
-            RaisePropertyChanged("IgnoreTypes");
+            RaisePropertyChanged(@"IgnoreTypes");
         }
 
         #endregion
@@ -171,7 +171,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _ignoretypes = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("IgnoreTypes");
             }
         }
 
@@ -181,7 +181,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _exclusivetypes = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("ExclusiveTypes");
             }
         }
 
@@ -191,7 +191,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _deletedeclaration = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("DeleteDeclaration");
             }
         }
 
@@ -201,7 +201,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _commentdeclaration = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("CommentDeclaration");
             }
         }
 
@@ -213,7 +213,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _selectedVarIndex = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("SelectedVarIndex");
             }
         }
 

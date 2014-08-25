@@ -1,11 +1,19 @@
-﻿using miRobotEditor.Core;
+﻿using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.ViewModel
 {
-    public class GlobalOptionsViewModel:ViewModelBase
+    public class GlobalOptionsViewModel : ViewModelBase
     {
-    	private FileOptionsViewModel _fileOptions = new FileOptionsViewModel();
+        private FileOptionsViewModel _fileOptions = new FileOptionsViewModel();
 
-        public FileOptionsViewModel FileOptions { get { return _fileOptions; } set { _fileOptions = value; RaisePropertyChanged(); } }
+        public FileOptionsViewModel FileOptions
+        {
+            get { return _fileOptions; }
+            set
+            {
+                _fileOptions = value;
+                RaisePropertyChanged("FileOptions");
+            }
+        }
     }
 }

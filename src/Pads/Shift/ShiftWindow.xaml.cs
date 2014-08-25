@@ -3,7 +3,7 @@
 namespace miRobotEditor.Pads
 {
     /// <summary>
-    /// Interaction logic for ShiftWindow.xaml
+    ///     Interaction logic for ShiftWindow.xaml
     /// </summary>
 // ReSharper disable RedundantExtendsListEntry
     public partial class ShiftWindow : Window

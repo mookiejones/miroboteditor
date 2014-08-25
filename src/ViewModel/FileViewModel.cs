@@ -1,30 +1,31 @@
-﻿using System.Windows.Media;
-using System.IO;
+﻿using System.IO;
+using System.Windows.Media;
+using miRobotEditor.Classes;
 using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
-  public  class FileViewModel : PaneViewModel
+    public class FileViewModel : PaneViewModel
     {
 #pragma warning disable 169
-        static ImageSourceConverter _isc = new ImageSourceConverter();
+        private static ImageSourceConverter _isc = new ImageSourceConverter();
 #pragma warning restore 169
         public FileViewModel(string filePath)
         {
             FilePath = filePath;
             Title = FileName;
-    
         }
-      
+
         public FileViewModel()
         {
             IsDirty = true;
             Title = FileName;
         }
-        
-        
+
         #region FilePath
+
         private string _filePath;
+
         public string FilePath
         {
             get { return _filePath; }
@@ -32,9 +33,9 @@ namespace miRobotEditor.ViewModel
             {
                 if (_filePath == value) return;
                 _filePath = value;
-                RaisePropertyChanged();
-                RaisePropertyChanged("FileName");
-                RaisePropertyChanged("Title");
+                RaisePropertyChanged(@"FilePath");
+                RaisePropertyChanged(@"FileName");
+                RaisePropertyChanged(@"Title");
 
                 if (File.Exists(_filePath))
                 {
@@ -42,8 +43,8 @@ namespace miRobotEditor.ViewModel
                 }
             }
         }
-        #endregion
 
+        #endregion
 
         public string FileName
         {
@@ -56,11 +57,10 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-
-
         #region IsDirty
 
         private bool _isDirty;
+
         public bool IsDirty
         {
             get { return _isDirty; }
@@ -68,14 +68,11 @@ namespace miRobotEditor.ViewModel
             {
                 if (_isDirty == value) return;
                 _isDirty = value;
-                RaisePropertyChanged();
-                RaisePropertyChanged("FileName");
+                RaisePropertyChanged(@"IsDirty");
+                RaisePropertyChanged(@"FileName");
             }
         }
 
         #endregion
-
-
     }
- 
 }

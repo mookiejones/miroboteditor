@@ -18,16 +18,40 @@ namespace miRobotEditor.Forms
 
     public class DialogWindowViewModel : ViewModelBase
     {
-        private string _title;
 
+        
+        #region Title
+        /// <summary>
+        /// The <see cref="Title" /> property's name.
+        /// </summary>
+        public const string TitlePropertyName = "Title";
+
+        private string _title = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the Title property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Title
         {
-            get { return _title; }
+            get
+            {
+                return _title;
+            }
+
             set
             {
+                if (_title == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TitlePropertyName);
                 _title = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(TitlePropertyName);
             }
         }
+        #endregion
+       
     }
 }

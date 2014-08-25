@@ -16,15 +16,16 @@
     Width="200"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch" ShowActivated="False">
+    <mah:MetroWindow.DataContext>
+        <Binding Mode="OneWay" Path="Main" Source="{StaticResource Locator}" />
+    </mah:MetroWindow.DataContext>
     <mah:MetroWindow.Background>
         <LinearGradientBrush MappingMode="Absolute" StartPoint="0,0" EndPoint="0,180">
             <GradientStop Color="#FFDEDEDE" />
             <GradientStop Color="White" Offset="1" />
         </LinearGradientBrush>
     </mah:MetroWindow.Background>
-    <i:Interaction.Behaviors>
-        <behaviours:BorderlessWindowBehavior />
-    </i:Interaction.Behaviors>
+
     <StackPanel Orientation="Vertical">
         <StackPanel.Resources>
             <Style TargetType="{x:Type Button}">

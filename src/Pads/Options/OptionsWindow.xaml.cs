@@ -11,16 +11,16 @@ using System.Windows;
 
 namespace miRobotEditor.Options
 {
-	/// <summary>
-	/// Interaction logic for OptionsWindow.xaml
-	/// </summary>
+    /// <summary>
+    ///     Interaction logic for OptionsWindow.xaml
+    /// </summary>
 // ReSharper disable RedundantExtendsListEntry
-	public partial class OptionsWindow : Window
+    public partial class OptionsWindow : Window
 // ReSharper restore RedundantExtendsListEntry
-	{
-		public OptionsWindow()
-		{
-			InitializeComponent();
-		}
-	}
+    {
+        public OptionsWindow()
+        {
+            InitializeComponent();
+        }
+    }
 }

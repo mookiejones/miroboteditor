@@ -7,13 +7,13 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-using miRobotEditor.Interfaces;
 using System.Windows.Input;
+using miRobotEditor.Interfaces;
 
 namespace miRobotEditor
 {
     /// <summary>
-    /// Description of ClassMemberBookmark.
+    ///     Description of ClassMemberBookmark.
     /// </summary>
     public sealed class ClassMemberBookmark : IBookmark
     {
@@ -23,32 +23,18 @@ namespace miRobotEditor
             LineNumber = lineNumber;
         }
 
-        public int LineNumber
-        {
-            get;
-            private set;
-        }
+        public int LineNumber { get; private set; }
 
-        public IImage Image
-        {
-            get;
-            private set;
-        }
+        public IImage Image { get; private set; }
 
         public int ZOrder
         {
-            get
-            {
-                return -10;
-            }
+            get { return -10; }
         }
 
         public bool CanDragDrop
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
 
         public void MouseDown(MouseButtonEventArgs e)

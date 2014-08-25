@@ -18,7 +18,9 @@ namespace miRobotEditor.ViewModel
                 }
             }
 // ReSharper disable EmptyGeneralCatchClause
-            catch { }
+            catch
+            {
+            }
 // ReSharper restore EmptyGeneralCatchClause
             return null;
         }
@@ -27,6 +29,5 @@ namespace miRobotEditor.ViewModel
         {
             throw new NotImplementedException();
         }
-
     }
 }

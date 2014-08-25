@@ -3,7 +3,7 @@ using ICSharpCode.AvalonEdit.Snippets;
 
 namespace miRobotEditor.Snippets
 {
-    public class SnippetCollection:List<Snippet>
+    public class SnippetCollection : List<Snippet>
     {
     }
 }

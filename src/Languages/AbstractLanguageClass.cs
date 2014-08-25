@@ -715,7 +715,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _ioModel = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("IOModel");
             }
         }
 

@@ -1,19 +1,20 @@
 ﻿using System;
-using System.IO;
 using System.ComponentModel;
+using System.IO;
+using System.Text;
 using System.Windows.Media;
 
 namespace miRobotEditor
 {
     /// <summary>
-    /// Class for Writing To LogFile
+    ///     Class for Writing To LogFile
     /// </summary>
     public sealed class LogWriter
     {
         //TODO Use this or get rid of it
         //
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         [Localizable(false)]
         public LogWriter()
@@ -22,8 +23,9 @@ namespace miRobotEditor
             File.Delete(String.Format("{0}{1}", App.StartupPath, @"\KRC Editor.log"));
             WriteLog(String.Format("{0} {1} Created", App.ProductName, App.Version));
         }
+
         /// <summary>
-        /// Write to Log
+        ///     Write to Log
         /// </summary>
         /// <param name="message">Message</param>
         /// <param name="ex">Exception</param>
@@ -32,29 +34,26 @@ namespace miRobotEditor
             WriteLog(message, Colors.Red);
             WriteLog(ex.Message, Colors.Red);
         }
+
         /// <summary>
-        /// Write to Log
+        ///     Write to Log
         /// </summary>
         /// <param name="message">Message</param>
         /// <param name="color">Color Text</param>
         [Localizable(false)]
         public static void WriteLog(string message, Color color)
         {
-            var fn = string.Format("{0}{1}", App.StartupPath, @"\KRC Editor.log");
-            File.AppendAllText(fn,message + "/r/n",System.Text.Encoding.Default);
-
+            string fn = string.Format("{0}{1}", App.StartupPath, @"\KRC Editor.log");
+            File.AppendAllText(fn, message + "/r/n", Encoding.Default);
         }
 
         /// <summary>
-        /// Write To Log
+        ///     Write To Log
         /// </summary>
         /// <param name="message">Message</param>
         public static void WriteLog(string message)
         {
             WriteLog(message, Colors.Gray);
         }
-
-
-
     }
 }

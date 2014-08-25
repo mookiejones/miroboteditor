@@ -2,5 +2,5 @@
 
 namespace miRobotEditor.ViewModel
 {
-    public delegate void ItemsChangedEventHandler(object sender,EventArgs e);
+    public delegate void ItemsChangedEventHandler(object sender, EventArgs e);
 }

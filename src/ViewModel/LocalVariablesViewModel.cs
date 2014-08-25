@@ -1,8 +1,9 @@
-﻿using miRobotEditor.Core;
+﻿using miRobotEditor.Classes;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
-    public class LocalVariablesViewModel:ToolViewModel
+    public class LocalVariablesViewModel : ToolViewModel
     {
         public const string ToolContentId = "LocalVariablesTool";
 
@@ -10,8 +11,7 @@ namespace miRobotEditor.ViewModel
         {
             ContentId = ToolContentId;
             DefaultPane = DefaultToolPane.Bottom;
-          //  IconSource = Utilities.GetIcon(Global.IconProperty);
+            //  IconSource = Utilities.GetIcon(Global.IconProperty);
         }
-
     }
 }

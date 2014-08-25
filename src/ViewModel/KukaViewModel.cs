@@ -2,20 +2,19 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Classes;
 using miRobotEditor.Commands;
-using miRobotEditor.GUI;
+using miRobotEditor.Controls;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Languages;
 
 namespace miRobotEditor.ViewModel
 {
-    public class KukaViewModel : DocumentViewModel,IDocument
+    public class KukaViewModel : DocumentViewModel, IDocument
     {
-
-        public KukaViewModel(string filepath,AbstractLanguageClass lang): base(filepath,lang)
+        public KukaViewModel(string filepath, AbstractLanguageClass lang) : base(filepath, lang)
         {
-
             Grid.Loaded += Grid_Loaded;
 
             ShowGrid = false;
@@ -28,86 +27,8 @@ namespace miRobotEditor.ViewModel
             Data.TextChanged += (s, e) => TextChanged(s);
             Source.IsModified = false;
             Data.IsModified = false;
-
         }
 
-        void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-            Grid.IsAnimated = false;
-            Grid.Collapse();
-            Grid.IsCollapsed = true;
-            Grid.IsAnimated = true;
-        }
-       
-        #region Public Events
-
-        //    public event UpdateFunctionEventHandler TextUpdated;
-
-        #endregion
-
-        #region Commands
-        private RelayCommand _toggleGridCommand;
-
-        public ICommand ToggleGridCommand
-        {
-            get { return _toggleGridCommand ?? (_toggleGridCommand = new RelayCommand(p => ToggleGrid(), p => Grid != null)); }
-        }
-        private RelayCommand _closeCommand;
-        public new ICommand CloseCommand
-        {
-            get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
-        }
-
-        #endregion
-
-
-
-        #region Properties
-
-
-
-        private Controls.ExtendedGridSplitter _grid = new Controls.ExtendedGridSplitter();
-        public Controls.ExtendedGridSplitter Grid { get { return _grid; } set { _grid = value; RaisePropertyChanged(); } }
-
-        private Editor _source = new Editor();
-        public Editor Source { get { return _source; } set { _source = value; RaisePropertyChanged(); } }
-        private Editor _data = new Editor();
-        public Editor Data { get { return _data; } set { _data = value; RaisePropertyChanged(); } }
-        private int _gridrow = 1;
-        private int _datarow = 2;
-
-        public int GridRow { get { return _gridrow; } set { _gridrow = value; RaisePropertyChanged(); } }
-        public int DataRow { get { return _datarow; } set { _datarow = value; RaisePropertyChanged(); } }
-
-        #endregion
-
-       
-        public new void CloseWindow()
-        {
-            CheckClose(Data);
-            CheckClose(Source);
-            Workspace.Instance.Close(this);
-        }
-
-        /// <summary>
-        /// Checks both boxes to determine if they should be saved or not
-        /// </summary>
-        /// <param name="txtBox"></param>
-        void CheckClose(Editor txtBox)
-        {
-            if (txtBox != null)
-                if (txtBox.IsModified)
-                {
-                    var res = MessageBox.Show(string.Format("Save changes for file '{0}'?", txtBox.Filename), "miRobotEditor", MessageBoxButton.YesNoCancel);
-                    if (res == MessageBoxResult.Cancel)
-                        return;
-                    if (res == MessageBoxResult.Yes)
-                    {
-                        Save(txtBox);
-                    }
-                }
-        }
         private bool ShowGrid
         {
             set
@@ -136,12 +57,12 @@ namespace miRobotEditor.ViewModel
         }
 
         /// <summary>
-        /// Select Text from variable offset
+        ///     Select Text from variable offset
         /// </summary>
         /// <remarks>
-        /// Selects appropriate editor that text resides in.
+        ///     Selects appropriate editor that text resides in.
         /// </remarks>
-        public new  void SelectText(IVariable var)
+        public new void SelectText(IVariable var)
         {
             if (var.Name == null) throw new ArgumentNullException("var");
 
@@ -153,7 +74,7 @@ namespace miRobotEditor.ViewModel
 
 
             // Is Offset of textbox greater than desired value?
-            var enoughlines = TextBox.Text.Length >= var.Offset;
+            bool enoughlines = TextBox.Text.Length >= var.Offset;
             if (enoughlines)
                 TextBox.SelectText(var);
             else
@@ -165,8 +86,80 @@ namespace miRobotEditor.ViewModel
             }
         }
 
+        public new void Load(string filepath)
+        {
+            FilePath = filepath;
+            Instance = this;
+            TextBox.FileLanguage = FileLanguage;
+            Source.FileLanguage = FileLanguage;
+            Grid.IsAnimated = false;
 
-        void SwitchTextBox()
+            bool loadDatFileOnly = Path.GetExtension(filepath) == ".dat";
+            //TODO Set Icon For File
+
+            IconSource = Utilities.LoadBitmap(Global.ImgSrc);
+            Source.Filename = filepath;
+            Source.SetHighlighting();
+            Source.Text = loadDatFileOnly ? FileLanguage.DataText : FileLanguage.SourceText;
+
+            if ((FileLanguage is KUKA) && (!String.IsNullOrEmpty(FileLanguage.DataText)) &&
+                (Source.Text != FileLanguage.DataText))
+            {
+                ShowGrid = true;
+                Data.FileLanguage = FileLanguage;
+// ReSharper disable AssignNullToNotNullAttribute
+                Data.Filename = Path.Combine(Path.GetDirectoryName(filepath), FileLanguage.DataName);
+// ReSharper restore AssignNullToNotNullAttribute
+                Data.Text = FileLanguage.DataText;
+                Data.SetHighlighting();
+            }
+
+
+            // Select Original File            
+            TextBox = Source.Filename == filepath ? Source : Data;
+            Grid.IsAnimated = true;
+            RaisePropertyChanged("Title");
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            Grid.IsAnimated = false;
+            Grid.Collapse();
+            Grid.IsCollapsed = true;
+            Grid.IsAnimated = true;
+        }
+
+        public new void CloseWindow()
+        {
+            CheckClose(Data);
+            CheckClose(Source);
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            main.Close(this);
+        }
+
+        /// <summary>
+        ///     Checks both boxes to determine if they should be saved or not
+        /// </summary>
+        /// <param name="txtBox"></param>
+        private void CheckClose(Editor txtBox)
+        {
+            if (txtBox != null)
+                if (txtBox.IsModified)
+                {
+                    MessageBoxResult res =
+                        MessageBox.Show(string.Format("Save changes for file '{0}'?", txtBox.Filename), "miRobotEditor",
+                            MessageBoxButton.YesNoCancel);
+                    if (res == MessageBoxResult.Cancel)
+                        return;
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        Save(txtBox);
+                    }
+                }
+        }
+
+
+        private void SwitchTextBox()
         {
             switch (TextBox.EditorType)
             {
@@ -177,53 +170,130 @@ namespace miRobotEditor.ViewModel
                     TextBox = Source;
                     break;
             }
-
         }
 
 
-        public new void Load(string filepath)
+        private void ToggleGrid()
         {
-            FilePath = filepath;
-            Instance = this;
-            TextBox.FileLanguage = FileLanguage;
-            Source.FileLanguage = FileLanguage;
-            Grid.IsAnimated = false;
-
-            var loadDatFileOnly = Path.GetExtension(filepath) == ".dat";
-            //TODO Set Icon For File
-
-            IconSource = Utilities.LoadBitmap(Global.ImgSrc);
-            Source.Filename = filepath;
-            Source.SetHighlighting();
-            Source.Text = loadDatFileOnly ? FileLanguage.DataText : FileLanguage.SourceText;
-
-            if ((FileLanguage is KUKA) && (!String.IsNullOrEmpty(FileLanguage.DataText)) && (Source.Text != FileLanguage.DataText))
-            {
-                ShowGrid = true;
-                Data.FileLanguage = FileLanguage;
-// ReSharper disable AssignNullToNotNullAttribute
-                Data.Filename = Path.Combine(Path.GetDirectoryName(filepath), FileLanguage.DataName);
-// ReSharper restore AssignNullToNotNullAttribute
-                Data.Text = FileLanguage.DataText;
-                Data.SetHighlighting();
-            }
-           
-
-            // Select Original File            
-            TextBox = Source.Filename == filepath ? Source : Data;
-            Grid.IsAnimated = true;
-            RaisePropertyChanged("Title");
-        }
-
-        void ToggleGrid()
-        {
-
             if (Grid.IsCollapsed)
 
                 Grid.Expand();
             else
                 Grid.Collapse();
-
         }
+
+        #region Public Events
+
+        //    public event UpdateFunctionEventHandler TextUpdated;
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand _closeCommand;
+        private RelayCommand _toggleGridCommand;
+
+        public ICommand ToggleGridCommand
+        {
+            get
+            {
+                return _toggleGridCommand ??
+                       (_toggleGridCommand = new RelayCommand(p => ToggleGrid(), p => Grid != null));
+            }
+        }
+
+        public new ICommand CloseCommand
+        {
+            get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
+        }
+
+        #endregion
+
+        #region Properties
+
+        private Editor _data = new Editor();
+
+        private ExtendedGridSplitter _grid = new ExtendedGridSplitter();
+        private int _gridrow = 1;
+
+        private Editor _source = new Editor();
+
+        public ExtendedGridSplitter Grid
+        {
+            get { return _grid; }
+            set
+            {
+                _grid = value;
+                RaisePropertyChanged("Grid");
+            }
+        }
+
+        public Editor Source
+        {
+            get { return _source; }
+            set
+            {
+                _source = value;
+                RaisePropertyChanged("Source");
+            }
+        }
+
+        public Editor Data
+        {
+            get { return _data; }
+            set
+            {
+                _data = value;
+                RaisePropertyChanged("Data");
+            }
+        }
+
+        public int GridRow
+        {
+            get { return _gridrow; }
+            set
+            {
+                _gridrow = value;
+                RaisePropertyChanged("GridRow");
+            }
+        }
+
+
+        
+        #region DataRow
+        /// <summary>
+        /// The <see cref="DataRow" /> property's name.
+        /// </summary>
+        public const string DataRowPropertyName = "DataRow";
+
+        private int _dataRow = 2;
+
+        /// <summary>
+        /// Sets and gets the DataRow property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public int DataRow
+        {
+            get
+            {
+                return _dataRow;
+            }
+
+            set
+            {
+                if (_dataRow == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(DataRowPropertyName);
+                _dataRow = value;
+                RaisePropertyChanged(DataRowPropertyName);
+            }
+        }
+        #endregion
+      
+
+        #endregion
     }
 }

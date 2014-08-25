@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using GalaSoft.MvvmLight.Command;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -53,6 +54,9 @@ namespace miRobotEditor.GUI.Editor
 
         public Editor()
         {
+
+
+
             InitializeComponent();
             _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
             InitializeMyControl();
@@ -169,56 +173,189 @@ namespace miRobotEditor.GUI.Editor
 
         #region Commands
 
-        private static RelayCommand _replaceCommand;
-        private RelayCommand _gotoCommand;
-        private RelayCommand _redoCommand;
-        private RelayCommand _saveAsCommand;
-        private RelayCommand _saveCommand;
+
+
+        #region UndoCommand
         private RelayCommand _undoCommand;
-        private RelayCommand _variableDoubleClickCommand;
 
-        public ICommand UndoCommand
-        {
-            get { return _undoCommand ?? (_undoCommand = new RelayCommand(param => Undo(), param => (CanUndo))); }
-        }
-
-        public ICommand RedoCommand
-        {
-            get { return _redoCommand ?? (_redoCommand = new RelayCommand(param => Redo(), param => (CanRedo))); }
-        }
-
-        public ICommand SaveCommand
-        {
-            get { return _saveCommand ?? (_saveCommand = new RelayCommand(p => Save(), p => CanSave())); }
-        }
-
-        public ICommand SaveAsCommand
-        {
-            get { return _saveAsCommand ?? (_saveAsCommand = new RelayCommand(p => SaveAs(), p => CanSave())); }
-        }
-
-        public ICommand ReplaceCommand
-        {
-            get { return _replaceCommand ?? (_replaceCommand = new RelayCommand(p => Replace(), p => true)); }
-        }
-
-        public ICommand VariableDoubleClickCommand
+        /// <summary>
+        /// Gets the UndoCommand.
+        /// </summary>
+        public RelayCommand UndoCommand
         {
             get
             {
-                return _variableDoubleClickCommand ??
-                       (_variableDoubleClickCommand =
-                           new RelayCommand(p => SelectText((IVariable) ((ListViewItem) p).Content), p => p != null));
+                return _undoCommand
+                    ?? (_undoCommand = new RelayCommand(ExecuteUndoCommand));
             }
         }
 
-        public ICommand GotoCommand
+        private void ExecuteUndoCommand()
+        {
+            Undo();
+        }
+        #endregion
+
+
+        #region RedoCommand
+        private RelayCommand _redoCommand;
+
+        /// <summary>
+        /// Gets the RedoCommand.
+        /// </summary>
+        public RelayCommand RedoCommand
         {
             get
             {
-                return _gotoCommand ?? (_gotoCommand = new RelayCommand(p => Goto(), p => (!String.IsNullOrEmpty(Text))));
+                return _redoCommand
+                    ?? (_redoCommand = new RelayCommand(ExecuteRedoCommand));
             }
         }
+
+        private void ExecuteRedoCommand()
+        {
+            Redo();
+        }
+        #endregion
+
+
+        #region
+        private RelayCommand _saveCommand;
+
+        /// <summary>
+        /// Gets the SaveCommand.
+        /// </summary>
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return _saveCommand ?? (_saveCommand = new RelayCommand(
+                    ExecuteSaveCommand,
+                    CanExecuteSaveCommand));
+            }
+        }
+
+        private void ExecuteSaveCommand()
+        {
+            Save();
+        }
+
+        private bool CanExecuteSaveCommand()
+        {
+            return CanSave();
+        }
+        #endregion
+
+
+        #region SaveAsCommand
+
+        #region
+        private RelayCommand _saveAsCommand;
+
+        /// <summary>
+        /// Gets the SaveAsCommand.
+        /// </summary>
+        public RelayCommand SaveAsCommand
+        {
+            get
+            {
+                return _saveAsCommand ?? (_saveAsCommand = new RelayCommand(
+                    ExecuteSaveAsCommand,
+                    CanExecuteSaveAsCommand));
+            }
+        }
+
+        private void ExecuteSaveAsCommand()
+        {
+            SaveAs();       
+        }
+
+        private bool CanExecuteSaveAsCommand()
+        {
+            return CanSave();
+        }
+        #endregion
+        #endregion
+
+        #region ReplaceCommand
+        private RelayCommand _replaceCommand;
+
+        /// <summary>
+        /// Gets the ReplaceCommand.
+        /// </summary>
+        public RelayCommand ReplaceCommand
+        {
+            get
+            {
+                return _replaceCommand
+                    ?? (_replaceCommand = new RelayCommand(ExecuteReplaceCommand));
+            }
+        }
+
+        private void ExecuteReplaceCommand()
+        {
+            Replace();
+        }
+        #endregion
+
+
+
+        #region
+        private RelayCommand<object> _variableDoubleClickCommand;
+
+        /// <summary>
+        /// Gets the VariableDoubleClickCommand.
+        /// </summary>
+        public RelayCommand<object> VariableDoubleClickCommand
+        {
+            get
+            {
+                return _variableDoubleClickCommand ?? (_variableDoubleClickCommand = new RelayCommand<object>(
+                    ExecuteVariableDoubleClickCommand,
+                    CanExecuteVariableDoubleClickCommand));
+            }
+        }
+
+        private void ExecuteVariableDoubleClickCommand(object parameter)
+        {
+            SelectText((IVariable) ((ListViewItem) parameter).Content);
+        }
+
+        private bool CanExecuteVariableDoubleClickCommand(object parameter)
+        {
+            return parameter!=null;
+        }
+        #endregion
+
+        #region GotoCommand
+
+        #region
+        private RelayCommand _gotoCommand;
+
+        /// <summary>
+        /// Gets the GotoCommand.
+        /// </summary>
+        public RelayCommand GotoCommand
+        {
+            get
+            {
+                return _gotoCommand ?? (_gotoCommand = new RelayCommand(
+                    ExecuteGotoCommand,
+                    CanExecuteGotoCommand));
+            }
+        }
+
+        private void ExecuteGotoCommand()
+        {
+            Goto();
+        }
+
+        private bool CanExecuteGotoCommand()
+        {
+            return !String.IsNullOrEmpty(Text);
+        }
+        #endregion
+        #endregion
 
         #region OpenAllFoldsCommand
 
@@ -233,11 +370,20 @@ namespace miRobotEditor.GUI.Editor
             {
                 return _openAllFoldsCommand ??
                        (_openAllFoldsCommand =
-                           new RelayCommand(p => ChangeFoldStatus(false),
-                               p => ((_foldingManager != null) && (_foldingManager.AllFoldings.Any()))));
+                           new RelayCommand(ExecuteOpenAllFoldsCommand,
+                               CanOpenAllFoldsCommand));
             }
         }
 
+        private void ExecuteOpenAllFoldsCommand()
+        {
+            ChangeFoldStatus(false);
+        }
+
+        private bool CanOpenAllFoldsCommand()
+        {
+            return  ((_foldingManager != null) && (_foldingManager.AllFoldings.Any()));
+        }
         #endregion
 
         #region ToggleCommentCommand
@@ -250,8 +396,14 @@ namespace miRobotEditor.GUI.Editor
             {
                 return _toggleCommentCommand ??
                        (_toggleCommentCommand =
-                           new RelayCommand(p => ToggleComment(), p => (!String.IsNullOrEmpty(FileLanguage.CommentChar))));
+                           new RelayCommand(ToggleComment, CanToggleCommentCommand));
             }
+
+        }
+
+        private bool CanToggleCommentCommand()
+        {
+            return !String.IsNullOrEmpty(FileLanguage.CommentChar);
         }
 
         #endregion
@@ -266,11 +418,15 @@ namespace miRobotEditor.GUI.Editor
             {
                 return _toggleFoldsCommand ??
                        (_toggleFoldsCommand =
-                           new RelayCommand(p => ToggleFolds(),
-                               p => ((_foldingManager != null) && (_foldingManager.AllFoldings.Any()))));
+                           new RelayCommand(ToggleFolds,CanToggleFoldsCommand));
             }
         }
 
+
+        private bool CanToggleFoldsCommand()
+        {
+            return ((_foldingManager != null) && (_foldingManager.AllFoldings.Any()));
+        }
         #endregion
 
         #region ToggleAllFoldsCommand
@@ -283,8 +439,8 @@ namespace miRobotEditor.GUI.Editor
             {
                 return _toggleAllFoldsCommand ??
                        (_toggleAllFoldsCommand =
-                           new RelayCommand(p => ToggleAllFolds(),
-                               p => ((_foldingManager != null) && (_foldingManager.AllFoldings.Any()))));
+                           new RelayCommand(ToggleAllFolds, CanToggleFoldsCommand));
+
             }
         }
 
@@ -300,25 +456,37 @@ namespace miRobotEditor.GUI.Editor
             {
                 return _closeAllFoldsCommand ??
                        (_closeAllFoldsCommand =
-                           new RelayCommand(p => ChangeFoldStatus(true),
-                               p => ((_foldingManager != null) && (_foldingManager.AllFoldings.Any()))));
-            }
+                           new RelayCommand(ExecuteCloseAllFoldsCommand, CanToggleFoldsCommand));
+             }
         }
 
+        private void ExecuteCloseAllFoldsCommand()
+        {
+            ChangeFoldStatus(true);
+        }
         #endregion
 
         #region AddTimeStampCommand
 
+
+
+        #region
         private RelayCommand _addTimeStampCommand;
 
-        public ICommand AddTimeStampCommand
+        /// <summary>
+        /// Gets the AddTimeStampCommand.
+        /// </summary>
+        public RelayCommand AddTimeStampCommand
         {
             get
             {
-                return _addTimeStampCommand ??
-                       (_addTimeStampCommand = new RelayCommand(p => AddTimeStamp(true), p => true));
+                return _addTimeStampCommand
+                    ?? (_addTimeStampCommand = new RelayCommand(
+                                          () => AddTimeStamp(true)));
             }
         }
+        #endregion
+
 
         private void AddTimeStamp(bool b)
         {
@@ -357,18 +525,33 @@ namespace miRobotEditor.GUI.Editor
 
         #region FindCommand
 
+
+        #region
         private RelayCommand _findCommand;
 
-        public ICommand FindCommand
+        /// <summary>
+        /// Gets the FindCommand.
+        /// </summary>
+        public RelayCommand FindCommand
         {
             get
             {
-                return _findCommand ??
-                       (_findCommand =
-                           new RelayCommand(p => ChangeFoldStatus(true),
-                               p => ((_foldingManager != null) && (_foldingManager.AllFoldings.Any()))));
+                return _findCommand ?? (_findCommand = new RelayCommand(
+                    ExecuteFindCommand,
+                    CanExecuteFindCommand));
             }
         }
+
+        private void ExecuteFindCommand()
+        {
+            ChangeFoldStatus(true);
+        }
+
+        private bool CanExecuteFindCommand()
+        {
+            return  ((_foldingManager != null) && (_foldingManager.AllFoldings.Any()));
+        }
+        #endregion
 
         #endregion
 
@@ -378,7 +561,7 @@ namespace miRobotEditor.GUI.Editor
 
         public ICommand ReloadCommand
         {
-            get { return _reloadCommand ?? (_reloadCommand = new RelayCommand(p => Reload(), p => true)); }
+            get { return _reloadCommand ?? (_reloadCommand = new RelayCommand( Reload)); }
         }
 
         #endregion
@@ -393,7 +576,7 @@ namespace miRobotEditor.GUI.Editor
             {
                 return _showDefinitionsCommand ??
                        (_showDefinitionsCommand =
-                           new RelayCommand(p => ShowDefinitions(), p => (_foldingManager != null)));
+                           new RelayCommand( ShowDefinitions,()=> _foldingManager != null));
             }
         }
 
@@ -405,7 +588,7 @@ namespace miRobotEditor.GUI.Editor
 
         public ICommand CutCommand
         {
-            get { return _cutCommand ?? (_cutCommand = new RelayCommand(p => Cut(), p => (Text.Length > 0))); }
+            get { return _cutCommand ?? (_cutCommand = new RelayCommand( Cut, () => (Text.Length > 0))); }
         }
 
         #endregion
@@ -416,7 +599,7 @@ namespace miRobotEditor.GUI.Editor
 
         public ICommand CopyCommand
         {
-            get { return _copyCommand ?? (_copyCommand = new RelayCommand(p => Cut(), p => (Text.Length > 0))); }
+            get { return _copyCommand ?? (_copyCommand = new RelayCommand(Cut, () => (Text.Length > 0))); }
         }
 
         #endregion
@@ -429,7 +612,7 @@ namespace miRobotEditor.GUI.Editor
         {
             get
             {
-                return _pasteCommand ?? (_pasteCommand = new RelayCommand(p => Paste(), p => (Clipboard.ContainsText())));
+                return _pasteCommand ?? (_pasteCommand = new RelayCommand(Paste, () => (Clipboard.ContainsText())));
             }
         }
 
@@ -437,34 +620,52 @@ namespace miRobotEditor.GUI.Editor
 
         #region FunctionWindowClickCommand
 
-        private RelayCommand _functionWindowClickCommand;
 
-        public ICommand FunctionWindowClickCommand
+         private RelayCommand<object> _functionWindowClickCommand;
+
+        /// <summary>
+        /// Gets the FunctionWindowClickCommand.
+        /// </summary>
+        public RelayCommand<object> FunctionWindowClickCommand
         {
             get
             {
-                return _functionWindowClickCommand ??
-                       (_functionWindowClickCommand = new RelayCommand(OpenFunctionItem, param => true));
+                return _functionWindowClickCommand
+                    ?? (_functionWindowClickCommand = new RelayCommand<object>(
+                                          p =>
+                                          {
+                                              OpenFunctionItem(p);
+                                          }));
             }
         }
+        #endregion
 
         #endregion
 
         #region ChangeIndentCommand
 
-        private RelayCommand _changeIndentCommand;
+        private RelayCommand<object> _changeIndentCommand;
 
-        public ICommand ChangeIndentCommand
+
+
+
+    
+        /// <summary>
+        /// Gets the MyCommand.
+        /// </summary>
+        public RelayCommand<object> ChangeIndentCommand
         {
             get
             {
-                return _changeIndentCommand ?? (_changeIndentCommand = new RelayCommand(ChangeIndent, param => true));
+                return _changeIndentCommand
+                    ?? (_changeIndentCommand = new RelayCommand<object>(
+                                          ChangeIndent));
             }
         }
-
         #endregion
 
-        #endregion
+
+
 
         #region Private Members
 
@@ -587,7 +788,7 @@ namespace miRobotEditor.GUI.Editor
             FindMatches(FileLanguage.EnumRegex, Global.ImgEnum);
             FindMatches(FileLanguage.XYZRegex, Global.ImgXyz);
         }
-
+        /*
         protected override void OnOptionChanged(PropertyChangedEventArgs e)
         {
             base.OnOptionChanged(e);
@@ -602,7 +803,7 @@ namespace miRobotEditor.GUI.Editor
             }
         }
 
-
+        */
         public void SetHighlighting()
         {
             try
