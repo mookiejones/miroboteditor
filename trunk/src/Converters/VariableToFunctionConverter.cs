@@ -24,7 +24,7 @@ namespace miRobotEditor.Converters
                 var list = new ObservableCollection<IVariable>();
 
 
-                foreach (IVariable i in prev.Where(i => i.Type == "def"))
+                foreach (var i in prev.Where(i => i.Type == "def"))
                     list.Add(i);
 
                 var result = new ReadOnlyObservableCollection<IVariable>(list);

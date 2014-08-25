@@ -1,23 +1,39 @@
-﻿using miRobotEditor.Core;
+﻿using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.ViewModel
 {
-    public class ToolTipViewModel:ViewModelBase
+    public class ToolTipViewModel : ViewModelBase
     {
-
         private static ToolTipViewModel _instance;
-        public static ToolTipViewModel Instance{ get 
-            {
-                return _instance ?? new ToolTipViewModel();
-            } set
-            {
-                _instance = value;
-            }}
 
         private string _message = string.Empty;
-        public string Message {get { return _message; }set { _message = value;RaisePropertyChanged(); }}
 
         private string _title = string.Empty;
-        public string Title { get { return _title; } set { _title = value; RaisePropertyChanged(); } }
+
+        public static ToolTipViewModel Instance
+        {
+            get { return _instance ?? new ToolTipViewModel(); }
+            set { _instance = value; }
+        }
+
+        public string Message
+        {
+            get { return _message; }
+            set
+            {
+                _message = value;
+                RaisePropertyChanged("Message");
+            }
+        }
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                RaisePropertyChanged("Title");
+            }
+        }
     }
 }

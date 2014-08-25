@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.ComponentModel;
+using System.Globalization;
+using System.Windows.Controls;
+
 namespace miRobotEditor.ValidationRules
 {
     [Localizable(false)]
 // ReSharper disable once UnusedMember.Global
-    public class IsNumericValidationRule:ValidationRule,IDataErrorInfo
+    public class IsNumericValidationRule : ValidationRule, IDataErrorInfo
     {
         public IsNumericValidationRule(string fieldName)
         {
@@ -24,7 +26,7 @@ namespace miRobotEditor.ValidationRules
             get { throw new NotImplementedException(); }
         }
 
-        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             int num;
 
@@ -33,7 +35,5 @@ namespace miRobotEditor.ValidationRules
 
             return new ValidationResult(true, null);
         }
-
-
     }
 }

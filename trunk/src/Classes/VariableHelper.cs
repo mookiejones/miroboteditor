@@ -30,7 +30,6 @@ namespace miRobotEditor.Classes
         {
             private string _comment = string.Empty;
             private string _declaration = string.Empty;
-            private string _description = string.Empty;
             private BitmapImage _icon;
             private string _name = string.Empty;
             private int _offset = -1;
@@ -39,15 +38,40 @@ namespace miRobotEditor.Classes
             private string _value = string.Empty;
             public bool IsSelected { get; set; }
 
+            
+            #region Description
+            /// <summary>
+            /// The <see cref="Description" /> property's name.
+            /// </summary>
+            public const string DescriptionPropertyName = "Description";
+
+            private string _description = string.Empty;
+
+            /// <summary>
+            /// Sets and gets the Description property.
+            /// Changes to that property's value raise the PropertyChanged event. 
+            /// </summary>
             public string Description
             {
-                get { return _description; }
+                get
+                {
+                    return _description;
+                }
+
                 set
                 {
+                    if (_description == value)
+                    {
+                        return;
+                    }
+
+                    RaisePropertyChanging(DescriptionPropertyName);
                     _description = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged(DescriptionPropertyName);
                 }
             }
+            #endregion
+        
 
             public BitmapImage Icon
             {
@@ -55,7 +79,7 @@ namespace miRobotEditor.Classes
                 set
                 {
                     _icon = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged("Icon");
                 }
             }
 
@@ -65,7 +89,7 @@ namespace miRobotEditor.Classes
                 set
                 {
                     _name = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged("Name");
                 }
             }
 
@@ -75,7 +99,7 @@ namespace miRobotEditor.Classes
                 set
                 {
                     _type = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged("Type");
                 }
             }
 
@@ -85,7 +109,7 @@ namespace miRobotEditor.Classes
                 set
                 {
                     _path = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged("Path");
                 }
             }
 
@@ -95,7 +119,7 @@ namespace miRobotEditor.Classes
                 set
                 {
                     _value = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged("Value");
                 }
             }
 
@@ -105,7 +129,7 @@ namespace miRobotEditor.Classes
                 set
                 {
                     _offset = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged("Offset");
                 }
             }
 
@@ -115,7 +139,7 @@ namespace miRobotEditor.Classes
                 set
                 {
                     _comment = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged("Comment");
                 }
             }
 
@@ -125,7 +149,7 @@ namespace miRobotEditor.Classes
                 set
                 {
                     _declaration = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged("Declaration");
                 }
             }
         }

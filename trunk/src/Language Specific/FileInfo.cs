@@ -25,7 +25,6 @@ namespace miRobotEditor.Pads
     {
         private readonly System.IO.FileInfo _fi;
         private readonly FileType _filetype = FileType.NONE;
-        private string _comment = string.Empty;
 
         public FileInfo(String path)
         {
@@ -33,15 +32,41 @@ namespace miRobotEditor.Pads
             _filetype = GetFileType();
         }
 
+        
+        #region Comment
+        /// <summary>
+        /// The <see cref="Comment" /> property's name.
+        /// </summary>
+        public const string CommentPropertyName = "Comment";
+
+        private string _comment = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the Comment property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Comment
         {
-            get { return _comment; }
+            get
+            {
+                return _comment;
+            }
+
             set
             {
+                if (_comment == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(CommentPropertyName);
                 _comment = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(CommentPropertyName);
             }
         }
+        #endregion
+   
+
 
         public string DirectoryName
         {
@@ -64,7 +89,7 @@ namespace miRobotEditor.Pads
             set
             {
                 _fi.IsReadOnly = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("IsReadOnly");
             }
         }
 

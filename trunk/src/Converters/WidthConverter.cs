@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
+using miRobotEditor.Enums;
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Converters

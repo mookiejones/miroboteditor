@@ -1,6 +1,6 @@
 ﻿namespace miRobotEditor.Pads
 {
-    class ClipboardPad
+    internal class ClipboardPad
     {
     }
 }

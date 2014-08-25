@@ -1,76 +1,75 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.Generic;
-using System.Threading;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using System.Reflection;
+using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Core;
-using miRobotEditor.Forms;
+using miRobotEditor.ViewModel;
 using MessageBox = System.Windows.MessageBox;
-using System.Diagnostics;
 
 namespace miRobotEditor
 {
-	
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
 // ReSharper disable once ClassCanBeSealed.Global
     public partial class App : ISingleInstanceApp
     {
+        private const string Unique = "My_Unique_Application_String";
+        public static App Application;
+
         public static string StartupPath
         {
-            get
-            {
-                return System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-            }
+            get { return Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); }
         }
 
 
-    	
-    	 public static string Version
-    	 {
-    	 	get
-    	 	{
-	    	 	var asm = Assembly.GetExecutingAssembly();
-	    	 	return asm.GetName().Version.ToString();
-    	 	}
-    	 }
+        public static string Version
+        {
+            get
+            {
+                Assembly asm = Assembly.GetExecutingAssembly();
+                return asm.GetName().Version.ToString();
+            }
+        }
 
-    	 public static string ProductName
-    	 {
-    	 	get 
-    	 	{
-                return Assembly.GetExecutingAssembly().GetName().ToString();
-    	 	}
-    	 }
-    
-    	  private const string Unique = "My_Unique_Application_String";
-    	  public static App Application;
-       
-          [STAThread]
-          public static void Main()
-          {
+        public static string ProductName
+        {
+            get { return Assembly.GetExecutingAssembly().GetName().ToString(); }
+        }
 
-             
+        public bool SignalExternalCommandLineArgs(IList<string> args)
+        {
+            MainWindow.Activate();
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            main.LoadFile(args);
+            return true;
+        }
+
+        [STAThread]
+        public static void Main()
+        {
 #if !DEBUG
               Splasher.Splash = new SplashScreen();
               Splasher.ShowSplash();
 #endif
 
-              #if DEBUG
-              Control.CheckForIllegalCrossThreadCalls = true;
-              #endif
-             if (!CheckEnvironment())
-                 return;
-             if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
-              Application = new App();
+#if DEBUG
+            Control.CheckForIllegalCrossThreadCalls = true;
+#endif
+            if (!CheckEnvironment())
+                return;
+            if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
+            Application = new App();
 
-              Application.InitializeComponent();                 
-              Application.Run();
+            Application.InitializeComponent();
+            Application.Run();
 
-            
+
             //  var _tools = Workspace.Instance.Tools;
             //  foreach (var tool in _tools)
             //  {
@@ -82,47 +81,42 @@ namespace miRobotEditor
             //          serial.Serialize(writer,obj.FindReplaceResults);
             //      }
             //  }
-              // Allow single instance code to perform cleanup operations
-              SingleInstance<App>.Cleanup();
-          }
+            // Allow single instance code to perform cleanup operations
+            SingleInstance<App>.Cleanup();
+        }
 
 
-
-          [Localizable(false)]
-          static bool CheckEnvironment()
-          {
-              // Safety check: our setup already checks that .NET 4 is installed, but we manually check the .NET version in case SharpDevelop is
-              // used on another machine than it was installed on (e.g. "SharpDevelop on USB stick")
-              if (Environment.Version < new Version(4, 0, 30319))
-              {
-                  MessageBox.Show(String.Format(miRobotEditor.Properties.Resources.CheckEnvironment, Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
-                  return false;
-              }
-              // Work around a WPF issue when %WINDIR% is set to an incorrect path
-              var windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows, Environment.SpecialFolderOption.DoNotVerify);
-              if (Environment.GetEnvironmentVariable("WINDIR") != windir)
-              {
-                  Environment.SetEnvironmentVariable("WINDIR", windir);
-              }
-              return true;
-          }
-          
-          
-		public bool SignalExternalCommandLineArgs(IList<string> args)
-		{			
-			MainWindow.Activate();
-	        Workspace.Instance.LoadFile(args);
-			return true;
-		}
-
-        void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        [Localizable(false)]
+        private static bool CheckEnvironment()
         {
-            MessageViewModel.AddError("App",e.Exception);
+            // Safety check: our setup already checks that .NET 4 is installed, but we manually check the .NET version in case SharpDevelop is
+            // used on another machine than it was installed on (e.g. "SharpDevelop on USB stick")
+            if (Environment.Version < new Version(4, 0, 30319))
+            {
+                MessageBox.Show(String.Format(miRobotEditor.Properties.Resources.CheckEnvironment,
+                    Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
+                return false;
+            }
+            // Work around a WPF issue when %WINDIR% is set to an incorrect path
+            string windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows,
+                Environment.SpecialFolderOption.DoNotVerify);
+            if (Environment.GetEnvironmentVariable("WINDIR") != windir)
+            {
+                Environment.SetEnvironmentVariable("WINDIR", windir);
+            }
+            return true;
+        }
+
+
+        private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageViewModel.AddError("App", e.Exception);
             Console.Write(e);
             e.Handled = true;
         }
-        
+
         #region Unused Overrides
+
         /*
           protected override void OnExit(ExitEventArgs e)
           {
@@ -166,8 +160,7 @@ namespace miRobotEditor
           base.OnStartup(e);
           }
 */
+
         #endregion
     }
-    
-
 }

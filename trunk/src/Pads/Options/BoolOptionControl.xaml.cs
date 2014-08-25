@@ -11,16 +11,16 @@ using System.Windows.Controls;
 
 namespace miRobotEditor.Options
 {
-	/// <summary>
-	/// Interaction logic for BoolOptionControl.xaml
-	/// </summary>
+    /// <summary>
+    ///     Interaction logic for BoolOptionControl.xaml
+    /// </summary>
 // ReSharper disable RedundantExtendsListEntry
-	public partial class BoolOptionControl : UserControl
+    public partial class BoolOptionControl : UserControl
 // ReSharper restore RedundantExtendsListEntry
-	{
-		public BoolOptionControl()
-		{
-			InitializeComponent();
-		}
-	}
+    {
+        public BoolOptionControl()
+        {
+            InitializeComponent();
+        }
+    }
 }

@@ -1,14 +1,14 @@
 ﻿<Window x:Class="miRobotEditor.Options.OptionsWindow"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
-	Title="miRobotEditor.Options" Height="300" Width="300">
-	<Grid>
-		<Grid.DataContext>
-			<vm:OptionsViewModel/>
-		</Grid.DataContext>
-		<Button Content="Apply" Command="{Binding ApplyCommand}"/>
-		<Button Content="OK" Command="{Binding OkCommand}"/>
-		<Button Content="Cancel" Command="{Binding CancelCommand}"/>	
-	</Grid>
+        Title="miRobotEditor.Options" Height="300" Width="300">
+    <Grid>
+        <Grid.DataContext>
+            <vm:OptionsViewModel />
+        </Grid.DataContext>
+        <Button Content="Apply" Command="{Binding ApplyCommand}" />
+        <Button Content="OK" Command="{Binding OkCommand}" />
+        <Button Content="Cancel" Command="{Binding CancelCommand}" />
+    </Grid>
 </Window>

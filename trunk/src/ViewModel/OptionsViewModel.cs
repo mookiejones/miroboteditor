@@ -8,47 +8,53 @@
  */
 
 using System.Windows.Input;
-using miRobotEditor.Core;
-using RelayCommand = miRobotEditor.Commands.RelayCommand;
+using GalaSoft.MvvmLight;
+using miRobotEditor.Commands;
 
 namespace miRobotEditor.ViewModel
 {
-	/// <summary>
-	/// Description of OptionsViewModel.
-	/// </summary>
-	public class OptionsViewModel:ViewModelBase
-	{
-		
-		public OptionsViewModel Instance{get;set;}
-		public OptionsViewModel()
-		{
-			Instance=this;
-		}
-		
-		
-		
-		 private  RelayCommand _applyCommand;
-        public  ICommand ApplyCommand
+    /// <summary>
+    ///     Description of OptionsViewModel.
+    /// </summary>
+    public class OptionsViewModel : ViewModelBase
+    {
+        private RelayCommand _applyCommand;
+        private RelayCommand _cancelCommand;
+
+        private RelayCommand _okCommand;
+
+        public OptionsViewModel()
+        {
+            Instance = this;
+        }
+
+        public OptionsViewModel Instance { get; set; }
+
+        public ICommand ApplyCommand
         {
             get { return _applyCommand ?? (_applyCommand = new RelayCommand(param => Apply(), param => true)); }
         }
-        
-        private  RelayCommand _okCommand;
-        public  ICommand OkCommand
+
+        public ICommand OkCommand
         {
             get { return _okCommand ?? (_okCommand = new RelayCommand(param => Ok(), param => true)); }
         }
-        
-        private  RelayCommand _cancelCommand;
-        public  ICommand CancelCommand
+
+        public ICommand CancelCommand
         {
             get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(param => Cancel(), param => true)); }
         }
 
-	    static void Apply(){}
-	    static void Ok(){}
-	    static void Cancel(){}
+        private static void Apply()
+        {
+        }
 
-        
-	}
+        private static void Ok()
+        {
+        }
+
+        private static void Cancel()
+        {
+        }
+    }
 }

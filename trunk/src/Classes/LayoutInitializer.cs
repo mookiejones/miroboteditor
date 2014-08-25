@@ -10,6 +10,7 @@
 using System.ComponentModel;
 using System.Linq;
 using miRobotEditor.Core;
+using miRobotEditor.ViewModel;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace miRobotEditor.Classes

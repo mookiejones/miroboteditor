@@ -1,11 +1,11 @@
 ﻿using System;
+using miRobotEditor.Classes;
 using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
-    public class NotesViewModel:ToolViewModel
+    public class NotesViewModel : ToolViewModel
     {
-
         public const string ToolContentId = "NotesTool";
 
         public NotesViewModel()
@@ -16,23 +16,21 @@ namespace miRobotEditor.ViewModel
         }
 
         #region Text
+
         /// <summary>
-        /// The <see cref="Text" /> property's name.
+        ///     The <see cref="Text" /> property's name.
         /// </summary>
         public const string TextPropertyName = "Text";
 
         private string _text = String.Empty;
 
         /// <summary>
-        /// Sets and gets the Text property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        ///     Sets and gets the Text property.
+        ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public string Text
         {
-            get
-            {
-                return _text;
-            }
+            get { return _text; }
 
             set
             {
@@ -46,8 +44,7 @@ namespace miRobotEditor.ViewModel
                 RaisePropertyChanged(TextPropertyName);
             }
         }
+
         #endregion
-
-
     }
 }

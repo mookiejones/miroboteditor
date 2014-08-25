@@ -66,7 +66,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _button1Text = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button1Text");
             }
         }
 
@@ -76,7 +76,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _button2Text = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button2Text");
             }
         }
 
@@ -86,7 +86,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _button3Text = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button3Text");
             }
         }
 
@@ -96,7 +96,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _button4Text = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button4Text");
             }
         }
 
@@ -106,7 +106,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _button5Text = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button5Text");
             }
         }
 
@@ -116,7 +116,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _button6Text = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button6Text");
             }
         }
 
@@ -126,7 +126,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _button7Text = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button7Text");
             }
         }
 
@@ -137,7 +137,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _b1Visible = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button1Visibile");
             }
         }
 
@@ -147,7 +147,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _b2Visible = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button2Visibile");
             }
         }
 
@@ -157,7 +157,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _b3Visible = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button3Visibile");
             }
         }
 
@@ -167,7 +167,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _b4Visible = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button4Visibile");
             }
         }
 
@@ -177,7 +177,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _b5Visible = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button5Visibile");
             }
         }
 
@@ -187,7 +187,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _b6Visible = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button6Visibile");
             }
         }
 
@@ -197,7 +197,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _b7Visible = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Button7Visibile");
             }
         }
 
@@ -207,7 +207,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _width = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Width");
             }
         }
 
@@ -218,7 +218,7 @@ namespace miRobotEditor.Dialogs
             set
             {
                 _answer = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Answer");
             }
         }
     }

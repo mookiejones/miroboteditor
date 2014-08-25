@@ -1,14 +1,17 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Classes;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Templates
 {
     /// <summary>
-    /// Interaction logic for VisualVariableItem.xaml
+    ///     Interaction logic for VisualVariableItem.xaml
     /// </summary>
 // ReSharper disable RedundantExtendsListEntry
     public partial class VisualVariableItem : DataGrid
@@ -22,7 +25,7 @@ namespace miRobotEditor.Templates
         private void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             //search the object hierarchy for a datagrid row
-            var source = (DependencyObject)e.OriginalSource;
+            var source = (DependencyObject) e.OriginalSource;
             var row = TryFindParent<DataGridRow>(source);
 
             //the user did not click on a row
@@ -35,14 +38,16 @@ namespace miRobotEditor.Templates
             {
                 var item = cell.CurrentCell.Item as IVariable;
 
-                if ((item != null)&&(File.Exists(item.Path))) Workspace.Instance.OpenFile(item);
+                var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+                if ((item != null) && (File.Exists(item.Path))) main.OpenFile(item);
             }
             e.Handled = true;
         }
+
         public T TryFindParent<T>(DependencyObject child) where T : DependencyObject
         {
             //get parent item
-            var parentObject = GetParentObject(child);
+            DependencyObject parentObject = GetParentObject(child);
 
             //we've reached the end of the tree
             if (parentObject == null) return null;
@@ -54,14 +59,16 @@ namespace miRobotEditor.Templates
         }
 
         /// <summary>
-        /// This method is an alternative to WPF's
-        /// <see cref="VisualTreeHelper.GetParent"/> method, which also
-        /// supports content elements. Keep in mind that for content element,
-        /// this method falls back to the logical tree of the element!
+        ///     This method is an alternative to WPF's
+        ///     <see cref="VisualTreeHelper.GetParent" /> method, which also
+        ///     supports content elements. Keep in mind that for content element,
+        ///     this method falls back to the logical tree of the element!
         /// </summary>
         /// <param name="child">The item to be processed.</param>
-        /// <returns>The submitted item's parent, if available. Otherwise
-        /// null.</returns>
+        /// <returns>
+        ///     The submitted item's parent, if available. Otherwise
+        ///     null.
+        /// </returns>
         public DependencyObject GetParentObject(DependencyObject child)
         {
             if (child == null) return null;
@@ -70,7 +77,7 @@ namespace miRobotEditor.Templates
             var contentElement = child as ContentElement;
             if (contentElement != null)
             {
-                var parent = ContentOperations.GetParent(contentElement);
+                DependencyObject parent = ContentOperations.GetParent(contentElement);
                 if (parent != null) return parent;
 
                 var fce = contentElement as FrameworkContentElement;
@@ -81,7 +88,7 @@ namespace miRobotEditor.Templates
             var frameworkElement = child as FrameworkElement;
             if (frameworkElement != null)
             {
-                var parent = frameworkElement.Parent;
+                DependencyObject parent = frameworkElement.Parent;
                 if (parent != null) return parent;
             }
 
@@ -91,17 +98,18 @@ namespace miRobotEditor.Templates
 
         private void ToolTip_Opening(object sender, ToolTipEventArgs e)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
-    public class IconSelector:DataTemplateSelector
+
+    public class IconSelector : DataTemplateSelector
     {
 // ReSharper disable RedundantOverridenMember
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-
             return base.SelectTemplate(item, container);
         }
+
 // ReSharper restore RedundantOverridenMember
     }
 }

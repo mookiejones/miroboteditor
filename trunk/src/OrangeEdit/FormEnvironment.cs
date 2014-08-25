@@ -56,73 +56,212 @@ namespace miRobotEditor.OrangeEdit
 
         #region Properties 
 
-        private bool _activateEnabled;
-        private string _dataPath = string.Empty;
-        private string _directory = string.Empty;
-        private string _name = string.Empty;
-        private string _r1Path = string.Empty;
-        private string _userTechPath = string.Empty;
 
+        
+
+        #region Name
+        /// <summary>
+        /// The <see cref="Name" /> property's name.
+        /// </summary>
+        public const string NamePropertyName = "Name";
+
+        private string _name = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the Name property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Name
         {
-            get { return _name; }
+            get
+            {
+                return _name;
+            }
+
             set
             {
+                if (_name == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(NamePropertyName);
                 _name = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(NamePropertyName);
             }
         }
+        #endregion
+        
+        #region Directory
+        /// <summary>
+        /// The <see cref="Directory" /> property's name.
+        /// </summary>
+        public const string DirectoryPropertyName = "Directory";
 
+        private string _directory = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the Directory property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Directory
         {
-            get { return _directory; }
+            get
+            {
+                return _directory;
+            }
+
             set
             {
+                if (_directory == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(DirectoryPropertyName);
                 _directory = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(DirectoryPropertyName);
             }
         }
+        #endregion
 
+        
+        #region UserTechPath
+        /// <summary>
+        /// The <see cref="UserTechPath" /> property's name.
+        /// </summary>
+        public const string UserTechPathPropertyName = "UserTechPath";
 
+        private string _userTechPack = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the UserTechPath property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string UserTechPath
         {
-            get { return _userTechPath; }
+            get
+            {
+                return _userTechPack;
+            }
+
             set
             {
-                _userTechPath = value;
-                RaisePropertyChanged();
+                if (_userTechPack == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(UserTechPathPropertyName);
+                _userTechPack = value;
+                RaisePropertyChanged(UserTechPathPropertyName);
             }
         }
+        #endregion
 
+        
+        #region DataPath
+        /// <summary>
+        /// The <see cref="DataPath" /> property's name.
+        /// </summary>
+        public const string DataPathPropertyName = "DataPath";
+
+        private string _dataPath = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the DataPath property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string DataPath
         {
-            get { return _dataPath; }
+            get
+            {
+                return _dataPath;
+            }
+
             set
             {
+                if (_dataPath == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(DataPathPropertyName);
                 _dataPath = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(DataPathPropertyName);
             }
         }
+        #endregion
 
+        
+        #region R1Path
+        /// <summary>
+        /// The <see cref="R1Path" /> property's name.
+        /// </summary>
+        public const string R1PathPropertyName = "R1Path";
+
+        private string _r1Path = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the R1Path property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string R1Path
         {
-            get { return _r1Path; }
+            get
+            {
+                return _r1Path;
+            }
+
             set
             {
+                if (_r1Path == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(R1PathPropertyName);
                 _r1Path = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(R1PathPropertyName);
             }
         }
+        #endregion
 
+        
+        #region ActivateEnabled
+        /// <summary>
+        /// The <see cref="ActivateEnabled" /> property's name.
+        /// </summary>
+        public const string ActivateEnabledPropertyName = "ActivateEnabled";
+
+        private bool _activateEnabled = false;
+
+        /// <summary>
+        /// Sets and gets the ActivateEnabled property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public bool ActivateEnabled
         {
-            get { return _activateEnabled; }
+            get
+            {
+                return _activateEnabled;
+            }
+
             set
             {
+                if (_activateEnabled == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(ActivateEnabledPropertyName);
                 _activateEnabled = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(ActivateEnabledPropertyName);
             }
         }
+        #endregion
+
+  
 
         #endregion
 

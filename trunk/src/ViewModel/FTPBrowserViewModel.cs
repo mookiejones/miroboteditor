@@ -1,8 +1,9 @@
-﻿using miRobotEditor.Core;
+﻿using System.Diagnostics;
+using miRobotEditor.Core;
 
 namespace miRobotEditor.ViewModel
 {
-    public class FTPBrowserViewModel:ToolViewModel
+    public class FTPBrowserViewModel : ToolViewModel
     {
         public FTPBrowserViewModel() : base("FTP Browser")
         {
@@ -11,20 +12,19 @@ namespace miRobotEditor.ViewModel
 
 
     /// <summary>
-    /// Description of FTPFolder.
+    ///     Description of FTPFolder.
     /// </summary>
     public class FTPFolder
     {
-
         public string Path { get; set; }
         public string Name { get; set; }
         //
         // Returns the folder name without having any path information
         //		
-        [System.Diagnostics.DebuggerStepThrough]
+        [DebuggerStepThrough]
         public static string SafeFolderName(string path)
         {
-            var fileParts = path.Split('/');
+            string[] fileParts = path.Split('/');
             return fileParts[fileParts.Length - 1];
         }
     }

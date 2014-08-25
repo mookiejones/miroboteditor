@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
@@ -12,108 +13,320 @@ namespace miRobotEditor.Classes
 {
     public class VariableBase : ViewModelBase, IVariable
     {
-        private string _comment;
-        private string _declaration;
-        private string _description = string.Empty;
-        private BitmapImage _icon;
-        private string _name;
-        private int _offset;
-        private string _path;
-        private string _type;
-        private string _value;
+       
         public static List<IVariable> Variables { get; private set; }
         public bool IsSelected { get; set; }
 
+
+
+        
+        #region Description
+        /// <summary>
+        /// The <see cref="Description" /> property's name.
+        /// </summary>
+        public const string DescriptionPropertyName = "Description";
+
+        private string _description = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the Description property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Description
         {
-            get { return _description; }
+            get
+            {
+                return _description;
+            }
+
             set
             {
+                if (_description == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(DescriptionPropertyName);
                 _description = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(DescriptionPropertyName);
             }
         }
+        #endregion
 
+
+        
+        #region Icon
+        /// <summary>
+        /// The <see cref="Icon" /> property's name.
+        /// </summary>
+        public const string IconPropertyName = "Icon";
+
+        private BitmapImage _icon = null;
+
+        /// <summary>
+        /// Sets and gets the Icon property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public BitmapImage Icon
         {
-            get { return _icon; }
+            get
+            {
+                return _icon;
+            }
+
             set
             {
+                if (_icon == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(IconPropertyName);
                 _icon = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(IconPropertyName);
             }
         }
+        #endregion
 
+        
+        #region Name
+        /// <summary>
+        /// The <see cref="Name" /> property's name.
+        /// </summary>
+        public const string NamePropertyName = "Name";
+
+        private string _name = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the Name property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Name
         {
-            get { return _name; }
+            get
+            {
+                return _name;
+            }
+
             set
             {
+                if (_name == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(NamePropertyName);
                 _name = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(NamePropertyName);
             }
         }
+        #endregion
 
+        
+        #region Comment
+        /// <summary>
+        /// The <see cref="Comment" /> property's name.
+        /// </summary>
+        public const string CommentPropertyName = "Comment";
+
+        private string _comment = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the Comment property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Comment
         {
-            get { return _comment; }
+            get
+            {
+                return _comment;
+            }
+
             set
             {
+                if (_comment == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(CommentPropertyName);
                 _comment = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(CommentPropertyName);
             }
         }
+        #endregion
 
+        
+        #region Path
+        /// <summary>
+        /// The <see cref="Path" /> property's name.
+        /// </summary>
+        public const string PathPropertyName = "Path";
+
+        private string _path = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the Path property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Path
         {
-            get { return _path; }
+            get
+            {
+                return _path;
+            }
+
             set
             {
+                if (_path == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(PathPropertyName);
                 _path = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(PathPropertyName);
             }
         }
+        #endregion
+        
+        #region Value
+        /// <summary>
+        /// The <see cref="Value" /> property's name.
+        /// </summary>
+        public const string ValuePropertyName = "Value";
 
+        private string _myvalue = String.Empty
+;
+
+        /// <summary>
+        /// Sets and gets the Value property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Value
         {
-            get { return _value; }
+            get
+            {
+                return _myvalue;
+            }
+
             set
             {
-                _value = value;
-                RaisePropertyChanged();
+                if (_myvalue == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(ValuePropertyName);
+                _myvalue = value;
+                RaisePropertyChanged(ValuePropertyName);
             }
         }
+        #endregion
 
+
+        
+        #region Type
+        /// <summary>
+        /// The <see cref="Type" /> property's name.
+        /// </summary>
+        public const string TypePropertyName = "Type";
+
+        private string _type = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the Type property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Type
         {
-            get { return _type; }
+            get
+            {
+                return _type;
+            }
+
             set
             {
+                if (_type == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TypePropertyName);
                 _type = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(TypePropertyName);
             }
         }
+        #endregion
+        
+        #region Declaration
+        /// <summary>
+        /// The <see cref="Declaration" /> property's name.
+        /// </summary>
+        public const string DeclarationPropertyName = "Declaration";
 
+        private string _declaration = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the Declaration property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public string Declaration
         {
-            get { return _declaration; }
+            get
+            {
+                return _declaration;
+            }
+
             set
             {
+                if (_declaration == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(DeclarationPropertyName);
                 _declaration = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(DeclarationPropertyName);
             }
         }
+        #endregion
 
+        
+        #region Offset
+        /// <summary>
+        /// The <see cref="Offset" /> property's name.
+        /// </summary>
+        public const string OffsetPropertyName = "Offset";
+
+        private int _offset = 0;
+
+        /// <summary>
+        /// Sets and gets the Offset property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public int Offset
         {
-            get { return _offset; }
+            get
+            {
+                return _offset;
+            }
+
             set
             {
+                if (_offset == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(OffsetPropertyName);
                 _offset = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged(OffsetPropertyName);
             }
         }
+        #endregion
 
+     
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 

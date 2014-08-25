@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
+using GalaSoft.MvvmLight.Messaging;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
@@ -28,12 +29,12 @@ namespace miRobotEditor.GUI
             RegisterSyntaxHighlighting();
         }
 
+       
         #endregion
 
-        private static EditorOptions _instance;
 
         #region Overrides
-
+        /*
         public override bool ShowSpaces
         {
             get { return base.ShowSpaces; }
@@ -43,7 +44,7 @@ namespace miRobotEditor.GUI
                 OnPropertyChanged("ShowSpaces");
             }
         }
-
+        */
         //private bool _convertTabsToSpaces = false;
         //public override bool ConvertTabsToSpaces{get{return _convertTabsToSpaces;}set{_convertTabsToSpaces=value;OnPropertyChanged("ConvertTabsToSpaces");}}
 
@@ -91,7 +92,6 @@ namespace miRobotEditor.GUI
         private Color _lineNumbersForeground = Colors.Gray;
 
         [NonSerialized] private Color _selectedBorderColor = Colors.Orange;
-        private double _selectedBorderThickness = 1;
         [NonSerialized] private Color _selectedFontColor = Colors.White;
 
         /// <summary>
@@ -213,16 +213,39 @@ namespace miRobotEditor.GUI
             }
         }
 
+
+        
+        #region SelectedBorderThickness
+        /// <summary>
+        /// The <see cref="SelectedBorderThickness" /> property's name.
+        /// </summary>
+        public const string SelectedBorderThicknessPropertyName = "SelectedBorderThickness";
+
+        private double _selectedBorderThickness = 1;
+
+        /// <summary>
+        /// Sets and gets the SelectedBorderThickness property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
         public double SelectedBorderThickness
         {
-            get { return _selectedBorderThickness; }
+            get
+            {
+                return _selectedBorderThickness;
+            }
+
             set
             {
+                if (_selectedBorderThickness == value)
+                {
+                    return;
+                }
                 _selectedBorderThickness = value;
-                OnPropertyChanged("SelectedBorderThickness");
+                OnPropertyChanged(SelectedBorderThicknessPropertyName);
             }
         }
-
+        #endregion
+      
 
         public double BorderThickness
         {
@@ -344,16 +367,28 @@ namespace miRobotEditor.GUI
 
         private static string OptionsPath
         {
-            get { return Path.Combine(App.StartupPath, "Options.xml"); }
+            get
+            {
+                var path = App.StartupPath;
+                return Path.Combine(path, "Options.xml");
+            }
         }
 
+        private static EditorOptions CreateInstance()
+        {
+            ReadXml();
+            return _instance;
+        }
+
+        private static EditorOptions _instance;
         public static EditorOptions Instance
         {
-            get { return _instance ?? (_instance = ReadXml()); }
+            get { return _instance ?? (CreateInstance()); }
+
             set { _instance = value; }
         }
 
-        public bool HighlightCurrentLine
+        public override bool HighlightCurrentLine
         {
             get { return _highlightcurrentline; }
             set { _highlightcurrentline = value; }
@@ -462,31 +497,31 @@ namespace miRobotEditor.GUI
             writer.Close();
         }
 
-        private static EditorOptions ReadXml()
+        private static void ReadXml()
         {
-            var result = new EditorOptions();
 
-            if (!File.Exists(OptionsPath))
-                return result;
+            var path = OptionsPath;
 
-            var s = new XmlSerializer(typeof (EditorOptions));
-            var fs = new FileStream(OptionsPath, FileMode.Open);
-
+            if (!File.Exists(path))
+                return ;
             try
             {
-                result = (EditorOptions) s.Deserialize(fs);
-            }
-// ReSharper disable EmptyGeneralCatchClause
-            catch
-// ReSharper restore EmptyGeneralCatchClause
+
+            using (var stream = new StreamReader(path))
             {
-            }
-            finally
-            {
-                fs.Close();
+                var serializer = new XmlSerializer(typeof(EditorOptions));
+                _instance = (EditorOptions) serializer.Deserialize(stream);
             }
 
-            return result;
+            }
+
+            catch(Exception ex)
+            {
+                // Send Message For Reading.
+                Messenger.Default.Send<Exception>(ex);
+            }
+
+
         }
     }
 
