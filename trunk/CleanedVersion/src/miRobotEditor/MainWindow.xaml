@@ -1,0 +1,49 @@
+﻿<mah:MetroWindow x:Class="miRobotEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+
+        xmlns:ignore="http://www.ignore.com"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:controls="clr-namespace:miRobotEditor.UI.Controls;assembly=miRobotEditor.UI"
+        xmlns:views="clr-namespace:miRobotEditor.Views"
+        mc:Ignorable="d ignore"
+        Height="300"
+        Width="300"
+                     Title="{Binding Title, Mode=OneWay, StringFormat=miRobotEditor:\= \{0\}}"
+
+
+    Drop="DropFiles"	
+        DataContext="{Binding Main, Source={StaticResource Locator}}">    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <ad:DockingManager x:Name="DockManager"  Background="Transparent">
+            <ad:LayoutRoot>
+                <ad:LayoutPanel Orientation="Vertical">
+                    <ad:LayoutPanel Orientation="Horizontal">
+                        <ad:LayoutAnchorablePaneGroup DockWidth="300">
+                        <ad:LayoutAnchorablePane Name="LeftPane"/>
+                    </ad:LayoutAnchorablePaneGroup>
+                    <ad:LayoutDocumentPane/>
+                    <ad:LayoutAnchorablePane Name="RightPane" DockWidth="250">
+                            <ad:LayoutAnchorable x:Name="Functions">
+                                <views:FunctionWindow/>
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+                    </ad:LayoutPanel>
+                <ad:LayoutAnchorablePane Name="BottomPane"/>
+                </ad:LayoutPanel>
+            </ad:LayoutRoot>
+        </ad:DockingManager>
+
+    </Grid>
+</mah:MetroWindow>
