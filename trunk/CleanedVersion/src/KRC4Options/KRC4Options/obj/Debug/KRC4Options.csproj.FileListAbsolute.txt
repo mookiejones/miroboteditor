@@ -1,0 +1,15 @@
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\bin\Debug\KRC4Options.exe
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\bin\Debug\KRC4Options.pdb
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\KRC4Options.csprojResolveAssemblyReference.cache
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\MainWindow.g.cs
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\App.g.cs
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\KRC4Options_MarkupCompile.cache
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\KRC4Options_MarkupCompile.lref
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\MainWindow.baml
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\KRC4Options.g.resources
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\KRC4Options.Properties.Resources.resources
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\KRC4Options.csproj.GenerateResource.Cache
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\KRC4Options.exe
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\KRC4Options.pdb
+C:\Programming\premvvm\CleanedVersion\src\KRC4Options\KRC4Options\obj\Debug\KUKAResources.baml

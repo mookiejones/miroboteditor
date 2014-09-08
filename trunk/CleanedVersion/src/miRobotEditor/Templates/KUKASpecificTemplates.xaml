@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:lang="clr-namespace:miRobotEditor.Languages"
-                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel">
-    <DataTemplate DataType="{x:Type vm:SystemFunctionsModel}">
+                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
+                    xmlns:languages="clr-namespace:miRobotEditor.EditorControl.Languages;assembly=miRobotEditor.EditorControl"
+                    xmlns:core="clr-namespace:miRobotEditor.Core;assembly=miRobotEditor.ViewModels">
+    <DataTemplate DataType="{x:Type core:SystemFunctionsModel}">
         <!--        <mah:MetroWindow Title="System Functions" Height="169" Width="201" ResizeMode="NoResize">-->
             <StackPanel Orientation="Vertical" >
                 <StackPanel.Resources>
@@ -25,7 +26,7 @@
     
     
     <!-- Dat Cleaner -->
-    <DataTemplate DataType="{x:Type lang:DatCleanHelper}">
+    <DataTemplate DataType="{x:Type languages:DatCleanHelper}">
        
             <Grid Width="{Binding Width}" Height="{Binding Height}">
                 <Grid.Resources>

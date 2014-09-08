@@ -36,7 +36,7 @@ namespace miRobotEditor.EditorControl
         }
         #region Constructor
 
-        private EditorOptions()
+        public EditorOptions()
         {
             //            ShowSpaces = true;
             RegisterSyntaxHighlighting();

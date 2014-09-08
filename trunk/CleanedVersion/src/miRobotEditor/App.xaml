@@ -9,7 +9,14 @@
     
     <Application.Resources>
         <!--Global View Model Locator-->
-        <viewModel:ViewModelLocator x:Key="Locator"  d:IsDataSource="True" />
+       
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+            <viewModel:ViewModelLocator x:Key="Locator"  d:IsDataSource="True" />
+        </ResourceDictionary>
     </Application.Resources>
     
 </Application>

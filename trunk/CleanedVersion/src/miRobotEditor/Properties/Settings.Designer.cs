@@ -31,5 +31,15 @@ namespace miRobotEditor.Properties {
                 return ((int)(this["Filter"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OpenDocuments {
+            get {
+                return ((string)(this["OpenDocuments"]));
+            }
+            set { this["OpenDocuments"] = value; }
+        }
     }
 }

@@ -3,7 +3,7 @@ using miRobotEditor.Core;
 
 namespace miRobotEditor.Core
 {
-    public abstract class SystemFunctionsViewModel : ViewModelBase
+    public abstract class SystemFunctionsModel : ViewModelBase
     {
         private bool _structures = true;
         public bool Structures { get { return _structures; } set { _structures = value; RaisePropertyChanged("Structures"); } }
