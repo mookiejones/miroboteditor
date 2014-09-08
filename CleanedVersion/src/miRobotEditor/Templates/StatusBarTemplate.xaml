@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:core="clr-namespace:miRobotEditor.Core;assembly=miRobotEditor.ViewModels">
 <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="/Styles\Brushes.xaml" />
 </ResourceDictionary.MergedDictionaries>
@@ -41,7 +42,7 @@
         <Setter Property="ItemsPanel" Value="{StaticResource Sbitems}"/>
         <Setter Property="DataContext">
             <Setter.Value>
-                <vm:StatusBarViewModel/>
+                <core:StatusBarViewModel/>
             </Setter.Value>
         </Setter>
     </Style>

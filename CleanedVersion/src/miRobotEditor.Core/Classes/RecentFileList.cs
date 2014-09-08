@@ -383,12 +383,11 @@ namespace miRobotEditor.Core.Classes
 
             public RegistryPersister()
             {
-                throw new NotImplementedException();
                 RegistryKey =
                     "Software\\" +
                     
-//                    ApplicationAttributes.CompanyName + "\\" +
-//                    ApplicationAttributes.ProductName + "\\" +
+                    ApplicationAttributes.CompanyName + "\\" +
+                    ApplicationAttributes.ProductName + "\\" +
                     "RecentFileList";
             }
 
