@@ -63,11 +63,21 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< .mine
+    <Compile Include="ErrorMessage.cs" />
+=======
     <Compile Include="Exceptions\ExceptionHandling.cs" />
     <Compile Include="Global.cs" />
+>>>>>>> .r178
     <Compile Include="IMessage.cs" />
     <Compile Include="MsgIcon.cs" />
+<<<<<<< .mine
+    <Compile Include="OutputWindowMessage.cs" />
+=======
+>>>>>>> .r178
     <Compile Include="Properties\Annotations.cs" />
+<<<<<<< .mine
+=======
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Tracing\IPerformanceLogger.cs" />
     <Compile Include="Tracing\PerformanceLogBracket.cs" />
@@ -75,6 +85,7 @@
     <Compile Include="Tracing\PrettyTraceSource.cs" />
     <Compile Include="Tracing\TraceSourceCounters.cs" />
     <Compile Include="Tracing\TraceSourceFactory.cs" />
+>>>>>>> .r178
     <Compile Include="Utilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializeBase.cs" />
