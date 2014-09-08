@@ -1,0 +1,236 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+
+                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:miRobotEditor="clr-namespace:miRobotEditor"
+                    xmlns:core="clr-namespace:miRobotEditor.Core;assembly=miRobotEditor.Core"
+                    xmlns:regularExpressions="clr-namespace:System.Text.RegularExpressions;assembly=System"
+                    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+                    xmlns:views="clr-namespace:miRobotEditor.Views"
+                    xmlns:messaging="clr-namespace:miRobotEditor.Core.Classes.Messaging;assembly=miRobotEditor.Core"
+                    xmlns:core1="clr-namespace:miRobotEditor.Core;assembly=miRobotEditor.ViewModels"
+                    xmlns:viewModels="clr-namespace:miRobotEditor.ViewModels;assembly=miRobotEditor.ViewModels"
+                    xmlns:languages="clr-namespace:miRobotEditor.EditorControl.Languages;assembly=miRobotEditor.EditorControl"
+                    xmlns:editorControl="clr-namespace:miRobotEditor.EditorControl;assembly=miRobotEditor.EditorControl"
+                    xmlns:controls="clr-namespace:miRobotEditor.UI.Controls;assembly=miRobotEditor.UI"
+                    xmlns:classes1="clr-namespace:miRobotEditor.Core.Classes;assembly=miRobotEditor.Core"
+                    xmlns:converters1="clr-namespace:miRobotEditor.Core.Converters;assembly=miRobotEditor.Core"
+                    xmlns:converters2="clr-namespace:miRobotEditor.Converters;assembly=miRobotEditor.Core"
+                        xmlns:vm1="clr-namespace:miRobotEditor.ViewModels;assembly=miRobotEditor.ViewModels">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/miRobotEditor;component/Templates/Generic.xaml" />
+        <ResourceDictionary Source="/miRobotEditor;component/Templates/ExtendedGridSplitter.xaml"/>
+        <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    <converters1:VariableToFunctionConverter x:Key="VariableToFunctionConverter"/>
+    <converters2:WidthConverter x:Key="WidthConverter"/>
+
+    <DataTemplate DataType="{x:Type core1:FindReplaceViewModel}">
+        <DataTemplate.Resources>
+            <CollectionViewSource Source="{Binding FindReplaceResults}" x:Key="items">
+                <CollectionViewSource.SortDescriptions>
+                    <componentModel:SortDescription PropertyName="File"/>                    
+                </CollectionViewSource.SortDescriptions>
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="File"/>
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+            <DataTemplate DataType="{x:Type regularExpressions:Group}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Index,StringFormat='Index = {0}'}"/>
+                    <TextBlock Text="{Binding Value,StringFormat='Value = {0}'}"/>
+                </StackPanel>
+            </DataTemplate>
+        </DataTemplate.Resources>
+        <ListBox Name="items"   ItemsSource="{Binding Source={StaticResource items}}" DisplayMemberPath="File">
+            <ListBox.GroupStyle>
+                <x:Static Member="GroupStyle.Default"/>
+            </ListBox.GroupStyle>
+            <ListBox.Resources>
+                <!--
+                DataTemplate DataType="{x:Type FindReplaceResult}"
+                    Expander Header="{Binding File}"
+                        ListBox ItemsSource="{Binding Groups}"
+                    /Expander
+                /DataTemplate> -->
+            </ListBox.Resources>
+       
+        </ListBox>
+    </DataTemplate>
+
+
+    <!-- Notes Template -->
+
+
+    <DataTemplate DataType="{x:Type messaging:OutputWindowMessage}">
+        <Label >
+            <StackPanel>
+                <Image Source="{Binding Icon}"/>
+                <TextBlock Text="{Binding Title}"/>
+                <TextBlock Text="{Binding Description}" ToolTip="Hello" />
+            </StackPanel>
+        </Label>
+    </DataTemplate>
+
+
+    <DataTemplate DataType="{x:Type classes1:ValueBoxModel}">
+        <StackPanel Orientation="Vertical">
+            <StackPanel.Resources>
+                <core1:AngleToolTipConverter x:Key="Tooltip"/>
+                <Style TargetType="{x:Type TextBox}" >
+                    <Setter	Property="TextAlignment" Value="Center" />
+                    <Setter	Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="IsReadOnly" Value="{Binding IsReadOnly}"/>
+                    <Setter Property="Width" Value="53"/>
+                    <Setter Property="Margin" Value="0,2,2,0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BoxVisibility}" Value="Collapsed">
+                            <Setter Property="Width" Value="71"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
+            <ComboBox   ItemsSource="{Binding SelectionItems}" IsReadOnly="True" DisplayMemberPath= "ValueCartesianString"  SelectedValuePath= "ValueCartesianEnum" SelectedValue="{Binding SelectedItem}"/>
+            <StackPanel Orientation="Horizontal"  >
+                <TextBox x:Name="V1" Text="{Binding V1, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}" ToolTip="{Binding SelectedItem, ConverterParameter=V1, Converter={StaticResource Tooltip}}"  />
+                <TextBox x:Name="V2" Text="{Binding V2, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}" ToolTip="{Binding SelectedItem, ConverterParameter=V2, Converter={StaticResource Tooltip}}"  />
+                <TextBox x:Name="V3" Text="{Binding V3, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}" ToolTip="{Binding SelectedItem, ConverterParameter=V3, Converter={StaticResource Tooltip}}"  />
+                <TextBox x:Name="V4" Text="{Binding V4, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}" Visibility="{Binding BoxVisibility}" ToolTip="{Binding SelectedItem, ConverterParameter=V4, Converter={StaticResource Tooltip}}"  />
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+
+   
+
+    <!-- Generic Document -->
+    <DataTemplate DataType="{x:Type viewModels:DocumentViewModel}">
+        <DockPanel>
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type ComboBox}">
+                    <Setter Property="Opacity" Value="0.1"/>
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="FontSize" Value="10"/>
+                    <Setter Property="ItemTemplate" Value="{DynamicResource FunctionItemTemplate}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Resources>
+            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  DockPanel.Dock="Top" />
+            <ContentPresenter Content="{Binding TextBox}" DockPanel.Dock="Top"/>
+        </DockPanel>
+    </DataTemplate>
+
+    <!-- KUKA Document -->
+    <DataTemplate DataType="{x:Type languages:KukaViewModel}">
+        <DockPanel>
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type ComboBox}">
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="Opacity" Value="0.1"/>
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="FontSize" Value="10"/>
+                    <Setter Property="ItemTemplate" Value="{DynamicResource FunctionItemTemplate}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Resources>
+            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  DockPanel.Dock="Top" />
+            <Grid DockPanel.Dock="Top" >
+                <Grid.InputBindings>
+                    <KeyBinding Command="{Binding ToggleGridCommand}" CommandTarget="{Binding Grid}" Key="T" Modifiers="Control"/>
+                </Grid.InputBindings>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <ContentPresenter Content="{Binding Source}" Grid.Row="0"/>
+                <ContentPresenter Content="{Binding Data}" Grid.Row="2"/>
+                <controls:ExtendedGridSplitter x:Name="_grid" Grid.Row="1" DataContext="{Binding Grid}"/>
+            </Grid>
+        </DockPanel>
+    </DataTemplate>
+
+    <!-- Editor -->
+    <DataTemplate DataType="{x:Type editorControl:Editor}">
+        <DockPanel>
+            <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}" DockPanel.Dock="Top"/>
+            <ContentPresenter Content="{Binding ''}" DockPanel.Dock="Top"/>
+        </DockPanel>
+    </DataTemplate>
+
+
+    <!-- Notes -->
+    <DataTemplate x:Key="NotesWindowTemplate">
+        <TextBox TextWrapping="Wrap" Background="DarkGray" BorderThickness="1"/>
+    </DataTemplate>
+
+
+    <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type classes1:Variable}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <Image Source="{Binding Icon}" DockPanel.Dock="Left"/>
+            <Label Content="{Binding Name}" Margin="5,0,0,0" HorizontalAlignment="Stretch">
+                <Label.ToolTip>
+                    <GroupBox Header="{Binding Name}" FontWeight="ExtraBold" FontSize="14" Foreground="White">
+                        <GroupBox.Resources>
+                            <Style	TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontWeight" Value="Normal" />
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </GroupBox.Resources>
+                        <StackPanel	Orientation="Vertical">
+                            <TextBlock Text="{Binding Offset, StringFormat=Offset:\=\{0\}}" Visibility="{Binding ShowOffset, Converter={StaticResource BoolToVisConverter}}" />
+                            <TextBlock Text="{Binding Returns, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowReturns, Converter={StaticResource BoolToVisConverter}}" />
+                            <TextBlock Text="{Binding Declaration, StringFormat=Returns:\=\{0\}}" Visibility="{Binding ShowDeclaration, Converter={StaticResource BoolToVisConverter}}" />
+                        </StackPanel>
+                    </GroupBox>
+                </Label.ToolTip>
+            </Label>
+        </StackPanel>
+    </DataTemplate>
+    <Style  TargetType="{x:Type mah:Flyout}">
+        <Style.Resources>
+            <ResourceDictionary>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+                <Style TargetType="{x:Type CheckBox}">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </ResourceDictionary>
+        </Style.Resources>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
+        <Setter Property="Opacity" Value="0.35"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="IsOpen" Value="False"/>
+            </Trigger>
+            <EventTrigger RoutedEvent="UIElement.MouseEnter" >
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".95" Duration="0:0:0.5"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="UIElement.MouseLeave" >
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".25" Duration="0:0:0.5"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

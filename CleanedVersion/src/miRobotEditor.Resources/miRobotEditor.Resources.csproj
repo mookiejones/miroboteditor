@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F796871F-9032-4D77-94A7-213A4E80DE61}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>miRobotEditor.Resources</RootNamespace>
+    <AssemblyName>miRobotEditor.Resources</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ButtonResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ButtonResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="HeaderResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HeaderResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LabelResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LabelResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MessageResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ButtonResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ButtonResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HeaderResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>HeaderResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LabelResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StringResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyntaxHighlighting\ABBHighlight.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SyntaxHighlighting\FanucHighlight.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SyntaxHighlighting\KAWASAKIHighlight.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SyntaxHighlighting\KFDHighlight.xshd" />
+    <EmbeddedResource Include="SyntaxHighlighting\KUKAHighlight.xshd" />
+    <EmbeddedResource Include="SyntaxHighlighting\NoneHighlight.xshd" />
+    <None Include="SyntaxHighlighting\Reference.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="SyntaxHighlighting\RobotBaseHighlight.xshd" />
+    <EmbeddedResource Include="SyntaxHighlighting\VBAHighlight.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Locked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HTabGroup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\zip.png" />
+    <Resource Include="Images\vxvaluetype_icon.png" />
+    <Resource Include="Images\vxstruct_icon.png" />
+    <Resource Include="Images\vxproperty_icon.png" />
+    <Resource Include="Images\vxmodule_icon.png" />
+    <Resource Include="Images\vxmethod_icon.png" />
+    <Resource Include="Images\vxfield_icon.png" />
+    <Resource Include="Images\vxevent_icon.png" />
+    <Resource Include="Images\vxenum_icon.png" />
+    <Resource Include="Images\VTabGroup.png" />
+    <Resource Include="Images\Undo.png" />
+    <Resource Include="Images\UnComment.png" />
+    <Resource Include="Images\toggle.png" />
+    <Resource Include="Images\text-x-log.png" />
+    <Resource Include="Images\splash.png" />
+    <Resource Include="Images\SelectAll.png" />
+    <Resource Include="Images\select_all.png" />
+    <Resource Include="Images\search.png" />
+    <Resource Include="Images\SaveAs.png" />
+    <Resource Include="Images\save_all.png" />
+    <Resource Include="Images\Save.png" />
+    <Resource Include="Images\revert.png" />
+    <Resource Include="Images\refresh_yellow.png" />
+    <Resource Include="Images\Redo.png" />
+    <Resource Include="Images\PrintPreview.png" />
+    <Resource Include="Images\print_preview.png" />
+    <Resource Include="Images\Print.png" />
+    <Resource Include="Images\PinRestore_Dark.png" />
+    <Resource Include="Images\PinRestore_Black.png" />
+    <Resource Include="Images\PinRestore.png" />
+    <Resource Include="Images\PinMenu_Dark.png" />
+    <Resource Include="Images\PinMenu_Black.png" />
+    <Resource Include="Images\PinMenu.png" />
+    <Resource Include="Images\PinMaximize_Dark.png" />
+    <Resource Include="Images\PinMaximize_Black.png" />
+    <Resource Include="Images\PinMaximize.png" />
+    <Resource Include="Images\PinDocMenu_Dark.png" />
+    <Resource Include="Images\PinDocMenu_Black.png" />
+    <Resource Include="Images\PinDocMenu.png" />
+    <Resource Include="Images\PinClose_Dark.png" />
+    <Resource Include="Images\PinClose_Black.png" />
+    <Resource Include="Images\PinClose.png" />
+    <Resource Include="Images\PinAutoHide_Dark.png" />
+    <Resource Include="Images\PinAutoHide_Black.png" />
+    <Resource Include="Images\PinAutoHide.png" />
+    <Resource Include="Images\pendrive.png" />
+    <Resource Include="Images\paste.png" />
+    <Resource Include="Images\new_edit_find_replace.png" />
+    <Resource Include="Images\new.png" />
+    <Resource Include="Images\lineNumbers.png" />
+    <Resource Include="Images\line_numbers.png" />
+    <Resource Include="Images\increaseindent.png" />
+    <Resource Include="Images\graph_plus.png" />
+    <Resource Include="Images\graph_minus.png" />
+    <Resource Include="Images\graph_delete.png" />
+    <Resource Include="Images\graph_color.png" />
+    <Resource Include="Images\graph_add.png" />
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\bender.png" />
+    <Resource Include="Images\binoculars.png" />
+    <Resource Include="Images\BookmarkClear.png" />
+    <Resource Include="Images\BookmarkNext.png" />
+    <Resource Include="Images\BookmarkPrev.png" />
+    <Resource Include="Images\cd.png" />
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\Comment.png" />
+    <Resource Include="Images\Copy %282%29 of editdelete.png" />
+    <Resource Include="Images\Copy %282%29 of folder.png" />
+    <Resource Include="Images\Copy %282%29 of refresh_yellow.png" />
+    <Resource Include="Images\Copy of editdelete.png" />
+    <Resource Include="Images\Copy of folder.png" />
+    <Resource Include="Images\Copy of refresh_yellow.png" />
+    <Resource Include="Images\Copy.png" />
+    <Resource Include="Images\Cut.png" />
+    <Resource Include="Images\decreasindent.png" />
+    <Resource Include="Images\delete.bmp" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\desktop.png" />
+    <Resource Include="Images\DockAnchorableBottom.png" />
+    <Resource Include="Images\DockAnchorableLeft.png" />
+    <Resource Include="Images\DockAnchorableRight.png" />
+    <Resource Include="Images\DockAnchorableTop.png" />
+    <Resource Include="Images\DockDocumentAsAnchorableBottom.png" />
+    <Resource Include="Images\DockDocumentAsAnchorableLeft.png" />
+    <Resource Include="Images\DockDocumentAsAnchorableRight.png" />
+    <Resource Include="Images\DockDocumentAsAnchorableTop.png" />
+    <Resource Include="Images\DockDocumentBottom.png" />
+    <Resource Include="Images\DockDocumentInside.png" />
+    <Resource Include="Images\DockDocumentLeft.png" />
+    <Resource Include="Images\DockDocumentRight.png" />
+    <Resource Include="Images\DockDocumentTop.png" />
+    <Resource Include="Images\DockPaneEmpty.png" />
+    <Resource Include="Images\DockPaneLargeEmpty.png" />
+    <Resource Include="Images\drive.png" />
+    <Resource Include="Images\editdelete.png" />
+    <Resource Include="Images\editdeleteall.png" />
+    <Resource Include="Images\editvar.png" />
+    <Resource Include="Images\error.png" />
+    <Resource Include="Images\exit.png" />
+    <Resource Include="Images\expandfolds.png" />
+    <Resource Include="Images\fileicon.png" />
+    <Resource Include="Images\FIND.bmp" />
+    <Resource Include="Images\FindHS.png" />
+    <Resource Include="Images\folder.png" />
+    <Resource Include="Images\folderOpen.png" />
+    <Resource Include="Images\folder_open.png" />
+    <Resource Include="Images\_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\editor.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
