@@ -1,40 +1,41 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:io="clr-namespace:System.IO;assembly=mscorlib"
-                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel" xmlns:miRobotEditor="clr-namespace:miRobotEditor"
-                    xmlns:core="clr-namespace:miRobotEditor.Core;assembly=miRobotEditor.ViewModels"
+                    xmlns:miRobotEditor="clr-namespace:miRobotEditor"
                     xmlns:editorControl="clr-namespace:miRobotEditor.EditorControl;assembly=miRobotEditor.EditorControl"
-                    xmlns:vm1="clr-namespace:miRobotEditor.Core;assembly=miRobotEditor.Core">
+                    xmlns:vm1="clr-namespace:miRobotEditor.Core;assembly=miRobotEditor.Core"
+                    xmlns:viewModels="clr-namespace:miRobotEditor.ViewModels;assembly=miRobotEditor.ViewModels"
+                    xmlns:converters="clr-namespace:miRobotEditor.Core.Converters;assembly=miRobotEditor.Core">
 
     <!-- style to apply to DataGridTextColumn in edit mode  -->
 
-    <core:GetFileIconConverter x:Key="GetFileIconConverter"/>
-    <core:GetFileSystemInfosConverter x:Key="GetFileSystemInfosConverter"/>
+    <converters:GetFileIconConverter x:Key="GetFileIconConverter" />
+    <converters:GetFileSystemInfosConverter x:Key="GetFileSystemInfosConverter" />
 
-    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <Style x:Key="CellEditStyle" TargetType="{x:Type TextBox}">
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
                 <Setter Property="ToolTip"
-                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                        Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <DataTemplate x:Key="SignalToolTip" DataType="ToolTip">
         <StackPanel Orientation="Vertical">
-            <TextBlock Text="{Binding Type}"/>
-            <Separator/>
-            <TextBlock Text="{Binding Description}"/>
+            <TextBlock Text="{Binding Type}" />
+            <Separator />
+            <TextBlock Text="{Binding Description}" />
         </StackPanel>
     </DataTemplate>
 
-    <Style TargetType="{x:Type ToolTip}"       >
-        <Setter Property="Background" Value="GhostWhite"/>
-        <Setter Property="Opacity" Value="0.9"/>
+    <Style TargetType="{x:Type ToolTip}">
+        <Setter Property="Background" Value="GhostWhite" />
+        <Setter Property="Opacity" Value="0.9" />
     </Style>
 
 
@@ -43,30 +44,30 @@
         <StackPanel Orientation="Vertical">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBox}">
-                    <Setter Property="IsReadOnly" Value="True"/>
+                    <Setter Property="IsReadOnly" Value="True" />
                 </Style>
             </StackPanel.Resources>
             <!-- General -->
             <GroupBox Header="General">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Archive Name" Grid.Row="0" Grid.Column="0"/>
-                    <TextBlock Text="Config Type" Grid.Row="1" Grid.Column="0"/>
-                    <TextBlock Text="Disk No" Grid.Row="2" Grid.Column="0"/>
-                    <TextBlock Text="ID" Grid.Row="3" Grid.Column="0"/>
-                    <TextBlock Text="Date" Grid.Row="4" Grid.Column="0"/>
+                    <TextBlock Text="Archive Name" Grid.Row="0" Grid.Column="0" />
+                    <TextBlock Text="Config Type" Grid.Row="1" Grid.Column="0" />
+                    <TextBlock Text="Disk No" Grid.Row="2" Grid.Column="0" />
+                    <TextBlock Text="ID" Grid.Row="3" Grid.Column="0" />
+                    <TextBlock Text="Date" Grid.Row="4" Grid.Column="0" />
                     <TextBox Text="{Binding ArchiveName}" Grid.Column="1" Grid.Row="0" />
-                    <TextBox Text="{Binding ArchiveConfigType}" Grid.Column="1" Grid.Row="1"/>
+                    <TextBox Text="{Binding ArchiveConfigType}" Grid.Column="1" Grid.Row="1" />
                     <TextBox Text="{Binding ArchiveDiskNo}" Grid.Column="1" Grid.Row="2" />
                     <TextBox Text="{Binding ArchiveID}" Grid.Column="1" Grid.Row="3" />
                     <TextBox Text="{Binding ArchiveDate}" Grid.Column="1" Grid.Row="4" />
@@ -76,17 +77,17 @@
             <GroupBox Header="Roboter">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Robot Name" Grid.Row="0" Grid.Column="0"/>
-                    <TextBlock Text="Serial" Grid.Row="1" Grid.Column="0"/>
-                    <TextBox Text="{Binding RobotName}" Grid.Column="1" Grid.Row="0"/>
-                    <TextBox Text="{Binding RobotSerial}" Grid.Column="1" Grid.Row="1"/>
+                    <TextBlock Text="Robot Name" Grid.Row="0" Grid.Column="0" />
+                    <TextBlock Text="Serial" Grid.Row="1" Grid.Column="0" />
+                    <TextBox Text="{Binding RobotName}" Grid.Column="1" Grid.Row="0" />
+                    <TextBox Text="{Binding RobotSerial}" Grid.Column="1" Grid.Row="1" />
                 </Grid>
             </GroupBox>
             <GroupBox Header="Version">
@@ -97,7 +98,7 @@
                 <ListView ItemsSource="{Binding Technologies}" MinHeight="100" VerticalAlignment="Stretch">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.View>
@@ -105,14 +106,14 @@
                             <GridViewColumn Header="Technology Name">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock Text="{Binding Name}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Version" >
+                            <GridViewColumn Header="Version">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Version}"/>
+                                        <TextBlock Text="{Binding Version}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -126,152 +127,186 @@
     <DataTemplate DataType="{x:Type io:FileInfo}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Image Height="16" Width="16" Source="{Binding Name, Converter={StaticResource GetFileIconConverter}, Mode=OneWay}" Margin="0,0,10,0"  />
+            <Image Height="16" Width="16"
+                   Source="{Binding Name, Converter={StaticResource GetFileIconConverter}, Mode=OneWay}"
+                   Margin="0,0,10,0" />
             <TextBlock Text="{Binding Name}" Grid.Column="1" FontSize="14">
                 <TextBlock.ToolTip>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold"/>
-                        <Separator/>
-                        <TextBlock Text="{Binding IsReadOnly, StringFormat=Is Read Only:\= \{0\}}"/>
-                        <TextBlock Text="{Binding Length, StringFormat=Size:\= \{0\}}"/>
-                        <TextBlock Text="{Binding DirectoryName, StringFormat=Directory Name:\= \{0\}}"/>
+                        <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" />
+                        <Separator />
+                        <TextBlock Text="{Binding IsReadOnly, StringFormat=Is Read Only:\= \{0\}}" />
+                        <TextBlock Text="{Binding Length, StringFormat=Size:\= \{0\}}" />
+                        <TextBlock Text="{Binding DirectoryName, StringFormat=Directory Name:\= \{0\}}" />
                     </StackPanel>
                 </TextBlock.ToolTip>
-                </TextBlock>
+            </TextBlock>
         </Grid>
     </DataTemplate>
-    <HierarchicalDataTemplate DataType="{x:Type io:DirectoryInfo}" ItemsSource="{Binding ., Converter={StaticResource GetFileSystemInfosConverter}}" >
+    <HierarchicalDataTemplate DataType="{x:Type io:DirectoryInfo}"
+                              ItemsSource="{Binding ., Converter={StaticResource GetFileSystemInfosConverter}}">
         <TextBlock Text='{Binding Name}' FontSize="14" />
     </HierarchicalDataTemplate>
 
     <Style TargetType="{x:Type DataGridColumnHeader}">
-        <Setter Property="Padding" Value="5,0,5,0"/>
-        <Setter Property="Foreground" Value="Black"/>        
-        <Setter Property="Background" Value="{Binding Path=AccentBrush.Name, Source={Binding}}"/>
+        <Setter Property="Padding" Value="5,0,5,0" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="{Binding Path=AccentBrush.Name, Source={Binding}}" />
     </Style>
-  
+
     <DataTemplate x:Key="ItemsTemplate">
-        <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" BorderThickness="0">          
+        <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" BorderThickness="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Foreground="{Binding TitleForeground, Source={x:Static miRobotEditor:MainWindow.Instance}}" Header="Type"  Binding="{Binding Type}"/>
-                <DataGridTextColumn Foreground="{Binding TitleForeground, Source={x:Static miRobotEditor:MainWindow.Instance}}" Header="Description" Width="Auto" Binding="{Binding Description}"/>
+                <DataGridTextColumn
+                    Foreground="{Binding TitleForeground, Source={x:Static miRobotEditor:MainWindow.Instance}}"
+                    Header="Type" Binding="{Binding Type}" />
+                <DataGridTextColumn
+                    Foreground="{Binding TitleForeground, Source={x:Static miRobotEditor:MainWindow.Instance}}"
+                    Header="Description" Width="Auto" Binding="{Binding Description}" />
             </DataGrid.Columns>
         </DataGrid>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type core:ArchiveInfoModel}">
+    <DataTemplate DataType="{x:Type viewModels:ArchiveInfoModel}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition/>
+                <RowDefinition Height="25" />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Menu Height="25" VerticalAlignment="Top" Background="Transparent">
                 <MenuItem Header="_File" Command="{Binding ImportCommand}" />
             </Menu>
-            <TabControl VerticalAlignment="Stretch" Grid.Row="1" VerticalContentAlignment="Stretch" >
-                <TabItem Header="Archive Files" >
+            <TabControl VerticalAlignment="Stretch" Grid.Row="1" VerticalContentAlignment="Stretch">
+                <TabItem Header="Archive Files">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="70*"/>
-                            <RowDefinition Height="30*"/>
+                            <RowDefinition Height="70*" />
+                            <RowDefinition Height="30*" />
                         </Grid.RowDefinitions>
 
                         <TreeView ItemsSource="{Binding Root, IsAsync=True}" Background="Transparent" />
-                        <GroupBox Grid.Row="1" Header="Details" VerticalAlignment="Bottom" ToolTip="{Binding ArchiveZip.Name, StringFormat=Details for Archive File \{0\}}">
+                        <GroupBox Grid.Row="1" Header="Details" VerticalAlignment="Bottom"
+                                  ToolTip="{Binding ArchiveZip.Name, StringFormat=Details for Archive File \{0\}}">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="{Binding ArchiveZip.Name, StringFormat=Name \= \{0\}}"/>
-                                <TextBlock Text="{Binding ArchiveZip.BufferSize, StringFormat=Buffer Size \= \{0\}}"/>
-                                <TextBlock Text="{Binding ArchiveZip.Count, StringFormat=File Count \= \{0\}}"/>
+                                <TextBlock Text="{Binding ArchiveZip.Name, StringFormat=Name \= \{0\}}" />
+                                <TextBlock Text="{Binding ArchiveZip.BufferSize, StringFormat=Buffer Size \= \{0\}}" />
+                                <TextBlock Text="{Binding ArchiveZip.Count, StringFormat=File Count \= \{0\}}" />
                             </StackPanel>
                         </GroupBox>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Archive Information" Content="{Binding Info}"/>
+                <TabItem Header="Archive Information" Content="{Binding Info}" />
                 <TabItem Header="IO Points">
                     <TabItem.Resources>
                         <Style TargetType="{x:Type DataGrid}">
-                            <Setter Property="AlternatingRowBackground" Value="SkyBlue"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="AutoGenerateColumns" Value="False"/>
+                            <Setter Property="AlternatingRowBackground" Value="SkyBlue" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="AutoGenerateColumns" Value="False" />
                         </Style>
                     </TabItem.Resources>
                     <TabControl>
-                        <TabItem Header="Digital" Visibility="{Binding DigitalVisibility}" >
+                        <TabItem Header="Digital" Visibility="{Binding DigitalVisibility}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50*"/>
-                                    <ColumnDefinition Width="50*"/>
+                                    <ColumnDefinition Width="50*" />
+                                    <ColumnDefinition Width="50*" />
                                 </Grid.ColumnDefinitions>
-                                <GroupBox Header="Digital In" ContentTemplate="{StaticResource ItemsTemplate}"  Grid.Column="0" Content="{Binding Inputs}" Visibility="{Binding DigInVisibility}"/>
-                                <GroupBox Header="Digital Out" ContentTemplate="{StaticResource ItemsTemplate}"  Grid.Column="1" Content="{Binding Outputs}" Visibility="{Binding DigOutVisibility}"/>
+                                <GroupBox Header="Digital In" ContentTemplate="{StaticResource ItemsTemplate}"
+                                          Grid.Column="0" Content="{Binding Inputs}"
+                                          Visibility="{Binding DigInVisibility}" />
+                                <GroupBox Header="Digital Out" ContentTemplate="{StaticResource ItemsTemplate}"
+                                          Grid.Column="1" Content="{Binding Outputs}"
+                                          Visibility="{Binding DigOutVisibility}" />
                             </Grid>
                         </TabItem>
                         <TabItem Header="Analog" Visibility="{Binding AnalogVisibility}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50*"/>
-                                    <ColumnDefinition Width="50*"/>
+                                    <ColumnDefinition Width="50*" />
+                                    <ColumnDefinition Width="50*" />
                                 </Grid.ColumnDefinitions>
-                                <GroupBox Header="Analog In" Grid.Column="0" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding AnIn}" Visibility="{Binding AnInVisibility}"/>
-                                <GroupBox Header="Analog Out" Grid.Column="1" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding AnOut}" Visibility="{Binding AnOutVisibility}"/>
+                                <GroupBox Header="Analog In" Grid.Column="0"
+                                          ContentTemplate="{StaticResource ItemsTemplate}" Content="{Binding AnIn}"
+                                          Visibility="{Binding AnInVisibility}" />
+                                <GroupBox Header="Analog Out" Grid.Column="1"
+                                          ContentTemplate="{StaticResource ItemsTemplate}" Content="{Binding AnOut}"
+                                          Visibility="{Binding AnOutVisibility}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Counters" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding Counter}" Visibility="{Binding CounterVisibility}"/>
-                        <TabItem Header="Timers" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding Timer}" Visibility="{Binding TimerVisibility}"/>
-                        <TabItem Header="Flags" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding Flag}" Visibility="{Binding FlagVisibility}"/>
-                        <TabItem Header="CycFlags" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding CyclicFlagVisibility}"  Content="{Binding CycFlags}"/>
+                        <TabItem Header="Counters" ContentTemplate="{StaticResource ItemsTemplate}"
+                                 Content="{Binding Counter}" Visibility="{Binding CounterVisibility}" />
+                        <TabItem Header="Timers" ContentTemplate="{StaticResource ItemsTemplate}"
+                                 Content="{Binding Timer}" Visibility="{Binding TimerVisibility}" />
+                        <TabItem Header="Flags" ContentTemplate="{StaticResource ItemsTemplate}"
+                                 Content="{Binding Flag}" Visibility="{Binding FlagVisibility}" />
+                        <TabItem Header="CycFlags" ContentTemplate="{StaticResource ItemsTemplate}"
+                                 Visibility="{Binding CyclicFlagVisibility}" Content="{Binding CycFlags}" />
                     </TabControl>
                 </TabItem>
                 <TabItem Header="Language File">
-                    <TextBox Text="{Binding DataBase}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto"/>
+                    <TextBox Text="{Binding DataBase}" ScrollViewer.CanContentScroll="True"
+                             VerticalScrollBarVisibility="Auto" />
                 </TabItem>
             </TabControl>
         </Grid>
     </DataTemplate>
-   
-    
+
+
     <DataTemplate DataType="{x:Type editorControl:IOViewModel}">
-        <TabControl VerticalAlignment="Stretch" Grid.Row="1" VerticalContentAlignment="Stretch"   >
-           
+        <TabControl VerticalAlignment="Stretch" Grid.Row="1" VerticalContentAlignment="Stretch">
+
             <TabItem Header="Language File">
-                <TextBox Text="{Binding DataBase}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto"/>
+                <TextBox Text="{Binding DataBase}" ScrollViewer.CanContentScroll="True"
+                         VerticalScrollBarVisibility="Auto" />
             </TabItem>
             <TabItem Header="IO Points">
                 <TabItem.Resources>
                     <Style TargetType="{x:Type DataGrid}">
-                        <Setter Property="AlternatingRowBackground" Value="SkyBlue"/>
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="AutoGenerateColumns" Value="False"/>
+                        <Setter Property="AlternatingRowBackground" Value="SkyBlue" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="AutoGenerateColumns" Value="False" />
                     </Style>
                 </TabItem.Resources>
                 <TabControl>
-                    <TabItem Header="Digital" Visibility="{Binding DigitalVisibility}"  >
+                    <TabItem Header="Digital" Visibility="{Binding DigitalVisibility}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50*"/>
-                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*" />
                             </Grid.ColumnDefinitions>
-                            <GroupBox Header="Digital In" Grid.Column="0" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding DigInVisibility}" Content="{Binding Inputs}"/>
-                            <GroupBox Header="Digital Out" Grid.Column="1" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding Outputs}" Visibility="{Binding DigOutVisibility}"/>
+                            <GroupBox Header="Digital In" Grid.Column="0"
+                                      ContentTemplate="{StaticResource ItemsTemplate}"
+                                      Visibility="{Binding DigInVisibility}" Content="{Binding Inputs}" />
+                            <GroupBox Header="Digital Out" Grid.Column="1"
+                                      ContentTemplate="{StaticResource ItemsTemplate}" Content="{Binding Outputs}"
+                                      Visibility="{Binding DigOutVisibility}" />
                         </Grid>
                     </TabItem>
                     <TabItem Header="Analog" Visibility="{Binding AnalogVisibility}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50*"/>
-                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*" />
                             </Grid.ColumnDefinitions>
-                            <GroupBox Header="Analog In" Grid.Column="0" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding AnIn}" Visibility="{Binding AnInVisibility}"/>
-                            <GroupBox Header="Analog Out" Grid.Column="1" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding AnOut}" Visibility="{Binding AnOutVisibility}"/>
+                            <GroupBox Header="Analog In" Grid.Column="0"
+                                      ContentTemplate="{StaticResource ItemsTemplate}" Content="{Binding AnIn}"
+                                      Visibility="{Binding AnInVisibility}" />
+                            <GroupBox Header="Analog Out" Grid.Column="1"
+                                      ContentTemplate="{StaticResource ItemsTemplate}" Content="{Binding AnOut}"
+                                      Visibility="{Binding AnOutVisibility}" />
                         </Grid>
                     </TabItem>
-                    <TabItem Header="Counters" Content="{Binding Counter}" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding CounterVisibility}"/>
-                    <TabItem Header="Timers" Content="{Binding Timer}" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding TimerVisibility}"/>
-                    <TabItem Header="Flags" Content="{Binding Flags}" ContentTemplate="{StaticResource ItemsTemplate}"  Visibility="{Binding FlagVisibility}"/>
-                    <TabItem Header="CycFlags" Visibility="{Binding CyclicFlagVisibility}" ContentTemplate="{StaticResource ItemsTemplate}"  Content="{Binding CycFlags}"/>
+                    <TabItem Header="Counters" Content="{Binding Counter}"
+                             ContentTemplate="{StaticResource ItemsTemplate}" Visibility="{Binding CounterVisibility}" />
+                    <TabItem Header="Timers" Content="{Binding Timer}" ContentTemplate="{StaticResource ItemsTemplate}"
+                             Visibility="{Binding TimerVisibility}" />
+                    <TabItem Header="Flags" Content="{Binding Flags}" ContentTemplate="{StaticResource ItemsTemplate}"
+                             Visibility="{Binding FlagVisibility}" />
+                    <TabItem Header="CycFlags" Visibility="{Binding CyclicFlagVisibility}"
+                             ContentTemplate="{StaticResource ItemsTemplate}" Content="{Binding CycFlags}" />
                 </TabControl>
             </TabItem>
         </TabControl>

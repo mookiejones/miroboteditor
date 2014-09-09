@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace miRobotEditor.Model
+﻿namespace miRobotEditor.Model
 {
     public class DataItem
     {
@@ -12,10 +7,6 @@ namespace miRobotEditor.Model
             Title = title;
         }
 
-        public string Title
-        {
-            get;
-            private set;
-        }
+        public string Title { get; private set; }
     }
 }
