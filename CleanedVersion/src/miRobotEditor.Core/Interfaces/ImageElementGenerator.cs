@@ -14,7 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using ICSharpCode.AvalonEdit.Rendering;
 
-namespace miRobotEditor.Interfaces
+namespace miRobotEditor.Core.Interfaces
 {
 	/// <summary>
 	/// Description of ImageElementGenerator.

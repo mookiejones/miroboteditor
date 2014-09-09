@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.Core.Interfaces
 
 {
 

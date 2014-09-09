@@ -386,8 +386,8 @@ namespace miRobotEditor.Core.Classes
                 RegistryKey =
                     "Software\\" +
                     
-                    ApplicationAttributes.CompanyName + "\\" +
-                    ApplicationAttributes.ProductName + "\\" +
+                    ApplicationInformation.Company + "\\" +
+                    ApplicationInformation.Product + "\\" +
                     "RecentFileList";
             }
 

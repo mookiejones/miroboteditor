@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace miRobotEditor.Interfaces
+namespace miRobotEditor.Core.Interfaces
 {
     /// <summary>
     /// A line/column position.

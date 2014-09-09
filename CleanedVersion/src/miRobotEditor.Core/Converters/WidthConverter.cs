@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Windows.Data;
 using System.Windows.Controls;
+using System.Windows.Data;
 using miRobotEditor.Core.Enums;
 
-namespace miRobotEditor.Converters
+namespace miRobotEditor.Core.Converters
 {
     [Localizable(false)]
     public class WidthConverter : IValueConverter

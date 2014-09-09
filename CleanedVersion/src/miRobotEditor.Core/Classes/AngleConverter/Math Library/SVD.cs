@@ -1,6 +1,6 @@
 using System;
 
-namespace miRobotEditor.GUI.AngleConverter
+namespace miRobotEditor.Core.Classes.AngleConverter
 {
     public sealed class SVD
     {

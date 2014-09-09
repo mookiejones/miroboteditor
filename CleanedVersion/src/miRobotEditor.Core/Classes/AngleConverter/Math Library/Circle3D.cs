@@ -1,7 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using miRobotEditor.GUI.AngleConverter;
 
 namespace miRobotEditor.Core.Classes.AngleConverter
 {

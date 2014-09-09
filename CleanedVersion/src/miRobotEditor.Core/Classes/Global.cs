@@ -20,6 +20,9 @@ namespace miRobotEditor.Core.Classes
 
         [Localizable(false)]
         public static string DockConfig { get { return AppDomain.CurrentDomain.BaseDirectory + DockConfigPath; } }
+
+        public static string SettingsFileName { get; set; }
+
         /// <summary>
         /// Used to help prevent from freezing when network directory doesnt exist
         /// </summary>

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace miRobotEditor.GUI.AngleConverter
+namespace miRobotEditor.Core.Classes.AngleConverter
 {
     [Serializable]
     public class MatrixException : Exception

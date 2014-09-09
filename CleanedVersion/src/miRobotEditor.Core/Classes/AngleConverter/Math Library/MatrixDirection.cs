@@ -1,4 +1,4 @@
-namespace miRobotEditor.GUI.AngleConverter
+namespace miRobotEditor.Core.Classes.AngleConverter
 {
     public enum MatrixDirection
     {

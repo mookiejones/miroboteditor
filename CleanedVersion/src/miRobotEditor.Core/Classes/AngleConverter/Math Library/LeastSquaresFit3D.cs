@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 
-using miRobotEditor.GUI.AngleConverter;
-
 namespace miRobotEditor.Core.Classes.AngleConverter
 {
     [Localizable(false)]

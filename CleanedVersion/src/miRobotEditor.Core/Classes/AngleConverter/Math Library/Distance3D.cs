@@ -1,5 +1,4 @@
 using System;
-using miRobotEditor.GUI.AngleConverter;
 
 namespace miRobotEditor.Core.Classes.AngleConverter
 {

@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using miRobotEditor.GUI.AngleConverter;
 
 namespace miRobotEditor.Core.Classes.AngleConverter
 {
@@ -161,7 +160,7 @@ namespace miRobotEditor.Core.Classes.AngleConverter
             quaternion.X = vectord3[0];
             quaternion.Y = vectord3[1];
             quaternion.Z = vectord3[2];
-            quaternion.W = (w * num2) - GUI.AngleConverter.Vector.Dot(vectord, vectord2);
+            quaternion.W = (w * num2) - AngleConverter.Vector.Dot(vectord, vectord2);
             return quaternion;
         }
         public static Quaternion Multiply(Quaternion q1, Quaternion q2)
@@ -175,7 +174,7 @@ namespace miRobotEditor.Core.Classes.AngleConverter
             quaternion.X = vectord3[0];
             quaternion.Y = vectord3[1];
             quaternion.Z = vectord3[2];
-            quaternion.W = (w * num2) - GUI.AngleConverter.Vector.Dot(vectord, vectord2);
+            quaternion.W = (w * num2) - AngleConverter.Vector.Dot(vectord, vectord2);
             return quaternion;
         }
         public static Quaternion operator -(Quaternion q1, Quaternion q2)

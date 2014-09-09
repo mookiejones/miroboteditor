@@ -1,9 +1,6 @@
 using System.Windows.Input;
-using miRobotEditor.Core.Interfaces;
-using miRobotEditor.Interfaces;
-using IImage = miRobotEditor.Core.Interfaces.IImage;
 
-namespace miRobotEditor
+namespace miRobotEditor.Core.Interfaces
 {
     /// <summary>
     /// Represents a bookmark in the bookmark margin.

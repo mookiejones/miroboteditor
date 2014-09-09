@@ -1,7 +1,7 @@
-namespace miRobotEditor.GUI.AngleConverter
-{
-    using System;
+using System;
 
+namespace miRobotEditor.Core.Classes.AngleConverter
+{
     public class Vector : Matrix
     {
         public Vector() : base(0, 0)

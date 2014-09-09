@@ -2,7 +2,7 @@
 
 namespace miRobotEditor.Core.Classes.Messaging
 {
-    public class FileMessage:MessageBase
+    public sealed class FileMessage:MessageBase
     {
 
         public FileMessage()
