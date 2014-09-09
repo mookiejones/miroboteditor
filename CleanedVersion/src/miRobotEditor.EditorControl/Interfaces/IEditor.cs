@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using ICSharpCode.AvalonEdit.Document;
 using miRobotEditor.Core.Interfaces;
-using miRobotEditor.Interfaces;
 using AnchorMovementType = miRobotEditor.Core.Interfaces.AnchorMovementType;
 
 namespace miRobotEditor.EditorControl.Interfaces

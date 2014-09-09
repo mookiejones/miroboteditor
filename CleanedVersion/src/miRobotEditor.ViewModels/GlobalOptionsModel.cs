@@ -2,7 +2,7 @@
 
 namespace miRobotEditor.ViewModels
 {
-    public class GlobalOptionsModel:DependencyObject
+    public sealed class GlobalOptionsModel:DependencyObject
     {
 
 

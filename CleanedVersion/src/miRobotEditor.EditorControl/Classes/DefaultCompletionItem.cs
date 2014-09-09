@@ -1,11 +1,8 @@
-﻿using miRobotEditor.Core.Interfaces;
-using miRobotEditor.EditorControl.Classes;
-using miRobotEditor.Interfaces;
-using miRobotEditor.Languages;
+﻿//TODO Unused
+using miRobotEditor.Core.Interfaces;
+using miRobotEditor.EditorControl.Languages;
 
-
-//TODO Unused
-namespace miRobotEditor.GUI.Editor
+namespace miRobotEditor.EditorControl.Classes
    
 {
 // ReSharper disable UnusedMember.Global

@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ICSharpCode.AvalonEdit.Folding;
-using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.CodeCompletion;
-using miRobotEditor.EditorControl;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.EditorControl.Classes;
-using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Interfaces;
+using miRobotEditor.EditorControl.Interfaces;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.EditorControl.Languages
 {
     [Localizable(false)]
     public class Fanuc : AbstractLanguageClass

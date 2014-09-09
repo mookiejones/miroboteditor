@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using ICSharpCode.AvalonEdit.Folding;
-using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Text.RegularExpressions;
-using miRobotEditor.EditorControl;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.EditorControl.Classes;
-using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Interfaces;
+using miRobotEditor.EditorControl.Interfaces;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.EditorControl.Languages
 {
     [Localizable(false)]
     public sealed class LanguageBase : AbstractLanguageClass

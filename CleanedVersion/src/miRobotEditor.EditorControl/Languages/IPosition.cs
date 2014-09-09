@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-namespace miRobotEditor.Languages
+
+namespace miRobotEditor.EditorControl.Languages
 {
     public interface IPosition
     {

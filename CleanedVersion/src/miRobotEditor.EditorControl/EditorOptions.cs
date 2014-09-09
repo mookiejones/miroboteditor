@@ -8,20 +8,10 @@ using System.Xml.Serialization;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using miRobotEditor.Languages;
+using miRobotEditor.EditorControl.Languages;
 
 namespace miRobotEditor.EditorControl
 {
-
-
-
-    public interface IOptions
-    {
-        String Title { get; }
-
-
-    }
-
     [Localizable(false), Serializable]
     public sealed class EditorOptions : TextEditorOptions, IOptions
     {
@@ -349,28 +339,4 @@ namespace miRobotEditor.EditorControl
 
         public string Title { get { return "Text Editor Options"; } }
     }
-
-    public class GlobalOptions : IOptions
-    {
-        private GlobalOptions()
-        {
-            FlyoutOpacity = .85;
-        }
-
-        [Localizable(false)]
-        public string Title { get { return "Global Options"; } }
-        private static GlobalOptions _instance;
-        public static GlobalOptions Instance
-        {
-            get { return _instance ?? (_instance = new GlobalOptions()); }
-            set { _instance = value; }
-        }
-
-        #region Flyout Options
-        [DefaultValue(0.75)]
-        public double FlyoutOpacity { get; set; }
-
-        #endregion
-    }
-
 }

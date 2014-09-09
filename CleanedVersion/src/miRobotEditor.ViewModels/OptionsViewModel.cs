@@ -10,10 +10,8 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using miRobotEditor.Core;
 
-
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
 	/// <summary>
 	/// Description of OptionsViewModel.

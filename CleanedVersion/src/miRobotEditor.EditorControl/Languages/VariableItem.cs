@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.EditorControl.Languages
 {
     public class VariableItem : DependencyObject
     {

@@ -2,7 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
    public sealed class StatusBarViewModel:ViewModelBase
    {

@@ -7,9 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-using miRobotEditor.EditorControl.Interfaces;
-
-namespace miRobotEditor.Core.Interfaces
+namespace miRobotEditor.EditorControl.Interfaces
 {
 	  /// <summary>
     /// An interface for file dialog services.

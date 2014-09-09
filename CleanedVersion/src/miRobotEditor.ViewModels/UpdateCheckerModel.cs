@@ -3,11 +3,11 @@ using System.Net;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using miRobotEditor.Core;
+using miRobotEditor.Core.Handlers;
 
 namespace miRobotEditor.ViewModels
 {
-    public class UpdateCheckerModel : DependencyObject
+    public sealed class UpdateCheckerModel : DependencyObject
     {
 
         public event UpdateRequiredHandler UpdateRequired;

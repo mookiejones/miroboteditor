@@ -1,19 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.EditorControl;
 using miRobotEditor.EditorControl.Classes;
-using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Interfaces;
+using miRobotEditor.EditorControl.Interfaces;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.EditorControl.Languages
 {
     [Localizable(false)]
     public class Kawasaki : AbstractLanguageClass

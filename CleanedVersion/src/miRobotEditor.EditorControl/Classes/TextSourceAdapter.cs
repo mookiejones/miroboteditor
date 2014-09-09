@@ -1,9 +1,8 @@
-﻿
+﻿using System;
 using ICSharpCode.AvalonEdit.Document;
-using System;
 using miRobotEditor.EditorControl.Interfaces;
 
-namespace miRobotEditor.Interfaces
+namespace miRobotEditor.EditorControl.Classes
 {
     public class TextSourceAdapter : ITextBuffer
     {

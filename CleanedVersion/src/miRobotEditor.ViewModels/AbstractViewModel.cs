@@ -9,7 +9,7 @@
 
 using System.ComponentModel;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
 	  /// <summary>
     /// Abstract base-class for a view-model.

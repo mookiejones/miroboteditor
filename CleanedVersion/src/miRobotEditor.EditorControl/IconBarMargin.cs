@@ -6,22 +6,21 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
-using miRobotEditor.Core;
 using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Classes;
 using miRobotEditor.EditorControl.Interfaces;
-using Pen = System.Windows.Media.Pen;
-using System.Windows;
 
-namespace miRobotEditor.Interfaces
+namespace miRobotEditor.EditorControl
 {
     /// <summary>
     /// Icon bar: contains breakpoints and other icons.

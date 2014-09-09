@@ -1,4 +1,4 @@
-﻿namespace miRobotEditor.Core
+﻿namespace miRobotEditor.ViewModels
 {
     public abstract class FTPAccount
     {

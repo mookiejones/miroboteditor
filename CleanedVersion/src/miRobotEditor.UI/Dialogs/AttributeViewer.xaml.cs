@@ -1,4 +1,4 @@
-﻿namespace miRobotEditor.Forms
+﻿namespace miRobotEditor.UI.Dialogs
 {
     /// <summary>
     /// Interaction logic for AttributeViewer.xaml

@@ -110,16 +110,4 @@ namespace miRobotEditor.EditorControl.Interfaces
 		/// </summary>
 		IEnumerable<ICompletionItem> GetSnippets();
 	}
-
-    public interface ITextEditorCaret
-    {
-    }
-
-    public interface ITextEditorOptions
-    {
-    }
-
-    public interface ICompletionListWindow
-    {
-    }
 }

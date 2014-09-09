@@ -12,17 +12,17 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Win32;
+using miRobotEditor.Core;
 using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Classes.Messaging;
 using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Interfaces;
 using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.Languages;
-using miRobotEditor.Core;
+using Xceed.Wpf.AvalonDock.Layout;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public sealed class MainViewModel : ViewModelBase
     {
         #region Constructor
 
@@ -33,11 +33,19 @@ namespace miRobotEditor.Core
 
             // Register for messages
             Messenger.Default.Register<FileMessage>(this, OpenFile);
+            Messenger.Default.Register<OpenFileMessage>(this, OpenVariable);
+        }
+
+        private void OpenVariable(OpenFileMessage obj)
+        {
+
+            var fileViewModel = Open(obj.Variable.Path);
+            fileViewModel.SelectText(obj.Variable);
         }
 
         private void OpenFile(FileMessage obj)
         {
-//            OpenFile(obj.Name);
+            OpenFile(obj.Name);
         }
 
         #endregion
@@ -102,7 +110,7 @@ namespace miRobotEditor.Core
                     }
                 }
                 else if ((root.Length + 4 + elements[filenameIndex].Length) > maxLength)
-                // pathname is just a root and filename
+                    // pathname is just a root and filename
                 {
                     root += "...\\";
 
@@ -190,36 +198,6 @@ namespace miRobotEditor.Core
 
         #region Tools
 
-        //Object Browser
-        private readonly ObjectBrowserViewModel _objectBrowser = null;
-
-        public ObjectBrowserViewModel ObjectBrowser
-        {
-            get { return _objectBrowser ?? new ObjectBrowserViewModel(); }
-        }
-
-        private readonly NotesViewModel _notes = null;
-
-        public NotesViewModel Notes
-        {
-            get { return _notes ?? new NotesViewModel(); }
-        }
-
-        private readonly MessageViewModel _messageView = null;
-
-        public MessageViewModel MessageView
-        {
-            get { return _messageView ?? new MessageViewModel(); }
-        }
-
-        private readonly FunctionViewModel _functions = null;
-
-        public FunctionViewModel Functions
-        {
-            get { return _functions ?? new FunctionViewModel(); }
-        }
-
-
         private readonly LocalVariablesViewModel _localVariables = null;
 
         public LocalVariablesViewModel LocalVariables
@@ -227,28 +205,24 @@ namespace miRobotEditor.Core
             get { return _localVariables ?? new LocalVariablesViewModel(); }
         }
 
-
         #endregion
 
+        #region ShowSettings
 
-       #region ShowSettings
-       /// <summary>
-        /// The <see cref="ShowSettings" /> property's name.
+        /// <summary>
+        ///     The <see cref="ShowSettings" /> property's name.
         /// </summary>
         private const string ShowSettingsPropertyName = "ShowSettings";
 
-        private bool _showSettings = false;
+        private bool _showSettings;
 
         /// <summary>
-        /// Sets and gets the ShowSettings property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        ///     Sets and gets the ShowSettings property.
+        ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public bool ShowSettings
         {
-            get
-            {
-                return _showSettings;
-            }
+            get { return _showSettings; }
 
             set
             {
@@ -262,10 +236,8 @@ namespace miRobotEditor.Core
                 RaisePropertyChanged(ShowSettingsPropertyName);
             }
         }
+
         #endregion
-
-
-
 
         #endregion
 
@@ -349,12 +321,10 @@ namespace miRobotEditor.Core
 
         #endregion
 
-
-
         #region Tools
 
-        private readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
         private readonly IEnumerable<ToolViewModel> _readonlyTools = null;
+        private readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
 
         public IEnumerable<ToolViewModel> Tools
         {
@@ -395,42 +365,59 @@ namespace miRobotEditor.Core
 
         #endregion
 
-        #region Files
-
-        private readonly ObservableCollection<EditorControl.Interfaces.IDocument> _files = new ObservableCollection<EditorControl.Interfaces.IDocument>();
-        private readonly ReadOnlyObservableCollection<EditorControl.Interfaces.IDocument> _readonyFiles = null;
-
-        public IEnumerable<EditorControl.Interfaces.IDocument> Files
-        {
-            get { return _readonyFiles ?? new ReadOnlyObservableCollection<EditorControl.Interfaces.IDocument>(_files); }
-        }
-
-        #endregion
-
-
+       
         #region ActiveEditor
+        /// <summary>
+        /// The <see cref="ActiveEditor" /> property's name.
+        /// </summary>
+        private const string ActiveEditorPropertyName = "ActiveEditor";
 
-        private static EditorControl.Interfaces.IDocument _activeEditor;
+        private IDocument _activeEditor = null;
 
-        public EditorControl.Interfaces.IDocument ActiveEditor
+        /// <summary>
+        /// Sets and gets the ActiveEditor property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public IDocument ActiveEditor
         {
-            get { return _activeEditor; }
+            get
+            {
+                return _activeEditor;
+            }
+
             set
             {
-                // if (_activeEditor.ContentId == value.ContentId) return;
+             //  _activeEditor.ContentId==value.ContentId;
+
+               if (_activeEditor!=null&&(_activeEditor == value))
+               {
+                   return;
+               }
+
+                RaisePropertyChanging(ActiveEditorPropertyName);
                 _activeEditor = value;
                 _activeEditor.TextBox.Focus();
-                // ReSharper disable once RedundantArgumentDefaultValue
-                RaisePropertyChanged("ActiveEditor");
+                RaisePropertyChanged(ActiveEditorPropertyName);
                 RaisePropertyChanged("Title");
-                //            if (ActiveEditorChanged != null)
+                 //            if (ActiveEditorChanged != null)
                 //                ActiveEditorChanged(this, EventArgs.Empty);
             }
         }
-
-
-
         #endregion
+
+        public void BringToFront(string windowName)
+        {
+
+            // Does Content Exist Allready?
+
+/*            foreach (
+                LayoutAnchorable dd in MainWindow.Instance.DockManager.Layout.Descendents().OfType<LayoutAnchorable>())
+            {
+                if (dd.Title == windowname)
+                    dd.IsActive = true;
+            }
+ * */
+        }
 
         #region Commands
 
@@ -440,6 +427,252 @@ namespace miRobotEditor.Core
         {
             ShowIO = !ShowIO;
         }
+
+        //This can probably move to the language class section
+        private void ChangeViewAs(object param)
+        {
+            var lang = param as AbstractLanguageClass;
+
+            if (Equals(ActiveEditor.FileLanguage, lang)) return;
+
+            switch (param.ToString())
+            {
+                case "ABB":
+                    // ReSharper disable RedundantCast
+                    ActiveEditor.FileLanguage = (ABB) lang;
+
+                    break;
+                case "KUKA":
+                    ActiveEditor.FileLanguage = new KUKA();
+                    break;
+                case "Fanuc":
+                    ActiveEditor.FileLanguage = (Fanuc) lang;
+                    break;
+                case "Kawasaki":
+                    ActiveEditor.FileLanguage = (Kawasaki) lang;
+                    break;
+                    // ReSharper restore RedundantCast
+            }
+
+            //                ActiveEditor.TextBox.UpdateVisualText();
+
+            //                DummyDocViewModel.Instance.TextBox.UpdateVisualText();
+        }
+
+        private void Exit()
+        {
+//            MainWindow.Instance.Close();
+        }
+
+        internal void Close(IDocument fileToClose)
+        {
+            Editors.Remove(fileToClose);
+            RaisePropertyChanged("ActiveEditor");
+        }
+
+
+        public void AddTool(ToolViewModel toolModel)
+        {
+            if (toolModel == null) return;
+
+            // Does Content Exist Allready?
+            foreach (ToolViewModel t in Tools.Where(t => t.Title == toolModel.Title))
+            {
+                t.IsActive = true;
+                return;
+            }
+
+            toolModel.IsActive = true;
+            _tools.Add(toolModel);
+            toolModel.IsActive = true;
+            RaisePropertyChanged("Tools");
+        }
+
+
+        [Localizable(false)]
+        private void AddTool(object parameter)
+        {
+            var name = parameter as string;
+            ToolViewModel toolModel = null;
+            switch (name)
+            {
+                case "Angle Converter":
+//                    toolModel = new AngleConvertorViewModel();
+                    break;
+                case "Functions":
+                    toolModel = new FunctionViewModel();
+                    break;
+                case "Explorer":
+                    //                    tool.Content = new FileExplorerWindow();
+                    break;
+                case "Object Browser":
+//                    toolModel = new ObjectBrowserViewModel();
+                    break;
+                case "Output Window":
+                    //                toolModel = ServiceLocator.Current.GetInstance<MessageViewModel>();
+                    break;
+                case "Notes":
+                    toolModel = ServiceLocator.Current.GetInstance<NotesViewModel>();
+                    break;
+                case "ArchiveInfo":
+                    //                  toolModel = new ArchiveInfoViewModel();
+                    break;
+                case "Rename Positions":
+                    //TODO Change this
+//                    tool.Content = new RenamePositionWindow();
+                    break;
+                case "Shift":
+                    //TODO Change this
+                    //                  tool.Content = new ShiftWindow();
+                    break;
+                case "CleanDat":
+                    toolModel = new DatCleanHelper();
+                    break;
+                default:
+                    var msg = new OutputWindowMessage("Not Implemented",
+                        String.Format("Add Tool Parameter of {0} not Implemented", name), MsgIcon.Error);
+                    Messenger.Default.Send(msg);
+
+                    break;
+            }
+
+            if (toolModel != null)
+            {
+                // Does Content Exist Allready?
+                foreach (ToolViewModel t in Tools.Where(t => t.Title == toolModel.Title))
+                {
+                    t.IsActive = true;
+                    return;
+                }
+
+                toolModel.IsActive = true;
+                _tools.Add(toolModel);
+            }
+            RaisePropertyChanged("Tools");
+        }
+
+
+        private void ImportRobot()
+        {
+            AddTool("ArchiveInfo");
+        }
+
+        public void ShowAbout()
+        {
+            // new AboutWindow().ShowDialog();
+        }
+
+        /// <summary>
+        ///     Event raised when AvalonDock has loaded.
+        /// </summary>
+        // ReSharper disable UnusedMember.Local
+        // ReSharper disable UnusedParameter.Local
+        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
+            // ReSharper restore UnusedParameter.Local
+            // ReSharper restore UnusedMember.Local
+        {
+            throw new NotImplementedException();
+            // if (System.IO.File.Exists(LayoutFileName))
+            // {
+            //     //
+            //     // If there is already a saved layout file, restore AvalonDock layout from it.
+            //     //
+            //     avalonDockHost.DockingManager.RestoreLayout(LayoutFileName);
+            // }
+            // else
+            // {
+            //     //
+            //     // This line of code can be uncommented to get a list of resources.
+            //     //
+            //     //string[] names = this.GetType().Assembly.GetManifestResourceNames();
+            //
+            //     //
+            //     // Load the default AvalonDock layout from an embedded resource.
+            //     //
+            //     var assembly = Assembly.GetExecutingAssembly();
+            //     using (var stream = assembly.GetManifestResourceStream(DefaultLayoutResourceName))
+            //     {
+            //         avalonDockHost.DockingManager.RestoreLayout(stream);
+            //     }
+            // }
+        }
+
+        #region IDialogProvider Interface
+
+        /// <summary>
+        ///     This method allows the user to select a file to open
+        ///     (so the view-model can implement 'Open File' functionality).
+        /// </summary>
+        public bool UserSelectsFileToOpen(out string filePath)
+        {
+            var openFileDialog = new OpenFileDialog();
+            bool? result = openFileDialog.ShowDialog();
+            if (result != null && result.Value)
+            {
+                filePath = openFileDialog.FileName;
+                return true;
+            }
+            filePath = null;
+            return false;
+        }
+
+
+        /// <summary>
+        ///     This method allows the user to select a new filename for an existing file
+        ///     (so the view-model can implement 'Save As' functionality).
+        /// </summary>
+        public bool UserSelectsNewFilePath(string oldFilePath, out string newFilePath)
+        {
+            var saveFileDialog = new SaveFileDialog();
+            // saveFileDialog.FileName = ActiveEditor.Filename;
+
+            bool? result = saveFileDialog.ShowDialog();
+            if (result.Value)
+            {
+                newFilePath = saveFileDialog.FileName;
+                return true;
+            }
+            newFilePath = string.Empty;
+            return false;
+        }
+
+        /// <summary>
+        ///     Display an error message dialog box.
+        ///     This allows the view-model to display error messages.
+        /// </summary>
+        public void ErrorMessage(string msg)
+        {
+            MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        #endregion
+
+        #region File Handling
+
+        private IDocument OpenFile(string filepath)
+        {
+            var fileViewModel = Editors.FirstOrDefault(fm => fm.FilePath == filepath);
+            if (fileViewModel != null)
+                return fileViewModel;
+
+
+            fileViewModel = AbstractLanguageClass.GetViewModel(filepath);
+
+            if (File.Exists(filepath))
+            {
+                fileViewModel.Load(filepath);
+                // Add file to Recent list
+                RecentFileList.Instance.InsertFile(filepath);
+                JumpList.AddToRecentCategory(filepath);
+            }
+
+            fileViewModel.IsActive = true;
+            Editors.Add(fileViewModel);
+            ActiveEditor = fileViewModel;
+            return fileViewModel;
+        }
+
+        #endregion
 
         #region Commands
 
@@ -454,30 +687,22 @@ namespace miRobotEditor.Core
 
         #region NewFile
 
-
-
-
         private RelayCommand _newFileCommand;
 
         /// <summary>
-        /// Gets the NewFileCommand.
+        ///     Gets the NewFileCommand.
         /// </summary>
         public RelayCommand NewFileCommand
         {
             get
             {
                 return _newFileCommand
-                    ?? (_newFileCommand = new RelayCommand(
-                                          () =>
-                                          {
-                                              AddNewFile();
-                                          }));
+                       ?? (_newFileCommand = new RelayCommand(
+                           AddNewFile));
             }
         }
 
-
         #endregion
-
 
         #region ShowSettings
 
@@ -506,9 +731,9 @@ namespace miRobotEditor.Core
 
         private void ShowFindReplace()
         {
-  //          var fnr = new FindandReplaceControl(MainWindow.Instance);
+            //          var fnr = new FindandReplaceControl(MainWindow.Instance);
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-    //        fnr.ShowDialog().GetValueOrDefault();
+            //        fnr.ShowDialog().GetValueOrDefault();
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
 
@@ -516,14 +741,13 @@ namespace miRobotEditor.Core
 
         #region ShowAbout
 
+        private RelayCommand _exitCommand;
         private RelayCommand _showAboutCommand;
 
         public ICommand ShowAboutCommand
         {
             get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand(ShowAbout)); }
         }
-
-        private RelayCommand _exitCommand;
 
         #endregion
 
@@ -585,10 +809,7 @@ namespace miRobotEditor.Core
 
         public RelayCommand<object> AddToolCommand
         {
-            get
-            {
-                return _addToolCommand ?? (_addToolCommand = new RelayCommand<object>(AddTool, param => true));
-            }
+            get { return _addToolCommand ?? (_addToolCommand = new RelayCommand<object>(AddTool, param => true)); }
         }
 
         #endregion
@@ -602,9 +823,15 @@ namespace miRobotEditor.Core
 
         #endregion
 
-    
-
         #region OpenFile
+
+        private ObservableCollection<IDocument> _editors = new ObservableCollection<IDocument>();
+
+        public ObservableCollection<IDocument> Editors
+        {
+            get { return _editors; }
+            set { _editors = value; }
+        }
 
         /// <summary>
         ///     Open file from menu entry
@@ -612,16 +839,16 @@ namespace miRobotEditor.Core
         /// <param name="param"></param>
         // ReSharper disable UnusedParameter.Local
         private void OnOpen(object param)
-        // ReSharper restore UnusedParameter.Local
+            // ReSharper restore UnusedParameter.Local
         {
-            var path = Path.GetDirectoryName(ActiveEditor.FilePath);
+            string path = Path.GetDirectoryName(ActiveEditor.FilePath);
             var dlg = new OpenFileDialog
             {
                 // Find a way to check for network directory
                 //                InitialDirectory="C:\\",
 //                Filter = Resources.DefaultFilter,
                 Multiselect = true,
-  //              FilterIndex = Settings.Default.Filter,
+                //              FilterIndex = Settings.Default.Filter,
                 InitialDirectory = path,
             };
 
@@ -634,21 +861,22 @@ namespace miRobotEditor.Core
 
         public IDocument Open(string filepath)
         {
-            var fileViewModel = OpenFile(filepath,null);
+            IDocument fileViewModel = OpenFile(filepath, null);
             ActiveEditor = fileViewModel;
             ActiveEditor.IsActive = true;
             return fileViewModel;
         }
 
-        private IDocument OpenFile(string filepath,object o)
+        private IDocument OpenFile(string filepath, object o)
         {
-            var fileViewModel = _files.FirstOrDefault(fm => fm.FilePath == filepath);
+            IDocument fileViewModel = Editors.FirstOrDefault(fm => fm.FilePath == filepath);
             if (fileViewModel != null)
                 return fileViewModel;
 
 
             fileViewModel = AbstractLanguageClass.GetViewModel(filepath);
 
+            fileViewModel.Title = Path.GetFileName(filepath);
             if (File.Exists(filepath))
             {
                 fileViewModel.Load(filepath);
@@ -657,27 +885,25 @@ namespace miRobotEditor.Core
                 JumpList.AddToRecentCategory(filepath);
             }
             fileViewModel.IsActive = true;
-            _files.Add(fileViewModel);
+            Editors.Add(fileViewModel);
             ActiveEditor = fileViewModel;
+
             return fileViewModel;
         }
 
 
         public void OpenFile(IVariable variable)
         {
-            // Am i using dock or ActiveEditor?
-
-            EditorControl.Interfaces.IDocument fileViewModel = Open(variable.Path);
+            IDocument fileViewModel = Open(variable.Path);
 
             fileViewModel.SelectText(variable);
             //            ActiveEditor.TextBox.SelectText(variable);
         }
 
-
         public void AddNewFile()
         {
-            _files.Add(new EditorControl.DocumentViewModel(null));
-            ActiveEditor = _files.Last();
+            Editors.Add(new DocumentViewModel(null));
+            ActiveEditor = Editors.Last();
         }
 
         public void LoadFile(IList<string> args)
@@ -691,259 +917,32 @@ namespace miRobotEditor.Core
 
         #endregion
 
-        //This can probably move to the language class section
-        private void ChangeViewAs(object param)
+        #endregion
+
+        #endregion
+
+        #region LayoutStrategy
+
+        private ILayoutUpdateStrategy _layoutInitializer;
+
+        public ILayoutUpdateStrategy LayoutStrategy
         {
-            var lang = param as AbstractLanguageClass;
-
-            if (Equals(ActiveEditor.FileLanguage, lang)) return;
-
-            switch (param.ToString())
-            {
-                case "ABB":
-                    // ReSharper disable RedundantCast
-                    ActiveEditor.FileLanguage = (ABB)lang;
-
-                    break;
-                case "KUKA":
-                    ActiveEditor.FileLanguage = new KUKA();
-                    break;
-                case "Fanuc":
-                    ActiveEditor.FileLanguage = (Fanuc)lang;
-                    break;
-                case "Kawasaki":
-                    ActiveEditor.FileLanguage = (Kawasaki)lang;
-                    break;
-                // ReSharper restore RedundantCast
-            }
-
-            //                ActiveEditor.TextBox.UpdateVisualText();
-
-            //                DummyDocViewModel.Instance.TextBox.UpdateVisualText();
-        }
-
-        private void Exit()
-        {
-
-//            MainWindow.Instance.Close();
-        }
-
-        internal void Close(EditorControl.Interfaces.IDocument fileToClose)
-        {
-            _files.Remove(fileToClose);
-            RaisePropertyChanged("ActiveEditor");
-        }
-
-
-        public void AddTool(ToolViewModel toolModel)
-        {
-
-            if (toolModel == null) return;
-
-            // Does Content Exist Allready?
-            foreach (ToolViewModel t in Tools.Where(t => t.Title == toolModel.Title))
-            {
-                t.IsActive = true;
-                return;
-            }
-
-            toolModel.IsActive = true;
-            _tools.Add(toolModel);
-            toolModel.IsActive = true;
-            RaisePropertyChanged("Tools");
-        }
-
-
-        [Localizable(false)]
-        private void AddTool(object parameter)
-        {
-            var name = parameter as string;
-            ToolViewModel toolModel = null;
-            switch (name)
-            {
-                case "Angle Converter":
-//                    toolModel = new AngleConvertorViewModel();
-                    break;
-                case "Functions":
-                    toolModel = new FunctionViewModel();
-                    break;
-                case "Explorer":
-                    //                    tool.Content = new FileExplorerWindow();
-                    break;
-                case "Object Browser":
-                    toolModel = new ObjectBrowserViewModel();
-                    break;
-                case "Output Window":
-    //                toolModel = ServiceLocator.Current.GetInstance<MessageViewModel>();
-                    break;
-                case "Notes":
-                    toolModel = ServiceLocator.Current.GetInstance<NotesViewModel>();
-                    break;
-                case "ArchiveInfo":
-  //                  toolModel = new ArchiveInfoViewModel();
-                    break;
-                case "Rename Positions":
-                    //TODO Change this
-//                    tool.Content = new RenamePositionWindow();
-                    break;
-                case "Shift":
-                    //TODO Change this
-  //                  tool.Content = new ShiftWindow();
-                    break;
-                case "CleanDat":
-                    toolModel = new DatCleanHelper();
-                    break;
-                default:
-                    var msg = new OutputWindowMessage("Not Implemented",
-                        String.Format("Add Tool Parameter of {0} not Implemented", name), MsgIcon.Error);
-                    Messenger.Default.Send(msg);
-
-                    break;
-            }
-
-            if (toolModel != null)
-            {
-
-
-                // Does Content Exist Allready?
-                foreach (ToolViewModel t in Tools.Where(t => t.Title == toolModel.Title))
-                {
-                    t.IsActive = true;
-                    return;
-                }
-
-                toolModel.IsActive = true;
-                _tools.Add(toolModel);
-            }
-            RaisePropertyChanged("Tools");
-        }
-
-
-        private void ImportRobot()
-        {
-            AddTool("ArchiveInfo");
-        }
-
-
-
-
-        #region File Handling
-
-        private IDocument OpenFile(string filepath)
-        {
-            var fileViewModel = _files.FirstOrDefault(fm => fm.FilePath == filepath);
-            if (fileViewModel != null)
-                return fileViewModel;
-
-
-            fileViewModel = AbstractLanguageClass.GetViewModel(filepath);
-
-            if (File.Exists(filepath))
-            {
-                fileViewModel.Load(filepath);
-                // Add file to Recent list
-                RecentFileList.Instance.InsertFile(filepath);
-                JumpList.AddToRecentCategory(filepath);
-            }
-            fileViewModel.IsActive = true;
-            _files.Add(fileViewModel);
-            ActiveEditor = fileViewModel;
-            return fileViewModel;
+            get { return _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer()); }
         }
 
         #endregion
 
-        public void ShowAbout()
+        /*
+        #region Files
+
+        private readonly ObservableCollection<EditorControl.Interfaces.IDocument> _files = new ObservableCollection<EditorControl.Interfaces.IDocument>();
+        private readonly ReadOnlyObservableCollection<EditorControl.Interfaces.IDocument> _readonyFiles = null;
+
+        public IEnumerable<EditorControl.Interfaces.IDocument> Files
         {
-           // new AboutWindow().ShowDialog();
+            get { return _readonyFiles ?? new ReadOnlyObservableCollection<EditorControl.Interfaces.IDocument>(_files); }
         }
-
-        #region IDialogProvider Interface
-
-        /// <summary>
-        ///     This method allows the user to select a file to open
-        ///     (so the view-model can implement 'Open File' functionality).
-        /// </summary>
-        public bool UserSelectsFileToOpen(out string filePath)
-        {
-            var openFileDialog = new OpenFileDialog();
-            bool? result = openFileDialog.ShowDialog();
-            if (result.Value)
-            {
-                filePath = openFileDialog.FileName;
-                return true;
-            }
-            filePath = null;
-            return false;
-        }
-
-        /// <summary>
-        ///     This method allows the user to select a new filename for an existing file
-        ///     (so the view-model can implement 'Save As' functionality).
-        /// </summary>
-        public bool UserSelectsNewFilePath(string oldFilePath, out string newFilePath)
-        {
-            var saveFileDialog = new SaveFileDialog();
-            // saveFileDialog.FileName = ActiveEditor.Filename;
-
-            bool? result = saveFileDialog.ShowDialog();
-            if (result.Value)
-            {
-                newFilePath = saveFileDialog.FileName;
-                return true;
-            }
-            newFilePath = string.Empty;
-            return false;
-        }
-
-        /// <summary>
-        ///     Display an error message dialog box.
-        ///     This allows the view-model to display error messages.
-        /// </summary>
-        public void ErrorMessage(string msg)
-        {
-            MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
         #endregion
-
-        /// <summary>
-        ///     Event raised when AvalonDock has loaded.
-        /// </summary>
-        // ReSharper disable UnusedMember.Local
-        // ReSharper disable UnusedParameter.Local
-        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
-        // ReSharper restore UnusedParameter.Local
-        // ReSharper restore UnusedMember.Local
-        {
-            throw new NotImplementedException();
-            // if (System.IO.File.Exists(LayoutFileName))
-            // {
-            //     //
-            //     // If there is already a saved layout file, restore AvalonDock layout from it.
-            //     //
-            //     avalonDockHost.DockingManager.RestoreLayout(LayoutFileName);
-            // }
-            // else
-            // {
-            //     //
-            //     // This line of code can be uncommented to get a list of resources.
-            //     //
-            //     //string[] names = this.GetType().Assembly.GetManifestResourceNames();
-            //
-            //     //
-            //     // Load the default AvalonDock layout from an embedded resource.
-            //     //
-            //     var assembly = Assembly.GetExecutingAssembly();
-            //     using (var stream = assembly.GetManifestResourceStream(DefaultLayoutResourceName))
-            //     {
-            //         avalonDockHost.DockingManager.RestoreLayout(stream);
-            //     }
-            // }
-        }
-
-        #endregion
-
-        #endregion
+        */
     }
 }

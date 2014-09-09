@@ -1,6 +1,5 @@
 ﻿using System;
 using miRobotEditor.Core.Interfaces;
-using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.EditorControl.Interfaces
 {

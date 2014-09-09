@@ -10,7 +10,6 @@ using System;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
-using miRobotEditor.GUI.Editor;
 
 namespace miRobotEditor.EditorControl.Classes
 {

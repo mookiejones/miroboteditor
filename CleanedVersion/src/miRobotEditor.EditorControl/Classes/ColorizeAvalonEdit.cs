@@ -4,7 +4,7 @@ using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 
-namespace CREATOR
+namespace miRobotEditor.EditorControl.Classes
 {
     [Localizable(false)]
     public class ColorizeAvalonEdit : DocumentColorizingTransformer

@@ -15,10 +15,7 @@ using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Commands;
 using miRobotEditor.EditorControl.Classes;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Interfaces;
-using miRobotEditor.Languages;
-using miRobotEditor.Resources;
+using miRobotEditor.EditorControl.Interfaces;
 
 namespace miRobotEditor.EditorControl.Languages
 {
@@ -549,17 +546,6 @@ namespace miRobotEditor.EditorControl.Languages
         	
         }
 
-    }
-    public class FileInfo
-    {
-
-        public FileInfo GetFileInfo(string path)
-        {
-            return null;
-        }
-    }
-    public class SnippetCollection : List<Snippet>
-    {
     }
 }
 

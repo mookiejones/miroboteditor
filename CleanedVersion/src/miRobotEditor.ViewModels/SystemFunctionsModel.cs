@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
-using miRobotEditor.Core;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public abstract class SystemFunctionsModel : ViewModelBase
     {

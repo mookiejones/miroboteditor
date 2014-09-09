@@ -13,23 +13,20 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Practices.ServiceLocation;
-using miRobotEditor.Core;
 using miRobotEditor.Core.Commands;
 using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl;
 using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Languages;
 
 namespace miRobotEditor.ViewModels
 {
-    public sealed class DocumentViewModel : FileViewModel,IDocument
+    public sealed class DocumentViewModel : FileViewModel, EditorControl.Interfaces.IDocument
     {
 
         public DocumentViewModel(string filepath) : base(filepath)
         {
             InitializeViewModel(filepath);
-            ContentId = filepath;
+           
         }
 
         public DocumentViewModel(string filepath, AbstractLanguageClass lang):base(filepath)
@@ -40,6 +37,8 @@ namespace miRobotEditor.ViewModels
 
         void InitializeViewModel(string filepath)
         {
+
+            ContentId = filepath;
             Load(filepath);
             TextBox.FileLanguage = FileLanguage;
            
@@ -79,8 +78,9 @@ namespace miRobotEditor.ViewModels
             }
 
             var main = ServiceLocator.Current.GetInstance<MainViewModel>();
-            throw new NotImplementedException();
-//            main.Close(this);
+//            throw new NotImplementedException();
+
+          main.Close(this);
 
         }
 
@@ -107,8 +107,8 @@ namespace miRobotEditor.ViewModels
         private Editor _textBox = new Editor();
         public Editor TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged("TextBox"); } }
         public ImageSource IconSource { get; set; }
-        public string Title { get; set; }
-        public string ContentId { get; set; }
+      
+
         public bool IsSelected { get; set; }
 
         #endregion

@@ -33,10 +33,8 @@ using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Classes;
 using miRobotEditor.EditorControl.Interfaces;
 using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.Interfaces;
-using miRobotEditor.Languages;
 using miRobotEditor.UI.Windows;
-using IconBarMargin = miRobotEditor.Interfaces.IconBarMargin;
+using IconBarMargin = miRobotEditor.EditorControl.IconBarMargin;
 
 namespace miRobotEditor.EditorControl
 {

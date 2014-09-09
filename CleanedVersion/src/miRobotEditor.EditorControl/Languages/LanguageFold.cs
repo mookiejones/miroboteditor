@@ -2,7 +2,7 @@
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Core;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.EditorControl.Languages
 {
     public sealed class LanguageFold : NewFolding
     {

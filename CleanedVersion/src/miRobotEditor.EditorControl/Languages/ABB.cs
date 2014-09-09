@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using miRobotEditor.EditorControl;
-using miRobotEditor.EditorControl.Classes;
-using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Interfaces;
 using System.Text.RegularExpressions;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using ICSharpCode.AvalonEdit.CodeCompletion;
+using miRobotEditor.EditorControl.Classes;
+using miRobotEditor.EditorControl.Interfaces;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.EditorControl.Languages
 {
     [Localizable(false)]
     public sealed class ABB : AbstractLanguageClass

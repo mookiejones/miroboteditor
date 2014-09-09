@@ -15,14 +15,11 @@ using System.Windows.Media;
 using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Commands;
 using miRobotEditor.Core.Interfaces;
-using miRobotEditor.EditorControl.Interfaces;
 using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Languages;
 
 namespace miRobotEditor.EditorControl
 {
-    public class DocumentViewModel : FileViewModel,IDocument
+    public class DocumentViewModel : FileViewModel, EditorControl.Interfaces.IDocument
     {
 
         public DocumentViewModel(string filepath) : base(filepath)
@@ -99,7 +96,14 @@ namespace miRobotEditor.EditorControl
 
         public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged("Visibiliy"); } }
 
-        public static DocumentViewModel Instance { get; set; }
+        private static DocumentViewModel _instance;
+
+        public static DocumentViewModel Instance
+        {
+            get { return _instance ?? (_instance = new DocumentViewModel(null)); }
+            set  {_instance  =value;
+        }
+    }
         private AbstractLanguageClass _filelanguage = new LanguageBase();
         public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged("FileLanguage"); } }
         private Editor _textBox = new Editor();
