@@ -76,5 +76,39 @@ namespace miRobotEditor.Core.Classes
             }
         }
         #endregion
+
+        
+        #region Name
+        /// <summary>
+        /// The <see cref="Name" /> property's name.
+        /// </summary>
+        private const string NamePropertyName = "Name";
+
+        private string _name = String.Empty;
+
+        /// <summary>
+        /// Sets and gets the Name property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+
+            set
+            {
+                if (_name == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(NamePropertyName);
+                _name = value;
+                RaisePropertyChanged(NamePropertyName);
+            }
+        }
+        #endregion
     }
 }

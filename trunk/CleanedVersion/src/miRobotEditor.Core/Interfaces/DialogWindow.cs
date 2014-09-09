@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace miRobotEditor.Interfaces
+namespace miRobotEditor.Core.Interfaces
 {
     class DialogWindow
     {

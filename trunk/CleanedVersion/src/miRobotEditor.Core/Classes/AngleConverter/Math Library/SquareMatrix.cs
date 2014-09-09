@@ -1,7 +1,7 @@
-namespace miRobotEditor.GUI.AngleConverter
-{
-    using System;
+using System;
 
+namespace miRobotEditor.Core.Classes.AngleConverter
+{
     [Serializable]
     public class SquareMatrix : Matrix
     {

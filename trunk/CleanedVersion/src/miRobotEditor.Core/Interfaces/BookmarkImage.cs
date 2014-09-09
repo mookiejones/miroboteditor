@@ -8,9 +8,8 @@
  */
 
 using System.Windows.Media.Imaging;
-using IImage = miRobotEditor.Core.Interfaces.IImage;
 
-namespace miRobotEditor
+namespace miRobotEditor.Core.Interfaces
 {
 	/// <summary>
 	/// Description of BookmarkImage.

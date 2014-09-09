@@ -1,5 +1,3 @@
-using miRobotEditor.GUI.AngleConverter;
-
 namespace miRobotEditor.Core.Classes.AngleConverter
 {
     public sealed class Vector2D : Vector

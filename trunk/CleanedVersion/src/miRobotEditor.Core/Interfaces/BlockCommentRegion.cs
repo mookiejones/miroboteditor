@@ -1,4 +1,4 @@
-namespace miRobotEditor.Interfaces
+namespace miRobotEditor.Core.Interfaces
 {
     public class BlockCommentRegion
     {

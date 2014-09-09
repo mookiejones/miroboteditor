@@ -1,6 +1,4 @@
-﻿using miRobotEditor.Commands;
-
-namespace miRobotEditor.Core.Commands
+﻿namespace miRobotEditor.Core.Commands
 {
     public abstract class AbstractMenuCommand : AbstractCommand, IMenuCommand
     {

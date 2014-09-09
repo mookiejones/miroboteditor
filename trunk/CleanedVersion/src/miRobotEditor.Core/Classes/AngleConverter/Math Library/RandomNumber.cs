@@ -1,7 +1,7 @@
-namespace miRobotEditor.GUI.AngleConverter
-{
-    using System;
+using System;
 
+namespace miRobotEditor.Core.Classes.AngleConverter
+{
     public static class RandomNumber
     {      
         public static double Between(double lowerBound, double upperBound)

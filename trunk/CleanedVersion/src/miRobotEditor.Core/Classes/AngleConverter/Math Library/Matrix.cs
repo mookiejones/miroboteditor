@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace miRobotEditor.GUI.AngleConverter
+namespace miRobotEditor.Core.Classes.AngleConverter
 {
     [Localizable(false),Serializable]
     public class Matrix : IFormattable

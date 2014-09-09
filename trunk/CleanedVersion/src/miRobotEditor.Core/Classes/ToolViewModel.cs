@@ -3,7 +3,11 @@
 
     public class ToolViewModel:PaneViewModel
     {
-
+        protected ToolViewModel(string name)
+        {
+            Name = name;
+            Title = name;
+        }
         
         #region IsActive
         /// <summary>
@@ -37,5 +41,25 @@
             }
         }
         #endregion
+
+        // Sizes for External Tools
+        public int Height { get; set; }
+        public int Width { get; set; }
+
+        public DefaultToolPane DefaultPane = DefaultToolPane.None;
+
+        protected ToolViewModel() : base(null)
+        {
+
+        }
+    }
+
+    public enum DefaultToolPane
+    {
+        None,
+        Bottom,
+        Left,
+        Right,
+        Top
     }
 }

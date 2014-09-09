@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace miRobotEditor.Commands
+namespace miRobotEditor.Core.Commands
 {
     public abstract class AbstractCommand : ICommand
     {
