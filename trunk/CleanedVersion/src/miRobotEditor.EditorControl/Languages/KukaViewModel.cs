@@ -3,11 +3,9 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using miRobotEditor.Core;
 using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Interfaces;
-using miRobotEditor.GUI.Editor;
 using miRobotEditor.UI.Controls;
 
 namespace miRobotEditor.EditorControl.Languages
@@ -246,7 +244,9 @@ namespace miRobotEditor.EditorControl.Languages
                     case true:
                         Data.Text = FileLanguage.DataText;
 // ReSharper disable AssignNullToNotNullAttribute
-                        Data.Filename = Path.Combine(Path.GetDirectoryName(FileName), FileLanguage.DataName);
+
+                        var dn = Path.GetDirectoryName(FilePath);
+                        Data.Filename = Path.Combine(dn, FileLanguage.DataName);
 // ReSharper restore AssignNullToNotNullAttribute
                         Data.SetHighlighting();
                         Data.Visibility = Visibility.Visible;

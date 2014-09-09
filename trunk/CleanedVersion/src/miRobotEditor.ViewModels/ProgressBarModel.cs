@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public class ProgressBarModel:DependencyObject
     {

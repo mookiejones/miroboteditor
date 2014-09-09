@@ -1,9 +1,7 @@
 ﻿using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Classes;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Interfaces;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.EditorControl.Languages
 {
     public interface ICompletionItem
     {

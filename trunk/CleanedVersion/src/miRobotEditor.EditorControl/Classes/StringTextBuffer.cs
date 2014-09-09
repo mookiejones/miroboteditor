@@ -1,6 +1,6 @@
 using ICSharpCode.AvalonEdit.Document;
 
-namespace miRobotEditor.Interfaces
+namespace miRobotEditor.EditorControl.Classes
 {
     public sealed class StringTextBuffer : TextSourceAdapter
     {

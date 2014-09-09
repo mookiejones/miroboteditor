@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Interfaces;
 

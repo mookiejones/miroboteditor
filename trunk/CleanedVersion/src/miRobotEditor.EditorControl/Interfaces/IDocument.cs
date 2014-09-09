@@ -3,8 +3,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Languages;
 
 namespace miRobotEditor.EditorControl.Interfaces
 {

@@ -1,6 +1,6 @@
 ﻿using miRobotEditor.Core.Classes;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public class FunctionViewModel : ToolViewModel
     {

@@ -1,10 +1,10 @@
 ﻿using miRobotEditor.Core.Classes;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public class ShiftViewModel:ToolViewModel
     {
-        public ShiftViewModel()
+        public ShiftViewModel() : base()
         {
 
         }

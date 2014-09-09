@@ -2,7 +2,7 @@
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 
-namespace miRobotEditor.Interfaces
+namespace miRobotEditor.EditorControl.Interfaces
 {
    public abstract class AbstractFoldingStrategy
     {

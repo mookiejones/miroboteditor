@@ -1,8 +1,6 @@
 ﻿using System.Windows;
-using miRobotEditor.Core;
-using miRobotEditor.Core.Classes;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public class CustomToolTipModel:DependencyObject
     {

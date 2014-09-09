@@ -1,18 +1,14 @@
-﻿using System.ComponentModel;
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using System;
-using System.Text.RegularExpressions;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.EditorControl;
 using miRobotEditor.EditorControl.Classes;
-using miRobotEditor.EditorControl.Languages;
-using miRobotEditor.GUI.Editor;
-using miRobotEditor.Interfaces;
-using FileInfo = System.IO.FileInfo;
+using miRobotEditor.EditorControl.Interfaces;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.EditorControl.Languages
 {
     [Localizable(false)]
     public class VBA : AbstractLanguageClass

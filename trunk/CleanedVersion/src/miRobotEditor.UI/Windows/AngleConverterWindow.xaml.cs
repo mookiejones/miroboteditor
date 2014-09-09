@@ -1,114 +1,87 @@
 ﻿using System;
 using System.Windows;
-using miRobotEditor.Core.Classes;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using miRobotEditor.Core.Classes.AngleConverter;
 using miRobotEditor.Core.Enums;
+using miRobotEditor.UI.Controls;
 
-namespace miRobotEditor.ViewModels
+namespace miRobotEditor.UI.Windows
 {
-
-    public class AngleConverterClass:DependencyObject
+    /// <summary>
+    /// Interaction logic for AngleConverterWindow.xaml
+    /// </summary>
+    public sealed partial class AngleConverterWindow : UserControl
     {
-
-
-
-        
-        #region InputItems
-        /// <summary>
-        /// The <see cref="InputItems" /> dependency property's name.
-        /// </summary>
-        public const string InputItemsPropertyName = "InputItems";
-
-        /// <summary>
-        /// Gets or sets the value of the <see cref="InputItems" />
-        /// property. This is a dependency property.
-        /// </summary>
-        public ValueBoxModel InputItems
+        public AngleConverterWindow()
         {
-            get
-            {
-                return (ValueBoxModel)GetValue(InputItemsProperty);
-            }
-            set
-            {
-                SetValue(InputItemsProperty, value);
-            }
+            InitializeComponent();
+
         }
+    }
 
-        /// <summary>
-        /// Identifies the <see cref="InputItems" /> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty InputItemsProperty = DependencyProperty.Register(
-            InputItemsPropertyName,
-            typeof(ValueBoxModel),
-            typeof(AngleConverterModel),
-            new UIPropertyMetadata(null));
-        #endregion
-
-
-        
-        #region OutputItems
-        /// <summary>
-        /// The <see cref="OutputItems" /> dependency property's name.
-        /// </summary>
-        public const string OutputItemsPropertyName = "OutputItems";
-
-        /// <summary>
-        /// Gets or sets the value of the <see cref="OutputItems" />
-        /// property. This is a dependency property.
-        /// </summary>
-        public ValueBoxModel OutputItems
-        {
-            get
-            {
-                return (ValueBoxModel)GetValue(OutputItemsProperty);
-            }
-            set
-            {
-                SetValue(OutputItemsProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// Identifies the <see cref="OutputItems" /> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty OutputItemsProperty = DependencyProperty.Register(
-            OutputItemsPropertyName,
-            typeof(ValueBoxModel),
-            typeof(AngleConverterModel),
-            new UIPropertyMetadata(null));
-        #endregion
+    public sealed class AngleConverterModel : DependencyObject
+    {
+        public const string ToolContentId = "AngleConverterTool";
 
         public static CartesianEnum CartesianType { get; set; }
 
 
+   
+#region InputItems        
 
 
+public ValueBoxModel InputItems
+{
+    get { return (ValueBoxModel)GetValue(InputItemsProperty); }
+    set { SetValue(InputItemsProperty, value);
+        ;
+    }
+}
 
+// Using a DependencyProperty as the backing store for InputItems.  This enables animation, styling, binding, etc...
+public static readonly DependencyProperty InputItemsProperty = 
+    DependencyProperty.Register("InputItems", typeof(ValueBoxModel), typeof(AngleConverterModel));
+
+#endregion
+#region OutputItems
+        
+
+public ValueBoxModel OutputItems
+{
+    get { return (ValueBoxModel)GetValue(OutputItemsProperty); }
+    set { SetValue(OutputItemsProperty, value);
+       ;
+    }
+}
+
+// Using a DependencyProperty as the backing store for OutputItems.  This enables animation, styling, binding, etc...
+public static readonly DependencyProperty OutputItemsProperty = 
+    DependencyProperty.Register("OutputItems", typeof(ValueBoxModel), typeof(AngleConverterModel));
+
+
+#endregion
+  
         #region Constructor
-        public AngleConverterClass()
+public AngleConverterModel()
         {
+            InputItems = new ValueBoxModel();
+            OutputItems = new ValueBoxModel();
 
-            //InputItems.ItemsChanged+=(s,e) => Convert();
-            //OutputItems.ItemsChanged += (s, e) => Convert();
-
-
-        }
-
-        void InputItems_ItemsChanged(object sender, EventArgs e)
-        {
+            InputItems.ItemsChanged+=Convert;
+           OutputItems.ItemsChanged +=Convert;
 
         }
         #endregion
 
         #region Fields
-        private string _matrix = string.Empty;  
+
             private bool _isConverting;
             private RotationMatrix3D _rotationMatrix = RotationMatrix3D.Identity();
         #endregion
 
           
-    public void Convert()
+    public void Convert(object sender,ItemsChangedEventArgs e)
     {
         if ((InputItems == null | OutputItems == null)) return;
 
@@ -191,7 +164,6 @@ namespace miRobotEditor.ViewModels
         switch (isScalar)
         {
             case false:
-
                 OutputItems.V1 = result.X;
                 OutputItems.V2 = result.Y;
                 OutputItems.V3 = result.Z;
@@ -207,7 +179,7 @@ namespace miRobotEditor.ViewModels
     }
 
     // Properties
-    protected double EPSILON
+        private double EPSILON
     {
         get
         {
@@ -227,7 +199,7 @@ namespace miRobotEditor.ViewModels
         }
     }
 
-
+    #region Matrix
 
 
     public string Matrix
@@ -241,9 +213,9 @@ namespace miRobotEditor.ViewModels
         DependencyProperty.Register("Matrix", typeof(string), typeof(AngleConverterModel), new PropertyMetadata(""));
 
     
+    #endregion
 
 
     // Nested Types
-   
-}
+    }
 }

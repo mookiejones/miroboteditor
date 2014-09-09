@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.OleDb;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows;
+using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using Ionic.Zip;
 using Microsoft.Win32;
+using miRobotEditor.Core;
 using miRobotEditor.Core.Classes;
 
-
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public sealed class ArchiveInfoModel:DependencyObject
     {
@@ -676,19 +677,15 @@ namespace miRobotEditor.Core
             // if archive path exists, allow to delete or rename
             if (!Directory.Exists(path)) return false;
             throw new NotImplementedException();
-            /*
-            var msgResult = System.Windows.Forms.MessageBox.Show(String.Format("The path of {0} \r\n allready exists. Do you want to Delete the path?", path), "Archive Exists", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button3);
-
-            switch (msgResult)
-            {
-                case DialogResult.Yes:
-                    Directory.Delete(path, true);
-                    return false;
-                case DialogResult.No:
-                case DialogResult.Cancel:
-                    return true;
-            }*/
-            return false;
+            var answer = false;
+            var msg =
+                new DialogMessage(
+                    String.Format("this,The path of {0} \r\n allready exists. Do you want to Delete the path?", path),
+                    (result) =>
+                    {
+                        answer = result != MessageBoxResult.Yes;
+                    });
+            return answer;
 
         }
        

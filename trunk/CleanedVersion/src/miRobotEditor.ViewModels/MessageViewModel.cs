@@ -3,11 +3,11 @@ using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight;
 using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Classes.Messaging;
+using miRobotEditor.Core.Handlers;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
-    public delegate void MessageAddedHandler(object sender, EventArgs e);
-   public class MessageViewModel:ViewModelBase
+    public class MessageViewModel:ViewModelBase
    {
        #region Members
        private const string ToolContentId = @"MessageViewTool";
@@ -17,15 +17,11 @@ namespace miRobotEditor.Core
 
        static BitmapImage GetMsgIcon(MsgIcon icon)
        {
-           switch (icon)
-           {
-               case MsgIcon.Error:
-                   return Utilities.LoadBitmap(Global.ImgError);
-                   break;
-               case MsgIcon.Info:
-                  return Utilities.LoadBitmap(Global.ImgInfo);
-           }
-           throw new NotImplementedException();
+
+           var result = icon == MsgIcon.Error ? Global.ImgError : Global.ImgInfo;
+           var image = Utilities.LoadBitmap(result);
+
+           return image;
        }
 
        void RaiseMessageAdded()

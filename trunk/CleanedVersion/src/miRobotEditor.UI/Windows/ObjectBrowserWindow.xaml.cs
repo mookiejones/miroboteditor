@@ -1,24 +1,30 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using Microsoft.Practices.ServiceLocation;
-using miRobotEditor.Core;
+using System.Windows.Controls;
+using GalaSoft.MvvmLight.Messaging;
 using miRobotEditor.Core.Classes;
+using miRobotEditor.Core.Classes.Messaging;
 using miRobotEditor.Core.Interfaces;
-using miRobotEditor.Core;
-using miRobotEditor.EditorControl.Languages;
-using Utilities = miRobotEditor.Core.Classes.Utilities;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.UI.Windows
 {
-    public class ObjectBrowserViewModel : ToolViewModel
+    /// <summary>
+    /// Interaction logic for ObjectBrowserWindow.xaml
+    /// </summary>
+    public partial class ObjectBrowserWindow : UserControl
+    {
+        public ObjectBrowserWindow()
+        {
+            InitializeComponent();
+        }
+    }
+    public sealed class ObjectBrowserViewModel : ToolViewModel
     {
         #region Constructors
-        public ObjectBrowserViewModel(){ Initialize(); }
-// ReSharper disable UnusedParameter.Local
-        public ObjectBrowserViewModel(string directory) 
-// ReSharper restore UnusedParameter.Local
+        public ObjectBrowserViewModel():base("Object Browser") { Initialize(); }
+        // ReSharper disable UnusedParameter.Local
+        public ObjectBrowserViewModel(string directory):base("Object Browser")
+        // ReSharper restore UnusedParameter.Local
         {
             Initialize();
         }
@@ -26,10 +32,10 @@ namespace miRobotEditor.Core
 
         #region Properties
         private static ObjectBrowserViewModel _instance;
-        public static ObjectBrowserViewModel Instance { get { return _instance ?? new ObjectBrowserViewModel(); } set { _instance = value; } }
+        public static ObjectBrowserViewModel Instance { get { return _instance ?? new ObjectBrowserViewModel("Object Browser"); } set { _instance = value; } }
 
 
-        
+
         #region SelectedVariable
         /// <summary>
         /// The <see cref="SelectedVariable" /> property's name.
@@ -59,16 +65,14 @@ namespace miRobotEditor.Core
                 RaisePropertyChanging(SelectedVariablePropertyName);
                 _selectedVariable = value;
 
-
-                var main = ServiceLocator.Current.GetInstance<MainViewModel>();
-                throw new NotImplementedException();
-//                Workspace.Instance.OpenFile(value);
+                var msg = new OpenFileMessage(value);
+                Messenger.Default.Send(msg);
                 RaisePropertyChanged(SelectedVariablePropertyName);
             }
         }
         #endregion
 
-        
+
         #region Progress
         /// <summary>
         /// The <see cref="Progress" /> property's name.
@@ -102,7 +106,7 @@ namespace miRobotEditor.Core
         }
         #endregion
 
-        
+
         #region ProgressMax
         /// <summary>
         /// The <see cref="ProgressMax" /> property's name.
@@ -144,9 +148,9 @@ namespace miRobotEditor.Core
 
 
 
-// ReSharper disable UnusedMember.Local
+        // ReSharper disable UnusedMember.Local
         string GetDirectory()
-// ReSharper restore UnusedMember.Local
+        // ReSharper restore UnusedMember.Local
         {
             throw new NotImplementedException("Need to remove system.windows.forms");
 
@@ -161,7 +165,7 @@ namespace miRobotEditor.Core
             //return ((dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) ? dialog.SelectedPath : string.Empty);
         }
 
-     
+
 
         void Initialize()
         {
@@ -174,7 +178,7 @@ namespace miRobotEditor.Core
         {
 
             // if (Positions != null) return Positions;
-
+            throw new NotImplementedException();/*
             var main = ServiceLocator.Current.GetInstance<MainViewModel>();
             var ws = main.ActiveEditor as KukaViewModel;
 
@@ -189,6 +193,7 @@ namespace miRobotEditor.Core
 
 
             return new ReadOnlyCollection<IVariable>(result);
+                                                 * */
         }
 
 

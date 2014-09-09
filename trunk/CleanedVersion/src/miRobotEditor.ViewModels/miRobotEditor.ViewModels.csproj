@@ -51,36 +51,49 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractViewModel.cs" />
-    <Compile Include="AngleConverterClass.cs" />
     <Compile Include="AngleToolTipConverter.cs" />
-    <Compile Include="ArchiveInfoViewModel.cs" />
+    <Compile Include="ArchiveInfoModel.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="CustomToolTipModel.cs" />
     <Compile Include="DocumentViewModel.cs" />
     <Compile Include="DoubleValidationRule.cs" />
     <Compile Include="EnumtoInt32.cs" />
-    <Compile Include="FileOptionsViewModel.cs" />
+    <Compile Include="FileOptionsModel.cs" />
     <Compile Include="FileViewModel.cs" />
+    <Compile Include="FindandReplaceControl.cs" />
     <Compile Include="FindReplaceViewModel.cs" />
     <Compile Include="FTPAccount.cs" />
     <Compile Include="FTPAccountWindowViewModel.cs" />
     <Compile Include="FTPBrowserViewModel.cs" />
+    <Compile Include="FTPFolder.cs" />
     <Compile Include="FunctionViewModel.cs" />
-    <Compile Include="GetFileIconConverter.cs" />
-    <Compile Include="GetFileSystemInfosConverter.cs" />
     <Compile Include="GlobalOptions.cs" />
-    <Compile Include="GlobalOptionsViewModel.cs" />
+    <Compile Include="GlobalOptionsModel.cs" />
     <Compile Include="GotoViewModel.cs" />
-    <Compile Include="IDocument.cs" />
     <Compile Include="IOViewModel.cs" />
     <Compile Include="ItemsChangedEventHandler.cs" />
     <Compile Include="KUKAObjectBrowserViewModel.cs" />
@@ -88,20 +101,17 @@
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MessageViewModel.cs" />
     <Compile Include="NotesViewModel.cs" />
-    <Compile Include="ObjectBrowserViewModel.cs" />
     <Compile Include="OptionsViewModel.cs" />
-    <Compile Include="ProgressBarViewModel.cs" />
+    <Compile Include="ProgressBarModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializeBase.cs" />
     <Compile Include="ShiftViewModel.cs" />
     <Compile Include="StatusBarViewModel.cs" />
-    <Compile Include="SystemFunctionsViewModel.cs" />
+    <Compile Include="SystemFunctionsModel.cs" />
     <Compile Include="UpdateCheckerModel.cs" />
-    <Compile Include="UpdateRequiredHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="IOListBox.xaml">
-      <DependentUpon>ArchiveInfoViewModel.cs</DependentUpon>
+      <DependentUpon>ArchiveInfoModel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -1,11 +1,9 @@
 ﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
-using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Commands;
 using miRobotEditor.EditorControl;
-using miRobotEditor.GUI.Editor;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public class GotoViewModel:ViewModelBase
     {

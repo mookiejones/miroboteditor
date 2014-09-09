@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Interfaces;
-using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.EditorControl.Classes
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public delegate void ItemsChangedEventHandler(object sender,EventArgs e);
 }

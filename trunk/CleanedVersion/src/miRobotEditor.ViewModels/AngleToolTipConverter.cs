@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows.Data;
 using miRobotEditor.Core.Enums;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     [Localizable(false)]
     public class AngleToolTipConverter : IValueConverter

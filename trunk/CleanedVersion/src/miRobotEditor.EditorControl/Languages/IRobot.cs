@@ -2,11 +2,10 @@
 using System.Collections.ObjectModel;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.EditorControl.Interfaces;
-using miRobotEditor.EditorControl.Languages;
 using miRobotEditor.Core;
+using miRobotEditor.EditorControl.Interfaces;
 
-namespace miRobotEditor.Languages
+namespace miRobotEditor.EditorControl.Languages
 {
     public interface IRobot
     {

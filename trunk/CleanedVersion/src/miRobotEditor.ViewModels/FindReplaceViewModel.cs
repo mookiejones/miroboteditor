@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using miRobotEditor.Core;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public class FindReplaceViewModel:ViewModelBase
     {
@@ -326,27 +324,6 @@ namespace miRobotEditor.Core
         private static void FindAll()
         {
             throw new System.NotImplementedException();
-        }
-    }
-
-    public class FindandReplaceControl:Window
-    {
-        private static FindandReplaceControl _instance;
-
-        public FindandReplaceControl(object instance)
-        {
-            throw new NotImplementedException();
-        }
-
-        private FindandReplaceControl()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static FindandReplaceControl Instance
-        {
-            get { return _instance ?? (_instance = new FindandReplaceControl()); }
-            set { _instance = value; }
         }
     }
 }

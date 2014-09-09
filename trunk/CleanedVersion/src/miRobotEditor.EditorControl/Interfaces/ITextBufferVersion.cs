@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using miRobotEditor.Core.Interfaces;
 
-namespace miRobotEditor.Interfaces
+namespace miRobotEditor.EditorControl.Interfaces
 {
     /// <summary>
     /// Represents a version identifier for a text buffer.

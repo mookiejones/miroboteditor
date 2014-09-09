@@ -1,8 +1,7 @@
 ﻿using System;
-using miRobotEditor.Core;
 using miRobotEditor.Core.Classes;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public class NotesViewModel:ToolViewModel
     {

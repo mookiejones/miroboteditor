@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     [Localizable(false)]
     public sealed class DoubleValidationRule:ValidationRule

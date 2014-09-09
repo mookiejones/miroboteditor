@@ -7,12 +7,14 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using Ionic.Zip;
 using Microsoft.Win32;
-using miRobotEditor.Core.Classes;
 using miRobotEditor.Core;
+using miRobotEditor.Core.Classes;
+using miRobotEditor.Core.Classes.Messaging;
 
-namespace miRobotEditor.Core
+namespace miRobotEditor.ViewModels
 {
     public class IOViewModel : ViewModelBase
     {
@@ -612,6 +614,8 @@ namespace miRobotEditor.Core
             }
             catch (Exception ex)
             {
+                var msg = new ErrorMessage("GetDBConnection", ex);
+                Messenger.Default.Send(msg);
                 oleDbConnection = null;
             }
             return oleDbConnection;

@@ -17,6 +17,7 @@ using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
 using miRobotEditor.Core;
+using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Interfaces;
 
 namespace miRobotEditor.EditorControl.Classes
