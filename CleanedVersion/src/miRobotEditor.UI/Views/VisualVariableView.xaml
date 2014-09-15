@@ -4,7 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             DataContextChanged="UserControl_DataContextChanged"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/miRobotEditor.UI;component/Themes/Styles.xaml"/>
+    </UserControl.Resources>
     <Grid>
         <DataGrid
             IsReadOnly="True"                
@@ -13,10 +17,6 @@
                MouseDoubleClick="OnMouseDoubleClick"  ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}" Style="{DynamicResource DataGridStyle}" >
             <DataGrid.Resources>
                 <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml"  />
-                    </ResourceDictionary.MergedDictionaries>
-
                     <ToolTip x:Key="tooltip" Background="GhostWhite" BorderThickness="0" BorderBrush="Black">
 
                         <GroupBox>
@@ -37,12 +37,10 @@
                         </GroupBox>
 
                     </ToolTip>
-
                 </ResourceDictionary>
             </DataGrid.Resources>
 
             <DataGrid.Columns >
-
                 <DataGridTemplateColumn  Width="Auto" IsReadOnly="True" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

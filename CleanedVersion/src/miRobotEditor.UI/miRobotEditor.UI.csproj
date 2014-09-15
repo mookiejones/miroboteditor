@@ -43,6 +43,12 @@
       <HintPath>..\..\..\packages\MahApps.Metro.0.15.0-ALPHA9\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit">
+      <HintPath>..\..\..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit">
+      <HintPath>..\..\..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -51,14 +57,67 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit">
+      <HintPath>..\..\..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ExtendedGridSplitter.cs" />
+    <Compile Include="Controls\FunctionWindowClass.cs" />
     <Compile Include="Controls\GridSplitterCollapseMode.cs" />
     <Compile Include="Controls\ValueBox.xaml.cs">
       <DependentUpon>ValueBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\VisualVariableView.xaml.cs">
+    <Compile Include="Views\ArchiveInfoModelView.xaml.cs">
+      <DependentUpon>ArchiveInfoModelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DatCleanHelperView.xaml.cs">
+      <DependentUpon>DatCleanHelperView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditorOptionsView.xaml.cs">
+      <DependentUpon>EditorOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileInfoView.xaml.cs">
+      <DependentUpon>FileInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InfoFileView.xaml.cs">
+      <DependentUpon>InfoFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IOViewModelView.xaml.cs">
+      <DependentUpon>IOViewModelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemsTemplateView.xaml.cs">
+      <DependentUpon>ItemsTemplateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MessageWindowView.xaml.cs">
+      <DependentUpon>MessageWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemFunctionsView.xaml.cs">
+      <DependentUpon>SystemFunctionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateCheckerView.xaml.cs">
+      <DependentUpon>UpdateCheckerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VisualVariableView.xaml.cs">
       <DependentUpon>VisualVariableView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\AttributeViewer.xaml.cs">
@@ -69,6 +128,9 @@
     </Compile>
     <Compile Include="Dialogs\KFDAssistant.xaml.cs">
       <DependentUpon>KFDAssistant.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FunctionWindow.xaml.cs">
+      <DependentUpon>FunctionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
@@ -88,8 +150,8 @@
     <Compile Include="Windows\NotesWindow.xaml.cs">
       <DependentUpon>NotesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ObjectBrowserWindow.xaml.cs">
-      <DependentUpon>ObjectBrowserWindow.xaml</DependentUpon>
+    <Compile Include="Views\ObjectBrowserView.xaml.cs">
+      <DependentUpon>ObjectBrowserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ShiftWindow.xaml.cs">
       <DependentUpon>ShiftWindow.xaml</DependentUpon>
@@ -98,7 +160,59 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\VisualVariableView.xaml">
+    <Page Include="Templates\StatusBarTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ArchiveInfoModelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DatCleanHelperView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditorOptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InfoFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IOViewModelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ItemsTemplateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MessageWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemFunctionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateCheckerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VisualVariableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,14 +236,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="CustomControl1.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Themes\Styles.xaml">
+    <Page Include="Views\FunctionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -157,7 +264,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ObjectBrowserWindow.xaml">
+    <Page Include="Views\ObjectBrowserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

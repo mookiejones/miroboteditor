@@ -9,11 +9,11 @@ using miRobotEditor.Core.Interfaces;
 namespace miRobotEditor.UI.Windows
 {
     /// <summary>
-    /// Interaction logic for ObjectBrowserWindow.xaml
+    /// Interaction logic for ObjectBrowserView.xaml
     /// </summary>
-    public partial class ObjectBrowserWindow : UserControl
+    public partial class ObjectBrowserView : UserControl
     {
-        public ObjectBrowserWindow()
+        public ObjectBrowserView()
         {
             InitializeComponent();
         }
