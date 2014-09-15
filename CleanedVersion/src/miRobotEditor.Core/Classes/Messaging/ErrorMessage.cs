@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace miRobotEditor.Core.Classes.Messaging
 {
-    public class ErrorMessage:MessageBase
+    public sealed class ErrorMessage:MessageBase
     {
+// ReSharper disable once MemberCanBePrivate.Global
         public string Title { get; set; }
+// ReSharper disable once MemberCanBePrivate.Global
         public Exception Exception { get; set; }
 
         public ErrorMessage(string title, Exception exception)
         {
+            
             Title = title;
             Exception = exception;
 

@@ -1,10 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-using miRobotEditor.Core;
 using System.Windows;
 
 namespace miRobotEditor.Core
 {
-    public class InfoFile:DependencyObject
+    public sealed class InfoFile:DependencyObject
     {
 
         
@@ -168,7 +167,7 @@ namespace miRobotEditor.Core
             ArchiveDatePropertyName,
             typeof(string),
             typeof(InfoFile),
-            new UIPropertyMetadata(0));
+            new UIPropertyMetadata(""));
         #endregion
 
         
@@ -270,6 +269,7 @@ namespace miRobotEditor.Core
 
       
 
+       
 
         private readonly ObservableCollection<Technology> _technologies = new ObservableCollection<Technology>();
         readonly ReadOnlyObservableCollection<Technology> _readonlyTechnology = null;

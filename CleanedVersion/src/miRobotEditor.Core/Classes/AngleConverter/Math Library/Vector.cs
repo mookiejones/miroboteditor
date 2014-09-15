@@ -4,7 +4,7 @@ namespace miRobotEditor.Core.Classes.AngleConverter
 {
     public class Vector : Matrix
     {
-        public Vector() : base(0, 0)
+        protected Vector() : base(0, 0)
         {
         }
 // ReSharper disable RedundantOverridenMember

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Windows.Media;
 
 namespace miRobotEditor.Core.Classes
 {
@@ -30,7 +26,7 @@ namespace miRobotEditor.Core.Classes
         /// <returns></returns>  
         public static bool DoesDirectoryExist(string filename)
         {
-            var f = new System.IO.FileInfo(filename);
+            var f = new FileInfo(filename);
             if (f.DirectoryName != null)
             {
                 var d = new DirectoryInfo(f.DirectoryName);

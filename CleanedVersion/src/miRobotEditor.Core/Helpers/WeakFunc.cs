@@ -108,7 +108,7 @@ namespace miRobotEditor.Core.Helpers
             }
             if (IsAlive && Method != null && FuncReference != null)
             {
-                return (TResult)((object)Method.Invoke(FuncTarget, null));
+                return (TResult)Method.Invoke(FuncTarget, null);
             }
             return default(TResult);
         }
@@ -120,7 +120,7 @@ namespace miRobotEditor.Core.Helpers
             _staticFunc = null;
         }
     }
-    public class WeakFunc<T, TResult> : WeakFunc<TResult>, IExecuteWithObjectAndResult
+    public sealed class WeakFunc<T, TResult> : WeakFunc<TResult>, IExecuteWithObjectAndResult
     {
         private Func<T, TResult> _staticFunc;
         public override string MethodName
@@ -131,42 +131,43 @@ namespace miRobotEditor.Core.Helpers
                 {
                     return _staticFunc.Method.Name;
                 }
-                return base.Method.Name;
+                return Method.Name;
             }
         }
         public override bool IsAlive
         {
             get
             {
-                if (_staticFunc == null && base.Reference == null)
+                if (_staticFunc == null && Reference == null)
                 {
                     return false;
                 }
                 if (_staticFunc != null)
                 {
-                    return base.Reference == null || base.Reference.IsAlive;
+                    return Reference == null || Reference.IsAlive;
                 }
-                return base.Reference.IsAlive;
+                return Reference.IsAlive;
             }
         }
         public WeakFunc(Func<T, TResult> func)
             : this(func.Target, func)
         {
         }
-        public WeakFunc(object target, Func<T, TResult> func)
+
+        private WeakFunc(object target, Func<T, TResult> func)
         {
             if (func.Method.IsStatic)
             {
                 _staticFunc = func;
                 if (target != null)
                 {
-                    base.Reference = new WeakReference(target);
+                    Reference = new WeakReference(target);
                 }
                 return;
             }
-            base.Method = func.Method;
-            base.FuncReference = new WeakReference(func.Target);
-            base.Reference = new WeakReference(target);
+            Method = func.Method;
+            FuncReference = new WeakReference(func.Target);
+            Reference = new WeakReference(target);
         }
         public new TResult Execute()
         {
@@ -178,18 +179,18 @@ namespace miRobotEditor.Core.Helpers
             {
                 return _staticFunc(parameter);
             }
-            if (IsAlive && base.Method != null && base.FuncReference != null)
+            if (IsAlive && Method != null && FuncReference != null)
             {
-                return (TResult)((object)base.Method.Invoke(base.FuncTarget, new object[]
-				{
-					parameter
-				}));
+                return (TResult)Method.Invoke(FuncTarget, new object[]
+                {
+                    parameter
+                });
             }
             return default(TResult);
         }
         public object ExecuteWithObject(object parameter)
         {
-            T parameter2 = (T)((object)parameter);
+            var parameter2 = (T)parameter;
             return Execute(parameter2);
         }
         public new void MarkForDeletion()

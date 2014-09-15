@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Text;
 
 namespace miRobotEditor.Core.Classes.AngleConverter
 {
@@ -480,7 +481,7 @@ namespace miRobotEditor.Core.Classes.AngleConverter
 
         public virtual string ToString(string format, IFormatProvider formatProvider)
     {
-        var sb = new System.Text.StringBuilder();
+        var sb = new StringBuilder();
         if (format == null)
             format = "F2";
  
@@ -507,7 +508,7 @@ namespace miRobotEditor.Core.Classes.AngleConverter
          if (!format.ToUpper(CultureInfo.InvariantCulture).StartsWith("MATLAB"))
              throw new FormatException("Invalid Format Specifier");
  
-         sb = new System.Text.StringBuilder();
+         sb = new StringBuilder();
          sb.Append("[");
          for (var i = 0; i < Rows; i++)
          {

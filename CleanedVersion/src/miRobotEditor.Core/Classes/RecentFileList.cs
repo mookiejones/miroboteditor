@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -478,7 +477,7 @@ namespace miRobotEditor.Core.Classes
 
         //-----------------------------------------------------------------------------------------
 
-        private class XmlPersister : IPersist
+        private sealed class XmlPersister : IPersist
         {
             private string Filepath { get; set; }
             private Stream Stream { get; set; }
@@ -486,7 +485,7 @@ namespace miRobotEditor.Core.Classes
             public XmlPersister()
             {
 
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
 
                 Filepath =
                     Path.Combine(

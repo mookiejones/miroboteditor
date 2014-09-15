@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace miRobotEditor.Core.Classes
 {
-    public class MenuTemplateSelector:DataTemplateSelector
+    public sealed class MenuTemplateSelector:DataTemplateSelector
     {
 
         public DataTemplate KUKATemplate { get; set; }

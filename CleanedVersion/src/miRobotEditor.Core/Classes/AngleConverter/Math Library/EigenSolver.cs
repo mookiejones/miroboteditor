@@ -98,6 +98,7 @@ namespace miRobotEditor.Core.Classes.AngleConverter
             }
         }
 
+// ReSharper disable once InconsistentNaming
         private void QLAlgorithm()
         {
             for (var i = 0; i < 3; i++)

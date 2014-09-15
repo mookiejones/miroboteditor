@@ -44,9 +44,18 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit">
+      <HintPath>..\..\..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit">
+      <HintPath>..\..\..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFToolkit">
+      <HintPath>..\..\..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\..\..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -67,7 +76,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CartesianEnum.cs" />
     <Compile Include="CartesianItems.cs" />
     <Compile Include="CartesianTypes.cs" />
     <Compile Include="Classes\AngleConverter\Math Library\Circle2D.cs" />
@@ -130,17 +138,16 @@
     <Compile Include="Commands\AbstractMenuCommand.cs" />
     <Compile Include="Commands\DropFileCommand.cs" />
     <Compile Include="Commands\IMenuCommand.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Commands\StaticCommands.cs" />
-    <Compile Include="Converters\ActiveEditorConverter.cs" />
     <Compile Include="Converters\AngleToolTipConverter.cs" />
     <Compile Include="Converters\BooleanToTypeModeStringConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\DoubleToStringConverter.cs" />
     <Compile Include="Converters\DoubleToThicknessConverter.cs" />
     <Compile Include="Converters\FunctionVisibilityConverter.cs" />
     <Compile Include="Converters\GetFileIconConverter.cs" />
     <Compile Include="Converters\GetFileSystemInfosConverter.cs" />
+    <Compile Include="Converters\SolidColorBrushToColorConverter.cs" />
     <Compile Include="Converters\VariableToFunctionConverter.cs" />
     <Compile Include="Converters\WidthConverter.cs" />
     <Compile Include="Enums\CartesianEnum.cs" />
@@ -166,6 +173,7 @@
     <Compile Include="Interfaces\TextChangeEventArgs.cs" />
     <Compile Include="LayoutInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\Class1.cs" />
     <Compile Include="SerializeBase.cs" />
     <Compile Include="ShiftModel.cs" />
     <Compile Include="Structs\Location.cs" />

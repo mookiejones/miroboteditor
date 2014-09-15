@@ -108,7 +108,7 @@ namespace miRobotEditor.Core.Classes
         /// <summary>
         ///     The <see cref="Name" /> property's name.
         /// </summary>
-        public const string NamePropertyName = "Name";
+        private const string NamePropertyName = "Name";
 
         private string _name = String.Empty;
 

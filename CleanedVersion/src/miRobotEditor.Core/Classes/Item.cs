@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace miRobotEditor.Core.Classes
 {
-    public class Item : DependencyObject
+    public sealed class Item : DependencyObject
     {
 
         public Item(string type, string description)

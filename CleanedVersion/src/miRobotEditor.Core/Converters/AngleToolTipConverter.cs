@@ -7,7 +7,7 @@ using miRobotEditor.Core.Enums;
 namespace miRobotEditor.Core.Converters
 {
     [Localizable(false)]
-    public class AngleToolTipConverter : IValueConverter
+    public sealed class AngleToolTipConverter : IValueConverter
     {
         private string _title = string.Empty;
 

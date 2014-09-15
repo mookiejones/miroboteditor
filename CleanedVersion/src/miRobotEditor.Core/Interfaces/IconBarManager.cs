@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Windows;
 
 namespace miRobotEditor.Core.Interfaces
 {
@@ -35,7 +36,7 @@ namespace miRobotEditor.Core.Interfaces
 		
 		public event EventHandler RedrawRequested;
 		
-		public void AddBookMark(System.Windows.UIElement item)
+		public void AddBookMark(UIElement item)
 		{
 			
 		}

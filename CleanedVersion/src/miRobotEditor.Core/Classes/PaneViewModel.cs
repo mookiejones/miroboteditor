@@ -5,8 +5,8 @@ namespace miRobotEditor.Core.Classes
 {
     public class PaneViewModel:ViewModelBase
     {
-
-        public PaneViewModel(string filename = "")
+// ReSharper disable once UnusedParameter.Local
+        protected PaneViewModel(string filename = "")
         {
             
         }
@@ -15,7 +15,7 @@ namespace miRobotEditor.Core.Classes
         /// <summary>
         /// The <see cref="ContentId" /> property's name.
         /// </summary>
-        public const string ContentIdPropertyName = "ContentId";
+        private const string ContentIdPropertyName = "ContentId";
 
         private string _contentID = String.Empty;
 
@@ -90,7 +90,7 @@ namespace miRobotEditor.Core.Classes
         /// Sets and gets the Name property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public string Name
+        protected string Name
         {
             get
             {

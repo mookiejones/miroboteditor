@@ -7,8 +7,8 @@ namespace miRobotEditor.Core.Classes.AngleConverter
     public class LeastSquaresFit2D
     {
         private LeastSquaresFit2D() { }
-     
-        public static Point2D Centroid(Collection<Point2D> points)
+
+        private static Point2D Centroid(Collection<Point2D> points)
         {
             var count = points.Count;
             var num2 = 0.0;
