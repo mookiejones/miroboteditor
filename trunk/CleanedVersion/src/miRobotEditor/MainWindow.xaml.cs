@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
@@ -11,13 +11,14 @@ using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Classes.Messaging;
 using miRobotEditor.Core.Classes.Messaging.Interfaces;
+using miRobotEditor.EditorControl;
 using miRobotEditor.Properties;
 using miRobotEditor.Resources;
 using miRobotEditor.ViewModel;
 using miRobotEditor.ViewModels;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
-using DocumentViewModel = miRobotEditor.EditorControl.DocumentViewModel;
+
 
 namespace miRobotEditor
 {
@@ -42,17 +43,14 @@ namespace miRobotEditor
 
         public static MainWindow Instance { get; set; }
 
-        private void AddDocument(DocumentViewModel obj)
+        private void AddDocument(DocumentModel obj)
         {
             throw new NotImplementedException();
         }
 
         private void Initialize()
         {
-            AllowDrop = true;
-            TitleForeground = Brushes.Black;
-            WindowState = WindowState.Maximized;
-            SnapsToDevicePixels = true;
+
 
             Closing += (s, e) => ViewModelLocator.Cleanup();
             DragEnter += (s, e) =>
@@ -62,11 +60,12 @@ namespace miRobotEditor
             };
 
             ThemeManager.ChangeAppTheme(Application.Current, "Light");
-            Messenger.Default.Register<DocumentViewModel>(this, AddDocument);
+            Messenger.Default.Register<DocumentModel>(this, AddDocument);
 
             KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(e);
         }
 
+        [SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
         private void DropFiles(object sender, DragEventArgs e)
         {
             var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
@@ -91,8 +90,8 @@ namespace miRobotEditor
 
             if (docpane != null)
                 foreach (
-                    DocumentViewModel d in
-                        docpane.Children.Select(doc => doc.Content as DocumentViewModel)
+                    DocumentModel d in
+                        docpane.Children.Select(doc => doc.Content as DocumentModel)
                             .Where(d => d != null && d.FilePath != null))
                 {
                     Settings.Default.OpenDocuments += d.FilePath + ';';
@@ -114,8 +113,6 @@ namespace miRobotEditor
                 LoadItems();
 //            Splasher.CloseSplash();
             //  LoadLayout();
-
-            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
 
         }
 

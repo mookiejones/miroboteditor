@@ -30,7 +30,7 @@ namespace miRobotEditor.ViewModel
     {
         static ViewModelLocator()
         {
-            SimpleIoc ioc = SimpleIoc.Default;
+            var ioc = SimpleIoc.Default;
             if (ioc == null)
                 return;
             ServiceLocator.SetLocatorProvider(() => (IServiceLocator) SimpleIoc.Default);
@@ -48,7 +48,9 @@ namespace miRobotEditor.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MessageViewModel>();
             SimpleIoc.Default.Register<NotesViewModel>();
+            SimpleIoc.Default.Register<StatusBarViewModel>();
         }
+
 
         /// <summary>
         ///     Gets the Main property.
@@ -61,17 +63,30 @@ namespace miRobotEditor.ViewModel
             get { return ServiceLocator.Current.GetInstance<temp>(); }
         }
 
+        /// <summary>
+        ///     Gets the Main property.
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public StatusBarViewModel StatusBar
+        {
+            get { return ServiceLocator.Current.GetInstance<StatusBarViewModel>(); }
+        }
+
 
         public MessageViewModel Messages
         {
             get { return ServiceLocator.Current.GetInstance<MessageViewModel>(); }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public MainViewModel Main
         {
             get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public NotesViewModel Notes
         {
             get { return ServiceLocator.Current.GetInstance<NotesViewModel>(); }

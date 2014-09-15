@@ -10,7 +10,8 @@
                     xmlns:editorControl="clr-namespace:miRobotEditor.EditorControl;assembly=miRobotEditor.EditorControl"
                     xmlns:controls="clr-namespace:miRobotEditor.UI.Controls;assembly=miRobotEditor.UI"
                     xmlns:classes1="clr-namespace:miRobotEditor.Core.Classes;assembly=miRobotEditor.Core"
-                    xmlns:converters1="clr-namespace:miRobotEditor.Core.Converters;assembly=miRobotEditor.Core">
+                    xmlns:converters1="clr-namespace:miRobotEditor.Core.Converters;assembly=miRobotEditor.Core"
+                    xmlns:miRobotEditor="clr-namespace:miRobotEditor">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/miRobotEditor;component/Templates/Generic.xaml" />
@@ -70,63 +71,13 @@
 
 
     <!-- Generic Document -->
-    <DataTemplate DataType="{x:Type viewModels:DocumentViewModel}">
-        <DockPanel>
-            <DockPanel.Resources>
-                <Style TargetType="{x:Type ComboBox}">
-                    <Setter Property="Opacity" Value="0.1" />
-                    <Setter Property="Height" Value="25" />
-                    <Setter Property="FontSize" Value="10" />
-                    <Setter Property="ItemTemplate" Value="{DynamicResource FunctionItemTemplate}" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Opacity" Value="1" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DockPanel.Resources>
-            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"
-                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
-                      DockPanel.Dock="Top" />
-            <ContentPresenter Content="{Binding TextBox}" DockPanel.Dock="Top" />
-        </DockPanel>
+    <DataTemplate DataType="{x:Type editorControl:DocumentModel}">
+        <miRobotEditor:DocumentView/>
     </DataTemplate>
 
     <!-- KUKA Document -->
     <DataTemplate DataType="{x:Type languages:KukaViewModel}">
-        <DockPanel>
-            <DockPanel.Resources>
-                <Style TargetType="{x:Type ComboBox}">
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="Opacity" Value="0.1" />
-                    <Setter Property="Height" Value="25" />
-                    <Setter Property="FontSize" Value="10" />
-                    <Setter Property="ItemTemplate" Value="{DynamicResource FunctionItemTemplate}" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Opacity" Value="1" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DockPanel.Resources>
-            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"
-                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
-                      DockPanel.Dock="Top" />
-            <Grid DockPanel.Dock="Top">
-                <Grid.InputBindings>
-                    <KeyBinding Command="{Binding ToggleGridCommand}" CommandTarget="{Binding Grid}" Key="T"
-                                Modifiers="Control" />
-                </Grid.InputBindings>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-                <ContentPresenter Content="{Binding Source}" Grid.Row="0" />
-                <ContentPresenter Content="{Binding Data}" Grid.Row="2" />
-                <controls:ExtendedGridSplitter x:Name="_grid" Grid.Row="1" DataContext="{Binding Grid}" />
-            </Grid>
-        </DockPanel>
+        <miRobotEditor:KUKADocumentView/>
     </DataTemplate>
 
     <!-- Editor -->

@@ -20,6 +20,19 @@
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
     </Style>
 
+    
+    <Style TargetType="{x:Type ComboBox}" x:Key="EditorComboBoxStyle">
+        <Setter Property="Opacity" Value="0.1" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="ItemTemplate" Value="{DynamicResource FunctionItemTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
     <Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderGlassEffect">
         <Setter Property="FontSize" Value="11" />
         <Setter Property="Foreground" Value="#EEEEEE" />
