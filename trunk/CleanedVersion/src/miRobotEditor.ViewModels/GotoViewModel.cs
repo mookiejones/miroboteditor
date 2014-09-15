@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Core.Commands;
 using miRobotEditor.EditorControl;
 
@@ -160,7 +161,7 @@ namespace miRobotEditor.ViewModels
         {
             get
             {
-                return _okCommand ?? (_okCommand = new RelayCommand(param => Accept(), param => (true)));
+                return _okCommand ?? (_okCommand = new RelayCommand(Accept));
             }
         }
         #endregion
