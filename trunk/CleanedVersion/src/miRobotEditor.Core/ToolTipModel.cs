@@ -2,7 +2,7 @@
 
 namespace miRobotEditor.Core
 {
-    public class ToolTipModel:DependencyObject
+    public sealed class ToolTipModel:DependencyObject
     {
 
         private static ToolTipModel _instance;

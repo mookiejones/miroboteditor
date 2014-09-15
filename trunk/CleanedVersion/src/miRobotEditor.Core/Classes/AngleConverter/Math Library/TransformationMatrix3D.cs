@@ -66,16 +66,19 @@ namespace miRobotEditor.Core.Classes.AngleConverter
             Translation = trans;
         }
 
+// ReSharper disable once UnusedMember.Global
         public static TransformationMatrix3D FromXYZABC(double x, double y, double z, double a, double b, double c)
         {
             return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromABC(a, b, c));
         }
 
+// ReSharper disable once UnusedMember.Global
         public static TransformationMatrix3D FromXYZEulerZYZ(double x, double y, double z, double z1, double y1, double z2)
         {
             return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromEulerZYZ(z1, y1, z2));
         }
 
+// ReSharper disable once UnusedMember.Global
         public static TransformationMatrix3D FromXYZRPY(double x, double y, double z, double r, double p, double w)
         {
             return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromRPY(r, p, w));

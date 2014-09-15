@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace miRobotEditor.Core.Classes
 {
@@ -21,7 +18,7 @@ namespace miRobotEditor.Core.Classes
         /// <summary>
         /// The <see cref="FileName" /> property's name.
         /// </summary>
-        public const string FileNamePropertyName = "FileName";
+        private const string FileNamePropertyName = "FileName";
 
         private string  _filename = String.Empty;
 
@@ -55,9 +52,9 @@ namespace miRobotEditor.Core.Classes
         /// <summary>
         /// The <see cref="IsDirty" /> property's name.
         /// </summary>
-        public const string IsDirtyPropertyName = "IsDirty";
+        private const string IsDirtyPropertyName = "IsDirty";
 
-        private bool _isDirty = false;
+        private bool _isDirty;
 
         /// <summary>
         /// Sets and gets the IsDirty property.

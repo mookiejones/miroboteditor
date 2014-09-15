@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using miRobotEditor.Core.Classes;
 
 namespace miRobotEditor.Core
 {
-    public class ShiftModel:DependencyObject
+    public sealed class ShiftModel:DependencyObject
     {
 
 

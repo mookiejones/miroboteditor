@@ -112,7 +112,8 @@ namespace miRobotEditor.Core.Helpers
                 Method.Invoke(ActionTarget, null);
             }
         }
-        public void MarkForDeletion()
+
+        protected void MarkForDeletion()
         {
             Reference = null;
             ActionReference = null;
@@ -131,22 +132,22 @@ namespace miRobotEditor.Core.Helpers
                 {
                     return _staticAction.Method.Name;
                 }
-                return base.Method.Name;
+                return Method.Name;
             }
         }
         public override bool IsAlive
         {
             get
             {
-                if (_staticAction == null && base.Reference == null)
+                if (_staticAction == null && Reference == null)
                 {
                     return false;
                 }
                 if (_staticAction != null)
                 {
-                    return base.Reference == null || base.Reference.IsAlive;
+                    return Reference == null || Reference.IsAlive;
                 }
-                return base.Reference.IsAlive;
+                return Reference.IsAlive;
             }
         }
         public WeakAction(Action<T> action)
@@ -160,13 +161,13 @@ namespace miRobotEditor.Core.Helpers
                 _staticAction = action;
                 if (target != null)
                 {
-                    base.Reference = new WeakReference(target);
+                    Reference = new WeakReference(target);
                 }
                 return;
             }
-            base.Method = action.Method;
-            base.ActionReference = new WeakReference(action.Target);
-            base.Reference = new WeakReference(target);
+            Method = action.Method;
+            ActionReference = new WeakReference(action.Target);
+            Reference = new WeakReference(target);
         }
         public new void Execute()
         {
@@ -179,9 +180,9 @@ namespace miRobotEditor.Core.Helpers
                 _staticAction(parameter);
                 return;
             }
-            if (IsAlive && base.Method != null && base.ActionReference != null)
+            if (IsAlive && Method != null && ActionReference != null)
             {
-                base.Method.Invoke(base.ActionTarget, new object[]
+                Method.Invoke(ActionTarget, new object[]
 				{
 					parameter
 				});

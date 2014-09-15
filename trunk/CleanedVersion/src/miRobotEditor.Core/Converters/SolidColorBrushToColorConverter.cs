@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace miRobotEditor.Core.Converters
 {
-    public sealed class DoubleToThicknessConverter:IValueConverter
+    public class SolidColorBrushToColorConverter:IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

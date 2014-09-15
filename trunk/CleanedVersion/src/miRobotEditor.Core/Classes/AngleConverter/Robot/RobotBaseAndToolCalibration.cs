@@ -103,10 +103,13 @@ namespace miRobotEditor.Core.Classes.AngleConverter.Robot
             CalculatedRobotTool = new TransformationMatrix3D(new Vector3D(vector2[0], vector2[1], vector2[2]), matrixd4.Inverse());
         }
 
+// ReSharper disable once MemberCanBePrivate.Global
         public TransformationMatrix3D CalculatedRobotBase { get; private set; }
 
+// ReSharper disable once MemberCanBePrivate.Global
         public TransformationMatrix3D CalculatedRobotTool { get; private set; }
 
+// ReSharper disable once MemberCanBePrivate.Global
         public double ConditionNumber { get; private set; }
     }
 }

@@ -7,6 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
+using System.Drawing;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace miRobotEditor.Core.Interfaces
@@ -26,7 +28,7 @@ namespace miRobotEditor.Core.Interfaces
 			_bitmap = bitmap;
 		}
 		
-		public System.Windows.Media.ImageSource ImageSource {
+		public ImageSource ImageSource {
 			get {
 				return _baseimage.ImageSource;
 			}
@@ -38,7 +40,7 @@ namespace miRobotEditor.Core.Interfaces
 			}
 		}
 		
-		public System.Drawing.Icon Icon {
+		public Icon Icon {
 			get {
 				return _baseimage.Icon;
 			}
