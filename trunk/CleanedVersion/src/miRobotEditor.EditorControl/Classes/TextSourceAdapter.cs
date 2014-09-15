@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using ICSharpCode.AvalonEdit.Document;
 using miRobotEditor.EditorControl.Interfaces;
 
@@ -40,7 +41,7 @@ namespace miRobotEditor.EditorControl.Classes
         /// <summary>
         /// Creates a new TextReader to read from this text buffer.
         /// </summary>
-        public System.IO.TextReader CreateReader()
+        public TextReader CreateReader()
         {
             return TextSource.CreateReader();
         }
@@ -48,7 +49,7 @@ namespace miRobotEditor.EditorControl.Classes
         /// <summary>
         /// Creates a new TextReader to read from this text buffer.
         /// </summary>
-        public System.IO.TextReader CreateReader(int offset, int length)
+        public TextReader CreateReader(int offset, int length)
         {
             return TextSource.CreateSnapshot(offset, length).CreateReader();
         }

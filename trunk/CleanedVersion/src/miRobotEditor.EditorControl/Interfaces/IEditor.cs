@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using ICSharpCode.AvalonEdit.Document;
 using miRobotEditor.Core.Interfaces;
 using AnchorMovementType = miRobotEditor.Core.Interfaces.AnchorMovementType;
+using TextChangeEventArgs = ICSharpCode.AvalonEdit.Document.TextChangeEventArgs;
 
 namespace miRobotEditor.EditorControl.Interfaces
 {
@@ -65,7 +65,7 @@ namespace miRobotEditor.EditorControl.Interfaces
         /// </summary>
         ITextAnchor CreateAnchor(int offset);
 
-        event EventHandler<ICSharpCode.AvalonEdit.Document.TextChangeEventArgs> Changing;
-        event EventHandler<ICSharpCode.AvalonEdit.Document.TextChangeEventArgs> Changed;
+        event EventHandler<TextChangeEventArgs> Changing;
+        event EventHandler<TextChangeEventArgs> Changed;
     }
 }

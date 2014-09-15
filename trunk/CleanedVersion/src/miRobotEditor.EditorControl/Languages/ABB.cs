@@ -173,13 +173,13 @@ namespace miRobotEditor.EditorControl.Languages
             return doc.GetText(start, end);
         }
 
-        public override DocumentViewModel GetFile(string filepath)
+        public override DocumentModel GetFile(string filepath)
         {
             switch (Path.GetExtension(filepath))
             {
                 case ".prg":
                 case ".mod":
-                    return new DocumentViewModel(filepath);
+                    return new DocumentModel(filepath);
             }
             return null;
         }

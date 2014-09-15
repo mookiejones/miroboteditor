@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Core;
@@ -24,7 +25,7 @@ namespace miRobotEditor.EditorControl.Languages
 
         //TODO Was XmlFoldingStrategy
         XmlFoldingStrategy FoldingStrategy { get; set; }
-        System.IO.Stream Intellisense { get; }
+        Stream Intellisense { get; }
         ShiftClass ShiftProgram(IDocument doc, ShiftModel shift);
         IList<ICompletionData> CodeCollection { get; }
     }

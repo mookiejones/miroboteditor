@@ -143,9 +143,9 @@ namespace miRobotEditor.EditorControl.Languages
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
 
-        public override DocumentViewModel GetFile(string filepath)
+        public override DocumentModel GetFile(string filepath)
         {
-            return new DocumentViewModel(filepath);
+            return new DocumentModel(filepath);
         }
     }
     }

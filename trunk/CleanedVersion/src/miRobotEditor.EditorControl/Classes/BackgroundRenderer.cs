@@ -1,5 +1,6 @@
 ﻿// Background Renderer used to Color the Current line
 
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
@@ -10,7 +11,7 @@ namespace miRobotEditor.EditorControl.Classes
     /// <summary>
     /// Used for Highlighting Background
     /// </summary>
-    [System.Diagnostics.DebuggerStepThrough]
+    [DebuggerStepThrough]
     public sealed class BackgroundRenderer : IBackgroundRenderer
     {
 

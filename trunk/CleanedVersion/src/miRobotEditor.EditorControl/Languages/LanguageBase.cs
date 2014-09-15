@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.EditorControl.Classes;
 using miRobotEditor.EditorControl.Interfaces;
@@ -22,9 +23,9 @@ namespace miRobotEditor.EditorControl.Languages
             return false;
         }
 
-        public override DocumentViewModel GetFile(string filename)
+        public override DocumentModel GetFile(string filename)
         {
-            return new DocumentViewModel(filename);
+            return new DocumentModel(filename);
         }
 
     	#region Properties
@@ -54,7 +55,7 @@ namespace miRobotEditor.EditorControl.Languages
 
         #endregion
 
-        internal override string FoldTitle(FoldingSection section, ICSharpCode.AvalonEdit.Document.TextDocument doc)
+        internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
             if (doc == null) throw new ArgumentNullException("doc");
             var s = Regex.Split(section.Title, "æ");
