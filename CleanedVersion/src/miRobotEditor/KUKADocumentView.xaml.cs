@@ -3,11 +3,11 @@
 namespace miRobotEditor
 {
     /// <summary>
-    /// Interaction logic for MenuControl.xaml
+    /// Interaction logic for KUKADocumentView.xaml
     /// </summary>
-    public partial class MenuControl : UserControl
+    public sealed partial class KUKADocumentView : UserControl
     {
-        public MenuControl()
+        public KUKADocumentView()
         {
             InitializeComponent();
         }

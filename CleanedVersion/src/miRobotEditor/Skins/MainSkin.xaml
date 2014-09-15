@@ -2,11 +2,24 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:miRobotEditor.EditorControl;assembly=miRobotEditor.EditorControl" xmlns:Converters="clr-namespace:miRobotEditor.Core.Converters;assembly=miRobotEditor.Core"
                     xmlns:controls="clr-namespace:miRobotEditor.UI.Controls;assembly=miRobotEditor.UI"
-                    xmlns:languages="clr-namespace:miRobotEditor.EditorControl.Languages;assembly=miRobotEditor.EditorControl">
+                    xmlns:languages="clr-namespace:miRobotEditor.EditorControl.Languages;assembly=miRobotEditor.EditorControl"
+                    xmlns:vm1="clr-namespace:miRobotEditor.Core;assembly=miRobotEditor.Core"
+                    xmlns:views="clr-namespace:miRobotEditor.UI.Views;assembly=miRobotEditor.UI"
+                    xmlns:io="clr-namespace:System.IO;assembly=mscorlib">
     <Converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter"/>
-    <DataTemplate DataType="{x:Type vm:DocumentViewModel}">
-        <DockPanel>
-            <DockPanel.Resources>
+
+    <!-- Archive File Information -->
+    <DataTemplate DataType="{x:Type vm1:InfoFile}">
+        <views:InfoFileView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type io:FileInfo}">
+        <views:FileInfoView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DocumentModel}" x:Key="DocumentTemplate">
+        <Grid>
+            <Grid.Resources>
                 <Style TargetType="{x:Type ComboBox}">
                     <Setter Property="Opacity" Value="0.1"/>
                     <Setter Property="Height" Value="25"/>
@@ -18,12 +31,12 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </DockPanel.Resources>
+            </Grid.Resources>
             <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"  DockPanel.Dock="Top" />
             <ContentPresenter Content="{Binding TextBox}" DockPanel.Dock="Top"/>
-        </DockPanel>
+        </Grid>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type languages:KukaViewModel}">
+    <DataTemplate x:Key="KukaTemplate" DataType="{x:Type languages:KukaViewModel}">
         <DockPanel>
             <DockPanel.Resources>
                 <Style TargetType="{x:Type ComboBox}">
@@ -60,8 +73,7 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:Editor}">
         <DockPanel>
-            <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}"
-                      DockPanel.Dock="Top" />
+            <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}" DockPanel.Dock="Top" />
             <ContentPresenter Content="{Binding ''}" DockPanel.Dock="Top" />
         </DockPanel>
     </DataTemplate>

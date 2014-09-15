@@ -34,6 +34,9 @@
   </Words>
   <Acronyms>
     <CasingExceptions>
+      <Acronym>resources</Acronym>
+      <Acronym>icons</Acronym>
+
       <Acronym>xaml</Acronym>
       <Acronym>mi</Acronym>
       <Acronym>ID</Acronym>
