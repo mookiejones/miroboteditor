@@ -4,9 +4,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using GalaSoft.MvvmLight.Command;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -45,7 +48,7 @@ namespace miRobotEditor.EditorControl.Languages
 
         public ICommand SystemFunctionCommand
         {
-            get { return _systemFunctionCommand ?? (_systemFunctionCommand = new RelayCommand(p => FunctionGenerator.GetSystemFunctions(), p => true)); }
+            get { return _systemFunctionCommand ?? (_systemFunctionCommand = new RelayCommand(()=> FunctionGenerator.GetSystemFunctions())); }
         }
 
         #endregion
@@ -285,7 +288,7 @@ namespace miRobotEditor.EditorControl.Languages
             private static string RemoveFromFile(string functionfile, string matchString)
             {
                 string line;
-                var sb = new System.Text.StringBuilder();
+                var sb = new StringBuilder();
                 using (var r = new StreamReader(_functionFile))
                 {
                     line = r.ReadToEnd();
@@ -309,7 +312,7 @@ namespace miRobotEditor.EditorControl.Languages
             private static string GetRegex(string functionFile, string matchString)
             {
                 if (String.IsNullOrEmpty(functionFile)) return null;
-                var sb = new System.Text.StringBuilder();
+                var sb = new StringBuilder();
                 // Open _file for reading
                 using (var r = new StreamReader(functionFile))
                 {
@@ -437,9 +440,9 @@ namespace miRobotEditor.EditorControl.Languages
         
         private const RegexOptions Ro = (int)RegexOptions.IgnoreCase+RegexOptions.Multiline;
 
-        public override DocumentViewModel GetFile(string filepath)
+        public override DocumentModel GetFile(string filepath)
         {
-            System.Windows.Media.ImageSource icon = null;
+            ImageSource icon = null;
             switch (Path.GetExtension(filepath.ToLower()))
             {
                 case ".src":
@@ -458,7 +461,7 @@ namespace miRobotEditor.EditorControl.Languages
                     break;
             }
 
-            var model = new DocumentViewModel(filepath) { IconSource = icon };
+            var model = new DocumentModel(filepath) { IconSource = icon };
 
             return model;
         }

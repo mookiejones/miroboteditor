@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
@@ -15,7 +16,7 @@ namespace miRobotEditor.EditorControl.Classes
             var text = CurrentContext.Document.GetText(line);
             var start = 0;
             int index;
-            while ((index = text.IndexOf("AvalonEdit", start, System.StringComparison.Ordinal)) >= 0)
+            while ((index = text.IndexOf("AvalonEdit", start, StringComparison.Ordinal)) >= 0)
             {
                 ChangeLinePart(
                     lineStartOffset + index, // startOffset

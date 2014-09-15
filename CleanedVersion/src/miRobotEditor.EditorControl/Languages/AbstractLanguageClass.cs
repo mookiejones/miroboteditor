@@ -8,8 +8,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
@@ -19,13 +19,12 @@ using miRobotEditor.Core.Classes.Messaging;
 using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Interfaces;
 using miRobotEditor.UI.Windows;
-using miRobotEditor.Core;
 using IDocument = miRobotEditor.EditorControl.Interfaces.IDocument;
 
 namespace miRobotEditor.EditorControl.Languages
 {
     [Localizable(false)]
-    public abstract class AbstractLanguageClass : ViewModelBase
+    public abstract class AbstractLanguageClass : DependencyObject
     {
         #region Constructors
 
@@ -33,10 +32,13 @@ namespace miRobotEditor.EditorControl.Languages
         {
             Instance = this;
             //RobotMenuItems=GetMenuItems();
+            Initialize();
         }
 
         protected AbstractLanguageClass(string filename)
         {
+
+            Initialize();
             DataText = String.Empty;
             SourceText = String.Empty;
             var dir = Path.GetDirectoryName(filename);
@@ -75,104 +77,64 @@ namespace miRobotEditor.EditorControl.Languages
         #endregion
 
 
+
+        /// <summary>
+        /// Initialize Variables
+        /// </summary>
+        private void Initialize()
+        {
+            AllVariables = new ObservableCollection<IVariable>();
+            Fields = new ObservableCollection<IVariable>();
+            Functions = new ObservableCollection<IVariable>();
+            Structures = new ObservableCollection<IVariable>();
+            Signals = new ObservableCollection<IVariable>();
+            Positions = new ObservableCollection<IVariable>();
+            Enums = new ObservableCollection<IVariable>();
+        }
         #region Properties
         #region RootPath
-        /// <summary>
-        /// The <see cref="RootPath" /> property's name.
-        /// </summary>
-        public const string RootPathPropertyName = "RootPath";
 
-        private DirectoryInfo _rootPath;
 
-        /// <summary>
-        /// Sets and gets the RootPath property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public DirectoryInfo RootPath
         {
-            get
-            {
-                return _rootPath;
-            }
-
-            set
-            {
-                if (_rootPath == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(RootPathPropertyName);
-                _rootPath = value;
-                RaisePropertyChanged(RootPathPropertyName);
-            }
+            get { return (DirectoryInfo)GetValue(RootPathProperty); }
+            set { SetValue(RootPathProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for RootPath.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RootPathProperty =
+            DependencyProperty.Register("RootPath", typeof(DirectoryInfo), typeof(AbstractLanguageClass), new PropertyMetadata(null));
+
         #endregion
 
         #region FileName
-        /// <summary>
-        /// The <see cref="FileName" /> property's name.
-        /// </summary>
-        public const string FileNamePropertyName = "FileName";
 
-        private string _filename = String.Empty;
 
-        /// <summary>
-        /// Sets and gets the FileName property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public string FileName
         {
-            get
-            {
-                return _filename;
-            }
-
-            set
-            {
-                if (_filename == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(FileNamePropertyName);
-                _filename = value;
-                RaisePropertyChanged(FileNamePropertyName);
-            }
+            get { return (string)GetValue(FileNameProperty); }
+            set { SetValue(FileNameProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for FileName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FileNameProperty =
+            DependencyProperty.Register("FileName", typeof(string), typeof(AbstractLanguageClass), new PropertyMetadata(""));
+
         #endregion
 
         #region RobotMenuItems
-        /// <summary>
-        /// The <see cref="RobotMenuItems" /> property's name.
-        /// </summary>
-        public const string RobotMenuItemsPropertyName = "RobotMenuItems";
 
-        private MenuItem _robotMenuItems;
 
-        /// <summary>
-        /// Sets and gets the RobotMenuItems property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public MenuItem RobotMenuItems
         {
-            get
-            {
-                return _robotMenuItems;
-            }
-
-            set
-            {
-                if (_robotMenuItems == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(RobotMenuItemsPropertyName);
-                _robotMenuItems = value;
-                RaisePropertyChanged(RobotMenuItemsPropertyName);
-            }
+            get { return (MenuItem)GetValue(RobotMenuItemsProperty); }
+            set { SetValue(RobotMenuItemsProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for RobotMenuItems.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RobotMenuItemsProperty =
+            DependencyProperty.Register("RobotMenuItems", typeof(MenuItem), typeof(AbstractLanguageClass), new PropertyMetadata(null));
+
         #endregion
 
 
@@ -187,17 +149,26 @@ namespace miRobotEditor.EditorControl.Languages
         public static int Progress { get; private set; }
         // ReSharper restore UnusedAutoPropertyAccessor.Local
 
-        private readonly ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
-        readonly ReadOnlyObservableCollection<IVariable> _readOnlyBrowserVariables = null;
-        public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable { get { return _readOnlyBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables); } }
+        #region ObjectBrowserVariables
 
+        private readonly ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
+        readonly ReadOnlyObservableCollection<IVariable> _readOnlyObjectBrowserVariables = null;
+        public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable { get { return _readOnlyObjectBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables); } }
+
+        #endregion
+
+
+        #region MenuItems
         private readonly ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
         readonly ReadOnlyObservableCollection<MenuItem> _readonlyMenuItems = null;
         public IEnumerable<MenuItem> MenuItems { get { return _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems); } }
+        #endregion
 
+        #region Files
         readonly List<System.IO.FileInfo> _files = new List<System.IO.FileInfo>();
         readonly ReadOnlyCollection<System.IO.FileInfo> _readOnlyFiles = null;
         public ReadOnlyCollection<System.IO.FileInfo> Files { get { return _readOnlyFiles ?? new ReadOnlyCollection<System.IO.FileInfo>(_files); } }
+        #endregion
 
         /// <summary>
         /// Text of _files For searching
@@ -245,35 +216,16 @@ namespace miRobotEditor.EditorControl.Languages
 
         public static int FileCount { get; private set; }
 
-        internal readonly List<IVariable> _allVariables = new List<IVariable>();
-        readonly ReadOnlyCollection<IVariable> _readOnlyAllVariables = null;
-        public ReadOnlyCollection<IVariable> AllVariables { get { return _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables); } }
+        public ObservableCollection<IVariable> AllVariables { get; set; }
+        public ObservableCollection<IVariable> Functions { get; set; }
+        public ObservableCollection<IVariable> Fields { get; set; }
+        public ObservableCollection<IVariable> Positions { get; set; }
 
-        List<IVariable> _functions = new List<IVariable>();
-        readonly ReadOnlyCollection<IVariable> _readOnlyFunctions = null;
-        public ReadOnlyCollection<IVariable> Functions { get { return _readOnlyFunctions ?? new ReadOnlyCollection<IVariable>(_functions); } }
+        public ObservableCollection<IVariable> Enums { get; set; }
+        public ObservableCollection<IVariable> Structures { get; set; }
 
-        List<IVariable> _fields = new List<IVariable>();
-        readonly ReadOnlyCollection<IVariable> _readOnlyFields = null;
-        public ReadOnlyCollection<IVariable> Fields { get { return _readOnlyFields ?? new ReadOnlyCollection<IVariable>(_fields); } }
+        public ObservableCollection<IVariable> Signals { get; set; }
 
-        List<IVariable> _positions = new List<IVariable>();
-        readonly ReadOnlyCollection<IVariable> _readOnlypositions = null;
-        public ReadOnlyCollection<IVariable> Positions { get { return _readOnlypositions ?? new ReadOnlyCollection<IVariable>(_positions); } }
-
-
-        readonly List<IVariable> _enums = new List<IVariable>();
-        readonly ReadOnlyCollection<IVariable> _readOnlyenums = null;
-        public ReadOnlyCollection<IVariable> Enums { get { return _readOnlyenums ?? new ReadOnlyCollection<IVariable>(_enums); } }
-
-
-        readonly List<IVariable> _structures = new List<IVariable>();
-        readonly ReadOnlyCollection<IVariable> _readOnlystructures = null;
-        public ReadOnlyCollection<IVariable> Structures { get { return _readOnlystructures ?? new ReadOnlyCollection<IVariable>(_structures); } }
-
-        readonly List<IVariable> _signals = new List<IVariable>();
-        readonly ReadOnlyCollection<IVariable> _readOnlysignals = null;
-        public ReadOnlyCollection<IVariable> Signals { get { return _readOnlysignals ?? new ReadOnlyCollection<IVariable>(_signals); } }
 
         #endregion
 
@@ -320,7 +272,7 @@ namespace miRobotEditor.EditorControl.Languages
 
 
         #region Abstract Methods
-        public abstract DocumentViewModel GetFile(string filename);
+        public abstract DocumentModel GetFile(string filename);
 
         // ReSharper disable once InconsistentNaming
         public abstract string ExtractXYZ(string positionstring);
@@ -342,7 +294,7 @@ namespace miRobotEditor.EditorControl.Languages
             return i;
         }
 
-        public static DocumentViewModel GetViewModel(string filepath)
+        public static IDocument GetViewModel(string filepath)
         {
             if (!String.IsNullOrEmpty(filepath))
             {
@@ -351,30 +303,30 @@ namespace miRobotEditor.EditorControl.Languages
                 {
                     case ".as":
                     case ".pg":
-                        return new DocumentViewModel(filepath, new Kawasaki(filepath));
+                        return new DocumentModel(filepath, new Kawasaki(filepath));
                     case ".src":
                     case ".dat":
                         return GetKukaViewModel(filepath);
                     case ".rt":
                     case ".sub":
                     case ".kfd":
-                        return new DocumentViewModel(filepath, new KUKA(filepath));
+                        return new DocumentModel(filepath, new KUKA(filepath));
                     case ".mod":
                     case ".prg":
-                        return new DocumentViewModel(filepath, new ABB(filepath));
+                        return new DocumentModel(filepath, new ABB(filepath));
                     case ".bas":
-                        return new DocumentViewModel(filepath, new VBA(filepath));
+                        return new DocumentModel(filepath, new VBA(filepath));
                     case ".ls":
-                        return new DocumentViewModel(filepath, new Fanuc(filepath));
+                        return new DocumentModel(filepath, new Fanuc(filepath));
                     default:
-                        return new DocumentViewModel(filepath, new LanguageBase(filepath));
+                        return new DocumentModel(filepath, new LanguageBase(filepath));
                 }
             }
-            return new DocumentViewModel(null, new LanguageBase(filepath));
+            return new DocumentModel(null, new LanguageBase(filepath));
         }
 
 
-        static DocumentViewModel GetKukaViewModel(string filepath)
+        static IDocument GetKukaViewModel(string filepath)
         {
             var dir = Path.GetDirectoryName(filepath);
             var file = Path.GetFileNameWithoutExtension(filepath);
@@ -387,9 +339,11 @@ namespace miRobotEditor.EditorControl.Languages
             if (datExists && srcExists)
                 return new KukaViewModel(file + ".src", new KUKA(file + ".src"));
 
-            return new DocumentViewModel(filepath, new KUKA(filepath));
+
+            return new DocumentModel(filepath, new KUKA(filepath));
             //Need to see if both paths exist
         }
+
         /// <summary>
         /// Strips Comment Character from string.
         /// </summary>
@@ -474,6 +428,7 @@ namespace miRobotEditor.EditorControl.Languages
             if (doc != null)
                 foreach (var dd in doc.Lines)
                 {
+                    
                     var line = doc.GetLineByNumber(dd.LineNumber);
                     var text = doc.GetText(line.Offset, line.Length).ToLower();
                     var eval = text.TrimStart();
@@ -517,7 +472,7 @@ namespace miRobotEditor.EditorControl.Languages
                                 var str = doc.GetText(s + startFold.Length + 1, line.Offset - s - endFold.Length);
 
 
-                                var nf = new LanguageFold(s, e, str, startFold, endFold, defaultclosed);
+                                var nf = new LanguageFold(s, e, str, startFold, endFold,defaultclosed);
                                 newFoldings.Add(nf);
                             }
                         }
@@ -683,12 +638,20 @@ namespace miRobotEditor.EditorControl.Languages
                 FileCount = Files.Count;
 
                 GetVariables();
-                _allVariables.AddRange(Functions);
-                _allVariables.AddRange(Fields);
-                _allVariables.AddRange(Positions);
-                _allVariables.AddRange(Signals);
 
 
+                foreach (var function in Functions)
+                    AllVariables.Add(function);
+
+
+                foreach (var field in Fields)
+                    AllVariables.Add(field);
+
+                foreach (var position in Positions)
+                    AllVariables.Add(position);
+
+                foreach (var signal in Signals)
+                    AllVariables.Add(signal);
             }
             catch (Exception ex)
             {
@@ -705,36 +668,19 @@ namespace miRobotEditor.EditorControl.Languages
 
         
         #region IOModel
-        /// <summary>
-        /// The <see cref="IOModel" /> property's name.
-        /// </summary>
-        private const string IOModelPropertyName = "IOModel";
 
-        private IOViewModel _ioModel = null;
 
-        /// <summary>
-        /// Sets and gets the IOModel property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public IOViewModel IOModel
         {
-            get
-            {
-                return _ioModel;
-            }
-
-            set
-            {
-                if (_ioModel == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(IOModelPropertyName);
-                _ioModel = value;
-                RaisePropertyChanged(IOModelPropertyName);
-            }
+            get { return (IOViewModel)GetValue(IOModelProperty); }
+            set { SetValue(IOModelProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for IOModel.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IOModelProperty =
+            DependencyProperty.Register("IOModel", typeof(IOViewModel), typeof(AbstractLanguageClass), new PropertyMetadata(null));
+
+        
         #endregion
 
 
@@ -769,135 +715,67 @@ namespace miRobotEditor.EditorControl.Languages
         #region Properties for Background Worker and StatusBar
 
         #region BWProgress
-        /// <summary>
-        /// The <see cref="BWProgress" /> property's name.
-        /// </summary>
-        public const string BWProgressPropertyName = "BWProgress";
 
-        private int _bwProgress;
 
-        /// <summary>
-        /// Sets and gets the BWProgress property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public int BWProgress
         {
-            get
-            {
-                return _bwProgress;
-            }
-
-            set
-            {
-                if (_bwProgress == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(BWProgressPropertyName);
-                _bwProgress = value;
-                RaisePropertyChanged(BWProgressPropertyName);
-            }
+            get { return (int)GetValue(BWProgressProperty); }
+            set { SetValue(BWProgressProperty, value); }
         }
-        #endregion
+
+        // Using a DependencyProperty as the backing store for BWProgress.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BWProgressProperty =
+            DependencyProperty.Register("BWProgress", typeof(int), typeof(AbstractLanguageClass), new PropertyMetadata(-1));
+
+                #endregion
 
         #region BWFilesMin
-        /// <summary>
-        /// The <see cref="BWFilesMin" /> property's name.
-        /// </summary>
-        public const string BWFilesMinPropertyName = "BWFilesMin";
 
-        private int _bwFilesMin;
 
-        /// <summary>
-        /// Sets and gets the BWFilesMin property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public int BWFilesMin
         {
-            get
-            {
-                return _bwFilesMin;
-            }
-
-            set
-            {
-                if (_bwFilesMin == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(BWFilesMinPropertyName);
-                _bwFilesMin = value;
-                RaisePropertyChanged(BWFilesMinPropertyName);
-            }
+            get { return (int)GetValue(BWFilesMinProperty); }
+            set { SetValue(BWFilesMinProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for BWFilesMin.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BWFilesMinProperty =
+            DependencyProperty.Register("BWFilesMin", typeof(int), typeof(AbstractLanguageClass), new PropertyMetadata(-1));
+
+        
         #endregion
 
         #region BWFilesMax
-        /// <summary>
-        /// The <see cref="BWFilesMax" /> property's name.
-        /// </summary>
-        public const string BWFilesMaxPropertyName = "BWFilesMax";
 
-        private int _bwFilesMax;
 
-        /// <summary>
-        /// Sets and gets the BWFilesMax property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public int BWFilesMax
         {
-            get
-            {
-                return _bwFilesMax;
-            }
-
-            set
-            {
-                if (_bwFilesMax == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(BWFilesMaxPropertyName);
-                _bwFilesMax = value;
-                RaisePropertyChanged(BWFilesMaxPropertyName);
+            get { return (int)GetValue(BWFilesMaxProperty); }
+            set { //SetValue(BWFilesMaxProperty, value); 
             }
         }
+
+        // Using a DependencyProperty as the backing store for BWFilesMax.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BWFilesMaxProperty =
+            DependencyProperty.Register("BWFilesMax", typeof(int), typeof(AbstractLanguageClass), new PropertyMetadata(-1));
+
+
         #endregion
 
         #region BWProgressVisibility
-        /// <summary>
-        /// The <see cref="BWProgressVisibility" /> property's name.
-        /// </summary>
-        public const string BWProgressVisibilityPropertyName = "BWProgressVisibility";
 
-        private Visibility _bwProgressVisibility = Visibility.Collapsed;
 
-        /// <summary>
-        /// Sets and gets the BWProgressVisibility property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public Visibility BWProgressVisibility
         {
-            get
-            {
-                return _bwProgressVisibility;
-            }
-
-            set
-            {
-                if (_bwProgressVisibility == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(BWProgressVisibilityPropertyName);
-                _bwProgressVisibility = value;
-                RaisePropertyChanged(BWProgressVisibilityPropertyName);
-            }
+            get { return (Visibility)GetValue(BWProgressVisibilityProperty); }
+            set { SetValue(BWProgressVisibilityProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for BWProgressVisibility.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BWProgressVisibilityProperty =
+            DependencyProperty.Register("BWProgressVisibility", typeof(Visibility), typeof(AbstractLanguageClass), new PropertyMetadata(Visibility.Collapsed));
+
+
         #endregion
         BackgroundWorker _bw;
 
@@ -921,10 +799,6 @@ namespace miRobotEditor.EditorControl.Languages
 
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            RaisePropertyChanged("Functions");
-            RaisePropertyChanged("Fields");
-            RaisePropertyChanged("Files");
-            RaisePropertyChanged("Positions");
             BWProgressVisibility = Visibility.Collapsed;
 
             // Dispose of Background worker
@@ -932,7 +806,7 @@ namespace miRobotEditor.EditorControl.Languages
             //TODO Open Variable Monitor
 
 
-            throw new NotImplementedException();
+    //        throw new NotI//mplementedException();
 //            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
 
   //          Workspace.Instance.EnableIO = File.Exists(_kukaCon);
@@ -943,21 +817,52 @@ namespace miRobotEditor.EditorControl.Languages
         {
             BWFilesMax = Files.Count;
             var i = 0;
-            _functions = new List<IVariable>();
-            _fields = new List<IVariable>();
-            _positions = new List<IVariable>();
+            Functions.Clear();
+//            Fields.Clear();
+//            Positions.Clear();
+
             foreach (var f in Files)
             {
 
                 // Check to see if file is ok to check for values
                 if (IsFileValid(f))
                 {
-                    _functions.AddRange(FindMatches(MethodRegex, Global.ImgMethod, f.FullName));
-                    _structures.AddRange(FindMatches(StructRegex, Global.ImgStruct, f.FullName));
-                    _fields.AddRange(FindMatches(FieldRegex, Global.ImgField, f.FullName));
-                    _signals.AddRange(FindMatches(SignalRegex, Global.ImgSignal, f.FullName));
-                    _enums.AddRange(FindMatches(EnumRegex, Global.ImgEnum, f.FullName));
-                    _positions.AddRange(FindMatches(XYZRegex, Global.ImgXyz, f.FullName));
+                    var fields = (List<IVariable>)FindMatches(FieldRegex, Global.ImgField, f.FullName);
+                    
+                    var functions = FindMatches(MethodRegex, Global.ImgMethod, f.FullName);
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    {
+
+                        foreach (var function in FindMatches(MethodRegex, Global.ImgMethod, f.FullName))
+                            Functions.Add(function);
+                    });
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    {
+
+                        foreach (
+                            var structure in FindMatches(StructRegex, Global.ImgStruct, f.FullName))
+                            Structures.Add(structure);
+                    });
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    {
+
+                        foreach (var field in FindMatches(FieldRegex, Global.ImgField, f.FullName))
+                            Fields.Add(field);
+                    });
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    {
+
+                    foreach (var signal in FindMatches(SignalRegex, Global.ImgSignal, f.FullName))
+                        Signals.Add(signal);
+
+                    foreach (var Enum in FindMatches(EnumRegex, Global.ImgEnum, f.FullName))
+                        Enums.Add(Enum);
+
+                    foreach (var position in FindMatches(XYZRegex, Global.ImgXyz, f.FullName))
+                        Positions.Add(position);
+
+                    });
+
                 }
                 i++;
                 _bw.ReportProgress(i);

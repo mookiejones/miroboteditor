@@ -12,23 +12,25 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Commands;
 using miRobotEditor.Core.Interfaces;
+using miRobotEditor.EditorControl.Interfaces;
 using miRobotEditor.EditorControl.Languages;
 
 namespace miRobotEditor.EditorControl
 {
-    public class DocumentViewModel : FileViewModel, EditorControl.Interfaces.IDocument
+    public class DocumentModel : FileViewModel, IDocument
     {
 
-        public DocumentViewModel(string filepath) : base(filepath)
+        public DocumentModel(string filepath) : base(filepath)
         {
             InitializeViewModel(filepath);
             ContentId = filepath;
         }
 
-        public DocumentViewModel(string filepath, AbstractLanguageClass lang):base(filepath)
+        public DocumentModel(string filepath, AbstractLanguageClass lang):base(filepath)
         {
             FileLanguage = lang;
             InitializeViewModel(filepath);
@@ -36,6 +38,7 @@ namespace miRobotEditor.EditorControl
 
         void InitializeViewModel(string filepath)
         {
+            ContentId = filepath;
             Load(filepath);
             TextBox.FileLanguage = FileLanguage;
            
@@ -52,12 +55,13 @@ namespace miRobotEditor.EditorControl
             TextBox.IsModified = false;
         }
 
+        
         private RelayCommand _closeCommand;
         public bool IsActive { get; set; }
 
         public ICommand CloseCommand
         {
-            get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
+            get { return _closeCommand ?? (_closeCommand = new RelayCommand(CloseWindow)); }
         }
        
         public void CloseWindow()
@@ -96,11 +100,11 @@ namespace miRobotEditor.EditorControl
 
         public Visibility Visibility { get { return _visibility; } set { _visibility = value; RaisePropertyChanged("Visibiliy"); } }
 
-        private static DocumentViewModel _instance;
+        private static DocumentModel _instance;
 
-        public static DocumentViewModel Instance
+        public static DocumentModel Instance
         {
-            get { return _instance ?? (_instance = new DocumentViewModel(null)); }
+            get { return _instance ?? (_instance = new DocumentModel(null)); }
             set  {_instance  =value;
         }
     }
@@ -108,10 +112,10 @@ namespace miRobotEditor.EditorControl
         public AbstractLanguageClass FileLanguage { get { return _filelanguage; } set { _filelanguage = value; RaisePropertyChanged("FileLanguage"); } }
         private Editor _textBox = new Editor();
         public Editor TextBox { get { return _textBox; } set { _textBox = value; RaisePropertyChanged("TextBox"); } }
+
+        public Editor Source { get { return TextBox; } set { TextBox = value; } }
         public ImageSource IconSource { get; set; }
-        public string Title { get; set; }
-        public string ContentId { get; set; }
-        public bool IsSelected { get; set; }
+         public bool IsSelected { get; set; }
 
         #endregion
 
@@ -167,4 +171,7 @@ namespace miRobotEditor.EditorControl
         }
 
     }
+
+
+
 }

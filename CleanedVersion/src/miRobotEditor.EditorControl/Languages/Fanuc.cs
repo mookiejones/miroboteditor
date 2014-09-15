@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.CodeCompletion;
@@ -181,16 +182,16 @@ namespace miRobotEditor.EditorControl.Languages
         public override Regex SignalRegex { get { return new Regex(String.Empty); } }
         public override string ExtractXYZ(string positionstring)
         {
-            System.Diagnostics.Debugger.Break();
+            Debugger.Break();
             var p = new PositionBase(positionstring);
             return p.ExtractFromMatch();
 
         }
 
         public override Regex XYZRegex { get { return new Regex(String.Empty); } }
-        public override DocumentViewModel GetFile(string filepath)
+        public override DocumentModel GetFile(string filepath)
         {
-            return new DocumentViewModel(filepath);
+            return new DocumentModel(filepath);
         }
     }
 }

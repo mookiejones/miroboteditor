@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -16,7 +17,6 @@ using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
-using miRobotEditor.Core;
 using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Interfaces;
 
@@ -54,7 +54,7 @@ namespace miRobotEditor.EditorControl.Classes
             }
             InvalidateVisual();
         }
-        [System.Diagnostics.DebuggerStepThrough]
+        [DebuggerStepThrough]
         void OnRedrawRequested(object sender, EventArgs e)
         {
             // Don't invalidate the IconBarMargin if it'll be invalidated again once the
@@ -80,14 +80,14 @@ namespace miRobotEditor.EditorControl.Classes
         }
 
         /// <inheritdoc/>
-        [System.Diagnostics.DebuggerStepThrough]
+        [DebuggerStepThrough]
         protected override Size MeasureOverride(Size availableSize)
         {
             return new Size(18, 0);
         }
 
 
-        [System.Diagnostics.DebuggerStepThrough]
+        [DebuggerStepThrough]
         protected override void OnRender(DrawingContext drawingContext)
         {
             var renderSize = RenderSize;

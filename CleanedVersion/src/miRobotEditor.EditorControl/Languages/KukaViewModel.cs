@@ -10,7 +10,7 @@ using miRobotEditor.UI.Controls;
 
 namespace miRobotEditor.EditorControl.Languages
 {
-    public class KukaViewModel : DocumentViewModel,IDocument
+    public class KukaViewModel : DocumentModel, IDocument
     {
 
         public KukaViewModel(string filepath,AbstractLanguageClass lang): base(filepath,lang)
@@ -212,7 +212,10 @@ namespace miRobotEditor.EditorControl.Languages
             CheckClose(Data);
             CheckClose(Source);
 
-            throw new NotImplementedException();
+
+
+            //TODO reimplement this
+//          throw new NotImplementedException();
 //            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
 //           main.Close(this);
         }

@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
-using miRobotEditor.Core;
 using miRobotEditor.Core.Interfaces;
 using miRobotEditor.EditorControl.Interfaces;
 
@@ -147,7 +147,7 @@ namespace miRobotEditor.EditorControl.Classes
             Location = location;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         // ReSharper disable InconsistentNaming
         public static readonly IImage defaultBookmarkImage = null;// = new ResourceServiceImage("Bookmarks.ToggleMark");
         // ReSharper restore InconsistentNaming

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
@@ -13,7 +14,7 @@ using miRobotEditor.EditorControl.Languages;
 namespace miRobotEditor.EditorControl
 {
     [Localizable(false), Serializable]
-    public sealed class EditorOptions : TextEditorOptions, IOptions
+    public  class EditorOptions : TextEditorOptions, IOptions
     {
 
 
@@ -28,8 +29,9 @@ namespace miRobotEditor.EditorControl
 
         public EditorOptions()
         {
-            //            ShowSpaces = true;
+                        ShowSpaces = true;
             RegisterSyntaxHighlighting();
+
 
         }
         #endregion
@@ -57,24 +59,19 @@ namespace miRobotEditor.EditorControl
                 return result;
 
             var s = new XmlSerializer(typeof(EditorOptions));
-            var fs = new FileStream(OptionsPath, FileMode.Open);
 
-            try
+            using (var stream = new StreamReader(OptionsPath))
             {
-                result = (EditorOptions)s.Deserialize(fs);
-            }
-            // ReSharper disable EmptyGeneralCatchClause
-            catch
-            // ReSharper restore EmptyGeneralCatchClause
-            {
-
-            }
-            finally
-            {
-                fs.Close();
+                try
+                {
+                    result = (EditorOptions) s.Deserialize(stream);
+                }
+                catch (Exception ex)
+                {
+                    
+                }
 
             }
-
             return result;
 
 
@@ -259,7 +256,7 @@ namespace miRobotEditor.EditorControl
         private static void Register(string name, string[] ext)
         {
 
-            var filename = String.Format("{0}\\Languages\\SyntaxHighlighting\\{1}Highlight.xshd", Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), name);
+            var filename = String.Format("{0}\\Languages\\SyntaxHighlighting\\{1}Highlight.xshd", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), name);
 
 //            var filename = String.Format("miRobotEditor.Languages.SyntaxHighlighting.{0}Highlight.xshd", name);
 //            var filename = String.Format("miRobotEditor.Controls.SyntaxHighlighting.{0}Highlight.xshd", name);
@@ -288,7 +285,7 @@ namespace miRobotEditor.EditorControl
 
         private static void RegisterSyntaxHighlighting()
         {
-            Register("KUKA", Languages.KUKA.Ext.ToArray());
+            Register("KUKA", KUKA.Ext.ToArray());
             Register("KAWASAKI", Kawasaki.EXT.ToArray());
             Register("Fanuc", Fanuc.EXT.ToArray());
             Register("ABB", ABB.EXT.ToArray());

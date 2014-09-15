@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 
 namespace miRobotEditor.EditorControl.Languages
@@ -52,7 +53,7 @@ namespace miRobotEditor.EditorControl.Languages
         private string ConvertFromHex(string value)
 // ReSharper restore UnusedMember.Local
         {
-            var d = double.Parse(value.Substring(1, value.Length - 2), System.Globalization.NumberStyles.HexNumber);
+            var d = double.Parse(value.Substring(1, value.Length - 2), NumberStyles.HexNumber);
             return Convert.ToString(d);
         }
 

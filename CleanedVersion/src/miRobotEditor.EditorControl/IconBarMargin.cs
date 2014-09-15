@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -54,7 +55,7 @@ namespace miRobotEditor.EditorControl
             }
             InvalidateVisual();
         }
-        [System.Diagnostics.DebuggerStepThrough]
+        [DebuggerStepThrough]
         void OnRedrawRequested(object sender, EventArgs e)
         {
             // Don't invalidate the IconBarMargin if it'll be invalidated again once the
@@ -80,14 +81,14 @@ namespace miRobotEditor.EditorControl
         }
 
         /// <inheritdoc/>
-        [System.Diagnostics.DebuggerStepThrough]
+        [DebuggerStepThrough]
         protected override Size MeasureOverride(Size availableSize)
         {
             return new Size(18, 0);
         }
 
 
-        [System.Diagnostics.DebuggerStepThrough]
+        [DebuggerStepThrough]
         protected override void OnRender(DrawingContext drawingContext)
         {
             var renderSize = RenderSize;
