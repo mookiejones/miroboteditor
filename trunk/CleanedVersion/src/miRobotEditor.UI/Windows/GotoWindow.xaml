@@ -21,11 +21,19 @@
     </Window.Resources>
     <StackPanel Orientation="Vertical" >
         <StackPanel.Resources>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="Button.VerticalAlignment" Value="Stretch"/>
-                <Setter Property="Button.Width" Value="75"/>
-                <Setter Property="Margin" Value="5,0"/>
-                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Style TargetType="{x:Type Button}">
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Width" Value="75" />
+                <Setter Property="Margin" Value="5,0" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="TabIndex" Value="1" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="TextWrapping" Value="NoWrap" />
+                <Setter Property="Height" Value="25" />
             </Style>
         </StackPanel.Resources>
 

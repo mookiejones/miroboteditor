@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Core.Commands;
-using miRobotEditor.Resources;
 
 namespace miRobotEditor.UI.Dialogs
 {
@@ -27,7 +17,7 @@ namespace miRobotEditor.UI.Dialogs
         /// <param name="linecount">count of lines in active editor</param>
         public GotoDialog(int linecount = 0)
         {
-            this.DataContext = this;
+            DataContext = this;
 
             InitializeComponent();
             LineCount = linecount;
@@ -71,17 +61,17 @@ namespace miRobotEditor.UI.Dialogs
 
 
         #region OkCommand
-        private RelayCommand _okCommand;
+        private RelayCommand<object> _okCommand;
 
         /// <summary>
         /// Gets the OkCommand.
         /// </summary>
-        public RelayCommand OkCommand
+        public RelayCommand<object> OkCommand
         {
             get
             {
                 return _okCommand
-                    ?? (_okCommand = new RelayCommand(ExecuteOkCommand));
+                    ?? (_okCommand = new RelayCommand<object>(ExecuteOkCommand));
             }
         }
 
