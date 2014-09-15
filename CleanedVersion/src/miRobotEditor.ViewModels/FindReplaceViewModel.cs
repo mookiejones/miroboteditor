@@ -297,7 +297,7 @@ namespace miRobotEditor.ViewModels
 
         private static void FindPrevious()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
         private static void FindNext()
         {
@@ -313,17 +313,17 @@ namespace miRobotEditor.ViewModels
 
         private static void ReplaceAll()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private static void HighlightAll()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private static void FindAll()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

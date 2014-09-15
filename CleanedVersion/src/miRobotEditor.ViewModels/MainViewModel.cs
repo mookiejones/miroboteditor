@@ -16,6 +16,7 @@ using miRobotEditor.Core;
 using miRobotEditor.Core.Classes;
 using miRobotEditor.Core.Classes.Messaging;
 using miRobotEditor.Core.Interfaces;
+using miRobotEditor.EditorControl;
 using miRobotEditor.EditorControl.Interfaces;
 using miRobotEditor.EditorControl.Languages;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -54,7 +55,7 @@ namespace miRobotEditor.ViewModels
         {
             get
             {
-                string fn = ActiveEditor.FilePath ?? string.Empty;
+                string fn = ActiveDocument.FilePath ?? string.Empty;
                 return ShortenPathname(fn, 100);
             }
         }
@@ -368,39 +369,41 @@ namespace miRobotEditor.ViewModels
        
         #region ActiveEditor
         /// <summary>
-        /// The <see cref="ActiveEditor" /> property's name.
+        /// The <see cref="ActiveDocument" /> property's name.
         /// </summary>
-        private const string ActiveEditorPropertyName = "ActiveEditor";
+        private const string ActiveEditorPropertyName = "ActiveDocument";
 
-        private IDocument _activeEditor = null;
+        private IDocument _activeDocument = null;
 
+
+        private EventHandler ActiveDocumentChanged;
         /// <summary>
         /// Sets and gets the ActiveEditor property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public IDocument ActiveEditor
+        public IDocument ActiveDocument
         {
             get
             {
-                return _activeEditor;
+                return _activeDocument;
             }
 
             set
             {
              //  _activeEditor.ContentId==value.ContentId;
 
-               if (_activeEditor!=null&&(_activeEditor == value))
+               if (_activeDocument!=null&&(_activeDocument == value))
                {
                    return;
                }
 
                 RaisePropertyChanging(ActiveEditorPropertyName);
-                _activeEditor = value;
-                _activeEditor.TextBox.Focus();
+                _activeDocument = value;
+                _activeDocument.TextBox.Focus();
                 RaisePropertyChanged(ActiveEditorPropertyName);
                 RaisePropertyChanged("Title");
-                 //            if (ActiveEditorChanged != null)
-                //                ActiveEditorChanged(this, EventArgs.Empty);
+                           if (ActiveDocumentChanged != null)
+                              ActiveDocumentChanged(this, EventArgs.Empty);
             }
         }
         #endregion
@@ -433,23 +436,23 @@ namespace miRobotEditor.ViewModels
         {
             var lang = param as AbstractLanguageClass;
 
-            if (Equals(ActiveEditor.FileLanguage, lang)) return;
+            if (Equals(ActiveDocument.FileLanguage, lang)) return;
 
             switch (param.ToString())
             {
                 case "ABB":
                     // ReSharper disable RedundantCast
-                    ActiveEditor.FileLanguage = (ABB) lang;
+                    ActiveDocument.FileLanguage = (ABB) lang;
 
                     break;
                 case "KUKA":
-                    ActiveEditor.FileLanguage = new KUKA();
+                    ActiveDocument.FileLanguage = new KUKA();
                     break;
                 case "Fanuc":
-                    ActiveEditor.FileLanguage = (Fanuc) lang;
+                    ActiveDocument.FileLanguage = (Fanuc) lang;
                     break;
                 case "Kawasaki":
-                    ActiveEditor.FileLanguage = (Kawasaki) lang;
+                    ActiveDocument.FileLanguage = (Kawasaki) lang;
                     break;
                     // ReSharper restore RedundantCast
             }
@@ -464,8 +467,12 @@ namespace miRobotEditor.ViewModels
 //            MainWindow.Instance.Close();
         }
 
-        internal void Close(IDocument fileToClose)
+        internal void Close(DocumentModel fileToClose)
         {
+            if (fileToClose.IsDirty)
+            {
+                
+            }
             Editors.Remove(fileToClose);
             RaisePropertyChanged("ActiveEditor");
         }
@@ -500,7 +507,7 @@ namespace miRobotEditor.ViewModels
 //                    toolModel = new AngleConvertorViewModel();
                     break;
                 case "Functions":
-                    toolModel = new FunctionViewModel();
+//                    toolModel = new FunctionViewModel();
                     break;
                 case "Explorer":
                     //                    tool.Content = new FileExplorerWindow();
@@ -668,7 +675,7 @@ namespace miRobotEditor.ViewModels
 
             fileViewModel.IsActive = true;
             Editors.Add(fileViewModel);
-            ActiveEditor = fileViewModel;
+            ActiveDocument = fileViewModel;
             return fileViewModel;
         }
 
@@ -781,11 +788,22 @@ namespace miRobotEditor.ViewModels
 
         private RelayCommand<object> _openFileCommand;
 
-        public ICommand OpenFileCommand
+        /// <summary>
+        /// Gets the OpenFileCommand.
+        /// </summary>
+        public RelayCommand<object> OpenFileCommand
         {
-            get { return _openFileCommand ?? (_openFileCommand = new RelayCommand<object>(OnOpen)); }
+            get
+            {
+                return _openFileCommand
+                    ?? (_openFileCommand = new RelayCommand<object>(ExecuteOpenFileCommand));
+            }
         }
 
+        private void ExecuteOpenFileCommand(object parameter)
+        {
+            OnOpen(parameter);
+        }
         #endregion
 
         #region ChangeViewAs
@@ -841,7 +859,7 @@ namespace miRobotEditor.ViewModels
         private void OnOpen(object param)
             // ReSharper restore UnusedParameter.Local
         {
-            string path = Path.GetDirectoryName(ActiveEditor.FilePath);
+            var path = Path.GetDirectoryName(ActiveDocument.FilePath);
             var dlg = new OpenFileDialog
             {
                 // Find a way to check for network directory
@@ -861,15 +879,15 @@ namespace miRobotEditor.ViewModels
 
         public IDocument Open(string filepath)
         {
-            IDocument fileViewModel = OpenFile(filepath, null);
-            ActiveEditor = fileViewModel;
-            ActiveEditor.IsActive = true;
+            var fileViewModel = OpenFile(filepath, null);
+            ActiveDocument = fileViewModel;
+            ActiveDocument.IsActive = true;
             return fileViewModel;
         }
 
         private IDocument OpenFile(string filepath, object o)
         {
-            IDocument fileViewModel = Editors.FirstOrDefault(fm => fm.FilePath == filepath);
+            var fileViewModel = Editors.FirstOrDefault(fm => fm.FilePath == filepath);
             if (fileViewModel != null)
                 return fileViewModel;
 
@@ -886,7 +904,7 @@ namespace miRobotEditor.ViewModels
             }
             fileViewModel.IsActive = true;
             Editors.Add(fileViewModel);
-            ActiveEditor = fileViewModel;
+            ActiveDocument = fileViewModel;
 
             return fileViewModel;
         }
@@ -902,8 +920,8 @@ namespace miRobotEditor.ViewModels
 
         public void AddNewFile()
         {
-            Editors.Add(new DocumentViewModel(null));
-            ActiveEditor = Editors.Last();
+            Editors.Add(new DocumentModel(null));
+            ActiveDocument = Editors.Last();
         }
 
         public void LoadFile(IList<string> args)

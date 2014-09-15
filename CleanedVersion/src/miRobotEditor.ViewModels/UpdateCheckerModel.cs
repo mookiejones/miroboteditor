@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
@@ -162,7 +163,7 @@ public static readonly DependencyProperty UpdateTextProperty =
                     {
                         Link = dlink,
                         Version = dversion,
-                        Current = System.Reflection.Assembly.GetEntryAssembly().GetName().Version
+                        Current = Assembly.GetEntryAssembly().GetName().Version
                     };
                 }
 

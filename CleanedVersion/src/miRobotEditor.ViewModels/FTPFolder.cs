@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace miRobotEditor.ViewModels
 {
     /// <summary>
@@ -11,7 +13,7 @@ namespace miRobotEditor.ViewModels
         //
         // Returns the folder name without having any path information
         //		
-        [System.Diagnostics.DebuggerStepThrough]
+        [DebuggerStepThrough]
         public static string SafeFolderName(string path)
         {
             var fileParts = path.Split('/');
