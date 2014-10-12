@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Programming\editor\editor\obj\Debug\
+C:\Programming\Working Version\editor\editor\obj\Debug\
 miRobotEditor
 none
 false
 DEBUG;TRACE
-C:\Programming\editor\editor\App.xaml
+C:\Programming\Working Version\editor\editor\App.xaml
 512116171521
 1-1568282934
 2421219459896
-29-1829313673
+29647421465
 Controls\FileInfo.xaml;Controls\FilesControl.xaml;Controls\FunctionItem.xaml;Controls\InfoFile.xaml;Controls\KukaControl.xaml;Controls\ListFromFileBox.xaml;Controls\SnippetToolTip.xaml;Controls\TextEditor\Editor.xaml;Controls\VisualVariableControl.xaml;Controls\VisualVariableItem.xaml;Languages\LanguageTemplates.xaml;Resources\ExplorerWindowDictionary.xaml;Styles\Brushes.xaml;Styles\Styles.xaml;Templates\EditorTemplate.xaml;Templates\ExplorerTemplate.xaml;Templates\ExtendedGridSplitterTemplate.xaml;Templates\IOListBox.xaml;Templates\KukaSpecificTemplates.xaml;Templates\LayoutItemTemplates.xaml;Templates\MenuDictionaryTemplate.xaml;Templates\OptionsTemplate.xaml;Templates\ShiftTemplate.xaml;Templates\StatusBarTemplate.xaml;Views\AngleConverterView.xaml;Views\ArchiveInfoView.xaml;Views\FileExplorerControl.xaml;Views\FileExplorerView.xaml;Views\FunctionView.xaml;Views\IOView.xaml;Views\LocalVariablesView.xaml;Views\MessageView.xaml;Views\NotesView.xaml;Views\ObjectBrowserView.xaml;Views\OptionsView.xaml;Windows\AboutWindow.xaml;Windows\AdjustSTWindow.xaml;Windows\AttributeViewerWindow.xaml;Windows\FileExplorerWindow.xaml;Windows\FindAndReplaceWindow.xaml;Windows\GotoWindow.xaml;Windows\KFDAssistantWindow.xaml;Windows\KFDDialogWindow.xaml;Windows\ReverseWindow.xaml;Windows\ShiftWindow.xaml;Windows\SnippetWindow.xaml;Windows\SplashScreenWindow.xaml;Windows\XmlReaderWindow.xaml;MainWindow.xaml;Skins\MainSkin.xaml;Windows\RenamePositionWindow.xaml;
 
 False
