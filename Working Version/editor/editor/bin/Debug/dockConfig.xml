@@ -2,10 +2,11 @@
 <LayoutRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <RootPanel Orientation="Vertical">
     <LayoutPanel Orientation="Horizontal">
+      <LayoutAnchorablePaneGroup Orientation="Horizontal" DockWidth="300">
+        <LayoutAnchorablePane Name="LeftPane" />
+      </LayoutAnchorablePaneGroup>
       <LayoutDocumentPane>
-        <LayoutDocument Title="Noname" LastActivationTimeStamp="10/04/2014 15:55:45" />
-        <LayoutDocument Title="DEBUG_HELPER.src" IsSelected="True" IsLastFocusedDocument="True" ContentId="C:\Users\cberman\Desktop\countersink\BAE_Systems_CS_BAE_CS_BAE_CS_634337_634337\KRC\R1\DEBUG_HELPER.src" ToolTip="C:\Users\cberman\Desktop\countersink\BAE_Systems_CS_BAE_CS_BAE_CS_634337_634337\KRC\R1\DEBUG_HELPER.src" LastActivationTimeStamp="10/04/2014 15:57:09" />
-        <LayoutDocument Title="cell.src" ContentId="C:\Users\cberman\Desktop\countersink\BAE_Systems_CS_BAE_CS_BAE_CS_634337_634337\KRC\R1\cell.src" ToolTip="C:\Users\cberman\Desktop\countersink\BAE_Systems_CS_BAE_CS_BAE_CS_634337_634337\KRC\R1\cell.src" LastActivationTimeStamp="10/04/2014 15:57:04" />
+        <LayoutDocument Title="Noname" IsSelected="True" IsLastFocusedDocument="True" LastActivationTimeStamp="10/12/2014 11:01:25" />
       </LayoutDocumentPane>
       <LayoutAnchorablePane Name="RightPane" DockWidth="250">
         <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Functions" IsSelected="True" ContentId="FunctionTool" />
@@ -13,10 +14,10 @@
       </LayoutAnchorablePane>
     </LayoutPanel>
     <LayoutAnchorablePane Name="BottomPane" DockHeight="200">
-      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Object Browser" IsSelected="True" ContentId="ObjectBrowserTool" LastActivationTimeStamp="10/04/2014 15:56:59" />
-      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Messages" ContentId="MessageViewTool" LastActivationTimeStamp="10/04/2014 15:56:52" />
-      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Notes" ContentId="NotesTool" LastActivationTimeStamp="10/04/2014 15:56:55" />
-      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Local Variables" ContentId="LocalVariablesTool" LastActivationTimeStamp="10/04/2014 15:56:57" />
+      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Object Browser" IsSelected="True" ContentId="ObjectBrowserTool" />
+      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Messages" ContentId="MessageViewTool" />
+      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Notes" ContentId="NotesTool" />
+      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Local Variables" ContentId="LocalVariablesTool" />
     </LayoutAnchorablePane>
   </RootPanel>
   <TopSide />
