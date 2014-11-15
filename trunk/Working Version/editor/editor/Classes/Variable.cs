@@ -142,7 +142,7 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                RaisePropertyChanging(ReturnsPropertyName);
+                
                 _returns = value;
                 RaisePropertyChanged(ReturnsPropertyName);
             }
@@ -174,7 +174,7 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                RaisePropertyChanging(ShowDeclarationPropertyName);
+                
                 _showDeclaration = value;
                 RaisePropertyChanged(ShowDeclarationPropertyName);
             }
@@ -206,7 +206,7 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                RaisePropertyChanging(ShowReturnsPropertyName);
+                
                 _showReturns = value;
                 RaisePropertyChanged(ShowReturnsPropertyName);
             }
@@ -238,7 +238,7 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                RaisePropertyChanging(ShowOffsetPropertyName);
+                
                 _showOffset = value;
                 RaisePropertyChanged(ShowOffsetPropertyName);
             }

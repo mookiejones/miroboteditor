@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -23,12 +11,24 @@ using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Messages;
 using miRobotEditor.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using FileInfo = System.IO.FileInfo;
 
 namespace miRobotEditor.Abstract
 {
     [Localizable(false)]
-    public abstract class AbstractLanguageClass : ViewModelBase,ILanguageRegex
+    public abstract class AbstractLanguageClass : ViewModelBase, ILanguageRegex
     {
         public const string RootPathPropertyName = "RootPath";
         public const string FileNamePropertyName = "FileName";
@@ -39,13 +39,13 @@ namespace miRobotEditor.Abstract
         public const string BWProgressVisibilityPropertyName = "BWProgressVisibility";
         internal readonly List<IVariable> _allVariables = new List<IVariable>();
         private readonly List<IVariable> _enums = new List<IVariable>();
-     
+
         private readonly ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
         private readonly ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
         private readonly ReadOnlyCollection<IVariable> _readOnlyAllVariables = null;
         private readonly ReadOnlyObservableCollection<IVariable> _readOnlyBrowserVariables = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlyFields = null;
-      
+
         private readonly ReadOnlyCollection<IVariable> _readOnlyFunctions = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlyenums = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlypositions = null;
@@ -70,18 +70,16 @@ namespace miRobotEditor.Abstract
         private DirectoryInfo _rootPath;
 
         #region Constructors
+
         protected AbstractLanguageClass()
         {
             Instance = this;
         }
 
-
         private string flename;
 
-        
         protected virtual void Initialize()
         {
-
             var filename = flename;
             DataText = string.Empty;
             SourceText = string.Empty;
@@ -120,15 +118,17 @@ namespace miRobotEditor.Abstract
         }
 
         public abstract void Initialize(string filename);
+
         protected AbstractLanguageClass(string filename)
         {
-            flename = flename;
+            flename = filename;
             Initialize(filename);
-
         }
-        #endregion
+
+        #endregion Constructors
 
         #region RootPath
+
         public DirectoryInfo RootPath
         {
             get { return _rootPath; }
@@ -136,29 +136,32 @@ namespace miRobotEditor.Abstract
             {
                 if (_rootPath != value)
                 {
-                    base.RaisePropertyChanging("RootPath");
                     _rootPath = value;
                     RaisePropertyChanged("RootPath");
                 }
             }
         }
 
-        #endregion
+        #endregion RootPath
+
         #region FileName
+
         public string FileName
         {
             get { return _filename; }
             set
             {
                 if (_filename == value) return;
-                base.RaisePropertyChanging("FileName");
+
                 _filename = value;
                 RaisePropertyChanged("FileName");
             }
         }
-        #endregion
+
+        #endregion FileName
 
         #region RobotMenuItems
+
         public MenuItem RobotMenuItems
         {
             get { return _robotMenuItems; }
@@ -166,33 +169,40 @@ namespace miRobotEditor.Abstract
             {
                 if (_robotMenuItems != value)
                 {
-                    base.RaisePropertyChanging("RobotMenuItems");
                     _robotMenuItems = value;
                     RaisePropertyChanged("RobotMenuItems");
                 }
             }
         }
-        #endregion
+
+        #endregion RobotMenuItems
 
         #region Name
+
         public string Name
         {
             get { return (RobotType == Typlanguage.None) ? string.Empty : RobotType.ToString(); }
         }
-        #endregion
+
+        #endregion Name
 
         #region DataName
+
         internal string DataName { get; private set; }
-        #endregion
+
+        #endregion DataName
 
         #region SourceName
+
         internal string SourceName { get; private set; }
-        #endregion
+
+        #endregion SourceName
 
         #region Progress
-        public static int Progress { get; private set; }
-        #endregion
 
+        public static int Progress { get; private set; }
+
+        #endregion Progress
 
         public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable
         {
@@ -207,24 +217,27 @@ namespace miRobotEditor.Abstract
             get { return _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems); }
         }
 
-
         #region Files
 
         private ObservableCollection<FileInfo> _files = new ObservableCollection<FileInfo>();
 
-       
 #pragma warning disable 649
         private readonly ReadOnlyObservableCollection<FileInfo> _readOnlyFiles;
 #pragma warning restore 649
+
         public ReadOnlyObservableCollection<FileInfo> Files
         {
             get { return _readOnlyFiles ?? new ReadOnlyObservableCollection<FileInfo>(_files); }
         }
-        #endregion
+
+        #endregion Files
 
         internal string RawText { private get; set; }
+
         private static AbstractLanguageClass Instance { get; set; }
+
         internal string SourceText { get; private set; }
+
         internal string DataText { get; private set; }
 
         public string SnippetPath
@@ -297,18 +310,31 @@ namespace miRobotEditor.Abstract
         }
 
         public abstract string CommentChar { get; }
+
         public abstract List<string> SearchFilters { get; }
+
         internal abstract Typlanguage RobotType { get; }
+
         protected abstract string ShiftRegex { get; }
+
         public abstract Regex MethodRegex { get; }
+
         public abstract Regex FieldRegex { get; }
+
         public abstract Regex EnumRegex { get; }
-        public abstract  Regex XYZRegex { get; }
-        public abstract  Regex StructRegex { get; }
-        public abstract  Regex SignalRegex { get; }
+
+        public abstract Regex XYZRegex { get; }
+
+        public abstract Regex StructRegex { get; }
+
+        public abstract Regex SignalRegex { get; }
+
         internal abstract string FunctionItems { get; }
+
         internal abstract IList<ICompletionData> CodeCompletion { get; }
+
         internal abstract AbstractFoldingStrategy FoldingStrategy { get; set; }
+
         internal abstract string SourceFile { get; }
 
         public IOViewModel IOModel
@@ -328,7 +354,6 @@ namespace miRobotEditor.Abstract
             {
                 if (_bwProgress != value)
                 {
-                    base.RaisePropertyChanging("BWProgress");
                     _bwProgress = value;
                     RaisePropertyChanged("BWProgress");
                 }
@@ -342,7 +367,6 @@ namespace miRobotEditor.Abstract
             {
                 if (_bwFilesMin != value)
                 {
-                    base.RaisePropertyChanging("BWFilesMin");
                     _bwFilesMin = value;
                     RaisePropertyChanged("BWFilesMin");
                 }
@@ -356,7 +380,6 @@ namespace miRobotEditor.Abstract
             {
                 if (_bwFilesMax != value)
                 {
-                    base.RaisePropertyChanging("BWFilesMax");
                     _bwFilesMax = value;
                     RaisePropertyChanged("BWFilesMax");
                 }
@@ -370,7 +393,6 @@ namespace miRobotEditor.Abstract
             {
                 if (_bwProgressVisibility != value)
                 {
-                    base.RaisePropertyChanging("BWProgressVisibility");
                     _bwProgressVisibility = value;
                     RaisePropertyChanged("BWProgressVisibility");
                 }
@@ -385,7 +407,9 @@ namespace miRobotEditor.Abstract
         protected abstract bool IsFileValid(FileInfo file);
 
         public abstract DocumentViewModel GetFile(string filename);
+
         public abstract string ExtractXYZ(string positionstring);
+
         internal abstract string FoldTitle(FoldingSection section, TextDocument doc);
 
         private MenuItem GetMenuItems()
@@ -411,22 +435,27 @@ namespace miRobotEditor.Abstract
                     case ".pg":
                         result = new DocumentViewModel(filepath, new Kawasaki(filepath));
                         return result;
+
                     case ".src":
                     case ".dat":
                         result = GetKukaViewModel(filepath);
                         return result;
+
                     case ".rt":
                     case ".sub":
                     case ".kfd":
                         result = new DocumentViewModel(filepath, new KUKA(filepath));
                         return result;
+
                     case ".mod":
                     case ".prg":
                         result = new DocumentViewModel(filepath, new ABB(filepath));
                         return result;
+
                     case ".bas":
                         result = new DocumentViewModel(filepath, new VBA(filepath));
                         return result;
+
                     case ".ls":
                         result = new DocumentViewModel(filepath, new Fanuc(filepath));
                         return result;
@@ -448,8 +477,8 @@ namespace miRobotEditor.Abstract
             Debug.Assert(fileInfo.DirectoryName != null, "dir != null");
             name = Path.Combine(fileInfo.DirectoryName, name);
             var src = new FileInfo(name + ".src");
-            var dat = new FileInfo(name+".dat");
-            
+            var dat = new FileInfo(name + ".dat");
+
             IEditorDocument result;
             if (src.Exists && dat.Exists)
             {
@@ -627,7 +656,7 @@ namespace miRobotEditor.Abstract
             var matchCollection = regex.Matches(doc.Text);
             var count = matchCollection.Count;
             var num4 = 0.0;
-            var num5 = (double) ((count > 0) ? (100/count) : count);
+            var num5 = (double)((count > 0) ? (100 / count) : count);
             foreach (Match match in regex.Matches(doc.Text))
             {
                 // ReSharper disable UnusedVariable
@@ -643,6 +672,7 @@ namespace miRobotEditor.Abstract
                     case Typlanguage.KUKA:
                         doc.ReplaceAll();
                         break;
+
                     case Typlanguage.ABB:
                         doc.ReplaceAll();
                         break;
@@ -689,7 +719,6 @@ namespace miRobotEditor.Abstract
                         FileCount = Files.Count;
 
                         GetVariables();
-                      
                     }
                 }
             }
@@ -702,128 +731,104 @@ namespace miRobotEditor.Abstract
 
         private void GetRootFiles(string dir)
         {
-            try{
-
-            var newFiles = (from directory in Directory.GetDirectories(dir)
-                let files = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories)
-                from file in files
-                select new FileInfo(file)).ToList();
+            try
+            {
+                var newFiles = (from directory in Directory.GetDirectories(dir)
+                                let files = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories)
+                                from file in files
+                                select new FileInfo(file)).ToList();
 
                 foreach (var file in newFiles)
                 {
-                    if (file.Name.Equals("kuka_con.mdb",StringComparison.OrdinalIgnoreCase))
+                    if (file.Name.Equals("kuka_con.mdb", StringComparison.OrdinalIgnoreCase))
                         _kukaCon = file.Name;
                     _files.Add(file);
-
                 }
-
-        }
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 var msg = new ErrorMessage("Error When Getting Files for Object Browser", ex, MessageType.Error);
                 Messenger.Default.Send<IMessage>(msg);
-                
             }
         }
-
 
         private object locker = new object();
 
         private void GetVariables()
         {
-            
             var task = GetVariablesAsync();
-            task.ContinueWith((r)=>
+            task.ContinueWith((r) =>
             {
-          
-                    _enums.AddRange(r.Result.Enums);
-                    _fields.AddRange(r.Result.Fields);
-                    _positions.AddRange(r.Result.Positions);
-                    _signals.AddRange(r.Result.Signals);
-                    _functions.AddRange(r.Result.Functions);
-                    _structures.AddRange(r.Result.Structures);
+                _enums.AddRange(r.Result.Enums);
+                _fields.AddRange(r.Result.Fields);
+                _positions.AddRange(r.Result.Positions);
+                _signals.AddRange(r.Result.Signals);
+                _functions.AddRange(r.Result.Functions);
+                _structures.AddRange(r.Result.Structures);
 
-
-
-                    _allVariables.AddRange(Functions);
-                    _allVariables.AddRange(Fields);
-                    _allVariables.AddRange(Positions);
-                    _allVariables.AddRange(Signals);
-             
-               
-
+                _allVariables.AddRange(Functions);
+                _allVariables.AddRange(Fields);
+                _allVariables.AddRange(Positions);
+                _allVariables.AddRange(Signals);
             })
             ;
-
         }
 
         private Task<VariableMembers> GetVariableMembers(string filename)
         {
-           var task =  Task.Factory.StartNew(() =>
-           {
-               var result = new VariableMembers();
-               result.FindVariables(filename,this);
-               return result;
-           });
+            var task = Task.Factory.StartNew(() =>
+            {
+                var result = new VariableMembers();
+                result.FindVariables(filename, this);
+                return result;
+            });
 
-           return task;
-
-
+            return task;
         }
-        private  VariableMembers GetVariables(IEnumerable<FileInfo> files)
-        {            
+
+        private VariableMembers GetVariables(IEnumerable<FileInfo> files)
+        {
             var variableMembers = new VariableMembers();
             var num = 0;
             var validFiles = from file in files
                              where IsFileValid(file)
                              select file;
 
-          
+            var results = from file in validFiles
+                          select GetVariableMembers(file.FullName).ContinueWith((var) =>
+                          {
+                              variableMembers.Functions.AddRange(var.Result.Structures.ToList());
+                              variableMembers.Structures.AddRange(var.Result.Structures.ToList());
+                              variableMembers.Fields.AddRange(var.Result.Fields.ToList());
+                              variableMembers.Signals.AddRange(var.Result.Signals.ToList());
+                              variableMembers.Enums.AddRange(var.Result.Enums.ToList());
+                              variableMembers.Positions.AddRange(var.Result.Positions.ToList());
+                          });
 
-           var results = from file in validFiles
-                select GetVariableMembers(file.FullName).ContinueWith((var) =>
-                {
-                    variableMembers.Functions.AddRange(var.Result.Structures.ToList());
-                    variableMembers.Structures.AddRange(var.Result.Structures.ToList());
-                    variableMembers.Fields.AddRange(var.Result.Fields.ToList());
-                    variableMembers.Signals.AddRange(var.Result.Signals.ToList());
-                    variableMembers.Enums.AddRange(var.Result.Enums.ToList());
-                    variableMembers.Positions.AddRange(var.Result.Positions.ToList());
+            Task.WaitAll(results.ToArray());
 
+            RaisePropertyChanged("Structures");
+            RaisePropertyChanged("Functions");
+            RaisePropertyChanged("Fields");
+            RaisePropertyChanged("Files");
+            RaisePropertyChanged("Positions");
+            BWProgressVisibility = Visibility.Collapsed;
 
-                });
-
-                Task.WaitAll(results.ToArray());
-
-
-                RaisePropertyChanged("Structures");
-                RaisePropertyChanged("Functions");
-                RaisePropertyChanged("Fields");
-                RaisePropertyChanged("Files");
-                RaisePropertyChanged("Positions");
-                BWProgressVisibility = Visibility.Collapsed;
-
-                var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
-                instance.EnableIO = File.Exists(_kukaCon);
-                IOModel = new IOViewModel(_kukaCon);
-                return variableMembers;
-            
-                
-
-  
+            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            instance.EnableIO = File.Exists(_kukaCon);
+            IOModel = new IOViewModel(_kukaCon);
+            return variableMembers;
         }
+
         private Task<VariableMembers> GetVariablesAsync()
         {
-
-            var task = Task<VariableMembers>.Factory.StartNew(()=>GetVariables(Files));
-
+            var task = Task<VariableMembers>.Factory.StartNew(() => GetVariables(Files));
 
             return task;
         }
 
-        public  sealed class VariableMembers
+        public sealed class VariableMembers
         {
-          
             private void Initialize()
             {
                 Functions = new List<IVariable>();
@@ -833,42 +838,43 @@ namespace miRobotEditor.Abstract
                 Enums = new List<IVariable>();
                 Positions = new List<IVariable>();
             }
-            
-            public  VariableMembers()
+
+            public VariableMembers()
             {
                 Initialize();
             }
-            
 
-#region Variables
-           public List<IVariable> Functions {get; private set;}
-           public List<IVariable> Structures { get; private set; }
-           public List<IVariable> Fields { get; private set; }
-           public List<IVariable> Signals { get; private set; }
-           public List<IVariable> Enums { get; private set; }
-           public List<IVariable> Positions { get; private set; }
-#endregion
+            #region Variables
 
-            public  void FindVariables(string filename,ILanguageRegex regex)
+            public List<IVariable> Functions { get; private set; }
+
+            public List<IVariable> Structures { get; private set; }
+
+            public List<IVariable> Fields { get; private set; }
+
+            public List<IVariable> Signals { get; private set; }
+
+            public List<IVariable> Enums { get; private set; }
+
+            public List<IVariable> Positions { get; private set; }
+
+            #endregion Variables
+
+            public void FindVariables(string filename, ILanguageRegex regex)
             {
-               
-             
-                    Functions = FindMatches(regex.MethodRegex, Global.ImgMethod, filename).ToList();
-                    Structures = FindMatches(regex.StructRegex, Global.ImgStruct, filename).ToList();
-                    Fields = FindMatches(regex.FieldRegex, Global.ImgField, filename).ToList();
-                    Signals = FindMatches(regex.SignalRegex, Global.ImgSignal, filename).ToList();
-                    Enums = FindMatches(regex.EnumRegex, Global.ImgEnum, filename).ToList();
-                    Positions = FindMatches(regex.XYZRegex, Global.ImgXyz, filename).ToList();
+                Functions = FindMatches(regex.MethodRegex, Global.ImgMethod, filename).ToList();
+                Structures = FindMatches(regex.StructRegex, Global.ImgStruct, filename).ToList();
+                Fields = FindMatches(regex.FieldRegex, Global.ImgField, filename).ToList();
+                Signals = FindMatches(regex.SignalRegex, Global.ImgSignal, filename).ToList();
+                Enums = FindMatches(regex.EnumRegex, Global.ImgEnum, filename).ToList();
+                Positions = FindMatches(regex.XYZRegex, Global.ImgXyz, filename).ToList();
             }
-            
-
-
         }
 
         private static IEnumerable<IVariable> FindMatches(Regex matchstring, string imgPath, string filepath)
         {
             var list = new List<IVariable>();
-           
+
             IEnumerable<IVariable> result;
             try
             {

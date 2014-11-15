@@ -28,7 +28,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(FileOptionsPropertyName);
+                
                 _fileOptions = value;
                 RaisePropertyChanged(FileOptionsPropertyName);
             }
