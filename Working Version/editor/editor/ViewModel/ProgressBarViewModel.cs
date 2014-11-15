@@ -28,7 +28,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(MinimumPropertyName);
+                
                 _minimum = value;
                 RaisePropertyChanged(MinimumPropertyName);
             }
@@ -60,7 +60,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(MaximumPropertyName);
+                
                 _maximum = value;
                 RaisePropertyChanged(MaximumPropertyName);
             }
@@ -92,7 +92,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(ValuePropertyName);
+                
                 _value = value;
                 RaisePropertyChanged(ValuePropertyName);
             }
@@ -124,7 +124,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(IsVisiblePropertyName);
+                
                 _isVisibile = value;
                 RaisePropertyChanged(IsVisiblePropertyName);
             }

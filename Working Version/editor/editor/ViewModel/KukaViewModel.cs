@@ -39,7 +39,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(GridRowPropertyName);
+                
                 _gridrow = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(GridRowPropertyName);
@@ -97,7 +97,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(GridPropertyName);
+                
                 _grid = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(GridPropertyName);
@@ -131,7 +131,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(SourcePropertyName);
+                
                 _source = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(SourcePropertyName);
@@ -165,7 +165,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(DataPropertyName);
+                
                 _data = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(DataPropertyName);
@@ -199,7 +199,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(DataRowPropertyName);
+                
                 _dataRow = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(DataRowPropertyName);

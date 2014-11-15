@@ -158,7 +158,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(SelectedMessagePropertyName);
+                
                 _selectedMessage = value;
                 RaisePropertyChanged(SelectedMessagePropertyName);
             }

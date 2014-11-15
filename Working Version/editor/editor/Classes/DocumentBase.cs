@@ -133,7 +133,7 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                RaisePropertyChanging(TextBoxPropertyName);
+                
                 _textBox = value;
                 RaisePropertyChanged(TextBoxPropertyName);
             }

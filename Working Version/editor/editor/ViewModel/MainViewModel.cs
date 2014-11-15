@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Windows;
-using System.Windows.Shell;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro;
@@ -19,6 +11,14 @@ using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Messages;
 using miRobotEditor.Windows;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Shell;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Themes;
 
@@ -30,7 +30,7 @@ namespace miRobotEditor.ViewModel
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
     /// </summary>
-// ReSharper disable once ClassNeverInstantiated.Global
+    // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class MainViewModel : ViewModelBase
     {
         private static IEditorDocument _activeEditor;
@@ -49,14 +49,12 @@ namespace miRobotEditor.ViewModel
                 AngleConverter
             };
 
-
             Messenger.Default.Register<WindowMessage>(this, GetMessage);
         }
 
         private void GetMessage(WindowMessage obj)
         {
             Open(obj.Description);
-
         }
 
         public string Title
@@ -111,7 +109,7 @@ namespace miRobotEditor.ViewModel
             get { return _angleConverter; }
         }
 
-        #endregion
+        #endregion Tools
 
         #region Files
 
@@ -123,7 +121,7 @@ namespace miRobotEditor.ViewModel
             get { return _readonlyFiles ?? new ReadOnlyObservableCollection<IEditorDocument>(_files); }
         }
 
-        #endregion
+        #endregion Files
 
         #region ShowSettings
 
@@ -149,15 +147,15 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(ShowSettingsPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _showSettings = value;
-// ReSharper disable once ExplicitCallerInfoArgument
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(ShowSettingsPropertyName);
             }
         }
 
-        #endregion
+        #endregion ShowSettings
 
         #region AccentBrush
 
@@ -183,15 +181,15 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(AccentBrushPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _accentBrush = value;
-// ReSharper disable once ExplicitCallerInfoArgument
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(AccentBrushPropertyName);
             }
         }
 
-        #endregion
+        #endregion AccentBrush
 
         #region CurrentTheme
 
@@ -217,15 +215,15 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(CurrentThemePropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _currentTheme = value;
-// ReSharper disable once ExplicitCallerInfoArgument
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(CurrentThemePropertyName);
             }
         }
 
-        #endregion
+        #endregion CurrentTheme
 
         #region ShowIO
 
@@ -251,15 +249,15 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(ShowIOPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _showIO = value;
-// ReSharper disable once ExplicitCallerInfoArgument
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(ShowIOPropertyName);
             }
         }
 
-        #endregion
+        #endregion ShowIO
 
         #region EnableIO
 
@@ -285,15 +283,15 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(EnableIOPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _enableIO = value;
-// ReSharper disable once ExplicitCallerInfoArgument
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(EnableIOPropertyName);
             }
         }
 
-        #endregion
+        #endregion EnableIO
 
         public ILayoutUpdateStrategy LayoutStrategy
         {
@@ -305,7 +303,6 @@ namespace miRobotEditor.ViewModel
             get { return _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools); }
         }
 
-
         public IEditorDocument ActiveEditor
         {
             get { return _activeEditor; }
@@ -314,7 +311,7 @@ namespace miRobotEditor.ViewModel
                 if (_activeEditor != value)
                 {
                     _activeEditor = value;
-                    if (_activeEditor!=null)
+                    if (_activeEditor != null)
                         _activeEditor.TextBox.Focus();
                     // ReSharper disable once RedundantArgumentDefaultValue
                     RaisePropertyChanged("ActiveEditor");
@@ -348,17 +345,17 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(IsClosingPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _isClosing = value;
-// ReSharper disable once ExplicitCallerInfoArgument
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(IsClosingPropertyName);
             }
         }
 
-        #endregion
+        #endregion IsClosing
 
-        #endregion
+        #endregion Properties
 
         #region Commands
 
@@ -377,16 +374,13 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-      
-
         private void ExecuteCloseCommand(object obj)
-
         {
             _files.Remove(ActiveEditor);
-            
+
             ActiveEditor.Close();
             ActiveEditor = _files.FirstOrDefault();
-           // Close(ActiveEditor);
+            // Close(ActiveEditor);
             RaisePropertyChanged("ActiveEditor");
         }
 
@@ -395,7 +389,7 @@ namespace miRobotEditor.ViewModel
             return true;
         }
 
-        #endregion
+        #endregion CloseCommand
 
         #region ShowIOCommand
 
@@ -413,7 +407,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        #endregion
+        #endregion ShowIOCommand
 
         #region ChangeThemeCommand
 
@@ -432,7 +426,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        #endregion
+        #endregion ChangeThemeCommand
 
         #region ChangeAccentCommand
 
@@ -451,7 +445,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        #endregion
+        #endregion ChangeAccentCommand
 
         #region NewFileCommand
 
@@ -470,7 +464,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        #endregion
+        #endregion NewFileCommand
 
         #region ShowFindReplaceCommand
 
@@ -488,7 +482,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        #endregion
+        #endregion ShowFindReplaceCommand
 
         #region ShowSettingsCommand
 
@@ -506,7 +500,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        #endregion
+        #endregion ShowSettingsCommand
 
         #region ChangeViewAsCommand
 
@@ -520,7 +514,7 @@ namespace miRobotEditor.ViewModel
             get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand<string>(ChangeViewAs)); }
         }
 
-        #endregion
+        #endregion ChangeViewAsCommand
 
         #region ExitCommand
 
@@ -538,7 +532,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        #endregion
+        #endregion ExitCommand
 
         #region ImportCommand
 
@@ -557,7 +551,7 @@ namespace miRobotEditor.ViewModel
             return !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
         }
 
-        #endregion
+        #endregion ImportCommand
 
         #region AddToolCommand
 
@@ -571,7 +565,7 @@ namespace miRobotEditor.ViewModel
             get { return _addToolCommand ?? (_addToolCommand = new RelayCommand<object>(AddTool)); }
         }
 
-        #endregion
+        #endregion AddToolCommand
 
         #region ShowAboutCommand
 
@@ -585,7 +579,7 @@ namespace miRobotEditor.ViewModel
             get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand(ShowAbout)); }
         }
 
-        #endregion
+        #endregion ShowAboutCommand
 
         #region OpenFileCommand
 
@@ -603,9 +597,9 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        #endregion
+        #endregion OpenFileCommand
 
-        #endregion
+        #endregion Commands
 
         private static string ShortenPathname(string pathname, int maxLength)
         {
@@ -826,31 +820,32 @@ namespace miRobotEditor.ViewModel
 
         private void ChangeViewAs(object param)
         {
-
             var abstractLanguageClass = ActiveEditor.FileLanguage;
 
-                var text = param.ToString();
+            var text = param.ToString();
 
-                switch (text)
-                {
-                    case "ABB":
-                        var abb = new ABB(ActiveEditor.FilePath);
-                        ActiveEditor.FileLanguage = abb;
-                        break;
-                    case "Fanuc":
-                        var fanuc = new Fanuc(ActiveEditor.FilePath);
-                        ActiveEditor.FileLanguage = fanuc;
-                        break;
-                    case "KUKA":
-                        var kuka = new KUKA(ActiveEditor.FilePath);
-                        ActiveEditor.FileLanguage = kuka;
-                        break;
-                    case "Kawasaki":
-                        var kawasaki = new Kawasaki(ActiveEditor.FilePath);
-                        ActiveEditor.FileLanguage = kawasaki;
-                        break;
-                }
-            
+            switch (text)
+            {
+                case "ABB":
+                    var abb = new ABB(ActiveEditor.FilePath);
+                    ActiveEditor.FileLanguage = abb;
+                    break;
+
+                case "Fanuc":
+                    var fanuc = new Fanuc(ActiveEditor.FilePath);
+                    ActiveEditor.FileLanguage = fanuc;
+                    break;
+
+                case "KUKA":
+                    var kuka = new KUKA(ActiveEditor.FilePath);
+                    ActiveEditor.FileLanguage = kuka;
+                    break;
+
+                case "Kawasaki":
+                    var kawasaki = new Kawasaki(ActiveEditor.FilePath);
+                    ActiveEditor.FileLanguage = kawasaki;
+                    break;
+            }
         }
 
         private void Exit()
@@ -861,7 +856,7 @@ namespace miRobotEditor.ViewModel
         internal void Close(IEditorDocument fileToClose)
         {
             _files.Remove(fileToClose);
-// ReSharper disable once ExplicitCallerInfoArgument
+            // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged("ActiveEditor");
         }
 
@@ -887,7 +882,7 @@ namespace miRobotEditor.ViewModel
                 toolModel.IsActive = true;
                 _tools.Add(toolModel);
                 toolModel.IsActive = true;
-// ReSharper disable once ExplicitCallerInfoArgument
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged("Tools");
             }
         }
@@ -940,7 +935,7 @@ namespace miRobotEditor.ViewModel
                 string.Format("Add Tool Parameter of {0} not Implemented", text), MessageType.Error);
             Messenger.Default.Send<IMessage>(msg);
 
-            IL_1EE:
+        IL_1EE:
             if (toolModel != null)
             {
                 layoutAnchorable.Title = toolModel.Title;
@@ -960,7 +955,7 @@ namespace miRobotEditor.ViewModel
                 toolModel.IsActive = true;
                 _tools.Add(toolModel);
             }
-// ReSharper disable once ExplicitCallerInfoArgument
+            // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged("Tools");
         }
 
@@ -992,7 +987,7 @@ namespace miRobotEditor.ViewModel
         {
             var openFileDialog = new OpenFileDialog();
             bool result;
-// ReSharper disable once PossibleInvalidOperationException
+            // ReSharper disable once PossibleInvalidOperationException
             if (openFileDialog.ShowDialog().Value)
             {
                 filePath = openFileDialog.FileName;
@@ -1006,12 +1001,12 @@ namespace miRobotEditor.ViewModel
             return result;
         }
 
-// ReSharper disable once UnusedMember.Global
+        // ReSharper disable once UnusedMember.Global
         public bool UserSelectsNewFilePath(string oldFilePath, out string newFilePath)
         {
             var saveFileDialog = new SaveFileDialog();
             bool result;
-// ReSharper disable once PossibleInvalidOperationException
+            // ReSharper disable once PossibleInvalidOperationException
             if (saveFileDialog.ShowDialog().Value)
             {
                 newFilePath = saveFileDialog.FileName;
@@ -1025,15 +1020,15 @@ namespace miRobotEditor.ViewModel
             return result;
         }
 
-// ReSharper disable UnusedMember.Global
+        // ReSharper disable UnusedMember.Global
         public void ErrorMessage(string msg)
-// ReSharper restore UnusedMember.Global
+        // ReSharper restore UnusedMember.Global
         {
             MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
         }
 
-// ReSharper disable  UnusedMember.Local
-// ReSharper disable  UnusedParameter.Local
+        // ReSharper disable  UnusedMember.Local
+        // ReSharper disable  UnusedParameter.Local
 
         private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
         {

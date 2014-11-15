@@ -28,7 +28,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(HeaderPropertyName);
+                
                 _header = value;
                 RaisePropertyChanged(HeaderPropertyName);
             }
@@ -60,7 +60,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(XPropertyName);
+                
                 _x = value;
                 RaisePropertyChanged(XPropertyName);
             }
@@ -92,7 +92,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(YPropertyName);
+                
                 _y = value;
                 RaisePropertyChanged(YPropertyName);
             }
@@ -124,7 +124,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(ZPropertyName);
+                
                 _z = value;
                 RaisePropertyChanged(ZPropertyName);
             }
