@@ -9,6 +9,8 @@ using System.Windows;
 using System.Windows.Forms;
 using GalaSoft.MvvmLight;
 using Ionic.Zip;
+using miRobotEditor.Messages;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace miRobotEditor.ViewModel
 {
@@ -310,8 +312,15 @@ namespace miRobotEditor.ViewModel
             var dbConnection = GetDBConnection();
             if (dbConnection != null)
             {
-                if (dbConnection.State != ConnectionState.Open)
-                    dbConnection.Open();
+                try {
+                    if (dbConnection.State != ConnectionState.Open)
+                        dbConnection.Open();
+                }
+                catch(OleDbException ex)
+                {
+                    var msg = new ErrorMessage("Error on Opening Db", ex);
+                    Messenger.Default.Send(msg);
+                }
                 using (var cmd = new OleDbCommand(command, dbConnection))
                 {
                     using (var reader = cmd.ExecuteReader())
