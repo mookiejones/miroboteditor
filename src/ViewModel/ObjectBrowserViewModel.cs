@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Classes;
 using miRobotEditor.Core;
+using robot_editor.Interfaces;
 using Global = miRobotEditor.Classes.Global;
 using Utilities = miRobotEditor.Classes.Utilities;
 

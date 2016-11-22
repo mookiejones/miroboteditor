@@ -12,6 +12,7 @@ using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
+using robot_editor.Classes;
 
 namespace miRobotEditor.Languages
 {
@@ -74,7 +75,7 @@ namespace miRobotEditor.Languages
             get { return "(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)"; }
         }
 
-        internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
+        public override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         public override Regex MethodRegex
         {
@@ -117,7 +118,7 @@ namespace miRobotEditor.Languages
             return EXT.Any(e => file.Extension.ToLower() == e);
         }
 
-        internal override string FoldTitle(FoldingSection section, TextDocument doc)
+        public override string FoldTitle(FoldingSection section, TextDocument doc)
         {
             string[] s = Regex.Split(section.Title, "æ");
 

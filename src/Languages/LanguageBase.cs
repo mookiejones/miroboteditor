@@ -124,7 +124,7 @@ namespace miRobotEditor.Languages
             return new DocumentViewModel(filename);
         }
 
-        internal override string FoldTitle(FoldingSection section, TextDocument doc)
+        public override string FoldTitle(FoldingSection section, TextDocument doc)
         {
             if (doc == null) throw new ArgumentNullException("doc");
             string[] s = Regex.Split(section.Title, "æ");

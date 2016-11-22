@@ -31,16 +31,5 @@ namespace miRobotEditor.Controls
         }
     }
 
-
-    public interface IImage
-    {
-        /// <summary>
-        ///     Gets the image as WPF ImageSource.
-        /// </summary>
-        ImageSource ImageSource { get; }
-
-        Bitmap Bitmap { get; }
-
-        Icon Icon { get; }
-    }
+ 
 }

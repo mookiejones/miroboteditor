@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>miRobotEditor</RootNamespace>
     <AssemblyName>miRobotEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -117,6 +117,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -126,6 +127,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.WPF4">
@@ -180,11 +182,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AppException.cs" />
-    <Compile Include="Classes\BookmarkBase.cs" />
     <Compile Include="Classes\CartesianItems.cs" />
     <Compile Include="Classes\CartesianPosition.cs" />
     <Compile Include="Classes\CartesianTypes.cs" />
-    <Compile Include="Classes\ClassMemberBookmark.cs" />
     <Compile Include="Classes\DataTemplateUtils.cs" />
     <Compile Include="Classes\DocumentClosingEventArgs.cs" />
     <Compile Include="Classes\FileChangeWatcher.cs" />
@@ -201,7 +201,6 @@
     <Compile Include="Classes\MsgIcon.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
     <Compile Include="Classes\PaneViewModel.cs" />
-    <Compile Include="ClassMemberBookmark.cs" />
     <Compile Include="Converters\AngleToolTipConverter.cs" />
     <Compile Include="Converters\EnumtoInt32.cs" />
     <Compile Include="Converters\GetFileIconConverter.cs" />
@@ -211,14 +210,10 @@
       <DependentUpon>OptionsFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalOptions.cs" />
-    <Compile Include="GUI\DefaultBracketSearcher.cs" />
     <Compile Include="GUI\KUKA\AdjustST\AdjustST.cs" />
     <Compile Include="GUI\TextEditorOptions.cs" />
     <Compile Include="Handlers\UpdateRequiredHandler.cs" />
     <Compile Include="Interfaces\IException.cs" />
-    <Compile Include="Interfaces\IFoldingStrategy.cs" />
-    <Compile Include="Languages\ICompletionItem.cs" />
-    <Compile Include="Languages\ISnippetCompletionItem.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -226,11 +221,7 @@
     <Compile Include="Selectors\PanesStyleSelector.cs" />
     <Compile Include="Classes\PanesStyleSelector.cs" />
     <Compile Include="Classes\RecentFileList.cs" />
-    <Compile Include="Classes\TraceWriter.cs" />
     <Compile Include="Classes\Utilities.cs" />
-    <Compile Include="Classes\Variable.cs" />
-    <Compile Include="Classes\VariableBase.cs" />
-    <Compile Include="Classes\VariableHelper.cs" />
     <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\AbstractMenuCommand.cs" />
     <Compile Include="Commands\Commands.cs" />
@@ -326,52 +317,18 @@
     <Compile Include="GUI\AngleConverter\Robot\RobotBaseAndToolCalibration.cs" />
     <Compile Include="GUI\Dialogs\About\About.cs" />
     <Compile Include="GUI\Dialogs\IconConverter.cs" />
-    <Compile Include="GUI\Editor\BackgroundRenderer.cs" />
-    <Compile Include="GUI\Editor\BracketHighlightRenderer.cs" />
-    <Compile Include="GUI\Editor\BracketSearchResult.cs" />
     <Compile Include="GUI\Editor\CodeCompletion.cs" />
-    <Compile Include="GUI\Editor\CompletionContext.cs" />
     <Compile Include="GUI\Editor\CompletionItemListKeyResult.cs" />
-    <Compile Include="GUI\Editor\DefaultCompletionItem.cs" />
-    <Compile Include="GUI\Editor\DefaultCompletionItemList.cs" />
     <Compile Include="GUI\Editor\Editor.xaml.cs">
       <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Editor\IBracketSearcher.cs" />
-    <Compile Include="GUI\Editor\ICompletionItemList.cs" />
-    <Compile Include="GUI\Editor\ICompletionListWindow.cs" />
-    <Compile Include="GUI\Editor\ICompletionWindow.cs" />
-    <Compile Include="GUI\Editor\IFancyCompletionItem.cs" />
     <Compile Include="GUI\Editor\MyBracketSearcher.cs" />
     <Compile Include="GUI\KUKA\frmAdjustST.cs" />
     <Compile Include="GUI\KUKA\ToolItems.cs" />
     <Compile Include="Interfaces\AnchorMovementType.cs" />
-    <Compile Include="Interfaces\BlockCommentRegion.cs" />
-    <Compile Include="Interfaces\BookmarkImage.cs" />
     <Compile Include="Interfaces\ColorizeAvalonEdit.cs" />
-    <Compile Include="Interfaces\DefaultFormattingStrategy.cs" />
-    <Compile Include="Interfaces\IBookmark.cs" />
-    <Compile Include="Interfaces\IBookmarkMargin.cs" />
-    <Compile Include="Interfaces\IconBarManager.cs" />
-    <Compile Include="Interfaces\IconBarMargin.cs" />
-    <Compile Include="Interfaces\IDialogProvider.cs" />
     <Compile Include="Interfaces\DialogWindow.cs" />
-    <Compile Include="Interfaces\IEditor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Interfaces\IDocumentLine.cs" />
-    <Compile Include="Interfaces\IFormattingStrategy.cs" />
-    <Compile Include="Interfaces\IImage.cs" />
-    <Compile Include="Interfaces\IInsightItem.cs" />
-    <Compile Include="Interfaces\IInsightWindow.cs" />
     <Compile Include="Interfaces\ImageElementGenerator.cs" />
-    <Compile Include="Interfaces\ITextAnchor.cs" />
-    <Compile Include="Interfaces\ITextBuffer.cs" />
-    <Compile Include="Interfaces\ITextBufferVersion.cs" />
-    <Compile Include="Interfaces\ITextEditor.cs" />
-    <Compile Include="Interfaces\ITextEditorCaret.cs" />
-    <Compile Include="Interfaces\ITextEditorOptions.cs" />
-    <Compile Include="Interfaces\Location.cs" />
     <Compile Include="Interfaces\StringTextBuffer.cs" />
     <Compile Include="Interfaces\TextChangeEventArgs.cs" />
     <Compile Include="Interfaces\TextSourceAdapter.cs" />
@@ -512,7 +469,6 @@
     <Compile Include="ViewModel\GetFileSystemInfosConverter.cs" />
     <Compile Include="ViewModel\GlobalOptionsViewModel.cs" />
     <Compile Include="ViewModel\GotoViewModel.cs" />
-    <Compile Include="ViewModel\IDocument.cs" />
     <Compile Include="ViewModel\IOViewModel.cs" />
     <Compile Include="ViewModel\ItemsChangedEventHandler.cs" />
     <Compile Include="ViewModel\KUKAObjectBrowserViewModel.cs" />
@@ -803,7 +759,6 @@
     <EmbeddedResource Include="Controls\SyntaxHighlighting\VBAHighlight.xshd" />
     <None Include="GUI\AngleConverter\Math Library\ve-B5C1.tmp" />
     <None Include="GUI\AngleConverter\Math Library\ve-B629.tmp" />
-    <None Include="Interfaces\ve-BEC0.tmp" />
     <None Include="miRobotEditor.pfx" />
     <Resource Include="Resources\editor.png" />
     <None Include="Snippets\KUKA.Snippet" />
@@ -962,6 +917,12 @@
       <Progid>src</Progid>
       <DefaultIcon>Images\editor.ico</DefaultIcon>
     </FileAssociation>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\robot_editor\robot_editor\robot_editor.csproj">
+      <Project>{c1e746a2-eb3e-44c3-90d9-949e471c43f9}</Project>
+      <Name>robot_editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

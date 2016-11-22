@@ -515,7 +515,7 @@ namespace miRobotEditor.Languages
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        internal override string FoldTitle(FoldingSection section, TextDocument doc)
+        public override string FoldTitle(FoldingSection section, TextDocument doc)
         {
             string[] s = Regex.Split(section.Title, "æ");
             string eval = section.TextContent.ToLower().Trim();

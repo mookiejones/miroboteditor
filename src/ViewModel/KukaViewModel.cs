@@ -8,6 +8,7 @@ using miRobotEditor.Commands;
 using miRobotEditor.Controls;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Languages;
+using robot_editor.Interfaces;
 
 namespace miRobotEditor.ViewModel
 {
@@ -211,7 +212,7 @@ namespace miRobotEditor.ViewModel
 
         #region Properties
 
-        private Editor _data = new Editor();
+        private IEditor _data = new Editor();
 
         private ExtendedGridSplitter _grid = new ExtendedGridSplitter();
         private int _gridrow = 1;
@@ -238,7 +239,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public Editor Data
+        public IEditor Data
         {
             get { return _data; }
             set

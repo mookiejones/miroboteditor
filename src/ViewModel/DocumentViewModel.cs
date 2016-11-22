@@ -16,6 +16,7 @@ using miRobotEditor.Classes;
 using miRobotEditor.Commands;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Languages;
+using robot_editor.Interfaces;
 
 namespace miRobotEditor.ViewModel
 {
@@ -111,7 +112,7 @@ namespace miRobotEditor.ViewModel
             main.Close(this);
         }
 
-        internal void Save(Editor txtBox)
+        internal void Save(IEditor txtBox)
         {
             if (txtBox.Filename == null)
             {
@@ -131,7 +132,7 @@ namespace miRobotEditor.ViewModel
 
         #region Properties
 
-        private AbstractLanguageClass _filelanguage = new LanguageBase();
+        private ILanguageClass _filelanguage = new LanguageBase();
         private Editor _textBox = new Editor();
         private Visibility _visibility = Visibility.Visible;
 
@@ -147,7 +148,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public AbstractLanguageClass FileLanguage
+        public ILanguageClass FileLanguage
         {
             get { return _filelanguage; }
             set

@@ -1,4 +1,30 @@
-﻿using System;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Collections.ObjectModel;
+//using System.ComponentModel;
+//using System.Diagnostics;
+//using System.IO;
+//using System.Text.RegularExpressions;
+//using System.Threading;
+//using System.Windows;
+//using System.Windows.Controls;
+//using GalaSoft.MvvmLight;
+//using ICSharpCode.AvalonEdit.CodeCompletion;
+//using ICSharpCode.AvalonEdit.Document;
+//using ICSharpCode.AvalonEdit.Folding;
+//using ICSharpCode.AvalonEdit.Snippets;
+//using Microsoft.Practices.ServiceLocation;
+//using miRobotEditor.Annotations;
+//using miRobotEditor.Classes;
+//using miRobotEditor.Core;
+//using miRobotEditor.GUI.Editor;
+//using miRobotEditor.Interfaces;
+//using miRobotEditor.ViewModel;
+//using Global = miRobotEditor.Classes.Global;
+//using IDocument = miRobotEditor.ViewModel.IDocument;
+//using Utilities = miRobotEditor.Classes.Utilities;
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,21 +39,23 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
-using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Annotations;
 using miRobotEditor.Classes;
 using miRobotEditor.Core;
 using miRobotEditor.GUI.Editor;
-using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using Global = miRobotEditor.Classes.Global;
-using IDocument = miRobotEditor.ViewModel.IDocument;
-using Utilities = miRobotEditor.Classes.Utilities;
+using Microsoft.Practices.ServiceLocation;
+using robot_editor.Classes;
+using robot_editor.Interfaces;
+using IDocument = robot_editor.Interfaces.IDocument;
+
 
 namespace miRobotEditor.Languages
 {
+    
+
     [Localizable(false)]
-    public abstract class AbstractLanguageClass : ViewModelBase
+    public abstract class AbstractLanguageClass : ViewModelBase,ILanguageClass
     {
         #region Constructors
 
@@ -204,7 +232,7 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Text of _files For searching
         /// </summary>
-        internal string RawText { [UsedImplicitly] private get; set; }
+        public string RawText { [UsedImplicitly] private get; set; }
 
         private static AbstractLanguageClass Instance { [UsedImplicitly] get; set; }
         internal string SourceText { get; private set; }
@@ -217,18 +245,18 @@ namespace miRobotEditor.Languages
         }
 
 // ReSharper disable once UnusedMember.Global
-        protected string Intellisense
+        public string Intellisense
         {
             get { return String.Concat(RobotType.ToString(), "Intellisense.xml"); }
         }
 
 // ReSharper disable once UnusedMember.Global
-        protected string SnippetFilePath
+        public string SnippetFilePath
         {
             get { return String.Concat(RobotType.ToString(), "Snippets.xml"); }
         }
 
-        internal string Filename { get; set; }
+        public string Filename { get; set; }
 
         protected string ConfigFilePath
         {
@@ -378,7 +406,7 @@ namespace miRobotEditor.Languages
         internal abstract string FunctionItems { get; }
 
         internal abstract IList<ICompletionData> CodeCompletion { get; }
-        internal abstract AbstractFoldingStrategy FoldingStrategy { get; set; }
+        public abstract AbstractFoldingStrategy FoldingStrategy { get; set; }
         internal abstract bool IsFileValid(System.IO.FileInfo file);
 
         #endregion
@@ -397,7 +425,7 @@ namespace miRobotEditor.Languages
         public abstract string ExtractXYZ(string positionstring);
         //TODO Need to figure a way to use multiple extensions
 
-        internal abstract string FoldTitle(FoldingSection section, TextDocument doc);
+        public abstract string FoldTitle(FoldingSection section, TextDocument doc);
 
         #endregion
 
@@ -637,7 +665,7 @@ namespace miRobotEditor.Languages
         }
 
 // ReSharper disable UnusedParameter.Local
-        private string ShiftProgram(Editor doc, ShiftViewModel shift)
+        private string ShiftProgram(IEditor doc, ShiftViewModel shift)
 // ReSharper restore UnusedParameter.Local
         {
             //TODO: Need to put all of this into a thread.

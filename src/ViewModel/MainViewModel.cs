@@ -17,6 +17,7 @@ using miRobotEditor.Forms;
 using miRobotEditor.Languages;
 using miRobotEditor.Pads;
 using miRobotEditor.Properties;
+using robot_editor.Interfaces;
 using Xceed.Wpf.AvalonDock.Layout;
 using RelayCommand = miRobotEditor.Commands.RelayCommand;
 

@@ -119,7 +119,7 @@ namespace miRobotEditor.Languages
             return EXT.Any(e => file.Extension.ToLower() == e);
         }
 
-        internal override string FoldTitle(FoldingSection section, TextDocument doc)
+        public override string FoldTitle(FoldingSection section, TextDocument doc)
         {
             string[] s = Regex.Split(section.Title, "æ");
             int start = section.StartOffset;

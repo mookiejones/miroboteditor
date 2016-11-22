@@ -1,0 +1,5 @@
+.vs/
+*.suo
+packages/
+src/[Bb]in/
+src/[Oo]bj/

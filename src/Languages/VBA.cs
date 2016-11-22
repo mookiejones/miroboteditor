@@ -93,7 +93,7 @@ namespace miRobotEditor.Languages
 
         #region Folding Section
 
-        internal override string FoldTitle(FoldingSection section, TextDocument doc)
+        public override string FoldTitle(FoldingSection section, TextDocument doc)
         {
             string[] s = Regex.Split(section.Title, "æ");
 

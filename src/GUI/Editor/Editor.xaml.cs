@@ -37,7 +37,10 @@ using miRobotEditor.Core;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.ViewModel;
+using robot_editor.Classes;
+using robot_editor.Interfaces;
 using Global = miRobotEditor.Classes.Global;
+
 using Utilities = miRobotEditor.Classes.Utilities;
 
 namespace miRobotEditor.GUI.Editor
@@ -47,7 +50,7 @@ namespace miRobotEditor.GUI.Editor
     /// </summary>
     [Localizable(false)]
 // ReSharper disable RedundantExtendsListEntry
-    public sealed partial class Editor : TextEditor, INotifyPropertyChanged
+    public sealed partial class Editor : TextEditor, INotifyPropertyChanged,IEditor
 // ReSharper restore RedundantExtendsListEntry
     {
         #region Constructor
@@ -78,7 +81,7 @@ namespace miRobotEditor.GUI.Editor
         private readonly ObservableCollection<IVariable> _variables = new ObservableCollection<IVariable>();
         private EDITORTYPE _editortype;
         private string _fileSave = string.Empty;
-        private AbstractLanguageClass _filelanguage = new LanguageBase();
+        private ILanguageClass _filelanguage = new LanguageBase();
         private String _filename = string.Empty;
         private IVariable _selectedVariable;
 
@@ -142,7 +145,7 @@ namespace miRobotEditor.GUI.Editor
             }
         }
 
-        public AbstractLanguageClass FileLanguage
+        public ILanguageClass FileLanguage
         {
             get { return _filelanguage; }
             set
