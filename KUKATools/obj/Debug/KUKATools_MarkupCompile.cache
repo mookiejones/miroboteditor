@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Programming\svn\miroboteditor\KUKATools\obj\Debug\
+C:\Temp\miroboteditor\KUKATools\obj\Debug\
 KUKATools
 none
 false
 DEBUG;TRACE
-C:\Programming\svn\miroboteditor\KUKATools\App.xaml
+C:\Temp\miroboteditor\KUKATools\App.xaml
 2-1146844366
 
-9143744785
+131051622325
 12-1401562060
 MainWindow.xaml;Windows\LoginInfoWindow.xaml;
 
-False
+True
 

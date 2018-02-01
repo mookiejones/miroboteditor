@@ -918,12 +918,6 @@
       <DefaultIcon>Images\editor.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\robot_editor\robot_editor\robot_editor.csproj">
-      <Project>{c1e746a2-eb3e-44c3-90d9-949e471c43f9}</Project>
-      <Name>robot_editor</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7A1358C2-D036-4AD9-A73C-3394E718A35A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InlineFormParser</RootNamespace>
+    <AssemblyName>InlineFormParser</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\ApplicationEnvironment.cs" />
+    <Compile Include="Common\Attributes\AdeComponentAttribute.cs" />
+    <Compile Include="Common\Attributes\AutoNotifyInfo.cs" />
+    <Compile Include="Common\Attributes\AutoNotifyPropertyDictionary.cs" />
+    <Compile Include="Common\Attributes\CanBeNullAttribute.cs" />
+    <Compile Include="Common\Attributes\DependsOnPropertyCollection.cs" />
+    <Compile Include="Common\Attributes\NotNullAttribute.cs" />
+    <Compile Include="Common\Attributes\PropertyDependsOnAttribute.cs" />
+    <Compile Include="Common\Attributes\UsesAutoNotifyAttribute.cs" />
+    <Compile Include="Common\IApplicationEnvironment.cs" />
+    <Compile Include="Common\KRCInstallationType.cs" />
+    <Compile Include="Common\ResourceAccess\IResourceAccessor.cs" />
+    <Compile Include="Common\ResourceAccess\IndexedAccess.cs" />
+    <Compile Include="Common\ResourceAccess\IIndexedResourceAccessor.cs" />
+    <Compile Include="Common\LockHandling\ILockCondition.cs" />
+    <Compile Include="Common\LockHandling\LockCondition.cs" />
+    <Compile Include="Common\Tracing\IPerformanceLogger.cs" />
+    <Compile Include="Common\Tracing\PerformanceLogBracket.cs" />
+    <Compile Include="Common\Tracing\PredefinedTraceSource.cs" />
+    <Compile Include="Common\Tracing\PrettyTraceSource.cs" />
+    <Compile Include="Common\Tracing\TraceSourceCounters.cs" />
+    <Compile Include="Common\Tracing\TraceSourceFactory.cs" />
+    <Compile Include="Common\VersionInfoElement.cs" />
+    <Compile Include="Controls\DelayedButton.cs" />
+    <Compile Include="Controls\InputValidateTextBox.cs" />
+    <Compile Include="Controls\TextBoxUpdater.cs" />
+    <Compile Include="Exceptions\StartupCheckFailedException.cs" />
+    <Compile Include="Misc\ArrayHelpers.cs" />
+    <Compile Include="Misc\DoubleUtil.cs" />
+    <Compile Include="Misc\WeakEvent.cs" />
+    <Compile Include="Model\AdeComponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\AdeComponentConfiguration.cs" />
+    <Compile Include="Model\AdeComponentConfigurationListItem.cs" />
+    <Compile Include="Model\AdeException.cs" />
+    <Compile Include="Model\AdornedElementPlaceholderExt.cs" />
+    <Compile Include="Model\BoolField.cs" />
+    <Compile Include="Model\CheckCanCloseArgument.cs" />
+    <Compile Include="Model\ClosingKeys.cs" />
+    <Compile Include="Model\Command.cs" />
+    <Compile Include="Model\CommandCall.cs" />
+    <Compile Include="Model\CommandCallArgument.cs" />
+    <Compile Include="Model\CommandStates.cs" />
+    <Compile Include="Model\CommonResourceAccessor.cs" />
+    <Compile Include="Model\ComponentResourceAccessor.cs" />
+    <Compile Include="Model\ConfigurationHelpers.cs" />
+    <Compile Include="Model\CultureChangedEventArgs.cs" />
+    <Compile Include="Model\CultureSwitch.cs" />
+    <Compile Include="Model\CultureSwitchListenerPriority.cs" />
+    <Compile Include="Model\CurrentFieldIndexChangedArgument.cs" />
+    <Compile Include="Model\CurrentFieldIndexChangedEventArgs.cs" />
+    <Compile Include="Model\CustomContentWrapper.cs" />
+    <Compile Include="Model\DefaultPopupAdapter.cs" />
+    <Compile Include="Model\DiagModuleElement.cs" />
+    <Compile Include="Model\DialogAnswer.cs" />
+    <Compile Include="Model\DialogBase.cs" />
+    <Compile Include="Model\DisplayClosedItselfEventArgs.cs" />
+    <Compile Include="Model\DisplayEventArgs.cs" />
+    <Compile Include="Model\DisplaySource.cs" />
+    <Compile Include="Model\FallbackStrategy.cs" />
+    <Compile Include="Model\Field.cs" />
+    <Compile Include="Model\FieldIdType.cs" />
+    <Compile Include="Model\FieldInfoControl.cs" />
+    <Compile Include="Model\FieldPopupKeyboardAdapter.cs" />
+    <Compile Include="Model\FieldValueChangingArgument.cs" />
+    <Compile Include="Model\FieldValueChangingEventArgs.cs" />
+    <Compile Include="Model\FileSource.cs" />
+    <Compile Include="Model\FileSystemSource.cs" />
+    <Compile Include="Model\FloatField.cs" />
+    <Compile Include="Model\FloatingDisplayAlignment.cs" />
+    <Compile Include="Model\FloatingDisplayParameters.cs" />
+    <Compile Include="Model\FrameworkResourceAccessor.cs" />
+    <Compile Include="Model\FreeField.cs" />
+    <Compile Include="Model\GetActualValuesArgument.cs" />
+    <Compile Include="Model\GetCurrentFieldIndexArgument.cs" />
+    <Compile Include="Model\GlobalStateChangedEventArgs.cs" />
+    <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\GroupIdType.cs" />
+    <Compile Include="Model\Helpers.cs" />
+    <Compile Include="Model\IAddChild.cs" />
+    <Compile Include="Model\IAdeCommandProvider.cs" />
+    <Compile Include="Model\IAdeComponentFramework.cs" />
+    <Compile Include="Model\IAdeConfigSection.cs" />
+    <Compile Include="Model\IAdeConfigSectionList.cs" />
+    <Compile Include="Model\IAdeConfigurationService.cs" />
+    <Compile Include="Model\ICanIncDec.cs" />
+    <Compile Include="Model\ICheckableCommand.cs" />
+    <Compile Include="Model\ICommandArgument.cs" />
+    <Compile Include="Model\ICommandInfo.cs" />
+    <Compile Include="Model\ICommandManager.cs" />
+    <Compile Include="Model\ICommonResourceService2.cs" />
+    <Compile Include="Model\IContentFrame.cs" />
+    <Compile Include="Model\IDialogHandler.cs" />
+    <Compile Include="Model\IDialogService.cs" />
+    <Compile Include="Model\IField.cs" />
+    <Compile Include="Model\IFloatingDisplay.cs" />
+    <Compile Include="Model\IFloatingDisplayProvider.cs" />
+    <Compile Include="Model\IGlobalState.cs" />
+    <Compile Include="Model\IGlobalStateProvider.cs" />
+    <Compile Include="Model\IGroup.cs" />
+    <Compile Include="Model\IHasUserInputs.cs" />
+    <Compile Include="Model\IInlineFormFactory.cs" />
+    <Compile Include="Model\IInputControl.cs" />
+    <Compile Include="Model\IListField.cs" />
+    <Compile Include="Model\IListFieldItem.cs" />
+    <Compile Include="Model\ILoadedModule.cs" />
+    <Compile Include="Model\ILogicalDisplayProvider.cs" />
+    <Compile Include="Model\IModuleElement.cs" />
+    <Compile Include="Model\InlineForm.cs" />
+    <Compile Include="Model\InlineFormBase.cs" />
+    <Compile Include="Controls\InlineFormControl.cs" />
+    <Compile Include="Model\InlineFormFactoryImpl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\InlineFormNotificationCode.cs" />
+    <Compile Include="Model\InlineFormPopupKeyboardAdapter.cs" />
+    <Compile Include="Model\InlineFormWrapper.cs" />
+    <Compile Include="Model\InvalidConfigFileException.cs" />
+    <Compile Include="Model\IOwnedGlobalState.cs" />
+    <Compile Include="Model\IParameterList.cs" />
+    <Compile Include="Model\IParameterListField.cs" />
+    <Compile Include="Model\IPopupManager.cs" />
+    <Compile Include="Model\IStartupCheckable.cs" />
+    <Compile Include="Model\IValueField.cs" />
+    <Compile Include="Model\IViewConfiguration.cs" />
+    <Compile Include="Model\IViewManager.cs" />
+    <Compile Include="Model\IViewModel.cs" />
+    <Compile Include="Model\IVisualGroup.cs" />
+    <Compile Include="Model\KxrReader.cs" />
+    <Compile Include="Model\LimitedStringFieldBase.cs" />
+    <Compile Include="Model\ListField.cs" />
+    <Compile Include="Model\ListFieldItem.cs" />
+    <Compile Include="Model\ListItemIdType.cs" />
+    <Compile Include="Model\LoadedModule.cs" />
+    <Compile Include="Model\LockManager.cs" />
+    <Compile Include="Model\LogicalDisplay.cs" />
+    <Compile Include="Model\LowLevelMouseClickEventArgs.cs" />
+    <Compile Include="Model\MessageBoxButtons.cs" />
+    <Compile Include="Model\MessageBoxSymbol.cs" />
+    <Compile Include="Model\MessageType.cs" />
+    <Compile Include="Model\ModelElement.cs" />
+    <Compile Include="Model\NameField.cs" />
+    <Compile Include="Model\NumberField.cs" />
+    <Compile Include="Model\NumericFieldBase.cs" />
+    <Compile Include="Model\ParameterList.cs" />
+    <Compile Include="Model\ParamListField.cs" />
+    <Compile Include="Model\PopupAdapter.cs" />
+    <Compile Include="Model\PopupCallback.cs" />
+    <Compile Include="Model\PopupEvent.cs" />
+    <Compile Include="Model\PopupKeyboardTypes.cs" />
+    <Compile Include="Model\PositionMode.cs" />
+    <Compile Include="Model\PropertyPathReflector.cs" />
+    <Compile Include="Model\ReflectableUserControlAutomationPeer.cs" />
+    <Compile Include="Model\RequestingStateOwnerEventArgs.cs" />
+    <Compile Include="Model\RequestParameterListArgument.cs" />
+    <Compile Include="Model\RequestParameterListEventArgs.cs" />
+    <Compile Include="Model\ResourceAccessorBase.cs" />
+    <Compile Include="Model\RootElementBase.cs" />
+    <Compile Include="Common\LockHandling\SimpleLockCondition.cs" />
+    <Compile Include="Model\RuntimeClient.cs" />
+    <Compile Include="Model\SectionChangedEventArgs.cs" />
+    <Compile Include="Model\SectionChangedEventHandler.cs" />
+    <Compile Include="Model\ServiceNotFoundException.cs" />
+    <Compile Include="Model\StateCondition.cs" />
+    <Compile Include="Model\StaticField.cs" />
+    <Compile Include="Model\StringFieldBase.cs" />
+    <Compile Include="Model\TabControlExtension.cs" />
+    <Compile Include="Model\TemplatedAdorner.cs" />
+    <Compile Include="Model\TextEntry.cs" />
+    <Compile Include="Model\TextEntryMap.cs" />
+    <Compile Include="Model\TitleField.cs" />
+    <Compile Include="Model\TouchableDevicePopupAdapter.cs" />
+    <Compile Include="Model\Tracing.cs" />
+    <Compile Include="Model\UserControlBase.cs" />
+    <Compile Include="Model\ValueFieldBase.cs" />
+    <Compile Include="Model\ViewConnectionChangedEventArgs.cs" />
+    <Compile Include="Model\VisualGroup.cs" />
+    <Compile Include="Model\WPFInputControl.cs" />
+    <Compile Include="Model\ZipSource.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\PropertyChangedNotifier.cs" />
+    <Compile Include="Zip\AddOrUpdateAction.cs" />
+    <Compile Include="Zip\AddProgressEventArgs.cs" />
+    <Compile Include="Zip\Adler.cs" />
+    <Compile Include="Zip\AttributesCriterion.cs" />
+    <Compile Include="Zip\BadCrcException.cs" />
+    <Compile Include="Zip\BadPasswordException.cs" />
+    <Compile Include="Zip\BadReadException.cs" />
+    <Compile Include="Zip\BadStateException.cs" />
+    <Compile Include="Zip\BlockState.cs" />
+    <Compile Include="Zip\ComparisonOperator.cs" />
+    <Compile Include="Zip\CompoundCriterion.cs" />
+    <Compile Include="Zip\CompressionLevel.cs" />
+    <Compile Include="Zip\CompressionMethod.cs" />
+    <Compile Include="Zip\CompressionMode.cs" />
+    <Compile Include="Zip\CompressionStrategy.cs" />
+    <Compile Include="Zip\CountingStream.cs" />
+    <Compile Include="Zip\CRC32.cs" />
+    <Compile Include="Zip\CrcCalculatorStream.cs" />
+    <Compile Include="Zip\CryptoMode.cs" />
+    <Compile Include="Zip\DeflateFlavor.cs" />
+    <Compile Include="Zip\DeflateManager.cs" />
+    <Compile Include="Zip\DeflateStream.cs" />
+    <Compile Include="Zip\EncryptionAlgorithm.cs" />
+    <Compile Include="Zip\EnumUtil.cs" />
+    <Compile Include="Zip\ExtractExistingFileAction.cs" />
+    <Compile Include="Zip\ExtractProgressEventArgs.cs" />
+    <Compile Include="Zip\FileSelector.cs" />
+    <Compile Include="Zip\FlushType.cs" />
+    <Compile Include="Zip\GZipStream.cs" />
+    <Compile Include="Zip\InflateBlocks.cs" />
+    <Compile Include="Zip\InflateCodes.cs" />
+    <Compile Include="Zip\InflateManager.cs" />
+    <Compile Include="Zip\InfTree.cs" />
+    <Compile Include="Zip\InternalConstants.cs" />
+    <Compile Include="Zip\InternalInflateConstants.cs" />
+    <Compile Include="Zip\LogicalConjunction.cs" />
+    <Compile Include="Zip\NameCriterion.cs" />
+    <Compile Include="Zip\OffsetStream.cs" />
+    <Compile Include="Zip\ParallelDeflateOutputStream.cs" />
+    <Compile Include="Zip\ReadOptions.cs" />
+    <Compile Include="Zip\ReadProgressEventArgs.cs" />
+    <Compile Include="Zip\SaveProgressEventArgs.cs" />
+    <Compile Include="Zip\SelectionCriterion.cs" />
+    <Compile Include="Zip\SelfExtractorFlavor.cs" />
+    <Compile Include="Zip\SelfExtractorSaveOptions.cs" />
+    <Compile Include="Zip\SfxGenerationException.cs" />
+    <Compile Include="Zip\SharedUtilities.cs" />
+    <Compile Include="Zip\SharedUtils.cs" />
+    <Compile Include="Zip\SizeCriterion.cs" />
+    <Compile Include="Zip\StaticTree.cs" />
+    <Compile Include="Zip\TimeCriterion.cs" />
+    <Compile Include="Zip\Tree.cs" />
+    <Compile Include="Zip\TypeCriterion.cs" />
+    <Compile Include="Zip\WhichTime.cs" />
+    <Compile Include="Zip\WorkItem.cs" />
+    <Compile Include="Zip\Zip64Option.cs" />
+    <Compile Include="Zip\ZipCipherStream.cs" />
+    <Compile Include="Zip\ZipContainer.cs" />
+    <Compile Include="Zip\ZipCrypto.cs" />
+    <Compile Include="Zip\ZipEntry.cs" />
+    <Compile Include="Zip\ZipEntrySource.cs" />
+    <Compile Include="Zip\ZipEntryTimestamp.cs" />
+    <Compile Include="Zip\ZipErrorAction.cs" />
+    <Compile Include="Zip\ZipErrorEventArgs.cs" />
+    <Compile Include="Zip\ZipException.cs" />
+    <Compile Include="Zip\ZipFile.cs" />
+    <Compile Include="Zip\ZipInputStream.cs" />
+    <Compile Include="Zip\ZipOption.cs" />
+    <Compile Include="Zip\ZipOutput.cs" />
+    <Compile Include="Zip\ZipOutputStream.cs" />
+    <Compile Include="Zip\ZipProgressEventArgs.cs" />
+    <Compile Include="Zip\ZipProgressEventType.cs" />
+    <Compile Include="Zip\ZipSegmentedStream.cs" />
+    <Compile Include="Zip\ZlibBaseStream.cs" />
+    <Compile Include="Zip\ZlibCodec.cs" />
+    <Compile Include="Zip\ZlibException.cs" />
+    <Compile Include="Zip\ZlibStreamFlavor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
