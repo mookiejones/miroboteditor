@@ -1,6 +1,0 @@
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ReadZip\obj\Debug\ReadZip.csprojResolveAssemblyReference.cache
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ReadZip\bin\Debug\ReadZip.exe
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ReadZip\bin\Debug\ReadZip.pdb
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ReadZip\bin\Debug\Ionic.Zip.dll
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ReadZip\obj\Debug\ReadZip.exe
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\ReadZip\obj\Debug\ReadZip.pdb

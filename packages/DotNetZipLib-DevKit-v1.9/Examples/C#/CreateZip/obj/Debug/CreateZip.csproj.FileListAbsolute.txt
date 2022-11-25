@@ -1,8 +1,0 @@
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\CreateZip\obj\Debug\CreateZip.csprojResolveAssemblyReference.cache
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\CreateZip\bin\Debug\CreateZip.exe
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\CreateZip\bin\Debug\CreateZip.pdb
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\CreateZip\bin\Debug\Ionic.Zip.dll
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\CreateZip\bin\Debug\Ionic.Zip.pdb
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\CreateZip\bin\Debug\Ionic.Zip.xml
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\CreateZip\obj\Debug\CreateZip.exe
-C:\Users\cberman\Downloads\DotNetZipLib-DevKit-v1.9\Examples\C#\CreateZip\obj\Debug\CreateZip.pdb

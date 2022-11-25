@@ -1,8 +1,0 @@
-C:\Temp\miroboteditor\InlineFormParser\InlineFormParser\InlineFormParser\bin\Debug\InlineFormParser.dll
-C:\Temp\miroboteditor\InlineFormParser\InlineFormParser\InlineFormParser\bin\Debug\InlineFormParser.pdb
-C:\Temp\miroboteditor\InlineFormParser\InlineFormParser\InlineFormParser\obj\Debug\InlineFormParser.csprojResolveAssemblyReference.cache
-C:\Temp\miroboteditor\InlineFormParser\InlineFormParser\InlineFormParser\obj\Debug\InlineFormParser.csproj.CoreCompileInputs.cache
-C:\Temp\miroboteditor\InlineFormParser\InlineFormParser\InlineFormParser\obj\Debug\InlineFormParser.dll
-C:\Temp\miroboteditor\InlineFormParser\InlineFormParser\InlineFormParser\obj\Debug\InlineFormParser.pdb
-C:\Temp\miroboteditor\InlineFormParser\InlineFormParser\InlineFormParser\obj\Debug\InlineFormParser.Properties.Resources.resources
-C:\Temp\miroboteditor\InlineFormParser\InlineFormParser\InlineFormParser\obj\Debug\InlineFormParser.csproj.GenerateResource.Cache

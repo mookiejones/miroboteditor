@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="miRobotEditor.exe" version="1.0.0.9" publicKeyToken="c7f517c594e885be" language="en" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="Images\editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="miRobotEditor" version="0.0.0.1759" language="neutral" processorArchitecture="msil" />
+    <commandLine file="miRobotEditor.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet version="1" class="System.Security.NamedPermissionSet" Name="LocalIntranet" Description="Default rights given to applications on the local intranet" Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- UAC Manifest Options
+            If you want to change the Windows User Account Control level replace the 
+            requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            Specifying requestedExecutionLevel node will disable file and registry virtualization.
+            If you want to utilize File and Registry Virtualization for backward 
+            compatibility then delete the requestedExecutionLevel node.
+        -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GalaSoft.MvvmLight.dll" size="29184">
+      <assemblyIdentity name="GalaSoft.MvvmLight" version="4.4.32.39728" publicKeyToken="EABBF6A5F5AF5004" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>GpeG7UqQVwvf2Mb7dCndvF+PhTTRZil6E38VgWOb8+M=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GalaSoft.MvvmLight.Extras.dll" size="25600">
+      <assemblyIdentity name="GalaSoft.MvvmLight.Extras" version="4.4.32.39728" publicKeyToken="0E27B6F8BE9B2EF7" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>4KwhPTc1vm/M0Ykw/cuYGU1KlefFxN3YwtKLNl8yl6A=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ICSharpCode.AvalonEdit.dll" size="602112">
+      <assemblyIdentity name="ICSharpCode.AvalonEdit" version="5.0.1.0" publicKeyToken="9CC39BE672370310" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>mnGzWXrdfqmxPMOyBk+X8Dbdzpl+gb714Kd/iIrYogI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Ionic.Zip.dll" size="462848">
+      <assemblyIdentity name="Ionic.Zip" version="1.9.3.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>N8cOc3F/p33L29B5fKy0q2YyxPUvCQsIGWjH4eAOJbk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MahApps.Metro.dll" size="801792">
+      <assemblyIdentity name="MahApps.Metro" version="0.15.0.29" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>7FEkxrPPdwiLNO2G9YX8OzATPUvUz4OKmkq8xAOGyf0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.Practices.ServiceLocation.dll" size="18112">
+      <assemblyIdentity name="Microsoft.Practices.ServiceLocation" version="1.3.0.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>NABdaoBDRUJ4DG0ZLmq9B76kmy7rfkP7/f6QwoiZhuU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1447424">
+      <assemblyIdentity name="miRobotEditor" version="0.0.0.1759" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>TKOOs32EHofaUb+/loxJlDbQXsKc/GCTtbyGsP7N7Pk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Windows.Interactivity.dll" size="55880">
+      <assemblyIdentity name="System.Windows.Interactivity" version="4.5.0.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>M7AGuwOLBusi8Zwdwfi6GpJkeq91F6sqqZzFPd0zbF0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Xceed.Wpf.AvalonDock.dll" size="429056">
+      <assemblyIdentity name="Xceed.Wpf.AvalonDock" version="2.2.0.0" publicKeyToken="3E4669D2F30244F4" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>UoAQBXjup96CUY2hYIe2CJGuJpXVJDW3TpbxI5UqteY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Xceed.Wpf.AvalonDock.Themes.Aero.dll" size="86016">
+      <assemblyIdentity name="Xceed.Wpf.AvalonDock.Themes.Aero" version="2.2.0.0" publicKeyToken="3E4669D2F30244F4" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>HMPj0vCTAI2w9TBSM8arAuLXYITyXlbPWnDueLVnRuc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Xceed.Wpf.AvalonDock.Themes.Metro.dll" size="79360">
+      <assemblyIdentity name="Xceed.Wpf.AvalonDock.Themes.Metro" version="2.2.0.0" publicKeyToken="3E4669D2F30244F4" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>O+inH3BNHAEVd6Rk6VG7GL+pml9MhttEQAOcwEfAQd8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" size="83456">
+      <assemblyIdentity name="Xceed.Wpf.AvalonDock.Themes.VS2010" version="2.2.0.0" publicKeyToken="3E4669D2F30244F4" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>sLEmdAj9vT1razU4LXmlbbc2ou6u2b66t4vooZ+ifag=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Xceed.Wpf.DataGrid.dll" size="2000384">
+      <assemblyIdentity name="Xceed.Wpf.DataGrid" version="2.2.0.0" publicKeyToken="3E4669D2F30244F4" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>rM7ooubMOZ0XET8QUgKBozghC1o0UmarxsZxw1DyoL0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Xceed.Wpf.Toolkit.dll" size="996864">
+      <assemblyIdentity name="Xceed.Wpf.Toolkit" version="2.2.0.0" publicKeyToken="3E4669D2F30244F4" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>edQka7IaFeyyF0G/iRmYqqeVdlTnWW90WLUpzE39tvw=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Images\editor.ico" size="149723">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>b2kXyTwtmRnhRLSPC8zA+gTA3PDtzPBL7NeQMAAzBQc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\kuka.ico" size="149723">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>b2kXyTwtmRnhRLSPC8zA+gTA3PDtzPBL7NeQMAAzBQc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="miRobotEditor.exe.config" size="2431">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>QKvUKIQxY4inKSiwKj7ewtA1JhHpP6SJfSeTEZgaXIc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <fileAssociation extension=".dat" description="Kuka Data File" progid="1" defaultIcon="Images\kuka.ico" xmlns="urn:schemas-microsoft-com:clickonce.v1" />
+  <fileAssociation extension=".src" description="KUKA Source File" progid="1" defaultIcon="Images\kuka.ico" xmlns="urn:schemas-microsoft-com:clickonce.v1" />
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- A list of all Windows versions that this application is designed to work with. 
+      Windows will automatically select the most compatible environment.-->
+      <!-- If your application is designed to work with Windows Vista, uncomment the following supportedOS node-->
+      <supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}" />
+      <!-- If your application is designed to work with Windows 7, uncomment the following supportedOS node-->
+      <supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}" />
+      <!-- If your application is designed to work with Windows 8, uncomment the following supportedOS node-->
+      -<supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}" /><!-- If your application is designed to work with Windows 8.1, uncomment the following supportedOS node--><supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}" /></application>
+  </compatibility>
+<publisherIdentity name="CN=US\cberman" issuerKeyHash="5664476a36cfa1eb773d6bb5d2d280d247513976" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>4CIuHb7DMlpU2fGQRZrhgd30IIhn7KhmV1EGA4WHDss=</DigestValue></Reference></SignedInfo><SignatureValue>sjbUx174tZHcwSk/RVMYM5e9rfWuvEHKcunu30NTN3/SssTLKd1LmF+OZTHL4Y6lxYq0JtoR97Yp30yZKhJEUx2FYh/GzOLPjx2mZn/FuwGggeKejbDCqLdgw+ta8B7uDS1B4tvlrbMMNv0jFa4bGBJwhyOb6ebOy00Z0LQTOqI=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>svbuDLYxHCQ2ZMCIMnStLA6Djg0PYLwjgnSJBdQDet7rlB02GVb4McDXdzMtyh/pxC9WAJcCcdXhoX7mhzAP9/6nn3WqRzwhN1kkOQFJN6ovqdC7LAZlLJETSP3xVC7HtkU/j1MRXCrT80gYMlatbrX9TFgo4lPVm0a0k73KvE8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="cb0e87850306515766a8ec678820f4dd81e19a4590f1d9545a32c3be1d2e22e0" Description="" Url=""><as:assemblyIdentity name="miRobotEditor.exe" version="1.0.0.9" publicKeyToken="c7f517c594e885be" language="en" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=US\cberman</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>4lzgSekxsDAbVvVp1wH9b7Rxepo57XfBSX1Zu2GC2jk=</DigestValue></Reference></SignedInfo><SignatureValue>VzYAm0gy6IfTYV4/WNTL1XtChsPR6VJijpbpYmocOEfJgr+BZOr58+Qt0D8KxSe1LHMNA0oBi9elsTdH8BrMZb04xKWJb10h9o6czeKl8AgjlN5V8vYbrb8mMn06C4qbWouczJeHFAU7KTFZIwQDxyWEC+1YO3CJdW4DU7kZc+g=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>svbuDLYxHCQ2ZMCIMnStLA6Djg0PYLwjgnSJBdQDet7rlB02GVb4McDXdzMtyh/pxC9WAJcCcdXhoX7mhzAP9/6nn3WqRzwhN1kkOQFJN6ovqdC7LAZlLJETSP3xVC7HtkU/j1MRXCrT80gYMlatbrX9TFgo4lPVm0a0k73KvE8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBwTCCASqgAwIBAgIQeJWt4MwQ+69Di6AfWnr1uTANBgkqhkiG9w0BAQsFADAfMR0wGwYDVQQDHhQAVQBTAFwAYwBiAGUAcgBtAGEAbjAeFw0xNDA5MTcyMDMwMzlaFw0xNTA5MTgwMjMwMzlaMB8xHTAbBgNVBAMeFABVAFMAXABjAGIAZQByAG0AYQBuMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCy9u4MtjEcJDZkwIgydK0sDoOODQ9gvCOCdIkF1AN63uuUHTYZVvgxwNd3My3KH+nEL1YAlwJx1eGhfuaHMA/3/qefdapHPCE3WSQ5AUk3qi+p0LssBmUskRNI/fFULse2RT+PUxFcKtPzSBgyVq1utf1MWCjiU9WbRrSTvcq8TwIDAQABMA0GCSqGSIb3DQEBCwUAA4GBAFXi0CRUdfeRExBQuD5TcwZp27asBetiNCE+oOM5i1FMk3nPMq2+eKk2av+4g/rch9CviV04UkLhSq11sTgtgGs5RKrtq/nrVJA79j4FkRMkZnZH09AQmpdbXWP08JkOUIao8DLCgkUzbH1NzeQBr3XN1o5S7ph1gaFu+ndiRctt</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
