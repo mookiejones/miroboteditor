@@ -78,7 +78,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             LoadExtension(headerElement);
         }
 
-    
+
         private void LoadExtension(XElement headerElement)
         {
             if (headerElement == null)

@@ -1,5 +1,5 @@
-using System;
 using miRobotEditor.Controls.AngleConverter.Exceptions;
+using System;
 
 namespace miRobotEditor.Controls.AngleConverter.Classes
 {
@@ -145,7 +145,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             }
             l.SetColumn(0, base.GetColumn(0));
             u.SetRow(0, base.GetRow(0));
-            u.MultiplyRow(0, 1.0/base[0, 0]);
+            u.MultiplyRow(0, 1.0 / base[0, 0]);
             for (var i = 1; i < Size; i++)
             {
                 var array = new Vector[Size];
@@ -175,7 +175,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                         {
                             throw new MatrixException("Unable to decompose matrix");
                         }
-                        u[i, m] = (base[i, m] - Vector.Dot(array[i], array2[m]))/l[i, i];
+                        u[i, m] = (base[i, m] - Vector.Dot(array[i], array2[m])) / l[i, i];
                     }
                 }
             }
@@ -211,7 +211,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             Matrix matrix = new SquareMatrix(this);
             for (var i = 1; i < power; i++)
             {
-                matrix = this*matrix;
+                matrix = this * matrix;
             }
             return new SquareMatrix(matrix);
         }

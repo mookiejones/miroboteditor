@@ -1,7 +1,7 @@
-using System;
-using System.ComponentModel;
 using miRobotEditor.Controls.AngleConverter.Classes;
 using miRobotEditor.Controls.AngleConverter.Interfaces;
+using System;
+using System.ComponentModel;
 
 namespace miRobotEditor.Classes
 {
@@ -26,7 +26,7 @@ namespace miRobotEditor.Classes
 
         public Point3D GetPoint(double u)
         {
-            var vec = new Vector3D(u*Direction);
+            var vec = new Vector3D(u * Direction);
             return Origin + vec;
         }
 

@@ -26,7 +26,7 @@
         <TabControl Name="Items" VerticalAlignment="Stretch">
             <TabItem Header="Functions">
                 <DataGrid IsReadOnly="True" Style="{StaticResource DataGridStyle}"
-                          ColumnHeaderStyle="{StaticResource DataGridHeaderGlassEffect}"
+                           
                           ItemsSource="{Binding Functions}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="Auto" IsReadOnly="True">

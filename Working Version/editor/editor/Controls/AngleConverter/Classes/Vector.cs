@@ -1,5 +1,5 @@
-using System;
 using miRobotEditor.Controls.AngleConverter.Exceptions;
+using System;
 
 namespace miRobotEditor.Controls.AngleConverter.Classes
 {
@@ -66,7 +66,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Vectors are not of equal size");
             }
-            Matrix matrix = vec1.Transpose()*vec2;
+            Matrix matrix = vec1.Transpose() * vec2;
             return matrix[0, 0];
         }
 
@@ -75,7 +75,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             var num = 0.0;
             for (var i = 0; i < Size; i++)
             {
-                num += this[i]*this[i];
+                num += this[i] * this[i];
             }
             return Math.Sqrt(num);
         }
@@ -86,7 +86,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             for (var i = 0; i < Size; i++)
             {
                 int index;
-                this[index = i] = this[index]/num;
+                this[index = i] = this[index] / num;
             }
         }
 
@@ -111,26 +111,26 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public static Vector operator /(Vector vec, double scalar)
         {
-            return new Vector(vec/scalar);
+            return new Vector(vec / scalar);
         }
 
         public static Vector Divide(Vector vec, double scalar) => new Vector(vec / scalar);
 
         public static Vector operator *(Matrix mat, Vector vec)
         {
-            return new Vector(mat*vec);
+            return new Vector(mat * vec);
         }
 
         public static Vector operator *(Vector vec, double scalar)
         {
-            return new Vector(vec*scalar);
+            return new Vector(vec * scalar);
         }
 
         public static Vector Multiply(Vector vec, double scalar) => new Vector(vec * scalar);
 
         public static Vector operator *(double scalar, Vector vec)
         {
-            return new Vector(scalar*vec);
+            return new Vector(scalar * vec);
         }
 
         public static Vector operator -(Vector v1, Vector v2)

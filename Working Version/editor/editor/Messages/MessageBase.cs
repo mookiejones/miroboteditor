@@ -1,11 +1,11 @@
-﻿using System.Windows.Media.Imaging;
-using miRobotEditor.Classes;
+﻿using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
+using System.Windows.Media.Imaging;
 
 namespace miRobotEditor.Messages
 {
-    public class MessageBase :   IMessage
+    public class MessageBase : IMessage
     {
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace miRobotEditor.Messages
             ForceActivation = force;
         }
 
-        public BitmapImage Icon { get;  set; }
+        public BitmapImage Icon { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public bool ForceActivation { get; set; }

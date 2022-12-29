@@ -1,3 +1,8 @@
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using miRobotEditor.Classes;
+using miRobotEditor.Enums;
+using miRobotEditor.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -5,11 +10,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using miRobotEditor.Classes;
-using miRobotEditor.Enums;
-using miRobotEditor.Interfaces; 
 
 namespace miRobotEditor.ViewModel
 {
@@ -28,11 +28,11 @@ namespace miRobotEditor.ViewModel
             DefaultPane = DefaultToolPane.Bottom;
 
             WeakReferenceMessenger.Default.Register<IMessage>(this, AddMessage);
-           
+
         }
 
         private void AddMessage(object recipient, IMessage message) => _messages.Add(message);
-         
+
 
         #endregion
 
@@ -122,7 +122,7 @@ namespace miRobotEditor.ViewModel
 
         #region SelectedMessage
 
-        
+
 
         private IMessage _selectedMessage;
 
@@ -135,7 +135,7 @@ namespace miRobotEditor.ViewModel
             get => _selectedMessage;
 
             set => SetProperty(ref _selectedMessage, value);
-             
+
         }
 
         #endregion

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using miRobotEditor.Enums;
+﻿using miRobotEditor.Enums;
+using System.ComponentModel;
 
 namespace miRobotEditor.Classes
 {

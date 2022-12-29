@@ -1,3 +1,18 @@
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Snippets;
+using miRobotEditor.Classes;
+using miRobotEditor.Controls.TextEditor;
+using miRobotEditor.Controls.TextEditor.Folding;
+using miRobotEditor.Controls.TextEditor.Language;
+using miRobotEditor.Enums;
+using miRobotEditor.Interfaces;
+using miRobotEditor.Messages;
+using miRobotEditor.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,20 +24,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Folding;
-using ICSharpCode.AvalonEdit.Snippets;
-using miRobotEditor.Abstract;
-using miRobotEditor.Classes;
-using miRobotEditor.Controls.TextEditor;
-using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
-using miRobotEditor.Messages;
-using miRobotEditor.ViewModel;
 using FileInfo = miRobotEditor.Classes.FileInfo;
 using MenuItem = System.Windows.Controls.MenuItem;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -39,7 +40,7 @@ namespace miRobotEditor.Languages
         {
             //TODO Trying out KUKAs folding Strategy
             FoldingStrategy = new RegionFoldingStrategy();
-      //      FoldingStrategy = new KrlFoldingStrategy();
+            //      FoldingStrategy = new KrlFoldingStrategy();
         }
 
         public override void Initialize(string filename) => base.Initialize();
@@ -214,7 +215,7 @@ namespace miRobotEditor.Languages
             return collection;
         }
 
-        public static Editor ReversePath(Editor editor)
+        public static AvalonEditor ReversePath(AvalonEditor editor)
         {
             var collection = new Collection<Collection<string>>();
             for (var i = 0; i <= editor.Document.Lines.Count - 1; i++)

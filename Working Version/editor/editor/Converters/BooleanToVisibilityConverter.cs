@@ -13,7 +13,7 @@ namespace miRobotEditor.Converters
         [Localizable(false)]
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType == typeof (Visibility))
+            if (targetType == typeof(Visibility))
             {
                 var flag = System.Convert.ToBoolean(value, culture);
                 if (InvertVisibility)

@@ -67,7 +67,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public static Vector2D operator /(Vector2D vec, double scalar)
         {
-            return new Vector2D(vec/scalar);
+            return new Vector2D(vec / scalar);
         }
 
         public static Vector2D Divide(Vector2D vec, double scalar) => new Vector2D(vec / scalar);

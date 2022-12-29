@@ -1,7 +1,7 @@
-﻿using System;
+﻿using miRobotEditor.Controls;
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using miRobotEditor.Controls;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using KeyEventHandler = System.Windows.Input.KeyEventHandler;
 using UserControl = System.Windows.Controls.UserControl;

@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using miRobotEditor.Controls.TextEditor.Snippets;
+﻿using miRobotEditor.Controls.TextEditor.Snippets;
+using System.Windows.Controls;
 
 namespace miRobotEditor.Controls
 {

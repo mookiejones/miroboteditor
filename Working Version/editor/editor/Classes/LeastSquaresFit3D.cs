@@ -1,12 +1,12 @@
+using miRobotEditor.Controls.AngleConverter;
+using miRobotEditor.Controls.AngleConverter.Classes;
+using miRobotEditor.Controls.AngleConverter.Exceptions;
+using miRobotEditor.Controls.AngleConverter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using miRobotEditor.Controls.AngleConverter;
-using miRobotEditor.Controls.AngleConverter.Classes;
-using miRobotEditor.Controls.AngleConverter.Exceptions;
-using miRobotEditor.Controls.AngleConverter.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -24,7 +24,7 @@ namespace miRobotEditor.Classes
         {
             get
             {
-                var num = Errors.Sum((double num2) => num2*num2);
+                var num = Errors.Sum((double num2) => num2 * num2);
                 num /= Errors.Count;
                 return Math.Sqrt(num);
             }
@@ -46,7 +46,7 @@ namespace miRobotEditor.Classes
                 var num3 = Distance3D.Between(element, e);
                 Errors.Add(num3);
                 num += num3;
-                num2 += num3*num3;
+                num2 += num3 * num3;
                 if (num3 > MaxError)
                 {
                     MaxError = num3;
@@ -54,8 +54,8 @@ namespace miRobotEditor.Classes
                 }
             }
             var count = points.Count;
-            AverageError = num/count;
-            StandardDeviationError = Math.Sqrt(count*num2 - AverageError*AverageError)/count;
+            AverageError = num / count;
+            StandardDeviationError = Math.Sqrt(count * num2 - AverageError * AverageError) / count;
         }
 
         public Point3D Centroid(Collection<Point3D> points)
@@ -70,7 +70,7 @@ namespace miRobotEditor.Classes
                 num2 += current.Y;
                 num3 += current.Z;
             }
-            var point3D = new Point3D(num/count, num2/count, num3/count);
+            var point3D = new Point3D(num / count, num2 / count, num3 / count);
             Transform = new TransformationMatrix3D(new Vector3D(point3D.X, point3D.Y, point3D.Z), new RotationMatrix3D());
             CalculateErrors(points, point3D);
             return point3D;
@@ -106,7 +106,7 @@ namespace miRobotEditor.Classes
             {
                 throw new ArgumentException("Need at least 3 points to fit circle");
             }
-            _solver = new NRSolver(points.Count*3 + 1, 7);
+            _solver = new NRSolver(points.Count * 3 + 1, 7);
             _measuredPoints = points;
             var leastSquaresFit3D = new LeastSquaresFit3D();
             var plane3D = leastSquaresFit3D.FitPlaneToPoints(points);
@@ -164,7 +164,7 @@ namespace miRobotEditor.Classes
                     vector[num] = value;
                     num++;
                 }
-                var vector2 = matrix.PseudoInverse()*vector;
+                var vector2 = matrix.PseudoInverse() * vector;
                 if (vector2.Length() < 1E-06)
                 {
                     break;
@@ -205,12 +205,12 @@ namespace miRobotEditor.Classes
                 var num7 = current.X - point3D.X;
                 var num8 = current.Y - point3D.Y;
                 var num9 = current.Z - point3D.Z;
-                num += num7*num7;
-                num2 += num8*num8;
-                num3 += num9*num9;
-                num4 += num7*num8;
-                num5 += num8*num9;
-                num6 += num7*num9;
+                num += num7 * num7;
+                num2 += num8 * num8;
+                num3 += num9 * num9;
+                num4 += num7 * num8;
+                num5 += num8 * num9;
+                num6 += num7 * num9;
             }
             var mat = new SquareMatrix(3, new[]
             {
@@ -253,12 +253,12 @@ namespace miRobotEditor.Classes
                 var num7 = current.X - point3D.X;
                 var num8 = current.Y - point3D.Y;
                 var num9 = current.Z - point3D.Z;
-                num += num7*num7;
-                num2 += num8*num8;
-                num3 += num9*num9;
-                num4 += num7*num8;
-                num5 += num8*num9;
-                num6 += num7*num9;
+                num += num7 * num7;
+                num2 += num8 * num8;
+                num3 += num9 * num9;
+                num4 += num7 * num8;
+                num5 += num8 * num9;
+                num6 += num7 * num9;
             }
             var mat = new SquareMatrix(3, new[]
             {
@@ -310,7 +310,7 @@ namespace miRobotEditor.Classes
                     vector[num] = value;
                     num++;
                 }
-                var vector2 = matrix.PseudoInverse()*vector;
+                var vector2 = matrix.PseudoInverse() * vector;
                 if (vector2.Length() < 1E-06)
                 {
                     break;
@@ -361,7 +361,7 @@ namespace miRobotEditor.Classes
             var matrix = new Matrix(NumEquations, NumVariables);
             for (var i = 0; i < matrix.Columns; i++)
             {
-                var num = (Math.Abs(guess[i]) >= 1.0) ? (Math.Abs(guess[i])*1E-07) : 1E-07;
+                var num = (Math.Abs(guess[i]) >= 1.0) ? (Math.Abs(guess[i]) * 1E-07) : 1E-07;
                 var vector = new Vector(guess);
                 Vector vector2;
                 int index;
@@ -369,10 +369,10 @@ namespace miRobotEditor.Classes
                 var v = errorFunction(vector);
                 Vector vector3;
                 int index2;
-                (vector3 = vector)[index2 = i] = vector3[index2] - 2.0*num;
+                (vector3 = vector)[index2 = i] = vector3[index2] - 2.0 * num;
                 var v2 = errorFunction(vector);
                 var vec = v - v2;
-                matrix.SetColumn(i, vec/(2.0*num));
+                matrix.SetColumn(i, vec / (2.0 * num));
             }
             return matrix;
         }
@@ -406,9 +406,9 @@ namespace miRobotEditor.Classes
                 var matrix = CalculateJacobian(errorFunction, vector);
                 var vec = errorFunction(vector);
                 var matrix2 = matrix.Transpose();
-                var squareMatrix = new SquareMatrix(matrix2*matrix);
-                var vec2 = matrix2*vec;
-                var vector2 = squareMatrix.PseudoInverse()*vec2;
+                var squareMatrix = new SquareMatrix(matrix2 * matrix);
+                var vec2 = matrix2 * vec;
+                var vector2 = squareMatrix.PseudoInverse() * vec2;
                 vector -= vector2;
                 if (IsDone(vector2))
                 {
@@ -594,27 +594,27 @@ namespace miRobotEditor.Classes
             var vector3D = origin - origin2;
             var num = Vector.Dot(-direction, direction2);
             var num2 = Vector.Dot(vector3D, direction);
-            var num3 = vector3D.Length()*vector3D.Length();
-            var num4 = Math.Abs(1.0 - num*num);
+            var num3 = vector3D.Length() * vector3D.Length();
+            var num4 = Math.Abs(1.0 - num * num);
             double num7;
             double num8;
             double d;
             if (num4 > 1E-05)
             {
                 var num5 = Vector.Dot(-vector3D, direction2);
-                var num6 = 1.0/num4;
-                num7 = (num*num5 - num2)*num6;
-                num8 = (num*num2 - num5)*num6;
-                d = num7*(num7 + num*num8 + 2.0*num2) + num8*(num*num7 + num8 + 2.0*num5) + num3;
+                var num6 = 1.0 / num4;
+                num7 = (num * num5 - num2) * num6;
+                num8 = (num * num2 - num5) * num6;
+                d = num7 * (num7 + num * num8 + 2.0 * num2) + num8 * (num * num7 + num8 + 2.0 * num5) + num3;
             }
             else
             {
                 num7 = -num2;
                 num8 = 0.0;
-                d = num2*num7 + num3;
+                d = num2 * num7 + num3;
             }
-            closestPoint1 = origin + new Vector3D(num7*direction);
-            closestPoint2 = origin2 + new Vector3D(num8*direction2);
+            closestPoint1 = origin + new Vector3D(num7 * direction);
+            closestPoint2 = origin2 + new Vector3D(num8 * direction2);
             return Math.Sqrt(d);
         }
 

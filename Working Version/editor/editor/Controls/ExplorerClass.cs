@@ -1,22 +1,22 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using miRobotEditor.Enums;
+using miRobotEditor.Interfaces;
+using miRobotEditor.Messages;
+using miRobotEditor.Views;
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using CommunityToolkit.Mvvm.Messaging;
-using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
-using miRobotEditor.Messages;
-using miRobotEditor.Views;
 
 namespace miRobotEditor.Controls
 {
     public sealed class ExplorerClass : TreeView, IComparable
     {
-// ReSharper disable UnusedMember.Local
-// ReSharper disable InconsistentNaming
+        // ReSharper disable UnusedMember.Local
+        // ReSharper disable InconsistentNaming
         private const int FOLDER = 0;
         private const int FOLDEROPEN = 1;
         private const int REMOVABLE = 5;
@@ -37,7 +37,7 @@ namespace miRobotEditor.Controls
 
         public int CompareTo(object obj)
         {
-            var directoryInfo = (DirectoryInfo) obj;
+            var directoryInfo = (DirectoryInfo)obj;
             return string.CompareOrdinal(Name, directoryInfo.Name);
         }
 
@@ -94,22 +94,22 @@ namespace miRobotEditor.Controls
                             AddNode(driveInfo.Name, 7, 7);
                             break;
                         case DriveType.Removable:
-                        {
-                            var name = driveInfo.Name;
-                            if (name == null)
                             {
-                                goto IL_9E;
-                            }
-                            if (name != "A:\\" && name != "B:\\")
-                            {
-                                goto IL_9E;
-                            }
-                            AddNode(driveInfo.Name, 5, 5);
-                            break;
+                                var name = driveInfo.Name;
+                                if (name == null)
+                                {
+                                    goto IL_9E;
+                                }
+                                if (name != "A:\\" && name != "B:\\")
+                                {
+                                    goto IL_9E;
+                                }
+                                AddNode(driveInfo.Name, 5, 5);
+                                break;
                             IL_9E:
-                            AddNode(driveInfo.Name, 5, 5);
-                            break;
-                        }
+                                AddNode(driveInfo.Name, 5, 5);
+                                break;
+                            }
                         case DriveType.Fixed:
                             AddNode(driveInfo.Name, 2, 2);
                             break;
@@ -262,11 +262,11 @@ namespace miRobotEditor.Controls
                             treeNode.ImageIndex = 6;
                         }
                         goto IL_275;
-                        IL_260:
+                    IL_260:
                         treeNode.SelectedImageIndex = 6;
                         treeNode.ImageIndex = 6;
                     }
-                    IL_275:
+                IL_275:
                     node.Nodes.Add(treeNode);
                 }
                 Cursor = Cursors.Default;

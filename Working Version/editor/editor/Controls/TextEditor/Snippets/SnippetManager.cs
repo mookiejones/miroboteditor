@@ -1,13 +1,13 @@
+using CommunityToolkit.Mvvm.Messaging;
+using ICSharpCode.AvalonEdit.Snippets;
+using miRobotEditor.Enums;
+using miRobotEditor.Messages;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using CommunityToolkit.Mvvm.Messaging;
-using ICSharpCode.AvalonEdit.Snippets;
-using miRobotEditor.Enums;
-using miRobotEditor.Messages;
 
 namespace miRobotEditor.Controls.TextEditor.Snippets
 {
@@ -139,12 +139,12 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                         result = true;
                     }
                 }
-            }           
+            }
             catch (Exception ex2)
             {
                 var msg = new ErrorMessage("ErrorOnLoadingSnippet", ex2, MessageType.Error);
                 WeakReferenceMessenger.Default.Send(msg);
-               
+
                 result = false;
             }
             return result;

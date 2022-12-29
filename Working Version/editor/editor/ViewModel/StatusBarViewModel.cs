@@ -1,6 +1,6 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Classes;
+using System.Windows.Input;
 
 namespace miRobotEditor.ViewModel
 {
@@ -32,25 +32,25 @@ namespace miRobotEditor.ViewModel
         public bool IsScrollPressed
         {
             get => _isScrollPressed;
-            set=>SetProperty(ref _isScrollPressed,value);
+            set => SetProperty(ref _isScrollPressed, value);
         }
 
         public bool IsNumPressed
         {
             get => _isNumPressed;
-            set=>SetProperty(ref _isNumPressed,value);
+            set => SetProperty(ref _isNumPressed, value);
         }
 
         public bool IsInsPressed
         {
             get => _isInsPressed;
-            set=>SetProperty(ref _isInsPressed,value);
+            set => SetProperty(ref _isInsPressed, value);
         }
 
         public bool IsCapsPressed
         {
             get => _isCapsPressed;
-            set=>SetProperty(ref _isCapsPressed,value);
+            set => SetProperty(ref _isCapsPressed, value);
         }
 
         public void ManageKeys(object sender, KeyEventArgs e)

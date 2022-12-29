@@ -1,8 +1,8 @@
-﻿using System;
+﻿using miRobotEditor.Enums;
+using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Security;
-using miRobotEditor.Enums;
 
 namespace miRobotEditor.Classes
 {
@@ -38,7 +38,7 @@ namespace miRobotEditor.Classes
                 var array = new string[num];
                 for (var i = 0; i < num; i++)
                 {
-                    var ptr = Marshal.ReadIntPtr(intPtr, i*Marshal.SizeOf(typeof (IntPtr)));
+                    var ptr = Marshal.ReadIntPtr(intPtr, i * Marshal.SizeOf(typeof(IntPtr)));
                     array[i] = Marshal.PtrToStringUni(ptr);
                 }
                 result = array;

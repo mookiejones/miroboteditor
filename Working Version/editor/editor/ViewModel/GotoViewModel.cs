@@ -1,6 +1,6 @@
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Controls.TextEditor;
+using System.Windows.Input;
 
 namespace miRobotEditor.ViewModel
 {
@@ -10,27 +10,27 @@ namespace miRobotEditor.ViewModel
 
         #region Editor
 
-        
 
-        private Editor _editor = new Editor();
+
+        private AvalonEditor _editor = new AvalonEditor();
 
         /// <summary>
         ///     Sets and gets the Editor property.
         ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
-        public Editor Editor
+        public AvalonEditor Editor
         {
             get => _editor;
 
             set => SetProperty(ref _editor, value);
-             
+
         }
 
         #endregion
 
         #region Description
 
-         
+
 
         private string _description = string.Empty;
 
@@ -50,7 +50,7 @@ namespace miRobotEditor.ViewModel
 
         #region EnteredText
 
-        
+
         private int _enteredText = -1;
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace miRobotEditor.ViewModel
 
         #region SelectedLine
 
-         
+
 
         private int _selectedLine = -1;
 
@@ -105,7 +105,7 @@ namespace miRobotEditor.ViewModel
 
         // ReSharper restore ExplicitCallerInfoArgument
 
-        public GotoViewModel(Editor editor)
+        public GotoViewModel(AvalonEditor editor)
         {
             Editor = editor;
         }

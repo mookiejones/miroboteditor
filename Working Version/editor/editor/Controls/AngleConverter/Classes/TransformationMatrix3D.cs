@@ -1,6 +1,6 @@
-﻿using System;
+﻿using miRobotEditor.Controls.AngleConverter.Exceptions;
+using System;
 using System.Collections.ObjectModel;
-using miRobotEditor.Controls.AngleConverter.Exceptions;
 
 namespace miRobotEditor.Controls.AngleConverter.Classes
 {
@@ -135,7 +135,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             var collection = new Collection<Point3D>();
             foreach (var current in points)
             {
-                collection.Add(transform*current);
+                collection.Add(transform * current);
             }
             return collection;
         }
@@ -145,7 +145,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             var collection = new Collection<Point3D>();
             foreach (var current in points)
             {
-                collection.Add(transform*current);
+                collection.Add(transform * current);
             }
             return collection;
         }
@@ -155,7 +155,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             var collection = new Collection<Vector3D>();
             foreach (var current in vectors)
             {
-                collection.Add(transform*current);
+                collection.Add(transform * current);
             }
             return collection;
         }
@@ -163,13 +163,13 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         public static Point3D operator *(TransformationMatrix3D mat, Point3D pt)
         {
             var vec = new Vector3D(pt.X, pt.Y, pt.Z);
-            var vector3D = mat*vec;
+            var vector3D = mat * vec;
             return new Point3D(vector3D.X, vector3D.Y, vector3D.Z);
         }
 
         public static TransformationMatrix3D operator *(TransformationMatrix3D m1, TransformationMatrix3D m2)
         {
-            return new TransformationMatrix3D(m1*m2);
+            return new TransformationMatrix3D(m1 * m2);
         }
 
         public static Vector3D operator *(TransformationMatrix3D mat, Vector3D vec)
@@ -181,7 +181,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                 vec[2],
                 1.0
             });
-            Matrix matrix = mat*vec2;
+            Matrix matrix = mat * vec2;
             return new Vector3D(matrix[0, 0], matrix[1, 0], matrix[2, 0]);
         }
 
@@ -225,7 +225,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                     if (format.ToUpperInvariant().StartsWith("QUATERNION"))
                     {
                         var translation3 = Translation;
-                        var quaternion = (Quaternion) Rotation;
+                        var quaternion = (Quaternion)Rotation;
                         result = string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}", new object[]
                         {
                             translation3.X,
@@ -242,7 +242,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                         if (format.ToUpperInvariant().StartsWith("ABBQUATERNION"))
                         {
                             var translation4 = Translation;
-                            var quaternion2 = (Quaternion) Rotation;
+                            var quaternion2 = (Quaternion)Rotation;
                             result = string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}",
                                 new object[]
                                 {

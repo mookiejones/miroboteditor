@@ -1,9 +1,9 @@
+using miRobotEditor.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
-using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Classes
 {

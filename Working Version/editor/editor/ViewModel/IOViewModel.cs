@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Ionic.Zip;
+using miRobotEditor.Messages;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,9 +10,6 @@ using System.Data.OleDb;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
-using CommunityToolkit.Mvvm.Messaging;
-using Ionic.Zip;
-using miRobotEditor.Messages; 
 
 namespace miRobotEditor.ViewModel
 {
@@ -75,31 +75,31 @@ namespace miRobotEditor.ViewModel
         public Visibility FlagVisibility
         {
             get => _flagVisibility;
-            set=>SetProperty(ref _flagVisibility,value);
+            set => SetProperty(ref _flagVisibility, value);
         }
 
         public Visibility TimerVisibility
         {
             get => _timerVisibility;
-            set=>SetProperty(ref _timerVisibility,value);
+            set => SetProperty(ref _timerVisibility, value);
         }
 
         public Visibility CyclicFlagVisibility
         {
             get => _cyclicFlagVisibility;
-            set=>SetProperty(ref _cyclicFlagVisibility,value);
+            set => SetProperty(ref _cyclicFlagVisibility, value);
         }
 
         public Visibility CounterVisibility
         {
             get => _counterVisibility;
-            set=>SetProperty(ref _counterVisibility,value);
+            set => SetProperty(ref _counterVisibility, value);
         }
 
         public InfoFile Info
         {
             get => _info;
-            set=>SetProperty(ref _info,value);
+            set => SetProperty(ref _info, value);
         }
 
         public string DirectoryPath { get; set; }
@@ -107,13 +107,13 @@ namespace miRobotEditor.ViewModel
         public string ArchivePath
         {
             get => _archivePath;
-            set=>SetProperty(ref _archivePath,value);
+            set => SetProperty(ref _archivePath, value);
         }
 
         public string FileCount
         {
             get => _filecount;
-            set=>SetProperty(ref _filecount,value);
+            set => SetProperty(ref _filecount, value);
         }
 
         public ZipFile ArchiveZip { get; set; }
@@ -121,7 +121,7 @@ namespace miRobotEditor.ViewModel
         public string BufferSize
         {
             get => _buffersize;
-            set=>SetProperty(ref _buffersize,value);
+            set => SetProperty(ref _buffersize, value);
         }
 
         public string DataBaseFile { get; set; }
@@ -129,7 +129,7 @@ namespace miRobotEditor.ViewModel
         public string DataBase
         {
             get => _database;
-            set=>SetProperty(ref _database,value);
+            set => SetProperty(ref _database, value);
         }
 
         public string InfoFile { get; set; }
@@ -139,19 +139,19 @@ namespace miRobotEditor.ViewModel
         public DirectoryInfo RootPath
         {
             get => _rootpath;
-            set=>SetProperty(ref _rootpath,value);
+            set => SetProperty(ref _rootpath, value);
         }
 
         public string LanguageText
         {
             get => _languageText;
-            set=>SetProperty(ref _languageText,value);
+            set => SetProperty(ref _languageText, value);
         }
 
         public string DatabaseText
         {
             get => _databaseText;
-            set=>SetProperty(ref _databaseText,value);
+            set => SetProperty(ref _databaseText, value);
         }
 
         public ReadOnlyCollection<Item> Inputs => _readonlyinputs ?? new ReadOnlyCollection<Item>(_inputs);
@@ -212,11 +212,12 @@ namespace miRobotEditor.ViewModel
             var dbConnection = GetDBConnection();
             if (dbConnection != null)
             {
-                try {
+                try
+                {
                     if (dbConnection.State != ConnectionState.Open)
                         dbConnection.Open();
                 }
-                catch(OleDbException ex)
+                catch (OleDbException ex)
                 {
                     var msg = new ErrorMessage("Error on Opening Db", ex);
                     WeakReferenceMessenger.Default.Send(msg);
@@ -337,7 +338,7 @@ namespace miRobotEditor.ViewModel
                     "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'TIMER')",
                     "$TIMER[{0}]", 9);
 
-//                            var item = new Item(string.Format("$TIMER[{0}]", text.Substring(9)), oleDbDataReader.GetValue(1).ToString());
+            //                            var item = new Item(string.Format("$TIMER[{0}]", text.Substring(9)), oleDbDataReader.GetValue(1).ToString());
             _timer.AddRange(items);
             TimerVisibility = ((Timer.Count > 0) ? Visibility.Visible : Visibility.Collapsed);
             OnPropertyChanged(nameof(TimerVisibility));

@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using ICSharpCode.AvalonEdit.Folding;
+﻿using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.ViewModel;
+using System;
+using System.ComponentModel;
 
 namespace miRobotEditor.Languages
 {

@@ -6,7 +6,7 @@ namespace miRobotEditor.ViewModel
     {
         #region ShowFullName
 
-       
+
         private bool _showFullName = true;
 
         /// <summary>
@@ -17,7 +17,7 @@ namespace miRobotEditor.ViewModel
         {
             get => _showFullName;
 
-            set => SetProperty(ref _showFullName, value); 
+            set => SetProperty(ref _showFullName, value);
         }
 
         #endregion

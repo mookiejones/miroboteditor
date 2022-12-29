@@ -1,21 +1,21 @@
-﻿using System;
-using System.IO;
-using System.Windows;
-using CommunityToolkit.Mvvm.Input;
-using miRobotEditor.Abstract;
+﻿using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls;
 using miRobotEditor.Controls.TextEditor;
+using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
+using System;
+using System.IO;
+using System.Windows;
 
 namespace miRobotEditor.ViewModel
 {
     public sealed class KukaViewModel : DocumentBase, IEditorDocument
     {
         #region GridRow
- 
+
 
         private int _gridrow = 1;
 
@@ -28,7 +28,7 @@ namespace miRobotEditor.ViewModel
             get => _gridrow;
 
             set => SetProperty(ref _gridrow, value);
-             
+
         }
 
         #endregion
@@ -60,41 +60,41 @@ namespace miRobotEditor.ViewModel
         {
             get => _grid;
 
-            set  => SetProperty(ref _grid, value);
-             
+            set => SetProperty(ref _grid, value);
+
         }
 
         #endregion
 
         #region Source
 
-         
 
-        private Editor _source = new Editor();
+
+        private AvalonEditor _source = new AvalonEditor();
 
         /// <summary>
         ///     Sets and gets the Source property.
         ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
-        public Editor Source
+        public AvalonEditor Source
         {
             get => _source;
 
-            set=>SetProperty(ref _source, value);
+            set => SetProperty(ref _source, value);
         }
 
         #endregion
 
         #region Data
- 
 
-        private Editor _data = new Editor();
+
+        private AvalonEditor _data = new AvalonEditor();
 
         /// <summary>
         ///     Sets and gets the Data property.
         ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
-        public Editor Data
+        public AvalonEditor Data
         {
             get => _data;
 
@@ -104,7 +104,7 @@ namespace miRobotEditor.ViewModel
         #endregion
 
         #region DataRow
- 
+
 
         private int _dataRow = 2;
 
@@ -116,7 +116,7 @@ namespace miRobotEditor.ViewModel
         {
             get => _dataRow;
 
-            set=>SetProperty(ref _dataRow, value);  
+            set => SetProperty(ref _dataRow, value);
         }
 
         #endregion
@@ -129,8 +129,8 @@ namespace miRobotEditor.ViewModel
             FileLanguage = lang;
             Source.FileLanguage = FileLanguage;
             Data.FileLanguage = FileLanguage;
-            Source.GotFocus += (s, e) => TextBox = (s as Editor);
-            Data.GotFocus += (s, e) => TextBox = (s as Editor);
+            Source.GotFocus += (s, e) => TextBox = (s as AvalonEditor);
+            Data.GotFocus += (s, e) => TextBox = (s as AvalonEditor);
             Source.TextChanged += (s, e) => TextChanged(s);
             Data.TextChanged += (s, e) => TextChanged(s);
             Source.IsModified = false;
@@ -146,14 +146,14 @@ namespace miRobotEditor.ViewModel
                     case false:
                         if (Data == null)
                         {
-                            Data = new Editor();
+                            Data = new AvalonEditor();
                         }
                         Data.Visibility = Visibility.Collapsed;
                         Grid.Visibility = Visibility.Collapsed;
                         break;
                     case true:
                         Data.Text = FileLanguage.DataText;
-// ReSharper disable once AssignNullToNotNullAttribute
+                        // ReSharper disable once AssignNullToNotNullAttribute
                         Data.Filename = Path.Combine(Path.GetDirectoryName(FileName), FileLanguage.DataName);
                         Data.SetHighlighting();
                         Data.Visibility = Visibility.Visible;
@@ -219,14 +219,14 @@ namespace miRobotEditor.ViewModel
             {
                 ShowGrid = true;
                 Data.FileLanguage = FileLanguage;
-// ReSharper disable once AssignNullToNotNullAttribute
+                // ReSharper disable once AssignNullToNotNullAttribute
                 Data.Filename = Path.Combine(Path.GetDirectoryName(filepath), FileLanguage.DataName);
                 Data.Text = FileLanguage.DataText;
                 Data.SetHighlighting();
             }
             TextBox = ((Source.Filename == filepath) ? Source : Data);
             Grid.IsAnimated = true;
-// ReSharper disable once ExplicitCallerInfoArgument
+            // ReSharper disable once ExplicitCallerInfoArgument
             OnPropertyChanged(nameof(Title));
         }
 
@@ -238,7 +238,7 @@ namespace miRobotEditor.ViewModel
             Grid.IsAnimated = true;
         }
 
-        private void CheckClose(Editor txtBox)
+        private void CheckClose(AvalonEditor txtBox)
         {
             if (txtBox != null && txtBox.IsModified)
             {

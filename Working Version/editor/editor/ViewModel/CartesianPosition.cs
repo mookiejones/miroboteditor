@@ -35,7 +35,7 @@ namespace miRobotEditor.ViewModel
             get => _x;
 
             set => SetProperty(ref _x, value);
-             
+
         }
 
         #endregion

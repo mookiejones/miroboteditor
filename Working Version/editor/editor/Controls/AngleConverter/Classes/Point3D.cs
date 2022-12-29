@@ -1,8 +1,8 @@
+using miRobotEditor.Classes;
+using miRobotEditor.Controls.AngleConverter.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using miRobotEditor.Classes;
-using miRobotEditor.Controls.AngleConverter.Interfaces;
 
 namespace miRobotEditor.Controls.AngleConverter.Classes
 {
@@ -99,7 +99,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             var collection = new Collection<Point3D>();
             foreach (var current in transforms)
             {
-                collection.Add(current*point);
+                collection.Add(current * point);
             }
             return collection;
         }
@@ -109,7 +109,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             var collection = new Collection<Point3D>();
             foreach (var current in transforms)
             {
-                collection.Add(current*point);
+                collection.Add(current * point);
             }
             return collection;
         }
@@ -117,7 +117,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         public static Point3D operator *(RotationMatrix3D mat, Point3D pt)
         {
             var vec = new Vector3D(pt.X, pt.Y, pt.Z);
-            return new Point3D(new Vector3D(mat*vec));
+            return new Point3D(new Vector3D(mat * vec));
         }
 
         public static Vector3D operator -(Point3D p1, Point3D p2)

@@ -1,4 +1,12 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Win32;
+using miRobotEditor.Classes;
+using miRobotEditor.Enums;
+using miRobotEditor.Interfaces;
+using miRobotEditor.Messages;
+using miRobotEditor.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,14 +17,6 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Win32;
-using miRobotEditor.Classes;
-using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
-using miRobotEditor.Messages;
-using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Controls
 {
@@ -312,7 +312,7 @@ namespace miRobotEditor.Controls
                 {
                     if (File.Exists(filepath))
                     {
-                        var instance =Ioc.Default.GetRequiredService<MainViewModel>();
+                        var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                         instance.Open(filepath);
                     }
                     else
@@ -380,21 +380,21 @@ namespace miRobotEditor.Controls
                         foreach (var obj in array)
                         {
                             var type = obj.GetType();
-                            if (type == typeof (AssemblyTitleAttribute))
+                            if (type == typeof(AssemblyTitleAttribute))
                             {
-                                _Title = (AssemblyTitleAttribute) obj;
+                                _Title = (AssemblyTitleAttribute)obj;
                             }
-                            if (type == typeof (AssemblyCompanyAttribute))
+                            if (type == typeof(AssemblyCompanyAttribute))
                             {
-                                _Company = (AssemblyCompanyAttribute) obj;
+                                _Company = (AssemblyCompanyAttribute)obj;
                             }
-                            if (type == typeof (AssemblyCopyrightAttribute))
+                            if (type == typeof(AssemblyCopyrightAttribute))
                             {
-                                _Copyright = (AssemblyCopyrightAttribute) obj;
+                                _Copyright = (AssemblyCopyrightAttribute)obj;
                             }
-                            if (type == typeof (AssemblyProductAttribute))
+                            if (type == typeof(AssemblyProductAttribute))
                             {
-                                _Product = (AssemblyProductAttribute) obj;
+                                _Product = (AssemblyProductAttribute)obj;
                             }
                         }
                         _Version = Assembly.GetName().Version;
@@ -507,7 +507,7 @@ namespace miRobotEditor.Controls
                 {
                     if (registryKey != null)
                     {
-                        var text = (string) registryKey.GetValue(Key(i));
+                        var text = (string)registryKey.GetValue(Key(i));
                         if (string.IsNullOrEmpty(text))
                         {
                             break;
@@ -555,7 +555,7 @@ namespace miRobotEditor.Controls
                     {
                         while (true)
                         {
-                            var text = (string) registryKey.GetValue(Key(i));
+                            var text = (string)registryKey.GetValue(Key(i));
                             if (text == null || !text.Equals(filepath, StringComparison.CurrentCultureIgnoreCase))
                             {
                                 break;
@@ -687,19 +687,19 @@ namespace miRobotEditor.Controls
                                     case XmlNodeType.XmlDeclaration:
                                         continue;
                                     case XmlNodeType.EndElement:
-                                    {
-                                        var name = xmlTextReader.Name;
-                                        if (name != null)
                                         {
-                                            if (name == "RecentFiles")
+                                            var name = xmlTextReader.Name;
+                                            if (name != null)
                                             {
-                                                result = list;
-                                                return result;
+                                                if (name == "RecentFiles")
+                                                {
+                                                    result = list;
+                                                    return result;
+                                                }
                                             }
+                                            Debug.Assert(false);
+                                            continue;
                                         }
-                                        Debug.Assert(false);
-                                        continue;
-                                    }
                                 }
                                 Debug.Assert(false);
                             }
@@ -722,7 +722,7 @@ namespace miRobotEditor.Controls
                                     }
                                 }
                                 continue;
-                                IL_13E:
+                            IL_13E:
                                 Debug.Assert(false);
                             }
                         }

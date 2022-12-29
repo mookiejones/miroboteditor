@@ -1,8 +1,8 @@
+using ICSharpCode.AvalonEdit.Snippets;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using ICSharpCode.AvalonEdit.Snippets;
 
 namespace miRobotEditor.Controls.TextEditor.Snippets
 {

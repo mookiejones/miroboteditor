@@ -1,6 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-using miRobotEditor.Abstract;
+﻿using miRobotEditor.Abstract;
+using System.Collections.ObjectModel;
 
 namespace miRobotEditor.ViewModel
 {
@@ -20,49 +19,49 @@ namespace miRobotEditor.ViewModel
         public string ArchiveName
         {
             get => _archivename;
-            set=>SetProperty(ref _archivename,value);
+            set => SetProperty(ref _archivename, value);
         }
 
         public string ArchiveConfigType
         {
             get => _archiveconfigtype;
-            set=>SetProperty(ref _archiveconfigtype,value);
+            set => SetProperty(ref _archiveconfigtype, value);
         }
 
         public string ArchiveDiskNo
         {
             get => _archiveDiskNo;
-            set=>SetProperty(ref _archiveDiskNo,value);
+            set => SetProperty(ref _archiveDiskNo, value);
         }
 
         public string ArchiveID
         {
             get => _archiveID;
-            set=>SetProperty(ref _archiveID,value);
+            set => SetProperty(ref _archiveID, value);
         }
 
         public string ArchiveDate
         {
             get => _archiveDate;
-            set=>SetProperty(ref _archiveDate,value);
+            set => SetProperty(ref _archiveDate, value);
         }
 
         public string RobotName
         {
             get => _archiveRobotName;
-            set=>SetProperty(ref _archiveRobotName,value);
+            set => SetProperty(ref _archiveRobotName, value);
         }
 
         public string RobotSerial
         {
             get => _archiveRobotSerial;
-            set=>SetProperty(ref _archiveRobotSerial,value);
+            set => SetProperty(ref _archiveRobotSerial, value);
         }
 
         public string KSSVersion
         {
             get => _archiveKssVersion;
-            set=>SetProperty(ref _archiveKssVersion,value);
+            set => SetProperty(ref _archiveKssVersion, value);
         }
 
         public ReadOnlyObservableCollection<Technology> Technologies => _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies);

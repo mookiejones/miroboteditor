@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Shell;
-using System.Windows.Threading;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Messaging; 
-using Microsoft.Extensions.DependencyInjection; 
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 using miRobotEditor.Classes;
 using miRobotEditor.Design;
 using miRobotEditor.Enums;
@@ -18,6 +9,15 @@ using miRobotEditor.Messages;
 using miRobotEditor.Model;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Shell;
+using System.Windows.Threading;
 using MessageBox = System.Windows.MessageBox;
 
 namespace miRobotEditor
@@ -72,7 +72,7 @@ namespace miRobotEditor
         }
         static App()
         {
-           // DispatcherHelper.Initialize();
+            // DispatcherHelper.Initialize();
         }
 
         public bool SignalExternalCommandLineArgs(IList<string> args)

@@ -14,7 +14,7 @@ namespace miRobotEditor.ViewModel
         {
             get => _title;
             set => SetProperty(ref _title, value);
-            
+
         }
 
         public ImageSource IconSource { get; set; }
@@ -29,9 +29,9 @@ namespace miRobotEditor.ViewModel
         public bool IsSelected
         {
             get => _isSelected;
-            
-           set => SetProperty(ref _isSelected, value);
+
+            set => SetProperty(ref _isSelected, value);
         }
- 
+
     }
 }

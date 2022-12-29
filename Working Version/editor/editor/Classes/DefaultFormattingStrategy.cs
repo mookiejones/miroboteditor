@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using ICSharpCode.AvalonEdit.Document;
+﻿using ICSharpCode.AvalonEdit.Document;
 using miRobotEditor.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace miRobotEditor.Classes
 {

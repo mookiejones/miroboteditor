@@ -9,7 +9,7 @@ namespace miRobotEditor.Structs
         private int _x;
         private int _y;
 
-        
+
         public Location(int column, int line)
         {
             _x = column;

@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Windows;
-using miRobotEditor.Abstract;
-using miRobotEditor.Controls.TextEditor;
+﻿using miRobotEditor.Controls.TextEditor;
+using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.ViewModel;
+using System;
+using System.IO;
+using System.Windows;
 
 namespace miRobotEditor.Classes
 {
@@ -39,8 +39,8 @@ namespace miRobotEditor.Classes
         {
             TextBox.FileLanguage = FileLanguage;
             Load(ContentId);
-           
-            TextBox.GotFocus += delegate(object s, RoutedEventArgs e) { TextBox = (s as Editor); };
+
+            TextBox.GotFocus += delegate (object s, RoutedEventArgs e) { TextBox = (s as AvalonEditor); };
             TextBox.TextChanged += (s, e) => TextChanged(s);
             TextBox.IsModified = false;
             if (ContentId != null)
@@ -53,7 +53,7 @@ namespace miRobotEditor.Classes
 
         protected void TextChanged(object sender)
         {
-            TextBox = (sender as Editor);
+            TextBox = (sender as AvalonEditor);
             if (TextBox != null)
             {
                 FileLanguage.RawText = TextBox.Text;
@@ -61,7 +61,7 @@ namespace miRobotEditor.Classes
             OnPropertyChanged(nameof(Title));
         }
 
-        internal void Save(Editor txtBox)
+        internal void Save(AvalonEditor txtBox)
         {
             if (txtBox.Filename == null)
             {
@@ -81,7 +81,7 @@ namespace miRobotEditor.Classes
         public AbstractLanguageClass FileLanguage
         {
             get => _filelanguage;
-            set=>SetProperty(ref _filelanguage,value);
+            set => SetProperty(ref _filelanguage, value);
         }
 
         #endregion
@@ -93,20 +93,20 @@ namespace miRobotEditor.Classes
         public Visibility Visibility
         {
             get => _visibility;
-            set=>SetProperty(ref _visibility,value);
+            set => SetProperty(ref _visibility, value);
         }
 
         #endregion        public AbstractLanguageClass FileLanguage { get; set; }
 
         #region TextBox
 
-        private Editor _textBox = new Editor();
+        private AvalonEditor _textBox = new AvalonEditor();
 
         /// <summary>
         ///     Sets and gets the TextBox property.
         ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
-        public Editor TextBox
+        public AvalonEditor TextBox
         {
             get => _textBox;
 

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using miRobotEditor.Enums;
+using System;
 using System.Globalization;
 using System.Windows.Data;
-using miRobotEditor.Enums;
 
 namespace miRobotEditor.Converters
 {

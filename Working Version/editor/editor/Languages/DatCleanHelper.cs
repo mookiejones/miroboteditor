@@ -1,10 +1,10 @@
-using System;
-using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input; 
+using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
+using System;
+using System.Collections.ObjectModel;
 
 namespace miRobotEditor.Languages
 {
@@ -62,7 +62,7 @@ namespace miRobotEditor.Languages
         public int Progress
         {
             get => _progress;
-            set=>SetProperty(ref _progress,value);
+            set => SetProperty(ref _progress, value);
         }
 
         public static DatCleanHelper Instance
@@ -82,31 +82,31 @@ namespace miRobotEditor.Languages
         public bool IgnoreTypes
         {
             get => _ignoretypes;
-            set=>SetProperty(ref _ignoretypes,value);
+            set => SetProperty(ref _ignoretypes, value);
         }
 
         public bool ExclusiveTypes
         {
             get => _exclusivetypes;
-            set=>SetProperty(ref _exclusivetypes,value);
+            set => SetProperty(ref _exclusivetypes, value);
         }
 
         public bool DeleteDeclaration
         {
             get => _deletedeclaration;
-            set=>SetProperty(ref _deletedeclaration,value);
+            set => SetProperty(ref _deletedeclaration, value);
         }
 
         public bool CommentDeclaration
         {
             get => _commentdeclaration;
-            set=>SetProperty(ref _commentdeclaration,value);
+            set => SetProperty(ref _commentdeclaration, value);
         }
 
         public int SelectedVarIndex
         {
             get => _selectedVarIndex;
-            set=>SetProperty(ref _selectedVarIndex,value);
+            set => SetProperty(ref _selectedVarIndex, value);
         }
 
         public ObservableCollection<string> UsedVarTypes => _usedvartypes;

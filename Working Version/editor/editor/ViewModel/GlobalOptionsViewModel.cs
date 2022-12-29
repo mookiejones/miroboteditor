@@ -16,7 +16,7 @@ namespace miRobotEditor.ViewModel
         {
             get => _fileOptions;
 
-            set => SetProperty(ref _fileOptions, value); 
+            set => SetProperty(ref _fileOptions, value);
         }
 
         #endregion

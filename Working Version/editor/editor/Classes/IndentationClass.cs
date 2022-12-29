@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ICSharpCode.AvalonEdit.Indentation.CSharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using ICSharpCode.AvalonEdit.Indentation.CSharp;
 
 namespace miRobotEditor.Classes
 {
@@ -313,13 +313,13 @@ namespace miRobotEditor.Classes
                                             break;
                                     }
                                 }
-                                IL_873:
+                            IL_873:
                                 if (!char.IsWhiteSpace(c))
                                 {
                                     _lastRealChar = c;
                                 }
                                 goto IL_88B;
-                                IL_671:
+                            IL_671:
                                 _blocks.Push(_block);
                                 if (_block.StartLine == doc.LineNumber)
                                 {
@@ -341,7 +341,7 @@ namespace miRobotEditor.Classes
                             }
                             _wordBuilder.Length = 0;
                         }
-                        IL_88B:
+                    IL_88B:
                         ;
                     }
                     if (_wordBuilder.Length > 0)
@@ -475,7 +475,7 @@ namespace miRobotEditor.Classes
                 }
                 else
                 {
-                    var stringBuilder = new StringBuilder(text.Length*count);
+                    var stringBuilder = new StringBuilder(text.Length * count);
                     for (var i = 0; i < count; i++)
                     {
                         stringBuilder.Append(text);

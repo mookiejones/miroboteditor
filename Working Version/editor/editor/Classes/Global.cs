@@ -1,10 +1,10 @@
-﻿using System;
+﻿using miRobotEditor.ViewModel;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media;
-using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Classes
 {

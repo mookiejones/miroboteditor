@@ -37,7 +37,6 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\In
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\KukaControl.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\ListFromFileBox.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\SnippetToolTip.g.cs
-C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\TextEditor\Editor.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\VisualVariableControl.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\VisualVariableItem.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\AngleConverterView.g.cs
@@ -90,7 +89,6 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\Main
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\miRobotEditor.exe
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\miRobotEditor.pdb
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Templates\OptionsTemplate.baml
-C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\TextEditor\Editor.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\Images\kuka.ico
 C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\miRobotEditor.exe.config
 C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\miRobotEditor.exe.manifest

@@ -1,9 +1,9 @@
-using System.Collections.ObjectModel;
 using miRobotEditor.Abstract;
+using System.Collections.ObjectModel;
 
 namespace miRobotEditor.ViewModel
 {
-// ReSharper disable once UnusedMember.Global
+    // ReSharper disable once UnusedMember.Global
     public class FTPAccountWindowViewModel : ToolViewModel
     {
         private readonly ObservableCollection<FTPAccount> _accounts = new ObservableCollection<FTPAccount>();

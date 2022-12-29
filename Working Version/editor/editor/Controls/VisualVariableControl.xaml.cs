@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using miRobotEditor.Interfaces;
+using miRobotEditor.ViewModel;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using miRobotEditor.Interfaces;
-using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Controls
 {
@@ -24,7 +24,7 @@ namespace miRobotEditor.Controls
 
         private void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var child = (DependencyObject) e.OriginalSource;
+            var child = (DependencyObject)e.OriginalSource;
             var dataGridRow = TryFindParent<DataGridRow>(child);
             if (dataGridRow != null)
             {
@@ -34,7 +34,7 @@ namespace miRobotEditor.Controls
                     if (dataGrid != null)
                     {
                         var variable = dataGrid.CurrentCell.Item as IVariable;
-                        var instance =Ioc.Default.GetRequiredService<MainViewModel>();
+                        var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                         if (variable != null && File.Exists(variable.Path))
                         {
                             instance.OpenFile(variable);

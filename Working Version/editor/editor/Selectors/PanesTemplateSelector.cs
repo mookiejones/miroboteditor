@@ -1,7 +1,7 @@
-﻿using System.Windows;
+﻿using AvalonDock.Layout;
+using miRobotEditor.ViewModel;
+using System.Windows;
 using System.Windows.Controls;
-using AvalonDock.Layout;
-using miRobotEditor.ViewModel; 
 
 namespace miRobotEditor.Selectors
 {

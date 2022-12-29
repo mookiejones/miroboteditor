@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using miRobotEditor.Interfaces;
+﻿using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace miRobotEditor.Selectors
 {

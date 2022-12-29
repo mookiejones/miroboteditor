@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows.Media;
-using ICSharpCode.AvalonEdit.CodeCompletion;
+﻿using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using miRobotEditor.Controls.TextEditor.Snippets.CompletionData;
+using System;
+using System.Windows.Media;
 
 namespace miRobotEditor.Controls.TextEditor
 {
@@ -25,12 +25,12 @@ namespace miRobotEditor.Controls.TextEditor
         }
         public virtual void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            var textEditor = textArea.GetService(typeof(Editor)) as Editor;
+            var textEditor = textArea.GetService(typeof(AvalonEditor)) as AvalonEditor;
             if (textEditor == null)
             {
                 return;
             }
-            var kukaTextEditor = textEditor as Editor;
+            var kukaTextEditor = textEditor as AvalonEditor;
             var text = (kukaTextEditor == null) ? textEditor.GetWordBeforeCaret() : kukaTextEditor.GetWordBeforeCaret(kukaTextEditor.GetWordParts());
             if (Text.StartsWith(text, StringComparison.InvariantCultureIgnoreCase) || Text.ToLowerInvariant().Contains(text.ToLowerInvariant()))
             {

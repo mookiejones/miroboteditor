@@ -1,9 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using ICSharpCode.AvalonEdit;
+﻿using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Indentation;
 using ICSharpCode.AvalonEdit.Indentation.CSharp;
+using System;
+using System.ComponentModel;
 
 namespace miRobotEditor.Classes
 {

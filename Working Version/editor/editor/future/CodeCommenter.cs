@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using ICSharpCode.AvalonEdit.Document;
+﻿using ICSharpCode.AvalonEdit.Document;
 using miRobotEditor.Controls.TextEditor;
+using System;
+using System.Collections.Generic;
 
 namespace miRobotEditor.future
 {
     public class CodeCommenter
     {
         private static readonly List<char> Whitespaces = new List<char>
-		{
-			' ',
-			'\t'
-		};
+        {
+            ' ',
+            '\t'
+        };
         private string commentMarker = ";";
         public bool AllowMultipleComments
         {
@@ -38,7 +38,7 @@ namespace miRobotEditor.future
             Mode = mode;
             CommentCarretLineIfNoSelection = true;
         }
-        public bool CommentLine(Editor kukaTextEditor, DocumentLine documentLine) => CommentLine(kukaTextEditor.Document, documentLine);
+        public bool CommentLine(AvalonEditor kukaTextEditor, DocumentLine documentLine) => CommentLine(kukaTextEditor.Document, documentLine);
         public bool CommentLine(TextDocument document, DocumentLine documentLine)
         {
             if (Mode == CommentMode.BeginOfLine)
@@ -47,7 +47,7 @@ namespace miRobotEditor.future
             }
             return CommentAtBeginOfText(document, documentLine);
         }
-        public bool CommentLines(Editor kukaTextEditor, int startLine, int endLine)
+        public bool CommentLines(AvalonEditor kukaTextEditor, int startLine, int endLine)
         {
             if (endLine > kukaTextEditor.Document.LineCount)
             {
@@ -65,7 +65,7 @@ namespace miRobotEditor.future
             }
             return flag;
         }
-        public bool CommentLines(Editor kukaTextEditor, IEnumerable<DocumentLine> documentLines)
+        public bool CommentLines(AvalonEditor kukaTextEditor, IEnumerable<DocumentLine> documentLines)
         {
             if (kukaTextEditor == null)
             {
@@ -78,7 +78,7 @@ namespace miRobotEditor.future
             }
             return flag;
         }
-        public bool CommentSelection(Editor kukaTextEditor)
+        public bool CommentSelection(AvalonEditor kukaTextEditor)
         {
             if (kukaTextEditor == null)
             {
@@ -115,7 +115,7 @@ namespace miRobotEditor.future
             }
             return result;
         }
-        public bool UncommentSelection(Editor kukaTextEditor)
+        public bool UncommentSelection(AvalonEditor kukaTextEditor)
         {
             if (kukaTextEditor == null)
             {
@@ -151,7 +151,7 @@ namespace miRobotEditor.future
             }
             return result;
         }
-        public bool UncommentLine(Editor kukaTextEditor, DocumentLine documentLine)
+        public bool UncommentLine(AvalonEditor kukaTextEditor, DocumentLine documentLine)
         {
             if (kukaTextEditor == null)
             {

@@ -1,7 +1,7 @@
-using System;
-using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
+using System;
+using System.Windows.Media;
 
 namespace miRobotEditor.Classes
 {
@@ -32,7 +32,7 @@ namespace miRobotEditor.Classes
                 var backgroundGeometryBuilder = new BackgroundGeometryBuilder
                 {
                     CornerRadius = 1.0,
-                    AlignToWholePixels= true
+                    AlignToWholePixels = true
                 };
                 backgroundGeometryBuilder.AddSegment(textview, new TextSegment
                 {

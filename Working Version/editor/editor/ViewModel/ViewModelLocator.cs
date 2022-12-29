@@ -9,10 +9,8 @@
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
 
+using CommunityToolkit.Mvvm.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
-using CommunityToolkit.Mvvm.DependencyInjection; 
-using miRobotEditor.Design;
-using miRobotEditor.Model;
 
 namespace miRobotEditor.ViewModel
 {
@@ -25,9 +23,9 @@ namespace miRobotEditor.ViewModel
     /// </summary>
     public sealed class ViewModelLocator
     {
-       
 
-        public ObjectBrowserViewModel ObjectBrowser => Ioc.Default.GetRequiredService <ObjectBrowserViewModel>();
+
+        public ObjectBrowserViewModel ObjectBrowser => Ioc.Default.GetRequiredService<ObjectBrowserViewModel>();
 
         public StatusBarViewModel StatusBar => Ioc.Default.GetRequiredService<StatusBarViewModel>();
 

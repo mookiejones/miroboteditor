@@ -1,5 +1,5 @@
-﻿using System;
-using miRobotEditor.Enums;
+﻿using miRobotEditor.Enums;
+using System;
 
 namespace miRobotEditor.Messages
 {

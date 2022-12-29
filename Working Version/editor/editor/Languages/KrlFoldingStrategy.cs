@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using ICSharpCode.AvalonEdit.Document;
+﻿using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Abstract;
+using miRobotEditor.Controls.TextEditor.Folding;
+using System.Collections.Generic;
 
 namespace miRobotEditor.Languages
 {
@@ -27,7 +27,7 @@ namespace miRobotEditor.Languages
             FoldFunctions = foldFunctions;
         }
 
-      
+
         protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
         {
             var list = new List<NewFolding>();
@@ -38,14 +38,14 @@ namespace miRobotEditor.Languages
             foreach (var current in document.Lines)
             {
                 var input = document.GetText(current).ToLower().TrimEnd(new[]
-				{
-					' ',
-					'\t'
-				}).TrimStart(new[]
-				{
-					' ',
-					'\t'
-				});
+                {
+                    ' ',
+                    '\t'
+                }).TrimStart(new[]
+                {
+                    ' ',
+                    '\t'
+                });
                 if (FoldFunctions && KrlRegularExpressions.DefLineRegex.IsMatch(input))
                 {
                     stack.Push(current);
@@ -56,14 +56,14 @@ namespace miRobotEditor.Languages
                     var endOffset = current.EndOffset;
                     var documentLine = stack.Pop();
                     var name = document.GetText(documentLine).TrimStart(new[]
-					{
-						' ',
-						'\t'
-					}).TrimEnd(new[]
-					{
-						' ',
-						'\t'
-					});
+                    {
+                        ' ',
+                        '\t'
+                    }).TrimEnd(new[]
+                    {
+                        ' ',
+                        '\t'
+                    });
                     list.Add(new NewFolding(documentLine.Offset, endOffset)
                     {
                         Name = name
@@ -79,19 +79,19 @@ namespace miRobotEditor.Languages
                     var endOffset = current.EndOffset;
                     var documentLine2 = stack2.Pop();
                     var text = document.GetText(documentLine2).TrimStart(new[]
-					{
-						' ',
-						'\t'
-					}).TrimEnd(new[]
-					{
-						' ',
-						'\t'
-					}).ToUpper();
+                    {
+                        ' ',
+                        '\t'
+                    }).TrimEnd(new[]
+                    {
+                        ' ',
+                        '\t'
+                    }).ToUpper();
                     text = text.Replace(";FOLD", string.Empty).TrimStart(new[]
-					{
-						' ',
-						'\t'
-					});
+                    {
+                        ' ',
+                        '\t'
+                    });
                     var num = text.IndexOf(';');
                     if (num > 0)
                     {

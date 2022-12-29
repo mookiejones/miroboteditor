@@ -1,5 +1,5 @@
-﻿using System;
-using miRobotEditor.Controls.AngleConverter.Classes;
+﻿using miRobotEditor.Controls.AngleConverter.Classes;
+using System;
 
 namespace miRobotEditor.Controls.AngleConverter.Interfaces
 {

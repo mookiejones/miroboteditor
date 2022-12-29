@@ -1,9 +1,9 @@
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using miRobotEditor.Controls.TextEditor.Snippets.CompletionData;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using miRobotEditor.Controls.TextEditor.Snippets.CompletionData;
 
 
 namespace miRobotEditor.Controls.TextEditor.Snippets
@@ -13,7 +13,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
         public IEnumerable<ICompletionData> ProvideData(CompletionContextInfo context)
         {
 
-           
+
             if (context != null && context.Path != null && context.CompletionType != CompletionType.CompletionKey && context.CompletionType != CompletionType.ScopeChange)
             {
                 var extension = Path.GetExtension(context.Path);
@@ -34,13 +34,13 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                     yield return current;
                 }
             }
-            IL_170:
+        IL_170:
             yield break;
         }
         public void Dispose()
         {
         }
 
-       
+
     }
 }

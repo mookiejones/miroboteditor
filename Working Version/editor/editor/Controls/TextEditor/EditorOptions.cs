@@ -1,20 +1,16 @@
-﻿using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+﻿using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using miRobotEditor.Classes;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
-using System.Xml.Serialization;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace miRobotEditor.Controls.TextEditor
 {
@@ -360,8 +356,8 @@ namespace miRobotEditor.Controls.TextEditor
                 }
                 IHighlightingDefinition highlighting;
 
-                
-                
+
+
                 using (var xmlTextReader = XmlReader.Create(manifestResourceStream))
                 {
                     highlighting = HighlightingLoader.Load(xmlTextReader, HighlightingManager.Instance);

@@ -30,19 +30,19 @@ namespace miRobotEditor.ViewModel
         public CartesianPosition OldValues
         {
             get => _oldvalues;
-            set=>SetProperty(ref _oldvalues,value);
+            set => SetProperty(ref _oldvalues, value);
         }
 
         public CartesianPosition NewValues
         {
             get => _newvalues;
-            set=>SetProperty(ref _newvalues,value);
+            set => SetProperty(ref _newvalues, value);
         }
 
         public CartesianPosition DiffValues
         {
             get => _diffvalues;
-            set=>SetProperty(ref _diffvalues,value);
+            set => SetProperty(ref _diffvalues, value);
         }
 
         public static ShiftViewModel Instance

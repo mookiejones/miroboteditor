@@ -1,7 +1,7 @@
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Text.RegularExpressions;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input; 
 
 namespace miRobotEditor.ViewModel
 {
@@ -115,19 +115,19 @@ namespace miRobotEditor.ViewModel
         public bool UseRegex
         {
             get => _useregex;
-            set=>SetProperty(ref _useregex,value);
+            set => SetProperty(ref _useregex, value);
         }
 
         public bool MatchCase
         {
             get => _matchcase;
-            set=>SetProperty(ref _matchcase,value);
+            set => SetProperty(ref _matchcase, value);
         }
 
         public bool MatchWholeWord
         {
             get => _matchwholeword;
-            set=>SetProperty(ref _matchwholeword,value);
+            set => SetProperty(ref _matchwholeword, value);
         }
 
         public Regex RegexPattern
@@ -136,7 +136,7 @@ namespace miRobotEditor.ViewModel
             {
                 var pattern = (!UseRegex) ? Regex.Escape(LookFor) : LookFor;
                 var options = MatchCase ? 0 : 1;
-                return new Regex(pattern, (RegexOptions) options);
+                return new Regex(pattern, (RegexOptions)options);
             }
         }
 
@@ -145,26 +145,26 @@ namespace miRobotEditor.ViewModel
         public string LookFor
         {
             get => _lookfor;
-            set=>SetProperty(ref _lookfor,value);
+            set => SetProperty(ref _lookfor, value);
         }
 
         public string ReplaceWith
         {
             get => _replacewith;
-            set=>SetProperty(ref _replacewith,value);
+            set => SetProperty(ref _replacewith, value);
         }
 
         public string SearchResult
         {
             get => _searchresult;
-            set=>SetProperty(ref _searchresult,value);
+            set => SetProperty(ref _searchresult, value);
         }
 
         private static void FindPrevious() => throw new NotImplementedException();
 
         private static void FindNext()
         {
-           
+
             var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.ActiveEditor.TextBox.FindText();
         }

@@ -28,7 +28,7 @@ namespace miRobotEditor.ViewModel
 
                 _filePath = value;
                 // ReSharper disable once ExplicitCallerInfoArgument
-                OnPropertyChanged(nameof(FilePath) );
+                OnPropertyChanged(nameof(FilePath));
                 // ReSharper disable once ExplicitCallerInfoArgument
                 OnPropertyChanged(nameof(FileName));
                 // ReSharper disable once ExplicitCallerInfoArgument

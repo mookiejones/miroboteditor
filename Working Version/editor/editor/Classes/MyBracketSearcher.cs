@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ICSharpCode.AvalonEdit.Document;
+using miRobotEditor.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using ICSharpCode.AvalonEdit.Document;
-using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -251,10 +251,10 @@ namespace miRobotEditor.Classes
                                     }
                                 }
                             }
-                            IL_2DC:
+                        IL_2DC:
                             i++;
                             continue;
-                            IL_262:
+                        IL_262:
                             if (charAt == openBracket)
                             {
                                 if (!flag4 && !flag3 && !flag2 && !flag)
@@ -414,10 +414,10 @@ namespace miRobotEditor.Classes
                                     }
                                 }
                             }
-                            IL_29E:
+                        IL_29E:
                             offset++;
                             continue;
-                            IL_22C:
+                        IL_22C:
                             if (charAt == openBracket)
                             {
                                 if (!flag && !flag2 && !flag4 && !flag5)

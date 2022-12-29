@@ -1,9 +1,9 @@
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using miRobotEditor.Controls.AngleConverter;
 using miRobotEditor.Controls.AngleConverter.Classes;
 using miRobotEditor.Controls.AngleConverter.Interfaces;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace miRobotEditor.Classes
 {

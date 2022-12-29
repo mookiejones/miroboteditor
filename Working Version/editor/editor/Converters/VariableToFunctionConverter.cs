@@ -1,9 +1,9 @@
-﻿using System;
+﻿using miRobotEditor.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
-using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Converters
 {
@@ -16,10 +16,10 @@ namespace miRobotEditor.Converters
             if (items == null)
                 return Binding.DoNothing;
             var newlist = from item in items
-                where item.Type.ToLower() == "def"
-                select item;
+                          where item.Type.ToLower() == "def"
+                          select item;
 
-           
+
             foreach (var item in newlist)
             {
                 list.Add(item);

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Input;
-using ICSharpCode.AvalonEdit.Document;
+﻿using ICSharpCode.AvalonEdit.Document;
 using miRobotEditor.Interfaces;
-using CSITextAnchor = ICSharpCode.AvalonEdit.Document.ITextAnchor;
+using System;
+using System.Windows.Input;
 using ITextAnchor = miRobotEditor.Interfaces.ITextAnchor;
 
 namespace miRobotEditor.Classes
@@ -102,7 +101,7 @@ namespace miRobotEditor.Classes
 
         private void AnchorDeleted(object sender, EventArgs e)
         {
-//            _location = Location.Empty;
+            //            _location = Location.Empty;
             Anchor = null;
             RemoveMark();
         }
@@ -111,7 +110,7 @@ namespace miRobotEditor.Classes
         {
             if (_document != null)
             {
-                var bookmarkMargin = _document.GetService(typeof (IBookmarkMargin)) as IBookmarkMargin;
+                var bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
                 if (bookmarkMargin != null)
                 {
                     bookmarkMargin.Bookmarks.Remove(this);
@@ -131,7 +130,7 @@ namespace miRobotEditor.Classes
         {
             if (_document != null)
             {
-                var bookmarkMargin = _document.GetService(typeof (IBookmarkMargin)) as IBookmarkMargin;
+                var bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
                 if (bookmarkMargin != null)
                 {
                     bookmarkMargin.Redraw();

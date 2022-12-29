@@ -18,7 +18,7 @@
     </UserControl.Resources>
     <Grid>
         <DataGrid Height="Auto" IsReadOnly="True" Width="Auto"
-                  ColumnHeaderStyle="{StaticResource DataGridHeaderGlassEffect}" Style="{StaticResource DataGridStyle}"
+                  Style="{StaticResource DataGridStyle}"
                   ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type ListViewItem}">

@@ -1,11 +1,11 @@
+using CommunityToolkit.Mvvm.DependencyInjection;
+using miRobotEditor.Classes;
+using miRobotEditor.Enums;
+using miRobotEditor.Interfaces;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using CommunityToolkit.Mvvm.DependencyInjection; 
-using miRobotEditor.Classes;
-using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.ViewModel
 {
@@ -33,13 +33,13 @@ namespace miRobotEditor.ViewModel
         public int Progress
         {
             get => _progress;
-            set=>SetProperty(ref _progress,value);
+            set => SetProperty(ref _progress, value);
         }
 
         public int ProgressMax
         {
             get => _progressMax;
-            set=>SetProperty(ref _progressMax,value);
+            set => SetProperty(ref _progressMax, value);
         }
 
         #endregion
@@ -71,7 +71,7 @@ namespace miRobotEditor.ViewModel
         private void Initialize()
         {
             ContentId = ToolContentId;
-            IconSource=Utilities.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
+            IconSource = Utilities.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
             //  IconSource = Utilities.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
             DefaultPane = DefaultToolPane.Bottom;
         }

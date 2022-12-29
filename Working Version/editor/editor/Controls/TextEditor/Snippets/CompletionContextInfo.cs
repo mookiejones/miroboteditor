@@ -1,5 +1,5 @@
-using System.Windows.Input;
 using miRobotEditor.Controls.TextEditor.Snippets.CompletionData;
+using System.Windows.Input;
 
 namespace miRobotEditor.Controls.TextEditor.Snippets
 {

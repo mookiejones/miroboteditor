@@ -100,10 +100,15 @@
             </StackPanel>
         </StackPanel>
     </DataTemplate>
+ 
 
-    
+    <DataTemplate x:Key="CodeCompletion" DataType="{x:Type classes:CodeCompletion}">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Background="#FFFFA500" Text="{Binding Text}" />
+            <TextBlock Background="#FFFF0000" Text="{Binding Description}" />
+        </StackPanel>
+    </DataTemplate>
 
-  
     <!-- OuputWindow Message-->
     <DataTemplate DataType="{x:Type classes:OutputWindowMessage}">
         <Label>
@@ -178,7 +183,7 @@
    
 
     <!-- Editor -->
-    <DataTemplate x:Key="{DataTemplateKey {x:Type textEditor:Editor}}" DataType="{x:Type textEditor:Editor}">
+    <DataTemplate x:Key="{DataTemplateKey {x:Type textEditor:AvalonEditor}}" DataType="{x:Type textEditor:AvalonEditor}">
         <DockPanel>
             <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}"
                       DockPanel.Dock="Top" />

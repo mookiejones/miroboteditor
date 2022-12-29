@@ -17,7 +17,7 @@ namespace miRobotEditor.ViewModel
             get => _toolItems;
 
             set => SetProperty(ref _toolItems, value);
- 
+
         }
 
         #endregion

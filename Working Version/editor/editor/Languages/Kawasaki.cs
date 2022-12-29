@@ -1,15 +1,16 @@
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Folding;
+using miRobotEditor.Classes;
+using miRobotEditor.Controls.TextEditor.Folding;
+using miRobotEditor.Controls.TextEditor.Language;
+using miRobotEditor.Enums;
+using miRobotEditor.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Abstract;
-using miRobotEditor.Classes;
-using miRobotEditor.Enums;
-using miRobotEditor.ViewModel;
 using FileInfo = System.IO.FileInfo;
 
 namespace miRobotEditor.Languages

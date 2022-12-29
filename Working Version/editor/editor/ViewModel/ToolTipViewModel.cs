@@ -17,13 +17,13 @@ namespace miRobotEditor.ViewModel
         public string Message
         {
             get => _message;
-            set=>SetProperty(ref _message,value);
+            set => SetProperty(ref _message, value);
         }
 
         public string Title
         {
             get => _title;
-            set=>SetProperty(ref _title,value);
+            set => SetProperty(ref _title, value);
         }
     }
 }

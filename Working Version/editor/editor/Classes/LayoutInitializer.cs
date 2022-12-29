@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
-using System.Linq;
-using AvalonDock.Layout;
+﻿using AvalonDock.Layout;
 using miRobotEditor.Enums;
-using miRobotEditor.ViewModel; 
+using miRobotEditor.ViewModel;
+using System.ComponentModel;
+using System.Linq;
 namespace miRobotEditor.Classes
 {
     [Localizable(false)]
@@ -45,7 +45,7 @@ namespace miRobotEditor.Classes
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault(d => d.Name == "RightPane");
-                switch (((ToolViewModel) content).DefaultPane)
+                switch (((ToolViewModel)content).DefaultPane)
                 {
                     case DefaultToolPane.Left:
                         if (layoutAnchorablePane2 != null)

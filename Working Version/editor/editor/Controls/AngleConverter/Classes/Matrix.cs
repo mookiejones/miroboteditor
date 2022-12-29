@@ -1,9 +1,9 @@
+using miRobotEditor.Controls.AngleConverter.Exceptions;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
-using miRobotEditor.Controls.AngleConverter.Exceptions;
 
 namespace miRobotEditor.Controls.AngleConverter.Classes
 {
@@ -40,7 +40,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         protected Matrix(int rows, int columns, params double[] elements)
         {
-            if (elements.Length != rows*columns)
+            if (elements.Length != rows * columns)
             {
                 throw new MatrixException("Number of elements does not match matrix dimension");
             }
@@ -49,7 +49,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             {
                 for (var j = 0; j < columns; j++)
                 {
-                    _elements[i, j] = elements[j + i*columns];
+                    _elements[i, j] = elements[j + i * columns];
                 }
             }
         }
@@ -129,8 +129,8 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         public override int GetHashCode()
         {
             var num = _columns;
-            num = (num*397 ^ ((_elements != null) ? _elements.GetHashCode() : 0));
-            return num*397 ^ _rows;
+            num = (num * 397 ^ ((_elements != null) ? _elements.GetHashCode() : 0));
+            return num * 397 ^ _rows;
         }
 
         protected void AddRowTimesScalar(int row1, int row2, double scalar)
@@ -139,7 +139,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             for (var i = 0; i < Columns; i++)
             {
                 int column;
-                this[row1, column = i] = this[row1, column] + scalar*row3[i, 0];
+                this[row1, column = i] = this[row1, column] + scalar * row3[i, 0];
             }
         }
 
@@ -271,7 +271,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                 }
                 if (Math.Abs(num3 - 1.0) > 0.0001)
                 {
-                    MultiplyRow(i, 1.0/num3);
+                    MultiplyRow(i, 1.0 / num3);
                     num *= num3;
                 }
                 while (true)
@@ -304,7 +304,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             for (var i = 0; i < Columns; i++)
             {
                 int column;
-                this[row, column = i] = this[row, column]*scalar;
+                this[row, column = i] = this[row, column] * scalar;
             }
         }
 
@@ -366,7 +366,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             {
                 throw new DivideByZeroException();
             }
-            return mat*(1.0/scalar);
+            return mat * (1.0 / scalar);
         }
 
         public static bool operator ==(Matrix m1, Matrix m2)
@@ -421,7 +421,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                     var num = 0.0;
                     for (var k = 0; k < lhs.Columns; k++)
                     {
-                        num += lhs[i, k]*rhs[k, j];
+                        num += lhs[i, k] * rhs[k, j];
                     }
                     matrix[i, j] = num;
                 }
@@ -436,7 +436,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             {
                 for (var j = 0; j < mat.Columns; j++)
                 {
-                    matrix[i, j] = mat[i, j]*scalar;
+                    matrix[i, j] = mat[i, j] * scalar;
                 }
             }
             return matrix;
@@ -444,7 +444,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator *(double scalar, Matrix mat)
         {
-            return mat*scalar;
+            return mat * scalar;
         }
 
         public static Matrix operator -(Matrix lhs, Matrix rhs)
@@ -501,10 +501,10 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             {
                 if (sVD.W[i] > 1E-05)
                 {
-                    matrix[i, i] = 1.0/sVD.W[i];
+                    matrix[i, i] = 1.0 / sVD.W[i];
                 }
             }
-            return sVD.V*matrix*sVD.U.Transpose();
+            return sVD.V * matrix * sVD.U.Transpose();
         }
 
         public void SetColumn(int column, Vector vec)

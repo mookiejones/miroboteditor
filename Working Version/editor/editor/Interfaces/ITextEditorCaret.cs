@@ -1,5 +1,5 @@
-﻿using System;
-using miRobotEditor.Structs;
+﻿using miRobotEditor.Structs;
+using System;
 
 namespace miRobotEditor.Interfaces
 {

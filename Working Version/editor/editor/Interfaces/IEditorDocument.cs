@@ -1,7 +1,7 @@
-﻿using System.Windows;
+﻿using miRobotEditor.Controls.TextEditor;
+using miRobotEditor.Controls.TextEditor.Language;
+using System.Windows;
 using System.Windows.Media;
-using miRobotEditor.Abstract;
-using miRobotEditor.Controls.TextEditor;
 
 namespace miRobotEditor.Interfaces
 {
@@ -9,7 +9,7 @@ namespace miRobotEditor.Interfaces
     {
         Visibility Visibility { get; set; }
         AbstractLanguageClass FileLanguage { get; set; }
-        Editor TextBox { get; set; }
+        AvalonEditor TextBox { get; set; }
         string FilePath { get; set; }
         ImageSource IconSource { get; set; }
         string FileName { get; }

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using ICSharpCode.AvalonEdit.Editing;
+using ICSharpCode.AvalonEdit.Rendering;
+using ICSharpCode.AvalonEdit.Utils;
+using miRobotEditor.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using ICSharpCode.AvalonEdit.Editing;
-using ICSharpCode.AvalonEdit.Rendering;
-using ICSharpCode.AvalonEdit.Utils;
-using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -32,7 +32,7 @@ namespace miRobotEditor.Classes
         public void Dispose()
         {
             TextView = null;
-// ReSharper disable once GCSuppressFinalizeForTypeWithoutDestructor
+            // ReSharper disable once GCSuppressFinalizeForTypeWithoutDestructor
             GC.SuppressFinalize(this);
         }
 
@@ -53,7 +53,7 @@ namespace miRobotEditor.Classes
                 _manager.RedrawRequested += OnRedrawRequested;
             }
 
-//            Console.WriteLine(Properties.Resources.IconBarMargin_OnTextViewChanged_Fix_On_Text_View_Changed_in_IconBarMargin);
+            //            Console.WriteLine(Properties.Resources.IconBarMargin_OnTextViewChanged_Fix_On_Text_View_Changed_in_IconBarMargin);
             InvalidateVisual();
         }
 
@@ -143,7 +143,7 @@ namespace miRobotEditor.Classes
 
         private IBookmark GetBookmarkFromLine(int line)
         {
-            IBookmark[] result = {null};
+            IBookmark[] result = { null };
             foreach (
                 var bm in
                     _manager.Bookmarks.Where(bm => bm.LineNumber == line)
@@ -166,7 +166,7 @@ namespace miRobotEditor.Classes
             _dragDropStartPoint = (_dragDropCurrentPoint = e.GetPosition(this).Y);
             if (TextView != null)
             {
-                var textArea = TextView.Services.GetService(typeof (TextArea)) as TextArea;
+                var textArea = TextView.Services.GetService(typeof(TextArea)) as TextArea;
                 if (textArea != null)
                 {
                     textArea.PreviewKeyDown += TextAreaPreviewKeyDown;
@@ -182,7 +182,7 @@ namespace miRobotEditor.Classes
                 _dragStarted = false;
                 if (TextView != null)
                 {
-                    var textArea = TextView.Services.GetService(typeof (TextArea)) as TextArea;
+                    var textArea = TextView.Services.GetService(typeof(TextArea)) as TextArea;
                     if (textArea != null)
                     {
                         textArea.PreviewKeyDown -= TextAreaPreviewKeyDown;
@@ -262,7 +262,7 @@ namespace miRobotEditor.Classes
                 }
                 if (e.ChangedButton == MouseButton.Left && TextView != null)
                 {
-                    var textEditor = TextView.Services.GetService(typeof (ITextEditor)) as ITextEditor;
+                    var textEditor = TextView.Services.GetService(typeof(ITextEditor)) as ITextEditor;
                     if (textEditor != null)
                     {
                     }

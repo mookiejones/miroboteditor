@@ -1,7 +1,7 @@
 ﻿namespace miRobotEditor.Enums
 {
     // ReSharper disable UnusedMember.Global
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
     internal enum WM
     {
         NULL,

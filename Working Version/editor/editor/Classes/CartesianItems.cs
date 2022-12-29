@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using miRobotEditor.Enums;
+using System.Collections.Generic;
 
 namespace miRobotEditor.Classes
 {

@@ -27,7 +27,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="VisualVariable" IsReadOnly="True" ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}"
+        <DataGrid x:Name="VisualVariable" IsReadOnly="True"  
                   Style="{DynamicResource DataGridStyle}" ToolTipOpening="ToolTip_Opening" ItemsSource="{Binding}"
                   MouseDoubleClick="OnMouseDoubleClick">
             <DataGrid.Columns>

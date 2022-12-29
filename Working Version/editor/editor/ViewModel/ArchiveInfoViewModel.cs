@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using Ionic.Zip;
+using miRobotEditor.Enums;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.OleDb;
@@ -8,9 +11,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input; 
-using Ionic.Zip;
-using miRobotEditor.Enums;
 using Application = System.Windows.Forms.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -18,7 +18,7 @@ namespace miRobotEditor.ViewModel
 {
     public sealed class ArchiveInfoViewModel : ToolViewModel
     {
-// ReSharper disable once ConvertToConstant.Local
+        // ReSharper disable once ConvertToConstant.Local
         private readonly ObservableCollection<Item> _anin = new ObservableCollection<Item>();
         private readonly ObservableCollection<Item> _anout = new ObservableCollection<Item>();
         private readonly ObservableCollection<Item> _counter = new ObservableCollection<Item>();
@@ -89,31 +89,31 @@ namespace miRobotEditor.ViewModel
         public Visibility FlagVisibility
         {
             get => _flagVisibility;
-            set=>SetProperty(ref _flagVisibility,value);
+            set => SetProperty(ref _flagVisibility, value);
         }
 
         public Visibility TimerVisibility
         {
             get => _timerVisibility;
-            set=>SetProperty(ref _timerVisibility,value);
+            set => SetProperty(ref _timerVisibility, value);
         }
 
         public Visibility CyclicFlagVisibility
         {
             get => _cyclicFlagVisibility;
-            set=>SetProperty(ref _cyclicFlagVisibility,value);
+            set => SetProperty(ref _cyclicFlagVisibility, value);
         }
 
         public Visibility CounterVisibility
         {
             get => _counterVisibility;
-            set=>SetProperty(ref _counterVisibility,value);
+            set => SetProperty(ref _counterVisibility, value);
         }
 
         public InfoFile Info
         {
             get => _info;
-            set=>SetProperty(ref _info,value);
+            set => SetProperty(ref _info, value);
         }
 
         public string DirectoryPath { get; set; }
@@ -121,13 +121,13 @@ namespace miRobotEditor.ViewModel
         public string ArchivePath
         {
             get => _archivePath;
-            set=>SetProperty(ref _archivePath,value);
+            set => SetProperty(ref _archivePath, value);
         }
 
         public string FileCount
         {
             get => _filecount;
-            set=>SetProperty(ref _filecount,value);
+            set => SetProperty(ref _filecount, value);
         }
 
         public ZipFile ArchiveZip { get; set; }
@@ -135,7 +135,7 @@ namespace miRobotEditor.ViewModel
         public string BufferSize
         {
             get => _buffersize;
-            set=>SetProperty(ref _buffersize,value);
+            set => SetProperty(ref _buffersize, value);
         }
 
         public string DatabaseFile { get; set; }
@@ -143,7 +143,7 @@ namespace miRobotEditor.ViewModel
         public string Database
         {
             get => _database;
-            set=>SetProperty(ref _database,value);
+            set => SetProperty(ref _database, value);
         }
 
         public string InfoFile { get; set; }
@@ -155,19 +155,19 @@ namespace miRobotEditor.ViewModel
         public DirectoryInfo RootPath
         {
             get => _rootpath;
-            set=>SetProperty(ref _rootpath,value);
+            set => SetProperty(ref _rootpath, value);
         }
 
         public string LanguageText
         {
             get => _languageText;
-            set=>SetProperty(ref _languageText,value);
+            set => SetProperty(ref _languageText, value);
         }
 
         public string DatabaseText
         {
             get => _databaseText;
-            set=>SetProperty(ref _databaseText,value);
+            set => SetProperty(ref _databaseText, value);
         }
 
         public ReadOnlyObservableCollection<Item> Inputs => _readonlyinputs ?? new ReadOnlyObservableCollection<Item>(_inputs);
@@ -531,7 +531,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-// ReSharper disable once UnusedMember.Local
+        // ReSharper disable once UnusedMember.Local
         private void ImportFile(string sFile, bool bCsv)
         {
             if (File.Exists(sFile))

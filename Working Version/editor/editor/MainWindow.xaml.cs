@@ -1,21 +1,19 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Windows;
-using System.Windows.Forms;
-using AvalonDock.Layout;
+﻿using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
-using MahApps.Metro; 
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.Properties;
-using miRobotEditor.ViewModel; 
-using Application = System.Windows.Application;
+using miRobotEditor.ViewModel;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Forms;
 using DataFormats = System.Windows.DataFormats;
 using DragDropEffects = System.Windows.DragDropEffects;
 using DragEventArgs = System.Windows.DragEventArgs;
@@ -38,7 +36,7 @@ namespace miRobotEditor
         {
             Instance = this;
             InitializeComponent();
-            
+
             KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);
         }
 
@@ -51,7 +49,7 @@ namespace miRobotEditor
                 DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault<LayoutDocumentPane>();
             if (layoutDocumentPane != null && layoutDocumentPane.ChildrenCount == 0)
             {
-                var instance =Ioc.Default.GetRequiredService<MainViewModel>();
+                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 instance.AddNewFile();
             }
             ProcessArgs();
@@ -59,13 +57,13 @@ namespace miRobotEditor
 
         private static void OpenFile(string filename)
         {
-            var instance =Ioc.Default.GetRequiredService<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.Open(filename);
         }
 
         private static void LoadOpenFiles()
         {
-            var array = Settings.Default.OpenDocuments.Split(new[] {';'});
+            var array = Settings.Default.OpenDocuments.Split(new[] { ';' });
             for (var i = 0; i < array.Length - 1; i++)
                 if (File.Exists(array[i]))
                     OpenFile(array[i]);
@@ -81,10 +79,10 @@ namespace miRobotEditor
         [Localizable(false)]
         private void DropFiles(object sender, DragEventArgs e)
         {
-            var array = (string[]) e.Data.GetData(DataFormats.FileDrop);
+            var array = (string[])e.Data.GetData(DataFormats.FileDrop);
 
 
-            foreach (var msg in array.Select(text => new WindowMessage("File Dropped",  text, MessageType.Information)))
+            foreach (var msg in array.Select(text => new WindowMessage("File Dropped", text, MessageType.Information)))
             {
                 WeakReferenceMessenger.Default.Send(msg);
             }
@@ -104,7 +102,7 @@ namespace miRobotEditor
 
         public static void CallLater(TimeSpan delay, Action method)
         {
-            var delayMilliseconds = (int) delay.TotalMilliseconds;
+            var delayMilliseconds = (int)delay.TotalMilliseconds;
             if (delayMilliseconds < 0)
             {
                 throw new ArgumentOutOfRangeException("delay", delay, Properties.Resources.ValueMustBePositive);
@@ -150,7 +148,7 @@ namespace miRobotEditor
             }
             Settings.Default.Save();
             SaveLayout();
-            var instance =Ioc.Default.GetRequiredService<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.IsClosing = true;
             App.Application.Shutdown();
         }

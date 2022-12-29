@@ -1,11 +1,10 @@
-using System;
-using System.Windows;
-using System.Windows.Controls.Primitives;
-
 using miRobotEditor.Classes;
 using miRobotEditor.Controls.AngleConverter;
 using miRobotEditor.Controls.AngleConverter.Classes;
 using miRobotEditor.Enums;
+using System;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace miRobotEditor.ViewModel
 {
@@ -38,13 +37,13 @@ namespace miRobotEditor.ViewModel
         public ValueBoxViewModel InputItems
         {
             get => _inputItems;
-            set=>SetProperty(ref _inputItems,value);
+            set => SetProperty(ref _inputItems, value);
         }
 
         public ValueBoxViewModel OutputItems
         {
             get => _outputItems;
-            set=>SetProperty(ref _outputItems,value);
+            set => SetProperty(ref _outputItems, value);
         }
 
         private double EPSILON
@@ -58,7 +57,7 @@ namespace miRobotEditor.ViewModel
         public string Matrix
         {
             get => _matrix;
-            set=>SetProperty(ref _matrix,value);
+            set => SetProperty(ref _matrix, value);
         }
 
         public void Convert()
@@ -94,7 +93,7 @@ namespace miRobotEditor.ViewModel
                     switch (OutputItems.SelectedItem)
                     {
                         case CartesianEnum.ABB_Quaternion:
-                            quaternion = (Quaternion) _rotationMatrix;
+                            quaternion = (Quaternion)_rotationMatrix;
                             result = quaternion.Vector;
                             num = quaternion.Scalar;
 
@@ -118,7 +117,7 @@ namespace miRobotEditor.ViewModel
                     }
                     var text = quaternion.ToString();
 
-//                    var text = quaternion.ToString("F3");
+                    //                    var text = quaternion.ToString("F3");
                     if (Matrix != null && Matrix != text)
                     {
                         Matrix = text;
@@ -212,19 +211,19 @@ namespace miRobotEditor.ViewModel
         public bool IsReadOnly
         {
             get => _isReadOnly;
-            set=>SetProperty(ref _isReadOnly,value);
+            set => SetProperty(ref _isReadOnly, value);
         }
 
         public string Header
         {
             get => _header;
-            set=>SetProperty(ref _header,value);
+            set => SetProperty(ref _header, value);
         }
 
         public Visibility BoxVisibility
         {
             get => _boxVisibility;
-            set=>SetProperty(ref _boxVisibility,value);
+            set => SetProperty(ref _boxVisibility, value);
         }
 
         public CartesianItems SelectionItems => _selectionitems;
@@ -234,7 +233,7 @@ namespace miRobotEditor.ViewModel
             get => _selectedItem;
             set
             {
-                 
+
 
                 _selectedItem = value;
                 CheckVisibility();
@@ -249,7 +248,7 @@ namespace miRobotEditor.ViewModel
         {
             if (ItemsChanged != null)
             {
-                ItemsChanged(this, (ItemsChangedEventArgs) new EventArgs());
+                ItemsChanged(this, (ItemsChangedEventArgs)new EventArgs());
             }
         }
 

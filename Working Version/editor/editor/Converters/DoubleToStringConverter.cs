@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace miRobotEditor.Converters
 {
-    [Localizable(false), ValueConversion(typeof (object), typeof (string))]
+    [Localizable(false), ValueConversion(typeof(object), typeof(string))]
     public sealed class DoubleToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (value == null) ? null : System.Convert.ToDouble(value).ToString(CultureInfo.InvariantCulture);

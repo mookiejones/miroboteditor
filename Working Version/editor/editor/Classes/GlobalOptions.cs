@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
-using miRobotEditor.Interfaces;
+﻿using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
+using System.ComponentModel;
 
 namespace miRobotEditor.Classes
 {

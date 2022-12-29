@@ -6,7 +6,7 @@ namespace miRobotEditor.ViewModel
     {
         #region Index
 
-        
+
 
         private int _index = -1;
 
@@ -19,14 +19,14 @@ namespace miRobotEditor.ViewModel
             get => _index;
 
             set => SetProperty(ref _index, value);
-            
+
         }
 
         #endregion
 
         #region Type
 
-    
+
 
         private string _type = string.Empty;
 
@@ -38,14 +38,14 @@ namespace miRobotEditor.ViewModel
         {
             get => _type;
 
-            set => SetProperty(ref _type, value); 
+            set => SetProperty(ref _type, value);
         }
 
         #endregion
 
         #region Description
 
-        
+
 
         private string _description = string.Empty;
 
@@ -57,7 +57,7 @@ namespace miRobotEditor.ViewModel
         {
             get => _description;
 
-            set            => SetProperty(ref _description, value);
+            set => SetProperty(ref _description, value);
         }
 
         #endregion

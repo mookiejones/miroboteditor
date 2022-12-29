@@ -1,16 +1,17 @@
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Folding;
+using miRobotEditor.Classes;
+using miRobotEditor.Controls.TextEditor.Folding;
+using miRobotEditor.Controls.TextEditor.Language;
+using miRobotEditor.Enums;
+using miRobotEditor.ViewModel;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Abstract;
-using miRobotEditor.Classes;
-using miRobotEditor.Enums;
-using miRobotEditor.ViewModel;
 using FileInfo = System.IO.FileInfo;
 
 namespace miRobotEditor.Languages
@@ -18,7 +19,7 @@ namespace miRobotEditor.Languages
     [Localizable(false)]
     public sealed class ABB : AbstractLanguageClass
     {
-// ReSharper disable once UnusedMember.Local
+        // ReSharper disable once UnusedMember.Local
         private const RegexOptions Ro = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
         public ABB(string file)

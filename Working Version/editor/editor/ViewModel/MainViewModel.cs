@@ -4,11 +4,10 @@ using AvalonDock.Layout;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ControlzEx.Theming;
-using MahApps.Metro;
 using Microsoft.Win32;
-using miRobotEditor.Abstract;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls;
+using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
@@ -21,7 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Shell; 
+using System.Windows.Shell;
 
 namespace miRobotEditor.ViewModel
 {
@@ -55,7 +54,7 @@ namespace miRobotEditor.ViewModel
         }
 
         private void GetMessage(object recipient, WindowMessage message) => Open(message.Description);
-        
+
         public string Title
         {
             get
@@ -114,12 +113,12 @@ namespace miRobotEditor.ViewModel
             get => _showSettings;
 
             set => SetProperty(ref _showSettings, value);
- 
+
         }
 
         #endregion ShowSettings
 
-       
+
 
         #region CurrentTheme
 
@@ -134,7 +133,7 @@ namespace miRobotEditor.ViewModel
             get => _currentTheme;
 
             set => SetProperty(ref _currentTheme, value);
-            
+
         }
 
         #endregion CurrentTheme
@@ -151,7 +150,7 @@ namespace miRobotEditor.ViewModel
         {
             get => _showIO;
 
-            set => SetProperty(ref _showIO, value); 
+            set => SetProperty(ref _showIO, value);
         }
 
         #endregion ShowIO
@@ -168,7 +167,7 @@ namespace miRobotEditor.ViewModel
         {
             get => _enableIO;
 
-            set            => SetProperty(ref _enableIO, value);
+            set => SetProperty(ref _enableIO, value);
         }
 
         #endregion EnableIO
@@ -252,7 +251,7 @@ namespace miRobotEditor.ViewModel
 
         #endregion ShowIOCommand
 
-       
+
         #region NewFileCommand
 
         private RelayCommand _newFileCommand;
@@ -489,7 +488,7 @@ namespace miRobotEditor.ViewModel
 
         private void ExecuteShowSettings() => ShowSettings = !ShowSettings;
 
-       
+
 
         private void OnOpen(object param)
         {
@@ -673,7 +672,7 @@ namespace miRobotEditor.ViewModel
 
             var msg = new ErrorMessage("Not Implemented",
                 string.Format("Add Tool Parameter of {0} not Implemented", text), MessageType.Error);
-            WeakReferenceMessenger.Default.Send<IMessage>(msg); 
+            WeakReferenceMessenger.Default.Send<IMessage>(msg);
 
         IL_1EE:
             if (toolModel != null)

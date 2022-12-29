@@ -9,7 +9,7 @@
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
 
-    <Style x:Key="{x:Type textEditor:Editor}" TargetType="{x:Type textEditor:Editor}">
+    <Style x:Key="{x:Type textEditor:AvalonEditor}" TargetType="{x:Type textEditor:AvalonEditor}">
         <Setter Property="Background"
                 Value="{Binding BackgroundColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="BorderBrush"

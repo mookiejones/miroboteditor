@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
-using System.Windows.Media.Imaging;
-using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
-using miRobotEditor.Abstract;
+using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.ViewModel;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
+using System.Windows.Media.Imaging;
 
 namespace miRobotEditor.Classes
 {
@@ -29,55 +29,55 @@ namespace miRobotEditor.Classes
         public string Description
         {
             get => _description;
-            set=>SetProperty(ref _description,value);
+            set => SetProperty(ref _description, value);
         }
 
         public BitmapImage Icon
         {
             get => _icon;
-            set=>SetProperty(ref _icon,value);
+            set => SetProperty(ref _icon, value);
         }
 
         public string Name
         {
             get => _name;
-            set=>SetProperty(ref _name,value);
+            set => SetProperty(ref _name, value);
         }
 
         public string Comment
         {
             get => _comment;
-            set=>SetProperty(ref _comment,value);
+            set => SetProperty(ref _comment, value);
         }
 
         public string Path
         {
             get => _path;
-            set=>SetProperty(ref _path,value);
+            set => SetProperty(ref _path, value);
         }
 
         public string Value
         {
             get => _value;
-            set=>SetProperty(ref _value,value);
+            set => SetProperty(ref _value, value);
         }
 
         public string Type
         {
             get => _type;
-            set=>SetProperty(ref _type,value);
+            set => SetProperty(ref _type, value);
         }
 
         public string Declaration
         {
             get => _declaration;
-            set=>SetProperty(ref _declaration,value);
+            set => SetProperty(ref _declaration, value);
         }
 
         public int Offset
         {
             get => _offset;
-            set=>SetProperty(ref _offset,value);
+            set => SetProperty(ref _offset, value);
         }
 
         public static void GetPositions(string filename, AbstractLanguageClass lang, string iconpath)
@@ -103,7 +103,7 @@ namespace miRobotEditor.Classes
             if (workerArgs != null)
             {
                 var bitmapImage = Utilities.LoadBitmap(workerArgs.IconPath);
-                var instance =Ioc.Default.GetRequiredService<MainViewModel>();
+                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 var fileLanguage = instance.ActiveEditor.FileLanguage;
                 var match = VariableHelper.FindMatches(workerArgs.Lang.XYZRegex, workerArgs.Filename);
                 var fileNameWithoutExtension =
@@ -131,7 +131,7 @@ namespace miRobotEditor.Classes
         {
             var list = new List<IVariable>();
             var bitmapImage = Utilities.LoadBitmap(iconpath);
-            var instance =Ioc.Default.GetRequiredService<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             var fileLanguage = instance.ActiveEditor.FileLanguage;
             var match = VariableHelper.FindMatches(regex, filename);
             var fileNameWithoutExtension =

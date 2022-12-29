@@ -1,8 +1,8 @@
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Editing;
 using System;
 using System.Linq;
 using System.Windows.Media;
-using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Editing;
 
 namespace miRobotEditor.Controls.TextEditor.Snippets
 {

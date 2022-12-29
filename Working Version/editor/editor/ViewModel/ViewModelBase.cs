@@ -1,19 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace miRobotEditor.ViewModel
 {
-    public abstract class ViewModelBase:ObservableRecipient
+    public abstract class ViewModelBase : ObservableRecipient
     {
-        
+
         private static bool? _isInDesignMode;
 
         /// <summary>
@@ -30,7 +25,7 @@ namespace miRobotEditor.ViewModel
         {
             get
             {
-                 
+
                 if (!_isInDesignMode.HasValue)
                 {
                     DependencyProperty prop = DesignerProperties.IsInDesignModeProperty;

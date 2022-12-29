@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using miRobotEditor.Abstract;
+using miRobotEditor.Enums;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
-using miRobotEditor.Abstract;
-using miRobotEditor.Enums;
 
 namespace miRobotEditor.Parsers
 {

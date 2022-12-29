@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ICSharpCode.AvalonEdit.Rendering;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using ICSharpCode.AvalonEdit.Rendering;
 
 namespace miRobotEditor.Classes
 {

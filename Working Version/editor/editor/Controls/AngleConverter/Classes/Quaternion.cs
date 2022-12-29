@@ -69,8 +69,8 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public double Angle()
         {
-            var num = Math.Acos(W)*2.0;
-            return num*180.0/3.1415926535897931;
+            var num = Math.Acos(W) * 2.0;
+            return num * 180.0 / 3.1415926535897931;
         }
 
         public Vector3D Axis()
@@ -78,12 +78,12 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             new Quaternion(this).Normalise();
             var w = W;
             Math.Acos(w);
-            var num = Math.Sqrt(1.0 - w*w);
+            var num = Math.Sqrt(1.0 - w * w);
             if (Math.Abs(num) < 0.0005)
             {
                 num = 1.0;
             }
-            return new Vector3D(X/num, Y/num, Z/num);
+            return new Vector3D(X / num, Y / num, Z / num);
         }
 
         public Quaternion Conjugate() => new Quaternion(-X, -Y, -Z, W);
@@ -92,9 +92,9 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         {
             angle *= 0.017453292519943295;
             axis.Normalise();
-            var num = Math.Sin(angle/2.0);
-            var w = Math.Cos(angle/2.0);
-            var quaternion = new Quaternion(axis[0]*num, axis[1]*num, axis[2]*num, w);
+            var num = Math.Sin(angle / 2.0);
+            var w = Math.Cos(angle / 2.0);
+            var quaternion = new Quaternion(axis[0] * num, axis[1] * num, axis[2] * num, w);
             quaternion.Normalise();
             return quaternion;
         }
@@ -102,7 +102,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         public Quaternion Inverse()
         {
             var quaternion = Conjugate();
-            quaternion.Scalar = 1.0/Scalar;
+            quaternion.Scalar = 1.0 / Scalar;
             return quaternion;
         }
 
@@ -131,24 +131,24 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         public static explicit operator RotationMatrix3D(Quaternion q)
         {
             var rotationMatrix3D = new RotationMatrix3D();
-            var num = q.X*q.X;
-            var num2 = q.X*q.Y;
-            var num3 = q.X*q.Z;
-            var num4 = q.X*q.W;
-            var num5 = q.Y*q.Y;
-            var num6 = q.Y*q.Z;
-            var num7 = q.Y*q.W;
-            var num8 = q.Z*q.Z;
-            var num9 = q.Z*q.W;
-            rotationMatrix3D[0, 0] = 1.0 - 2.0*(num5 + num8);
-            rotationMatrix3D[1, 0] = 2.0*(num2 + num9);
-            rotationMatrix3D[2, 0] = 2.0*(num3 - num7);
-            rotationMatrix3D[0, 1] = 2.0*(num2 - num9);
-            rotationMatrix3D[1, 1] = 1.0 - 2.0*(num + num8);
-            rotationMatrix3D[2, 1] = 2.0*(num6 + num4);
-            rotationMatrix3D[0, 2] = 2.0*(num3 + num7);
-            rotationMatrix3D[1, 2] = 2.0*(num6 - num4);
-            rotationMatrix3D[2, 2] = 1.0 - 2.0*(num + num5);
+            var num = q.X * q.X;
+            var num2 = q.X * q.Y;
+            var num3 = q.X * q.Z;
+            var num4 = q.X * q.W;
+            var num5 = q.Y * q.Y;
+            var num6 = q.Y * q.Z;
+            var num7 = q.Y * q.W;
+            var num8 = q.Z * q.Z;
+            var num9 = q.Z * q.W;
+            rotationMatrix3D[0, 0] = 1.0 - 2.0 * (num5 + num8);
+            rotationMatrix3D[1, 0] = 2.0 * (num2 + num9);
+            rotationMatrix3D[2, 0] = 2.0 * (num3 - num7);
+            rotationMatrix3D[0, 1] = 2.0 * (num2 - num9);
+            rotationMatrix3D[1, 1] = 1.0 - 2.0 * (num + num8);
+            rotationMatrix3D[2, 1] = 2.0 * (num6 + num4);
+            rotationMatrix3D[0, 2] = 2.0 * (num3 + num7);
+            rotationMatrix3D[1, 2] = 2.0 * (num6 - num4);
+            rotationMatrix3D[2, 2] = 1.0 - 2.0 * (num + num5);
             return rotationMatrix3D;
         }
 
@@ -159,11 +159,11 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             var vector3D2 = new Vector3D(q2.X, q2.Y, q2.Z);
             var w = q1.W;
             var w2 = q2.W;
-            var vector3D3 = (Vector3D) (w*vector3D2 + w2*vector3D) + Vector3D.Cross(vector3D, vector3D2);
+            var vector3D3 = (Vector3D)(w * vector3D2 + w2 * vector3D) + Vector3D.Cross(vector3D, vector3D2);
             quaternion.X = vector3D3[0];
             quaternion.Y = vector3D3[1];
             quaternion.Z = vector3D3[2];
-            quaternion.W = w*w2 - Classes.Vector.Dot(vector3D, vector3D2);
+            quaternion.W = w * w2 - Classes.Vector.Dot(vector3D, vector3D2);
             return quaternion;
         }
 
@@ -174,11 +174,11 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             var vector3D2 = new Vector3D(q2.X, q2.Y, q2.Z);
             var w = q1.W;
             var w2 = q2.W;
-            var vector3D3 = (Vector3D) (w*vector3D2 + w2*vector3D) + Vector3D.Cross(vector3D, vector3D2);
+            var vector3D3 = (Vector3D)(w * vector3D2 + w2 * vector3D) + Vector3D.Cross(vector3D, vector3D2);
             quaternion.X = vector3D3[0];
             quaternion.Y = vector3D3[1];
             quaternion.Z = vector3D3[2];
-            quaternion.W = w*w2 - Classes.Vector.Dot(vector3D, vector3D2);
+            quaternion.W = w * w2 - Classes.Vector.Dot(vector3D, vector3D2);
             return quaternion;
         }
 

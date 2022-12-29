@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using ICSharpCode.AvalonEdit.Document;
+﻿using ICSharpCode.AvalonEdit.Document;
 using miRobotEditor.Structs;
+using System;
+using System.ComponentModel;
 
 namespace miRobotEditor.Interfaces
 {

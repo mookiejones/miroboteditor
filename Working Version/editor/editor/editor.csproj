@@ -293,12 +293,12 @@
     <Compile Include="Controls\SnippetToolTip.xaml.cs">
       <DependentUpon>SnippetToolTip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TextEditor\AvalonEditor.cs" />
     <Compile Include="Controls\TextEditor\CompletionData.cs" />
-    <Compile Include="Controls\TextEditor\Editor.xaml.cs">
-      <DependentUpon>Editor.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\TextEditor\DocumentUtilities.cs" />
     <Compile Include="Controls\TextEditor\EditorOptions.cs" />
     <Compile Include="Controls\TextEditor\Extensions\ITextEditorExtensions.cs" />
+    <Compile Include="Controls\TextEditor\FileExtended.cs" />
     <Compile Include="Controls\TextEditor\Snippets\CompletionContextInfo.cs" />
     <Compile Include="Controls\TextEditor\Snippets\CompletionData\CodeCompletionDataUsageCache.cs" />
     <Compile Include="Controls\TextEditor\Snippets\CompletionData\CompletionType.cs" />
@@ -464,10 +464,6 @@
     <Page Include="Controls\SnippetToolTip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TextEditor\Editor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\VisualVariableControl.xaml">
       <SubType>Designer</SubType>

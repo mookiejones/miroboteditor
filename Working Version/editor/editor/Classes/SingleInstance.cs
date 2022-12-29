@@ -1,4 +1,5 @@
-﻿using System;
+﻿using miRobotEditor.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,6 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -22,7 +22,7 @@ namespace miRobotEditor.Classes
         private const string RemoteServiceName = "SingleInstanceApplicationService";
         private const string IpcProtocol = "ipc://";
         private static Mutex _singleInstanceMutex;
-// ReSharper disable once StaticFieldInGenericType
+        // ReSharper disable once StaticFieldInGenericType
         private static IpcServerChannel _channel;
         public static IList<string> CommandLineArgs { get; private set; }
 
@@ -115,7 +115,7 @@ namespace miRobotEditor.Classes
             var chnl = new IpcClientChannel();
             ChannelServices.RegisterChannel(chnl, true);
             var url = "ipc://" + channelName + "/SingleInstanceApplicationService";
-            var ipcRemoteService = (IpcRemoteService) RemotingServices.Connect(typeof (IpcRemoteService), url);
+            var ipcRemoteService = (IpcRemoteService)RemotingServices.Connect(typeof(IpcRemoteService), url);
             if (ipcRemoteService != null)
             {
                 try
@@ -139,7 +139,7 @@ namespace miRobotEditor.Classes
         {
             if (Application.Current != null)
             {
-                var tApplication = (TApplication) Application.Current;
+                var tApplication = (TApplication)Application.Current;
                 tApplication.SignalExternalCommandLineArgs(args);
             }
         }

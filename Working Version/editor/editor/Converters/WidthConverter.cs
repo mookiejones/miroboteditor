@@ -1,9 +1,9 @@
-﻿using System;
+﻿using miRobotEditor.Enums;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
-using miRobotEditor.Enums;
 
 namespace miRobotEditor.Converters
 {
@@ -22,7 +22,7 @@ namespace miRobotEditor.Converters
             {
                 if (value is CartesianEnum)
                 {
-                    switch ((CartesianEnum) value)
+                    switch ((CartesianEnum)value)
                     {
                         case CartesianEnum.ABB_Quaternion:
                         case CartesianEnum.Axis_Angle:

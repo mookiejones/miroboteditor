@@ -1,5 +1,5 @@
-﻿using System.Windows.Input;
-using miRobotEditor.Interfaces;
+﻿using miRobotEditor.Interfaces;
+using System.Windows.Input;
 
 namespace miRobotEditor.Classes
 {
