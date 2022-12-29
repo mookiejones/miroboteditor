@@ -1,5 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -59,11 +59,11 @@ namespace miRobotEditor.Controls.TextEditor
 
         public new string Text
         {
-            get { return base.Text; }
+            get => base.Text;
             set
             {
                 base.Text = value;
-                RaisePropertyChanged("Text");
+                OnPropertyChanged(nameof(Text));
             }
         }
 
@@ -95,7 +95,10 @@ namespace miRobotEditor.Controls.TextEditor
         private FoldingManager _foldingManager;
         private object _foldingStrategy;
         private KeyEventArgs _lastKeyUpArgs;
-        private ToolTip _toolTip = new ToolTip();
+
+       
+
+        private ToolTip _toolTip;
         private static BitmapImage _imgMethod;
 
         // ReSharper disable once UnassignedField.Compiler
@@ -149,7 +152,11 @@ namespace miRobotEditor.Controls.TextEditor
                 };
                 _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
                 InitializeMyControl();
-                MouseHoverStopped += (s, e) => _toolTip.IsOpen = false;
+                MouseHoverStopped += (s, e) =>
+                {
+                    if (_toolTip != null)
+                        _toolTip.IsOpen = false;
+                };
             }
             finally
             {
@@ -168,8 +175,8 @@ namespace miRobotEditor.Controls.TextEditor
 
         private CompletionWindow CompletionWindow
         {
-            get { return (CompletionWindow)GetValue(CompletionWindowProperty); }
-            set { SetValue(CompletionWindowProperty, value); }
+            get => (CompletionWindow)GetValue(CompletionWindowProperty);
+            set => SetValue(CompletionWindowProperty, value);
         }
 
         public IList<ICompletionData> CompletionData
@@ -182,24 +189,15 @@ namespace miRobotEditor.Controls.TextEditor
 
         #region Properties
 
-        public int Line
-        {
-            get { return TextArea.Caret.Column; }
-        }
+        public int Line => TextArea.Caret.Column;
 
-        public int Column
-        {
-            get { return TextArea.Caret.Column; }
-        }
+        public int Column => TextArea.Caret.Column;
 
-        public int Offset
-        {
-            get { return TextArea.Caret.Offset; }
-        }
+        public int Offset => TextArea.Caret.Offset;
 
         public string FileSave
         {
-            get { return _fileSave; }
+            get => _fileSave;
             set
             {
                 _fileSave = value;
@@ -213,7 +211,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         public EDITORTYPE EditorType
         {
-            get { return _editortype; }
+            get => _editortype;
             set
             {
                 _editortype = value;
@@ -229,7 +227,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         public IVariable SelectedVariable
         {
-            get { return _selectedVariable; }
+            get => _selectedVariable;
             set
             {
                 _selectedVariable = value;
@@ -244,7 +242,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         public string Filename
         {
-            get { return _filename; }
+            get => _filename;
             set
             {
                 _filename = value;
@@ -259,7 +257,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         public AbstractLanguageClass FileLanguage
         {
-            get { return _filelanguage; }
+            get => _filelanguage;
             set
             {
                 _filelanguage = value;
@@ -271,10 +269,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         #region Variables
 
-        public ReadOnlyObservableCollection<IVariable> Variables
-        {
-            get { return _readonlyVariables ?? new ReadOnlyObservableCollection<IVariable>(_variables); }
-        }
+        public ReadOnlyObservableCollection<IVariable> Variables => _readonlyVariables ?? new ReadOnlyObservableCollection<IVariable>(_variables);
 
         #endregion Variables
 
@@ -289,25 +284,13 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the VariableDoubleClickCommand.
         /// </summary>
-        public RelayCommand<object> VariableDoubleClickCommand
-        {
-            get
-            {
-                return _variableDoubleClickCommand ?? (_variableDoubleClickCommand = new RelayCommand<object>(
+        public RelayCommand<object> VariableDoubleClickCommand => _variableDoubleClickCommand ?? (_variableDoubleClickCommand = new RelayCommand<object>(
                     ExecuteVariableDoubleClickCommand,
                     CanExecuteVariableDoubleClickCommand));
-            }
-        }
 
-        private void ExecuteVariableDoubleClickCommand(object parameter)
-        {
-            SelectText((IVariable)parameter);
-        }
+        private void ExecuteVariableDoubleClickCommand(object parameter) => SelectText((IVariable)parameter);
 
-        private bool CanExecuteVariableDoubleClickCommand(object parameter)
-        {
-            return true;
-        }
+        private bool CanExecuteVariableDoubleClickCommand(object parameter) => true;
 
         #endregion VariableDoubleClickCommand
 
@@ -318,25 +301,13 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the UndoCommand.
         /// </summary>
-        public RelayCommand UndoCommand
-        {
-            get
-            {
-                return _undoCommand ?? (_undoCommand = new RelayCommand(
+        public RelayCommand UndoCommand => _undoCommand ?? (_undoCommand = new RelayCommand(
                     ExecuteUndoCommand,
                     CanExecuteUndoCommand));
-            }
-        }
 
-        private void ExecuteUndoCommand()
-        {
-            Undo();
-        }
+        private void ExecuteUndoCommand() => Undo();
 
-        private bool CanExecuteUndoCommand()
-        {
-            return true; //CanUndo();
-        }
+        private bool CanExecuteUndoCommand() => true; //CanUndo();
 
         #endregion UndoCommand
 
@@ -347,25 +318,13 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the RedoCommand.
         /// </summary>
-        public RelayCommand<object> RedoCommand
-        {
-            get
-            {
-                return _redoCommand ?? (_redoCommand = new RelayCommand<object>(
+        public RelayCommand<object> RedoCommand => _redoCommand ?? (_redoCommand = new RelayCommand<object>(
                     ExecuteRedoCommand,
                     CanExecuteRedoCommand));
-            }
-        }
 
-        private void ExecuteRedoCommand(object parameter)
-        {
-            Redo();
-        }
+        private void ExecuteRedoCommand(object parameter) => Redo();
 
-        private bool CanExecuteRedoCommand(object parameter)
-        {
-            return true; //CanRedo();
-        }
+        private bool CanExecuteRedoCommand(object parameter) => true; //CanRedo();
 
         #endregion RedoCommand
 
@@ -376,14 +335,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the SaveCommand.
         /// </summary>
-        public RelayCommand SaveCommand
-        {
-            get
-            {
-                return _saveCommand
+        public RelayCommand SaveCommand => _saveCommand
                        ?? (_saveCommand = new RelayCommand(Save, CanSave));
-            }
-        }
 
         #endregion SaveCommand
 
@@ -394,14 +347,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the SaveAsCommand.
         /// </summary>
-        public RelayCommand SaveAsCommand
-        {
-            get
-            {
-                return _saveAsCommand
+        public RelayCommand SaveAsCommand => _saveAsCommand
                        ?? (_saveAsCommand = new RelayCommand(SaveAs, CanSave));
-            }
-        }
 
         #endregion SaveAsCommand
 
@@ -412,14 +359,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ReplaceCommand.
         /// </summary>
-        public RelayCommand ReplaceCommand
-        {
-            get
-            {
-                return _replaceCommand
+        public RelayCommand ReplaceCommand => _replaceCommand
                        ?? (_replaceCommand = new RelayCommand(Replace));
-            }
-        }
 
         #endregion ReplaceCommand
 
@@ -430,19 +371,10 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the GotoCommand.
         /// </summary>
-        public RelayCommand GotoCommand
-        {
-            get
-            {
-                return _gotoCommand
+        public RelayCommand GotoCommand => _gotoCommand
                        ?? (_gotoCommand = new RelayCommand(Goto, CanGoto));
-            }
-        }
 
-        public bool CanGoto()
-        {
-            return !String.IsNullOrEmpty(Text);
-        }
+        public bool CanGoto() => !String.IsNullOrEmpty(Text);
 
         #endregion GotoCommand
 
@@ -453,24 +385,12 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the OpenAllFoldsCommand.
         /// </summary>
-        public RelayCommand OpenAllFoldsCommand
-        {
-            get
-            {
-                return _openAllFoldsCommand
+        public RelayCommand OpenAllFoldsCommand => _openAllFoldsCommand
                        ?? (_openAllFoldsCommand = new RelayCommand(ExecuteOpenAllFoldsCommand, CanChangeFoldStatus));
-            }
-        }
 
-        private void ExecuteOpenAllFoldsCommand()
-        {
-            ChangeFoldStatus(false);
-        }
+        private void ExecuteOpenAllFoldsCommand() => ChangeFoldStatus(false);
 
-        private bool CanChangeFoldStatus()
-        {
-            return _foldingManager != null && _foldingManager.AllFoldings.Any();
-        }
+        private bool CanChangeFoldStatus() => _foldingManager != null && _foldingManager.AllFoldings.Any();
 
         #endregion OpenAllFoldsCommand
 
@@ -481,19 +401,10 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ToggleCommentCommand.
         /// </summary>
-        public RelayCommand ToggleCommentCommand
-        {
-            get
-            {
-                return _toggleCommentCommand
+        public RelayCommand ToggleCommentCommand => _toggleCommentCommand
                        ?? (_toggleCommentCommand = new RelayCommand(ToggleComment, CanToggleComment));
-            }
-        }
 
-        public bool CanToggleComment()
-        {
-            return !string.IsNullOrEmpty(FileLanguage.CommentChar);
-        }
+        public bool CanToggleComment() => !string.IsNullOrEmpty(FileLanguage.CommentChar);
 
         #endregion ToggleCommentCommand
 
@@ -504,19 +415,10 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ToggleFoldsCommand.
         /// </summary>
-        public RelayCommand ToggleFoldsCommand
-        {
-            get
-            {
-                return _toggleFoldsCommand
+        public RelayCommand ToggleFoldsCommand => _toggleFoldsCommand
                        ?? (_toggleFoldsCommand = new RelayCommand(ToggleFolds, CanToggleFolds));
-            }
-        }
 
-        public bool CanToggleFolds()
-        {
-            return _foldingManager != null && _foldingManager.AllFoldings.Any();
-        }
+        public bool CanToggleFolds() => _foldingManager != null && _foldingManager.AllFoldings.Any();
 
         #endregion ToggleFoldsCommand
 
@@ -527,14 +429,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ToggleAllFoldsCommand.
         /// </summary>
-        public RelayCommand ToggleAllFoldsCommand
-        {
-            get
-            {
-                return _toggleAllFoldsCommand
+        public RelayCommand ToggleAllFoldsCommand => _toggleAllFoldsCommand
                        ?? (_toggleAllFoldsCommand = new RelayCommand(ToggleAllFolds, CanToggleFolds));
-            }
-        }
 
         #endregion ToggleAllFoldsCommand
 
@@ -545,25 +441,13 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the CloseAllFoldsCommand.
         /// </summary>
-        public RelayCommand CloseAllFoldsCommand
-        {
-            get
-            {
-                return _closeAllFoldsCommand ?? (_closeAllFoldsCommand = new RelayCommand(
+        public RelayCommand CloseAllFoldsCommand => _closeAllFoldsCommand ?? (_closeAllFoldsCommand = new RelayCommand(
                     ExecuteCloseAllFoldsCommand,
                     CanExecuteCloseAllFoldsCommand));
-            }
-        }
 
-        private void ExecuteCloseAllFoldsCommand()
-        {
-            ChangeFoldStatus(true);
-        }
+        private void ExecuteCloseAllFoldsCommand() => ChangeFoldStatus(true);
 
-        private bool CanExecuteCloseAllFoldsCommand()
-        {
-            return _foldingManager != null && _foldingManager.AllFoldings.Any();
-        }
+        private bool CanExecuteCloseAllFoldsCommand() => _foldingManager != null && _foldingManager.AllFoldings.Any();
 
         #endregion CloseAllFoldsCommand
 
@@ -574,19 +458,10 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the AddTimeStampCommand.
         /// </summary>
-        public RelayCommand AddTimeStampCommand
-        {
-            get
-            {
-                return _addTimeStampCommand ?? (_addTimeStampCommand = new RelayCommand(
+        public RelayCommand AddTimeStampCommand => _addTimeStampCommand ?? (_addTimeStampCommand = new RelayCommand(
                     ExecuteAddTimeStampCommand));
-            }
-        }
 
-        private void ExecuteAddTimeStampCommand()
-        {
-            AddTimeStamp(true);
-        }
+        private void ExecuteAddTimeStampCommand() => AddTimeStamp(true);
 
         #endregion AddTimeStampCommand
 
@@ -597,24 +472,12 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the FindCommand.
         /// </summary>
-        public RelayCommand FindCommand
-        {
-            get
-            {
-                return _findCommand
+        public RelayCommand FindCommand => _findCommand
                        ?? (_findCommand = new RelayCommand(ExecuteFindCommand, CanFind));
-            }
-        }
 
-        private void ExecuteFindCommand()
-        {
-            ChangeFoldStatus(true);
-        }
+        private void ExecuteFindCommand() => ChangeFoldStatus(true);
 
-        public bool CanFind()
-        {
-            return _foldingManager != null && _foldingManager.AllFoldings.Any();
-        }
+        public bool CanFind() => _foldingManager != null && _foldingManager.AllFoldings.Any();
 
         #endregion FindCommand
 
@@ -625,14 +488,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ReloadCommand.
         /// </summary>
-        public RelayCommand ReloadCommand
-        {
-            get
-            {
-                return _reloadCommand
+        public RelayCommand ReloadCommand => _reloadCommand
                        ?? (_reloadCommand = new RelayCommand(Reload));
-            }
-        }
 
         #endregion ReloadCommand
 
@@ -643,19 +500,10 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ShowDefinitionsCommand.
         /// </summary>
-        public RelayCommand ShowDefinitionsCommand
-        {
-            get
-            {
-                return _showDefinitionsCommand
+        public RelayCommand ShowDefinitionsCommand => _showDefinitionsCommand
                        ?? (_showDefinitionsCommand = new RelayCommand(ShowDefinitions, CanShowDefinitions));
-            }
-        }
 
-        public bool CanShowDefinitions()
-        {
-            return _foldingManager != null;
-        }
+        public bool CanShowDefinitions() => _foldingManager != null;
 
         #endregion ShowDefinitionsCommand
 
@@ -666,24 +514,12 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the CutCommand.
         /// </summary>
-        public RelayCommand CutCommand
-        {
-            get
-            {
-                return _cutCommand
+        public RelayCommand CutCommand => _cutCommand
                        ?? (_cutCommand = new RelayCommand(ExecuteCutCommand, CanCut));
-            }
-        }
 
-        private void ExecuteCutCommand()
-        {
-            Cut();
-        }
+        private void ExecuteCutCommand() => Cut();
 
-        public bool CanCut()
-        {
-            return Text.Length > 0;
-        }
+        public bool CanCut() => Text.Length > 0;
 
         #endregion CutCommand
 
@@ -694,24 +530,12 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the CopyCommand.
         /// </summary>
-        public RelayCommand CopyCommand
-        {
-            get
-            {
-                return _copyCommand
+        public RelayCommand CopyCommand => _copyCommand
                        ?? (_copyCommand = new RelayCommand(ExecuteCopy, CanCopy));
-            }
-        }
 
-        public void ExecuteCopy()
-        {
-            Copy();
-        }
+        public void ExecuteCopy() => Copy();
 
-        public bool CanCopy()
-        {
-            return Text.Length > 0;
-        }
+        public bool CanCopy() => Text.Length > 0;
 
         #endregion CopyCommand
 
@@ -722,14 +546,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the FunctionWindowClickCommand.
         /// </summary>
-        public RelayCommand<object> FunctionWindowClickCommand
-        {
-            get
-            {
-                return _functionWindowClickCommand ??
+        public RelayCommand<object> FunctionWindowClickCommand => _functionWindowClickCommand ??
                        (_functionWindowClickCommand = new RelayCommand<object>(OpenFunctionItem));
-            }
-        }
 
         #endregion FunctionWindowClickCommand
 
@@ -740,14 +558,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ChangeIndentCommand.
         /// </summary>
-        public RelayCommand<object> ChangeIndentCommand
-        {
-            get
-            {
-                return _changeIndentCommand
+        public RelayCommand<object> ChangeIndentCommand => _changeIndentCommand
                        ?? (_changeIndentCommand = new RelayCommand<object>(ChangeIndent));
-            }
-        }
 
         #endregion ChangeIndentCommand
 
@@ -758,25 +570,13 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the PasteCommand.
         /// </summary>
-        public RelayCommand PasteCommand
-        {
-            get
-            {
-                return _pasteCommand ?? (_pasteCommand = new RelayCommand(
+        public RelayCommand PasteCommand => _pasteCommand ?? (_pasteCommand = new RelayCommand(
                     ExecutePasteCommand,
                     CanExecutePasteCommand));
-            }
-        }
 
-        private void ExecutePasteCommand()
-        {
-            Paste();
-        }
+        private void ExecutePasteCommand() => Paste();
 
-        private bool CanExecutePasteCommand()
-        {
-            return Clipboard.ContainsText();
-        }
+        private bool CanExecutePasteCommand() => Clipboard.ContainsText();
 
         #endregion PasteCommand
 
@@ -1060,7 +860,8 @@ namespace miRobotEditor.Controls.TextEditor
             catch (Exception ex)
             {
                 var msg = new ErrorMessage("Editor.ChangeIndent", ex);
-                Messenger.Default.Send<IMessage>(msg);
+                
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 
@@ -1092,10 +893,7 @@ namespace miRobotEditor.Controls.TextEditor
             }
         }
 
-        private bool CanSave()
-        {
-            return File.Exists(Filename) ? IsModified : IsModified;
-        }
+        private bool CanSave() => File.Exists(Filename) ? IsModified : IsModified;
 
         private void Replace()
         {
@@ -1129,7 +927,7 @@ namespace miRobotEditor.Controls.TextEditor
                 catch (IOException ex)
                 {
                     var msg = new ErrorMessage("File is locked!", ex);
-                    Messenger.Default.Send<IMessage>(msg);
+                    WeakReferenceMessenger.Default.Send<IMessage>(msg);
                     return true;
                 }
                 finally
@@ -1180,7 +978,7 @@ namespace miRobotEditor.Controls.TextEditor
                         Icon = null
                     };
 
-                    Messenger.Default.Send<IMessage>(msg);
+                    WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 }
             }
         }
@@ -1235,7 +1033,7 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 var msg = new ErrorMessage(string.Format("Could not load Syntax Highlighting for {0}", Filename), ex,
                     MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 
@@ -1345,16 +1143,13 @@ namespace miRobotEditor.Controls.TextEditor
             return items.ToArray();
         }
 
-        private IEnumerable<ICompletionData> ObjectBrowserCompletionList()
-        {
-            return (
+        private IEnumerable<ICompletionData> ObjectBrowserCompletionList() => (
                 from v in FileLanguage.Fields
                 where v.Type != "def" && v.Type != "deffct"
                 select new CodeCompletion(v.Name)
                 {
                     Image = v.Icon
                 }).ToArray<ICompletionData>();
-        }
 
         private void TextEditor_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -1475,10 +1270,7 @@ namespace miRobotEditor.Controls.TextEditor
             SelectionStart = Text.IndexOf(text, CaretOffset, StringComparison.Ordinal);
         }
 
-        public void ShowFindDialog()
-        {
-            FindAndReplaceWindow.Instance.ShowDialog();
-        }
+        public void ShowFindDialog() => FindAndReplaceWindow.Instance.ShowDialog();
 
         private void EditorPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -1779,18 +1571,12 @@ namespace miRobotEditor.Controls.TextEditor
                 : string.Empty);
         }
 
-        protected internal virtual char[] GetWordParts()
-        {
-            return new char[0];
-        }
+        protected internal virtual char[] GetWordParts() => new char[0];
     }
 
     public static class DocumentUtilitites
     {
-        public static int FindNextWordEnd(this TextDocument document, int offset)
-        {
-            return document.FindNextWordEnd(offset, new List<char>());
-        }
+        public static int FindNextWordEnd(this TextDocument document, int offset) => document.FindNextWordEnd(offset, new List<char>());
 
         public static int FindNextWordEnd(this TextDocument document, int offset, IList<char> allowedChars)
         {
@@ -2060,15 +1846,9 @@ namespace miRobotEditor.Controls.TextEditor
             return 0;
         }
 
-        public static bool IsWhitespaceOrNewline(char ch)
-        {
-            return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
-        }
+        public static bool IsWhitespaceOrNewline(char ch) => ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
 
-        private static bool IsWordPart(char ch)
-        {
-            return char.IsLetterOrDigit(ch) || ch == '_';
-        }
+        private static bool IsWordPart(char ch) => char.IsLetterOrDigit(ch) || ch == '_';
     }
 
     public static class FileExtended
@@ -2115,10 +1895,7 @@ namespace miRobotEditor.Controls.TextEditor
             }
         }
 
-        public static void DeleteIfExisting(string path)
-        {
-            FileExtended.DeleteIfExisting(path, true);
-        }
+        public static void DeleteIfExisting(string path) => FileExtended.DeleteIfExisting(path, true);
 
         public static void DeleteIfExisting(string path, bool force)
         {

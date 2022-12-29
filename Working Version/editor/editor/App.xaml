@@ -4,23 +4,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:miRobotEditor.ViewModel"
+             xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="MainWindow.xaml"
              DispatcherUnhandledException="AppDispatcherUnhandledException"
              mc:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <wpf:MahAppsBundledTheme BaseTheme="Inherit"
+                                            PrimaryColor="DeepPurple"
+                                            SecondaryColor="Purple" />
+
+                <!-- MahApps -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+
+                <!-- Material Design -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
+                <!-- Material Design: MahApps Compatibility -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml" />
+
+                <!-- Dragablz Material Design -->
+                <!--<ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml" />-->
+
+                <!-- ShowMeTheXaml -->
+                <!--<ResourceDictionary Source="pack://application:,,,/ShowMeTheXAML.AvalonEdit;component/Themes/xamldisplayer.xaml" />-->
+                <ResourceDictionary>
+                    <viewModel:ViewModelLocator x:Key="Locator"  />
+                </ResourceDictionary>
+                <ResourceDictionary  Source="Themes/Generic.xaml"/>
+          
+                
             </ResourceDictionary.MergedDictionaries>
 
             <!--Global View Model Locator-->
-            <viewModel:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+            
         </ResourceDictionary>
     </Application.Resources>
 

@@ -10,7 +10,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 using GalaSoft.MvvmLight.Messaging;
-using Microsoft.Practices.ServiceLocation;
+using CommonServiceLocator;
+
 using Microsoft.Win32;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;

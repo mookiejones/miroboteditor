@@ -6,19 +6,21 @@ using System.Windows;
 using System.Windows.Forms;
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro;
-using Microsoft.Practices.ServiceLocation;
+using CommonServiceLocator;
+
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.Properties;
-using miRobotEditor.ViewModel;
-using Xceed.Wpf.AvalonDock.Layout;
-using Xceed.Wpf.AvalonDock.Layout.Serialization;
+using miRobotEditor.ViewModel; 
 using Application = System.Windows.Application;
 using DataFormats = System.Windows.DataFormats;
 using DragDropEffects = System.Windows.DragDropEffects;
 using DragEventArgs = System.Windows.DragEventArgs;
+using AvalonDock.Layout;
+using AvalonDock.Layout.Serialization;
+using ControlzEx.Theming;
 
 namespace miRobotEditor
 {
@@ -38,7 +40,7 @@ namespace miRobotEditor
         {
             Instance = this;
             InitializeComponent();
-            ThemeManager.ChangeAppTheme(Application.Current, "Light");
+         //   ThemeManager.Current.ChangeTheme(Application.Current, "Light");
             KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);
         }
 
@@ -152,7 +154,7 @@ namespace miRobotEditor
             SaveLayout();
             var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
             instance.IsClosing = true;
-            App.Application.Shutdown();
+            App.Application?.Shutdown();
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)

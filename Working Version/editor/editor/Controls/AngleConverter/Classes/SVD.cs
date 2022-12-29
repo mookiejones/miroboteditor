@@ -377,20 +377,11 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             }
         }
 
-        public Matrix U
-        {
-            get { return _u; }
-        }
+        public Matrix U => _u;
 
-        public SquareMatrix V
-        {
-            get { return _v; }
-        }
+        public SquareMatrix V => _v;
 
-        public Vector W
-        {
-            get { return _w; }
-        }
+        public Vector W => _w;
 
         private static double Pythag(double a, double b)
         {
@@ -463,36 +454,27 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public double X
         {
-            get { return base[0]; }
-            set { base[0] = value; }
+            get => base[0];
+            set => base[0] = value;
         }
 
         public double Y
         {
-            get { return base[1]; }
-            set { base[1] = value; }
+            get => base[1];
+            set => base[1] = value;
         }
 
         public double Z
         {
-            get { return base[2]; }
-            set { base[2] = value; }
+            get => base[2];
+            set => base[2] = value;
         }
 
-        TransformationMatrix3D IGeometricElement3D.Position
-        {
-            get { throw new NotImplementedException(); }
-        }
+        TransformationMatrix3D IGeometricElement3D.Position => throw new NotImplementedException();
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
 
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
+        public override bool Equals(object obj) => base.Equals(obj);
 
         public static double Angle(Vector vec1, Vector vec2)
         {
@@ -510,55 +492,37 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             return vector3D;
         }
 
-        public static Vector3D NaN()
-        {
-            return new Vector3D(NaN(3, 1));
-        }
+        public static Vector3D NaN() => new Vector3D(NaN(3, 1));
 
-        public new Vector3D Normalised()
-        {
-            return new Vector3D(this/base.Length());
-        }
+        public new Vector3D Normalised() => new Vector3D(this / base.Length());
 
         public static Vector3D operator +(Vector3D v1, Vector3D v2)
         {
             return new Vector3D(v1 + v2);
         }
 
-        public static Vector3D Add(Vector3D v1, Vector3D v2)
-        {
-            return new Vector3D(v1 + v2);
-        }
+        public static Vector3D Add(Vector3D v1, Vector3D v2) => new Vector3D(v1 + v2);
 
         public static Vector3D operator /(Vector3D vec, double scalar)
         {
             return new Vector3D(vec/scalar);
         }
 
-        public static Vector3D Divide(Vector3D vec, double scalar)
-        {
-            return new Vector3D(vec/scalar);
-        }
+        public static Vector3D Divide(Vector3D vec, double scalar) => new Vector3D(vec / scalar);
 
         public static explicit operator Point3D(Vector3D vec)
         {
             return new Point3D(vec);
         }
 
-        public static Point3D ToPoint3D(Vector3D vec)
-        {
-            return new Point3D(vec);
-        }
+        public static Point3D ToPoint3D(Vector3D vec) => new Point3D(vec);
 
         public static Vector3D operator *(Vector3D vec, double scalar)
         {
             return new Vector3D(vec*scalar);
         }
 
-        public static Vector3D Multiply(Vector3D vec, double scalar)
-        {
-            return new Vector3D(vec*scalar);
-        }
+        public static Vector3D Multiply(Vector3D vec, double scalar) => new Vector3D(vec * scalar);
 
         public static Collection<Vector3D> operator *(Collection<TransformationMatrix3D> transforms, Vector3D vector)
         {
@@ -585,19 +549,13 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             return !(v1 == v2);
         }
 
-        public static Vector3D Subtract(Vector3D v1, Vector3D v2)
-        {
-            return new Vector3D(v1 - v2);
-        }
+        public static Vector3D Subtract(Vector3D v1, Vector3D v2) => new Vector3D(v1 - v2);
 
         public static Vector3D operator -(Vector3D vec)
         {
             return Negate(vec);
         }
 
-        public static Vector3D Negate(Vector3D vec)
-        {
-            return new Vector3D(-vec.X, -vec.Y, -vec.Z);
-        }
+        public static Vector3D Negate(Vector3D vec) => new Vector3D(-vec.X, -vec.Y, -vec.Z);
     }
 }

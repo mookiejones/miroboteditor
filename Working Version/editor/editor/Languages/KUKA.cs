@@ -9,8 +9,8 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -42,40 +42,18 @@ namespace miRobotEditor.Languages
       //      FoldingStrategy = new KrlFoldingStrategy();
         }
 
-        public override void Initialize(string filename)
-        {
-            base.Initialize();
-        }
+        public override void Initialize(string filename) => base.Initialize();
 
-        public ICommand SystemFunctionCommand
-        {
-            get
-            {
-                return _systemFunctionCommand ??
+        public ICommand SystemFunctionCommand => _systemFunctionCommand ??
                        (_systemFunctionCommand = new RelayCommand(() => FunctionGenerator.GetSystemFunctions()));
-            }
-        }
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.KUKA; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.KUKA;
 
-        internal override string SourceFile
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal override string SourceFile => throw new NotImplementedException();
 
-        public static string GetSystemFunctions
-        {
-            get { return FunctionGenerator.GetSystemFunctions(); }
-        }
+        public static string GetSystemFunctions => FunctionGenerator.GetSystemFunctions();
 
-        public static List<string> Ext
-        {
-            get
-            {
-                return new List<string>
+        public static List<string> Ext => new List<string>
                 {
                     ".dat",
                     ".src",
@@ -84,26 +62,15 @@ namespace miRobotEditor.Languages
                     ".zip",
                     ".kfd"
                 };
-            }
-        }
 
-        public override List<string> SearchFilters
-        {
-            get { return Ext; }
-        }
+        public override List<string> SearchFilters => Ext;
 
         public string Comment { get; set; }
 
-        internal override IList<ICompletionData> CodeCompletion
-        {
-            get
-            {
-                return new List<ICompletionData>
+        internal override IList<ICompletionData> CodeCompletion => new List<ICompletionData>
                 {
                     new CodeCompletion("Item1")
                 };
-            }
-        }
 
         internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
 
@@ -124,13 +91,9 @@ namespace miRobotEditor.Languages
             }
         }
 
-        private static Snippet ForSnippet
+        private static Snippet ForSnippet => new Snippet
         {
-            get
-            {
-                return new Snippet
-                {
-                    Elements =
+            Elements =
                     {
                         new SnippetTextElement
                         {
@@ -170,84 +133,33 @@ namespace miRobotEditor.Languages
                         },
                         new SnippetSelectionElement()
                     }
-                };
-            }
-        }
+        };
 
-        public override Regex EnumRegex
-        {
-            get
-            {
-                return new Regex("^(ENUM)\\s+([\\d\\w]+)\\s+([\\d\\w,]+)",
+        public override Regex EnumRegex => new Regex("^(ENUM)\\s+([\\d\\w]+)\\s+([\\d\\w,]+)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
 
-        public override Regex StructRegex
-        {
-            get
-            {
-                return new Regex("DECL STRUC|^STRUC\\s([\\w\\d]+\\s*)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
+        public override Regex StructRegex => new Regex("DECL STRUC|^STRUC\\s([\\w\\d]+\\s*)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override Regex FieldRegex
-        {
-            get
-            {
-                return
-                    new Regex(
+        public override Regex FieldRegex => new Regex(
                         "^[DECL ]*[GLOBAL ]*[CONST ]*(INT|REAL|BOOL|CHAR)\\s+([\\$0-9a-zA-Z_\\[\\],\\$]+)=?([^\\r\\n;]*);?([^\\r\\n]*)",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
 
-        protected override string ShiftRegex
-        {
-            get { return "((E6POS [\\w]*={)X\\s([\\d.-]*)\\s*,*Y\\s*([-.\\d]*)\\s*,Z\\s*([-\\d.]*))"; }
-        }
+        protected override string ShiftRegex => "((E6POS [\\w]*={)X\\s([\\d.-]*)\\s*,*Y\\s*([-.\\d]*)\\s*,Z\\s*([-\\d.]*))";
 
-        public override Regex MethodRegex
-        {
-            get
-            {
-                return new Regex("^[GLOBAL ]*(DEF)+\\s+([\\w_\\d]+\\s*)\\(",
+        public override Regex MethodRegex => new Regex("^[GLOBAL ]*(DEF)+\\s+([\\w_\\d]+\\s*)\\(",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
 
-        internal override string FunctionItems
-        {
-            get { return "((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\\w_\\s]*)\\(([\\w\\]\\s:_\\[,]*)\\))"; }
-        }
+        internal override string FunctionItems => "((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\\w_\\s]*)\\(([\\w\\]\\s:_\\[,]*)\\))";
 
-        public override string CommentChar
-        {
-            get { return ";"; }
-        }
+        public override string CommentChar => ";";
 
-        public override Regex SignalRegex
-        {
-            get
-            {
-                return new Regex("^(SIGNAL+)\\s+([\\d\\w]+)\\s+([^\\r\\;]*)",
+        public override Regex SignalRegex => new Regex("^(SIGNAL+)\\s+([\\d\\w]+)\\s+([^\\r\\;]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
 
-        public override Regex XYZRegex
-        {
-            get
-            {
-                return new Regex("^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\\w\\d_\\$]+)=?\\{?([^}}]*)?\\}?",
+        public override Regex XYZRegex => new Regex("^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\\w\\d_\\$]+)=?\\{?([^}}]*)?\\}?",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
 
-        public FileInfo GetFileInfo(string text)
-        {
-            return _fi.GetFileInfo(text);
-        }
+        public FileInfo GetFileInfo(string text) => _fi.GetFileInfo(text);
 
         protected void Dispose(bool disposing)
         {
@@ -257,12 +169,8 @@ namespace miRobotEditor.Languages
             }
         }
 
-        public static bool OnlyDatExists(string filename)
-        {
-            return
-                File.Exists(Path.Combine(Path.GetDirectoryName(filename),
+        public static bool OnlyDatExists(string filename) => File.Exists(Path.Combine(Path.GetDirectoryName(filename),
                     Path.GetFileNameWithoutExtension(filename) + ".src"));
-        }
 
         [Localizable(false)]
         public static string SystemFileName()
@@ -282,10 +190,7 @@ namespace miRobotEditor.Languages
             return result;
         }
 
-        protected override bool IsFileValid(System.IO.FileInfo file)
-        {
-            return FileIsValid(file);
-        }
+        protected override bool IsFileValid(System.IO.FileInfo file) => FileIsValid(file);
 
 
         internal bool FileIsValid(System.IO.FileInfo file)
@@ -392,13 +297,10 @@ namespace miRobotEditor.Languages
         {
         }
 
-        public SnippetCollection Snippets()
-        {
-            return new SnippetCollection
+        public SnippetCollection Snippets() => new SnippetCollection
             {
                 ForSnippet
             };
-        }
 
         public override string ExtractXYZ(string positionstring)
         {
@@ -406,10 +308,7 @@ namespace miRobotEditor.Languages
             return positionBase.ExtractFromMatch();
         }
 
-        public static string GetDatFileName(string filename)
-        {
-            return filename.Substring(0, filename.LastIndexOf('.')) + ".dat";
-        }
+        public static string GetDatFileName(string filename) => filename.Substring(0, filename.LastIndexOf('.')) + ".dat";
 
         public static List<string> GetModuleFileNames(string filename)
         {
@@ -430,12 +329,9 @@ namespace miRobotEditor.Languages
         {
             private static string _functionFile = string.Empty;
 
-            private static string GetStruc(string filename)
-            {
-                return RemoveFromFile(filename, "((?<!_)STRUC [\\w\\s,\\[\\]]*)");
-            }
+            private static string GetStruc(string filename) => RemoveFromFile(filename, "((?<!_)STRUC [\\w\\s,\\[\\]]*)");
 
-// ReSharper disable once MemberHidesStaticFromOuterClass
+            // ReSharper disable once MemberHidesStaticFromOuterClass
             public static string GetSystemFunctions()
             {
                 var stringBuilder = new StringBuilder();
@@ -490,7 +386,7 @@ namespace miRobotEditor.Languages
                     catch (Exception ex)
                     {
                         var msg = new ErrorMessage("GetSystemFiles", ex, MessageType.Error);
-                        Messenger.Default.Send<IMessage>(msg);
+                        WeakReferenceMessenger.Default.Send<IMessage>(msg);
                     }
                 }
                 result = stringBuilder.ToString();

@@ -54,21 +54,15 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             }
         }
 
-        public int Columns
-        {
-            get { return _columns; }
-        }
+        public int Columns => _columns;
 
         public double this[int row, int column]
         {
-            get { return _elements[row, column]; }
-            set { _elements[row, column] = value; }
+            get => _elements[row, column];
+            set => _elements[row, column] = value;
         }
 
-        public int Rows
-        {
-            get { return _rows; }
-        }
+        public int Rows => _rows;
 
         public virtual string ToString(string format, IFormatProvider formatProvider)
         {
@@ -127,16 +121,10 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             return result;
         }
 
-        private bool Equals(Matrix other)
-        {
-            return _columns == other._columns && Equals(_elements, other._elements) && _rows == other._rows;
-        }
+        private bool Equals(Matrix other) => _columns == other._columns && Equals(_elements, other._elements) && _rows == other._rows;
 
-        public override bool Equals(object obj)
-        {
-            return !ReferenceEquals(null, obj) &&
-                   (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((Matrix) obj)));
-        }
+        public override bool Equals(object obj) => !ReferenceEquals(null, obj) &&
+                   (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((Matrix)obj)));
 
         public override int GetHashCode()
         {
@@ -550,10 +538,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             SetRow(row2, row3);
         }
 
-        public override string ToString()
-        {
-            return ToString(null, null);
-        }
+        public override string ToString() => ToString(null, null);
 
         public Matrix Transpose()
         {

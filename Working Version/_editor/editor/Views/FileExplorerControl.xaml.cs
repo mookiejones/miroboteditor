@@ -16,7 +16,6 @@ namespace miRobotEditor.Views
         // ReSharper disable UnassignedField.Compiler
         // ReSharper disable UnusedField.Compiler
         private readonly ExplorerClass _explorer = new ExplorerClass();
-        private IContainer _components = null;
         private ContextMenuStrip _ctxFileExplorer;
         private string _filter = "*.*";
         private ImageList _imgList;

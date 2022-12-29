@@ -7,10 +7,9 @@ using System.Data.OleDb;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.Messaging;
 using Ionic.Zip;
-using miRobotEditor.Messages;
-using GalaSoft.MvvmLight.Messaging;
+using miRobotEditor.Messages; 
 
 namespace miRobotEditor.ViewModel
 {
@@ -57,218 +56,119 @@ namespace miRobotEditor.ViewModel
             backgroundWorker.RunWorkerAsync();
         }
 
-        public Visibility DigInVisibility
-        {
-            get { return (Inputs.Count > 0) ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility DigInVisibility => (Inputs.Count > 0) ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility DigOutVisibility
-        {
-            get { return (Outputs.Count > 0) ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility DigOutVisibility => (Outputs.Count > 0) ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility AnInVisibility
-        {
-            get { return (AnIn.Count > 0) ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility AnInVisibility => (AnIn.Count > 0) ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility AnOutVisibility
-        {
-            get { return (AnOut.Count > 0) ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility AnOutVisibility => (AnOut.Count > 0) ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility DigitalVisibility
-        {
-            get
-            {
-                return (DigInVisibility == Visibility.Visible && DigOutVisibility == Visibility.Visible)
+        public Visibility DigitalVisibility => (DigInVisibility == Visibility.Visible && DigOutVisibility == Visibility.Visible)
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-            }
-        }
 
-        public Visibility AnalogVisibility
-        {
-            get
-            {
-                return (AnOutVisibility == Visibility.Visible || AnInVisibility == Visibility.Visible)
+        public Visibility AnalogVisibility => (AnOutVisibility == Visibility.Visible || AnInVisibility == Visibility.Visible)
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-            }
-        }
 
         public Visibility FlagVisibility
         {
-            get { return _flagVisibility; }
-            set
-            {
-                _flagVisibility = value;
-                RaisePropertyChanged("FlagVisibility");
-            }
+            get => _flagVisibility;
+            set=>SetProperty(ref _flagVisibility,value);
         }
 
         public Visibility TimerVisibility
         {
-            get { return _timerVisibility; }
-            set
-            {
-                _timerVisibility = value;
-                RaisePropertyChanged("TimerVisibility");
-            }
+            get => _timerVisibility;
+            set=>SetProperty(ref _timerVisibility,value);
         }
 
         public Visibility CyclicFlagVisibility
         {
-            get { return _cyclicFlagVisibility; }
-            set
-            {
-                _cyclicFlagVisibility = value;
-                RaisePropertyChanged("CyclicFlagVisibility");
-            }
+            get => _cyclicFlagVisibility;
+            set=>SetProperty(ref _cyclicFlagVisibility,value);
         }
 
         public Visibility CounterVisibility
         {
-            get { return _counterVisibility; }
-            set
-            {
-                _counterVisibility = value;
-                RaisePropertyChanged("CounterVisibility");
-            }
+            get => _counterVisibility;
+            set=>SetProperty(ref _counterVisibility,value);
         }
 
         public InfoFile Info
         {
-            get { return _info; }
-            set
-            {
-                _info = value;
-                RaisePropertyChanged("Info");
-            }
+            get => _info;
+            set=>SetProperty(ref _info,value);
         }
 
         public string DirectoryPath { get; set; }
 
         public string ArchivePath
         {
-            get { return _archivePath; }
-            set
-            {
-                _archivePath = value;
-                RaisePropertyChanged("ArchivePath");
-            }
+            get => _archivePath;
+            set=>SetProperty(ref _archivePath,value);
         }
 
         public string FileCount
         {
-            get { return _filecount; }
-            set
-            {
-                _filecount = value;
-                RaisePropertyChanged("FileCount");
-            }
+            get => _filecount;
+            set=>SetProperty(ref _filecount,value);
         }
 
         public ZipFile ArchiveZip { get; set; }
 
         public string BufferSize
         {
-            get { return _buffersize; }
-            set
-            {
-                _buffersize = value;
-                RaisePropertyChanged("BufferSize");
-            }
+            get => _buffersize;
+            set=>SetProperty(ref _buffersize,value);
         }
 
         public string DataBaseFile { get; set; }
 
         public string DataBase
         {
-            get { return _database; }
-            set
-            {
-                _database = value;
-                RaisePropertyChanged("DataBase");
-            }
+            get => _database;
+            set=>SetProperty(ref _database,value);
         }
 
         public string InfoFile { get; set; }
 
-        public ReadOnlyObservableCollection<DirectoryInfo> Root
-        {
-            get { return _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root); }
-        }
+        public ReadOnlyObservableCollection<DirectoryInfo> Root => _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root);
 
         public DirectoryInfo RootPath
         {
-            get { return _rootpath; }
-            set
-            {
-                _rootpath = value;
-                RaisePropertyChanged("RootPath");
-            }
+            get => _rootpath;
+            set=>SetProperty(ref _rootpath,value);
         }
 
         public string LanguageText
         {
-            get { return _languageText; }
-            set
-            {
-                _languageText = value;
-                RaisePropertyChanged("LanguageText");
-            }
+            get => _languageText;
+            set=>SetProperty(ref _languageText,value);
         }
 
         public string DatabaseText
         {
-            get { return _databaseText; }
-            set
-            {
-                _databaseText = value;
-                RaisePropertyChanged("DatabaseText");
-            }
+            get => _databaseText;
+            set=>SetProperty(ref _databaseText,value);
         }
 
-        public ReadOnlyCollection<Item> Inputs
-        {
-            get { return _readonlyinputs ?? new ReadOnlyCollection<Item>(_inputs); }
-        }
+        public ReadOnlyCollection<Item> Inputs => _readonlyinputs ?? new ReadOnlyCollection<Item>(_inputs);
 
-        public ReadOnlyCollection<Item> Outputs
-        {
-            get { return _readonlyOutputs ?? new ReadOnlyCollection<Item>(_outputs); }
-        }
+        public ReadOnlyCollection<Item> Outputs => _readonlyOutputs ?? new ReadOnlyCollection<Item>(_outputs);
 
-        public ReadOnlyCollection<Item> AnIn
-        {
-            get { return _readonlyAnIn ?? new ReadOnlyCollection<Item>(_anin); }
-        }
+        public ReadOnlyCollection<Item> AnIn => _readonlyAnIn ?? new ReadOnlyCollection<Item>(_anin);
 
-        public ReadOnlyCollection<Item> AnOut
-        {
-            get { return _readonlyAnOut ?? new ReadOnlyCollection<Item>(_anout); }
-        }
+        public ReadOnlyCollection<Item> AnOut => _readonlyAnOut ?? new ReadOnlyCollection<Item>(_anout);
 
-        public ReadOnlyCollection<Item> Timer
-        {
-            get { return _readonlyTimer ?? new ReadOnlyCollection<Item>(_timer); }
-        }
+        public ReadOnlyCollection<Item> Timer => _readonlyTimer ?? new ReadOnlyCollection<Item>(_timer);
 
-        public ReadOnlyCollection<Item> Flags
-        {
-            get { return _readonlyFlags ?? new ReadOnlyCollection<Item>(_flags); }
-        }
+        public ReadOnlyCollection<Item> Flags => _readonlyFlags ?? new ReadOnlyCollection<Item>(_flags);
 
-        public ReadOnlyCollection<Item> CycFlags
-        {
-            get { return _readonlyCycFlags ?? new ReadOnlyCollection<Item>(_cycflags); }
-        }
+        public ReadOnlyCollection<Item> CycFlags => _readonlyCycFlags ?? new ReadOnlyCollection<Item>(_cycflags);
 
-        public ReadOnlyCollection<Item> Counter
-        {
-            get { return _readonlyCounter ?? new ReadOnlyCollection<Item>(_counter); }
-        }
+        public ReadOnlyCollection<Item> Counter => _readonlyCounter ?? new ReadOnlyCollection<Item>(_counter);
 
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -279,13 +179,13 @@ namespace miRobotEditor.ViewModel
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            RaisePropertyChanged("Inputs");
-            RaisePropertyChanged("Outputs");
-            RaisePropertyChanged("AnIn");
-            RaisePropertyChanged("AnOut");
-            RaisePropertyChanged("Counter");
-            RaisePropertyChanged("Flags");
-            RaisePropertyChanged("Timer");
+            OnPropertyChanged(nameof(Inputs));
+            OnPropertyChanged(nameof(Outputs));
+            OnPropertyChanged(nameof(AnIn));
+            OnPropertyChanged(nameof(AnOut));
+            OnPropertyChanged(nameof(Counter));
+            OnPropertyChanged(nameof(Flags));
+            OnPropertyChanged(nameof(Timer));
         }
 
         private OleDbConnection GetDBConnection()
@@ -319,7 +219,7 @@ namespace miRobotEditor.ViewModel
                 catch(OleDbException ex)
                 {
                     var msg = new ErrorMessage("Error on Opening Db", ex);
-                    Messenger.Default.Send(msg);
+                    WeakReferenceMessenger.Default.Send(msg);
                 }
                 using (var cmd = new OleDbCommand(command, dbConnection))
                 {
@@ -413,10 +313,10 @@ namespace miRobotEditor.ViewModel
             GetFlags();
             GetTimers();
             GetAllLangtextFromDatabase();
-            RaisePropertyChanged("DigInVisibility");
-            RaisePropertyChanged("DigOutVisibility");
-            RaisePropertyChanged("AnalogVisibility");
-            RaisePropertyChanged("DigitalVisibility");
+            OnPropertyChanged(nameof(DigInVisibility));
+            OnPropertyChanged(nameof(DigOutVisibility));
+            OnPropertyChanged(nameof(AnalogVisibility));
+            OnPropertyChanged(nameof(DigitalVisibility));
         }
 
         private void GetFlags()
@@ -427,7 +327,7 @@ namespace miRobotEditor.ViewModel
                     "$FLAG[{0}]", 8);
             _flags.AddRange(items);
             FlagVisibility = ((Flags.Count > 0) ? Visibility.Visible : Visibility.Collapsed);
-            RaisePropertyChanged("FlagVisibility");
+            OnPropertyChanged(nameof(FlagVisibility));
         }
 
         private void GetTimers()
@@ -440,7 +340,7 @@ namespace miRobotEditor.ViewModel
 //                            var item = new Item(string.Format("$TIMER[{0}]", text.Substring(9)), oleDbDataReader.GetValue(1).ToString());
             _timer.AddRange(items);
             TimerVisibility = ((Timer.Count > 0) ? Visibility.Visible : Visibility.Collapsed);
-            RaisePropertyChanged("TimerVisibility");
+            OnPropertyChanged(nameof(TimerVisibility));
         }
 
         private List<Item> GetValues(string cmd, int index)

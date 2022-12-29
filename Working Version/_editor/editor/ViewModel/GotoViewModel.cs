@@ -35,7 +35,7 @@ namespace miRobotEditor.ViewModel
                 }
                 // ReSharper disable ExplicitCallerInfoArgument
 
-                RaisePropertyChanging(EditorPropertyName);
+                
                 _editor = value;
                 RaisePropertyChanged(EditorPropertyName);
             }
@@ -67,7 +67,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(DescriptionPropertyName);
+                
                 _description = value;
                 RaisePropertyChanged(DescriptionPropertyName);
             }
@@ -99,7 +99,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(EnteredTextPropertyName);
+                
                 _enteredText = value;
                 RaisePropertyChanged(EnteredTextPropertyName);
             }
@@ -131,7 +131,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(SelectedLinePropertyName);
+                
                 _selectedLine = value;
                 RaisePropertyChanged(SelectedLinePropertyName);
             }

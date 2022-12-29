@@ -19,15 +19,9 @@ namespace miRobotEditor.ViewModel
 
         public bool IsVisible
         {
-            get { return _isVisible; }
-            set
-            {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    RaisePropertyChanged("IsVisible");
-                }
-            }
+            get => _isVisible;
+            set => SetProperty(ref _isVisible, value);
+
         }
     }
 }

@@ -35,7 +35,7 @@ namespace miRobotEditor.Classes
                 var backgroundGeometryBuilder = new BackgroundGeometryBuilder
                 {
                     CornerRadius = 1.0,
-                    AlignToMiddleOfPixels = true
+                    AlignToWholePixels=true
                 };
                 backgroundGeometryBuilder.AddSegment(textview, new TextSegment
                 {

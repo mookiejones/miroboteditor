@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight;
+﻿
 
 namespace miRobotEditor.ViewModel
 {
@@ -6,10 +6,7 @@ namespace miRobotEditor.ViewModel
     {
         #region Index
 
-        /// <summary>
-        ///     The <see cref="Index" /> property's name.
-        /// </summary>
-        private const string IndexPropertyName = "Index";
+        
 
         private int _index = -1;
 
@@ -19,29 +16,17 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int Index
         {
-            get { return _index; }
+            get => _index;
 
-            set
-            {
-                if (_index == value)
-                {
-                    return;
-                }
-
-                
-                _index = value;
-                RaisePropertyChanged(IndexPropertyName);
-            }
+            set => SetProperty(ref _index, value);
+            
         }
 
         #endregion
 
         #region Type
 
-        /// <summary>
-        ///     The <see cref="Type" /> property's name.
-        /// </summary>
-        private const string TypePropertyName = "Type";
+    
 
         private string _type = string.Empty;
 
@@ -51,29 +36,16 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string Type
         {
-            get { return _type; }
+            get => _type;
 
-            set
-            {
-                if (_type == value)
-                {
-                    return;
-                }
-
-                
-                _type = value;
-                RaisePropertyChanged(TypePropertyName);
-            }
+            set => SetProperty(ref _type, value); 
         }
 
         #endregion
 
         #region Description
 
-        /// <summary>
-        ///     The <see cref="Description" /> property's name.
-        /// </summary>
-        private const string DescriptionPropertyName = "Description";
+        
 
         private string _description = string.Empty;
 
@@ -83,19 +55,9 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string Description
         {
-            get { return _description; }
+            get => _description;
 
-            set
-            {
-                if (_description == value)
-                {
-                    return;
-                }
-
-                
-                _description = value;
-                RaisePropertyChanged(DescriptionPropertyName);
-            }
+            set            => SetProperty(ref _description, value);
         }
 
         #endregion
@@ -106,9 +68,6 @@ namespace miRobotEditor.ViewModel
             Description = description;
         }
 
-        public override string ToString()
-        {
-            return string.Format("{0};{1}", Type, Description);
-        }
+        public override string ToString() => $"{Type};{Description}";
     }
 }

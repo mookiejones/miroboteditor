@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Practices.ServiceLocation;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 
@@ -32,7 +32,7 @@ namespace miRobotEditor.Controls
                     if (dataGrid != null)
                     {
                         var variable = dataGrid.CurrentCell.Item as IVariable;
-                        var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+                        var instance =Ioc.Default.GetRequiredService<MainViewModel>();
                         if (variable != null && File.Exists(variable.Path))
                         {
                             instance.OpenFile(variable);
@@ -105,9 +105,6 @@ namespace miRobotEditor.Controls
             return result;
         }
 
-        private void ToolTip_Opening(object sender, ToolTipEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        private void ToolTip_Opening(object sender, ToolTipEventArgs e) => throw new NotImplementedException();
     }
 }

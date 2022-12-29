@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Linq;
+using AvalonDock.Layout;
 using miRobotEditor.Enums;
-using miRobotEditor.ViewModel;
-using Xceed.Wpf.AvalonDock.Layout;
+using miRobotEditor.ViewModel; 
 
 namespace miRobotEditor.Classes
 {

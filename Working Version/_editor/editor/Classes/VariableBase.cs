@@ -4,7 +4,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using Microsoft.Practices.ServiceLocation;
+using CommonServiceLocator;
+
 using miRobotEditor.Abstract;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;

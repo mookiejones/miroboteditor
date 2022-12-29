@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/miRobotEditor;component/Templates/ExtendedGridSplitterTemplate.xaml" />
+                <ResourceDictionary Source="/miRobotEditor;component/Themes/Controls.ExtendedGridSplitter.xaml" />
                 <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

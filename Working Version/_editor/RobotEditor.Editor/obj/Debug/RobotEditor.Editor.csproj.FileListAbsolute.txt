@@ -1,0 +1,6 @@
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Editor\obj\Debug\RobotEditor.Editor.csproj.AssemblyReference.cache
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Editor\obj\Debug\Editor.g.cs
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Editor\obj\Debug\UserControl1.g.cs
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Editor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Editor\obj\Debug\RobotEditor.Editor_MarkupCompile.cache
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Editor\obj\Debug\RobotEditor.Editor_MarkupCompile.lref

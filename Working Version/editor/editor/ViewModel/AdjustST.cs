@@ -1,15 +1,10 @@
-﻿using GalaSoft.MvvmLight;
+﻿
 
 namespace miRobotEditor.ViewModel
 {
     internal sealed class AdjustST : ViewModelBase
     {
         #region ToolItems
-
-        /// <summary>
-        ///     The <see cref="ToolItems" /> property's name.
-        /// </summary>
-        private const string ToolItemsPropertyName = "ToolItems";
 
         private ToolItems _toolItems = new ToolItems();
 
@@ -19,19 +14,10 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public ToolItems ToolItems
         {
-            get { return _toolItems; }
+            get => _toolItems;
 
-            set
-            {
-                if (_toolItems == value)
-                {
-                    return;
-                }
-
-                
-                _toolItems = value;
-                RaisePropertyChanged(ToolItemsPropertyName);
-            }
+            set => SetProperty(ref _toolItems, value);
+ 
         }
 
         #endregion

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Practices.ServiceLocation;
+using CommonServiceLocator;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 

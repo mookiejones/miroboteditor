@@ -1,4 +1,4 @@
-using GalaSoft.MvvmLight;
+
 
 namespace miRobotEditor.ViewModel
 {
@@ -10,28 +10,20 @@ namespace miRobotEditor.ViewModel
 
         public static ToolTipViewModel Instance
         {
-            get { return _instance ?? new ToolTipViewModel(); }
-            set { _instance = value; }
+            get => _instance ?? new ToolTipViewModel();
+            set => _instance = value;
         }
 
         public string Message
         {
-            get { return _message; }
-            set
-            {
-                _message = value;
-                RaisePropertyChanged("Message");
-            }
+            get => _message;
+            set=>SetProperty(ref _message,value);
         }
 
         public string Title
         {
-            get { return _title; }
-            set
-            {
-                _title = value;
-                RaisePropertyChanged("Title");
-            }
+            get => _title;
+            set=>SetProperty(ref _title,value);
         }
     }
 }

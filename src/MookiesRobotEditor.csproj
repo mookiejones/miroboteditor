@@ -182,11 +182,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AppException.cs" />
+    <Compile Include="Classes\BookmarkBase.cs" />
     <Compile Include="Classes\CartesianItems.cs" />
     <Compile Include="Classes\CartesianPosition.cs" />
     <Compile Include="Classes\CartesianTypes.cs" />
     <Compile Include="Classes\DataTemplateUtils.cs" />
     <Compile Include="Classes\DocumentClosingEventArgs.cs" />
+    <Compile Include="Classes\EditorClass.cs" />
     <Compile Include="Classes\FileChangeWatcher.cs" />
     <Compile Include="Classes\FTPAccount.cs" />
     <Compile Include="Classes\Global.cs" />
@@ -196,6 +198,7 @@
     <Compile Include="Classes\Item.cs" />
     <Compile Include="Classes\LayoutInitializer.cs" />
     <Compile Include="Classes\MenuTemplateSelector.cs" />
+    <Compile Include="Classes\Messages\GetFileMessage.cs" />
     <Compile Include="Classes\Messages\MessageType.cs" />
     <Compile Include="Classes\MethodVariable.cs" />
     <Compile Include="Classes\MsgIcon.cs" />
@@ -214,6 +217,13 @@
     <Compile Include="GUI\TextEditorOptions.cs" />
     <Compile Include="Handlers\UpdateRequiredHandler.cs" />
     <Compile Include="Interfaces\IException.cs" />
+    <Compile Include="Language Specific\DatCleanControl.xaml.cs">
+      <DependentUpon>DatCleanControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Language Specific\DatCleaner.cs" />
+    <Compile Include="Language Specific\DatCleanHelper.cs" />
+    <Compile Include="Language Specific\KUKAVariableViewerViewModel.cs" />
+    <Compile Include="Language Specific\LongTextViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -561,6 +571,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GUI\KUKA\frmAdjustST.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Language Specific\DatCleanControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Language Specific\KUKAObjectBrowser.xaml" />

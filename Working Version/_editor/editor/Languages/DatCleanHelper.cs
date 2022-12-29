@@ -1,7 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight.Command;
-using Microsoft.Practices.ServiceLocation;
+using CommonServiceLocator;
+using GalaSoft.MvvmLight.Command; 
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;

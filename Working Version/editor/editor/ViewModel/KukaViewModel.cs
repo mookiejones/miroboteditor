@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using GalaSoft.MvvmLight.Command;
+using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Abstract;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls;
@@ -15,11 +15,7 @@ namespace miRobotEditor.ViewModel
     public sealed class KukaViewModel : DocumentBase, IEditorDocument
     {
         #region GridRow
-
-        /// <summary>
-        ///     The <see cref="GridRow" /> property's name.
-        /// </summary>
-        private const string GridRowPropertyName = "GridRow";
+ 
 
         private int _gridrow = 1;
 
@@ -29,21 +25,10 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int GridRow
         {
-            get { return _gridrow; }
+            get => _gridrow;
 
-            set
-            {
-                if (_gridrow == value)
-                {
-                    return;
-                }
-
-// ReSharper disable once ExplicitCallerInfoArgument
-                
-                _gridrow = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(GridRowPropertyName);
-            }
+            set => SetProperty(ref _gridrow, value);
+             
         }
 
         #endregion
@@ -55,29 +40,15 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ToggleGridCommand.
         /// </summary>
-        public RelayCommand ToggleGridCommand
-        {
-            get
-            {
-                return _toggleGridCommand
+        public RelayCommand ToggleGridCommand => _toggleGridCommand
                        ?? (_toggleGridCommand = new RelayCommand(ToggleGrid, CanToggleGrid));
-            }
-        }
 
 
-        public bool CanToggleGrid()
-        {
-            return Grid != null;
-        }
+        public bool CanToggleGrid() => Grid != null;
 
         #endregion
 
         #region Grid
-
-        /// <summary>
-        ///     The <see cref="Grid" /> property's name.
-        /// </summary>
-        private const string GridPropertyName = "Grid";
 
         private ExtendedGridSplitter _grid = new ExtendedGridSplitter();
 
@@ -87,31 +58,17 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public ExtendedGridSplitter Grid
         {
-            get { return _grid; }
+            get => _grid;
 
-            set
-            {
-                if (Equals(_grid, value))
-                {
-                    return;
-                }
-
-// ReSharper disable once ExplicitCallerInfoArgument
-                
-                _grid = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(GridPropertyName);
-            }
+            set  => SetProperty(ref _grid, value);
+             
         }
 
         #endregion
 
         #region Source
 
-        /// <summary>
-        ///     The <see cref="Source" /> property's name.
-        /// </summary>
-        private const string SourcePropertyName = "Source";
+         
 
         private Editor _source = new Editor();
 
@@ -121,31 +78,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public Editor Source
         {
-            get { return _source; }
+            get => _source;
 
-            set
-            {
-                if (Equals(_source, value))
-                {
-                    return;
-                }
-
-// ReSharper disable once ExplicitCallerInfoArgument
-                
-                _source = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(SourcePropertyName);
-            }
+            set=>SetProperty(ref _source, value);
         }
 
         #endregion
 
         #region Data
-
-        /// <summary>
-        ///     The <see cref="Data" /> property's name.
-        /// </summary>
-        private const string DataPropertyName = "Data";
+ 
 
         private Editor _data = new Editor();
 
@@ -155,31 +96,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public Editor Data
         {
-            get { return _data; }
+            get => _data;
 
-            set
-            {
-                if (Equals(_data, value))
-                {
-                    return;
-                }
-
-// ReSharper disable once ExplicitCallerInfoArgument
-                
-                _data = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(DataPropertyName);
-            }
+            set => SetProperty(ref _data, value);
         }
 
         #endregion
 
         #region DataRow
-
-        /// <summary>
-        ///     The <see cref="DataRow" /> property's name.
-        /// </summary>
-        private const string DataRowPropertyName = "DataRow";
+ 
 
         private int _dataRow = 2;
 
@@ -189,21 +114,9 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int DataRow
         {
-            get { return _dataRow; }
+            get => _dataRow;
 
-            set
-            {
-                if (_dataRow == value)
-                {
-                    return;
-                }
-
-// ReSharper disable once ExplicitCallerInfoArgument
-                
-                _dataRow = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(DataRowPropertyName);
-            }
+            set=>SetProperty(ref _dataRow, value);  
         }
 
         #endregion
@@ -314,7 +227,7 @@ namespace miRobotEditor.ViewModel
             TextBox = ((Source.Filename == filepath) ? Source : Data);
             Grid.IsAnimated = true;
 // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged("Title");
+            OnPropertyChanged(nameof(Title));
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)

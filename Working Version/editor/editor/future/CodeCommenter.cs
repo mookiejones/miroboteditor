@@ -25,14 +25,8 @@ namespace miRobotEditor.future
         }
         public string CommentMarker
         {
-            get
-            {
-                return commentMarker;
-            }
-            set
-            {
-                commentMarker = value;
-            }
+            get => commentMarker;
+            set => commentMarker = value;
         }
         public CommentMode Mode
         {
@@ -44,10 +38,7 @@ namespace miRobotEditor.future
             Mode = mode;
             CommentCarretLineIfNoSelection = true;
         }
-        public bool CommentLine(Editor kukaTextEditor, DocumentLine documentLine)
-        {
-            return CommentLine(kukaTextEditor.Document, documentLine);
-        }
+        public bool CommentLine(Editor kukaTextEditor, DocumentLine documentLine) => CommentLine(kukaTextEditor.Document, documentLine);
         public bool CommentLine(TextDocument document, DocumentLine documentLine)
         {
             if (Mode == CommentMode.BeginOfLine)
@@ -200,10 +191,7 @@ namespace miRobotEditor.future
             }
             return false;
         }
-        private static bool IsWhitespace(char letter)
-        {
-            return Whitespaces.Contains(letter);
-        }
+        private static bool IsWhitespace(char letter) => Whitespaces.Contains(letter);
         private bool CommentAtBeginOfLine(TextDocument document, DocumentLine documentLine)
         {
             var text = document.GetText(documentLine).TrimStart(Whitespaces.ToArray());

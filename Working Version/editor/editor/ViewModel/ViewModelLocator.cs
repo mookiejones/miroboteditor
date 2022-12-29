@@ -10,9 +10,7 @@
 */
 
 using System.Diagnostics.CodeAnalysis;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
+using CommunityToolkit.Mvvm.DependencyInjection; 
 using miRobotEditor.Design;
 using miRobotEditor.Model;
 
@@ -27,32 +25,11 @@ namespace miRobotEditor.ViewModel
     /// </summary>
     public sealed class ViewModelLocator
     {
-        static ViewModelLocator()
-        {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+       
 
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            }
-            else
-            {
-                SimpleIoc.Default.Register<IDataService, DataService>();
-            }
-            SimpleIoc.Default.Register<StatusBarViewModel>();
-            SimpleIoc.Default.Register<ObjectBrowserViewModel>();
-            SimpleIoc.Default.Register<MainViewModel>(true);
-        }
+        public ObjectBrowserViewModel ObjectBrowser => Ioc.Default.GetRequiredService <ObjectBrowserViewModel>();
 
-        public ObjectBrowserViewModel ObjectBrowser
-        {
-            get { return ServiceLocator.Current.GetInstance<ObjectBrowserViewModel>(); }
-        }
-
-        public StatusBarViewModel StatusBar
-        {
-            get { return ServiceLocator.Current.GetInstance<StatusBarViewModel>(); }
-        }
+        public StatusBarViewModel StatusBar => Ioc.Default.GetRequiredService<StatusBarViewModel>();
 
         /// <summary>
         ///     Gets the Main property.
@@ -60,10 +37,7 @@ namespace miRobotEditor.ViewModel
         [SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main
-        {
-            get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
-        }
+        public MainViewModel Main => Ioc.Default.GetRequiredService<MainViewModel>();
 
         /// <summary>
         ///     Cleans up all the resources.

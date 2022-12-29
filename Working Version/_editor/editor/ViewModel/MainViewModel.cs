@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Shell;
+using AvalonDock.Layout;
+using ControlzEx.Theming;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -18,9 +20,7 @@ using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Messages;
-using miRobotEditor.Windows;
-using Xceed.Wpf.AvalonDock.Layout;
-using Xceed.Wpf.AvalonDock.Themes;
+using miRobotEditor.Windows; 
 
 namespace miRobotEditor.ViewModel
 {
@@ -150,7 +150,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(ShowSettingsPropertyName);
+                 
                 _showSettings = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(ShowSettingsPropertyName);
@@ -159,39 +159,7 @@ namespace miRobotEditor.ViewModel
 
         #endregion
 
-        #region AccentBrush
-
-        /// <summary>
-        ///     The <see cref="AccentBrush" /> property's name.
-        /// </summary>
-        private const string AccentBrushPropertyName = "AccentBrush";
-
-        private Accent _accentBrush = ThemeManager.Accents.First(x => x.Name == "Blue");
-
-        /// <summary>
-        ///     Sets and gets the AccentBrush property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public Accent AccentBrush
-        {
-            get { return _accentBrush; }
-
-            set
-            {
-                if (_accentBrush == value)
-                {
-                    return;
-                }
-
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(AccentBrushPropertyName);
-                _accentBrush = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(AccentBrushPropertyName);
-            }
-        }
-
-        #endregion
+   
 
         #region CurrentTheme
 
@@ -218,7 +186,6 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(CurrentThemePropertyName);
                 _currentTheme = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(CurrentThemePropertyName);
@@ -252,7 +219,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(ShowIOPropertyName);
+                
                 _showIO = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(ShowIOPropertyName);
@@ -286,7 +253,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(EnableIOPropertyName);
+                 
                 _enableIO = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(EnableIOPropertyName);
@@ -349,7 +316,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(IsClosingPropertyName);
+                 
                 _isClosing = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(IsClosingPropertyName);
@@ -742,16 +709,17 @@ namespace miRobotEditor.ViewModel
 
         private void ChangeAccent(object param)
         {
-            AccentBrush = ThemeManager.Accents.First(x => x.Name == param.ToString());
-            ThemeManager.ChangeAppStyle(Application.Current, AccentBrush,
-                ThemeManager.GetAppTheme(CurrentTheme.ToString()));
+            //TODO Track
+           // AccentBrush = ThemeManager.Accents.First(x => x.Name == param.ToString());
+         //   ThemeManager.ChangeAppStyle(Application.Current, AccentBrush,
+            //    ThemeManager.GetAppTheme(CurrentTheme.ToString()));
         }
 
         private void ChangeTheme(object param)
         {
             //this.CurrentTheme = ((param.ToString() == "Light") ? Theme.Light : Theme.Dark);
-            ThemeManager.ChangeAppStyle(Application.Current, AccentBrush,
-                ThemeManager.GetAppTheme(CurrentTheme.ToString()));
+         //   ThemeManager.ChangeAppStyle(Application.Current, AccentBrush,
+          //      ThemeManager.GetAppTheme(CurrentTheme.ToString()));
         }
 
         private void OnOpen(object param)

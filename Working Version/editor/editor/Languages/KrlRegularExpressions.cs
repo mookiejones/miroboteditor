@@ -20,103 +20,19 @@ namespace miRobotEditor.Languages
         private static readonly Regex whileLineRegex = new Regex("^\\s*while\\s.*", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex forLineRegex = new Regex("^\\s*for\\s.*", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex endforLineRegex = new Regex("^\\s*endfor(|\\s*|\\s*;.*)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        public static Regex DefLineRegex
-        {
-            get
-            {
-                return defLineRegex;
-            }
-        }
-        public static Regex EmptyLineRegex
-        {
-            get
-            {
-                return emptyLineRegex;
-            }
-        }
-        public static Regex Loop
-        {
-            get
-            {
-                return loopLine;
-            }
-        }
-        public static Regex EndLoop
-        {
-            get
-            {
-                return endloopLine;
-            }
-        }
-        public static Regex For
-        {
-            get
-            {
-                return forLineRegex;
-            }
-        }
-        public static Regex EndFor
-        {
-            get
-            {
-                return endforLineRegex;
-            }
-        }
-        public static Regex EndDefLineRegex
-        {
-            get
-            {
-                return endDefLineRegex;
-            }
-        }
-        public static Regex EndIf
-        {
-            get
-            {
-                return endIfLineRegex;
-            }
-        }
-        public static Regex EndWhile
-        {
-            get
-            {
-                return endWhileLineRegex;
-            }
-        }
-        public static Regex FoldEndLineRegex
-        {
-            get
-            {
-                return foldEndLineRegex;
-            }
-        }
-        public static Regex FoldStartLineRegex
-        {
-            get
-            {
-                return foldStartLineRegex;
-            }
-        }
-        public static Regex If
-        {
-            get
-            {
-                return ifLineRegex;
-            }
-        }
-        public static Regex ValidNameRegex
-        {
-            get
-            {
-                return validNameRegex;
-            }
-        }
-        public static Regex While
-        {
-            get
-            {
-                return whileLineRegex;
-            }
-        }
+        public static Regex DefLineRegex => defLineRegex;
+        public static Regex EmptyLineRegex => emptyLineRegex;
+        public static Regex Loop => loopLine;
+        public static Regex EndLoop => endloopLine;
+        public static Regex For => forLineRegex;
+        public static Regex EndFor => endforLineRegex;
+        public static Regex EndDefLineRegex => endDefLineRegex;
+        public static Regex EndIf => endIfLineRegex;
+        public static Regex EndWhile => endWhileLineRegex;
+        public static Regex FoldEndLineRegex => foldEndLineRegex;
+        public static Regex FoldStartLineRegex => foldStartLineRegex;
+        public static Regex If => ifLineRegex;
+        public static Regex ValidNameRegex => validNameRegex;
+        public static Regex While => whileLineRegex;
     }
 }

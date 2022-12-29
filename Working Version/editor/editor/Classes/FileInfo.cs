@@ -2,9 +2,6 @@
 {
     public sealed class FileInfo
     {
-        public FileInfo GetFileInfo(string path)
-        {
-            return null;
-        }
+        public FileInfo GetFileInfo(string path) => null;
     }
 }

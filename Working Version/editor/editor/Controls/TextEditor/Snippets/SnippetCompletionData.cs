@@ -9,44 +9,11 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
     public class SnippetCompletionData : TextEditor.CompletionData
     {
         private readonly SnippetInfo snippetInfo;
-        public override object Content
-        {
-            get
-            {
-                return snippetInfo.Header.Text;
-            }
-        }
-        public override object Description
-        {
-            get
-            {
-                return new SnippetToolTip(snippetInfo);
-            }
-        }
-        public override ImageSource Image
-        {
-            get
-            {
-                return null;
-
-                //TODO Add this
-//                return Resources.snippet.ToBitmapSource();
-            }
-        }
-        public override double Priority
-        {
-            get
-            {
-                return 100.0;
-            }
-        }
-        public override string Text
-        {
-            get
-            {
-                return snippetInfo.Header.Text;
-            }
-        }
+        public override object Content => snippetInfo.Header.Text;
+        public override object Description => new SnippetToolTip(snippetInfo);
+        public override ImageSource Image => null;//TODO Add this//                return Resources.snippet.ToBitmapSource();
+        public override double Priority => 100.0;
+        public override string Text => snippetInfo.Header.Text;
         public SnippetCompletionData(SnippetInfo snippetInfo)
         {
             this.snippetInfo = snippetInfo;
@@ -64,10 +31,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                 snippetInfo.Snippet.Insert(textArea);
             }
         }
-        private static bool IsWhitespace(char ch)
-        {
-            return ch == '\t' || ch == ' ' || ch == '\n';
-        }
+        private static bool IsWhitespace(char ch) => ch == '\t' || ch == ' ' || ch == '\n';
         private bool ReplaceIfNeeded(TextArea area, SnippetInfo snippInfo)
         {
             var i = area.Caret.Offset;

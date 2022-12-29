@@ -13,9 +13,6 @@ namespace miRobotEditor.Windows
             InitializeComponent();
         }
 
-        private void CloseClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        private void CloseClick(object sender, RoutedEventArgs e) => throw new NotImplementedException();
     }
 }

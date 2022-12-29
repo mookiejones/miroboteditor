@@ -1,0 +1,13 @@
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\bin\Debug\RobotEditor.Core.dll
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\bin\Debug\RobotEditor.Core.pdb
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\RobotEditor.Core.csproj.AssemblyReference.cache
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\UserControl1.g.cs
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\RobotEditor.Core_MarkupCompile.cache
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\RobotEditor.Core_MarkupCompile.lref
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\UserControl1.baml
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\RobotEditor.Core.g.resources
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\RobotEditor.Core.Properties.Resources.resources
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\RobotEditor.Core.csproj.GenerateResource.cache
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\RobotEditor.Core.csproj.CoreCompileInputs.cache
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\RobotEditor.Core.dll
+C:\Programming\miroboteditor\Working Version\_editor\RobotEditor.Core\obj\Debug\RobotEditor.Core.pdb

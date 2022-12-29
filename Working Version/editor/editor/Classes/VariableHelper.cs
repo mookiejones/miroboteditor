@@ -2,8 +2,9 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight;
+
 using miRobotEditor.Interfaces;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Classes
 {
@@ -43,92 +44,56 @@ namespace miRobotEditor.Classes
 
             public string Description
             {
-                get { return _description; }
-                set
-                {
-                    _description = value;
-                    RaisePropertyChanged("Description");
-                }
+                get => _description;
+                set=>SetProperty(ref _description,value);
             }
 
             public BitmapImage Icon
             {
-                get { return _icon; }
-                set
-                {
-                    _icon = value;
-                    RaisePropertyChanged("Icon");
-                }
+                get => _icon;
+                set=>SetProperty(ref _icon,value);
             }
 
             public string Name
             {
-                get { return _name; }
-                set
-                {
-                    _name = value;
-                    RaisePropertyChanged("Name");
-                }
+                get => _name;
+                set=>SetProperty(ref _name,value);
             }
 
             public string Type
             {
-                get { return _type; }
-                set
-                {
-                    _type = value;
-                    RaisePropertyChanged("Type");
-                }
+                get => _type;
+                set=>SetProperty(ref _type,value);
             }
 
             public string Path
             {
-                get { return _path; }
-                set
-                {
-                    _path = value;
-                    RaisePropertyChanged("Path");
-                }
+                get => _path;
+                set=>SetProperty(ref _path,value);
             }
 
             public string Value
             {
-                get { return _value; }
-                set
-                {
-                    _value = value;
-                    RaisePropertyChanged("Value");
-                }
+                get => _value;
+                set=>SetProperty(ref _value,value);
             }
 
             public int Offset
             {
-                get { return _offset; }
-                set
-                {
-                    _offset = value;
-                    RaisePropertyChanged("Offset");
-                }
+                get => _offset;
+                set=>SetProperty(ref _offset,value);
             }
 
             public string Comment
             {
-                get { return _comment; }
-                set
-                {
-                    _comment = value;
-                    RaisePropertyChanged("Comment");
-                }
+                get => _comment;
+                set=>SetProperty(ref _comment,value);
             }
 
             public string Declaration
             {
-                get { return _declaration; }
-                set
-                {
-                    _declaration = value;
-                    RaisePropertyChanged("Declaration");
-                }
+                get => _declaration;
+                set=>SetProperty(ref _declaration,value);
             }
         }
     }

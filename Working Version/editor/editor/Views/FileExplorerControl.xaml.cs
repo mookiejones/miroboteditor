@@ -38,16 +38,16 @@ namespace miRobotEditor.Views
         [Localizable(false)]
         public string Filter
         {
-            get { return string.IsNullOrEmpty(_filter) ? "*.*" : _filter; }
-            set { _filter = value; }
+            get => string.IsNullOrEmpty(_filter) ? "*.*" : _filter;
+            set => _filter = value;
         }
 
         // ReSharper restore UnassignedField.Compiler
         // ReSharper restore UnusedField.Compiler
         public event FileSelectedEventHandler FileSelected
         {
-            add { _explorer.OnFileSelected += value; }
-            remove { _explorer.OnFileSelected -= value; }
+            add => _explorer.OnFileSelected += value;
+            remove => _explorer.OnFileSelected -= value;
         }
 
         public event TreeNodeMouseClickEventHandler OnMouseClick;

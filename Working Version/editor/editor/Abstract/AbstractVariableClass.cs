@@ -37,9 +37,6 @@ namespace miRobotEditor.Abstract
 
         internal abstract void GetVariable(GroupCollection m);
 
-        public string Key(string line)
-        {
-            throw new NotImplementedException();
-        }
+        public string Key(string line) => throw new NotImplementedException();
     }
 }

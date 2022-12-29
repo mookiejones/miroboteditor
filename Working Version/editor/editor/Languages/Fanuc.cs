@@ -29,100 +29,46 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        public override List<string> SearchFilters
-        {
-            get { return EXT; }
-        }
+        public override List<string> SearchFilters => EXT;
 
-        public static List<string> EXT
-        {
-            get
-            {
-                return new List<string>
+        public static List<string> EXT => new List<string>
                 {
                     ".ls"
                 };
-            }
-        }
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.Fanuc; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.Fanuc;
 
-        internal override IList<ICompletionData> CodeCompletion
-        {
-            get
-            {
-                return new List<ICompletionData>
+        internal override IList<ICompletionData> CodeCompletion => new List<ICompletionData>
                 {
                     new CodeCompletion("Item1")
                 };
-            }
-        }
 
-        protected override string ShiftRegex
-        {
-            get { throw new NotImplementedException(); }
-        }
+        protected override string ShiftRegex => throw new NotImplementedException();
 
-        internal override string SourceFile
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal override string SourceFile => throw new NotImplementedException();
 
-        internal override string FunctionItems
-        {
-            get { return "(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)"; }
-        }
+        internal override string FunctionItems => "(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)";
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        public override Regex MethodRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex MethodRegex => new Regex(string.Empty);
 
-        public override Regex StructRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex StructRegex => new Regex(string.Empty);
 
-        public override Regex FieldRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex FieldRegex => new Regex(string.Empty);
 
-        public override Regex EnumRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex EnumRegex => new Regex(string.Empty);
 
-        public override void Initialize(string filename)
-        {
-            Initialize();
-        }
+        public override void Initialize(string filename) => Initialize();
 
         [Localizable(false)]
-        public override string CommentChar
-        {
-            get { return "!"; }
-        }
+        public override string CommentChar => "!";
 
-        public override Regex SignalRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex SignalRegex => new Regex(string.Empty);
 
-        public override Regex XYZRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex XYZRegex => new Regex(string.Empty);
 
-        protected override bool IsFileValid(FileInfo file)
-        {
-            return EXT.Any((string e) => file.Extension.ToLower() == e);
-        }
+        protected override bool IsFileValid(FileInfo file) => EXT.Any((string e) => file.Extension.ToLower() == e);
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
@@ -179,10 +125,7 @@ namespace miRobotEditor.Languages
             return positionBase.ExtractFromMatch();
         }
 
-        public override DocumentViewModel GetFile(string filepath)
-        {
-            return new DocumentViewModel(filepath);
-        }
+        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {

@@ -1,7 +1,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using GalaSoft.MvvmLight;
+
 using miRobotEditor.Classes;
 using miRobotEditor.Controls.AngleConverter;
 using miRobotEditor.Controls.AngleConverter.Classes;
@@ -37,43 +37,28 @@ namespace miRobotEditor.ViewModel
 
         public ValueBoxViewModel InputItems
         {
-            get { return _inputItems; }
-            set
-            {
-                _inputItems = value;
-                RaisePropertyChanged("InputItems");
-            }
+            get => _inputItems;
+            set=>SetProperty(ref _inputItems,value);
         }
 
         public ValueBoxViewModel OutputItems
         {
-            get { return _outputItems; }
-            set
-            {
-                _outputItems = value;
-                RaisePropertyChanged("OutputItems");
-            }
+            get => _outputItems;
+            set=>SetProperty(ref _outputItems,value);
         }
 
         private double EPSILON
         {
-            get { return 4.94065645841247E-324; }
-            set { throw new NotImplementedException(); }
+            get => 4.94065645841247E-324;
+            set => throw new NotImplementedException();
         }
 
-        public string Error
-        {
-            get { return null; }
-        }
+        public string Error => null;
 
         public string Matrix
         {
-            get { return _matrix; }
-            set
-            {
-                _matrix = value;
-                RaisePropertyChanged("Matrix");
-            }
+            get => _matrix;
+            set=>SetProperty(ref _matrix,value);
         }
 
         public void Convert()
@@ -185,91 +170,75 @@ namespace miRobotEditor.ViewModel
 
         public double V1
         {
-            get { return _v1; }
+            get => _v1;
             set
             {
-                _v1 = value;
-                RaisePropertyChanged("V1");
+                SetProperty(ref _v1, value);
                 RaiseItemsChanged();
             }
         }
 
         public double V2
         {
-            get { return _v2; }
+            get => _v2;
             set
             {
-                _v2 = value;
-                RaisePropertyChanged("V2");
+                SetProperty(ref _v2, value);
                 RaiseItemsChanged();
             }
         }
 
         public double V3
         {
-            get { return _v3; }
+            get => _v3;
             set
             {
-                _v3 = value;
-                RaisePropertyChanged("V3");
+                SetProperty(ref _v3, value);
+
                 RaiseItemsChanged();
             }
         }
 
         public double V4
         {
-            get { return _v4; }
+            get => _v4;
             set
             {
-                _v4 = value;
-                RaisePropertyChanged("V4");
+                SetProperty(ref _v4, value);
                 RaiseItemsChanged();
             }
         }
 
         public bool IsReadOnly
         {
-            get { return _isReadOnly; }
-            set
-            {
-                _isReadOnly = value;
-                RaisePropertyChanged("IsReadOnly");
-            }
+            get => _isReadOnly;
+            set=>SetProperty(ref _isReadOnly,value);
         }
 
         public string Header
         {
-            get { return _header; }
-            set
-            {
-                _header = value;
-                RaisePropertyChanged("Header");
-            }
+            get => _header;
+            set=>SetProperty(ref _header,value);
         }
 
         public Visibility BoxVisibility
         {
-            get { return _boxVisibility; }
-            set
-            {
-                _boxVisibility = value;
-                RaisePropertyChanged("BoxVisibility");
-            }
+            get => _boxVisibility;
+            set=>SetProperty(ref _boxVisibility,value);
         }
 
-        public CartesianItems SelectionItems
-        {
-            get { return _selectionitems; }
-        }
+        public CartesianItems SelectionItems => _selectionitems;
 
         public CartesianEnum SelectedItem
         {
-            get { return _selectedItem; }
+            get => _selectedItem;
             set
             {
+                 
+
                 _selectedItem = value;
                 CheckVisibility();
-                RaisePropertyChanged("SelectedItem");
+                OnPropertyChanged(nameof(SelectedItem));
                 RaiseItemsChanged();
             }
         }

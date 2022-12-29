@@ -6,11 +6,6 @@ namespace miRobotEditor.ViewModel
     {
         #region Text
 
-        /// <summary>
-        ///     The <see cref="Text" /> property's name.
-        /// </summary>
-        private const string TextPropertyName = "Text";
-
         private string _text = string.Empty;
 
         /// <summary>
@@ -19,19 +14,9 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string Text
         {
-            get { return _text; }
+            get => _text;
 
-            set
-            {
-                if (_text == value)
-                {
-                    return;
-                }
-
-                
-                _text = value;
-                RaisePropertyChanged(TextPropertyName);
-            }
+             set => SetProperty(ref _text, value);
         }
 
         #endregion

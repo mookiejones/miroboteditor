@@ -4,11 +4,12 @@
     xmlns:mw="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:converters="clr-namespace:miRobotEditor.Converters"
     xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
-    xmlns:controls="clr-namespace:miRobotEditor.Controls"
-    xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+    xmlns:controls="clr-namespace:miRobotEditor.Controls" 
     xmlns:selectors="clr-namespace:miRobotEditor.Selectors"
     xmlns:classes="clr-namespace:miRobotEditor.Classes"
-    xmlns:ViewModel="clr-namespace:miRobotEditor.ViewModel" x:Class="miRobotEditor.MainWindow" x:Name="MetroWindow"
+    xmlns:ViewModel="clr-namespace:miRobotEditor.ViewModel" 
+    xmlns:xcad="https://github.com/Dirkster99/AvalonDock"
+    x:Class="miRobotEditor.MainWindow" x:Name="MetroWindow"
     SnapsToDevicePixels="True"
     WindowState="Maximized"
     TitleForeground="#FF000000"
@@ -20,8 +21,6 @@
     <mw:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml" />
                 <ResourceDictionary Source="/miRobotEditor;component/Templates/StatusBarTemplate.xaml" />
                 <ResourceDictionary Source="/miRobotEditor;component/Templates/KUKASpecificTemplates.xaml" />
                 <ResourceDictionary Source="/miRobotEditor;component/Templates/LayoutItemTemplates.xaml" />
@@ -445,8 +444,6 @@
             x:Name="DockManager"
             Background="#00FFFFFF"
             Grid.Row="2"
-
-
             AnchorablesSource="{Binding Main.Tools}"
             DocumentsSource="{Binding Main.Files}"
             ActiveContent="{Binding Main.ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay}">

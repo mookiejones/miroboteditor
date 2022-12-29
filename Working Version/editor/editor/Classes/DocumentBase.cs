@@ -33,10 +33,7 @@ namespace miRobotEditor.Classes
 
         public abstract void Load(string filepath);
 
-        public void SelectText(IVariable variable)
-        {
-            throw new NotImplementedException();
-        }
+        public void SelectText(IVariable variable) => throw new NotImplementedException();
 
         private void InitializeControl()
         {
@@ -61,7 +58,7 @@ namespace miRobotEditor.Classes
             {
                 FileLanguage.RawText = TextBox.Text;
             }
-            RaisePropertyChanged("Title");
+            OnPropertyChanged(nameof(Title));
         }
 
         internal void Save(Editor txtBox)
@@ -83,12 +80,8 @@ namespace miRobotEditor.Classes
 
         public AbstractLanguageClass FileLanguage
         {
-            get { return _filelanguage; }
-            set
-            {
-                _filelanguage = value;
-                RaisePropertyChanged("FileLanguage");
-            }
+            get => _filelanguage;
+            set=>SetProperty(ref _filelanguage,value);
         }
 
         #endregion
@@ -99,22 +92,13 @@ namespace miRobotEditor.Classes
 
         public Visibility Visibility
         {
-            get { return _visibility; }
-            set
-            {
-                _visibility = value;
-                RaisePropertyChanged("Visibility");
-            }
+            get => _visibility;
+            set=>SetProperty(ref _visibility,value);
         }
 
         #endregion        public AbstractLanguageClass FileLanguage { get; set; }
 
         #region TextBox
-
-        /// <summary>
-        ///     The <see cref="TextBox" /> property's name.
-        /// </summary>
-        private const string TextBoxPropertyName = "TextBox";
 
         private Editor _textBox = new Editor();
 
@@ -124,19 +108,10 @@ namespace miRobotEditor.Classes
         /// </summary>
         public Editor TextBox
         {
-            get { return _textBox; }
+            get => _textBox;
 
-            set
-            {
-                if (_textBox == value)
-                {
-                    return;
-                }
+            set => SetProperty(ref _textBox, value);
 
-                
-                _textBox = value;
-                RaisePropertyChanged(TextBoxPropertyName);
-            }
         }
 
         #endregion

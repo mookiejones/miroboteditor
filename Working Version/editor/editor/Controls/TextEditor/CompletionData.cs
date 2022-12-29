@@ -10,34 +10,10 @@ namespace miRobotEditor.Controls.TextEditor
     public abstract class CompletionData : ICompletionData
     {
         protected double priority;
-        public virtual object Content
-        {
-            get
-            {
-                return Text;
-            }
-        }
-        public virtual object Description
-        {
-            get
-            {
-                return "Description";
-            }
-        }
-        public virtual ImageSource Image
-        {
-            get
-            {
-                return null;
-            }
-        }
-        public virtual double Priority
-        {
-            get
-            {
-                return priority;
-            }
-        }
+        public virtual object Content => Text;
+        public virtual object Description => "Description";
+        public virtual ImageSource Image => null;
+        public virtual double Priority => priority;
         public abstract string Text
         {
             get;

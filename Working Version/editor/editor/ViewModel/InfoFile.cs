@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
+
 using miRobotEditor.Abstract;
 
 namespace miRobotEditor.ViewModel
@@ -19,87 +19,52 @@ namespace miRobotEditor.ViewModel
 
         public string ArchiveName
         {
-            get { return _archivename; }
-            set
-            {
-                _archivename = value;
-                RaisePropertyChanged("ArchiveName");
-            }
+            get => _archivename;
+            set=>SetProperty(ref _archivename,value);
         }
 
         public string ArchiveConfigType
         {
-            get { return _archiveconfigtype; }
-            set
-            {
-                _archiveconfigtype = value;
-                RaisePropertyChanged("ArchiveConfigType");
-            }
+            get => _archiveconfigtype;
+            set=>SetProperty(ref _archiveconfigtype,value);
         }
 
         public string ArchiveDiskNo
         {
-            get { return _archiveDiskNo; }
-            set
-            {
-                _archiveDiskNo = value;
-                RaisePropertyChanged("ArchiveDiskNo");
-            }
+            get => _archiveDiskNo;
+            set=>SetProperty(ref _archiveDiskNo,value);
         }
 
         public string ArchiveID
         {
-            get { return _archiveID; }
-            set
-            {
-                _archiveID = value;
-                RaisePropertyChanged("ArchiveID");
-            }
+            get => _archiveID;
+            set=>SetProperty(ref _archiveID,value);
         }
 
         public string ArchiveDate
         {
-            get { return _archiveDate; }
-            set
-            {
-                _archiveDate = value;
-                RaisePropertyChanged("ArchiveDate");
-            }
+            get => _archiveDate;
+            set=>SetProperty(ref _archiveDate,value);
         }
 
         public string RobotName
         {
-            get { return _archiveRobotName; }
-            set
-            {
-                _archiveRobotName = value;
-                RaisePropertyChanged("RobotName");
-            }
+            get => _archiveRobotName;
+            set=>SetProperty(ref _archiveRobotName,value);
         }
 
         public string RobotSerial
         {
-            get { return _archiveRobotSerial; }
-            set
-            {
-                _archiveRobotSerial = value;
-                RaisePropertyChanged("RobotSerial");
-            }
+            get => _archiveRobotSerial;
+            set=>SetProperty(ref _archiveRobotSerial,value);
         }
 
         public string KSSVersion
         {
-            get { return _archiveKssVersion; }
-            set
-            {
-                _archiveKssVersion = value;
-                RaisePropertyChanged("KSSVersion");
-            }
+            get => _archiveKssVersion;
+            set=>SetProperty(ref _archiveKssVersion,value);
         }
 
-        public ReadOnlyObservableCollection<Technology> Technologies
-        {
-            get { return _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies); }
-        }
+        public ReadOnlyObservableCollection<Technology> Technologies => _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies);
     }
 }

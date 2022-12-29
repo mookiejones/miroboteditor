@@ -30,7 +30,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(FilePathPropertyName);
+                
                 _filePath = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(FilePathPropertyName);
@@ -97,7 +97,7 @@ namespace miRobotEditor.ViewModel
                 }
 
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanging(IsDirtyPropertyName);
+                
                 _isDirty = value;
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(IsDirtyPropertyName);

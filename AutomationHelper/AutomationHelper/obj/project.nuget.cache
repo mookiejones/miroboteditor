@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "/X+ih5WGO64dZrnY0xT9RwCFezFRAbqST2L6jupO2lHBjGUZe5wQDemvvps6/2xs/kElT8NbCsdLR6WiExJWeQ==",
+  "success": true,
+  "projectFilePath": "C:\\Programming\\miroboteditor\\AutomationHelper\\AutomationHelper\\AutomationHelper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\charberm\\.nuget\\packages\\materialdesigncolors\\2.0.9\\materialdesigncolors.2.0.9.nupkg.sha512",
+    "C:\\Users\\charberm\\.nuget\\packages\\materialdesignthemes\\4.6.1\\materialdesignthemes.4.6.1.nupkg.sha512",
+    "C:\\Users\\charberm\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.22\\microsoft.netcore.app.host.win-x64.3.1.22.nupkg.sha512"
+  ],
+  "logs": []
+}

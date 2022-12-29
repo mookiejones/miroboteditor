@@ -1,13 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
-                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                    
                     xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     xmlns:gui="clr-namespace:miRobotEditor.Classes"
                     xmlns:controls="clr-namespace:miRobotEditor.Controls"
                     xmlns:textEditor="clr-namespace:miRobotEditor.Controls.TextEditor">
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
-    <xctk:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
+    <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
     <Style x:Key="{x:Type textEditor:Editor}" TargetType="{x:Type textEditor:Editor}">
         <Setter Property="Background"
                 Value="{Binding BackgroundColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static gui:EditorOptions.Instance}}" />

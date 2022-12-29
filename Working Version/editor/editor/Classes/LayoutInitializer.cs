@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Linq;
+using AvalonDock.Layout;
 using miRobotEditor.Enums;
-using miRobotEditor.ViewModel;
-using Xceed.Wpf.AvalonDock.Layout;
-
+using miRobotEditor.ViewModel; 
 namespace miRobotEditor.Classes
 {
     [Localizable(false)]
@@ -111,10 +110,7 @@ namespace miRobotEditor.Classes
         }
 
         public bool BeforeInsertDocument(LayoutRoot layout, LayoutDocument anchorableToShow,
-            ILayoutContainer destinationContainer)
-        {
-            return false;
-        }
+            ILayoutContainer destinationContainer) => false;
 
         public void AfterInsertDocument(LayoutRoot layout, LayoutDocument anchorableShown)
         {

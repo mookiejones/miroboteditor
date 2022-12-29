@@ -8,14 +8,15 @@ using System.Windows.Forms;
 using System.Windows.Shell;
 using System.Windows.Threading;
 using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
-using Microsoft.Practices.ServiceLocation;
+using GalaSoft.MvvmLight.Threading; 
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
+using CommonServiceLocator;
+
 using MessageBox = System.Windows.MessageBox;
 
 namespace miRobotEditor

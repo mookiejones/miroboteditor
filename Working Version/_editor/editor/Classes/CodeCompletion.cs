@@ -1,10 +1,10 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Media;
+using CommonServiceLocator;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Editing;
-using Microsoft.Practices.ServiceLocation;
+using ICSharpCode.AvalonEdit.Editing; 
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 

@@ -15,19 +15,10 @@ namespace miRobotEditor.Classes
             _bitmap = bitmap;
         }
 
-        public ImageSource ImageSource
-        {
-            get { return _baseimage.ImageSource; }
-        }
+        public ImageSource ImageSource => _baseimage.ImageSource;
 
-        public BitmapImage Bitmap
-        {
-            get { return _bitmap; }
-        }
+        public BitmapImage Bitmap => _bitmap;
 
-        public Icon Icon
-        {
-            get { return _baseimage.Icon; }
-        }
+        public Icon Icon => _baseimage.Icon;
     }
 }

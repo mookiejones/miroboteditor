@@ -28,7 +28,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(ShowFullNamePropertyName);
+                
                 _showFullName = value;
                 RaisePropertyChanged(ShowFullNamePropertyName);
             }

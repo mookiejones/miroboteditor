@@ -10,9 +10,9 @@
 */
 
 using System.Diagnostics.CodeAnalysis;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
+using GalaSoft.MvvmLight.Ioc; 
 using miRobotEditor.Design;
 using miRobotEditor.Model;
 

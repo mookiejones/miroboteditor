@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Microsoft.Practices.ServiceLocation;
+using CommunityToolkit.Mvvm.DependencyInjection; 
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
@@ -20,34 +20,26 @@ namespace miRobotEditor.ViewModel
 
         public IVariable SelectedVariable
         {
-            get { return _selectedVariable; }
+            get => _selectedVariable;
             set
             {
                 _selectedVariable = value;
-                var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 instance.OpenFile(value);
-                RaisePropertyChanged("SelectedVariable");
+                OnPropertyChanged(nameof(SelectedVariable));
             }
         }
 
         public int Progress
         {
-            get { return _progress; }
-            set
-            {
-                _progress = value;
-                RaisePropertyChanged("Progress");
-            }
+            get => _progress;
+            set=>SetProperty(ref _progress,value);
         }
 
         public int ProgressMax
         {
-            get { return _progressMax; }
-            set
-            {
-                _progressMax = value;
-                RaisePropertyChanged("ProgressMax");
-            }
+            get => _progressMax;
+            set=>SetProperty(ref _progressMax,value);
         }
 
         #endregion
@@ -65,7 +57,7 @@ namespace miRobotEditor.ViewModel
             {
                 Description = @"Select Root Directory for Instance"
             };
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             var filename = instance.ActiveEditor.TextBox.Filename;
             if (Directory.Exists(filename))
             {
@@ -86,7 +78,7 @@ namespace miRobotEditor.ViewModel
 
         public ReadOnlyCollection<IVariable> GetVarForFile(string filename)
         {
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             var kukaViewModel = instance.ActiveEditor as KukaViewModel;
             ReadOnlyCollection<IVariable> result;
             if (kukaViewModel == null)

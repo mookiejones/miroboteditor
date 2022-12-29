@@ -1,6 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
+﻿
+
+using AvalonDock.Layout;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using ControlzEx.Theming;
 using MahApps.Metro;
 using Microsoft.Win32;
 using miRobotEditor.Abstract;
@@ -18,9 +21,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Shell;
-using Xceed.Wpf.AvalonDock.Layout;
-using Xceed.Wpf.AvalonDock.Themes;
+using System.Windows.Shell; 
 
 namespace miRobotEditor.ViewModel
 {
@@ -49,14 +50,12 @@ namespace miRobotEditor.ViewModel
                 AngleConverter
             };
 
-            Messenger.Default.Register<WindowMessage>(this, GetMessage);
+            WeakReferenceMessenger.Default.Register<WindowMessage>(this, GetMessage);
+
         }
 
-        private void GetMessage(WindowMessage obj)
-        {
-            Open(obj.Description);
-        }
-
+        private void GetMessage(object recipient, WindowMessage message) => Open(message.Description);
+        
         public string Title
         {
             get
@@ -79,35 +78,17 @@ namespace miRobotEditor.ViewModel
         private readonly IEnumerable<ToolViewModel> _readonlyTools = null;
         private readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
 
-        public ObjectBrowserViewModel ObjectBrowser
-        {
-            get { return _objectBrowser; }
-        }
+        public ObjectBrowserViewModel ObjectBrowser => _objectBrowser;
 
-        public NotesViewModel Notes
-        {
-            get { return _notes; }
-        }
+        public NotesViewModel Notes => _notes;
 
-        public MessageViewModel MessageView
-        {
-            get { return _messageView; }
-        }
+        public MessageViewModel MessageView => _messageView;
 
-        public FunctionViewModel Functions
-        {
-            get { return _functions; }
-        }
+        public FunctionViewModel Functions => _functions;
 
-        public LocalVariablesViewModel LocalVariables
-        {
-            get { return _localVariables; }
-        }
+        public LocalVariablesViewModel LocalVariables => _localVariables;
 
-        public AngleConvertorViewModel AngleConverter
-        {
-            get { return _angleConverter; }
-        }
+        public AngleConvertorViewModel AngleConverter => _angleConverter;
 
         #endregion Tools
 
@@ -116,19 +97,11 @@ namespace miRobotEditor.ViewModel
         private readonly ObservableCollection<IEditorDocument> _files = new ObservableCollection<IEditorDocument>();
         private readonly ReadOnlyObservableCollection<IEditorDocument> _readonlyFiles = null;
 
-        public IEnumerable<IEditorDocument> Files
-        {
-            get { return _readonlyFiles ?? new ReadOnlyObservableCollection<IEditorDocument>(_files); }
-        }
+        public IEnumerable<IEditorDocument> Files => _readonlyFiles ?? new ReadOnlyObservableCollection<IEditorDocument>(_files);
 
         #endregion Files
 
         #region ShowSettings
-
-        /// <summary>
-        ///     The <see cref="ShowSettings" /> property's name.
-        /// </summary>
-        private const string ShowSettingsPropertyName = "ShowSettings";
 
         private bool _showSettings;
 
@@ -138,65 +111,17 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool ShowSettings
         {
-            get { return _showSettings; }
+            get => _showSettings;
 
-            set
-            {
-                if (_showSettings == value)
-                {
-                    return;
-                }
-
-                // ReSharper disable once ExplicitCallerInfoArgument
-
-                _showSettings = value;
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(ShowSettingsPropertyName);
-            }
+            set => SetProperty(ref _showSettings, value);
+ 
         }
 
         #endregion ShowSettings
 
-        #region AccentBrush
-
-        /// <summary>
-        ///     The <see cref="AccentBrush" /> property's name.
-        /// </summary>
-        private const string AccentBrushPropertyName = "AccentBrush";
-
-        private Accent _accentBrush = ThemeManager.Accents.First(x => x.Name == "Blue");
-
-        /// <summary>
-        ///     Sets and gets the AccentBrush property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public Accent AccentBrush
-        {
-            get { return _accentBrush; }
-
-            set
-            {
-                if (_accentBrush == value)
-                {
-                    return;
-                }
-
-                // ReSharper disable once ExplicitCallerInfoArgument
-
-                _accentBrush = value;
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(AccentBrushPropertyName);
-            }
-        }
-
-        #endregion AccentBrush
+       
 
         #region CurrentTheme
-
-        /// <summary>
-        ///     The <see cref="CurrentTheme" /> property's name.
-        /// </summary>
-        private const string CurrentThemePropertyName = "CurrentTheme";
 
         private Theme _currentTheme;
 
@@ -206,31 +131,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public Theme CurrentTheme
         {
-            get { return _currentTheme; }
+            get => _currentTheme;
 
-            set
-            {
-                if (Equals(_currentTheme, value))
-                {
-                    return;
-                }
-
-                // ReSharper disable once ExplicitCallerInfoArgument
-
-                _currentTheme = value;
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(CurrentThemePropertyName);
-            }
+            set => SetProperty(ref _currentTheme, value);
+            
         }
 
         #endregion CurrentTheme
 
         #region ShowIO
-
-        /// <summary>
-        ///     The <see cref="ShowIO" /> property's name.
-        /// </summary>
-        private const string ShowIOPropertyName = "ShowIO";
 
         private bool _showIO;
 
@@ -240,31 +149,14 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool ShowIO
         {
-            get { return _showIO; }
+            get => _showIO;
 
-            set
-            {
-                if (_showIO == value)
-                {
-                    return;
-                }
-
-                // ReSharper disable once ExplicitCallerInfoArgument
-
-                _showIO = value;
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(ShowIOPropertyName);
-            }
+            set => SetProperty(ref _showIO, value); 
         }
 
         #endregion ShowIO
 
         #region EnableIO
-
-        /// <summary>
-        ///     The <see cref="EnableIO" /> property's name.
-        /// </summary>
-        private const string EnableIOPropertyName = "EnableIO";
 
         private bool _enableIO;
 
@@ -274,38 +166,20 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool EnableIO
         {
-            get { return _enableIO; }
+            get => _enableIO;
 
-            set
-            {
-                if (_enableIO == value)
-                {
-                    return;
-                }
-
-                // ReSharper disable once ExplicitCallerInfoArgument
-
-                _enableIO = value;
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(EnableIOPropertyName);
-            }
+            set            => SetProperty(ref _enableIO, value);
         }
 
         #endregion EnableIO
 
-        public ILayoutUpdateStrategy LayoutStrategy
-        {
-            get { return _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer()); }
-        }
+        public ILayoutUpdateStrategy LayoutStrategy => _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer());
 
-        public IEnumerable<ToolViewModel> Tools
-        {
-            get { return _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools); }
-        }
+        public IEnumerable<ToolViewModel> Tools => _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools);
 
         public IEditorDocument ActiveEditor
         {
-            get { return _activeEditor; }
+            get => _activeEditor;
             set
             {
                 if (_activeEditor != value)
@@ -314,19 +188,14 @@ namespace miRobotEditor.ViewModel
                     if (_activeEditor != null)
                         _activeEditor.TextBox.Focus();
                     // ReSharper disable once RedundantArgumentDefaultValue
-                    RaisePropertyChanged("ActiveEditor");
+                    OnPropertyChanged(nameof(ActiveEditor));
                     // ReSharper disable once ExplicitCallerInfoArgument
-                    RaisePropertyChanged("Title");
+                    OnPropertyChanged(nameof(Title));
                 }
             }
         }
 
         #region IsClosing
-
-        /// <summary>
-        ///     The <see cref="IsClosing" /> property's name.
-        /// </summary>
-        private const string IsClosingPropertyName = "IsClosing";
 
         private bool _isClosing;
 
@@ -336,21 +205,10 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool IsClosing
         {
-            get { return _isClosing; }
+            get => _isClosing;
 
             set
-            {
-                if (_isClosing == value)
-                {
-                    return;
-                }
-
-                // ReSharper disable once ExplicitCallerInfoArgument
-
-                _isClosing = value;
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(IsClosingPropertyName);
-            }
+            => SetProperty(ref _isClosing, value);
         }
 
         #endregion IsClosing
@@ -366,13 +224,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the CloseCommand.
         /// </summary>
-        public RelayCommand<object> CloseCommand
-        {
-            get
-            {
-                return _closeCommand ?? (_closeCommand = new RelayCommand<object>(ExecuteCloseCommand, CanExecuteCloseCommand));
-            }
-        }
+        public RelayCommand<object> CloseCommand => _closeCommand ?? (_closeCommand = new RelayCommand<object>(ExecuteCloseCommand, CanExecuteCloseCommand));
 
         private void ExecuteCloseCommand(object obj)
         {
@@ -381,13 +233,10 @@ namespace miRobotEditor.ViewModel
             ActiveEditor.Close();
             ActiveEditor = _files.FirstOrDefault();
             // Close(ActiveEditor);
-            RaisePropertyChanged("ActiveEditor");
+            OnPropertyChanged(nameof(ActiveEditor));
         }
 
-        private bool CanExecuteCloseCommand(object arg)
-        {
-            return true;
-        }
+        private bool CanExecuteCloseCommand(object arg) => true;
 
         #endregion CloseCommand
 
@@ -398,55 +247,12 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ShowIOCommand.
         /// </summary>
-        public RelayCommand ShowIOCommand
-        {
-            get
-            {
-                return _showIOCommand
+        public RelayCommand ShowIOCommand => _showIOCommand
                        ?? (_showIOCommand = new RelayCommand(ExecuteShowIO));
-            }
-        }
 
         #endregion ShowIOCommand
 
-        #region ChangeThemeCommand
-
-        private RelayCommand<object> _changeThemeCommand;
-
-        /// <summary>
-        ///     Gets the ChangeThemeCommand.
-        /// </summary>
-        public RelayCommand<object> ChangeThemeCommand
-        {
-            get
-            {
-                return _changeThemeCommand
-                       ?? (_changeThemeCommand = new RelayCommand<object>(
-                           ChangeTheme));
-            }
-        }
-
-        #endregion ChangeThemeCommand
-
-        #region ChangeAccentCommand
-
-        private RelayCommand<object> _changeAccentCommand;
-
-        /// <summary>
-        ///     Gets the ChangeAccentCommand.
-        /// </summary>
-        public RelayCommand<object> ChangeAccentCommand
-        {
-            get
-            {
-                return _changeAccentCommand
-                       ?? (_changeAccentCommand = new RelayCommand<object>(
-                           ChangeAccent));
-            }
-        }
-
-        #endregion ChangeAccentCommand
-
+       
         #region NewFileCommand
 
         private RelayCommand _newFileCommand;
@@ -454,15 +260,9 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the NewFileCommand.
         /// </summary>
-        public RelayCommand NewFileCommand
-        {
-            get
-            {
-                return _newFileCommand
+        public RelayCommand NewFileCommand => _newFileCommand
                        ?? (_newFileCommand = new RelayCommand(
                            AddNewFile));
-            }
-        }
 
         #endregion NewFileCommand
 
@@ -473,14 +273,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ShowFindReplaceCommand.
         /// </summary>
-        public RelayCommand ShowFindReplaceCommand
-        {
-            get
-            {
-                return _showFileReplaceCommand
+        public RelayCommand ShowFindReplaceCommand => _showFileReplaceCommand
                        ?? (_showFileReplaceCommand = new RelayCommand(ShowFindReplace));
-            }
-        }
 
         #endregion ShowFindReplaceCommand
 
@@ -491,14 +285,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ShowSettingsCommand.
         /// </summary>
-        public RelayCommand ShowSettingsCommand
-        {
-            get
-            {
-                return _showSettingsCommand
+        public RelayCommand ShowSettingsCommand => _showSettingsCommand
                        ?? (_showSettingsCommand = new RelayCommand(ExecuteShowSettings));
-            }
-        }
 
         #endregion ShowSettingsCommand
 
@@ -509,10 +297,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ChangeViewAsCommand.
         /// </summary>
-        public RelayCommand<string> ChangeViewAsCommand
-        {
-            get { return _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand<string>(ChangeViewAs)); }
-        }
+        public RelayCommand<string> ChangeViewAsCommand => _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand<string>(ChangeViewAs));
 
         #endregion ChangeViewAsCommand
 
@@ -523,14 +308,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ExitCommand.
         /// </summary>
-        public RelayCommand ExitCommand
-        {
-            get
-            {
-                return _exitCommand
+        public RelayCommand ExitCommand => _exitCommand
                        ?? (_exitCommand = new RelayCommand(Exit));
-            }
-        }
 
         #endregion ExitCommand
 
@@ -541,15 +320,9 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ImportCommand.
         /// </summary>
-        public RelayCommand<object> ImportCommand
-        {
-            get { return _importCommand ?? (_importCommand = new RelayCommand<object>(p => ImportRobot(), CanImport)); }
-        }
+        public RelayCommand<object> ImportCommand => _importCommand ?? (_importCommand = new RelayCommand<object>(p => ImportRobot(), CanImport));
 
-        public bool CanImport(object p)
-        {
-            return !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
-        }
+        public bool CanImport(object p) => !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
 
         #endregion ImportCommand
 
@@ -560,10 +333,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the AddToolCommand.
         /// </summary>
-        public RelayCommand<object> AddToolCommand
-        {
-            get { return _addToolCommand ?? (_addToolCommand = new RelayCommand<object>(AddTool)); }
-        }
+        public RelayCommand<object> AddToolCommand => _addToolCommand ?? (_addToolCommand = new RelayCommand<object>(AddTool));
 
         #endregion AddToolCommand
 
@@ -574,10 +344,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ShowAboutCommand.
         /// </summary>
-        public RelayCommand ShowAboutCommand
-        {
-            get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand(ShowAbout)); }
-        }
+        public RelayCommand ShowAboutCommand => _showAboutCommand ?? (_showAboutCommand = new RelayCommand(ShowAbout));
 
         #endregion ShowAboutCommand
 
@@ -588,14 +355,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the OpenFileCommand.
         /// </summary>
-        public RelayCommand<object> OpenFileCommand
-        {
-            get
-            {
-                return _openFileCommand
+        public RelayCommand<object> OpenFileCommand => _openFileCommand
                        ?? (_openFileCommand = new RelayCommand<object>(OnOpen));
-            }
-        }
 
         #endregion OpenFileCommand
 
@@ -718,10 +479,7 @@ namespace miRobotEditor.ViewModel
             return result;
         }
 
-        private void ExecuteShowIO()
-        {
-            ShowIO = !ShowIO;
-        }
+        private void ExecuteShowIO() => ShowIO = !ShowIO;
 
         private void ShowFindReplace()
         {
@@ -729,24 +487,9 @@ namespace miRobotEditor.ViewModel
             //findandReplaceControl.ShowDialog().GetValueOrDefault();
         }
 
-        private void ExecuteShowSettings()
-        {
-            ShowSettings = !ShowSettings;
-        }
+        private void ExecuteShowSettings() => ShowSettings = !ShowSettings;
 
-        private void ChangeAccent(object param)
-        {
-            AccentBrush = ThemeManager.Accents.First(x => x.Name == param.ToString());
-            ThemeManager.ChangeAppStyle(Application.Current, AccentBrush,
-                ThemeManager.GetAppTheme(CurrentTheme.ToString()));
-        }
-
-        private void ChangeTheme(object param)
-        {
-            //this.CurrentTheme = ((param.ToString() == "Light") ? Theme.Light : Theme.Dark);
-            ThemeManager.ChangeAppStyle(Application.Current, AccentBrush,
-                ThemeManager.GetAppTheme(CurrentTheme.ToString()));
-        }
+       
 
         private void OnOpen(object param)
         {
@@ -848,16 +591,13 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        private void Exit()
-        {
-            MainWindow.Instance.Close();
-        }
+        private void Exit() => MainWindow.Instance.Close();
 
         internal void Close(IEditorDocument fileToClose)
         {
             _files.Remove(fileToClose);
             // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged("ActiveEditor");
+            OnPropertyChanged(nameof(ActiveEditor));
         }
 
         public void AddTool(ToolViewModel toolModel)
@@ -883,7 +623,7 @@ namespace miRobotEditor.ViewModel
                 _tools.Add(toolModel);
                 toolModel.IsActive = true;
                 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged("Tools");
+                OnPropertyChanged(nameof(Tools));
             }
         }
 
@@ -933,7 +673,7 @@ namespace miRobotEditor.ViewModel
 
             var msg = new ErrorMessage("Not Implemented",
                 string.Format("Add Tool Parameter of {0} not Implemented", text), MessageType.Error);
-            Messenger.Default.Send<IMessage>(msg);
+            WeakReferenceMessenger.Default.Send<IMessage>(msg); 
 
         IL_1EE:
             if (toolModel != null)
@@ -956,7 +696,7 @@ namespace miRobotEditor.ViewModel
                 _tools.Add(toolModel);
             }
             // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged("Tools");
+            OnPropertyChanged(nameof(Tools));
         }
 
         private void ImportRobot()
@@ -978,10 +718,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public void ShowAbout()
-        {
-            new AboutWindow().ShowDialog();
-        }
+        public void ShowAbout() => new AboutWindow().ShowDialog();
 
         public bool UserSelectsFileToOpen(out string filePath)
         {
@@ -1021,19 +758,12 @@ namespace miRobotEditor.ViewModel
         }
 
         // ReSharper disable UnusedMember.Global
-        public void ErrorMessage(string msg)
-        // ReSharper restore UnusedMember.Global
-        {
-            MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-        }
+        public void ErrorMessage(string msg) => MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
 
         // ReSharper disable  UnusedMember.Local
         // ReSharper disable  UnusedParameter.Local
 
-        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e) => throw new NotImplementedException();
     }
 
     // ReSharper enable UnusedMember.Local

@@ -59,7 +59,7 @@ namespace miRobotEditor.ViewModel
         //     {
         //         FileLanguage.RawText = TextBox.Text;
         //     }
-        //     RaisePropertyChanged("Title");
+        //     OnPropertyChanged(nameof(Title));
         // }
         public override void Load(string filepath)
         {
@@ -72,7 +72,7 @@ namespace miRobotEditor.ViewModel
             {
                 TextBox.Text = File.ReadAllText(filepath);
             }
-            RaisePropertyChanged("Title");
+            OnPropertyChanged(nameof(Title));
         }
 
         //  public void SelectText(IVariable var)

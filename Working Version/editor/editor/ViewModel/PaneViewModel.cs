@@ -1,5 +1,5 @@
 ﻿using System.Windows.Media;
-using GalaSoft.MvvmLight;
+
 
 namespace miRobotEditor.ViewModel
 {
@@ -12,56 +12,26 @@ namespace miRobotEditor.ViewModel
 
         public string Title
         {
-            get { return _title; }
-            set
-            {
-                if (!(_title == value))
-                {
-                    _title = value;
-                    RaisePropertyChanged("Title");
-                }
-            }
+            get => _title;
+            set => SetProperty(ref _title, value);
+            
         }
 
         public ImageSource IconSource { get; set; }
 
         public string ContentId
         {
-            get { return _contentId; }
+            get => _contentId;
             set
-            {
-                if (!(_contentId == value))
-                {
-                    _contentId = value;
-                    RaisePropertyChanged("ContentId");
-                }
-            }
+            => SetProperty(ref _contentId, value);
         }
 
         public bool IsSelected
         {
-            get { return _isSelected; }
-            set
-            {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    RaisePropertyChanged("IsSelected");
-                }
-            }
+            get => _isSelected;
+            
+           set => SetProperty(ref _isSelected, value);
         }
-
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set
-            {
-                if (_isActive != value)
-                {
-                    _isActive = value;
-                    RaisePropertyChanged("IsActive");
-                }
-            }
-        }
+ 
     }
 }

@@ -10,12 +10,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Folding;
-using Microsoft.Practices.ServiceLocation;
+using ICSharpCode.AvalonEdit.Folding; 
 using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor;
 using miRobotEditor.Enums;
@@ -136,7 +136,7 @@ namespace miRobotEditor.Abstract
             {
                 if (_rootPath != value)
                 {
-                    base.RaisePropertyChanging("RootPath");
+                   
                     _rootPath = value;
                     RaisePropertyChanged("RootPath");
                 }
@@ -151,7 +151,7 @@ namespace miRobotEditor.Abstract
             set
             {
                 if (_filename == value) return;
-                base.RaisePropertyChanging("FileName");
+               
                 _filename = value;
                 RaisePropertyChanged("FileName");
             }
@@ -166,7 +166,7 @@ namespace miRobotEditor.Abstract
             {
                 if (_robotMenuItems != value)
                 {
-                    base.RaisePropertyChanging("RobotMenuItems");
+                     
                     _robotMenuItems = value;
                     RaisePropertyChanged("RobotMenuItems");
                 }
@@ -328,7 +328,7 @@ namespace miRobotEditor.Abstract
             {
                 if (_bwProgress != value)
                 {
-                    base.RaisePropertyChanging("BWProgress");
+                     
                     _bwProgress = value;
                     RaisePropertyChanged("BWProgress");
                 }
@@ -342,7 +342,7 @@ namespace miRobotEditor.Abstract
             {
                 if (_bwFilesMin != value)
                 {
-                    base.RaisePropertyChanging("BWFilesMin");
+                    
                     _bwFilesMin = value;
                     RaisePropertyChanged("BWFilesMin");
                 }
@@ -356,7 +356,7 @@ namespace miRobotEditor.Abstract
             {
                 if (_bwFilesMax != value)
                 {
-                    base.RaisePropertyChanging("BWFilesMax");
+                   
                     _bwFilesMax = value;
                     RaisePropertyChanged("BWFilesMax");
                 }
@@ -370,7 +370,7 @@ namespace miRobotEditor.Abstract
             {
                 if (_bwProgressVisibility != value)
                 {
-                    base.RaisePropertyChanging("BWProgressVisibility");
+                   
                     _bwProgressVisibility = value;
                     RaisePropertyChanged("BWProgressVisibility");
                 }

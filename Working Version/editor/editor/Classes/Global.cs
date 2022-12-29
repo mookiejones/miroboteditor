@@ -32,10 +32,7 @@ namespace miRobotEditor.Classes
 
         #endregion
 
-        public static string StartupPath
-        {
-            get { return Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); }
-        }
+        public static string StartupPath => Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
         public static string Version
         {
@@ -46,16 +43,10 @@ namespace miRobotEditor.Classes
             }
         }
 
-        public static string ProductName
-        {
-            get { return Assembly.GetExecutingAssembly().GetName().ToString(); }
-        }
+        public static string ProductName => Assembly.GetExecutingAssembly().GetName().ToString();
 
         [Localizable(false)]
-        public static string DockConfig
-        {
-            get { return AppDomain.CurrentDomain.BaseDirectory + "dockConfig.xml"; }
-        }
+        public static string DockConfig => AppDomain.CurrentDomain.BaseDirectory + "dockConfig.xml";
 
         public static bool DoesDirectoryExist(string filename)
         {
@@ -82,15 +73,9 @@ namespace miRobotEditor.Classes
             return result;
         }
 
-        public static void WriteLog(string message)
-        {
-            LogWriter.WriteLog(message);
-        }
+        public static void WriteLog(string message) => LogWriter.WriteLog(message);
 
-        public static void ErrorHandler(string message)
-        {
-            ErrorHandler(message, false);
-        }
+        public static void ErrorHandler(string message) => ErrorHandler(message, false);
 
         private static void ErrorHandler(string message, bool showmessage)
         {

@@ -1,15 +1,10 @@
-﻿using GalaSoft.MvvmLight;
+﻿
 
 namespace miRobotEditor.ViewModel
 {
     public sealed class SystemFunctionsViewModel : ViewModelBase
     {
         #region Structures
-
-        /// <summary>
-        ///     The <see cref="Structures" /> property's name.
-        /// </summary>
-        private const string StructuresPropertyName = "Structures";
 
         private bool _structures = true;
 
@@ -19,29 +14,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool Structures
         {
-            get { return _structures; }
+            get => _structures;
 
             set
-            {
-                if (_structures == value)
-                {
-                    return;
-                }
-
-                
-                _structures = value;
-                RaisePropertyChanged(StructuresPropertyName);
-            }
+            => SetProperty(ref _structures, value);
         }
 
         #endregion
 
         #region Programs
-
-        /// <summary>
-        ///     The <see cref="Programs" /> property's name.
-        /// </summary>
-        private const string ProgramsPropertyName = "Programs";
 
         private bool _programs = true;
 
@@ -51,29 +32,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool Programs
         {
-            get { return _programs; }
+            get => _programs;
 
             set
-            {
-                if (_programs == value)
-                {
-                    return;
-                }
-
-                
-                _programs = value;
-                RaisePropertyChanged(ProgramsPropertyName);
-            }
+            => SetProperty(ref _programs, value);
         }
 
         #endregion
 
         #region Functions
-
-        /// <summary>
-        ///     The <see cref="Functions" /> property's name.
-        /// </summary>
-        private const string FunctionsPropertyName = "Functions";
 
         private bool _functions = true;
 
@@ -83,29 +50,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool Functions
         {
-            get { return _functions; }
+            get => _functions;
 
             set
-            {
-                if (_functions == value)
-                {
-                    return;
-                }
-
-                
-                _functions = value;
-                RaisePropertyChanged(FunctionsPropertyName);
-            }
+            => SetProperty(ref _functions, value);
         }
 
         #endregion
 
         #region Variables
-
-        /// <summary>
-        ///     The <see cref="Variables" /> property's name.
-        /// </summary>
-        private const string VariablesPropertyName = "Variables";
 
         private bool _variables = true;
 
@@ -115,19 +68,10 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool Variables
         {
-            get { return _variables; }
+            get => _variables;
 
             set
-            {
-                if (_variables == value)
-                {
-                    return;
-                }
-
-                
-                _variables = value;
-                RaisePropertyChanged(VariablesPropertyName);
-            }
+            => SetProperty(ref _variables, value);
         }
 
         #endregion

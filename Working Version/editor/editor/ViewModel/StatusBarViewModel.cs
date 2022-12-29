@@ -1,6 +1,5 @@
 ﻿using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Classes;
 
 namespace miRobotEditor.ViewModel
@@ -25,61 +24,33 @@ namespace miRobotEditor.ViewModel
 
 
 
-        public RelayCommand<object> KeyPressedCommand
-        {
-            get
-            {
-                return _keyPressedCommand ??
+        public RelayCommand<object> KeyPressedCommand => _keyPressedCommand ??
                        (_keyPressedCommand = new RelayCommand<object>(param => ManageKeys(param, null)));
-            }
-        }
 
-        public static StatusBarViewModel Instance
-        {
-            get
-            {
-                return _instance ?? (_instance = new StatusBarViewModel());
-            }
-        }
+        public static StatusBarViewModel Instance => _instance ?? (_instance = new StatusBarViewModel());
 
         public bool IsScrollPressed
         {
-            get { return _isScrollPressed; }
-            set
-            {
-                _isScrollPressed = value;
-                RaisePropertyChanged("IsScrollPressed");
-            }
+            get => _isScrollPressed;
+            set=>SetProperty(ref _isScrollPressed,value);
         }
 
         public bool IsNumPressed
         {
-            get { return _isNumPressed; }
-            set
-            {
-                _isNumPressed = value;
-                RaisePropertyChanged("IsNumPressed");
-            }
+            get => _isNumPressed;
+            set=>SetProperty(ref _isNumPressed,value);
         }
 
         public bool IsInsPressed
         {
-            get { return _isInsPressed; }
-            set
-            {
-                _isInsPressed = value;
-                RaisePropertyChanged("IsInsPressed");
-            }
+            get => _isInsPressed;
+            set=>SetProperty(ref _isInsPressed,value);
         }
 
         public bool IsCapsPressed
         {
-            get { return _isCapsPressed; }
-            set
-            {
-                _isCapsPressed = value;
-                RaisePropertyChanged("IsCapsPressed");
-            }
+            get => _isCapsPressed;
+            set=>SetProperty(ref _isCapsPressed,value);
         }
 
         public void ManageKeys(object sender, KeyEventArgs e)

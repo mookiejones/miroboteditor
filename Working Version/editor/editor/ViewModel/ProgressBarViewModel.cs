@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight;
+﻿
 
 namespace miRobotEditor.ViewModel
 {
@@ -6,10 +6,7 @@ namespace miRobotEditor.ViewModel
     {
         #region Minimum
 
-        /// <summary>
-        ///     The <see cref="Minimum" /> property's name.
-        /// </summary>
-        private const string MinimumPropertyName = "Minimum";
+
 
         private int _minimum;
 
@@ -19,29 +16,14 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int Minimum
         {
-            get { return _minimum; }
+            get => _minimum;
 
-            set
-            {
-                if (_minimum == value)
-                {
-                    return;
-                }
-
-                
-                _minimum = value;
-                RaisePropertyChanged(MinimumPropertyName);
-            }
+            set => SetProperty(ref _minimum, value);
         }
 
         #endregion
 
         #region Maximum
-
-        /// <summary>
-        ///     The <see cref="Maximum" /> property's name.
-        /// </summary>
-        private const string MaximumPropertyName = "Maximum";
 
         private int _maximum = 100;
 
@@ -51,29 +33,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int Maximum
         {
-            get { return _maximum; }
+            get => _maximum;
 
-            set
-            {
-                if (_maximum == value)
-                {
-                    return;
-                }
+            set => SetProperty(ref _maximum, value);
 
-                
-                _maximum = value;
-                RaisePropertyChanged(MaximumPropertyName);
-            }
         }
 
         #endregion
 
         #region Value
-
-        /// <summary>
-        ///     The <see cref="Value" /> property's name.
-        /// </summary>
-        private const string ValuePropertyName = "Value";
 
         private int _value;
 
@@ -83,29 +51,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int Value
         {
-            get { return _value; }
+            get => _value;
 
-            set
-            {
-                if (_value == value)
-                {
-                    return;
-                }
+            set => SetProperty(ref _value, value);
 
-                
-                _value = value;
-                RaisePropertyChanged(ValuePropertyName);
-            }
         }
 
         #endregion
 
         #region IsVisible
-
-        /// <summary>
-        ///     The <see cref="IsVisible" /> property's name.
-        /// </summary>
-        private const string IsVisiblePropertyName = "IsVisible";
 
         private bool _isVisibile;
 
@@ -115,19 +69,9 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool IsVisible
         {
-            get { return _isVisibile; }
+            get => _isVisibile;
 
-            set
-            {
-                if (_isVisibile == value)
-                {
-                    return;
-                }
-
-                
-                _isVisibile = value;
-                RaisePropertyChanged(IsVisiblePropertyName);
-            }
+            set => SetProperty(ref _isVisibile, value);
         }
 
         #endregion

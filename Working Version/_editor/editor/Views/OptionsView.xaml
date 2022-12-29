@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:gui="clr-namespace:miRobotEditor.Classes"
              mc:Ignorable="d"
+             xmlns:converters="clr-namespace:miRobotEditor.Converters" xmlns:xctk1="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib" xmlns:xctk2="clr-namespace:ColorPickerLib.Controls;assembly=ColorPickerLib"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <xctk:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter" />
-        <xctk:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
+        <converters:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter" />
+        <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
     </UserControl.Resources>
     <Grid>
         <TabControl>
@@ -18,7 +18,7 @@
                     <TreeViewItem Header="Flyout">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Opacity" />
-                            <xctk:DoubleUpDown Increment="0.1" Maximum="1" Minimum="0" Value="{Binding FlyoutOpacity}" />
+                            <xctk1:DoubleUpDown  MaxValue="1" MinValue="0" Value="{Binding FlyoutOpacity}" />
                         </StackPanel>
                     </TreeViewItem>
                 </TreeView>
@@ -30,10 +30,10 @@
                         <Setter Property="UIElement.IsHitTestVisible" Value="False" />
                         <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True" />
                     </Style>
-                    <Style x:Key="{x:Type xctk:ColorPicker}" TargetType="{x:Type xctk:ColorPicker}">
+                    <Style x:Key="{x:Type xctk2:ColorPicker}" TargetType="{x:Type xctk2:ColorPicker}">
                         <Setter Property="FrameworkElement.Margin" Value="10,0" />
-                        <Setter Property="xctk:ColorPicker.ShowAvailableColors" Value="True" />
-                        <Setter Property="xctk:ColorPicker.DisplayColorAndName" Value="True" />
+                        <Setter Property="xctk2:ColorPicker.ShowAvailableColors" Value="True" />
+                        <Setter Property="xctk2:ColorPicker.DisplayColorAndName" Value="True" />
                     </Style>
                 </TabItem.Resources>
                 <StackPanel Orientation="Vertical" Margin="10,0">
@@ -80,7 +80,7 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Selected Line Color" />
-                                <xctk:ColorPicker Tag="Font Color" SelectedColor="{Binding HighlightedLineColor}" />
+                                <xctk2:ColorPicker Tag="Font Color" SelectedColor="{Binding HighlightedLineColor}" />
                             </StackPanel>
                             <TextBox Text="{Binding WordWrapIndentation}" />
                         </StackPanel>
@@ -93,31 +93,31 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Line Numbers" />
-                                <xctk:ColorPicker Tag="Font Color" SelectedColor="{Binding LineNumbersFontColor}" />
+                                <xctk2:ColorPicker Tag="Font Color" SelectedColor="{Binding LineNumbersFontColor}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Font Color" />
-                                <xctk:ColorPicker Tag="Font Color" SelectedColor="{Binding FontColor}" />
+                                <xctk2:ColorPicker Tag="Font Color" SelectedColor="{Binding FontColor}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Background Color" />
-                                <xctk:ColorPicker Tag="Background Color" SelectedColor="{Binding BackgroundColor}" />
+                                <xctk2:ColorPicker Tag="Background Color" SelectedColor="{Binding BackgroundColor}" />
                             </StackPanel>
                             <GroupBox Header="Fold ToolTip">
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Background Color" />
-                                        <xctk:ColorPicker Tag="Background Color"
+                                        <xctk2:ColorPicker Tag="Background Color"
                                                           SelectedColor="{Binding FoldToolTipBackgroundColor}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Border Color" />
-                                        <xctk:ColorPicker Tag="Background Color"
+                                        <xctk2:ColorPicker Tag="Background Color"
                                                           SelectedColor="{Binding FoldToolTipBackgroundBorderColor}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="BorderThickness Color" />
-                                        <xctk:DoubleUpDown Value="{Binding FoldToolTipBorderThickness}" />
+                                        <xctk1:DoubleUpDown Value="{Binding FoldToolTipBorderThickness}" />
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>
@@ -127,17 +127,17 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <TextBlock Text="Font Color" />
-                                <xctk:ColorPicker SelectedColor="{Binding SelectedFontColor}" />
+                                <xctk2:ColorPicker SelectedColor="{Binding SelectedFontColor}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <TextBlock Text="Background Color" />
-                                <xctk:ColorPicker SelectedColor="{Binding SelectedTextBackground}" />
+                                <xctk2:ColorPicker SelectedColor="{Binding SelectedTextBackground}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <TextBlock Text="Border Color" />
-                                <xctk:ColorPicker SelectedColor="{Binding SelectedBorderColor}" />
+                                <xctk2:ColorPicker SelectedColor="{Binding SelectedBorderColor}" />
                                 <TextBlock Text="Border Thickness" />
-                                <xctk:DoubleUpDown DefaultValue="1" Value="{Binding SelectedBorderThickness}" />
+                                <xctk1:DoubleUpDown   Value="{Binding SelectedBorderThickness}" />
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>

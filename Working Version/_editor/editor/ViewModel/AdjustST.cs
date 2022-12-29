@@ -28,7 +28,7 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(ToolItemsPropertyName);
+                
                 _toolItems = value;
                 RaisePropertyChanged(ToolItemsPropertyName);
             }

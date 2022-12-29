@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using GalaSoft.MvvmLight.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
@@ -125,7 +125,7 @@ namespace miRobotEditor.Controls
             catch (Exception ex)
             {
                 var msg = new ErrorMessage("ExplorerClass", ex, MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 
@@ -274,7 +274,7 @@ namespace miRobotEditor.Controls
             catch (Exception ex)
             {
                 var msg = new ErrorMessage("ExplorerClass.FillTreeNode", ex, MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 Cursor = Cursors.Default;
             }
         }

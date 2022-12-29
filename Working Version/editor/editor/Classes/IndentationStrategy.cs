@@ -23,7 +23,7 @@ namespace miRobotEditor.Classes
 
         public string IndentationString
         {
-            get { return _indentationString; }
+            get => _indentationString;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -65,9 +65,6 @@ namespace miRobotEditor.Classes
             }
         }
 
-        public override void IndentLines(TextDocument document, int beginLine, int endLine)
-        {
-            Indent(new TextDocumentAccessor(document, beginLine, endLine), true);
-        }
+        public override void IndentLines(TextDocument document, int beginLine, int endLine) => Indent(new TextDocumentAccessor(document, beginLine, endLine), true);
     }
 }

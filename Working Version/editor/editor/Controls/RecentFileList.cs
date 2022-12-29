@@ -9,8 +9,8 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
-using GalaSoft.MvvmLight.Messaging;
-using Microsoft.Practices.ServiceLocation;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Win32;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
@@ -60,35 +60,17 @@ namespace miRobotEditor.Controls
         public string MenuItemFormatTenPlus { get; set; }
         public GetMenuItemTextDelegate GetMenuItemTextHandler { get; set; }
 
-        public List<string> RecentFiles
-        {
-            get { return Persister.RecentFiles(MaxNumberOfFiles); }
-        }
+        public List<string> RecentFiles => Persister.RecentFiles(MaxNumberOfFiles);
 
-        public void UseRegistryPersister()
-        {
-            Persister = new RegistryPersister();
-        }
+        public void UseRegistryPersister() => Persister = new RegistryPersister();
 
-        public void UseRegistryPersister(string key)
-        {
-            Persister = new RegistryPersister(key);
-        }
+        public void UseRegistryPersister(string key) => Persister = new RegistryPersister(key);
 
-        public void UseXmlPersister()
-        {
-            Persister = new XmlPersister();
-        }
+        public void UseXmlPersister() => Persister = new XmlPersister();
 
-        public void UseXmlPersister(string filepath)
-        {
-            Persister = new XmlPersister(filepath);
-        }
+        public void UseXmlPersister(string filepath) => Persister = new XmlPersister(filepath);
 
-        public void UseXmlPersister(Stream stream)
-        {
-            Persister = new XmlPersister(stream);
-        }
+        public void UseXmlPersister(Stream stream) => Persister = new XmlPersister(stream);
 
         private void HookFileMenu()
         {
@@ -108,20 +90,11 @@ namespace miRobotEditor.Controls
             }
         }
 
-        public void RemoveFile(string filepath)
-        {
-            Persister.RemoveFile(filepath, MaxNumberOfFiles);
-        }
+        public void RemoveFile(string filepath) => Persister.RemoveFile(filepath, MaxNumberOfFiles);
 
-        public void InsertFile(string filepath)
-        {
-            Persister.InsertFile(filepath, MaxNumberOfFiles);
-        }
+        public void InsertFile(string filepath) => Persister.InsertFile(filepath, MaxNumberOfFiles);
 
-        private void FileMenuSubmenuOpened(object sender, RoutedEventArgs e)
-        {
-            SetMenuItems();
-        }
+        private void FileMenuSubmenuOpened(object sender, RoutedEventArgs e) => SetMenuItems();
 
         private void SetMenuItems()
         {
@@ -307,10 +280,7 @@ namespace miRobotEditor.Controls
             return result;
         }
 
-        private void LoadRecentFiles()
-        {
-            _recentFiles = LoadRecentFilesCore();
-        }
+        private void LoadRecentFiles() => _recentFiles = LoadRecentFilesCore();
 
         private List<RecentFile> LoadRecentFilesCore()
         {
@@ -342,7 +312,7 @@ namespace miRobotEditor.Controls
                 {
                     if (File.Exists(filepath))
                     {
-                        var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+                        var instance =Ioc.Default.GetRequiredService<MainViewModel>();
                         instance.Open(filepath);
                     }
                     else
@@ -453,7 +423,7 @@ namespace miRobotEditor.Controls
                 catch (Exception ex)
                 {
                     var msg = new ErrorMessage("RecentFileList.ApplicationAttributes", ex, MessageType.Error);
-                    Messenger.Default.Send<IMessage>(msg);
+                    WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 }
             }
 
@@ -596,10 +566,7 @@ namespace miRobotEditor.Controls
                 }
             }
 
-            private static string Key(int i)
-            {
-                return i.ToString("00");
-            }
+            private static string Key(int i) => i.ToString("00");
 
             private void RemoveFile(int index, int max)
             {
@@ -645,20 +612,11 @@ namespace miRobotEditor.Controls
             private string Filepath { get; set; }
             private Stream Stream { get; set; }
 
-            public List<string> RecentFiles(int max)
-            {
-                return Load(max);
-            }
+            public List<string> RecentFiles(int max) => Load(max);
 
-            public void InsertFile(string filepath, int max)
-            {
-                Update(filepath, true, max);
-            }
+            public void InsertFile(string filepath, int max) => Update(filepath, true, max);
 
-            public void RemoveFile(string filepath, int max)
-            {
-                Update(filepath, false, max);
-            }
+            public void RemoveFile(string filepath, int max) => Update(filepath, false, max);
 
             private void Update(string filepath, bool insert, int max)
             {
@@ -686,10 +644,7 @@ namespace miRobotEditor.Controls
                 }
             }
 
-            private SmartStream OpenStream(FileMode mode)
-            {
-                return (!string.IsNullOrEmpty(Filepath)) ? new SmartStream(Filepath, mode) : new SmartStream(Stream);
-            }
+            private SmartStream OpenStream(FileMode mode) => (!string.IsNullOrEmpty(Filepath)) ? new SmartStream(Filepath, mode) : new SmartStream(Stream);
 
             private List<string> Load(int max)
             {

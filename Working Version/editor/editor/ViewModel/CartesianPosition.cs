@@ -1,15 +1,10 @@
-﻿using GalaSoft.MvvmLight;
+﻿
 
 namespace miRobotEditor.ViewModel
 {
     public sealed class CartesianPosition : ViewModelBase
     {
         #region Header
-
-        /// <summary>
-        ///     The <see cref="Header" /> property's name.
-        /// </summary>
-        private const string HeaderPropertyName = "Header";
 
         private string _header = string.Empty;
 
@@ -19,29 +14,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string Header
         {
-            get { return _header; }
+            get => _header;
 
             set
-            {
-                if (_header == value)
-                {
-                    return;
-                }
-
-                
-                _header = value;
-                RaisePropertyChanged(HeaderPropertyName);
-            }
+            => SetProperty(ref _header, value);
         }
 
         #endregion
 
         #region X
-
-        /// <summary>
-        ///     The <see cref="X" /> property's name.
-        /// </summary>
-        private const string XPropertyName = "X";
 
         private double _x;
 
@@ -51,29 +32,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public double X
         {
-            get { return _x; }
+            get => _x;
 
-            set
-            {
-                if (_x == value)
-                {
-                    return;
-                }
-
-                
-                _x = value;
-                RaisePropertyChanged(XPropertyName);
-            }
+            set => SetProperty(ref _x, value);
+             
         }
 
         #endregion
 
         #region Y
-
-        /// <summary>
-        ///     The <see cref="Y" /> property's name.
-        /// </summary>
-        private const string YPropertyName = "Y";
 
         private double _y;
 
@@ -83,29 +50,15 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public double Y
         {
-            get { return _y; }
+            get => _y;
 
-            set
-            {
-                if (_y == value)
-                {
-                    return;
-                }
+            set => SetProperty(ref _y, value);
 
-                
-                _y = value;
-                RaisePropertyChanged(YPropertyName);
-            }
         }
 
         #endregion
 
         #region Z
-
-        /// <summary>
-        ///     The <see cref="Z" /> property's name.
-        /// </summary>
-        private const string ZPropertyName = "Z";
 
         private double _z;
 
@@ -115,19 +68,10 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public double Z
         {
-            get { return _z; }
+            get => _z;
 
-            set
-            {
-                if (_z == value)
-                {
-                    return;
-                }
+            set => SetProperty(ref _z, value);
 
-                
-                _z = value;
-                RaisePropertyChanged(ZPropertyName);
-            }
         }
 
         #endregion

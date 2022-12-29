@@ -7,13 +7,15 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Shell;
 using System.Windows.Threading;
-using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
-using Microsoft.Practices.ServiceLocation;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging; 
+using Microsoft.Extensions.DependencyInjection; 
 using miRobotEditor.Classes;
+using miRobotEditor.Design;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
+using miRobotEditor.Model;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
 using MessageBox = System.Windows.MessageBox;
@@ -28,15 +30,55 @@ namespace miRobotEditor
         private const string Unique = "miRobotEditor";
         public static App Application;
 
+        /// <summary>
+        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
+        /// </summary>
+        public IServiceProvider Services { get; }
+
+        public App()
+        {
+            Services = ConfigureServices();
+            Ioc.Default.ConfigureServices(Services);
+        }
+        /// <summary>
+        /// Configures the services for the application.
+        /// </summary>
+        private static IServiceProvider ConfigureServices()
+        {
+            var services = new ServiceCollection();
+            // Services
+            if (ViewModelBase.IsInDesignModeStatic)
+            {
+                services.AddSingleton<IDataService, DesignDataService>();
+            }
+            else
+            {
+                services.AddSingleton<IDataService, DataService>();
+            }
+            services.AddSingleton<IDataService, DataService>();
+            //services.AddSingleton<ISettingsService, SettingsService>();
+            //services.AddSingleton<IClipboardService, ClipboardService>();
+            //services.AddSingleton<IShareService, ShareService>();
+            //services.AddSingleton<IEmailService, EmailService>();
+            // Viewmodels
+
+            services.AddTransient<MainViewModel>();
+            services.AddTransient<StatusBarViewModel>();
+            services.AddTransient<ObjectBrowserViewModel>();
+            services.AddTransient<MessageViewModel>();
+
+
+            return services.BuildServiceProvider();
+        }
         static App()
         {
-            DispatcherHelper.Initialize();
+           // DispatcherHelper.Initialize();
         }
 
         public bool SignalExternalCommandLineArgs(IList<string> args)
         {
             MainWindow.Activate();
-            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var main = Ioc.Default.GetRequiredService<MainViewModel>();
             main.LoadFile(args);
             return true;
         }
@@ -65,16 +107,14 @@ namespace miRobotEditor
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             var msg = new ErrorMessage("App", e.Exception, MessageType.Error);
-            Messenger.Default.Send(msg);
+            WeakReferenceMessenger.Default.Send(msg);
+
 
             Console.Write(e);
             e.Handled = true;
         }
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            base.OnExit(e);
-        }
+        protected override void OnExit(ExitEventArgs e) => base.OnExit(e);
 
         [Localizable(false)]
         protected override void OnStartup(StartupEventArgs e)
@@ -83,6 +123,8 @@ namespace miRobotEditor
             Splasher.ShowSplash();
 
 
+
+            Trace.WriteLine("Try Color Picker from MaterialDesignThemes");
 #if DEBUG
             Control.CheckForIllegalCrossThreadCalls = true;
 #endif

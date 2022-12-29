@@ -21,11 +21,7 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        public override List<string> SearchFilters
-        {
-            get
-            {
-                return new List<string>
+        public override List<string> SearchFilters => new List<string>
                 {
                     "*.*",
                     "*.dat",
@@ -35,86 +31,39 @@ namespace miRobotEditor.Languages
                     "*.zip",
                     "*.kfd"
                 };
-            }
-        }
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.VBA; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.VBA;
 
-        internal override string SourceFile
-        {
-            get { return string.Empty; }
-        }
+        internal override string SourceFile => string.Empty;
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        protected override string ShiftRegex
-        {
-            get { return "((RobTarget\\s*[\\w]*\\s*:=\\s*\\[\\[)([\\d.-]*),([\\d.-]*),([-.\\d]*))"; }
-        }
+        protected override string ShiftRegex => "((RobTarget\\s*[\\w]*\\s*:=\\s*\\[\\[)([\\d.-]*),([\\d.-]*),([-.\\d]*))";
 
-        internal override string FunctionItems
-        {
-            get { return "((?<!END)()()PROC\\s([\\d\\w]*)[\\(\\)\\w\\d_. ]*)"; }
-        }
+        internal override string FunctionItems => "((?<!END)()()PROC\\s([\\d\\w]*)[\\(\\)\\w\\d_. ]*)";
 
-        internal override IList<ICompletionData> CodeCompletion
-        {
-            get
-            {
-                return new List<ICompletionData>
+        internal override IList<ICompletionData> CodeCompletion => new List<ICompletionData>
                 {
                     new CodeCompletion("Item1")
                 };
-            }
-        }
 
-        public override Regex MethodRegex
-        {
-            get { return new Regex("( sub )", RegexOptions.IgnoreCase); }
-        }
+        public override Regex MethodRegex => new Regex("( sub )", RegexOptions.IgnoreCase);
 
-        public override Regex StructRegex
-        {
-            get { return new Regex("( struc )", RegexOptions.IgnoreCase); }
-        }
+        public override Regex StructRegex => new Regex("( struc )", RegexOptions.IgnoreCase);
 
-        public override Regex FieldRegex
-        {
-            get { return new Regex("( boolean )", RegexOptions.IgnoreCase); }
-        }
+        public override Regex FieldRegex => new Regex("( boolean )", RegexOptions.IgnoreCase);
 
-        public override Regex EnumRegex
-        {
-            get { return new Regex("( enum )", RegexOptions.IgnoreCase); }
-        }
+        public override Regex EnumRegex => new Regex("( enum )", RegexOptions.IgnoreCase);
 
-        public override void Initialize(string filename)
-        {
-            base.Initialize();
-        }
+        public override void Initialize(string filename) => base.Initialize();
 
-        public override string CommentChar
-        {
-            get { return "'"; }
-        }
+        public override string CommentChar => "'";
 
-        public override Regex SignalRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex SignalRegex => new Regex(string.Empty);
 
-        public override Regex XYZRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex XYZRegex => new Regex(string.Empty);
 
-        protected override bool IsFileValid(FileInfo file)
-        {
-            return false;
-        }
+        protected override bool IsFileValid(FileInfo file) => false;
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
@@ -124,15 +73,9 @@ namespace miRobotEditor.Languages
             return doc.GetText(offset, length);
         }
 
-        public override string ExtractXYZ(string positionstring)
-        {
-            return string.Empty;
-        }
+        public override string ExtractXYZ(string positionstring) => string.Empty;
 
-        public override DocumentViewModel GetFile(string filepath)
-        {
-            return new DocumentViewModel(filepath);
-        }
+        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {

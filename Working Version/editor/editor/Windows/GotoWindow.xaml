@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                      xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared"
+                      
                       Title="Go To Line" ResizeMode="NoResize" ShowInTaskbar="False" Height="140" BorderThickness="1"
                       Width="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowActivated="False">
     <controls:MetroWindow.Background>
@@ -12,9 +12,7 @@
             <GradientStop Color="White" Offset="1" />
         </LinearGradientBrush>
     </controls:MetroWindow.Background>
-    <i:Interaction.Behaviors>
-        <behaviours:BorderlessWindowBehavior />
-    </i:Interaction.Behaviors>
+    
     <StackPanel Orientation="Vertical">
         <StackPanel.Resources>
             <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">

@@ -18,10 +18,7 @@ namespace miRobotEditor.Classes
 
         public event EventHandler RedrawRequested;
 
-        public IList<IBookmark> Bookmarks
-        {
-            get { return _bookmarks; }
-        }
+        public IList<IBookmark> Bookmarks => _bookmarks;
 
         public void Redraw()
         {
@@ -31,10 +28,7 @@ namespace miRobotEditor.Classes
             }
         }
 
-        private void BookmarksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            Redraw();
-        }
+        private void BookmarksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => Redraw();
 
         public void AddBookMark(UIElement item)
         {

@@ -1,8 +1,8 @@
 using System;
 using System.Text.RegularExpressions;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using Microsoft.Practices.ServiceLocation;
+using GalaSoft.MvvmLight.Command; 
 
 namespace miRobotEditor.ViewModel
 {

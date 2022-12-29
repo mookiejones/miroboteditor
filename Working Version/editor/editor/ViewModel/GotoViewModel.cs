@@ -1,6 +1,5 @@
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Controls.TextEditor;
 
 namespace miRobotEditor.ViewModel
@@ -11,10 +10,7 @@ namespace miRobotEditor.ViewModel
 
         #region Editor
 
-        /// <summary>
-        ///     The <see cref="Editor" /> property's name.
-        /// </summary>
-        private const string EditorPropertyName = "Editor";
+        
 
         private Editor _editor = new Editor();
 
@@ -24,31 +20,17 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public Editor Editor
         {
-            get { return _editor; }
+            get => _editor;
 
-            set
-            {
-// ReSharper disable once PossibleUnintendedReferenceComparison
-                if (_editor == value)
-                {
-                    return;
-                }
-                // ReSharper disable ExplicitCallerInfoArgument
-
-                
-                _editor = value;
-                RaisePropertyChanged(EditorPropertyName);
-            }
+            set => SetProperty(ref _editor, value);
+             
         }
 
         #endregion
 
         #region Description
 
-        /// <summary>
-        ///     The <see cref="Description" /> property's name.
-        /// </summary>
-        private const string DescriptionPropertyName = "Description";
+         
 
         private string _description = string.Empty;
 
@@ -58,30 +40,17 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string Description
         {
-            get { return _description; }
+            get => _description;
 
             set
-            {
-                if (_description == value)
-                {
-                    return;
-                }
-
-                
-                _description = value;
-                RaisePropertyChanged(DescriptionPropertyName);
-            }
+            => SetProperty(ref _description, value);
         }
 
         #endregion
 
         #region EnteredText
 
-        /// <summary>
-        ///     The <see cref="EnteredText" /> property's name.
-        /// </summary>
-        private const string EnteredTextPropertyName = "EnteredText";
-
+        
         private int _enteredText = -1;
 
         /// <summary>
@@ -90,29 +59,17 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int EnteredText
         {
-            get { return _enteredText; }
+            get => _enteredText;
 
             set
-            {
-                if (_enteredText == value)
-                {
-                    return;
-                }
-
-                
-                _enteredText = value;
-                RaisePropertyChanged(EnteredTextPropertyName);
-            }
+            => SetProperty(ref _enteredText, value);
         }
 
         #endregion
 
         #region SelectedLine
 
-        /// <summary>
-        ///     The <see cref="SelectedLine" /> property's name.
-        /// </summary>
-        private const string SelectedLinePropertyName = "SelectedLine";
+         
 
         private int _selectedLine = -1;
 
@@ -122,19 +79,10 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int SelectedLine
         {
-            get { return _selectedLine; }
+            get => _selectedLine;
 
             set
-            {
-                if (_selectedLine == value)
-                {
-                    return;
-                }
-
-                
-                _selectedLine = value;
-                RaisePropertyChanged(SelectedLinePropertyName);
-            }
+            => SetProperty(ref _selectedLine, value);
         }
 
         #endregion
@@ -146,14 +94,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the CancelCommand.
         /// </summary>
-        public RelayCommand CancelCommand
-        {
-            get
-            {
-                return _cancelCommand
+        public RelayCommand CancelCommand => _cancelCommand
                        ?? (_cancelCommand = new RelayCommand(ExecuteCancelCommand));
-            }
-        }
 
         private void ExecuteCancelCommand()
         {
@@ -172,10 +114,7 @@ namespace miRobotEditor.ViewModel
         {
         }
 
-        public ICommand OkCommand
-        {
-            get { return _okCommand ?? (_okCommand = new RelayCommand(Accept)); }
-        }
+        public ICommand OkCommand => _okCommand ?? (_okCommand = new RelayCommand(Accept));
 
         private void Accept()
         {

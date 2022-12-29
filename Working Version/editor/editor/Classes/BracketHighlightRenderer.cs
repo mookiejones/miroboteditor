@@ -23,10 +23,7 @@ namespace miRobotEditor.Classes
             _textView.BackgroundRenderers.Add(this);
         }
 
-        public KnownLayer Layer
-        {
-            get { return KnownLayer.Selection; }
-        }
+        public KnownLayer Layer => KnownLayer.Selection;
 
         public void Draw(TextView textview, DrawingContext drawingContext)
         {
@@ -35,7 +32,7 @@ namespace miRobotEditor.Classes
                 var backgroundGeometryBuilder = new BackgroundGeometryBuilder
                 {
                     CornerRadius = 1.0,
-                    AlignToMiddleOfPixels = true
+                    AlignToWholePixels= true
                 };
                 backgroundGeometryBuilder.AddSegment(textview, new TextSegment
                 {

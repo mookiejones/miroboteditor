@@ -1,9 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "editor", "editor\editor.csproj", "{7DD9D9C5-F83D-474A-A6CA-7A113C6EFD40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotEditor.Core", "RobotEditor.Core\RobotEditor.Core.csproj", "{E1484B52-A519-47AD-99CF-237569BA3E4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotEditor.Editor", "RobotEditor.Editor\RobotEditor.Editor.csproj", "{2A69CA5D-0BFB-4CA0-AF74-1F4F8F8CAD56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotEditor", "RobotEditor\RobotEditor.csproj", "{753DAA53-0DF1-4190-869A-44A36CE82BD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RobotEditor", "RobotEditor", "{DC6339DA-4FB7-4ED5-AFC8-DC76C531A8B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationHelper", "..\..\AutomationHelper\AutomationHelper\AutomationHelper.csproj", "{6CEAC799-5C9B-4ACC-92EB-94057EE01435}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationHelper.Core", "AutomationHelper.Core\AutomationHelper.Core.csproj", "{8B10A5C0-79F6-491D-906D-927AB44A967C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +27,38 @@ Global
 		{7DD9D9C5-F83D-474A-A6CA-7A113C6EFD40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DD9D9C5-F83D-474A-A6CA-7A113C6EFD40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DD9D9C5-F83D-474A-A6CA-7A113C6EFD40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1484B52-A519-47AD-99CF-237569BA3E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1484B52-A519-47AD-99CF-237569BA3E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1484B52-A519-47AD-99CF-237569BA3E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1484B52-A519-47AD-99CF-237569BA3E4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A69CA5D-0BFB-4CA0-AF74-1F4F8F8CAD56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A69CA5D-0BFB-4CA0-AF74-1F4F8F8CAD56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A69CA5D-0BFB-4CA0-AF74-1F4F8F8CAD56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A69CA5D-0BFB-4CA0-AF74-1F4F8F8CAD56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{753DAA53-0DF1-4190-869A-44A36CE82BD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{753DAA53-0DF1-4190-869A-44A36CE82BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{753DAA53-0DF1-4190-869A-44A36CE82BD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{753DAA53-0DF1-4190-869A-44A36CE82BD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CEAC799-5C9B-4ACC-92EB-94057EE01435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CEAC799-5C9B-4ACC-92EB-94057EE01435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CEAC799-5C9B-4ACC-92EB-94057EE01435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CEAC799-5C9B-4ACC-92EB-94057EE01435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B10A5C0-79F6-491D-906D-927AB44A967C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B10A5C0-79F6-491D-906D-927AB44A967C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B10A5C0-79F6-491D-906D-927AB44A967C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B10A5C0-79F6-491D-906D-927AB44A967C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7DD9D9C5-F83D-474A-A6CA-7A113C6EFD40} = {DC6339DA-4FB7-4ED5-AFC8-DC76C531A8B9}
+		{E1484B52-A519-47AD-99CF-237569BA3E4C} = {DC6339DA-4FB7-4ED5-AFC8-DC76C531A8B9}
+		{2A69CA5D-0BFB-4CA0-AF74-1F4F8F8CAD56} = {DC6339DA-4FB7-4ED5-AFC8-DC76C531A8B9}
+		{753DAA53-0DF1-4190-869A-44A36CE82BD2} = {DC6339DA-4FB7-4ED5-AFC8-DC76C531A8B9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17478E51-FB0C-4EB2-B0E5-59D0540F4B5F}
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

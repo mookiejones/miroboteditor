@@ -4,19 +4,21 @@
                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                       xmlns:classes="clr-namespace:miRobotEditor.Classes"
+                       xmlns:classes="clr-namespace:miRobotEditor.Classes" 
+                       xmlns:texteditor="clr-namespace:miRobotEditor.Controls.TextEditor"
                        mc:Ignorable="d"
                        MouseHover="Mouse_OnHover"
                        PreviewMouseWheel="EditorPreviewMouseWheel"
-                       Options="{x:Static classes:EditorOptions.Instance}"
+                       Options="{x:Static texteditor:EditorOptions.Instance}"
                        GotFocus="TextEditorGotFocus" HorizontalScrollBarVisibility="Auto"
                        VerticalScrollBarVisibility="Auto"
                        PreviewKeyDown="TextEditor_PreviewKeyDown"
                        d:DesignHeight="300" d:DesignWidth="300">
+
     <avalonedit:TextEditor.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/miRobotEditor;component/Templates/EditorTemplate.xaml" />
+                <ResourceDictionary Source="/miRobotEditor;component/Themes/Templates.Editor.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate x:Key="CodeCompletion" DataType="{x:Type classes:CodeCompletion}">
                 <StackPanel Orientation="Vertical">
@@ -34,6 +36,7 @@
         <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding AddTimeStampCommand}" />
     </avalonedit:TextEditor.InputBindings>
     <avalonedit:TextEditor.ContextMenu>
+
         <ContextMenu>
             <MenuItem Header="Cut" InputGestureText="Ctrl+X" Command="{Binding CutCommand}">
                 <MenuItem.Icon>

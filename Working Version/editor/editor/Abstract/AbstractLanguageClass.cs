@@ -1,9 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
+﻿
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Folding;
-using Microsoft.Practices.ServiceLocation;
+using ICSharpCode.AvalonEdit.Folding; 
 using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor;
 using miRobotEditor.Enums;
@@ -131,13 +131,13 @@ namespace miRobotEditor.Abstract
 
         public DirectoryInfo RootPath
         {
-            get { return _rootPath; }
+            get => _rootPath;
             set
             {
                 if (_rootPath != value)
                 {
                     _rootPath = value;
-                    RaisePropertyChanged("RootPath");
+                    OnPropertyChanged(nameof(RootPath));
                 }
             }
         }
@@ -148,13 +148,13 @@ namespace miRobotEditor.Abstract
 
         public string FileName
         {
-            get { return _filename; }
+            get => _filename;
             set
             {
                 if (_filename == value) return;
 
                 _filename = value;
-                RaisePropertyChanged("FileName");
+                OnPropertyChanged(nameof(FileName));
             }
         }
 
@@ -164,13 +164,13 @@ namespace miRobotEditor.Abstract
 
         public MenuItem RobotMenuItems
         {
-            get { return _robotMenuItems; }
+            get => _robotMenuItems;
             set
             {
                 if (_robotMenuItems != value)
                 {
                     _robotMenuItems = value;
-                    RaisePropertyChanged("RobotMenuItems");
+                    OnPropertyChanged(nameof(RobotMenuItems));
                 }
             }
         }
@@ -179,10 +179,7 @@ namespace miRobotEditor.Abstract
 
         #region Name
 
-        public string Name
-        {
-            get { return (RobotType == Typlanguage.None) ? string.Empty : RobotType.ToString(); }
-        }
+        public string Name => (RobotType == Typlanguage.None) ? string.Empty : RobotType.ToString();
 
         #endregion Name
 
@@ -204,18 +201,9 @@ namespace miRobotEditor.Abstract
 
         #endregion Progress
 
-        public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable
-        {
-            get
-            {
-                return _readOnlyBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables);
-            }
-        }
+        public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable => _readOnlyBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables);
 
-        public IEnumerable<MenuItem> MenuItems
-        {
-            get { return _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems); }
-        }
+        public IEnumerable<MenuItem> MenuItems => _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems);
 
         #region Files
 
@@ -225,10 +213,7 @@ namespace miRobotEditor.Abstract
         private readonly ReadOnlyObservableCollection<FileInfo> _readOnlyFiles;
 #pragma warning restore 649
 
-        public ReadOnlyObservableCollection<FileInfo> Files
-        {
-            get { return _readOnlyFiles ?? new ReadOnlyObservableCollection<FileInfo>(_files); }
-        }
+        public ReadOnlyObservableCollection<FileInfo> Files => _readOnlyFiles ?? new ReadOnlyObservableCollection<FileInfo>(_files);
 
         #endregion Files
 
@@ -240,74 +225,35 @@ namespace miRobotEditor.Abstract
 
         internal string DataText { get; private set; }
 
-        public string SnippetPath
-        {
-            get { return ".\\Editor\\Config _files\\Snippet.xml"; }
-        }
+        public string SnippetPath => ".\\Editor\\Config _files\\Snippet.xml";
 
-        protected string Intellisense
-        {
-            get { return RobotType + "Intellisense.xml"; }
-        }
+        protected string Intellisense => RobotType + "Intellisense.xml";
 
-        protected string SnippetFilePath
-        {
-            get { return RobotType + "Snippets.xml"; }
-        }
+        protected string SnippetFilePath => RobotType + "Snippets.xml";
 
         internal string Filename { get; set; }
 
-        protected string ConfigFilePath
-        {
-            get { return RobotType + "Config.xml"; }
-        }
+        protected string ConfigFilePath => RobotType + "Config.xml";
 
-        internal string SyntaxHighlightFilePath
-        {
-            get { return RobotType + "Highlight.xshd"; }
-        }
+        internal string SyntaxHighlightFilePath => RobotType + "Highlight.xshd";
 
-        internal string StyleFilePath
-        {
-            get { return RobotType + "Style.xshd"; }
-        }
+        internal string StyleFilePath => RobotType + "Style.xshd";
 
         public static int FileCount { get; private set; }
 
-        public ReadOnlyCollection<IVariable> AllVariables
-        {
-            get { return _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables); }
-        }
+        public ReadOnlyCollection<IVariable> AllVariables => _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables);
 
-        public ReadOnlyCollection<IVariable> Functions
-        {
-            get { return _readOnlyFunctions ?? new ReadOnlyCollection<IVariable>(_functions); }
-        }
+        public ReadOnlyCollection<IVariable> Functions => _readOnlyFunctions ?? new ReadOnlyCollection<IVariable>(_functions);
 
-        public ReadOnlyCollection<IVariable> Fields
-        {
-            get { return _readOnlyFields ?? new ReadOnlyCollection<IVariable>(_fields); }
-        }
+        public ReadOnlyCollection<IVariable> Fields => _readOnlyFields ?? new ReadOnlyCollection<IVariable>(_fields);
 
-        public ReadOnlyCollection<IVariable> Positions
-        {
-            get { return _readOnlypositions ?? new ReadOnlyCollection<IVariable>(_positions); }
-        }
+        public ReadOnlyCollection<IVariable> Positions => _readOnlypositions ?? new ReadOnlyCollection<IVariable>(_positions);
 
-        public ReadOnlyCollection<IVariable> Enums
-        {
-            get { return _readOnlyenums ?? new ReadOnlyCollection<IVariable>(_enums); }
-        }
+        public ReadOnlyCollection<IVariable> Enums => _readOnlyenums ?? new ReadOnlyCollection<IVariable>(_enums);
 
-        public ReadOnlyCollection<IVariable> Structures
-        {
-            get { return _readOnlystructures ?? new ReadOnlyCollection<IVariable>(_structures); }
-        }
+        public ReadOnlyCollection<IVariable> Structures => _readOnlystructures ?? new ReadOnlyCollection<IVariable>(_structures);
 
-        public ReadOnlyCollection<IVariable> Signals
-        {
-            get { return _readOnlysignals ?? new ReadOnlyCollection<IVariable>(_signals); }
-        }
+        public ReadOnlyCollection<IVariable> Signals => _readOnlysignals ?? new ReadOnlyCollection<IVariable>(_signals);
 
         public abstract string CommentChar { get; }
 
@@ -339,62 +285,58 @@ namespace miRobotEditor.Abstract
 
         public IOViewModel IOModel
         {
-            get { return _ioModel; }
-            set
-            {
-                _ioModel = value;
-                RaisePropertyChanged("IOModel");
-            }
+            get => _ioModel;
+            set=>SetProperty(ref _ioModel,value);
         }
 
         public int BWProgress
         {
-            get { return _bwProgress; }
+            get => _bwProgress;
             set
             {
                 if (_bwProgress != value)
                 {
                     _bwProgress = value;
-                    RaisePropertyChanged("BWProgress");
+                    OnPropertyChanged(nameof(BWProgress));
                 }
             }
         }
 
         public int BWFilesMin
         {
-            get { return _bwFilesMin; }
+            get => _bwFilesMin;
             set
             {
                 if (_bwFilesMin != value)
                 {
                     _bwFilesMin = value;
-                    RaisePropertyChanged("BWFilesMin");
+                    OnPropertyChanged(nameof(BWFilesMin));
                 }
             }
         }
 
         public int BWFilesMax
         {
-            get { return _bwFilesMax; }
+            get => _bwFilesMax;
             set
             {
                 if (_bwFilesMax != value)
                 {
                     _bwFilesMax = value;
-                    RaisePropertyChanged("BWFilesMax");
+                    OnPropertyChanged(nameof(BWFilesMax));
                 }
             }
         }
 
         public Visibility BWProgressVisibility
         {
-            get { return _bwProgressVisibility; }
+            get => _bwProgressVisibility;
             set
             {
                 if (_bwProgressVisibility != value)
                 {
                     _bwProgressVisibility = value;
-                    RaisePropertyChanged("BWProgressVisibility");
+                    OnPropertyChanged(nameof(BWProgressVisibility));
                 }
             }
         }
@@ -516,10 +458,7 @@ namespace miRobotEditor.Abstract
             return result;
         }
 
-        public virtual bool IsLineCommented(string text)
-        {
-            return text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
-        }
+        public virtual bool IsLineCommented(string text) => text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
 
         private static bool IsValidFold(string text, string s, string e)
         {
@@ -725,7 +664,7 @@ namespace miRobotEditor.Abstract
             catch (Exception ex)
             {
                 var msg = new ErrorMessage("Get Root Directory", ex, MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 
@@ -748,7 +687,7 @@ namespace miRobotEditor.Abstract
             catch (Exception ex)
             {
                 var msg = new ErrorMessage("Error When Getting Files for Object Browser", ex, MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 
@@ -807,14 +746,14 @@ namespace miRobotEditor.Abstract
 
             Task.WaitAll(results.ToArray());
 
-            RaisePropertyChanged("Structures");
-            RaisePropertyChanged("Functions");
-            RaisePropertyChanged("Fields");
-            RaisePropertyChanged("Files");
-            RaisePropertyChanged("Positions");
+            OnPropertyChanged(nameof(Structures));
+            OnPropertyChanged(nameof(Functions));
+            OnPropertyChanged(nameof(Fields));
+            OnPropertyChanged(nameof(Files));
+            OnPropertyChanged(nameof(Positions));
             BWProgressVisibility = Visibility.Collapsed;
 
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance =Ioc.Default.GetRequiredService<MainViewModel>();
             instance.EnableIO = File.Exists(_kukaCon);
             IOModel = new IOViewModel(_kukaCon);
             return variableMembers;
@@ -903,7 +842,7 @@ namespace miRobotEditor.Abstract
             catch (Exception ex)
             {
                 var msg = new ErrorMessage("Find Matches", ex, MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
             result = list;
             return result;

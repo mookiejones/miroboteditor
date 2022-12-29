@@ -18,32 +18,29 @@ namespace miRobotEditor.Structs
 
         public int X
         {
-            get { return _x; }
-            set { _x = value; }
+            get => _x;
+            set => _x = value;
         }
 
         public int Y
         {
-            get { return _y; }
-            set { _y = value; }
+            get => _y;
+            set => _y = value;
         }
 
         public int Line
         {
-            get { return Y; }
-            set { Y = value; }
+            get => Y;
+            set => Y = value;
         }
 
         public int Column
         {
-            get { return X; }
-            set { X = value; }
+            get => X;
+            set => X = value;
         }
 
-        public bool IsEmpty
-        {
-            get { return X <= 0 && Y <= 0; }
-        }
+        public bool IsEmpty => X <= 0 && Y <= 0;
 
         public int CompareTo(Location other)
         {
@@ -66,26 +63,14 @@ namespace miRobotEditor.Structs
             return result;
         }
 
-        public bool Equals(Location other)
-        {
-            return this == other;
-        }
+        public bool Equals(Location other) => this == other;
 
         [Localizable(false)]
-        public override string ToString()
-        {
-            return string.Format("(Line {1}, Col {0})", X, Y);
-        }
+        public override string ToString() => string.Format("(Line {1}, Col {0})", X, Y);
 
-        public override int GetHashCode()
-        {
-            return 87*X.GetHashCode() ^ Y.GetHashCode();
-        }
+        public override int GetHashCode() => 87 * X.GetHashCode() ^ Y.GetHashCode();
 
-        public override bool Equals(object obj)
-        {
-            return obj is Location && (Location) obj == this;
-        }
+        public override bool Equals(object obj) => obj is Location && (Location)obj == this;
 
         public static bool operator ==(Location a, Location b)
         {

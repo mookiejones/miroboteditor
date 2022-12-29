@@ -88,62 +88,62 @@ namespace miRobotEditor.Controls
 
         public ToggleButton GridSplitterButton
         {
-            get { return _elementVerticalGridSplitterButton; }
-            set { _elementVerticalGridSplitterButton = value; }
+            get => _elementVerticalGridSplitterButton;
+            set => _elementVerticalGridSplitterButton = value;
         }
 
         public GridSplitterCollapseMode CollapseMode
         {
-            get { return (GridSplitterCollapseMode) GetValue(CollapseModeProperty); }
-            set { SetValue(CollapseModeProperty, value); }
+            get => (GridSplitterCollapseMode)GetValue(CollapseModeProperty);
+            set => SetValue(CollapseModeProperty, value);
         }
 
         public Style SwitchArrowStyle
         {
-            get { return (Style) GetValue(SwitchArrowStyleProperty); }
-            set { SetValue(SwitchArrowStyleProperty, value); }
+            get => (Style)GetValue(SwitchArrowStyleProperty);
+            set => SetValue(SwitchArrowStyleProperty, value);
         }
 
         public Style LabelStyle
         {
-            get { return (Style) GetValue(LabelStyleProperty); }
-            set { SetValue(LabelStyleProperty, value); }
+            get => (Style)GetValue(LabelStyleProperty);
+            set => SetValue(LabelStyleProperty, value);
         }
 
         public Color FocusColor
         {
-            get { return (Color) GetValue(FocusColorProperty); }
-            set { SetValue(FocusColorProperty, value); }
+            get => (Color)GetValue(FocusColorProperty);
+            set => SetValue(FocusColorProperty, value);
         }
 
         public Color UnfocusColor
         {
-            get { return (Color) GetValue(UnfocusColorProperty); }
-            set { SetValue(UnfocusColorProperty, value); }
+            get => (Color)GetValue(UnfocusColorProperty);
+            set => SetValue(UnfocusColorProperty, value);
         }
 
         public Style HorizontalHandleStyle
         {
-            get { return (Style) GetValue(HorizontalHandleStyleProperty); }
-            set { SetValue(HorizontalHandleStyleProperty, value); }
+            get => (Style)GetValue(HorizontalHandleStyleProperty);
+            set => SetValue(HorizontalHandleStyleProperty, value);
         }
 
         public Style VerticalHandleStyle
         {
-            get { return (Style) GetValue(VerticalHandleStyleProperty); }
-            set { SetValue(VerticalHandleStyleProperty, value); }
+            get => (Style)GetValue(VerticalHandleStyleProperty);
+            set => SetValue(VerticalHandleStyleProperty, value);
         }
 
         public bool IsAnimated
         {
-            get { return (bool) GetValue(IsAnimatedProperty); }
-            set { SetValue(IsAnimatedProperty, value); }
+            get => (bool)GetValue(IsAnimatedProperty);
+            set => SetValue(IsAnimatedProperty, value);
         }
 
         public bool IsCollapsed
         {
-            get { return (bool) GetValue(IsCollapsedProperty); }
-            set { SetValue(IsCollapsedProperty, value); }
+            get => (bool)GetValue(IsCollapsedProperty);
+            set => SetValue(IsCollapsedProperty, value);
         }
 
         public event EventHandler<EventArgs> Collapsed;

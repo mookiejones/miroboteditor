@@ -46,8 +46,8 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public int Size
         {
-            get { return Rows; }
-            set { SetSize(value, value); }
+            get => Rows;
+            set => SetSize(value, value);
         }
 
         public double Determinant()
@@ -204,10 +204,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             return squareMatrix;
         }
 
-        public static SquareMatrix NaN(int size)
-        {
-            return new SquareMatrix(NaN(size, size));
-        }
+        public static SquareMatrix NaN(int size) => new SquareMatrix(NaN(size, size));
 
         public SquareMatrix Power(int power)
         {
@@ -229,9 +226,6 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             return num;
         }
 
-        public new SquareMatrix Transpose()
-        {
-            return new SquareMatrix(base.Transpose());
-        }
+        public new SquareMatrix Transpose() => new SquareMatrix(base.Transpose());
     }
 }

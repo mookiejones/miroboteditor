@@ -16,8 +16,8 @@ namespace miRobotEditor.Classes
 
         public static GlobalOptions Instance
         {
-            get { return _instance ?? (_instance = new GlobalOptions()); }
-            set { _instance = value; }
+            get => _instance ?? (_instance = new GlobalOptions());
+            set => _instance = value;
         }
 
         [DefaultValue(0.75)]
@@ -25,14 +25,11 @@ namespace miRobotEditor.Classes
 
         public GlobalOptionsViewModel Options
         {
-            get { return _options; }
-            set { _options = value; }
+            get => _options;
+            set => _options = value;
         }
 
         [Localizable(false)]
-        public string Title
-        {
-            get { return "Global Options"; }
-        }
+        public string Title => "Global Options";
     }
 }

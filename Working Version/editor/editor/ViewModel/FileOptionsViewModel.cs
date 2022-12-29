@@ -1,4 +1,4 @@
-using GalaSoft.MvvmLight;
+
 
 namespace miRobotEditor.ViewModel
 {
@@ -6,11 +6,7 @@ namespace miRobotEditor.ViewModel
     {
         #region ShowFullName
 
-        /// <summary>
-        ///     The <see cref="ShowFullName" /> property's name.
-        /// </summary>
-        private const string ShowFullNamePropertyName = "ShowFullName";
-
+       
         private bool _showFullName = true;
 
         /// <summary>
@@ -19,19 +15,9 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool ShowFullName
         {
-            get { return _showFullName; }
+            get => _showFullName;
 
-            set
-            {
-                if (_showFullName == value)
-                {
-                    return;
-                }
-
-                
-                _showFullName = value;
-                RaisePropertyChanged(ShowFullNamePropertyName);
-            }
+            set => SetProperty(ref _showFullName, value); 
         }
 
         #endregion

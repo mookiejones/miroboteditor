@@ -20,7 +20,7 @@ namespace miRobotEditor.Classes
 
         public IEditor Document
         {
-            get { return _document; }
+            get => _document;
             set
             {
                 if (_document != value)
@@ -28,7 +28,7 @@ namespace miRobotEditor.Classes
                     if (Anchor != null)
                     {
                         throw new NotImplementedException();
-//                        _location = Anchor.Location;
+                        //                        _location = Anchor.Location;
                         Anchor = null;
                     }
                     _document = value;
@@ -42,11 +42,7 @@ namespace miRobotEditor.Classes
 
         public TextLocation Location
         {
-            get
-            {
-                throw new NotImplementedException();
-//                return (Anchor != null) ? Anchor.Location : _location;
-            }
+            get => throw new NotImplementedException();//                return (Anchor != null) ? Anchor.Location : _location;
             set
             {
                 _location = value;
@@ -54,40 +50,19 @@ namespace miRobotEditor.Classes
             }
         }
 
-        public int ColumnNumber
-        {
-            get { return (Anchor != null) ? Anchor.Column : _location.Column; }
-        }
+        public int ColumnNumber => (Anchor != null) ? Anchor.Column : _location.Column;
 
-        public virtual bool CanToggle
-        {
-            get { return true; }
-        }
+        public virtual bool CanToggle => true;
 
-        public static IImage DefaultBookmarkImage
-        {
-            get { return defaultBookmarkImage; }
-        }
+        public static IImage DefaultBookmarkImage => defaultBookmarkImage;
 
-        public int LineNumber
-        {
-            get { return (Anchor != null) ? Anchor.Line : _location.Line; }
-        }
+        public int LineNumber => (Anchor != null) ? Anchor.Line : _location.Line;
 
-        public virtual int ZOrder
-        {
-            get { return 0; }
-        }
+        public virtual int ZOrder => 0;
 
-        public virtual IImage Image
-        {
-            get { return defaultBookmarkImage; }
-        }
+        public virtual IImage Image => defaultBookmarkImage;
 
-        public virtual bool CanDragDrop
-        {
-            get { return false; }
-        }
+        public virtual bool CanDragDrop => false;
 
         public virtual void MouseDown(MouseButtonEventArgs e)
         {

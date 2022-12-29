@@ -1,15 +1,15 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
-using Xceed.Wpf.Toolkit;
+using miRobotEditor.Interfaces; 
 
 namespace miRobotEditor.ViewModel
 {
@@ -27,29 +27,21 @@ namespace miRobotEditor.ViewModel
             ContentId = ToolContentId;
             DefaultPane = DefaultToolPane.Bottom;
 
-
-            Messenger.Default.Register<IMessage>(this, AddMessage);
+            WeakReferenceMessenger.Default.Register<IMessage>(this, AddMessage);
+           
         }
 
-        private void AddMessage(IMessage obj)
-        {
-            _messages.Add(obj);
-        }
+        private void AddMessage(object recipient, IMessage message) => _messages.Add(message);
+         
 
         #endregion
 
         private RelayCommand _clearMessagesCommand;
         private RelayCommand<object> _mouseOverCommand;
 
-        public ICommand ClearMessagesCommand
-        {
-            get { return _clearMessagesCommand ?? (_clearMessagesCommand = new RelayCommand(ClearItems)); }
-        }
+        public ICommand ClearMessagesCommand => _clearMessagesCommand ?? (_clearMessagesCommand = new RelayCommand(ClearItems));
 
-        public RelayCommand<object> MouseOverCommand
-        {
-            get { return _mouseOverCommand ?? (_mouseOverCommand = new RelayCommand<object>(HandleMouseOver)); }
-        }
+        public RelayCommand<object> MouseOverCommand => _mouseOverCommand ?? (_mouseOverCommand = new RelayCommand<object>(HandleMouseOver));
 
         public event MessageAddedHandler MessageAdded;
 
@@ -92,20 +84,14 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        private void HandleMouseOver(object param)
-        {
-            SelectedMessage = (OutputWindowMessage) ((ListViewItem) param).Content;
-        }
+        private void HandleMouseOver(object param) => SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
 
-        public static void ShowMessage(string message)
-        {
-            MessageBox.Show(message);
-        }
+        public static void ShowMessage(string message) => MessageBox.Show(message);
 
         private void ClearItems()
         {
             _messages.Clear();
-            RaisePropertyChanged("Messages");
+            OnPropertyChanged(nameof(Messages));
         }
 
         public void AddError(string message, Exception ex)
@@ -136,10 +122,7 @@ namespace miRobotEditor.ViewModel
 
         #region SelectedMessage
 
-        /// <summary>
-        ///     The <see cref="SelectedMessage" /> property's name.
-        /// </summary>
-        private const string SelectedMessagePropertyName = "SelectedMessage";
+        
 
         private IMessage _selectedMessage;
 
@@ -149,19 +132,10 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public IMessage SelectedMessage
         {
-            get { return _selectedMessage; }
+            get => _selectedMessage;
 
-            set
-            {
-                if (_selectedMessage == value)
-                {
-                    return;
-                }
-
-                
-                _selectedMessage = value;
-                RaisePropertyChanged(SelectedMessagePropertyName);
-            }
+            set => SetProperty(ref _selectedMessage, value);
+             
         }
 
         #endregion
@@ -171,13 +145,7 @@ namespace miRobotEditor.ViewModel
         private readonly ObservableCollection<IMessage> _messages = new ObservableCollection<IMessage>();
         private ReadOnlyObservableCollection<IMessage> _readOnlyMessages;
 
-        public ReadOnlyObservableCollection<IMessage> Messages
-        {
-            get
-            {
-                return _readOnlyMessages ?? (_readOnlyMessages = new ReadOnlyObservableCollection<IMessage>(_messages));
-            }
-        }
+        public ReadOnlyObservableCollection<IMessage> Messages => _readOnlyMessages ?? (_readOnlyMessages = new ReadOnlyObservableCollection<IMessage>(_messages));
 
         #endregion
     }

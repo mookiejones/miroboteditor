@@ -31,15 +31,9 @@ namespace miRobotEditor.Classes
         public Point3D Origin { get; set; }
         public double Radius { get; set; }
 
-        public TransformationMatrix3D Position
-        {
-            get { return new TransformationMatrix3D((Vector3D) Origin, RotationMatrix3D.Identity()); }
-        }
+        public TransformationMatrix3D Position => new TransformationMatrix3D((Vector3D)Origin, RotationMatrix3D.Identity());
 
-        public string ToString(string format, IFormatProvider formatProvider = null)
-        {
-            return string.Format("Sphere3D: Centre {0:F2} Radius {1:F2}", Origin, Radius);
-        }
+        public string ToString(string format, IFormatProvider formatProvider = null) => string.Format("Sphere3D: Centre {0:F2} Radius {1:F2}", Origin, Radius);
 
         public static Sphere3D FitToPoints(Collection<Point3D> points)
         {
@@ -47,9 +41,6 @@ namespace miRobotEditor.Classes
             return leastSquaresFit3D.FitSphereToPoints(points);
         }
 
-        public override string ToString()
-        {
-            return ToString("", null);
-        }
+        public override string ToString() => ToString("", null);
     }
 }

@@ -2,9 +2,8 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
-using Microsoft.Practices.ServiceLocation;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
 using miRobotEditor.Abstract;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
@@ -29,92 +28,56 @@ namespace miRobotEditor.Classes
 
         public string Description
         {
-            get { return _description; }
-            set
-            {
-                _description = value;
-                RaisePropertyChanged("Description");
-            }
+            get => _description;
+            set=>SetProperty(ref _description,value);
         }
 
         public BitmapImage Icon
         {
-            get { return _icon; }
-            set
-            {
-                _icon = value;
-                RaisePropertyChanged("Icon");
-            }
+            get => _icon;
+            set=>SetProperty(ref _icon,value);
         }
 
         public string Name
         {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                RaisePropertyChanged("Name");
-            }
+            get => _name;
+            set=>SetProperty(ref _name,value);
         }
 
         public string Comment
         {
-            get { return _comment; }
-            set
-            {
-                _comment = value;
-                RaisePropertyChanged("Comment");
-            }
+            get => _comment;
+            set=>SetProperty(ref _comment,value);
         }
 
         public string Path
         {
-            get { return _path; }
-            set
-            {
-                _path = value;
-                RaisePropertyChanged("Path");
-            }
+            get => _path;
+            set=>SetProperty(ref _path,value);
         }
 
         public string Value
         {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                RaisePropertyChanged("Value");
-            }
+            get => _value;
+            set=>SetProperty(ref _value,value);
         }
 
         public string Type
         {
-            get { return _type; }
-            set
-            {
-                _type = value;
-                RaisePropertyChanged("Type");
-            }
+            get => _type;
+            set=>SetProperty(ref _type,value);
         }
 
         public string Declaration
         {
-            get { return _declaration; }
-            set
-            {
-                _declaration = value;
-                RaisePropertyChanged("Declaration");
-            }
+            get => _declaration;
+            set=>SetProperty(ref _declaration,value);
         }
 
         public int Offset
         {
-            get { return _offset; }
-            set
-            {
-                _offset = value;
-                RaisePropertyChanged("Offset");
-            }
+            get => _offset;
+            set=>SetProperty(ref _offset,value);
         }
 
         public static void GetPositions(string filename, AbstractLanguageClass lang, string iconpath)
@@ -140,7 +103,7 @@ namespace miRobotEditor.Classes
             if (workerArgs != null)
             {
                 var bitmapImage = Utilities.LoadBitmap(workerArgs.IconPath);
-                var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+                var instance =Ioc.Default.GetRequiredService<MainViewModel>();
                 var fileLanguage = instance.ActiveEditor.FileLanguage;
                 var match = VariableHelper.FindMatches(workerArgs.Lang.XYZRegex, workerArgs.Filename);
                 var fileNameWithoutExtension =
@@ -168,7 +131,7 @@ namespace miRobotEditor.Classes
         {
             var list = new List<IVariable>();
             var bitmapImage = Utilities.LoadBitmap(iconpath);
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance =Ioc.Default.GetRequiredService<MainViewModel>();
             var fileLanguage = instance.ActiveEditor.FileLanguage;
             var match = VariableHelper.FindMatches(regex, filename);
             var fileNameWithoutExtension =
@@ -179,7 +142,7 @@ namespace miRobotEditor.Classes
             {
                 var msg = new ErrorMessage("Variable for " + fileLanguage.RobotType,
                     "Does not exist in VariableBase.GetVariables", MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 result = null;
             }
             else

@@ -11,26 +11,46 @@
             method is 'true'.  This class does not allow you to accept command parameters in the
             Execute and CanExecute callback methods.
             </summary>
+            <remarks>If you are using this class in WPF4.5 or above, you need to use the 
+            GalaSoft.MvvmLight.CommandWpf namespace (instead of GalaSoft.MvvmLight.Command).
+            This will enable (or restore) the CommandManager class which handles
+            automatic enabling/disabling of controls based on the CanExecute delegate.</remarks>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Command.RelayCommand.#ctor(System.Action)">
+        <member name="M:GalaSoft.MvvmLight.Command.RelayCommand.#ctor(System.Action,System.Boolean)">
             <summary>
             Initializes a new instance of the RelayCommand class that 
             can always execute.
             </summary>
-            <param name="execute">The execution logic.</param>
+            <param name="execute">The execution logic. IMPORTANT: If the action causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is causing a closure. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
             <exception cref="T:System.ArgumentNullException">If the execute argument is null.</exception>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Command.RelayCommand.#ctor(System.Action,System.Func{System.Boolean})">
+        <member name="M:GalaSoft.MvvmLight.Command.RelayCommand.#ctor(System.Action,System.Func{System.Boolean},System.Boolean)">
             <summary>
             Initializes a new instance of the RelayCommand class.
             </summary>
-            <param name="execute">The execution logic.</param>
-            <param name="canExecute">The execution status logic.</param>
+            <param name="execute">The execution logic. IMPORTANT: If the action causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="canExecute">The execution status logic.  IMPORTANT: If the func causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is causing a closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
             <exception cref="T:System.ArgumentNullException">If the execute argument is null.</exception>
+        </member>
+        <member name="E:GalaSoft.MvvmLight.Command.RelayCommand.CanExecuteChanged">
+            <summary>
+            Occurs when changes occur that affect whether the command should execute.
+            </summary>
         </member>
         <member name="M:GalaSoft.MvvmLight.Command.RelayCommand.RaiseCanExecuteChanged">
             <summary>
-            Raises the <see cref="E:GalaSoft.MvvmLight.Command.RelayCommand.CanExecuteChanged"/> event.
+            Raises the <see cref="E:GalaSoft.MvvmLight.Command.RelayCommand.CanExecuteChanged" /> event.
             </summary>
         </member>
         <member name="M:GalaSoft.MvvmLight.Command.RelayCommand.CanExecute(System.Object)">
@@ -46,11 +66,6 @@
             </summary>
             <param name="parameter">This parameter will always be ignored.</param>
         </member>
-        <member name="E:GalaSoft.MvvmLight.Command.RelayCommand.CanExecuteChanged">
-            <summary>
-            Occurs when changes occur that affect whether the command should execute.
-            </summary>
-        </member>
         <member name="T:GalaSoft.MvvmLight.Command.RelayCommand`1">
             <summary>
             A generic command whose sole purpose is to relay its functionality to other
@@ -59,26 +74,46 @@
             Execute and CanExecute callback methods.
             </summary>
             <typeparam name="T">The type of the command parameter.</typeparam>
+            <remarks>If you are using this class in WPF4.5 or above, you need to use the 
+            GalaSoft.MvvmLight.CommandWpf namespace (instead of GalaSoft.MvvmLight.Command).
+            This will enable (or restore) the CommandManager class which handles
+            automatic enabling/disabling of controls based on the CanExecute delegate.</remarks>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Command.RelayCommand`1.#ctor(System.Action{`0})">
+        <member name="M:GalaSoft.MvvmLight.Command.RelayCommand`1.#ctor(System.Action{`0},System.Boolean)">
             <summary>
             Initializes a new instance of the RelayCommand class that 
             can always execute.
             </summary>
-            <param name="execute">The execution logic.</param>
+            <param name="execute">The execution logic. IMPORTANT: If the action causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is causing a closure. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
             <exception cref="T:System.ArgumentNullException">If the execute argument is null.</exception>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Command.RelayCommand`1.#ctor(System.Action{`0},System.Func{`0,System.Boolean})">
+        <member name="M:GalaSoft.MvvmLight.Command.RelayCommand`1.#ctor(System.Action{`0},System.Func{`0,System.Boolean},System.Boolean)">
             <summary>
             Initializes a new instance of the RelayCommand class.
             </summary>
-            <param name="execute">The execution logic.</param>
-            <param name="canExecute">The execution status logic.</param>
+            <param name="execute">The execution logic. IMPORTANT: If the action causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="canExecute">The execution status logic.  IMPORTANT: If the func causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is causing a closure. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
             <exception cref="T:System.ArgumentNullException">If the execute argument is null.</exception>
+        </member>
+        <member name="E:GalaSoft.MvvmLight.Command.RelayCommand`1.CanExecuteChanged">
+            <summary>
+            Occurs when changes occur that affect whether the command should execute.
+            </summary>
         </member>
         <member name="M:GalaSoft.MvvmLight.Command.RelayCommand`1.RaiseCanExecuteChanged">
             <summary>
-            Raises the <see cref="E:GalaSoft.MvvmLight.Command.RelayCommand`1.CanExecuteChanged"/> event.
+            Raises the <see cref="E:GalaSoft.MvvmLight.Command.RelayCommand`1.CanExecuteChanged" /> event.
             </summary>
         </member>
         <member name="M:GalaSoft.MvvmLight.Command.RelayCommand`1.CanExecute(System.Object)">
@@ -96,16 +131,37 @@
             <param name="parameter">Data used by the command. If the command does not require data 
             to be passed, this object can be set to a null reference</param>
         </member>
-        <member name="E:GalaSoft.MvvmLight.Command.RelayCommand`1.CanExecuteChanged">
+        <member name="T:GalaSoft.MvvmLight.Helpers.DesignerLibrary">
             <summary>
-            Occurs when changes occur that affect whether the command should execute.
+            Helper class for platform detection.
+            </summary>
+        </member>
+        <member name="T:GalaSoft.MvvmLight.Helpers.Empty">
+            <summary>
+            Helper class used when an async method is required,
+            but the context is synchronous.
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Helpers.Empty.Task">
+            <summary>
+            Gets the empty task.
+            </summary>
+        </member>
+        <member name="T:GalaSoft.MvvmLight.Helpers.FeatureDetection">
+            <summary>
+            Helper class for platform and feature detection.
             </summary>
         </member>
         <member name="T:GalaSoft.MvvmLight.Helpers.IExecuteWithObject">
             <summary>
-            This interface is meant for the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakAction`1"/> class and can be 
+            This interface is meant for the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakAction`1" /> class and can be 
             useful if you store multiple WeakAction{T} instances but don't know in advance
             what type T represents.
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Helpers.IExecuteWithObject.Target">
+            <summary>
+            The target of the WeakAction.
             </summary>
         </member>
         <member name="M:GalaSoft.MvvmLight.Helpers.IExecuteWithObject.ExecuteWithObject(System.Object)">
@@ -121,14 +177,9 @@
             that this entry must be deleted.
             </summary>
         </member>
-        <member name="P:GalaSoft.MvvmLight.Helpers.IExecuteWithObject.Target">
-            <summary>
-            The target of the WeakAction.
-            </summary>
-        </member>
         <member name="T:GalaSoft.MvvmLight.Helpers.IExecuteWithObjectAndResult">
             <summary>
-            This interface is meant for the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakFunc`1"/> class and can be 
+            This interface is meant for the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakFunc`1" /> class and can be 
             useful if you store multiple WeakFunc{T} instances but don't know in advance
             what type T represents.
             </summary>
@@ -143,42 +194,13 @@
         </member>
         <member name="T:GalaSoft.MvvmLight.Helpers.WeakAction">
             <summary>
-            Stores an <see cref="T:System.Action"/> without causing a hard reference
+            Stores an <see cref="T:System.Action" /> without causing a hard reference
             to be created to the Action's owner. The owner can be garbage collected at any time.
-            </summary>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.#ctor">
-            <summary>
-            Initializes an empty instance of the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakAction"/> class.
-            </summary>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.#ctor(System.Action)">
-            <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakAction"/> class.
-            </summary>
-            <param name="action">The action that will be associated to this instance.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.#ctor(System.Object,System.Action)">
-            <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakAction"/> class.
-            </summary>
-            <param name="target">The action's owner.</param>
-            <param name="action">The action that will be associated to this instance.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.Execute">
-            <summary>
-            Executes the action. This only happens if the action's owner
-            is still alive.
-            </summary>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.MarkForDeletion">
-            <summary>
-            Sets the reference that this instance stores to null.
             </summary>
         </member>
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction.Method">
             <summary>
-            Gets or sets the <see cref="T:System.Reflection.MethodInfo"/> corresponding to this WeakAction's
+            Gets or sets the <see cref="T:System.Reflection.MethodInfo" /> corresponding to this WeakAction's
             method passed in the constructor.
             </summary>
         </member>
@@ -191,15 +213,22 @@
             <summary>
             Gets or sets a WeakReference to this WeakAction's action's target.
             This is not necessarily the same as
-            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakAction.Reference"/>, for example if the
+            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakAction.Reference" />, for example if the
             method is anonymous.
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction.LiveReference">
+            <summary>
+            Saves the <see cref="P:GalaSoft.MvvmLight.Helpers.WeakAction.ActionReference"/> as a hard reference. This is
+            used in relation with this instance's constructor and only if
+            the constructor's keepTargetAlive parameter is true.
             </summary>
         </member>
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction.Reference">
             <summary>
             Gets or sets a WeakReference to the target passed when constructing
             the WeakAction. This is not necessarily the same as
-            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakAction.ActionReference"/>, for example if the
+            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakAction.ActionReference" />, for example if the
             method is anonymous.
             </summary>
         </member>
@@ -207,6 +236,32 @@
             <summary>
             Gets a value indicating whether the WeakAction is static or not.
             </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.#ctor">
+            <summary>
+            Initializes an empty instance of the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakAction" /> class.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.#ctor(System.Action,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakAction" /> class.
+            </summary>
+            <param name="action">The action that will be associated to this instance.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.#ctor(System.Object,System.Action,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Helpers.WeakAction" /> class.
+            </summary>
+            <param name="target">The action's owner.</param>
+            <param name="action">The action that will be associated to this instance.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction.IsAlive">
             <summary>
@@ -217,12 +272,23 @@
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction.Target">
             <summary>
             Gets the Action's owner. This object is stored as a 
-            <see cref="T:System.WeakReference"/>.
+            <see cref="T:System.WeakReference" />.
             </summary>
         </member>
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction.ActionTarget">
             <summary>
             The target of the weak reference.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.Execute">
+            <summary>
+            Executes the action. This only happens if the action's owner
+            is still alive.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction.MarkForDeletion">
+            <summary>
+            Sets the reference that this instance stores to null.
             </summary>
         </member>
         <member name="T:GalaSoft.MvvmLight.Helpers.WeakAction`1">
@@ -232,18 +298,37 @@
             </summary>
             <typeparam name="T">The type of the Action's parameter.</typeparam>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction`1.#ctor(System.Action{`0})">
+        <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction`1.MethodName">
+            <summary>
+            Gets the name of the method that this WeakAction represents.
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction`1.IsAlive">
+            <summary>
+            Gets a value indicating whether the Action's owner is still alive, or if it was collected
+            by the Garbage Collector already.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction`1.#ctor(System.Action{`0},System.Boolean)">
             <summary>
             Initializes a new instance of the WeakAction class.
             </summary>
             <param name="action">The action that will be associated to this instance.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction`1.#ctor(System.Object,System.Action{`0})">
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction`1.#ctor(System.Object,System.Action{`0},System.Boolean)">
             <summary>
             Initializes a new instance of the WeakAction class.
             </summary>
             <param name="target">The action's owner.</param>
             <param name="action">The action that will be associated to this instance.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
         <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction`1.Execute">
             <summary>
@@ -261,7 +346,7 @@
         <member name="M:GalaSoft.MvvmLight.Helpers.WeakAction`1.ExecuteWithObject(System.Object)">
             <summary>
             Executes the action with a parameter of type object. This parameter
-            will be casted to T. This method implements <see cref="M:GalaSoft.MvvmLight.Helpers.IExecuteWithObject.ExecuteWithObject(System.Object)"/>
+            will be casted to T. This method implements <see cref="M:GalaSoft.MvvmLight.Helpers.IExecuteWithObject.ExecuteWithObject(System.Object)" />
             and can be useful if you store multiple WeakAction{T} instances but don't know in advance
             what type T represents.
             </summary>
@@ -275,17 +360,6 @@
             should be deleted.
             </summary>
         </member>
-        <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction`1.MethodName">
-            <summary>
-            Gets the name of the method that this WeakAction represents.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Helpers.WeakAction`1.IsAlive">
-            <summary>
-            Gets a value indicating whether the Action's owner is still alive, or if it was collected
-            by the Garbage Collector already.
-            </summary>
-        </member>
         <member name="T:GalaSoft.MvvmLight.Helpers.WeakFunc`1">
             <summary>
             Stores a Func&lt;T&gt; without causing a hard reference
@@ -294,39 +368,9 @@
             <typeparam name="TResult">The type of the result of the Func that will be stored
             by this weak reference.</typeparam>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.#ctor">
-            <summary>
-            Initializes an empty instance of the WeakFunc class.
-            </summary>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.#ctor(System.Func{`0})">
-            <summary>
-            Initializes a new instance of the WeakFunc class.
-            </summary>
-            <param name="func">The Func that will be associated to this instance.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.#ctor(System.Object,System.Func{`0})">
-            <summary>
-            Initializes a new instance of the WeakFunc class.
-            </summary>
-            <param name="target">The Func's owner.</param>
-            <param name="func">The Func that will be associated to this instance.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Execute">
-            <summary>
-            Executes the action. This only happens if the Func's owner
-            is still alive.
-            </summary>
-            <returns>The result of the Func stored as reference.</returns>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.MarkForDeletion">
-            <summary>
-            Sets the reference that this instance stores to null.
-            </summary>
-        </member>
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Method">
             <summary>
-            Gets or sets the <see cref="T:System.Reflection.MethodInfo"/> corresponding to this WeakFunc's
+            Gets or sets the <see cref="T:System.Reflection.MethodInfo" /> corresponding to this WeakFunc's
             method passed in the constructor.
             </summary>
         </member>
@@ -344,17 +388,50 @@
             <summary>
             Gets or sets a WeakReference to this WeakFunc's action's target.
             This is not necessarily the same as
-            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Reference"/>, for example if the
+            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Reference" />, for example if the
             method is anonymous.
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.LiveReference">
+            <summary>
+            Saves the <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.FuncReference"/> as a hard reference. This is
+            used in relation with this instance's constructor and only if
+            the constructor's keepTargetAlive parameter is true.
             </summary>
         </member>
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Reference">
             <summary>
             Gets or sets a WeakReference to the target passed when constructing
             the WeakFunc. This is not necessarily the same as
-            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.FuncReference"/>, for example if the
+            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.FuncReference" />, for example if the
             method is anonymous.
             </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.#ctor">
+            <summary>
+            Initializes an empty instance of the WeakFunc class.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.#ctor(System.Func{`0},System.Boolean)">
+            <summary>
+            Initializes a new instance of the WeakFunc class.
+            </summary>
+            <param name="func">The Func that will be associated to this instance.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.#ctor(System.Object,System.Func{`0},System.Boolean)">
+            <summary>
+            Initializes a new instance of the WeakFunc class.
+            </summary>
+            <param name="target">The Func's owner.</param>
+            <param name="func">The Func that will be associated to this instance.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.IsAlive">
             <summary>
@@ -365,15 +442,27 @@
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Target">
             <summary>
             Gets the Func's owner. This object is stored as a 
-            <see cref="T:System.WeakReference"/>.
+            <see cref="T:System.WeakReference" />.
             </summary>
         </member>
         <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.FuncTarget">
             <summary>
             Gets the owner of the Func that was passed as parameter.
             This is not necessarily the same as
-            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Target"/>, for example if the
+            <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Target" />, for example if the
             method is anonymous.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Execute">
+            <summary>
+            Executes the action. This only happens if the Func's owner
+            is still alive.
+            </summary>
+            <returns>The result of the Func stored as reference.</returns>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`1.MarkForDeletion">
+            <summary>
+            Sets the reference that this instance stores to null.
             </summary>
         </member>
         <member name="T:GalaSoft.MvvmLight.Helpers.WeakFunc`2">
@@ -384,18 +473,37 @@
             <typeparam name="T">The type of the Func's parameter.</typeparam>
             <typeparam name="TResult">The type of the Func's return value.</typeparam>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`2.#ctor(System.Func{`0,`1})">
+        <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`2.MethodName">
+            <summary>
+            Gets or sets the name of the method that this WeakFunc represents.
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`2.IsAlive">
+            <summary>
+            Gets a value indicating whether the Func's owner is still alive, or if it was collected
+            by the Garbage Collector already.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`2.#ctor(System.Func{`0,`1},System.Boolean)">
             <summary>
             Initializes a new instance of the WeakFunc class.
             </summary>
             <param name="func">The Func that will be associated to this instance.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`2.#ctor(System.Object,System.Func{`0,`1})">
+        <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`2.#ctor(System.Object,System.Func{`0,`1},System.Boolean)">
             <summary>
             Initializes a new instance of the WeakFunc class.
             </summary>
             <param name="target">The Func's owner.</param>
             <param name="func">The Func that will be associated to this instance.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
         <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`2.Execute">
             <summary>
@@ -415,7 +523,7 @@
         <member name="M:GalaSoft.MvvmLight.Helpers.WeakFunc`2.ExecuteWithObject(System.Object)">
             <summary>
             Executes the Func with a parameter of type object. This parameter
-            will be casted to T. This method implements <see cref="M:GalaSoft.MvvmLight.Helpers.IExecuteWithObject.ExecuteWithObject(System.Object)"/>
+            will be casted to T. This method implements <see cref="M:GalaSoft.MvvmLight.Helpers.IExecuteWithObject.ExecuteWithObject(System.Object)" />
             and can be useful if you store multiple WeakFunc{T} instances but don't know in advance
             what type T represents.
             </summary>
@@ -428,17 +536,6 @@
             Sets all the funcs that this WeakFunc contains to null,
             which is a signal for containing objects that this WeakFunc
             should be deleted.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`2.MethodName">
-            <summary>
-            Gets or sets the name of the method that this WeakFunc represents.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Helpers.WeakFunc`2.IsAlive">
-            <summary>
-            Gets a value indicating whether the Func's owner is still alive, or if it was collected
-            by the Garbage Collector already.
             </summary>
         </member>
         <member name="T:GalaSoft.MvvmLight.ICleanup">
@@ -455,58 +552,11 @@
             removing resources, etc...
             </summary>
         </member>
-        <member name="T:GalaSoft.MvvmLight.Messaging.DialogMessage">
-            <summary>
-            Use this class to send a message requesting to display a message box with features
-            corresponding to this message's properties. The Callback property should be used
-            to notify the message's sender about the user's choice in the message box.
-            Typically, you can use this message typ's recipient will be an element of the View,
-            and the sender will possibly be a ViewModel.
-            </summary>
-        </member>
         <member name="T:GalaSoft.MvvmLight.Messaging.GenericMessage`1">
             <summary>
             Passes a generic value (Content) to a recipient.
             </summary>
             <typeparam name="T">The type of the Content property.</typeparam>
-        </member>
-        <member name="T:GalaSoft.MvvmLight.Messaging.MessageBase">
-            <summary>
-            Base class for all messages broadcasted by the Messenger.
-            You can create your own message types by extending this class.
-            </summary>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.MessageBase.#ctor">
-            <summary>
-            Initializes a new instance of the MessageBase class.
-            </summary>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.MessageBase.#ctor(System.Object)">
-            <summary>
-            Initializes a new instance of the MessageBase class.
-            </summary>
-            <param name="sender">The message's original sender.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.MessageBase.#ctor(System.Object,System.Object)">
-            <summary>
-            Initializes a new instance of the MessageBase class.
-            </summary>
-            <param name="sender">The message's original sender.</param>
-            <param name="target">The message's intended target. This parameter can be used
-            to give an indication as to whom the message was intended for. Of course
-            this is only an indication, amd may be null.</param>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.MessageBase.Sender">
-            <summary>
-            Gets or sets the message's sender.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.MessageBase.Target">
-            <summary>
-            Gets or sets the message's intended target. This property can be used
-            to give an indication as to whom the message was intended for. Of course
-            this is only an indication, amd may be null.
-            </summary>
         </member>
         <member name="M:GalaSoft.MvvmLight.Messaging.GenericMessage`1.#ctor(`0)">
             <summary>
@@ -536,80 +586,12 @@
             Gets or sets the message's content.
             </summary>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.DialogMessage.#ctor(System.String,System.Action{System.Windows.MessageBoxResult})">
-            <summary>
-            Initializes a new instance of the DialogMessage class.
-            </summary>
-            <param name="content">The text displayed by the message box.</param>
-            <param name="callback">A callback method that should be executed to deliver the result
-            of the message box to the object that sent the message.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.DialogMessage.#ctor(System.Object,System.String,System.Action{System.Windows.MessageBoxResult})">
-            <summary>
-            Initializes a new instance of the DialogMessage class.
-            </summary>
-            <param name="sender">The message's original sender.</param>
-            <param name="content">The text displayed by the message box.</param>
-            <param name="callback">A callback method that should be executed to deliver the result
-            of the message box to the object that sent the message.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.DialogMessage.#ctor(System.Object,System.Object,System.String,System.Action{System.Windows.MessageBoxResult})">
-            <summary>
-            Initializes a new instance of the DialogMessage class.
-            </summary>
-            <param name="sender">The message's original sender.</param>
-            <param name="target">The message's intended target. This parameter can be used
-            to give an indication as to whom the message was intended for. Of course
-            this is only an indication, amd may be null.</param>
-            <param name="content">The text displayed by the message box.</param>
-            <param name="callback">A callback method that should be executed to deliver the result
-            of the message box to the object that sent the message.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.DialogMessage.ProcessCallback(System.Windows.MessageBoxResult)">
-            <summary>
-            Utility method, checks if the <see cref="P:GalaSoft.MvvmLight.Messaging.DialogMessage.Callback"/> property is
-            null, and if it is not null, executes it.
-            </summary>
-            <param name="result">The result that must be passed
-            to the dialog message caller.</param>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.DialogMessage.Button">
-            <summary>
-            Gets or sets the buttons displayed by the message box.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.DialogMessage.Callback">
-            <summary>
-            Gets a callback method that should be executed to deliver the result
-            of the message box to the object that sent the message.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.DialogMessage.Caption">
-            <summary>
-            Gets or sets the caption for the message box.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.DialogMessage.DefaultResult">
-            <summary>
-            Gets or sets which result is the default in the message box.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.DialogMessage.Icon">
-            <summary>
-            Gets or sets the icon for the message box.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.DialogMessage.Options">
-            <summary>
-            Gets or sets the options for the message box.
-            </summary>
-        </member>
         <member name="T:GalaSoft.MvvmLight.Messaging.IMessenger">
             <summary>
             The Messenger is a class allowing objects to exchange messages.
             </summary>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.IMessenger.Register``1(System.Object,System.Action{``0})">
+        <member name="M:GalaSoft.MvvmLight.Messaging.IMessenger.Register``1(System.Object,System.Action{``0},System.Boolean)">
             <summary>
             Registers a recipient for a type of message TMessage. The action
             parameter will be executed when a corresponding message is sent.
@@ -620,9 +602,14 @@
             for.</typeparam>
             <param name="recipient">The recipient that will receive the messages.</param>
             <param name="action">The action that will be executed when a message
-            of type TMessage is sent.</param>
+            of type TMessage is sent. IMPORTANT: Note that closures are not supported at the moment
+            due to the use of WeakActions (see http://stackoverflow.com/questions/25730530/). </param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.IMessenger.Register``1(System.Object,System.Object,System.Action{``0})">
+        <member name="M:GalaSoft.MvvmLight.Messaging.IMessenger.Register``1(System.Object,System.Object,System.Action{``0},System.Boolean)">
             <summary>
             Registers a recipient for a type of message TMessage.
             The action parameter will be executed when a corresponding 
@@ -643,8 +630,12 @@
             token, will not be delivered to that recipient.</param>
             <param name="action">The action that will be executed when a message
             of type TMessage is sent.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.IMessenger.Register``1(System.Object,System.Object,System.Boolean,System.Action{``0})">
+        <member name="M:GalaSoft.MvvmLight.Messaging.IMessenger.Register``1(System.Object,System.Object,System.Boolean,System.Action{``0},System.Boolean)">
             <summary>
             Registers a recipient for a type of message TMessage.
             The action parameter will be executed when a corresponding 
@@ -676,8 +667,12 @@
             </param>
             <param name="action">The action that will be executed when a message
             of type TMessage is sent.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.IMessenger.Register``1(System.Object,System.Boolean,System.Action{``0})">
+        <member name="M:GalaSoft.MvvmLight.Messaging.IMessenger.Register``1(System.Object,System.Boolean,System.Action{``0},System.Boolean)">
             <summary>
             Registers a recipient for a type of message TMessage.
             The action parameter will be executed when a corresponding 
@@ -703,6 +698,10 @@
             </param>
             <param name="action">The action that will be executed when a message
             of type TMessage is sent.</param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
         <member name="M:GalaSoft.MvvmLight.Messaging.IMessenger.Send``1(``0)">
             <summary>
@@ -800,12 +799,56 @@
             <param name="action">The action that must be unregistered for
             the recipient and for the message type TMessage.</param>
         </member>
+        <member name="T:GalaSoft.MvvmLight.Messaging.MessageBase">
+            <summary>
+            Base class for all messages broadcasted by the Messenger.
+            You can create your own message types by extending this class.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Messaging.MessageBase.#ctor">
+            <summary>
+            Initializes a new instance of the MessageBase class.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Messaging.MessageBase.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the MessageBase class.
+            </summary>
+            <param name="sender">The message's original sender.</param>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Messaging.MessageBase.#ctor(System.Object,System.Object)">
+            <summary>
+            Initializes a new instance of the MessageBase class.
+            </summary>
+            <param name="sender">The message's original sender.</param>
+            <param name="target">The message's intended target. This parameter can be used
+            to give an indication as to whom the message was intended for. Of course
+            this is only an indication, amd may be null.</param>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Messaging.MessageBase.Sender">
+            <summary>
+            Gets or sets the message's sender.
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Messaging.MessageBase.Target">
+            <summary>
+            Gets or sets the message's intended target. This property can be used
+            to give an indication as to whom the message was intended for. Of course
+            this is only an indication, amd may be null.
+            </summary>
+        </member>
         <member name="T:GalaSoft.MvvmLight.Messaging.Messenger">
             <summary>
             The Messenger is a class allowing objects to exchange messages.
             </summary>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Register``1(System.Object,System.Action{``0})">
+        <member name="P:GalaSoft.MvvmLight.Messaging.Messenger.Default">
+            <summary>
+            Gets the Messenger's default instance, allowing
+            to register and send messages in a static manner.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Register``1(System.Object,System.Action{``0},System.Boolean)">
             <summary>
             Registers a recipient for a type of message TMessage. The action
             parameter will be executed when a corresponding message is sent.
@@ -816,9 +859,14 @@
             for.</typeparam>
             <param name="recipient">The recipient that will receive the messages.</param>
             <param name="action">The action that will be executed when a message
-            of type TMessage is sent.</param>
+            of type TMessage is sent. IMPORTANT: If the action causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Register``1(System.Object,System.Boolean,System.Action{``0})">
+        <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Register``1(System.Object,System.Object,System.Action{``0},System.Boolean)">
             <summary>
             Registers a recipient for a type of message TMessage.
             The action parameter will be executed when a corresponding 
@@ -827,31 +875,8 @@
             messages implementing TMessage) can be received too.
             <para>Registering a recipient does not create a hard reference to it,
             so if this recipient is deleted, no memory leak is caused.</para>
-            </summary>
-            <typeparam name="TMessage">The type of message that the recipient registers
-            for.</typeparam>
-            <param name="recipient">The recipient that will receive the messages.</param>
-            <param name="receiveDerivedMessagesToo">If true, message types deriving from
-            TMessage will also be transmitted to the recipient. For example, if a SendOrderMessage
-            and an ExecuteOrderMessage derive from OrderMessage, registering for OrderMessage
-            and setting receiveDerivedMessagesToo to true will send SendOrderMessage
-            and ExecuteOrderMessage to the recipient that registered.
-            <para>Also, if TMessage is an interface, message types implementing TMessage will also be
-            transmitted to the recipient. For example, if a SendOrderMessage
-            and an ExecuteOrderMessage implement IOrderMessage, registering for IOrderMessage
-            and setting receiveDerivedMessagesToo to true will send SendOrderMessage
-            and ExecuteOrderMessage to the recipient that registered.</para>
-            </param>
-            <param name="action">The action that will be executed when a message
-            of type TMessage is sent.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Register``1(System.Object,System.Object,System.Action{``0})">
-            <summary>
-            Registers a recipient for a type of message TMessage.
-            The action parameter will be executed when a corresponding 
-            message is sent.
-            <para>Registering a recipient does not create a hard reference to it,
-            so if this recipient is deleted, no memory leak is caused.</para>
+            <para>However if you use closures and set keepTargetAlive to true, you might
+            cause a memory leak if you don't call <see cref="M:GalaSoft.MvvmLight.Messaging.Messenger.Unregister(System.Object)"/> when you are cleaning up.</para>
             </summary>
             <typeparam name="TMessage">The type of message that the recipient registers
             for.</typeparam>
@@ -863,9 +888,14 @@
             get the message. Similarly, messages sent without any token, or with a different
             token, will not be delivered to that recipient.</param>
             <param name="action">The action that will be executed when a message
-            of type TMessage is sent.</param>
+            of type TMessage is sent. IMPORTANT: If the action causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Register``1(System.Object,System.Object,System.Boolean,System.Action{``0})">
+        <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Register``1(System.Object,System.Object,System.Boolean,System.Action{``0},System.Boolean)">
             <summary>
             Registers a recipient for a type of message TMessage.
             The action parameter will be executed when a corresponding 
@@ -896,7 +926,44 @@
             and ExecuteOrderMessage to the recipient that registered.</para>
             </param>
             <param name="action">The action that will be executed when a message
-            of type TMessage is sent.</param>
+            of type TMessage is sent. IMPORTANT: If the action causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Register``1(System.Object,System.Boolean,System.Action{``0},System.Boolean)">
+            <summary>
+            Registers a recipient for a type of message TMessage.
+            The action parameter will be executed when a corresponding 
+            message is sent. See the receiveDerivedMessagesToo parameter
+            for details on how messages deriving from TMessage (or, if TMessage is an interface,
+            messages implementing TMessage) can be received too.
+            <para>Registering a recipient does not create a hard reference to it,
+            so if this recipient is deleted, no memory leak is caused.</para>
+            </summary>
+            <typeparam name="TMessage">The type of message that the recipient registers
+            for.</typeparam>
+            <param name="recipient">The recipient that will receive the messages.</param>
+            <param name="receiveDerivedMessagesToo">If true, message types deriving from
+            TMessage will also be transmitted to the recipient. For example, if a SendOrderMessage
+            and an ExecuteOrderMessage derive from OrderMessage, registering for OrderMessage
+            and setting receiveDerivedMessagesToo to true will send SendOrderMessage
+            and ExecuteOrderMessage to the recipient that registered.
+            <para>Also, if TMessage is an interface, message types implementing TMessage will also be
+            transmitted to the recipient. For example, if a SendOrderMessage
+            and an ExecuteOrderMessage implement IOrderMessage, registering for IOrderMessage
+            and setting receiveDerivedMessagesToo to true will send SendOrderMessage
+            and ExecuteOrderMessage to the recipient that registered.</para>
+            </param>
+            <param name="action">The action that will be executed when a message
+            of type TMessage is sent. IMPORTANT: If the action causes a closure,
+            you must set keepTargetAlive to true to avoid side effects. </param>
+            <param name="keepTargetAlive">If true, the target of the Action will
+            be kept as a hard reference, which might cause a memory leak. You should only set this
+            parameter to true if the action is using closures. See
+            http://galasoft.ch/s/mvvmweakaction. </param>
         </member>
         <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Send``1(``0)">
             <summary>
@@ -1023,7 +1090,7 @@
             can take a moment, it is only executed when the application is
             idle. For this reason, a user of the Messenger class should use
             <see cref="M:GalaSoft.MvvmLight.Messaging.Messenger.RequestCleanup"/> instead of forcing one with the 
-            <see cref="M:GalaSoft.MvvmLight.Messaging.Messenger.Cleanup"/> method.
+            <see cref="M:GalaSoft.MvvmLight.Messaging.Messenger.Cleanup" /> method.
             </summary>
         </member>
         <member name="M:GalaSoft.MvvmLight.Messaging.Messenger.Cleanup">
@@ -1036,13 +1103,7 @@
             can take a moment, it is only executed when the application is
             idle. For this reason, a user of the Messenger class should use
             <see cref="M:GalaSoft.MvvmLight.Messaging.Messenger.RequestCleanup"/> instead of forcing one with the 
-            <see cref="M:GalaSoft.MvvmLight.Messaging.Messenger.Cleanup"/> method.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.Messenger.Default">
-            <summary>
-            Gets the Messenger's default instance, allowing
-            to register and send messages in a static manner.
+            <see cref="M:GalaSoft.MvvmLight.Messaging.Messenger.Cleanup" /> method.
             </summary>
         </member>
         <member name="T:GalaSoft.MvvmLight.Messaging.NotificationMessage">
@@ -1089,68 +1150,14 @@
             <summary>
             Provides a message class with a built-in callback. When the recipient
             is done processing the message, it can execute the callback to
-            notify the sender that it is done. Use the <see cref="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction.Execute"/>
+            notify the sender that it is done. Use the <see cref="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction.Execute" />
             method to execute the callback.
             </summary>
-        </member>
-        <member name="T:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback">
-            <summary>
-            Provides a message class with a built-in callback. When the recipient
-            is done processing the message, it can execute the callback to
-            notify the sender that it is done. Use the <see cref="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.Execute(System.Object[])"/>
-            method to execute the callback. The callback method has one parameter.
-            <seealso cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction"/> and
-            <seealso cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1"/>.
-            </summary>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.#ctor(System.String,System.Delegate)">
-            <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback"/> class.
-            </summary>
-            <param name="notification">An arbitrary string that will be
-            carried by the message.</param>
-            <param name="callback">The callback method that can be executed
-            by the recipient to notify the sender that the message has been
-            processed.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.#ctor(System.Object,System.String,System.Delegate)">
-            <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback"/> class.
-            </summary>
-            <param name="sender">The message's sender.</param>
-            <param name="notification">An arbitrary string that will be
-            carried by the message.</param>
-            <param name="callback">The callback method that can be executed
-            by the recipient to notify the sender that the message has been
-            processed.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.#ctor(System.Object,System.Object,System.String,System.Delegate)">
-            <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback"/> class.
-            </summary>
-            <param name="sender">The message's sender.</param>
-            <param name="target">The message's intended target. This parameter can be used
-            to give an indication as to whom the message was intended for. Of course
-            this is only an indication, amd may be null.</param>
-            <param name="notification">An arbitrary string that will be
-            carried by the message.</param>
-            <param name="callback">The callback method that can be executed
-            by the recipient to notify the sender that the message has been
-            processed.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.Execute(System.Object[])">
-            <summary>
-            Executes the callback that was provided with the message with an
-            arbitrary number of parameters.
-            </summary>
-            <param name="arguments">A  number of parameters that will
-            be passed to the callback method.</param>
-            <returns>The object returned by the callback method.</returns>
         </member>
         <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction.#ctor(System.String,System.Action)">
             <summary>
             Initializes a new instance of the
-            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction"/> class.
+            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction" /> class.
             </summary>
             <param name="notification">An arbitrary string that will be
             carried by the message.</param>
@@ -1161,7 +1168,7 @@
         <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction.#ctor(System.Object,System.String,System.Action)">
             <summary>
             Initializes a new instance of the
-            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction"/> class.
+            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction" /> class.
             </summary>
             <param name="sender">The message's sender.</param>
             <param name="notification">An arbitrary string that will be
@@ -1173,7 +1180,7 @@
         <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction.#ctor(System.Object,System.Object,System.String,System.Action)">
             <summary>
             Initializes a new instance of the
-            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction"/> class.
+            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction" /> class.
             </summary>
             <param name="sender">The message's sender.</param>
             <param name="target">The message's intended target. This parameter can be used
@@ -1194,7 +1201,7 @@
             <summary>
             Provides a message class with a built-in callback. When the recipient
             is done processing the message, it can execute the callback to
-            notify the sender that it is done. Use the <see cref="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1.Execute(`0)"/>
+            notify the sender that it is done. Use the <see cref="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1.Execute(`0)" />
             method to execute the callback. The callback method has one parameter.
             <seealso cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction"/>.
             </summary>
@@ -1204,7 +1211,7 @@
         <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1.#ctor(System.String,System.Action{`0})">
             <summary>
             Initializes a new instance of the
-            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1"/> class.
+            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1" /> class.
             </summary>
             <param name="notification">An arbitrary string that will be
             carried by the message.</param>
@@ -1215,7 +1222,7 @@
         <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1.#ctor(System.Object,System.String,System.Action{`0})">
             <summary>
             Initializes a new instance of the
-            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1"/> class.
+            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1" /> class.
             </summary>
             <param name="sender">The message's sender.</param>
             <param name="notification">An arbitrary string that will be
@@ -1227,7 +1234,7 @@
         <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1.#ctor(System.Object,System.Object,System.String,System.Action{`0})">
             <summary>
             Initializes a new instance of the
-            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1"/> class.
+            <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1" /> class.
             </summary>
             <param name="sender">The message's sender.</param>
             <param name="target">The message's intended target. This parameter can be used
@@ -1288,53 +1295,72 @@
             passed to recipient(s).
             </summary>
         </member>
-        <member name="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1">
+        <member name="T:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback">
             <summary>
-            Passes a string property name (PropertyName) and a generic value
-            (<see cref="P:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1.OldValue"/> and <see cref="P:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1.NewValue"/>) to a recipient.
-            This message type can be used to propagate a PropertyChanged event to
-            a recipient using the messenging system.
-            </summary>
-            <typeparam name="T">The type of the OldValue and NewValue property.</typeparam>
-        </member>
-        <member name="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase">
-            <summary>
-            Basis class for the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1"/> class. This
-            class allows a recipient to register for all PropertyChangedMessages without
-            having to specify the type T.
+            Provides a message class with a built-in callback. When the recipient
+            is done processing the message, it can execute the callback to
+            notify the sender that it is done. Use the <see cref="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.Execute(System.Object[])" />
+            method to execute the callback. The callback method has one parameter.
+            <seealso cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction"/> and
+            <seealso cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageAction`1"/>.
             </summary>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase.#ctor(System.Object,System.String)">
+        <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.#ctor(System.String,System.Delegate)">
             <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase"/> class.
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback" /> class.
+            </summary>
+            <param name="notification">An arbitrary string that will be
+            carried by the message.</param>
+            <param name="callback">The callback method that can be executed
+            by the recipient to notify the sender that the message has been
+            processed.</param>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.#ctor(System.Object,System.String,System.Delegate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback" /> class.
             </summary>
             <param name="sender">The message's sender.</param>
-            <param name="propertyName">The name of the property that changed.</param>
+            <param name="notification">An arbitrary string that will be
+            carried by the message.</param>
+            <param name="callback">The callback method that can be executed
+            by the recipient to notify the sender that the message has been
+            processed.</param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase.#ctor(System.Object,System.Object,System.String)">
+        <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.#ctor(System.Object,System.Object,System.String,System.Delegate)">
             <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase"/> class.
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback" /> class.
             </summary>
             <param name="sender">The message's sender.</param>
             <param name="target">The message's intended target. This parameter can be used
             to give an indication as to whom the message was intended for. Of course
             this is only an indication, amd may be null.</param>
-            <param name="propertyName">The name of the property that changed.</param>
+            <param name="notification">An arbitrary string that will be
+            carried by the message.</param>
+            <param name="callback">The callback method that can be executed
+            by the recipient to notify the sender that the message has been
+            processed.</param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase.#ctor(System.String)">
+        <member name="M:GalaSoft.MvvmLight.Messaging.NotificationMessageWithCallback.Execute(System.Object[])">
             <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase"/> class.
+            Executes the callback that was provided with the message with an
+            arbitrary number of parameters.
             </summary>
-            <param name="propertyName">The name of the property that changed.</param>
+            <param name="arguments">A  number of parameters that will
+            be passed to the callback method.</param>
+            <returns>The object returned by the callback method.</returns>
         </member>
-        <member name="P:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase.PropertyName">
+        <member name="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1">
             <summary>
-            Gets or sets the name of the property that changed.
+            Passes a string property name (PropertyName) and a generic value
+            (<see cref="P:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1.OldValue" /> and <see cref="P:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1.NewValue" />) to a recipient.
+            This message type can be used to propagate a PropertyChanged event to
+            a recipient using the messenging system.
             </summary>
+            <typeparam name="T">The type of the OldValue and NewValue property.</typeparam>
         </member>
         <member name="M:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1.#ctor(System.Object,`0,`0,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1"/> class.
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1" /> class.
             </summary>
             <param name="sender">The message's sender.</param>
             <param name="oldValue">The property's value before the change occurred.</param>
@@ -1343,7 +1369,7 @@
         </member>
         <member name="M:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1.#ctor(`0,`0,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1"/> class.
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1" /> class.
             </summary>
             <param name="oldValue">The property's value before the change occurred.</param>
             <param name="newValue">The property's value after the change occurred.</param>
@@ -1351,7 +1377,7 @@
         </member>
         <member name="M:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1.#ctor(System.Object,System.Object,`0,`0,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1"/> class.
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1" /> class.
             </summary>
             <param name="sender">The message's sender.</param>
             <param name="target">The message's intended target. This parameter can be used
@@ -1371,9 +1397,54 @@
             Gets the value that the property had before the change.
             </summary>
         </member>
+        <member name="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase">
+            <summary>
+            Basis class for the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessage`1" /> class. This
+            class allows a recipient to register for all PropertyChangedMessages without
+            having to specify the type T.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase.#ctor(System.Object,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase" /> class.
+            </summary>
+            <param name="sender">The message's sender.</param>
+            <param name="propertyName">The name of the property that changed.</param>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase.#ctor(System.Object,System.Object,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase" /> class.
+            </summary>
+            <param name="sender">The message's sender.</param>
+            <param name="target">The message's intended target. This parameter can be used
+            to give an indication as to whom the message was intended for. Of course
+            this is only an indication, amd may be null.</param>
+            <param name="propertyName">The name of the property that changed.</param>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase" /> class.
+            </summary>
+            <param name="propertyName">The name of the property that changed.</param>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Messaging.PropertyChangedMessageBase.PropertyName">
+            <summary>
+            Gets or sets the name of the property that changed.
+            </summary>
+        </member>
         <member name="T:GalaSoft.MvvmLight.ObservableObject">
             <summary>
             A base class for objects of which the properties must be observable.
+            </summary>
+        </member>
+        <member name="E:GalaSoft.MvvmLight.ObservableObject.PropertyChanged">
+            <summary>
+            Occurs after a property value changes.
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.ObservableObject.PropertyChangedHandler">
+            <summary>
+            Provides access to the PropertyChanged event handler to derived classes.
             </summary>
         </member>
         <member name="M:GalaSoft.MvvmLight.ObservableObject.VerifyPropertyName(System.String)">
@@ -1387,16 +1458,6 @@
             <param name="propertyName">The name of the property that will be
             checked.</param>
         </member>
-        <member name="M:GalaSoft.MvvmLight.ObservableObject.RaisePropertyChanging(System.String)">
-            <summary>
-            Raises the PropertyChanging event if needed.
-            </summary>
-            <remarks>If the propertyName parameter
-            does not correspond to an existing property on the current class, an
-            exception is thrown in DEBUG configuration only.</remarks>
-            <param name="propertyName">(optional) The name of the property that
-            changed.</param>
-        </member>
         <member name="M:GalaSoft.MvvmLight.ObservableObject.RaisePropertyChanged(System.String)">
             <summary>
             Raises the PropertyChanged event if needed.
@@ -1406,15 +1467,6 @@
             exception is thrown in DEBUG configuration only.</remarks>
             <param name="propertyName">(optional) The name of the property that
             changed.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.ObservableObject.RaisePropertyChanging``1(System.Linq.Expressions.Expression{System.Func{``0}})">
-            <summary>
-            Raises the PropertyChanging event if needed.
-            </summary>
-            <typeparam name="T">The type of the property that
-            changes.</typeparam>
-            <param name="propertyExpression">An expression identifying the property
-            that changes.</param>
         </member>
         <member name="M:GalaSoft.MvvmLight.ObservableObject.RaisePropertyChanged``1(System.Linq.Expressions.Expression{System.Func{``0}})">
             <summary>
@@ -1483,72 +1535,6 @@
             false otherwise. The event is not raised if the old
             value is equal to the new value.</returns>
         </member>
-        <member name="E:GalaSoft.MvvmLight.ObservableObject.PropertyChanged">
-            <summary>
-            Occurs after a property value changes.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.ObservableObject.PropertyChangedHandler">
-            <summary>
-            Provides access to the PropertyChanged event handler to derived classes.
-            </summary>
-        </member>
-        <member name="E:GalaSoft.MvvmLight.ObservableObject.PropertyChanging">
-            <summary>
-            Occurs before a property value changes.
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.ObservableObject.PropertyChangingHandler">
-            <summary>
-            Provides access to the PropertyChanging event handler to derived classes.
-            </summary>
-        </member>
-        <member name="T:GalaSoft.MvvmLight.Threading.DispatcherHelper">
-            <summary>
-            Helper class for dispatcher operations on the UI thread.
-            </summary>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Threading.DispatcherHelper.CheckBeginInvokeOnUI(System.Action)">
-            <summary>
-            Executes an action on the UI thread. If this method is called
-            from the UI thread, the action is executed immendiately. If the
-            method is called from another thread, the action will be enqueued
-            on the UI thread's dispatcher and executed asynchronously.
-            <para>For additional operations on the UI thread, you can get a
-            reference to the UI thread's dispatcher thanks to the property
-            <see cref="P:GalaSoft.MvvmLight.Threading.DispatcherHelper.UIDispatcher"/></para>.
-            </summary>
-            <param name="action">The action that will be executed on the UI
-            thread.</param>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Threading.DispatcherHelper.RunAsync(System.Action)">
-            <summary>
-            Invokes an action asynchronously on the UI thread.
-            </summary>
-            <param name="action">The action that must be executed.</param>
-            <returns>An object, which is returned immediately after BeginInvoke is called, that can be used to interact
-             with the delegate as it is pending execution in the event queue.</returns>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Threading.DispatcherHelper.Initialize">
-            <summary>
-            This method should be called once on the UI thread to ensure that
-            the <see cref="P:GalaSoft.MvvmLight.Threading.DispatcherHelper.UIDispatcher"/> property is initialized.
-            <para>In a Silverlight application, call this method in the
-            Application_Startup event handler, after the MainPage is constructed.</para>
-            <para>In WPF, call this method on the static App() constructor.</para>
-            </summary>
-        </member>
-        <member name="M:GalaSoft.MvvmLight.Threading.DispatcherHelper.Reset">
-            <summary>
-            Resets the class by deleting the <see cref="P:GalaSoft.MvvmLight.Threading.DispatcherHelper.UIDispatcher"/>
-            </summary>
-        </member>
-        <member name="P:GalaSoft.MvvmLight.Threading.DispatcherHelper.UIDispatcher">
-            <summary>
-            Gets a reference to the UI thread's dispatcher, after the
-            <see cref="M:GalaSoft.MvvmLight.Threading.DispatcherHelper.Initialize"/> method has been called on the UI thread.
-            </summary>
-        </member>
         <member name="T:GalaSoft.MvvmLight.ViewModelBase">
             <summary>
             A base class for the ViewModel classes in the MVVM pattern.
@@ -1563,10 +1549,29 @@
             <summary>
             Initializes a new instance of the ViewModelBase class.
             </summary>
-            <param name="messenger">An instance of a <see cref="T:GalaSoft.MvvmLight.Messaging.Messenger"/>
+            <param name="messenger">An instance of a <see cref="T:GalaSoft.MvvmLight.Messaging.Messenger" />
             used to broadcast messages to other objects. If null, this class
             will attempt to broadcast using the Messenger's default
             instance.</param>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.ViewModelBase.IsInDesignMode">
+            <summary>
+            Gets a value indicating whether the control is in design mode
+            (running under Blend or Visual Studio).
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic">
+            <summary>
+            Gets a value indicating whether the control is in design mode
+            (running in Blend or Visual Studio).
+            </summary>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.ViewModelBase.MessengerInstance">
+            <summary>
+            Gets or sets an instance of a <see cref="T:GalaSoft.MvvmLight.Messaging.IMessenger" /> used to
+            broadcast messages to other objects. If null, this class will
+            attempt to broadcast using the Messenger's default instance.
+            </summary>
         </member>
         <member name="M:GalaSoft.MvvmLight.ViewModelBase.Cleanup">
             <summary>
@@ -1681,24 +1686,127 @@
             changed.</param>
             <returns>True if the PropertyChanged event was raised, false otherwise.</returns>
         </member>
-        <member name="P:GalaSoft.MvvmLight.ViewModelBase.IsInDesignMode">
+        <member name="T:GalaSoft.MvvmLight.Views.IDialogService">
             <summary>
-            Gets a value indicating whether the control is in design mode
-            (running under Blend or Visual Studio).
+            An interface defining how dialogs should
+            be displayed in various frameworks such as Windows, 
+            Windows Phone, Android, iOS etc.
             </summary>
         </member>
-        <member name="P:GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic">
+        <member name="M:GalaSoft.MvvmLight.Views.IDialogService.ShowError(System.String,System.String,System.String,System.Action)">
             <summary>
-            Gets a value indicating whether the control is in design mode
-            (running in Blend or Visual Studio).
+            Displays information about an error.
+            </summary>
+            <param name="message">The message to be shown to the user.</param>
+            <param name="title">The title of the dialog box. This may be null.</param>
+            <param name="buttonText">The text shown in the only button
+            in the dialog box. If left null, the text "OK" will be used.</param>
+            <param name="afterHideCallback">A callback that should be executed after
+            the dialog box is closed by the user.</param>
+            <returns>A Task allowing this async method to be awaited.</returns>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.IDialogService.ShowError(System.Exception,System.String,System.String,System.Action)">
+            <summary>
+            Displays information about an error.
+            </summary>
+            <param name="error">The exception of which the message must be shown to the user.</param>
+            <param name="title">The title of the dialog box. This may be null.</param>
+            <param name="buttonText">The text shown in the only button
+            in the dialog box. If left null, the text "OK" will be used.</param>
+            <param name="afterHideCallback">A callback that should be executed after
+            the dialog box is closed by the user.</param>
+            <returns>A Task allowing this async method to be awaited.</returns>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.IDialogService.ShowMessage(System.String,System.String)">
+            <summary>
+            Displays information to the user. The dialog box will have only
+            one button with the text "OK".
+            </summary>
+            <param name="message">The message to be shown to the user.</param>
+            <param name="title">The title of the dialog box. This may be null.</param>
+            <returns>A Task allowing this async method to be awaited.</returns>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.IDialogService.ShowMessage(System.String,System.String,System.String,System.Action)">
+            <summary>
+            Displays information to the user. The dialog box will have only
+            one button.
+            </summary>
+            <param name="message">The message to be shown to the user.</param>
+            <param name="title">The title of the dialog box. This may be null.</param>
+            <param name="buttonText">The text shown in the only button
+            in the dialog box. If left null, the text "OK" will be used.</param>
+            <param name="afterHideCallback">A callback that should be executed after
+            the dialog box is closed by the user.</param>
+            <returns>A Task allowing this async method to be awaited.</returns>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.IDialogService.ShowMessage(System.String,System.String,System.String,System.String,System.Action{System.Boolean})">
+            <summary>
+            Displays information to the user. The dialog box will have only
+            one button.
+            </summary>
+            <param name="message">The message to be shown to the user.</param>
+            <param name="title">The title of the dialog box. This may be null.</param>
+            <param name="buttonConfirmText">The text shown in the "confirm" button
+            in the dialog box. If left null, the text "OK" will be used.</param>
+            <param name="buttonCancelText">The text shown in the "cancel" button
+            in the dialog box. If left null, the text "Cancel" will be used.</param>
+            <param name="afterHideCallback">A callback that should be executed after
+            the dialog box is closed by the user. The callback method will get a boolean
+            parameter indicating if the "confirm" button (true) or the "cancel" button
+            (false) was pressed by the user.</param>
+            <returns>A Task allowing this async method to be awaited. The task will return
+            true or false depending on the dialog result.</returns>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.IDialogService.ShowMessageBox(System.String,System.String)">
+            <summary>
+            Displays information to the user in a simple dialog box. The dialog box will have only
+            one button with the text "OK". This method should be used for debugging purposes.
+            </summary>
+            <param name="message">The message to be shown to the user.</param>
+            <param name="title">The title of the dialog box. This may be null.</param>
+            <returns>A Task allowing this async method to be awaited.</returns>
+        </member>
+        <member name="T:GalaSoft.MvvmLight.Views.INavigationService">
+            <summary>
+            An interface defining how navigation between pages should
+            be performed in various frameworks such as Windows, 
+            Windows Phone, Android, iOS etc.
             </summary>
         </member>
-        <member name="P:GalaSoft.MvvmLight.ViewModelBase.MessengerInstance">
+        <member name="P:GalaSoft.MvvmLight.Views.INavigationService.CurrentPageKey">
             <summary>
-            Gets or sets an instance of a <see cref="T:GalaSoft.MvvmLight.Messaging.IMessenger"/> used to
-            broadcast messages to other objects. If null, this class will
-            attempt to broadcast using the Messenger's default instance.
+            The key corresponding to the currently displayed page.
             </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.INavigationService.GoBack">
+            <summary>
+            If possible, instructs the navigation service
+            to discard the current page and display the previous page
+            on the navigation stack.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.INavigationService.NavigateTo(System.String)">
+            <summary>
+            Instructs the navigation service to display a new page
+            corresponding to the given key. Depending on the platforms,
+            the navigation service might have to be configured with a
+            key/page list.
+            </summary>
+            <param name="pageKey">The key corresponding to the page
+            that should be displayed.</param>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.INavigationService.NavigateTo(System.String,System.Object)">
+            <summary>
+            Instructs the navigation service to display a new page
+            corresponding to the given key, and passes a parameter
+            to the new page.
+            Depending on the platforms, the navigation service might 
+            have to be Configure with a key/page list.
+            </summary>
+            <param name="pageKey">The key corresponding to the page
+            that should be displayed.</param>
+            <param name="parameter">The parameter that should be passed
+            to the new page.</param>
         </member>
     </members>
 </doc>

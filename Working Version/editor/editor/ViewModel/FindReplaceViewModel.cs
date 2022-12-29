@@ -1,8 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using Microsoft.Practices.ServiceLocation;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input; 
 
 namespace miRobotEditor.ViewModel
 {
@@ -30,14 +29,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the FindPreviousCommand.
         /// </summary>
-        public RelayCommand FindPreviousCommand
-        {
-            get
-            {
-                return _findPreviousCommand
+        public RelayCommand FindPreviousCommand => _findPreviousCommand
                        ?? (_findPreviousCommand = new RelayCommand(FindPrevious));
-            }
-        }
 
         #endregion
 
@@ -48,14 +41,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the FindNextCommand.
         /// </summary>
-        public RelayCommand FindNextCommand
-        {
-            get
-            {
-                return _findNextCommand
+        public RelayCommand FindNextCommand => _findNextCommand
                        ?? (_findNextCommand = new RelayCommand(FindNext));
-            }
-        }
 
         #endregion
 
@@ -66,14 +53,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ReplaceCommand.
         /// </summary>
-        public static RelayCommand ReplaceCommand
-        {
-            get
-            {
-                return _replaceCommand
+        public static RelayCommand ReplaceCommand => _replaceCommand
                        ?? (_replaceCommand = new RelayCommand(Replace));
-            }
-        }
 
         #endregion
 
@@ -84,14 +65,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ReplaceAllCommand.
         /// </summary>
-        public static RelayCommand ReplaceAllCommand
-        {
-            get
-            {
-                return _replaceAllCommand
+        public static RelayCommand ReplaceAllCommand => _replaceAllCommand
                        ?? (_replaceAllCommand = new RelayCommand(ReplaceAll));
-            }
-        }
 
         #endregion
 
@@ -102,15 +77,9 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the HighlightAllCommand.
         /// </summary>
-        public static RelayCommand HighlightAllCommand
-        {
-            get
-            {
-                return _highlightAllCommand
+        public static RelayCommand HighlightAllCommand => _highlightAllCommand
                        ?? (_highlightAllCommand = new RelayCommand(
                            HighlightAll));
-            }
-        }
 
         #endregion
 
@@ -121,15 +90,9 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the FindAllCommand.
         /// </summary>
-        public RelayCommand FindAllCommand
-        {
-            get
-            {
-                return _findAllCommand
+        public RelayCommand FindAllCommand => _findAllCommand
                        ?? (_findAllCommand = new RelayCommand(
                            FindAll));
-            }
-        }
 
         #endregion
 
@@ -146,37 +109,25 @@ namespace miRobotEditor.ViewModel
                 }
                 return arg_15_0;
             }
-            set { _instance = value; }
+            set => _instance = value;
         }
 
         public bool UseRegex
         {
-            get { return _useregex; }
-            set
-            {
-                _useregex = value;
-                RaisePropertyChanged("UseRegex");
-            }
+            get => _useregex;
+            set=>SetProperty(ref _useregex,value);
         }
 
         public bool MatchCase
         {
-            get { return _matchcase; }
-            set
-            {
-                _matchcase = value;
-                RaisePropertyChanged("MatchCase");
-            }
+            get => _matchcase;
+            set=>SetProperty(ref _matchcase,value);
         }
 
         public bool MatchWholeWord
         {
-            get { return _matchwholeword; }
-            set
-            {
-                _matchwholeword = value;
-                RaisePropertyChanged("MatchWholeWord");
-            }
+            get => _matchwholeword;
+            set=>SetProperty(ref _matchwholeword,value);
         }
 
         public Regex RegexPattern
@@ -189,71 +140,45 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public string RegexString
-        {
-            get { return (!UseRegex) ? Regex.Escape(LookFor) : LookFor; }
-        }
+        public string RegexString => (!UseRegex) ? Regex.Escape(LookFor) : LookFor;
 
         public string LookFor
         {
-            get { return _lookfor; }
-            set
-            {
-                _lookfor = value;
-                RaisePropertyChanged("LookFor");
-            }
+            get => _lookfor;
+            set=>SetProperty(ref _lookfor,value);
         }
 
         public string ReplaceWith
         {
-            get { return _replacewith; }
-            set
-            {
-                _replacewith = value;
-                RaisePropertyChanged("ReplaceWith");
-            }
+            get => _replacewith;
+            set=>SetProperty(ref _replacewith,value);
         }
 
         public string SearchResult
         {
-            get { return _searchresult; }
-            set
-            {
-                _searchresult = value;
-                RaisePropertyChanged("SearchResult");
-            }
+            get => _searchresult;
+            set=>SetProperty(ref _searchresult,value);
         }
 
-        private static void FindPrevious()
-        {
-            throw new NotImplementedException();
-        }
+        private static void FindPrevious() => throw new NotImplementedException();
 
         private static void FindNext()
         {
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+           
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.ActiveEditor.TextBox.FindText();
         }
 
         private static void Replace()
         {
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.ActiveEditor.TextBox.ReplaceText();
         }
 
-        private static void ReplaceAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void ReplaceAll() => throw new NotImplementedException();
 
-        private static void HighlightAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void HighlightAll() => throw new NotImplementedException();
 
-        private static void FindAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void FindAll() => throw new NotImplementedException();
     }
 }

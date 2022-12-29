@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -8,9 +9,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
-using Xceed.Wpf.Toolkit;
-
+using miRobotEditor.Interfaces; 
 namespace miRobotEditor.ViewModel
 {
     public delegate void MessageAddedHandler(object sender, EventArgs e);
@@ -136,10 +135,7 @@ namespace miRobotEditor.ViewModel
 
         #region SelectedMessage
 
-        /// <summary>
-        ///     The <see cref="SelectedMessage" /> property's name.
-        /// </summary>
-        private const string SelectedMessagePropertyName = "SelectedMessage";
+       
 
         private IMessage _selectedMessage;
 
@@ -158,9 +154,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(SelectedMessagePropertyName);
+                 
                 _selectedMessage = value;
-                RaisePropertyChanged(SelectedMessagePropertyName);
+                RaisePropertyChanged(nameof(SelectedMessage));
             }
         }
 

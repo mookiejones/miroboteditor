@@ -26,10 +26,7 @@ namespace miRobotEditor.Controls.AngleConverter
             }
         }
 
-        public Vector3D ABC
-        {
-            get { return new Vector3D(RPY.Z, RPY.Y, RPY.X); }
-        }
+        public Vector3D ABC => new Vector3D(RPY.Z, RPY.Y, RPY.X);
 
         public Vector3D ABG
         {
@@ -104,10 +101,7 @@ namespace miRobotEditor.Controls.AngleConverter
             }
         }
 
-        public static RotationMatrix3D FromABC(double a, double b, double c)
-        {
-            return FromRPY(c, b, a);
-        }
+        public static RotationMatrix3D FromABC(double a, double b, double c) => FromRPY(c, b, a);
 
         public static RotationMatrix3D FromEulerZYZ(double x, double y, double z)
         {
@@ -130,20 +124,11 @@ namespace miRobotEditor.Controls.AngleConverter
             return rotationMatrix3D;
         }
 
-        public static RotationMatrix3D FromRPY(double roll, double pitch, double yaw)
-        {
-            return new RotationMatrix3D(RotateZ(yaw)*RotateY(pitch)*RotateX(roll));
-        }
+        public static RotationMatrix3D FromRPY(double roll, double pitch, double yaw) => new RotationMatrix3D(RotateZ(yaw) * RotateY(pitch) * RotateX(roll));
 
-        public static RotationMatrix3D Identity()
-        {
-            return new RotationMatrix3D(Identity(3));
-        }
+        public static RotationMatrix3D Identity() => new RotationMatrix3D(Identity(3));
 
-        public new RotationMatrix3D Inverse()
-        {
-            return new RotationMatrix3D(base.Inverse());
-        }
+        public new RotationMatrix3D Inverse() => new RotationMatrix3D(base.Inverse());
 
         public static explicit operator Quaternion(RotationMatrix3D mat)
         {
@@ -192,10 +177,7 @@ namespace miRobotEditor.Controls.AngleConverter
             return quaternion;
         }
 
-        public static RotationMatrix3D RotateAroundVector(Vector3D vector, double angle)
-        {
-            return (RotationMatrix3D) Quaternion.FromAxisAngle(vector, angle);
-        }
+        public static RotationMatrix3D RotateAroundVector(Vector3D vector, double angle) => (RotationMatrix3D)Quaternion.FromAxisAngle(vector, angle);
 
         private static RotationMatrix3D RotateX(double angle)
         {
@@ -233,14 +215,8 @@ namespace miRobotEditor.Controls.AngleConverter
             return rotationMatrix3D;
         }
 
-        public double RotationAngle()
-        {
-            return Math.Acos((base.Trace() - 1.0)/2.0)*180.0/3.1415926535897931;
-        }
+        public double RotationAngle() => Math.Acos((base.Trace() - 1.0) / 2.0) * 180.0 / 3.1415926535897931;
 
-        public Vector3D RotationAxis()
-        {
-            return ((Quaternion) this).Axis();
-        }
+        public Vector3D RotationAxis() => ((Quaternion)this).Axis();
     }
 }

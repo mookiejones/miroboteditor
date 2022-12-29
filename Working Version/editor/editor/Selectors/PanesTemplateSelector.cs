@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using miRobotEditor.ViewModel;
-using Xceed.Wpf.AvalonDock.Layout;
+using AvalonDock.Layout;
+using miRobotEditor.ViewModel; 
 
 namespace miRobotEditor.Selectors
 {
@@ -12,7 +12,7 @@ namespace miRobotEditor.Selectors
         public DataTemplate LocalVariablesTemplate { private get; set; }
         public DataTemplate NotesTemplate { private get; set; }
         public DataTemplate KukaTemplate { private get; set; }
-        public DataTemplate FileTemplate { private get; set; }
+        public DataTemplate DocumentTemplate { private get; set; }
 
         public DataTemplate AngleConverterTemplate { private get; set; }
         public DataTemplate MessageTemplate { private get; set; }
@@ -35,7 +35,7 @@ namespace miRobotEditor.Selectors
                 return FunctionTemplate;
 
             if (item is DocumentViewModel)
-                return FileTemplate;
+                return DocumentTemplate;
 
             if (item is MessageViewModel)
                 return MessageTemplate;
