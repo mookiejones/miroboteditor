@@ -24,7 +24,10 @@ namespace miRobotEditor.ViewModel
     public sealed class ViewModelLocator
     {
 
+        public  ViewModelLocator()
+        {
 
+        }
         public ObjectBrowserViewModel ObjectBrowser => Ioc.Default.GetRequiredService<ObjectBrowserViewModel>();
 
         public StatusBarViewModel StatusBar => Ioc.Default.GetRequiredService<StatusBarViewModel>();

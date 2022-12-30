@@ -1,7 +1,7 @@
-using miRobotEditor.Classes;
 using miRobotEditor.Controls.AngleConverter;
 using miRobotEditor.Controls.AngleConverter.Classes;
 using miRobotEditor.Enums;
+using miRobotEditor.Position;
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -248,7 +248,10 @@ namespace miRobotEditor.ViewModel
         {
             if (ItemsChanged != null)
             {
-                ItemsChanged(this, (ItemsChangedEventArgs)new EventArgs());
+                 
+
+                
+                ItemsChanged(this, null);
             }
         }
 

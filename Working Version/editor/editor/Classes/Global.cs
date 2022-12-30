@@ -30,7 +30,7 @@ namespace miRobotEditor.Classes
         public const string ImgDat = "..\\..\\Images\\resources-datfile.png";
         public const string ImgSps = "..\\..\\Images\\resources-spsfile.png";
 
-        #endregion
+        #endregion Image Paths
 
         public static string StartupPath => Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 

@@ -7,12 +7,12 @@
     xmlns:controls="clr-namespace:miRobotEditor.Controls"
     xmlns:selectors="clr-namespace:miRobotEditor.Selectors"
     xmlns:classes="clr-namespace:miRobotEditor.Classes"
-    xmlns:ViewModel="clr-namespace:miRobotEditor.ViewModel" 
+    xmlns:ViewModel="clr-namespace:miRobotEditor.ViewModel"
     xmlns:texteditor="clr-namespace:miRobotEditor.Controls.TextEditor"
      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     mc:Ignorable="d"
-    x:Class="miRobotEditor.MainWindow" 
+    x:Class="miRobotEditor.MainWindow"
     x:Name="MetroWindow"
     SnapsToDevicePixels="True"
     WindowState="Maximized"
@@ -22,13 +22,11 @@
     Loaded="WindowLoaded" Drop="DropFiles" DragEnter="onDragEnter"
     DataContext="{StaticResource Locator}"
     d:DesignHeight="600"
-    d:DesignWidth="800"
-    >
+    d:DesignWidth="800">
     <!--Title="{Binding Title, Mode=OneWay, StringFormat=miRobotEditor:= {0}}"-->
     <mw:MetroWindow.Resources>
         <ResourceDictionary>
-            
-            
+
             <converters:ActiveEditorConverter x:Key="ActiveEditorConverter" />
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <texteditor:EditorOptions x:Key="EditorOptions" />
@@ -74,7 +72,7 @@
         </Grid.RowDefinitions>
         <Menu Background="#00FFFFFF" IsMainMenu="True" Margin="10,2,0,0" DataContext="{Binding Main, Mode=OneWay}">
             <Menu.Resources>
-                 
+
                 <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}"
                        BasedOn="{StaticResource {x:Type MenuItem}}">
                     <Style.Triggers>
@@ -86,64 +84,52 @@
             </Menu.Resources>
             <MenuItem Header="_File" Icon="{wpf:PackIcon Kind=File}">
 
-                <MenuItem Header="_New" Command="{Binding NewFileCommand}" Icon="{wpf:PackIcon Kind=FileDocumentAdd}"/>
+                <MenuItem Header="_New" Command="{Binding NewFileCommand}" Icon="{wpf:PackIcon Kind=FileDocumentAdd}" />
 
-                <MenuItem Header="_Open" DataContext="{Binding OpenFileCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=FolderOpen}" Command="{Binding Mode=OneWay}"/>
+                <MenuItem Header="_Open" DataContext="{Binding OpenFileCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=FolderOpen}" Command="{Binding Mode=OneWay}" />
 
-
-                <MenuItem Header="_Save" Command="{Binding ActiveEditor.TextBox.SaveCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentSave}"/>
-
+                <MenuItem Header="_Save" Command="{Binding ActiveEditor.TextBox.SaveCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentSave}" />
 
                 <MenuItem Header="Save _As" Command="{Binding ActiveEditor.TextBox.SaveAsCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentSaveAll}" />
-               
 
                 <Separator />
-                <MenuItem Header="Reload" Command="{Binding ActiveEditor.TextBox.ReloadCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=Reload}"/>
+                <MenuItem Header="Reload" Command="{Binding ActiveEditor.TextBox.ReloadCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=Reload}" />
                 <Separator />
-                <MenuItem Header="_Import" Command="{Binding ImportCommand}" Icon="{wpf:PackIcon Kind=Import}"/>
-                <MenuItem Header="Print" Command="ApplicationCommands.Print" Icon="{wpf:PackIcon Kind=Printer}"/>
+                <MenuItem Header="_Import" Command="{Binding ImportCommand}" Icon="{wpf:PackIcon Kind=Import}" />
+                <MenuItem Header="Print" Command="ApplicationCommands.Print" Icon="{wpf:PackIcon Kind=Printer}" />
 
+                <MenuItem Header="Print P_review" Command="ApplicationCommands.PrintPreview" Icon="{wpf:PackIcon Kind=PrintPreview}" />
 
-                <MenuItem Header="Print P_review" Command="ApplicationCommands.PrintPreview" Icon="{wpf:PackIcon Kind=PrintPreview}"/>
-
-
-                <MenuItem Header="_Close" Command="{Binding CloseCommand}" Icon="{wpf:PackIcon Kind=Close}"/>
-
+                <MenuItem Header="_Close" Command="{Binding CloseCommand}" Icon="{wpf:PackIcon Kind=Close}" />
 
                 <MenuItem Header="Recent _Files" Icon="{wpf:PackIcon Kind=Recent}">
                     <controls:RecentFileList />
                 </MenuItem>
-                <MenuItem Header="E_xit" Command="{Binding ExitCommand}" Icon="{wpf:PackIcon Kind=ExitToApp}"/>
+                <MenuItem Header="E_xit" Command="{Binding ExitCommand}" Icon="{wpf:PackIcon Kind=ExitToApp}" />
             </MenuItem>
             <MenuItem Header="_Edit" Icon="{wpf:PackIcon Kind=FileEdit}">
-                <MenuItem Header="Undo" Command="{Binding ActiveEditor.TextBox.UndoCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=Undo}"/>
+                <MenuItem Header="Undo" Command="{Binding ActiveEditor.TextBox.UndoCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=Undo}" />
 
-
-                <MenuItem Header="Redo" Command="{Binding ActiveEditor.TextBox.RedoCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=Redo}"/>
-                
+                <MenuItem Header="Redo" Command="{Binding ActiveEditor.TextBox.RedoCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=Redo}" />
 
                 <Separator />
-                <MenuItem Header="Cut" Command="{Binding ActiveEditor.TextBox.CutCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentCut}"/>
+                <MenuItem Header="Cut" Command="{Binding ActiveEditor.TextBox.CutCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentCut}" />
 
-
-                <MenuItem Header="Copy" Command="{Binding ActiveEditor.TextBox.CopyCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentCopy}"/>
-                <MenuItem Header="Paste" Command="{Binding ActiveEditor.TextBox.PasteCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentPaste}"/>
-
+                <MenuItem Header="Copy" Command="{Binding ActiveEditor.TextBox.CopyCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentCopy}" />
+                <MenuItem Header="Paste" Command="{Binding ActiveEditor.TextBox.PasteCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentPaste}" />
 
                 <MenuItem Header="_Delete" Command="ApplicationCommands.Delete" ToolTip="Deletes the current line."
-                          CommandTarget="{Binding ActiveEditor.TextBox}" Icon="{wpf:PackIcon Kind=Delete}"/>
-                
+                          CommandTarget="{Binding ActiveEditor.TextBox}" Icon="{wpf:PackIcon Kind=Delete}" />
+
                 <MenuItem Header="Delete _Line" Command="ae:AvalonEditCommands.DeleteLine"
                           Icon="{wpf:PackIcon Kind=DeleteVariant}"
                           ToolTip="Deletes the current line." CommandTarget="{Binding ActiveEditor.TextBox}" />
                 <MenuItem Header="Select _All" Command="ApplicationCommands.SelectAll"
                           Icon="{wpf:PackIcon Kind=SelectAll}"
-                          ToolTip="Select All of Document." CommandTarget="{Binding ActiveEditor.TextBox}"/>
-                
+                          ToolTip="Select All of Document." CommandTarget="{Binding ActiveEditor.TextBox}" />
 
                 <Separator />
-                <MenuItem Header="Comment Selection" CommandTarget="{Binding ActiveEditor.TextBox}" Icon="{wpf:PackIcon Kind=Comment}"/>
-                
+                <MenuItem Header="Comment Selection" CommandTarget="{Binding ActiveEditor.TextBox}" Icon="{wpf:PackIcon Kind=Comment}" />
 
                 <Separator />
                 <MenuItem x:Name="Formatting" Header="Formatting">
@@ -154,8 +140,8 @@
                     <Separator />
                     <MenuItem Header="Toggle Comment" />
                     <Separator />
-                    <MenuItem Header="Increase Line Indent" Icon="{wpf:PackIcon Kind=FormatIndentIncrease}"/>
-                    <MenuItem Header="Decrease Line Indent" Icon="{wpf:PackIcon Kind=FormatIndentDecrease}"/>
+                    <MenuItem Header="Increase Line Indent" Icon="{wpf:PackIcon Kind=FormatIndentIncrease}" />
+                    <MenuItem Header="Decrease Line Indent" Icon="{wpf:PackIcon Kind=FormatIndentDecrease}" />
                     <MenuItem Header="Remove Leading Whitespace"
                               Command="ae:AvalonEditCommands.RemoveLeadingWhitespace"
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
@@ -168,13 +154,13 @@
                     <MenuItem Header="To Lowercase" Command="ae:AvalonEditCommands.ConvertToLowercase"
                               Icon="{wpf:PackIcon Kind=FormatLowercase}"
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
-                    <MenuItem Header="Capitalize" Command="ae:AvalonEditCommands.ConvertToTitleCase"  
+                    <MenuItem Header="Capitalize" Command="ae:AvalonEditCommands.ConvertToTitleCase"
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
                     <MenuItem Header="Invert Case" Command="ae:AvalonEditCommands.InvertCase"
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
                     <Separator />
                     <MenuItem Header="Tabs to Spaces" Command="ae:AvalonEditCommands.ConvertTabsToSpaces"
-                               
+
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
                     <MenuItem Header="Spaces to Tabs" Command="ae:AvalonEditCommands.ConvertSpacesToTabs"
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
@@ -185,12 +171,12 @@
                               Command="ae:AvalonEditCommands.ConvertLeadingSpacesToTabs"
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
                     <MenuItem Header="Indent Selection" Command="ae:AvalonEditCommands.IndentSelection"
-                               
+
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Find in Files" Command="{Binding ShowFindReplaceCommand}" Icon="{wpf:PackIcon Kind=FileFind}"/>
-                <MenuItem Header="Replace in Files" Command="{Binding ShowFindReplaceCommand}" Icon="{wpf:PackIcon Kind=FileReplace}"/>
+                <MenuItem Header="Find in Files" Command="{Binding ShowFindReplaceCommand}" Icon="{wpf:PackIcon Kind=FileFind}" />
+                <MenuItem Header="Replace in Files" Command="{Binding ShowFindReplaceCommand}" Icon="{wpf:PackIcon Kind=FileReplace}" />
                 <Separator />
                 <MenuItem Header="Find and Replace" Icon="{wpf:PackIcon Kind=FindReplace}">
                     <MenuItem Header="Find" Command="ApplicationCommands.Find"
@@ -198,14 +184,14 @@
                     <MenuItem Header="Find Next" Command="ae:SearchCommands.FindNext"
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
                     <MenuItem Header="Find Previous" Command="ae:SearchCommands.FindPrevious"
-                             
+
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
                     <MenuItem Header="Cancel Search" Command="ae:SearchCommands.CloseSearchPanel"
                               CommandTarget="{Binding ActiveEditor.TextBox}" />
                     <MenuItem Header="Find and Replace" />
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Go To..." CommandTarget="{Binding ActiveEditor.TextBox}"  />
+                <MenuItem Header="Go To..." CommandTarget="{Binding ActiveEditor.TextBox}" />
                 <MenuItem Header="Folding">
                     <MenuItem Header="_Open All Folds"
                               Command="{Binding ActiveEditor.TextBox.OpenAllFoldsCommand, Mode=OneWay}" />
@@ -221,7 +207,7 @@
                         <MenuItem.Resources>
                             <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}"
                                    BasedOn="{StaticResource {x:Type MenuItem}}">
-                               
+
                                 <Setter Property="CommandParameter"
                                         Value="{Binding Header, RelativeSource={RelativeSource Self}}" />
                             </Style>
@@ -245,9 +231,7 @@
                 <MenuItem Header="Line Numbers" IsCheckable="True"
                                                     Icon="{wpf:PackIcon Kind=FormatListNumbers}"
 
-                          IsChecked="{Binding ShowLineNumbers, BindsDirectlyToSource=True, Source={x:Static texteditor:EditorOptions.Instance}}"/>
-                
-
+                          IsChecked="{Binding ShowLineNumbers, BindsDirectlyToSource=True, Source={x:Static texteditor:EditorOptions.Instance}}" />
             </MenuItem>
             <MenuItem Header="View _as" Icon="{wpf:PackIcon Kind=ViewDashboardEdit}">
                 <MenuItem Header="ABB" CommandParameter="ABB" Command="{Binding ChangeViewAsCommand}" />
@@ -263,7 +247,7 @@
             </MenuItem>
             <MenuItem Header="Window" Icon="{wpf:PackIcon Kind=Window}">
                 <MenuItem Header="Windows">
-                    <MenuItem Header="Functions" CommandParameter="Functions" Command="{Binding AddToolCommand}" Icon="{wpf:PackIcon Kind=Function}"/>
+                    <MenuItem Header="Functions" CommandParameter="Functions" Command="{Binding AddToolCommand}" Icon="{wpf:PackIcon Kind=Function}" />
                     <MenuItem Header="Object Browser" CommandParameter="Object Browser"
                               Command="{Binding AddToolCommand}" />
                     <MenuItem Header="Explorer" CommandParameter="Explorer" Command="{Binding AddToolCommand}" />
@@ -322,7 +306,7 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
-                    <Style TargetType="{x:Type ToggleButton}" >
+                    <Style TargetType="{x:Type ToggleButton}">
 
                         <Setter Property="Margin" Value="5" />
                         <Setter Property="IsThreeState" Value="False" />
@@ -344,45 +328,37 @@
                         </Style.Triggers>
                     </Style>
                 </ToolBar.Resources>
-                <Button Margin="5" Command="{Binding NewFileCommand}" Content="{wpf:PackIcon Kind=FileDocumentAdd}"/>
-                <Button Command="{Binding OpenFileCommand}" Content="{wpf:PackIcon Kind=FolderOpen}"/>
-                <Button Command="{Binding ActiveEditor.TextBox.SaveCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=ContentSave}"/>
-                <Button RenderTransformOrigin="0.5,0.5" Command="{Binding ActiveEditor.TextBox.UndoCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=Undo}"/>
-                <Button Command="{Binding ActiveEditor.TextBox.RedoCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=Redo}"/>
-                <Button Command="{Binding ActiveEditor.TextBox.CutCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=ContentCut}"/>
+                <Button Margin="5" Command="{Binding NewFileCommand}" Content="{wpf:PackIcon Kind=FileDocumentAdd}" />
+                <Button Command="{Binding OpenFileCommand}" Content="{wpf:PackIcon Kind=FolderOpen}" />
+                <Button Command="{Binding ActiveEditor.TextBox.SaveCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=ContentSave}" />
+                <Button RenderTransformOrigin="0.5,0.5" Command="{Binding ActiveEditor.TextBox.UndoCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=Undo}" />
+                <Button Command="{Binding ActiveEditor.TextBox.RedoCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=Redo}" />
+                <Button Command="{Binding ActiveEditor.TextBox.CutCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=ContentCut}" />
                 <Button Content="{wpf:PackIcon Kind=ContentCopy}" Command="{Binding ActiveEditor.TextBox.CopyCommand, Mode=OneWay}" />
                 <Button Content="{wpf:PackIcon Kind=ContentPaste}" Command="{Binding ActiveEditor.TextBox.PasteCommand, Mode=OneWay}" />
                 <ToggleButton IsChecked="{Binding EnableFolding, Source={x:Static texteditor:EditorOptions.Instance}}" />
-                <Button ToolTip="Expand Folds" Command="{Binding ActiveEditor.TextBox.OpenAllFoldsCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=ExpandAll}"/>
+                <Button ToolTip="Expand Folds" Command="{Binding ActiveEditor.TextBox.OpenAllFoldsCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=ExpandAll}" />
 
-
-                <Button ToolTip="Collapse Folds" Command="{Binding ActiveEditor.TextBox.CloseAllFoldsCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=CollapseAll}"/>
-
+                <Button ToolTip="Collapse Folds" Command="{Binding ActiveEditor.TextBox.CloseAllFoldsCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=CollapseAll}" />
 
                 <Button ToolTip="Decrease Indent" CommandParameter="false"
                     Command="{Binding ActiveEditor.TextBox.ChangeIndentCommand}"
-                        Content="{wpf:PackIcon Kind=FormatIndentDecrease}"
-                        />
-
+                        Content="{wpf:PackIcon Kind=FormatIndentDecrease}" />
 
                 <Button ToolTip="Increase Indent" CommandParameter="true"
                     Command="{Binding ActiveEditor.TextBox.ChangeIndentCommand}"
-                        Content="{wpf:PackIcon Kind=FormatIndentIncrease}"
-                        />
-
+                        Content="{wpf:PackIcon Kind=FormatIndentIncrease}" />
             </ToolBar>
         </ToolBarTray>
         <DockingManager
             x:Name="DockManager"
             Background="#00FFFFFF"
             Grid.Row="2"
-
-
+            Style="{StaticResource DockingStyle}"
             AnchorablesSource="{Binding Main.Tools}"
             DocumentsSource="{Binding Main.Files}"
             ActiveContent="{Binding Main.ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay}">
-        
-          
+
             <LayoutRoot>
                 <LayoutPanel Orientation="Vertical">
                     <LayoutPanel Orientation="Horizontal">

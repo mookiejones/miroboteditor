@@ -1,13 +1,11 @@
 ﻿using miRobotEditor.Classes;
 using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
 using System.Windows.Media.Imaging;
 
 namespace miRobotEditor.Messages
 {
     public class MessageBase : IMessage
     {
-
         /// <summary>
         /// Gets or sets the message's sender.
         /// </summary>
@@ -31,10 +29,7 @@ namespace miRobotEditor.Messages
         /// Initializes a new instance of the MessageBase class.
         /// </summary>
         /// <param name="sender">The message's original sender.</param>
-        public MessageBase(object sender)
-        {
-            Sender = sender;
-        }
+        public MessageBase(object sender) => Sender = sender;
 
         /// <summary>
         /// Initializes a new instance of the MessageBase class.
@@ -44,10 +39,7 @@ namespace miRobotEditor.Messages
         /// to give an indication as to whom the message was intended for. Of course
         /// this is only an indication, amd may be null.</param>
         public MessageBase(object sender, object target)
-            : this(sender)
-        {
-            Target = target;
-        }
+            : this(sender) => Target = target;
 
         protected MessageBase(string title, string description, MessageType icon, bool force = false)
         {
@@ -67,9 +59,10 @@ namespace miRobotEditor.Messages
             switch (icon)
             {
                 case MessageType.Error:
-                    return Utilities.LoadBitmap(Global.ImgError);
+                    return ImageHelper.LoadBitmap(Global.ImgError);
+
                 case MessageType.Information:
-                    return Utilities.LoadBitmap(Global.ImgInfo);
+                    return ImageHelper.LoadBitmap(Global.ImgInfo);
             }
             return null;
         }

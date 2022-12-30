@@ -12,39 +12,45 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             get;
             set;
         }
+
         public string Text
         {
             get;
             set;
         }
+
         public List<string> Shortcuts
         {
             get;
             set;
         }
+
         public string Description
         {
             get;
             set;
         }
+
         public List<string> Extensions
         {
             get;
             set;
         }
+
         public string Author
         {
             get;
             set;
         }
+
         public List<SnippetType> Types
         {
             get;
             set;
         }
+
         public SnippetHeader(XElement headerElement)
         {
-
             throw new NotImplementedException();
             /*        Title = headerElement.ElementsValue("Title", "No title");
             Description = headerElement.ElementsValue("Description", "No description");
@@ -77,7 +83,6 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
             LoadExtension(headerElement);
         }
-
 
         private void LoadExtension(XElement headerElement)
         {

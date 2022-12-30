@@ -15,10 +15,7 @@ namespace miRobotEditor.Controls
     /// </summary>
     public sealed partial class VisualVariableControl : UserControl
     {
-        public VisualVariableControl()
-        {
-            InitializeComponent();
-        }
+        public VisualVariableControl() => InitializeComponent();
 
         private void ToolTip_Opening(object sender, ToolTipEventArgs e) => throw new NotImplementedException();
 

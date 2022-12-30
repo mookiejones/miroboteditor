@@ -40,7 +40,7 @@ namespace miRobotEditor
             KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);
         }
 
-        #endregion
+        #endregion Constructor
 
         private void LoadItems()
         {
@@ -81,14 +81,13 @@ namespace miRobotEditor
         {
             var array = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-
             foreach (var msg in array.Select(text => new WindowMessage("File Dropped", text, MessageType.Information)))
             {
                 WeakReferenceMessenger.Default.Send(msg);
             }
         }
 
-        void onDragEnter(object sender, DragEventArgs e)
+        private void onDragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -150,7 +149,7 @@ namespace miRobotEditor
             SaveLayout();
             var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.IsClosing = true;
-            App.Application.Shutdown();
+            App.Application?.Shutdown();
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -158,7 +157,6 @@ namespace miRobotEditor
             LoadItems();
             Splasher.CloseSplash();
             //  LoadLayout();
-
 
             var msg = new WindowMessage("Application Loaded", "Application Loaded", MessageType.Information);
             WeakReferenceMessenger.Default.Send<IMessage>(msg);
@@ -172,7 +170,6 @@ namespace miRobotEditor
                 xmlLayoutSerializer.Serialize(streamWriter);
             }
         }
-
 
         private void LoadLayout()
         {

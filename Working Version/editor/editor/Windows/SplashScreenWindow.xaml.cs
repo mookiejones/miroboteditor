@@ -7,9 +7,6 @@ namespace miRobotEditor.Windows
     /// </summary>
     public sealed partial class SplashScreenWindow : Window
     {
-        public SplashScreenWindow()
-        {
-            InitializeComponent();
-        }
+        public SplashScreenWindow() => InitializeComponent();
     }
 }

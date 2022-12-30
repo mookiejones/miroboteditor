@@ -18,15 +18,10 @@ namespace miRobotEditor.Languages
             get;
             set;
         }
-        public KrlFoldingStrategy()
-        {
-            FoldFunctions = true;
-        }
-        public KrlFoldingStrategy(bool foldFunctions)
-        {
-            FoldFunctions = foldFunctions;
-        }
 
+        public KrlFoldingStrategy() => FoldFunctions = true;
+
+        public KrlFoldingStrategy(bool foldFunctions) => FoldFunctions = foldFunctions;
 
         protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
         {

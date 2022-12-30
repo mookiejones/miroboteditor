@@ -9,10 +9,7 @@ namespace miRobotEditor.Classes
         private static GlobalOptions _instance;
         private GlobalOptionsViewModel _options = new GlobalOptionsViewModel();
 
-        private GlobalOptions()
-        {
-            FlyoutOpacity = 0.85;
-        }
+        private GlobalOptions() => FlyoutOpacity = 0.85;
 
         public static GlobalOptions Instance
         {

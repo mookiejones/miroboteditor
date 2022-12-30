@@ -7,9 +7,6 @@ namespace miRobotEditor.Views
     /// </summary>
     public sealed partial class ArchiveInfoView : UserControl
     {
-        public ArchiveInfoView()
-        {
-            InitializeComponent();
-        }
+        public ArchiveInfoView() => InitializeComponent();
     }
 }

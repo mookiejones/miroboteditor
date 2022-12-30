@@ -3,15 +3,13 @@ using miRobotEditor.Enums;
 using miRobotEditor.ViewModel;
 using System.ComponentModel;
 using System.Linq;
+
 namespace miRobotEditor.Classes
 {
     [Localizable(false)]
     public sealed class LayoutInitializer : ILayoutUpdateStrategy
     {
-        public LayoutInitializer()
-        {
-            Strategy = this;
-        }
+        public LayoutInitializer() => Strategy = this;
 
         public static ILayoutUpdateStrategy Strategy { get; set; }
 
@@ -23,7 +21,6 @@ namespace miRobotEditor.Classes
             if (destinationContainer != null &&
                 destinationContainer.FindParent<LayoutFloatingWindow>() != null)
                 return false;
-
 
             var content = anchorableToShow.Content;
             bool result;
@@ -55,6 +52,7 @@ namespace miRobotEditor.Classes
                             return result;
                         }
                         break;
+
                     case DefaultToolPane.Right:
                         if (layoutAnchorablePane3 != null)
                         {
@@ -63,6 +61,7 @@ namespace miRobotEditor.Classes
                             return result;
                         }
                         break;
+
                     case DefaultToolPane.Bottom:
                         if (layoutAnchorablePane != null)
                         {

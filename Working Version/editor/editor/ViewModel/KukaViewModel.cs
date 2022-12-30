@@ -210,7 +210,7 @@ namespace miRobotEditor.ViewModel
             Source.FileLanguage = FileLanguage;
             Grid.IsAnimated = false;
             var flag = Path.GetExtension(filepath) == ".dat";
-            IconSource = Utilities.LoadBitmap(Global.ImgSrc);
+            IconSource = ImageHelper.LoadBitmap(Global.ImgSrc);
             Source.Filename = filepath;
             Source.SetHighlighting();
             Source.Text = (flag ? FileLanguage.DataText : FileLanguage.SourceText);

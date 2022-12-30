@@ -11,25 +11,13 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
     {
         private readonly Vector3D _position;
 
-        public Point3D()
-        {
-            _position = new Vector3D();
-        }
+        public Point3D() => _position = new Vector3D();
 
-        public Point3D(Point3D point)
-        {
-            _position = point._position;
-        }
+        public Point3D(Point3D point) => _position = point._position;
 
-        public Point3D(Vector3D position)
-        {
-            _position = position;
-        }
+        public Point3D(Vector3D position) => _position = position;
 
-        public Point3D(double x, double y, double z)
-        {
-            _position = new Vector3D(x, y, z);
-        }
+        public Point3D(double x, double y, double z) => _position = new Vector3D(x, y, z);
 
         public double X
         {

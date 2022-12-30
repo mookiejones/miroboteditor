@@ -8,7 +8,6 @@ namespace miRobotEditor.Controls
     /// </summary>
     public sealed partial class SnippetToolTip : UserControl
     {
-
         public string Author { get; set; }
         public string Description { get; set; }
         public string Shortcuts { get; set; }
@@ -19,9 +18,7 @@ namespace miRobotEditor.Controls
             InitializeComponent();
             DataContext = this;
         }
-        public SnippetToolTip()
-        {
-            InitializeComponent();
-        }
+
+        public SnippetToolTip() => InitializeComponent();
     }
 }

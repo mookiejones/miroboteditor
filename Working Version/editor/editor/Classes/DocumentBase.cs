@@ -28,7 +28,6 @@ namespace miRobotEditor.Classes
             InitializeControl();
         }
 
-
         public abstract void Close();
 
         public abstract void Load(string filepath);
@@ -84,7 +83,7 @@ namespace miRobotEditor.Classes
             set => SetProperty(ref _filelanguage, value);
         }
 
-        #endregion
+        #endregion FileLanguage
 
         #region Visibility
 
@@ -96,7 +95,7 @@ namespace miRobotEditor.Classes
             set => SetProperty(ref _visibility, value);
         }
 
-        #endregion        public AbstractLanguageClass FileLanguage { get; set; }
+        #endregion Visibility
 
         #region TextBox
 
@@ -111,9 +110,8 @@ namespace miRobotEditor.Classes
             get => _textBox;
 
             set => SetProperty(ref _textBox, value);
-
         }
 
-        #endregion
+        #endregion TextBox
     }
 }

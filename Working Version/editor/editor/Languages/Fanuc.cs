@@ -2,9 +2,12 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
+using miRobotEditor.Controls.TextEditor.Brackets;
+using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
+using miRobotEditor.Position;
 using miRobotEditor.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -20,15 +23,9 @@ namespace miRobotEditor.Languages
     public sealed class Fanuc : AbstractLanguageClass
     {
         public Fanuc(string file)
-            : base(file)
-        {
-            FoldingStrategy = new RegionFoldingStrategy();
-        }
+            : base(file) => FoldingStrategy = new RegionFoldingStrategy();
 
-        public Fanuc()
-        {
-            FoldingStrategy = new RegionFoldingStrategy();
-        }
+        public Fanuc() => FoldingStrategy = new RegionFoldingStrategy();
 
         public override List<string> SearchFilters => EXT;
 
@@ -119,12 +116,7 @@ namespace miRobotEditor.Languages
             return regex.IsMatch(text) || regex2.IsMatch(text);
         }
 
-        public override string ExtractXYZ(string positionstring)
-        {
-            Debugger.Break();
-            var positionBase = new PositionBase(positionstring);
-            return positionBase.ExtractFromMatch();
-        }
+     
 
         public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
 

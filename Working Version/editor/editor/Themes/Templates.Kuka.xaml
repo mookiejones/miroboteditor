@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
-                    xmlns:lang="clr-namespace:miRobotEditor.Languages">
+                    xmlns:lang="clr-namespace:miRobotEditor.Languages"
+                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel">
     <DataTemplate x:Key="{DataTemplateKey {x:Type vm:SystemFunctionsViewModel}}"
                   DataType="{x:Type vm:SystemFunctionsViewModel}">
         <StackPanel Orientation="Vertical">

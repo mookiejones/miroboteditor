@@ -7,9 +7,6 @@ namespace miRobotEditor.Windows
     /// </summary>
     public partial class XmlReaderWindow : Window
     {
-        public XmlReaderWindow()
-        {
-            InitializeComponent();
-        }
+        public XmlReaderWindow() => InitializeComponent();
     }
 }

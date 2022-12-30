@@ -9,10 +9,7 @@ namespace miRobotEditor.Windows
     /// </summary>
     public sealed partial class GotoWindow
     {
-        public GotoWindow()
-        {
-            InitializeComponent();
-        }
+        public GotoWindow() => InitializeComponent();
 
         private void Close(object sender, RoutedEventArgs e)
         {

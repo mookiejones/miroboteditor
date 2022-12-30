@@ -19,12 +19,10 @@ namespace miRobotEditor.Converters
                           where item.Type.ToLower() == "def"
                           select item;
 
-
             foreach (var item in newlist)
             {
                 list.Add(item);
             }
-
 
             return list;
         }

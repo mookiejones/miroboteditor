@@ -122,7 +122,7 @@ namespace miRobotEditor.Languages
                        ?? (_cleanDatCmd = new RelayCommand<object>(
                            p => Instance.CleanDat()));
 
-        #endregion
+        #endregion CleanDatCmd
 
         #region CheckedCmd
 
@@ -135,7 +135,7 @@ namespace miRobotEditor.Languages
                        ?? (_checkedCmd = new RelayCommand(
                            () => Instance.Checked()));
 
-        #endregion
+        #endregion CheckedCmd
 
         #region DeleteVarTypeCmd
 
@@ -149,7 +149,7 @@ namespace miRobotEditor.Languages
 
         private void ExecuteDeleteVarTypeCmd() => Instance.DeleteVarType();
 
-        #endregion
+        #endregion DeleteVarTypeCmd
 
         #region AddVarTypeCmd
 
@@ -163,7 +163,7 @@ namespace miRobotEditor.Languages
 
         private void ExecuteAddVarTypeCmd() => Instance.AddVarType();
 
-        #endregion
+        #endregion AddVarTypeCmd
 
         #region SelectAllCommand
 
@@ -177,7 +177,7 @@ namespace miRobotEditor.Languages
 
         private void ExecuteSelectAllCommand() => Instance.SelectAll();
 
-        #endregion
+        #endregion SelectAllCommand
 
         #region InvertSelectionCommand
 
@@ -190,7 +190,7 @@ namespace miRobotEditor.Languages
                        ?? (_invertSelectionCommand = new RelayCommand(
                            () => Instance.InvertSelection()));
 
-        #endregion
+        #endregion InvertSelectionCommand
 
         public void CleanDat() => throw new NotImplementedException();
 

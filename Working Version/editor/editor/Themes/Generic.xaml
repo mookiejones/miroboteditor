@@ -1,9 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
+                    xmlns:ui="clr-namespace:miRobotEditor.UI">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Themes/MainSkin.xaml"/>
-        <ResourceDictionary Source="/Themes/Templates.Layout.xaml"/>
-        <ResourceDictionary Source="/Themes/Templates.StatusBar.xaml"/>
-        <ResourceDictionary Source="/Themes/Templates.Kuka.xaml"/>
+        <ResourceDictionary Source="/Themes/MainSkin.xaml" />
+        <ResourceDictionary Source="/Themes/Templates.Layout.xaml" />
+        <ResourceDictionary Source="/Themes/Templates.StatusBar.xaml" />
+        <ResourceDictionary Source="/Themes/Templates.Kuka.xaml" />
+        <ResourceDictionary Source="/Themes/Templates.Editor.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate DataType="{x:Type vm:ValueBoxViewModel}">
+        <ui:ValueBox/>
+    </DataTemplate>
 </ResourceDictionary>

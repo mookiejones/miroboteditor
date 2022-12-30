@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.Views;
 using System;
@@ -18,6 +17,7 @@ namespace miRobotEditor.Controls
         // ReSharper disable UnusedMember.Local
         // ReSharper disable InconsistentNaming
         private const int FOLDER = 0;
+
         private const int FOLDEROPEN = 1;
         private const int REMOVABLE = 5;
         private const int CDDRIVE = 3;
@@ -25,14 +25,12 @@ namespace miRobotEditor.Controls
         private const int GENERICFILE = 6;
         private const int NETWORK = 7;
 
-        public ExplorerClass()
-        {
-            base.HideSelection = false;
-        }
+        public ExplorerClass() => base.HideSelection = false;
 
         // ReSharper restore InconsistentNaming
         // ReSharper restore UnusedMember.Local
         public string SelectedFile { get; set; }
+
         public string SelectedDirectory { get; set; }
 
         public int CompareTo(object obj)
@@ -93,6 +91,7 @@ namespace miRobotEditor.Controls
                         case DriveType.Unknown:
                             AddNode(driveInfo.Name, 7, 7);
                             break;
+
                         case DriveType.Removable:
                             {
                                 var name = driveInfo.Name;
@@ -113,9 +112,11 @@ namespace miRobotEditor.Controls
                         case DriveType.Fixed:
                             AddNode(driveInfo.Name, 2, 2);
                             break;
+
                         case DriveType.Network:
                             AddNode(driveInfo.Name, 7, 7);
                             break;
+
                         case DriveType.CDRom:
                             AddNode(driveInfo.Name, 3, 3);
                             break;

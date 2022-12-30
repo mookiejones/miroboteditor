@@ -40,6 +40,7 @@ namespace miRobotEditor
             Services = ConfigureServices();
             Ioc.Default.ConfigureServices(Services);
         }
+
         /// <summary>
         /// Configures the services for the application.
         /// </summary>
@@ -62,14 +63,14 @@ namespace miRobotEditor
             //services.AddSingleton<IEmailService, EmailService>();
             // Viewmodels
 
-            services.AddTransient<MainViewModel>();
-            services.AddTransient<StatusBarViewModel>();
-            services.AddTransient<ObjectBrowserViewModel>();
-            services.AddTransient<MessageViewModel>();
-
+            services.AddSingleton<MainViewModel>();
+            services.AddSingleton<StatusBarViewModel>();
+            services.AddSingleton<ObjectBrowserViewModel>();
+            services.AddSingleton<MessageViewModel>();
 
             return services.BuildServiceProvider();
         }
+
         static App()
         {
             // DispatcherHelper.Initialize();
@@ -109,7 +110,6 @@ namespace miRobotEditor
             var msg = new ErrorMessage("App", e.Exception, MessageType.Error);
             WeakReferenceMessenger.Default.Send(msg);
 
-
             Console.Write(e);
             e.Handled = true;
         }
@@ -122,8 +122,6 @@ namespace miRobotEditor
             Splasher.Splash = new SplashScreenWindow();
             Splasher.ShowSplash();
 
-
-
             Trace.WriteLine("Try Color Picker from MaterialDesignThemes");
 #if DEBUG
             Control.CheckForIllegalCrossThreadCalls = true;
@@ -135,7 +133,6 @@ namespace miRobotEditor
 
             //    Application.InitializeComponent();
             //   Application.Run();
-
 
             //  var _tools = Workspace.Instance.Tools;
             //  foreach (var tool in _tools)

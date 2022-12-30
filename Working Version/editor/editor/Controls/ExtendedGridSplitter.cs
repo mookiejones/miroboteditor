@@ -147,6 +147,7 @@ namespace miRobotEditor.Controls
         }
 
         public event EventHandler<EventArgs> Collapsed;
+
         public event EventHandler<EventArgs> Expanded;
 
         private static void OnIsCollapsedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -212,6 +213,7 @@ namespace miRobotEditor.Controls
                     {
                     }
                     break;
+
                 case GridSplitterCollapseMode.Previous:
                     if (_elementVerticalGridSplitterButton != null)
                     {

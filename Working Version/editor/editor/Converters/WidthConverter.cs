@@ -1,4 +1,4 @@
-﻿using miRobotEditor.Enums;
+﻿using miRobotEditor.Position;
 using System;
 using System.ComponentModel;
 using System.Globalization;

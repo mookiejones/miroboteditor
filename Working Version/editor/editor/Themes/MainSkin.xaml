@@ -1,15 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:views="clr-namespace:miRobotEditor.Views"
-                    xmlns:classes="clr-namespace:miRobotEditor.Classes"
-                    xmlns:viewModel="clr-namespace:miRobotEditor.ViewModel"
-                    xmlns:converters="clr-namespace:miRobotEditor.Converters"
-                    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-                    xmlns:regularExpressions="clr-namespace:System.Text.RegularExpressions;assembly=System"
-                    xmlns:controls="clr-namespace:miRobotEditor.Controls"
-                    xmlns:io="clr-namespace:System.IO;assembly=mscorlib"
                     xmlns:miRobotEditor="clr-namespace:miRobotEditor"
-                    xmlns:textEditor="clr-namespace:miRobotEditor.Controls.TextEditor">
+                    xmlns:classes="clr-namespace:miRobotEditor.Classes"
+                    xmlns:controls="clr-namespace:miRobotEditor.Controls"
+                    xmlns:textEditor="clr-namespace:miRobotEditor.Controls.TextEditor"
+                    xmlns:converters="clr-namespace:miRobotEditor.Converters"
+                    xmlns:viewModel="clr-namespace:miRobotEditor.ViewModel"
+                    xmlns:views="clr-namespace:miRobotEditor.Views"
+                    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+                    xmlns:io="clr-namespace:System.IO;assembly=mscorlib"
+                    xmlns:variable="clr-namespace:miRobotEditor.Variables"
+                    xmlns:regularExpressions="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:completion="clr-namespace:miRobotEditor.Controls.TextEditor.Completion">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml" />
         <ResourceDictionary Source="/miRobotEditor;component/Styles/Brushes.xaml" />
@@ -21,7 +22,6 @@
     <converters:WidthConverter x:Key="WidthConverter" />
     <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
     <viewModel:GlobalOptionsViewModel x:Key="GlobalOptions" />
-
 
     <ControlTemplate x:Key="ValidationTemplate">
         <DockPanel>
@@ -45,7 +45,6 @@
         <TextBlock Text='{Binding Name}' FontSize="14" />
     </HierarchicalDataTemplate>
 
-
     <DataTemplate x:Key="ItemsTemplate">
         <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" BorderThickness="0">
             <DataGrid.Columns>
@@ -64,11 +63,7 @@
         <controls:InfoFile />
     </DataTemplate>
 
-    <!-- FileInfo-->
-    <DataTemplate DataType="{x:Type io:FileInfo}">
-        <controls:FileInfo />
-    </DataTemplate>
-
+    
 
     <!-- Goto -->
     <DataTemplate x:Key="{DataTemplateKey {x:Type viewModel:GotoViewModel}}"
@@ -95,14 +90,13 @@
             <TextBox Name="EnteredText" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Text="{Binding EnteredText, ValidatesOnDataErrors=True}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-                <Button Name="btnOK" Content="_OK" Click="{Binding OkCommand}" />
-                <Button Name="btnCancel" Content="_Cancel" Click="{Binding CancelCommand}" />
+                <Button Name="btnOK" Content="_OK" Command="{Binding OkCommand}" />
+                <Button Name="btnCancel" Content="_Cancel" Command="{Binding CancelCommand}" />
             </StackPanel>
         </StackPanel>
     </DataTemplate>
- 
 
-    <DataTemplate x:Key="CodeCompletion" DataType="{x:Type classes:CodeCompletion}">
+    <DataTemplate x:Key="CodeCompletion" DataType="{x:Type completion:CodeCompletion}">
         <StackPanel Orientation="Vertical">
             <TextBlock Background="#FFFFA500" Text="{Binding Text}" />
             <TextBlock Background="#FFFF0000" Text="{Binding Description}" />
@@ -120,7 +114,7 @@
         </Label>
     </DataTemplate>
 
-    <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type classes:Variable}">
+    <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type variable:Variable}">
         <controls:FunctionItem />
     </DataTemplate>
 
@@ -129,17 +123,14 @@
         <TextBox TextWrapping="Wrap" Background="DarkGray" BorderThickness="1" />
     </DataTemplate>
 
-
     <!-- ArchiveInfo-->
     <DataTemplate DataType="{x:Type viewModel:ArchiveInfoViewModel}">
         <views:ArchiveInfoView />
     </DataTemplate>
 
-
     <DataTemplate DataType="{x:Type viewModel:IOViewModel}">
         <views:IOView />
     </DataTemplate>
-
 
     <!-- FindReplace -->
     <DataTemplate DataType="{x:Type viewModel:FindReplaceViewModel}">
@@ -171,16 +162,12 @@
                     </Expander>
                 </DataTemplate>
             </ListBox.Resources>
-
         </ListBox>
     </DataTemplate>
 
     <!-- Local Variables-->
     <DataTemplate x:Key="{DataTemplateKey {x:Type viewModel:LocalVariablesViewModel}}"
                   DataType="{x:Type viewModel:LocalVariablesViewModel}" />
-
-   
-   
 
     <!-- Editor -->
     <DataTemplate x:Key="{DataTemplateKey {x:Type textEditor:AvalonEditor}}" DataType="{x:Type textEditor:AvalonEditor}">
@@ -192,7 +179,4 @@
     </DataTemplate>
 
     <!-- Functions -->
-    
-   
-   
 </ResourceDictionary>

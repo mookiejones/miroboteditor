@@ -1,5 +1,4 @@
-﻿
-using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -10,6 +9,8 @@ using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Messages;
+using miRobotEditor.Position;
+using miRobotEditor.Variables;
 using miRobotEditor.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+
 namespace miRobotEditor.Controls.TextEditor.Language
 {
     [Localizable(false)]
@@ -69,10 +71,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         #region Constructors
 
-        protected AbstractLanguageClass()
-        {
-            Instance = this;
-        }
+        protected AbstractLanguageClass() => Instance = this;
 
         private string flename;
 
@@ -348,7 +347,8 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         public abstract DocumentViewModel GetFile(string filename);
 
-        public abstract string ExtractXYZ(string positionstring);
+
+        public virtual string ExtractXYZ(string positionString) => PositionBase.ExtractXYZ(positionString);
 
         internal abstract string FoldTitle(FoldingSection section, TextDocument doc);
 
@@ -776,10 +776,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
                 Positions = new List<IVariable>();
             }
 
-            public VariableMembers()
-            {
-                Initialize();
-            }
+            public VariableMembers() => Initialize();
 
             #region Variables
 
@@ -832,7 +829,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
                         Name = match.Groups[2].ToString(),
                         Value = match.Groups[3].ToString(),
                         Path = filepath,
-                        Icon = Utilities.LoadBitmap(imgPath)
+                        Icon = ImageHelper.LoadBitmap(imgPath)
                     });
                     match = match.NextMatch();
                 }

@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Win32;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.ViewModel;
 using System;
@@ -437,16 +436,15 @@ namespace miRobotEditor.Controls
         public interface IPersist
         {
             List<string> RecentFiles(int max);
+
             void InsertFile(string filepath, int max);
+
             void RemoveFile(string filepath, int max);
         }
 
         public class MenuClickEventArgs : EventArgs
         {
-            public MenuClickEventArgs(string filepath)
-            {
-                Filepath = filepath;
-            }
+            public MenuClickEventArgs(string filepath) => Filepath = filepath;
 
             public string Filepath { get; private set; }
         }
@@ -479,9 +477,7 @@ namespace miRobotEditor.Controls
         [Localizable(false)]
         private class RegistryPersister : IPersist
         {
-            public RegistryPersister()
-            {
-                RegistryKey = string.Concat(new[]
+            public RegistryPersister() => RegistryKey = string.Concat(new[]
                 {
                     "Software\\",
                     ApplicationAttributes.CompanyName,
@@ -489,12 +485,8 @@ namespace miRobotEditor.Controls
                     ApplicationAttributes.ProductName,
                     "\\RecentFileList"
                 });
-            }
 
-            public RegistryPersister(string key)
-            {
-                RegistryKey = key;
-            }
+            public RegistryPersister(string key) => RegistryKey = key;
 
             private string RegistryKey { get; set; }
 
@@ -592,22 +584,13 @@ namespace miRobotEditor.Controls
 
         private class XmlPersister : IPersist
         {
-            public XmlPersister()
-            {
-                Filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            public XmlPersister() => Filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                     ApplicationAttributes.CompanyName + "\\" + ApplicationAttributes.ProductName +
                     "\\RecentFileList.xml");
-            }
 
-            public XmlPersister(string filepath)
-            {
-                Filepath = filepath;
-            }
+            public XmlPersister(string filepath) => Filepath = filepath;
 
-            public XmlPersister(Stream stream)
-            {
-                Stream = stream;
-            }
+            public XmlPersister(Stream stream) => Stream = stream;
 
             private string Filepath { get; set; }
             private Stream Stream { get; set; }

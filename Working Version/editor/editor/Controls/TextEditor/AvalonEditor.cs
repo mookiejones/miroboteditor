@@ -9,6 +9,9 @@ using ICSharpCode.AvalonEdit.Search;
 using ICSharpCode.AvalonEdit.Snippets;
 using Microsoft.Win32;
 using miRobotEditor.Classes;
+using miRobotEditor.Controls.TextEditor.Bookmarks;
+using miRobotEditor.Controls.TextEditor.Brackets;
+using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Controls.TextEditor.Snippets;
@@ -17,6 +20,7 @@ using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Messages;
+using miRobotEditor.Variables;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
 using System;
@@ -91,13 +95,11 @@ namespace miRobotEditor.Controls.TextEditor
         private object _foldingStrategy;
         private KeyEventArgs _lastKeyUpArgs;
 
-
-
         private ToolTip _toolTip;
         private static BitmapImage _imgMethod;
 
         // ReSharper disable once UnassignedField.Compiler
-        private static readonly BitmapImage _imgStruct = Utilities.LoadBitmap(Global.ImgStruct);
+        private static readonly BitmapImage _imgStruct = ImageHelper.LoadBitmap(Global.ImgStruct);
 
         private static BitmapImage _imgEnum;
         private static BitmapImage _imgSignal;
@@ -142,7 +144,6 @@ namespace miRobotEditor.Controls.TextEditor
             InputBindings.Add(new KeyBinding(ReplaceCommand, new KeyGesture(Key.R, ModifierKeys.Control)));
             InputBindings.Add(new KeyBinding(ReloadCommand, new KeyGesture(Key.F5, ModifierKeys.None)));
             InputBindings.Add(new KeyBinding(AddTimeStampCommand, new KeyGesture(Key.D, ModifierKeys.Control)));
-
         }
 
         public AvalonEditor()
@@ -215,7 +216,7 @@ namespace miRobotEditor.Controls.TextEditor
             set
             {
                 _fileSave = value;
-                OnPropertyChanged("FileSave");
+                OnPropertyChanged(nameof(FileSave));
             }
         }
 
@@ -229,7 +230,7 @@ namespace miRobotEditor.Controls.TextEditor
             set
             {
                 _editortype = value;
-                OnPropertyChanged("EditorType");
+                OnPropertyChanged(nameof(EditorType));
             }
         }
 
@@ -246,7 +247,7 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 _selectedVariable = value;
                 SelectText(_selectedVariable);
-                OnPropertyChanged("SelectedVariable");
+                OnPropertyChanged(nameof(SelectedVariable));
             }
         }
 
@@ -260,8 +261,8 @@ namespace miRobotEditor.Controls.TextEditor
             set
             {
                 _filename = value;
-                OnPropertyChanged("Filename");
-                OnPropertyChanged("Title");
+                OnPropertyChanged(nameof(Filename));
+                OnPropertyChanged( "Title");
             }
         }
 
@@ -275,7 +276,7 @@ namespace miRobotEditor.Controls.TextEditor
             set
             {
                 _filelanguage = value;
-                OnPropertyChanged("FileLanguage");
+                OnPropertyChanged(nameof(FileLanguage));
             }
         }
 
@@ -615,6 +616,8 @@ namespace miRobotEditor.Controls.TextEditor
             var current = WindowsIdentity.GetCurrent();
             if (current != null)
             {
+
+
                 var item3 = new SnippetReplaceableTextElement
                 {
                     Text = current.Name
@@ -674,9 +677,9 @@ namespace miRobotEditor.Controls.TextEditor
             UpdateLineTransformers();
             if (caret != null)
             {
-                OnPropertyChanged("Line");
-                OnPropertyChanged("Column");
-                OnPropertyChanged("Offset");
+                OnPropertyChanged(nameof(Line));
+                OnPropertyChanged(nameof(Column));
+                OnPropertyChanged(nameof(Offset));
                 FileSave = ((!string.IsNullOrEmpty(Filename))
                     ? File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture)
                     : string.Empty);
@@ -788,19 +791,19 @@ namespace miRobotEditor.Controls.TextEditor
         private void CreateImages()
         {
             if (_imgMethod == null)
-                _imgMethod = Utilities.LoadBitmap(Global.ImgMethod);
+                _imgMethod = ImageHelper.LoadBitmap(Global.ImgMethod);
 
             if (_imgStruct == null)
-                _imgMethod = Utilities.LoadBitmap(Global.ImgStruct);
+                _imgMethod = ImageHelper.LoadBitmap(Global.ImgStruct);
 
             if (_imgEnum == null)
-                _imgEnum = Utilities.LoadBitmap(Global.ImgEnum);
+                _imgEnum = ImageHelper.LoadBitmap(Global.ImgEnum);
 
             if (_imgSignal == null)
-                _imgSignal = Utilities.LoadBitmap(Global.ImgSignal);
+                _imgSignal = ImageHelper.LoadBitmap(Global.ImgSignal);
 
             if (_imgXyz == null)
-                _imgXyz = Utilities.LoadBitmap(Global.ImgXyz);
+                _imgXyz = ImageHelper.LoadBitmap(Global.ImgXyz);
         }
 
         private void FindBookmarkMembers()
@@ -1576,9 +1579,9 @@ namespace miRobotEditor.Controls.TextEditor
         private void TextEditorGotFocus(object sender, RoutedEventArgs e)
         {
             DocumentViewModel.Instance.TextBox = this;
-            OnPropertyChanged("Line");
-            OnPropertyChanged("Column");
-            OnPropertyChanged("Offset");
+            OnPropertyChanged(nameof(Line));
+            OnPropertyChanged(nameof(Column));
+            OnPropertyChanged(nameof(Offset));
             OnPropertyChanged("RobotType");
             FileSave = ((!string.IsNullOrEmpty(Filename))
                 ? File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture)
@@ -1587,6 +1590,4 @@ namespace miRobotEditor.Controls.TextEditor
 
         protected internal virtual char[] GetWordParts() => new char[0];
     }
-
-
 }

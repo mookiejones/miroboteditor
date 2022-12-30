@@ -11,7 +11,6 @@ namespace miRobotEditor.Converters
         {
             SolidColorBrush solidColorBrush = value as SolidColorBrush;
 
-
             if (solidColorBrush != null)
             {
                 return solidColorBrush.Color;
@@ -29,5 +28,4 @@ namespace miRobotEditor.Converters
             return null;
         }
     }
-
 }

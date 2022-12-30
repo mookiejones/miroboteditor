@@ -16,10 +16,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         private double[,] _elements;
         private int _rows;
 
-        protected Matrix()
-        {
-            SetSize(0, 0);
-        }
+        protected Matrix() => SetSize(0, 0);
 
         public Matrix(Matrix mat)
         {
@@ -33,10 +30,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             }
         }
 
-        public Matrix(int rows, int columns)
-        {
-            SetSize(rows, columns);
-        }
+        public Matrix(int rows, int columns) => SetSize(rows, columns);
 
         protected Matrix(int rows, int columns, params double[] elements)
         {

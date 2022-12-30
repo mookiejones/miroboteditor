@@ -1,5 +1,3 @@
-
-
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Languages

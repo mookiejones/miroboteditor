@@ -17,5 +17,4 @@ namespace miRobotEditor.Converters
             return DependencyProperty.UnsetValue;
         }
     }
-
 }

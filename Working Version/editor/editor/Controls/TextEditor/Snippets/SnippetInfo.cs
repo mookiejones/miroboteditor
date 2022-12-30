@@ -9,11 +9,13 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             get;
             set;
         }
+
         public string Path
         {
             get;
             private set;
         }
+
         public string Filename
         {
             get
@@ -25,22 +27,23 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                 return System.IO.Path.GetFileName(Path);
             }
         }
+
         public SnippetHeader Header
         {
             get;
             set;
         }
+
         public Snippet Snippet
         {
             get;
             set;
         }
+
         public SnippetInfo()
         {
         }
-        internal SnippetInfo(string path)
-        {
-            Path = path;
-        }
+
+        internal SnippetInfo(string path) => Path = path;
     }
 }

@@ -9,6 +9,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
     public class Declaration
     {
         private static Dictionary<string, Declaration> _defaults;
+
         public static Dictionary<string, Declaration> Defaults
         {
             get
@@ -34,16 +35,19 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                 return _defaults;
             }
         }
+
         public string Default
         {
             get;
             set;
         }
+
         public string Id
         {
             get;
             set;
         }
+
         public object ToolTip
         {
             get;

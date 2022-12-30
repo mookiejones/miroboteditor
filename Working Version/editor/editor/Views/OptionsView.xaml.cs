@@ -7,9 +7,6 @@ namespace miRobotEditor.Views
     /// </summary>
     public partial class OptionsView : UserControl
     {
-        public OptionsView()
-        {
-            InitializeComponent();
-        }
+        public OptionsView() => InitializeComponent();
     }
 }

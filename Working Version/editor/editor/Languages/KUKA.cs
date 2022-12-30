@@ -7,11 +7,13 @@ using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor;
+using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
+using miRobotEditor.Position;
+using miRobotEditor.Utilities;
 using miRobotEditor.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -24,7 +26,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using FileInfo = miRobotEditor.Classes.FileInfo;
 using MenuItem = System.Windows.Controls.MenuItem;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -32,16 +33,13 @@ namespace miRobotEditor.Languages
 {
     public class KUKA : AbstractLanguageClass
     {
-        private readonly FileInfo _fi = new FileInfo();
+        private readonly FileInfo _fi ;
         private RelayCommand _systemFunctionCommand;
 
         public KUKA(string file)
-            : base(file)
-        {
+            : base(file) =>
             //TODO Trying out KUKAs folding Strategy
-            FoldingStrategy = new RegionFoldingStrategy();
-            //      FoldingStrategy = new KrlFoldingStrategy();
-        }
+            FoldingStrategy = new RegionFoldingStrategy();//      FoldingStrategy = new KrlFoldingStrategy();
 
         public override void Initialize(string filename) => base.Initialize();
 
@@ -193,7 +191,6 @@ namespace miRobotEditor.Languages
 
         protected override bool IsFileValid(System.IO.FileInfo file) => FileIsValid(file);
 
-
         internal bool FileIsValid(System.IO.FileInfo file)
         {
             foreach (var ext in Ext)
@@ -203,6 +200,7 @@ namespace miRobotEditor.Languages
             }
             return false;
         }
+
         private static Collection<string> GetPositionFromFile(int line, ITextEditorComponent editor)
         {
             var collection = new Collection<string>();
@@ -273,19 +271,19 @@ namespace miRobotEditor.Languages
                         if (extension == ".sub" || extension == ".sps" || extension == ".kfd")
                         {
                             GetInfo();
-                            iconSource = Utilities.GetIcon("..\\..\\Resources\\spsfile.png");
+                            iconSource = ImageHelper.GetIcon("..\\..\\Resources\\spsfile.png");
                         }
                     }
                     else
                     {
                         GetInfo();
-                        iconSource = Utilities.GetIcon("..\\..\\Resources\\datfile.png");
+                        iconSource = ImageHelper.GetIcon("..\\..\\Resources\\datfile.png");
                     }
                 }
                 else
                 {
                     GetInfo();
-                    iconSource = Utilities.GetIcon("..\\..\\Resources\\srcfile.png");
+                    iconSource = ImageHelper.GetIcon("..\\..\\Resources\\srcfile.png");
                 }
             }
             return new DocumentViewModel(filepath)
@@ -303,11 +301,7 @@ namespace miRobotEditor.Languages
                 ForSnippet
             };
 
-        public override string ExtractXYZ(string positionstring)
-        {
-            var positionBase = new PositionBase(positionstring);
-            return positionBase.ExtractFromMatch();
-        }
+         
 
         public static string GetDatFileName(string filename) => filename.Substring(0, filename.LastIndexOf('.')) + ".dat";
 

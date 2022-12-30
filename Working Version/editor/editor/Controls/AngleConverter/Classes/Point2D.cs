@@ -7,20 +7,11 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
     [Localizable(false)]
     public sealed class Point2D : IFormattable
     {
-        public Point2D()
-        {
-            Position = new Vector2D();
-        }
+        public Point2D() => Position = new Vector2D();
 
-        public Point2D(Vector2D position)
-        {
-            Position = position;
-        }
+        public Point2D(Vector2D position) => Position = position;
 
-        public Point2D(double x, double y)
-        {
-            Position = new Vector2D(x, y);
-        }
+        public Point2D(double x, double y) => Position = new Vector2D(x, y);
 
         public Vector2D Position { get; set; }
 

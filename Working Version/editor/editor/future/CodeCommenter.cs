@@ -12,33 +12,41 @@ namespace miRobotEditor.future
             ' ',
             '\t'
         };
+
         private string commentMarker = ";";
+
         public bool AllowMultipleComments
         {
             get;
             set;
         }
+
         public bool CommentCarretLineIfNoSelection
         {
             get;
             set;
         }
+
         public string CommentMarker
         {
             get => commentMarker;
             set => commentMarker = value;
         }
+
         public CommentMode Mode
         {
             get;
             set;
         }
+
         public CodeCommenter(CommentMode mode)
         {
             Mode = mode;
             CommentCarretLineIfNoSelection = true;
         }
+
         public bool CommentLine(AvalonEditor kukaTextEditor, DocumentLine documentLine) => CommentLine(kukaTextEditor.Document, documentLine);
+
         public bool CommentLine(TextDocument document, DocumentLine documentLine)
         {
             if (Mode == CommentMode.BeginOfLine)
@@ -47,6 +55,7 @@ namespace miRobotEditor.future
             }
             return CommentAtBeginOfText(document, documentLine);
         }
+
         public bool CommentLines(AvalonEditor kukaTextEditor, int startLine, int endLine)
         {
             if (endLine > kukaTextEditor.Document.LineCount)
@@ -65,6 +74,7 @@ namespace miRobotEditor.future
             }
             return flag;
         }
+
         public bool CommentLines(AvalonEditor kukaTextEditor, IEnumerable<DocumentLine> documentLines)
         {
             if (kukaTextEditor == null)
@@ -78,6 +88,7 @@ namespace miRobotEditor.future
             }
             return flag;
         }
+
         public bool CommentSelection(AvalonEditor kukaTextEditor)
         {
             if (kukaTextEditor == null)
@@ -115,6 +126,7 @@ namespace miRobotEditor.future
             }
             return result;
         }
+
         public bool UncommentSelection(AvalonEditor kukaTextEditor)
         {
             if (kukaTextEditor == null)
@@ -151,6 +163,7 @@ namespace miRobotEditor.future
             }
             return result;
         }
+
         public bool UncommentLine(AvalonEditor kukaTextEditor, DocumentLine documentLine)
         {
             if (kukaTextEditor == null)
@@ -191,7 +204,9 @@ namespace miRobotEditor.future
             }
             return false;
         }
+
         private static bool IsWhitespace(char letter) => Whitespaces.Contains(letter);
+
         private bool CommentAtBeginOfLine(TextDocument document, DocumentLine documentLine)
         {
             var text = document.GetText(documentLine).TrimStart(Whitespaces.ToArray());
@@ -206,6 +221,7 @@ namespace miRobotEditor.future
             document.Insert(documentLine.Offset, CommentMarker);
             return true;
         }
+
         private bool CommentAtBeginOfText(TextDocument document, DocumentLine documentLine)
         {
             var text = document.GetText(documentLine);
@@ -241,6 +257,7 @@ namespace miRobotEditor.future
             return true;
         }
     }
+
     public enum CommentMode
     {
         BeginOfLine,

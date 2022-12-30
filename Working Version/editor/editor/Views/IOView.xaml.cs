@@ -7,9 +7,6 @@ namespace miRobotEditor.Views
     /// </summary>
     public sealed partial class IOView : UserControl
     {
-        public IOView()
-        {
-            InitializeComponent();
-        }
+        public IOView() => InitializeComponent();
     }
 }

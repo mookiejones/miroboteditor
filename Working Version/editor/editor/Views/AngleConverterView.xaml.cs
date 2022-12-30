@@ -7,9 +7,6 @@ namespace miRobotEditor.Views
     /// </summary>
     public sealed partial class AngleConverterView : UserControl
     {
-        public AngleConverterView()
-        {
-            InitializeComponent();
-        }
+        public AngleConverterView() => InitializeComponent();
     }
 }

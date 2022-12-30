@@ -30,7 +30,6 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Windows\Sni
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Windows\SplashScreenWindow.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Windows\XmlReaderWindow.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Windows\RenamePositionWindow.baml
-C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\FileInfo.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\FilesControl.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\FunctionItem.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\InfoFile.g.cs
@@ -73,7 +72,6 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Windows\Got
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Windows\GotoWindow.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\OptionsView.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\App.baml
-C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\FileInfo.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\FunctionItem.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\KukaControl.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Languages\LanguageTemplates.baml
@@ -182,3 +180,5 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\Cont
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\Templates.Editor.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\Templates.Kuka.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\Templates.StatusBar.baml
+C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\UI\ValueBox.g.cs
+C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\UI\ValueBox.baml

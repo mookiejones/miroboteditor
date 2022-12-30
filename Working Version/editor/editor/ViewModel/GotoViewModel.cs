@@ -105,10 +105,7 @@ namespace miRobotEditor.ViewModel
 
         // ReSharper restore ExplicitCallerInfoArgument
 
-        public GotoViewModel(AvalonEditor editor)
-        {
-            Editor = editor;
-        }
+        public GotoViewModel(AvalonEditor editor) => Editor = editor;
 
         public GotoViewModel()
         {

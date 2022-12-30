@@ -7,9 +7,6 @@ namespace miRobotEditor.Views
     /// </summary>
     public sealed partial class NotesView : UserControl
     {
-        public NotesView()
-        {
-            InitializeComponent();
-        }
+        public NotesView() => InitializeComponent();
     }
 }

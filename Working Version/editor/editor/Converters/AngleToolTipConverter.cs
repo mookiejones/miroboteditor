@@ -1,4 +1,4 @@
-﻿using miRobotEditor.Enums;
+﻿using miRobotEditor.Position;
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -72,6 +72,7 @@ namespace miRobotEditor.Converters
                 case CartesianEnum.Axis_Angle:
                     result = "Axis Angle";
                     return result;
+
                 case CartesianEnum.Kuka_ABC:
                     {
                         _title = "Kuka ABC";
@@ -99,6 +100,7 @@ namespace miRobotEditor.Converters
                 case CartesianEnum.Euler_ZYZ:
                     result = "Euler ZYZ";
                     return result;
+
                 case CartesianEnum.Alpha_Beta_Gamma:
                     result = "Alpha Beta Gamma";
                     return result;

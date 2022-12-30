@@ -5,5 +5,4 @@
     <CompletionItem Text="$POS_ACT" Type="System Variable" Description="Actual Linear Position" />
     <CompletionItem Text="$AXIS_ACT" Type="System Variable" Description="Actual Axis Position" />
   </CompletionItems>
-
 </CompletionItemList>

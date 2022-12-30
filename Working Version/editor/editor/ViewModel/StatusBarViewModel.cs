@@ -16,10 +16,7 @@ namespace miRobotEditor.ViewModel
         private bool _isScrollPressed;
         private RelayCommand<object> _keyPressedCommand;
 
-        public StatusBarViewModel()
-        {
-            GetInitialKeyState();
-        }
+        public StatusBarViewModel() => GetInitialKeyState();
 
 
 

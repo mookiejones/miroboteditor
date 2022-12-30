@@ -22,8 +22,10 @@ namespace miRobotEditor.Classes
         private const string RemoteServiceName = "SingleInstanceApplicationService";
         private const string IpcProtocol = "ipc://";
         private static Mutex _singleInstanceMutex;
+
         // ReSharper disable once StaticFieldInGenericType
         private static IpcServerChannel _channel;
+
         public static IList<string> CommandLineArgs { get; private set; }
 
         public static bool InitializeAsFirstInstance(string uniqueName)

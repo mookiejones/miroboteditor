@@ -24,13 +24,7 @@ using System.Windows.Shell;
 
 namespace miRobotEditor.ViewModel
 {
-    /// <summary>
-    ///     This class contains properties that the main View can data bind to.
-    ///     <para>
-    ///         See http://www.galasoft.ch/mvvm
-    ///     </para>
-    /// </summary>
-    // ReSharper disable once ClassNeverInstantiated.Global
+    
     public sealed class MainViewModel : ViewModelBase
     {
         private static IEditorDocument _activeEditor;

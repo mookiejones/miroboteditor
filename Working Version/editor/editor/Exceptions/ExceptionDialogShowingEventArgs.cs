@@ -7,10 +7,7 @@ namespace miRobotEditor.Exceptions
     {
         private readonly Exception exception;
 
-        internal ExceptionDialogShowingEventArgs(Exception exception)
-        {
-            this.exception = exception;
-        }
+        internal ExceptionDialogShowingEventArgs(Exception exception) => this.exception = exception;
 
         public Exception Exception => exception;
     }

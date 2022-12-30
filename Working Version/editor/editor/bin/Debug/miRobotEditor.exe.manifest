@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Images\editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="miRobotEditor" version="0.0.0.26590" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="miRobotEditor" version="0.0.0.36732" language="neutral" processorArchitecture="msil" />
     <commandLine file="miRobotEditor.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -211,14 +211,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1422848">
-      <assemblyIdentity name="miRobotEditor" version="0.0.0.26590" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1426432">
+      <assemblyIdentity name="miRobotEditor" version="0.0.0.36732" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>xCKWQWQMcaPKm5/iE/+Kxe5EqODQbN8DwQzBEtR+W/o=</dsig:DigestValue>
+        <dsig:DigestValue>X+h8wDll3ZEDnSxCrNGMwbwkgtZ25mvfqWuNxB6P0iI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -336,13 +336,13 @@
       <dsig:DigestValue>b2kXyTwtmRnhRLSPC8zA+gTA3PDtzPBL7NeQMAAzBQc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="miRobotEditor.exe.config" size="3452">
+  <file name="miRobotEditor.exe.config" size="3450">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Z5OPNaoK/j5EVmPa0BBUFUOnuh5eiIGMVf3WrZtO/hE=</dsig:DigestValue>
+      <dsig:DigestValue>MC0XINbPrASBaS42wrPF5LelTAMBe6SlgA8AUrORMBE=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

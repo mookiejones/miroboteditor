@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:miRobotEditor.Converters"
-                     
+
                     xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     xmlns:gui="clr-namespace:miRobotEditor.Classes"
                     xmlns:controls="clr-namespace:miRobotEditor.Controls"
-                    xmlns:textEditor="clr-namespace:miRobotEditor.Controls.TextEditor">
+                    xmlns:textEditor="clr-namespace:miRobotEditor.Controls.TextEditor" xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
 
@@ -22,6 +22,27 @@
                 Value="{Binding ShowLineNumbers, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="BorderThickness"
                 Value="{Binding BorderThickness, Source={x:Static textEditor:EditorOptions.Instance}}" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+
+                    <MenuItem Header="Cut" InputGestureText="Ctrl+X" Command="{Binding CutCommand}" Icon="{wpf:PackIcon Kind=ContentCut}"/>
+
+                    <MenuItem Header="Copy" InputGestureText="Ctrl+C" Command="{Binding CopyCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentCopy}"/>
+
+                    <MenuItem Header="_Paste" InputGestureText="Ctrl+V" Command="{Binding PasteCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentPaste}"/>
+
+                    <Separator />
+                    <MenuItem Header="Open all Folds" InputGestureText="Ctrl+M,O" IsTextSearchCaseSensitive="True"
+                      Command="{Binding OpenAllFoldsCommand, Mode=OneWay}" />
+                    <MenuItem Header="Close all Folds" InputGestureText="Ctrl,+,M,L"
+                      Command="{Binding CloseAllFoldsCommand, Mode=OneWay}" />
+                    <Separator />
+                    <MenuItem Header="Add Timestamp" Command="{Binding AddTimeStampCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=StoreTime}"/>
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+
     </Style>
     <Style x:Key="{x:Type avalonedit:TextArea}" TargetType="{x:Type avalonedit:TextArea}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />

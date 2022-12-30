@@ -15,10 +15,7 @@ namespace miRobotEditor.Controls
     /// </summary>
     public partial class VisualVariableItem : DataGrid
     {
-        public VisualVariableItem()
-        {
-            InitializeComponent();
-        }
+        public VisualVariableItem() => InitializeComponent();
 
         private void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

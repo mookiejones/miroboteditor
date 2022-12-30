@@ -1,4 +1,4 @@
-﻿using miRobotEditor.Classes;
+﻿using miRobotEditor.Position;
 using System.Collections.Generic;
 
 namespace miRobotEditor.Interfaces
@@ -10,7 +10,9 @@ namespace miRobotEditor.Interfaces
         string Name { get; set; }
         string Type { get; set; }
         IEnumerable<PositionValue> PositionalValues { get; }
+
         void ParseValues();
+
         string ExtractFromMatch();
     }
 }

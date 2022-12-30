@@ -2,9 +2,11 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
+using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
+using miRobotEditor.Position;
 using miRobotEditor.ViewModel;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,10 +25,7 @@ namespace miRobotEditor.Languages
         private const RegexOptions Ro = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
         public ABB(string file)
-            : base(file)
-        {
-            FoldingStrategy = new RegionFoldingStrategy();
-        }
+            : base(file) => FoldingStrategy = new RegionFoldingStrategy();
 
         // ReSharper disable once InconsistentNaming
         public static List<string> EXT => new List<string>
@@ -73,11 +72,7 @@ namespace miRobotEditor.Languages
 
         protected override bool IsFileValid(FileInfo file) => EXT.Any(e => file.Extension.ToLower(CultureInfo.InvariantCulture) == e);
 
-        public override string ExtractXYZ(string positionstring)
-        {
-            var positionBase = new PositionBase(positionstring);
-            return positionBase.ExtractFromMatch();
-        }
+  
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {

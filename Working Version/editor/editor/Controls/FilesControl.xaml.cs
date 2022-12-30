@@ -7,9 +7,6 @@ namespace miRobotEditor.Controls
     /// </summary>
     public sealed partial class FilesControl : UserControl
     {
-        public FilesControl()
-        {
-            InitializeComponent();
-        }
+        public FilesControl() => InitializeComponent();
     }
 }

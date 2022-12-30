@@ -45,5 +45,4 @@
             <controls:ExtendedGridSplitter x:Name="_grid" Grid.Row="1" DataContext="{Binding Grid}" />
         </Grid>
     </DockPanel>
-
 </UserControl>

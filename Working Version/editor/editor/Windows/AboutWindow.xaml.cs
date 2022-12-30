@@ -8,10 +8,7 @@ namespace miRobotEditor.Windows
     /// </summary>
     public sealed partial class AboutWindow : Window
     {
-        public AboutWindow()
-        {
-            InitializeComponent();
-        }
+        public AboutWindow() => InitializeComponent();
 
         private void CloseClick(object sender, RoutedEventArgs e) => throw new NotImplementedException();
     }

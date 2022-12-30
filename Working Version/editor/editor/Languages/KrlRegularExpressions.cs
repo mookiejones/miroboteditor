@@ -4,8 +4,6 @@ namespace miRobotEditor.Languages
 {
     public static class KrlRegularExpressions
     {
-
-
         private static readonly Regex defLineRegex = new Regex("^\\s*((global\\s+)?(def|deffct))\\s+.*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex emptyLineRegex = new Regex("^\\s*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex endDefLineRegex = new Regex("^\\s*(end|endfct)((\\s+.*)|\\s*)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);

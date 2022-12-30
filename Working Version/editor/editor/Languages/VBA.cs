@@ -1,7 +1,7 @@
 ﻿using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Classes;
+using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
@@ -17,10 +17,7 @@ namespace miRobotEditor.Languages
     public sealed class VBA : AbstractLanguageClass
     {
         public VBA(string file)
-            : base(file)
-        {
-            FoldingStrategy = new RegionFoldingStrategy();
-        }
+            : base(file) => FoldingStrategy = new RegionFoldingStrategy();
 
         public override List<string> SearchFilters => new List<string>
                 {

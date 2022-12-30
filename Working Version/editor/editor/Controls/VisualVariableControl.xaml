@@ -27,7 +27,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="VisualVariable" IsReadOnly="True"  
+        <DataGrid x:Name="VisualVariable" IsReadOnly="True"
                   Style="{DynamicResource DataGridStyle}" ToolTipOpening="ToolTip_Opening" ItemsSource="{Binding}"
                   MouseDoubleClick="OnMouseDoubleClick">
             <DataGrid.Columns>
@@ -44,7 +44,6 @@
                 <DataGridTextColumn Binding="{Binding Value}" Header="Value" />
                 <DataGridTextColumn Binding="{Binding Path}" Width="*" Header="Path" />
             </DataGrid.Columns>
-
         </DataGrid>
     </Grid>
 </UserControl>

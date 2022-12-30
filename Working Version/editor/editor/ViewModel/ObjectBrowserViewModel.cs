@@ -71,7 +71,7 @@ namespace miRobotEditor.ViewModel
         private void Initialize()
         {
             ContentId = ToolContentId;
-            IconSource = Utilities.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
+            IconSource = ImageHelper.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
             //  IconSource = Utilities.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
             DefaultPane = DefaultToolPane.Bottom;
         }

@@ -1,16 +1,17 @@
 ﻿
 FC:\Programming\miroboteditor\Working Version\editor\editor\App.xaml;;
-FC:\Programming\miroboteditor\Working Version\editor\editor\Controls\FileInfo.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Controls\FunctionItem.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Controls\KukaControl.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Languages\LanguageTemplates.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Templates\OptionsTemplate.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Templates\ShiftTemplate.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Themes\Controls.ExtendedGridSplitter.xaml;;
+FC:\Programming\miroboteditor\Working Version\editor\editor\Themes\Generic.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Themes\Templates.Editor.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Themes\Templates.Kuka.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Themes\Templates.Layout.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Themes\Templates.StatusBar.xaml;;
+FC:\Programming\miroboteditor\Working Version\editor\editor\UI\ValueBox.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Views\MessageView.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Views\ObjectBrowserView.xaml;;
 FC:\Programming\miroboteditor\Working Version\editor\editor\Views\OptionsView.xaml;;

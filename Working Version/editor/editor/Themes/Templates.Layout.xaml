@@ -5,6 +5,7 @@
                     xmlns:vm="clr-namespace:miRobotEditor.ViewModel" 
                     xmlns:views="clr-namespace:miRobotEditor.Views" 
                     xmlns:converters="clr-namespace:miRobotEditor.Converters"
+                    xmlns:variable="clr-namespace:miRobotEditor.Variables"
                     xmlns:controls="clr-namespace:miRobotEditor.Controls">
     <converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter"/>
     <classes:LayoutInitializer x:Key="LayoutInitializer"/>
@@ -36,6 +37,7 @@
     <DataTemplate x:Key="NotesTemplate">
         <views:NotesView />
     </DataTemplate>
+    
     <DataTemplate x:Key="FunctionsTemplate" DataType="{x:Type vm:FunctionViewModel}">
         <views:FunctionView />
     </DataTemplate>
@@ -46,7 +48,7 @@
     </DataTemplate>
 
 
-    <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type classes:Variable}">
+    <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type variable:Variable}">
         <controls:FunctionItem />
     </DataTemplate>
     
@@ -62,7 +64,7 @@
                     <Setter Property="FontSize" Value="10" />
                     <Setter Property="ItemTemplate" >
                         <Setter.Value>
-                            <DataTemplate  DataType="{x:Type classes:Variable}">
+                            <DataTemplate  DataType="{x:Type variable:Variable}">
                                 <controls:FunctionItem />
                             </DataTemplate>
                         </Setter.Value>
@@ -139,7 +141,7 @@
                                   />
 
 
-    <Style TargetType="{x:Type DockingManager}">
+    <Style x:Key="DockingStyle" TargetType="{x:Type DockingManager}">
         <Setter Property="LayoutUpdateStrategy" Value="{StaticResource LayoutInitializer}"/>
         <Setter Property="LayoutItemTemplateSelector" Value="{StaticResource PanesTemplateSelector}"/>
         <Setter Property="LayoutItemContainerStyleSelector" Value="{StaticResource PanesStyleSelector}"/>

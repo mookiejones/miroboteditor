@@ -2,9 +2,11 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
+using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
+using miRobotEditor.Position;
 using miRobotEditor.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -80,10 +82,6 @@ namespace miRobotEditor.Languages
             return doc.GetText(offset, length);
         }
 
-        public override string ExtractXYZ(string positionstring)
-        {
-            var positionBase = new PositionBase(positionstring);
-            return positionBase.ExtractFromMatch();
-        }
+        
     }
 }

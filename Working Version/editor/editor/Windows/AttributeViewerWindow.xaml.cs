@@ -5,9 +5,6 @@
     /// </summary>
     public partial class AttributeViewerWindow
     {
-        public AttributeViewerWindow()
-        {
-            InitializeComponent();
-        }
+        public AttributeViewerWindow() => InitializeComponent();
     }
 }

@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.Enums;
 using miRobotEditor.Messages;
+using miRobotEditor.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,6 +34,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                 return list;
             }
         }
+
         public static IEnumerable<SnippetCompletionData> GetCompletionDataForExtension(string extension)
         {
             if (SnippetsByExtension.ContainsKey(extension))
@@ -44,6 +46,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
             yield break;
         }
+
         public static SnippetInfo GetSnippetForShortcut(string shortCut)
         {
             if (Snippets.ContainsKey(shortCut))
@@ -52,6 +55,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
             return null;
         }
+
         public static IEnumerable<SnippetInfo> GetSnippetsForExtension(string extension)
         {
             if (SnippetsByExtension.ContainsKey(extension))
@@ -63,7 +67,9 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
             yield break;
         }
+
         public static bool HasSnippetsForExtension(string extension) => SnippetsByExtension.ContainsKey(extension);
+
         public static bool HasSnippetsFor(string shortCut, string extension)
         {
             if (Snippets.ContainsKey(shortCut))
@@ -76,7 +82,9 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
             return false;
         }
+
         public static bool KnowsShortCut(string shortCut) => Snippets.ContainsKey(shortCut);
+
         public static bool LoadSnippet(string file)
         {
             file = Path.GetFullPath(file);
@@ -114,7 +122,6 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                                     var msg = new ErrorMessage(string.Format("Duplicate Shortcut :", file), null,
                                         MessageType.Error);
                                     WeakReferenceMessenger.Default.Send(msg);
-
                                 }
                             }
                             foreach (var current3 in snippetInfo.Header.Extensions)
@@ -149,6 +156,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
             return result;
         }
+
         public static void LoadSnippets(string directory)
         {
             if (!Directory.Exists(directory))
@@ -163,6 +171,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                 LoadSnippet(current);
             }
         }
+
         public static void ImportSnippet(string sourceFilePath, string targetDirectory)
         {
             if (!Path.IsPathRooted(targetDirectory))
@@ -188,6 +197,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                 File.Copy(sourceFilePath, destFileName, true);
             }
         }
+
         private static SnippetInfo BuildSnippet(XElement element, string path)
         {
             if (element == null)

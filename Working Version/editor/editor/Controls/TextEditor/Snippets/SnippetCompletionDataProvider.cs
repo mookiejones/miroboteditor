@@ -5,15 +5,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-
 namespace miRobotEditor.Controls.TextEditor.Snippets
 {
     public sealed class SnippetCompletionDataProvider : ICompletionDataProvider, IDisposable
     {
         public IEnumerable<ICompletionData> ProvideData(CompletionContextInfo context)
         {
-
-
             if (context != null && context.Path != null && context.CompletionType != CompletionType.CompletionKey && context.CompletionType != CompletionType.ScopeChange)
             {
                 var extension = Path.GetExtension(context.Path);
@@ -37,10 +34,9 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
         IL_170:
             yield break;
         }
+
         public void Dispose()
         {
         }
-
-
     }
 }

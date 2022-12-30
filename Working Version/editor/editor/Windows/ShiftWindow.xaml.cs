@@ -7,9 +7,6 @@ namespace miRobotEditor.Windows
     /// </summary>
     public sealed partial class ShiftWindow : Window
     {
-        public ShiftWindow()
-        {
-            InitializeComponent();
-        }
+        public ShiftWindow() => InitializeComponent();
     }
 }

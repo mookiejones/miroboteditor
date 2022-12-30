@@ -4,6 +4,7 @@
     {
         // ReSharper disable InconsistentNaming
         UNDEFINED,
+
         DECLARATION,
         E6POS,
         IDENTIFIER,
