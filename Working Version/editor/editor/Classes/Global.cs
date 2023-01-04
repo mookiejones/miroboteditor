@@ -45,8 +45,13 @@ namespace miRobotEditor.Classes
 
         public static string ProductName => Assembly.GetExecutingAssembly().GetName().ToString();
 
+        private static string GetDockConfig()
+        {
+             var result = AppDomain.CurrentDomain.BaseDirectory + "dockConfig.xml";
+            return result;
+        }
         [Localizable(false)]
-        public static string DockConfig => AppDomain.CurrentDomain.BaseDirectory + "dockConfig.xml";
+        public static string DockConfig =>GetDockConfig();
 
         public static bool DoesDirectoryExist(string filename)
         {
@@ -73,19 +78,6 @@ namespace miRobotEditor.Classes
             return result;
         }
 
-        public static void WriteLog(string message) => LogWriter.WriteLog(message);
-
-        public static void ErrorHandler(string message) => ErrorHandler(message, false);
-
-        private static void ErrorHandler(string message, bool showmessage)
-        {
-            Console.WriteLine(message);
-            TraceWriter.Trace(message);
-            LogWriter.WriteLog(message, showmessage ? Colors.Red : Colors.Gray);
-            if (showmessage)
-            {
-                MessageViewModel.ShowMessage(message);
-            }
-        }
+     
     }
 }

@@ -5,7 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              
              xmlns:gui="clr-namespace:miRobotEditor.Classes"
-             xmlns:converters="clr-namespace:miRobotEditor.Converters" xmlns:controls="clr-namespace:ColorPickerLib.Controls;assembly=ColorPickerLib" xmlns:numericupdownlib="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib" xmlns:texteditor="clr-namespace:miRobotEditor.Controls.TextEditor"
+             xmlns:converters="clr-namespace:miRobotEditor.Converters" 
+             xmlns:flyouts="clr-namespace:miRobotEditor.Flyouts"
+             xmlns:controls="clr-namespace:ColorPickerLib.Controls;assembly=ColorPickerLib" 
+             xmlns:numericupdownlib="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib" 
+             xmlns:texteditor="clr-namespace:miRobotEditor.Controls.TextEditor"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -27,128 +31,8 @@
           
 
             <TabItem Header="Text Editor Options" DataContext="{x:Static texteditor:EditorOptions.Instance}">
-                <TabItem.Resources>
-                    <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
-                        <Setter Property="FrameworkElement.Margin" Value="10,0" />
-                        <Setter Property="UIElement.IsHitTestVisible" Value="False" />
-                        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True" />
-                    </Style>
-                    <Style x:Key="{x:Type controls:ColorPicker}" TargetType="{x:Type controls:ColorPicker}">
-                        <Setter Property="FrameworkElement.Margin" Value="10,0" />
-                        <Setter Property="ShowAvailableColors" Value="True"/>
-                        <Setter Property="DisplayColorAndName" Value="True"/>
-                        <Setter Property="ShowAvailableColors" Value="True"/>
-
-                       
-                    </Style>
-                </TabItem.Resources>
-                <StackPanel Orientation="Vertical" Margin="10,0">
-                    <CheckBox Content="Allow Scrolling Below Document"
-                              IsChecked="{Binding AllowScrollingBelowDocument}" />
-                    <CheckBox Content="Convert Tabs to spaces." IsChecked="{Binding ConvertTabsToSpaces}" />
-                    <CheckBox Content="Cut/Copy Whole Line" IsChecked="{Binding CutCopyWholeLine}" />
-                    <CheckBox Content="Enable Animations" IsChecked="{Binding EnableAnimations}" />
-                    <CheckBox Content="Enable Email Hyperlinks" IsChecked="{Binding EnableEmailHyperlinks}" />
-                    <CheckBox Content="Enable Folding" IsChecked="{Binding EnableFolding}" />
-                    <GroupBox>
-                        <GroupBox.Header>
-                            <CheckBox Content="Enable Hyperlinks" IsChecked="{Binding EnableHyperlinks}" />
-                        </GroupBox.Header>
-                        <CheckBox Content="Require Control Button For Hyperlinks"
-                                  IsEnabled="{Binding EnableHyperlinks}"
-                                  IsChecked="{Binding RequireControlModifierForHyperlinkClick}" />
-                    </GroupBox>
-                    <GroupBox Header="Timestamp">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Format" />
-                            <TextBox Grid.Row="0" Grid.Column="1"
-                                     Text="{Binding TimestampFormat, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Text="Sample" Grid.Row="1" Grid.Column="0" />
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding TimestampSample}" />
-                        </Grid>
-                    </GroupBox>
-                    <CheckBox Content="Enable Rectangular Selection" IsChecked="{Binding EnableRectangularSelection}" />
-                    <CheckBox Content="Enable Text Drag/Drop" IsChecked="{Binding EnableTextDragDrop}" />
-                    <CheckBox Content="Enable Virtual Space" IsChecked="{Binding EnableVirtualSpace}" />
-                    <CheckBox Content="Highlight current line" IsChecked="{Binding HighlightCurrentLine}" />
-                    <CheckBox Content="Allow Zooming With Mouse Wheel" IsChecked="{Binding MouseWheelZoom}" />
-                    <CheckBox Content="Show Box For Control Characters"
-                              IsChecked="{Binding ShowBoxForControlCharacters}" />
-                    <GroupBox Header="Highlight current line">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Selected Line Color" />
-                                <controls:ColorPicker Tag="Font Color" SelectedColor="{Binding HighlightedLineColor}" />
-                            </StackPanel>
-                            <TextBox Text="{Binding WordWrapIndentation}" />
-                        </StackPanel>
-                    </GroupBox>
-                    <CheckBox Content="Show End of Line" IsChecked="{Binding ShowEndOfLine}" />
-                    <CheckBox Content="Show Line Numbers" IsChecked="{Binding ShowLineNumbers}" />
-                    <CheckBox Content="Show Spaces" IsChecked="{Binding ShowSpaces}" />
-                    <CheckBox Content="Wrap words" IsChecked="{Binding WrapWords}" />
-                    <GroupBox Header="Editor Colors">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Line Numbers" />
-                                <controls:ColorPicker Tag="Font Color" SelectedColor="{Binding LineNumbersFontColor}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Font Color" />
-                                <controls:ColorPicker Tag="Font Color" SelectedColor="{Binding FontColor}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Background Color" />
-                                <controls:ColorPicker Tag="Background Color" SelectedColor="{Binding BackgroundColor}" />
-                            </StackPanel>
-                            <GroupBox Header="Fold ToolTip">
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Background Color" />
-                                        <controls:ColorPicker Tag="Background Color"
-                                                          SelectedColor="{Binding FoldToolTipBackgroundColor}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Border Color" />
-                                        <controls:ColorPicker Tag="Background Color"
-                                                          SelectedColor="{Binding FoldToolTipBackgroundBorderColor}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="BorderThickness Color" />
-                                         
-                                        <numericupdownlib:DoubleUpDown Value="{Binding FoldToolTipBorderThickness}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header="Selected Text">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <TextBlock Text="Font Color" />
-                                <controls:ColorPicker SelectedColor="{Binding SelectedFontColor}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <TextBlock Text="Background Color" />
-                                <controls:ColorPicker SelectedColor="{Binding SelectedTextBackground}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <TextBlock Text="Border Color" />
-                                <controls:ColorPicker SelectedColor="{Binding SelectedBorderColor}" />
-                                <TextBlock Text="Border Thickness" />
-                                <numericupdownlib:DoubleUpDown   Value="{Binding SelectedBorderThickness}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </GroupBox>
-                </StackPanel>
+                <flyouts:EditorOptionView/>
+ 
             </TabItem>
         </TabControl>
     </Grid>

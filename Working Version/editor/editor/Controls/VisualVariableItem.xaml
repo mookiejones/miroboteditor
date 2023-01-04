@@ -11,8 +11,8 @@
     <DataGrid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/miRobotEditor;component/Themes/Style.DataGrid.xaml" />
+			</ResourceDictionary.MergedDictionaries>
             <ToolTip x:Key="tooltip" Background="#FFF8F8FF" BorderThickness="0" BorderBrush="#FF000000">
                 <GroupBox>
                     <GroupBox.Header>

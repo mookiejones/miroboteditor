@@ -17,7 +17,7 @@ namespace miRobotEditor.Controls.TextEditor
 {
     [Localizable(false)]
     [Serializable]
-    public sealed class EditorOptions : TextEditorOptions, IOptions
+    public sealed partial class EditorOptions : TextEditorOptions, IOptions
     {
         private static EditorOptions _instance;
         [NonSerialized] private bool _allowScrollingBelowDocument;
@@ -371,5 +371,7 @@ namespace miRobotEditor.Controls.TextEditor
             Register("Fanuc", Fanuc.EXT.ToArray());
             Register("ABB", ABB.EXT.ToArray());
         }
+
+
     }
 }

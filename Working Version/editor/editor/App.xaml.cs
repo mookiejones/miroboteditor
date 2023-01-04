@@ -7,6 +7,7 @@ using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.Model;
+using miRobotEditor.Utilities;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
 using System;
@@ -110,7 +111,8 @@ namespace miRobotEditor
             var msg = new ErrorMessage("App", e.Exception, MessageType.Error);
             WeakReferenceMessenger.Default.Send(msg);
 
-            Console.Write(e);
+            Logger.Log(e.ToString());
+
             e.Handled = true;
         }
 

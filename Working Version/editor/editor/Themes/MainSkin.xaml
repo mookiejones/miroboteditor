@@ -10,12 +10,10 @@
                     xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                     xmlns:io="clr-namespace:System.IO;assembly=mscorlib"
                     xmlns:variable="clr-namespace:miRobotEditor.Variables"
-                    xmlns:regularExpressions="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:completion="clr-namespace:miRobotEditor.Controls.TextEditor.Completion">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml" />
-        <ResourceDictionary Source="/miRobotEditor;component/Styles/Brushes.xaml" />
-        <ResourceDictionary Source="/miRobotEditor;component/Themes/Controls.ExtendedGridSplitter.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+                    xmlns:regularExpressions="clr-namespace:System.Text.RegularExpressions;assembly=System" 
+                    xmlns:completion="clr-namespace:miRobotEditor.Controls.TextEditor.Completion" 
+                    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
+ 
     <converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter" />
     <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
     <converters:GetFileSystemInfosConverter x:Key="GetFileSystemInfosConverter" />
@@ -23,24 +21,14 @@
     <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
     <viewModel:GlobalOptionsViewModel x:Key="GlobalOptions" />
 
-    <ControlTemplate x:Key="ValidationTemplate">
-        <DockPanel>
-            <TextBlock Foreground="#FFFF0000" FontSize="20">
-                <Run Text="!" />
-            </TextBlock>
-            <AdornedElementPlaceholder />
-        </DockPanel>
-    </ControlTemplate>
+    
 
-    <DataTemplate x:Key="SignalToolTip" DataType="ToolTip">
-        <StackPanel Orientation="Vertical">
-            <TextBlock Text="{Binding Type}" />
-            <Separator />
-            <TextBlock Text="{Binding Description}" />
-        </StackPanel>
-    </DataTemplate>
+     
 
-    <HierarchicalDataTemplate DataType="{x:Type io:DirectoryInfo}"
+   
+
+    <HierarchicalDataTemplate 
+		DataType="{x:Type io:DirectoryInfo}"
                               ItemsSource="{Binding ., Converter={StaticResource GetFileSystemInfosConverter}}">
         <TextBlock Text='{Binding Name}' FontSize="14" />
     </HierarchicalDataTemplate>
@@ -65,36 +53,7 @@
 
     
 
-    <!-- Goto -->
-    <DataTemplate x:Key="{DataTemplateKey {x:Type viewModel:GotoViewModel}}"
-                  DataType="{x:Type viewModel:GotoViewModel}">
-        <StackPanel Orientation="Vertical">
-            <StackPanel.Resources>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="VerticalAlignment" Value="Stretch" />
-                    <Setter Property="Width" Value="75" />
-                    <Setter Property="Margin" Value="5,0" />
-                    <Setter Property="HorizontalAlignment" Value="Right" />
-                </Style>
-                <Style TargetType="{x:Type TextBox}">
-                    <Setter Property="TabIndex" Value="1" />
-                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                    <Setter Property="VerticalAlignment" Value="Stretch" />
-                    <Setter Property="Margin" Value="5" />
-                    <Setter Property="TextWrapping" Value="NoWrap" />
-                    <Setter Property="Height" Value="25" />
-                </Style>
-            </StackPanel.Resources>
-            <TextBlock Name="Description" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap"
-                       VerticalAlignment="Top" Height="20" Text="{Binding Description}" />
-            <TextBox Name="EnteredText" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-                     Text="{Binding EnteredText, ValidatesOnDataErrors=True}" />
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-                <Button Name="btnOK" Content="_OK" Command="{Binding OkCommand}" />
-                <Button Name="btnCancel" Content="_Cancel" Command="{Binding CancelCommand}" />
-            </StackPanel>
-        </StackPanel>
-    </DataTemplate>
+  
 
     <DataTemplate x:Key="CodeCompletion" DataType="{x:Type completion:CodeCompletion}">
         <StackPanel Orientation="Vertical">
@@ -169,14 +128,6 @@
     <DataTemplate x:Key="{DataTemplateKey {x:Type viewModel:LocalVariablesViewModel}}"
                   DataType="{x:Type viewModel:LocalVariablesViewModel}" />
 
-    <!-- Editor -->
-    <DataTemplate x:Key="{DataTemplateKey {x:Type textEditor:AvalonEditor}}" DataType="{x:Type textEditor:AvalonEditor}">
-        <DockPanel>
-            <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}"
-                      DockPanel.Dock="Top" />
-            <ContentPresenter Content="{Binding ''}" DockPanel.Dock="Top" />
-        </DockPanel>
-    </DataTemplate>
 
     <!-- Functions -->
 </ResourceDictionary>

@@ -3,10 +3,12 @@ using AvalonDock.Layout.Serialization;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
 using miRobotEditor.Classes;
+using miRobotEditor.Controls;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.Properties;
+using miRobotEditor.Utilities;
 using miRobotEditor.ViewModel;
 using System;
 using System.ComponentModel;
@@ -44,37 +46,23 @@ namespace miRobotEditor
 
         private void LoadItems()
         {
-            LoadOpenFiles();
+            AppCommands.LoadOpenFiles();
             var layoutDocumentPane =
                 DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault<LayoutDocumentPane>();
+
             if (layoutDocumentPane != null && layoutDocumentPane.ChildrenCount == 0)
             {
                 var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 instance.AddNewFile();
             }
-            ProcessArgs();
+            AppCommands.ProcessArgs();
         }
 
-        private static void OpenFile(string filename)
-        {
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-            instance.Open(filename);
-        }
+      
 
-        private static void LoadOpenFiles()
-        {
-            var array = Settings.Default.OpenDocuments.Split(new[] { ';' });
-            for (var i = 0; i < array.Length - 1; i++)
-                if (File.Exists(array[i]))
-                    OpenFile(array[i]);
-        }
+   
 
-        private static void ProcessArgs()
-        {
-            var commandLineArgs = Environment.GetCommandLineArgs();
-            for (var i = 1; i < commandLineArgs.Length; i++)
-                OpenFile(commandLineArgs[i]);
-        }
+       
 
         [Localizable(false)]
         private void DropFiles(object sender, DragEventArgs e)
@@ -146,7 +134,9 @@ namespace miRobotEditor
                 }
             }
             Settings.Default.Save();
-            SaveLayout();
+
+            DockManager.SaveLayout();
+            
             var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.IsClosing = true;
             App.Application?.Shutdown();
@@ -156,32 +146,13 @@ namespace miRobotEditor
         {
             LoadItems();
             Splasher.CloseSplash();
-            //  LoadLayout();
+            DockManager.LoadLayout();
 
             var msg = new WindowMessage("Application Loaded", "Application Loaded", MessageType.Information);
             WeakReferenceMessenger.Default.Send<IMessage>(msg);
         }
 
-        private void SaveLayout()
-        {
-            var xmlLayoutSerializer = new XmlLayoutSerializer(DockManager);
-            using (var streamWriter = new StreamWriter(Global.DockConfig))
-            {
-                xmlLayoutSerializer.Serialize(streamWriter);
-            }
-        }
-
-        private void LoadLayout()
-        {
-            if (File.Exists(Global.DockConfig))
-            {
-                var xmlLayoutSerializer = new XmlLayoutSerializer(DockManager);
-                using (new StreamReader(Global.DockConfig))
-                {
-                    xmlLayoutSerializer.Deserialize(Global.DockConfig);
-                }
-            }
-        }
+    
 
         public void CloseWindow(object param)
         {

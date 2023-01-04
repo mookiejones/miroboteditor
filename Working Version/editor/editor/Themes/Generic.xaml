@@ -3,11 +3,14 @@
                     xmlns:vm="clr-namespace:miRobotEditor.ViewModel"
                     xmlns:ui="clr-namespace:miRobotEditor.UI">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Themes/MainSkin.xaml" />
-        <ResourceDictionary Source="/Themes/Templates.Layout.xaml" />
-        <ResourceDictionary Source="/Themes/Templates.StatusBar.xaml" />
-        <ResourceDictionary Source="/Themes/Templates.Kuka.xaml" />
-        <ResourceDictionary Source="/Themes/Templates.Editor.xaml" />
+		
+		<ResourceDictionary Source="/miRobotEditor;component/Themes/Style.DataGrid.xaml" />
+		<ResourceDictionary Source="/miRobotEditor;component/Themes/Templates.Layout.xaml" />
+		<ResourceDictionary Source="/miRobotEditor;component/Themes/Controls.ExtendedGridSplitter.xaml" />
+		<ResourceDictionary Source="/miRobotEditor;component/Themes/MainSkin.xaml" />
+        <ResourceDictionary Source="/miRobotEditor;component/Themes/Templates.StatusBar.xaml" />
+        <ResourceDictionary Source="/miRobotEditor;component/Themes/Templates.Kuka.xaml" />
+        <ResourceDictionary Source="/miRobotEditor;component/Themes/Templates.AvalonEditor.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate DataType="{x:Type vm:ValueBoxViewModel}">

@@ -10,7 +10,9 @@
     xmlns:ViewModel="clr-namespace:miRobotEditor.ViewModel"
     xmlns:texteditor="clr-namespace:miRobotEditor.Controls.TextEditor"
      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" 
+    xmlns:flyouts="clr-namespace:miRobotEditor.Flyouts"
     mc:Ignorable="d"
     x:Class="miRobotEditor.MainWindow"
     x:Name="MetroWindow"
@@ -40,10 +42,7 @@
             <mw:Flyout Header="I/O" Position="Right" Content="{Binding Main.ActiveEditor.FileLanguage.IOModel}"
                        IsOpen="{Binding Main.ShowIO}" />
             <mw:Flyout Header="Options" Position="Right" IsOpen="{Binding Main.ShowSettings}">
-                <mw:Flyout.Resources>
-                    <ResourceDictionary Source="Templates\OptionsTemplate.xaml" />
-                </mw:Flyout.Resources>
-                <Binding Path="Instance" Source="{StaticResource EditorOptions}" />
+                <flyouts:EditorOptionView/>
             </mw:Flyout>
         </mw:FlyoutsControl>
     </mw:MetroWindow.Flyouts>
@@ -82,7 +81,7 @@
                     </Style.Triggers>
                 </Style>
             </Menu.Resources>
-            <MenuItem Header="_File" Icon="{wpf:PackIcon Kind=File}">
+            <MenuItem Header="_File" >
 
                 <MenuItem Header="_New" Command="{Binding NewFileCommand}" Icon="{wpf:PackIcon Kind=FileDocumentAdd}" />
 
@@ -107,7 +106,7 @@
                 </MenuItem>
                 <MenuItem Header="E_xit" Command="{Binding ExitCommand}" Icon="{wpf:PackIcon Kind=ExitToApp}" />
             </MenuItem>
-            <MenuItem Header="_Edit" Icon="{wpf:PackIcon Kind=FileEdit}">
+            <MenuItem Header="_Edit" >
                 <MenuItem Header="Undo" Command="{Binding ActiveEditor.TextBox.UndoCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=Undo}" />
 
                 <MenuItem Header="Redo" Command="{Binding ActiveEditor.TextBox.RedoCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=Redo}" />
@@ -201,7 +200,7 @@
                     <MenuItem Header="Toggle All Folds" Command="{Binding ActiveEditor.TextBox.ToggleAllFoldsCommand}" />
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="View" Icon="{wpf:PackIcon Kind=ViewCompact}">
+            <MenuItem Header="View" >
                 <MenuItem Header="Appearance">
                     <MenuItem Header="Accents">
                         <MenuItem.Resources>
@@ -233,19 +232,19 @@
 
                           IsChecked="{Binding ShowLineNumbers, BindsDirectlyToSource=True, Source={x:Static texteditor:EditorOptions.Instance}}" />
             </MenuItem>
-            <MenuItem Header="View _as" Icon="{wpf:PackIcon Kind=ViewDashboardEdit}">
+            <MenuItem Header="View _as" >
                 <MenuItem Header="ABB" CommandParameter="ABB" Command="{Binding ChangeViewAsCommand}" />
                 <MenuItem Header="KUKA" CommandParameter="KUKA" Command="{Binding ChangeViewAsCommand}" />
                 <MenuItem Header="Fanuc" CommandParameter="Fanuc" Command="{Binding ChangeViewAsCommand}" />
                 <MenuItem Header="Nachi" CommandParameter="Nachi" Command="{Binding ChangeViewAsCommand}" />
                 <MenuItem Header="Kawasaki" CommandParameter="Kawasaki" Command="{Binding ChangeViewAsCommand}" />
             </MenuItem>
-            <MenuItem Header="Tools" Icon="{wpf:PackIcon Kind=Tools}">
+            <MenuItem Header="Tools" >
                 <MenuItem Header="Angle Converter" CommandParameter="Angle Converter"
                           Icon="{wpf:PackIcon Kind=AngleAcute}"
                           Command="{Binding AddToolCommand}" />
             </MenuItem>
-            <MenuItem Header="Window" Icon="{wpf:PackIcon Kind=Window}">
+            <MenuItem Header="Window" >
                 <MenuItem Header="Windows">
                     <MenuItem Header="Functions" CommandParameter="Functions" Command="{Binding AddToolCommand}" Icon="{wpf:PackIcon Kind=Function}" />
                     <MenuItem Header="Object Browser" CommandParameter="Object Browser"
@@ -258,7 +257,7 @@
                               Command="{Binding AddToolCommand}" />
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Robot" ItemsSource="{Binding ActiveEditor.FileLanguage}" Icon="{wpf:PackIcon Kind=RobotIndustrial}">
+            <MenuItem Header="Robot" ItemsSource="{Binding ActiveEditor.FileLanguage}" >
                 <MenuItem.ItemTemplateSelector>
                     <selectors:MenuTemplateSelector>
                         <selectors:MenuTemplateSelector.ABBTemplate>
@@ -283,9 +282,9 @@
                     <MenuItem Header="View I/O List" />
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Help" Icon="{wpf:PackIcon Kind=Help}">
+            <MenuItem Header="_Help" >
                 <MenuItem Header="_View Help" />
-                <MenuItem Header="Report a _Bug" />
+                <MenuItem Header="Report a _Bug" Icon="{wpf:PackIcon Kind=Bug}"/>
                 <MenuItem Header="_About" Command="{Binding ShowAboutCommand}" />
             </MenuItem>
         </Menu>
@@ -336,7 +335,7 @@
                 <Button Command="{Binding ActiveEditor.TextBox.CutCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=ContentCut}" />
                 <Button Content="{wpf:PackIcon Kind=ContentCopy}" Command="{Binding ActiveEditor.TextBox.CopyCommand, Mode=OneWay}" />
                 <Button Content="{wpf:PackIcon Kind=ContentPaste}" Command="{Binding ActiveEditor.TextBox.PasteCommand, Mode=OneWay}" />
-                <ToggleButton IsChecked="{Binding EnableFolding, Source={x:Static texteditor:EditorOptions.Instance}}" />
+                 
                 <Button ToolTip="Expand Folds" Command="{Binding ActiveEditor.TextBox.OpenAllFoldsCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=ExpandAll}" />
 
                 <Button ToolTip="Collapse Folds" Command="{Binding ActiveEditor.TextBox.CloseAllFoldsCommand, Mode=OneWay}" Content="{wpf:PackIcon Kind=CollapseAll}" />
@@ -354,10 +353,13 @@
             x:Name="DockManager"
             Background="#00FFFFFF"
             Grid.Row="2"
-            Style="{StaticResource DockingStyle}"
+            Style="{StaticResource DockingStyle}" 
+			 
             AnchorablesSource="{Binding Main.Tools}"
             DocumentsSource="{Binding Main.Files}"
-            ActiveContent="{Binding Main.ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay}">
+            ActiveContent="{Binding Main.ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay}"
+			
+			>
 
             <LayoutRoot>
                 <LayoutPanel Orientation="Vertical">

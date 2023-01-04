@@ -196,14 +196,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppCommands.cs" />
     <Compile Include="Controls\TextEditor\SyntaxHighlighting\SyntaxHighlightingHelper.cs" />
+    <Compile Include="Flyouts\EditorOptionView.xaml.cs">
+      <DependentUpon>EditorOptionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Structs\Location.cs" />
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ValueBox.xaml.cs">
       <DependentUpon>ValueBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DockHelper.cs" />
     <Compile Include="Utilities\FileExtended.cs" />
     <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
     <Compile Include="Controls\TextEditor\Language\AbstractLanguageClass.cs" />
+    <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Variables\AbstractVariableClass.cs" />
     <Compile Include="Parsers\AbstractParser.cs" />
     <Compile Include="Controls\TextEditor\Completion\CompletionContext.cs" />
@@ -390,9 +399,6 @@
     <Compile Include="Views\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NotesView.xaml.cs">
-      <DependentUpon>NotesView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ObjectBrowserView.xaml.cs">
       <DependentUpon>ObjectBrowserView.xaml</DependentUpon>
     </Compile>
@@ -438,6 +444,10 @@
     <Compile Include="Windows\XmlReaderWindow.xaml.cs">
       <DependentUpon>XmlReaderWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Themes\Style.DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FilesControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -470,39 +480,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Flyouts\EditorOptionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Languages\LanguageTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\ExplorerWindowDictionary.xaml">
+    <Page Include="Themes\Brushes.Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Brushes.xaml">
+    <Page Include="Themes\Template.Explorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Styles.xaml">
+    <Page Include="Themes\Template.IOListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Templates\ExplorerTemplate.xaml">
+    <Page Include="Themes\Template.MenuDictionaryTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Templates\IOListBox.xaml">
+    <Page Include="Themes\Template.ShiftTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Templates\MenuDictionaryTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Templates\OptionsTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Templates\ShiftTemplate.xaml">
+    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -514,7 +520,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Templates.Editor.xaml">
+    <Page Include="Themes\Templates.AvalonEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -527,6 +533,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Templates.StatusBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Templates.ViewModels.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -563,10 +573,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MessageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\NotesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -751,6 +757,10 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <Page Include="Themes\Template.GotoViewModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="editor_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -761,7 +771,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Flyouts\" />
+    <Folder Include="Assets\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Languages\CompletionItems.xml" />

@@ -10,8 +10,8 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml" />
-    </UserControl.Resources>
+		<ResourceDictionary Source="/miRobotEditor;component/Themes/Style.DataGrid.xaml" />
+	</UserControl.Resources>
     <DockPanel>
         <DockPanel.Resources>
             <Style TargetType="{x:Type ComboBox}">

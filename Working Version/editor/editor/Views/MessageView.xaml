@@ -12,8 +12,8 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/miRobotEditor;component/Themes/Style.DataGrid.xaml" />
+			</ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
