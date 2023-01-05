@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="*"/>
+    <PackageReference Include="Dirkster.AvalonDock" Version="*"/>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="*"/>
+  </ItemGroup>
+</Project>

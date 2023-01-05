@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "+gtSmdUsxIf99CmlF0+ue88soYk6Rn/e8zr16vHZMmvaPXmPFmioswH39CT696cYBxblDkPucz7Sb96R34kIJQ==",
+  "success": true,
+  "projectFilePath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Core.UI\\miRobotEditor.Core.UI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\avalonedit\\6.2.0.78\\avalonedit.6.2.0.78.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\communitytoolkit.mvvm\\8.0.0\\communitytoolkit.mvvm.8.0.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\controlzex\\4.3.0\\controlzex.4.3.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\dirkster.avalondock\\4.71.1\\dirkster.avalondock.4.71.1.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\dirkster.colorpickerlib\\1.6.2\\dirkster.colorpickerlib.1.6.2.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\dirkster.numericupdownlib\\3.3.1\\dirkster.numericupdownlib.3.3.1.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\mahapps.metro\\2.0.0\\mahapps.metro.2.0.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\materialdesigncolors\\2.0.9\\materialdesigncolors.2.0.9.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\materialdesignthemes\\4.6.1\\materialdesignthemes.4.6.1.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\materialdesignthemes.mahapps\\0.2.5\\materialdesignthemes.mahapps.0.2.5.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.19\\microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
+  ],
+  "logs": []
+}

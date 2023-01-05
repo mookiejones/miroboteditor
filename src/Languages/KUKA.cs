@@ -53,15 +53,9 @@ namespace miRobotEditor.Languages
 
         private RelayCommand _systemFunctionCommand;
 
-        public ICommand SystemFunctionCommand
-        {
-            get
-            {
-                return _systemFunctionCommand ??
+        public ICommand SystemFunctionCommand => _systemFunctionCommand ??
                        (_systemFunctionCommand =
                            new RelayCommand(p => FunctionGenerator.GetSystemFunctions(), p => true));
-            }
-        }
 
         #endregion
 
@@ -69,33 +63,21 @@ namespace miRobotEditor.Languages
 
         private readonly FileInfo _fi = new FileInfo();
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.KUKA; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.KUKA;
 
         #endregion
 
         private const RegexOptions Ro = (int) RegexOptions.IgnoreCase + RegexOptions.Multiline;
         private static ObservableCollection<Snippet> _snippets;
 
-        internal override string SourceFile
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal override string SourceFile => throw new NotImplementedException();
 
 
-        public static List<string> Ext
-        {
-            get { return new List<string> {".dat", ".src", ".ini", ".sub", ".zip", ".kfd"}; }
-        }
+        public static List<string> Ext => new List<string> { ".dat", ".src", ".ini", ".sub", ".zip", ".kfd" };
 
         /// Sets ComboBox Filter Items for searching
         /// <returns></returns>
-        public override List<string> SearchFilters
-        {
-            get { return Ext; }
-        }
+        public override List<string> SearchFilters => Ext;
 
         public string Comment { get; set; }
 
@@ -141,57 +123,26 @@ namespace miRobotEditor.Languages
 
         #region Regex Expressions
 
-        public override Regex EnumRegex
-        {
-            get { return new Regex(@"^(ENUM)\s+([\d\w]+)\s+([\d\w,]+)", Ro); }
-        }
+        public override Regex EnumRegex => new Regex(@"^(ENUM)\s+([\d\w]+)\s+([\d\w,]+)", Ro);
 
-        public override Regex StructRegex
-        {
-            get { return new Regex(@"DECL STRUC|^STRUC\s([\w\d]+\s*)", Ro); }
-        }
+        public override Regex StructRegex => new Regex(@"DECL STRUC|^STRUC\s([\w\d]+\s*)", Ro);
 
         //public override Regex MethodRegex {get {return new Regex("GLOBAL DEFFCT |^DEFFCT |GLOBAL DEF |^DEF |^EXT ",ro);}}
-        public override Regex MethodRegex
-        {
-            get { return new Regex(@"^[GLOBAL ]*(DEF)+\s+([\w\d]+\s*)\(", Ro); }
-        }
+        public override Regex MethodRegex => new Regex(@"^[GLOBAL ]*(DEF)+\s+([\w\d]+\s*)\(", Ro);
 
-        public override Regex FieldRegex
-        {
-            get
-            {
-                return
-                    new Regex(
+        public override Regex FieldRegex => new Regex(
                         @"^[DECL ]*[GLOBAL ]*[CONST ]*(INT|REAL|BOOL|CHAR)\s+([\$0-9a-zA-Z_\[\],\$]+)=?([^\r\n;]*);?([^\r\n]*)",
                         Ro);
-            }
-        }
 
-        protected override string ShiftRegex
-        {
-            get { return @"((E6POS [\w]*={)X\s([\d.-]*)\s*,*Y\s*([-.\d]*)\s*,Z\s*([-\d.]*))"; }
-        }
+        protected override string ShiftRegex => @"((E6POS [\w]*={)X\s([\d.-]*)\s*,*Y\s*([-.\d]*)\s*,Z\s*([-\d.]*))";
 
-        internal override string FunctionItems
-        {
-            get { return @"((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\w\s]*)\(([\w\]\s:_\[,]*)\))"; }
-        }
+        internal override string FunctionItems => @"((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\w\s]*)\(([\w\]\s:_\[,]*)\))";
 
-        public override string CommentChar
-        {
-            get { return ";"; }
-        }
+        public override string CommentChar => ";";
 
-        public override Regex SignalRegex
-        {
-            get { return new Regex(@"^(SIGNAL+)\s+([\d\w]+)\s+([^\r\;]*)", Ro); }
-        }
+        public override Regex SignalRegex => new Regex(@"^(SIGNAL+)\s+([\d\w]+)\s+([^\r\;]*)", Ro);
 
-        public override Regex XYZRegex
-        {
-            get { return new Regex(@"^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)=?\{?([^}}]*)?\}?", Ro); }
-        }
+        public override Regex XYZRegex => new Regex(@"^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)=?\{?([^}}]*)?\}?", Ro);
 
         public override string ExtractXYZ(string positionstring)
         {
@@ -366,10 +317,7 @@ namespace miRobotEditor.Languages
 
         #region "_file Interface Info"
 
-        public static string GetSystemFunctions
-        {
-            get { return FunctionGenerator.GetSystemFunctions(); }
-        }
+        public static string GetSystemFunctions => FunctionGenerator.GetSystemFunctions();
 
         [Localizable(false)]
         public static string SystemFileName()

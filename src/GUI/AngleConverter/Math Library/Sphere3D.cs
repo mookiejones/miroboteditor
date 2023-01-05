@@ -33,10 +33,7 @@ namespace miRobotEditor.GUI.AngleConverter
             return string.Format("Sphere3D: Centre {0:F2} Radius {1:F2}", Origin, Radius);
         }
 
-        public TransformationMatrix3D Position
-        {
-            get { return new TransformationMatrix3D((Vector3D) Origin, RotationMatrix3D.Identity()); }
-        }
+        public TransformationMatrix3D Position => new TransformationMatrix3D((Vector3D)Origin, RotationMatrix3D.Identity());
 
         public static Sphere3D FitToPoints(Collection<Point3D> points)
         {

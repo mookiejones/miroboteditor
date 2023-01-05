@@ -11,10 +11,7 @@ namespace miRobotEditor.ViewModel
         private readonly ObservableCollection<FTPAccount> _accounts = new ObservableCollection<FTPAccount>();
         private readonly ReadOnlyObservableCollection<FTPAccount> _readonlyAccounts = null;
 
-        public ReadOnlyObservableCollection<FTPAccount> Accounts
-        {
-            get { return _readonlyAccounts ?? new ReadOnlyObservableCollection<FTPAccount>(_accounts); }
-        }
+        public ReadOnlyObservableCollection<FTPAccount> Accounts => _readonlyAccounts ?? new ReadOnlyObservableCollection<FTPAccount>(_accounts);
 
         #endregion
 

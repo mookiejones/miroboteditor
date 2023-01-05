@@ -1,28 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Collections.ObjectModel;
-//using System.ComponentModel;
-//using System.Diagnostics;
-//using System.IO;
-//using System.Text.RegularExpressions;
-//using System.Threading;
-//using System.Windows;
-//using System.Windows.Controls;
-//using GalaSoft.MvvmLight;
-//using ICSharpCode.AvalonEdit.CodeCompletion;
-//using ICSharpCode.AvalonEdit.Document;
-//using ICSharpCode.AvalonEdit.Folding;
-//using ICSharpCode.AvalonEdit.Snippets;
-//using Microsoft.Practices.ServiceLocation;
-//using miRobotEditor.Annotations;
-//using miRobotEditor.Classes;
-//using miRobotEditor.Core;
-//using miRobotEditor.GUI.Editor;
-//using miRobotEditor.Interfaces;
-//using miRobotEditor.ViewModel;
-//using Global = miRobotEditor.Classes.Global;
-//using IDocument = miRobotEditor.ViewModel.IDocument;
-//using Utilities = miRobotEditor.Classes.Utilities;
+﻿
 
 using System;
 using System.Collections.Generic;
@@ -45,10 +21,8 @@ using miRobotEditor.Core;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.ViewModel;
 using Microsoft.Practices.ServiceLocation;
-using robot_editor.Classes;
-using robot_editor.Interfaces;
-using IDocument = robot_editor.Interfaces.IDocument;
-
+using miRobotEditor.Interfaces;
+using miRobotEditor.Abstract;
 
 namespace miRobotEditor.Languages
 {
@@ -217,10 +191,7 @@ namespace miRobotEditor.Languages
         private List<IVariable> _functions = new List<IVariable>();
         private List<IVariable> _positions = new List<IVariable>();
 
-        public string Name
-        {
-            get { return RobotType == Typlanguage.None ? String.Empty : RobotType.ToString(); }
-        }
+        public string Name => RobotType == Typlanguage.None ? String.Empty : RobotType.ToString();
 
         internal string DataName { get; private set; }
         internal string SourceName { get; private set; }
@@ -239,91 +210,46 @@ namespace miRobotEditor.Languages
         internal string DataText { get; private set; }
 
         // ReSharper disable once UnusedMember.Global
-        public string SnippetPath
-        {
-            get { return ".\\Editor\\Config _files\\Snippet.xml"; }
-        }
+        public string SnippetPath => ".\\Editor\\Config _files\\Snippet.xml";
 
-// ReSharper disable once UnusedMember.Global
-        public string Intellisense
-        {
-            get { return String.Concat(RobotType.ToString(), "Intellisense.xml"); }
-        }
+        // ReSharper disable once UnusedMember.Global
+        public string Intellisense => String.Concat(RobotType.ToString(), "Intellisense.xml");
 
-// ReSharper disable once UnusedMember.Global
-        public string SnippetFilePath
-        {
-            get { return String.Concat(RobotType.ToString(), "Snippets.xml"); }
-        }
+        // ReSharper disable once UnusedMember.Global
+        public string SnippetFilePath => String.Concat(RobotType.ToString(), "Snippets.xml");
 
         public string Filename { get; set; }
 
-        protected string ConfigFilePath
-        {
-            get { return String.Concat(RobotType.ToString(), "Config.xml"); }
-        }
+        protected string ConfigFilePath => String.Concat(RobotType.ToString(), "Config.xml");
 
-        internal string SyntaxHighlightFilePath
-        {
-            get { return String.Concat(RobotType.ToString(), "Highlight.xshd"); }
-        }
+        internal string SyntaxHighlightFilePath => String.Concat(RobotType.ToString(), "Highlight.xshd");
 
-        internal string StyleFilePath
-        {
-            get { return String.Concat(RobotType.ToString(), "Style.xshd"); }
-        }
+        internal string StyleFilePath => String.Concat(RobotType.ToString(), "Style.xshd");
 
         public static int FileCount { get; private set; }
 
-        public ReadOnlyCollection<IVariable> AllVariables
-        {
-            get { return _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables); }
-        }
+        public ReadOnlyCollection<IVariable> AllVariables => _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables);
 
-        public ReadOnlyCollection<IVariable> Functions
-        {
-            get { return _readOnlyFunctions ?? new ReadOnlyCollection<IVariable>(_functions); }
-        }
+        public ReadOnlyCollection<IVariable> Functions => _readOnlyFunctions ?? new ReadOnlyCollection<IVariable>(_functions);
 
-        public ReadOnlyCollection<IVariable> Fields
-        {
-            get { return _readOnlyFields ?? new ReadOnlyCollection<IVariable>(_fields); }
-        }
+        public ReadOnlyCollection<IVariable> Fields => _readOnlyFields ?? new ReadOnlyCollection<IVariable>(_fields);
 
-        public ReadOnlyCollection<IVariable> Positions
-        {
-            get { return _readOnlypositions ?? new ReadOnlyCollection<IVariable>(_positions); }
-        }
+        public ReadOnlyCollection<IVariable> Positions => _readOnlypositions ?? new ReadOnlyCollection<IVariable>(_positions);
 
 
-        public ReadOnlyCollection<IVariable> Enums
-        {
-            get { return _readOnlyenums ?? new ReadOnlyCollection<IVariable>(_enums); }
-        }
+        public ReadOnlyCollection<IVariable> Enums => _readOnlyenums ?? new ReadOnlyCollection<IVariable>(_enums);
 
 
-        public ReadOnlyCollection<IVariable> Structures
-        {
-            get { return _readOnlystructures ?? new ReadOnlyCollection<IVariable>(_structures); }
-        }
+        public ReadOnlyCollection<IVariable> Structures => _readOnlystructures ?? new ReadOnlyCollection<IVariable>(_structures);
 
-        public ReadOnlyCollection<IVariable> Signals
-        {
-            get { return _readOnlysignals ?? new ReadOnlyCollection<IVariable>(_signals); }
-        }
+        public ReadOnlyCollection<IVariable> Signals => _readOnlysignals ?? new ReadOnlyCollection<IVariable>(_signals);
 
         #region Snippets
 
         private ReadOnlyObservableCollection<Snippet> _readOnlySnippets;
 
-        public ReadOnlyObservableCollection<Snippet> Snippets
-        {
-            get
-            {
-                return _readOnlySnippets ??
+        public ReadOnlyObservableCollection<Snippet> Snippets => _readOnlySnippets ??
                        (_readOnlySnippets = new ReadOnlyObservableCollection<Snippet>(GetSnippets()));
-            }
-        }
 
         public abstract ObservableCollection<Snippet> GetSnippets();
 
@@ -334,13 +260,7 @@ namespace miRobotEditor.Languages
         private readonly ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
         private readonly ReadOnlyObservableCollection<IVariable> _readOnlyBrowserVariables = null;
 
-        public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable
-        {
-            get
-            {
-                return _readOnlyBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables);
-            }
-        }
+        public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable => _readOnlyBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables);
 
         #endregion
 
@@ -349,10 +269,7 @@ namespace miRobotEditor.Languages
         private readonly ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
         private readonly ReadOnlyObservableCollection<MenuItem> _readonlyMenuItems = null;
 
-        public IEnumerable<MenuItem> MenuItems
-        {
-            get { return _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems); }
-        }
+        public IEnumerable<MenuItem> MenuItems => _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems);
 
         #endregion
 
@@ -361,10 +278,7 @@ namespace miRobotEditor.Languages
         private readonly List<System.IO.FileInfo> _files = new List<System.IO.FileInfo>();
         private readonly ReadOnlyCollection<System.IO.FileInfo> _readOnlyFiles = null;
 
-        public ReadOnlyCollection<System.IO.FileInfo> Files
-        {
-            get { return _readOnlyFiles ?? new ReadOnlyCollection<System.IO.FileInfo>(_files); }
-        }
+        public ReadOnlyCollection<System.IO.FileInfo> Files => _readOnlyFiles ?? new ReadOnlyCollection<System.IO.FileInfo>(_files);
 
         #endregion
 

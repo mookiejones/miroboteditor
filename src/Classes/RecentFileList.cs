@@ -37,10 +37,7 @@ namespace miRobotEditor.Classes
             Loaded += (s, e) => HookFileMenu();
         }
 
-        public static RecentFileList Instance
-        {
-            get { return _instance ?? (_instance = new RecentFileList()); }
-        }
+        public static RecentFileList Instance => _instance ?? (_instance = new RecentFileList());
 
         private IPersist Persister { get; set; }
 
@@ -63,10 +60,7 @@ namespace miRobotEditor.Classes
         public GetMenuItemTextDelegate GetMenuItemTextHandler { get; set; }
 
 
-        public List<string> RecentFiles
-        {
-            get { return Persister.RecentFiles(MaxNumberOfFiles); }
-        }
+        public List<string> RecentFiles => Persister.RecentFiles(MaxNumberOfFiles);
 
         public void UseRegistryPersister()
         {

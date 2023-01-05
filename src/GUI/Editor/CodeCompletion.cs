@@ -6,6 +6,7 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Classes;
+using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.GUI.Editor
@@ -34,10 +35,7 @@ namespace miRobotEditor.GUI.Editor
         public string Text { get; private set; }
 
         // Use this property if you want to show a fancy UIElement in the list.
-        public object Content
-        {
-            get { return Text; }
-        }
+        public object Content => Text;
 
 
         [Localizable(false)]
@@ -61,10 +59,7 @@ namespace miRobotEditor.GUI.Editor
             textArea.Document.Replace(offs, currentWord.Length, Text);
         }
 
-        public double Priority
-        {
-            get { return 0; }
-        }
+        public double Priority => 0;
     }
 
     #region DefaultClasses

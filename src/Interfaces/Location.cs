@@ -44,10 +44,7 @@ namespace miRobotEditor.Interfaces
             set { X = value; }
         }
 
-        public bool IsEmpty
-        {
-            get { return X <= 0 && Y <= 0; }
-        }
+        public bool IsEmpty => X <= 0 && Y <= 0;
 
         public int CompareTo(Location other)
         {

@@ -1,0 +1,3 @@
+C:\Programming\miroboteditor\miRobotEditor.Core\obj\Debug\miRobotEditor.Core.csproj.AssemblyReference.cache
+C:\Programming\miroboteditor\miRobotEditor.Core\obj\Debug\miRobotEditor.Core.g.resources
+C:\Programming\miroboteditor\miRobotEditor.Core\obj\Debug\miRobotEditor.Core.csproj.CoreCompileInputs.cache

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using ICSharpCode.AvalonEdit.Document;
 using miRobotEditor.GUI.Editor;
-using robot_editor.Classes;
-using robot_editor.Interfaces;
 
 namespace miRobotEditor.GUI
 {

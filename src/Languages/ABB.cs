@@ -26,90 +26,47 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-// ReSharper disable once InconsistentNaming
-        public static List<string> EXT
-        {
-            get { return new List<string> {".mod", ".prg"}; }
-        }
+        // ReSharper disable once InconsistentNaming
+        public static List<string> EXT => new List<string> { ".mod", ".prg" };
 
 
         /// <summary>
         ///     Sets ComboBox Filter Items for searching
         /// </summary>
         /// <returns></returns>
-        public override List<string> SearchFilters
-        {
-            get { return EXT; }
-        }
+        public override List<string> SearchFilters => EXT;
 
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.ABB; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.ABB;
 
-        internal override string SourceFile
-        {
-            get { return String.Empty; }
-        }
+        internal override string SourceFile => String.Empty;
 
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        protected override string ShiftRegex
-        {
-            get { return @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))"; }
-        }
+        protected override string ShiftRegex => @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))";
 
-        internal override string FunctionItems
-        {
-            get { return @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)"; }
-        }
+        internal override string FunctionItems => @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)";
 
-        public override Regex MethodRegex
-        {
-            get { return new Regex(@"( proc )\s*([\d\w]*)\(([^\)]*)", RegexOptions.IgnoreCase); }
-        }
+        public override Regex MethodRegex => new Regex(@"( proc )\s*([\d\w]*)\(([^\)]*)", RegexOptions.IgnoreCase);
 
-        public override Regex StructRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex StructRegex => new Regex(String.Empty);
 
-        public override Regex FieldRegex
-        {
-            get
-            {
-                return
-                    new Regex(
+        public override Regex FieldRegex => new Regex(
                         @"^([^\r\n]*)(tooldata|wobjdata|num|mecunit|string|datapos|intnum|bool|signaldo|dignaldi|signalgo|signalgi)\s+([\$0-9a-zA-Z_\[\],\$]+)(:=)?([^\r\n]*)",
                         RegexOptions.IgnoreCase);
-            }
-        }
 
-        public override Regex EnumRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex EnumRegex => new Regex(String.Empty);
 
-        public override Regex XYZRegex
-        {
-            get { return new Regex(@"^[PERS ]*(robtarget|jointtarget) ([\w\d_]*)", Ro); }
-        }
+        public override Regex XYZRegex => new Regex(@"^[PERS ]*(robtarget|jointtarget) ([\w\d_]*)", Ro);
 
         //@"^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\w\d_\$]+)(=\{[^}}]*\})?"
 
 
-        public override string CommentChar
-        {
-            get { return "!"; }
-        }
+        public override string CommentChar => "!";
 
 
-        public override Regex SignalRegex
-        {
-            get { return new Regex("SignalDI|SignalDO|SignalGI|SignalGO"); }
-        }
+        public override Regex SignalRegex => new Regex("SignalDI|SignalDO|SignalGI|SignalGO");
 
         internal override bool IsFileValid(System.IO.FileInfo file)
         {

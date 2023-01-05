@@ -1,0 +1,6 @@
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.EditorControl\obj\Debug\net8.0-windows\miRobotEditor.Core.EditorControl.csproj.AssemblyReference.cache
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.EditorControl\obj\Debug\net8.0-windows\Languages\CodeCompletionList.baml
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.EditorControl\obj\Debug\net8.0-windows\Languages\KUKACompletionItems.baml
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.EditorControl\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.EditorControl\obj\Debug\net8.0-windows\miRobotEditor.Core.EditorControl_MarkupCompile.cache
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.EditorControl\obj\Debug\net8.0-windows\miRobotEditor.Core.EditorControl_MarkupCompile.lref

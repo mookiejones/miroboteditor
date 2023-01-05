@@ -36,49 +36,25 @@ namespace miRobotEditor.ViewModel
         private readonly ObservableCollection<DirectoryInfo> _root = new ObservableCollection<DirectoryInfo>();
         private readonly List<Item> _timer = new List<Item>();
 
-        public Visibility DigInVisibility
-        {
-            get { return Inputs.Count > 0 ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility DigInVisibility => Inputs.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility DigOutVisibility
-        {
-            get { return Outputs.Count > 0 ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility DigOutVisibility => Outputs.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility AnInVisibility
-        {
-            get { return AnIn.Count > 0 ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility AnInVisibility => AnIn.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility AnOutVisibility
-        {
-            get { return AnOut.Count > 0 ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility AnOutVisibility => AnOut.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
 
-        public Visibility DigitalVisibility
-        {
-            get
-            {
-                return ((DigInVisibility == Visibility.Visible) && (DigOutVisibility == Visibility.Visible))
+        public Visibility DigitalVisibility => ((DigInVisibility == Visibility.Visible) && (DigOutVisibility == Visibility.Visible))
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-            }
-        }
 
-        public Visibility AnalogVisibility
-        {
-            get
-            {
-                return ((AnOutVisibility == Visibility.Visible) || (AnInVisibility == Visibility.Visible))
+        public Visibility AnalogVisibility => ((AnOutVisibility == Visibility.Visible) || (AnInVisibility == Visibility.Visible))
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-            }
-        }
 
 
-        
+
         #region FlagVisibility
         /// <summary>
         /// The <see cref="FlagVisibility" /> property's name.
@@ -400,14 +376,11 @@ namespace miRobotEditor.ViewModel
         public string InfoFile { get; set; }
 
 
-        public ReadOnlyObservableCollection<DirectoryInfo> Root
-        {
-            get { return _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root); }
-        }
+        public ReadOnlyObservableCollection<DirectoryInfo> Root => _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root);
 
 
 
-        
+
         #region RootPath
         /// <summary>
         /// The <see cref="RootPath" /> property's name.
@@ -510,48 +483,24 @@ namespace miRobotEditor.ViewModel
         }
         #endregion
 
-       
 
 
-        public ReadOnlyCollection<Item> Inputs
-        {
-            get { return _readonlyinputs ?? new ReadOnlyCollection<Item>(_inputs); }
-        }
 
-        public ReadOnlyCollection<Item> Outputs
-        {
-            get { return _readonlyOutputs ?? new ReadOnlyCollection<Item>(_outputs); }
-        }
+        public ReadOnlyCollection<Item> Inputs => _readonlyinputs ?? new ReadOnlyCollection<Item>(_inputs);
 
-        public ReadOnlyCollection<Item> AnIn
-        {
-            get { return _readonlyAnIn ?? new ReadOnlyCollection<Item>(_anin); }
-        }
+        public ReadOnlyCollection<Item> Outputs => _readonlyOutputs ?? new ReadOnlyCollection<Item>(_outputs);
 
-        public ReadOnlyCollection<Item> AnOut
-        {
-            get { return _readonlyAnOut ?? new ReadOnlyCollection<Item>(_anout); }
-        }
+        public ReadOnlyCollection<Item> AnIn => _readonlyAnIn ?? new ReadOnlyCollection<Item>(_anin);
 
-        public ReadOnlyCollection<Item> Timer
-        {
-            get { return _readonlyTimer ?? new ReadOnlyCollection<Item>(_timer); }
-        }
+        public ReadOnlyCollection<Item> AnOut => _readonlyAnOut ?? new ReadOnlyCollection<Item>(_anout);
 
-        public ReadOnlyCollection<Item> Flags
-        {
-            get { return _readonlyFlags ?? new ReadOnlyCollection<Item>(_flags); }
-        }
+        public ReadOnlyCollection<Item> Timer => _readonlyTimer ?? new ReadOnlyCollection<Item>(_timer);
 
-        public ReadOnlyCollection<Item> CycFlags
-        {
-            get { return _readonlyCycFlags ?? new ReadOnlyCollection<Item>(_cycflags); }
-        }
+        public ReadOnlyCollection<Item> Flags => _readonlyFlags ?? new ReadOnlyCollection<Item>(_flags);
 
-        public ReadOnlyCollection<Item> Counter
-        {
-            get { return _readonlyCounter ?? new ReadOnlyCollection<Item>(_counter); }
-        }
+        public ReadOnlyCollection<Item> CycFlags => _readonlyCycFlags ?? new ReadOnlyCollection<Item>(_cycflags);
+
+        public ReadOnlyCollection<Item> Counter => _readonlyCounter ?? new ReadOnlyCollection<Item>(_counter);
 
         #endregion
 

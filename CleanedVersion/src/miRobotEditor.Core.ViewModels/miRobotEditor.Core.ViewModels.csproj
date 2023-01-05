@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\miRobotEditor.Core.EditorControl\miRobotEditor.Core.EditorControl.csproj" />
+    <ProjectReference Include="..\miRobotEditorCore\miRobotEditorCore.csproj" />
+  </ItemGroup>
+</Project>

@@ -41,46 +41,22 @@ namespace miRobotEditor.ViewModel
 
         #region Properties
 
-        public Visibility DigInVisibility
-        {
-            get { return Inputs.Count > 0 ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility DigInVisibility => Inputs.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility DigOutVisibility
-        {
-            get { return Outputs.Count > 0 ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility DigOutVisibility => Outputs.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility AnInVisibility
-        {
-            get { return AnIn.Count > 0 ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility AnInVisibility => AnIn.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility AnOutVisibility
-        {
-            get { return AnOut.Count > 0 ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility AnOutVisibility => AnOut.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
 
-        public Visibility DigitalVisibility
-        {
-            get
-            {
-                return ((DigInVisibility == Visibility.Visible) && (DigOutVisibility == Visibility.Visible))
+        public Visibility DigitalVisibility => ((DigInVisibility == Visibility.Visible) && (DigOutVisibility == Visibility.Visible))
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-            }
-        }
 
-        public Visibility AnalogVisibility
-        {
-            get
-            {
-                return ((AnOutVisibility == Visibility.Visible) || (AnInVisibility == Visibility.Visible))
+        public Visibility AnalogVisibility => ((AnOutVisibility == Visibility.Visible) || (AnInVisibility == Visibility.Visible))
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-            }
-        }
 
         private Visibility _flagVisibility = Visibility.Collapsed;
 
@@ -210,15 +186,9 @@ namespace miRobotEditor.ViewModel
         private readonly ObservableCollection<DirectoryInfo> _root = new ObservableCollection<DirectoryInfo>();
         private readonly ReadOnlyObservableCollection<DirectoryInfo> _readonlyRoot = null;
 
-        public ReadOnlyObservableCollection<DirectoryInfo> Root
-        {
-            get { return _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root); }
-        }
+        public ReadOnlyObservableCollection<DirectoryInfo> Root => _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root);
 
-        private static string StartupPath
-        {
-            get { return Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); }
-        }
+        private static string StartupPath => Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
         private DirectoryInfo _rootpath;
 
@@ -262,66 +232,42 @@ namespace miRobotEditor.ViewModel
 // ReSharper restore InconsistentNaming
         private readonly ReadOnlyObservableCollection<Item> _readonlyinputs = null;
 
-        public ReadOnlyObservableCollection<Item> Inputs
-        {
-            get { return _readonlyinputs ?? new ReadOnlyObservableCollection<Item>(_inputs); }
-        }
+        public ReadOnlyObservableCollection<Item> Inputs => _readonlyinputs ?? new ReadOnlyObservableCollection<Item>(_inputs);
 
         private readonly ObservableCollection<Item> _outputs = new ObservableCollection<Item>();
         private readonly ReadOnlyObservableCollection<Item> _readonlyOutputs = null;
 
-        public ReadOnlyObservableCollection<Item> Outputs
-        {
-            get { return _readonlyOutputs ?? new ReadOnlyObservableCollection<Item>(_outputs); }
-        }
+        public ReadOnlyObservableCollection<Item> Outputs => _readonlyOutputs ?? new ReadOnlyObservableCollection<Item>(_outputs);
 
         private readonly ObservableCollection<Item> _anin = new ObservableCollection<Item>();
         private readonly ReadOnlyObservableCollection<Item> _readonlyAnIn = null;
 
-        public ReadOnlyObservableCollection<Item> AnIn
-        {
-            get { return _readonlyAnIn ?? new ReadOnlyObservableCollection<Item>(_anin); }
-        }
+        public ReadOnlyObservableCollection<Item> AnIn => _readonlyAnIn ?? new ReadOnlyObservableCollection<Item>(_anin);
 
         private readonly ObservableCollection<Item> _anout = new ObservableCollection<Item>();
         private readonly ReadOnlyObservableCollection<Item> _readonlyAnOut = null;
 
-        public ReadOnlyObservableCollection<Item> AnOut
-        {
-            get { return _readonlyAnOut ?? new ReadOnlyObservableCollection<Item>(_anout); }
-        }
+        public ReadOnlyObservableCollection<Item> AnOut => _readonlyAnOut ?? new ReadOnlyObservableCollection<Item>(_anout);
 
         private readonly ObservableCollection<Item> _timer = new ObservableCollection<Item>();
         private readonly ReadOnlyObservableCollection<Item> _readonlyTimer = null;
 
-        public ReadOnlyObservableCollection<Item> Timer
-        {
-            get { return _readonlyTimer ?? new ReadOnlyObservableCollection<Item>(_timer); }
-        }
+        public ReadOnlyObservableCollection<Item> Timer => _readonlyTimer ?? new ReadOnlyObservableCollection<Item>(_timer);
 
         private readonly ObservableCollection<Item> _flags = new ObservableCollection<Item>();
         private readonly ReadOnlyObservableCollection<Item> _readonlyFlags = null;
 
-        public ReadOnlyObservableCollection<Item> Flags
-        {
-            get { return _readonlyFlags ?? new ReadOnlyObservableCollection<Item>(_flags); }
-        }
+        public ReadOnlyObservableCollection<Item> Flags => _readonlyFlags ?? new ReadOnlyObservableCollection<Item>(_flags);
 
         private readonly ObservableCollection<Item> _cycflags = new ObservableCollection<Item>();
         private readonly ReadOnlyObservableCollection<Item> _readonlyCycFlags = null;
 
-        public ReadOnlyObservableCollection<Item> CycFlags
-        {
-            get { return _readonlyCycFlags ?? new ReadOnlyObservableCollection<Item>(_cycflags); }
-        }
+        public ReadOnlyObservableCollection<Item> CycFlags => _readonlyCycFlags ?? new ReadOnlyObservableCollection<Item>(_cycflags);
 
         private readonly ObservableCollection<Item> _counter = new ObservableCollection<Item>();
         private readonly ReadOnlyObservableCollection<Item> _readonlyCounter = null;
 
-        public ReadOnlyObservableCollection<Item> Counter
-        {
-            get { return _readonlyCounter ?? new ReadOnlyObservableCollection<Item>(_counter); }
-        }
+        public ReadOnlyObservableCollection<Item> Counter => _readonlyCounter ?? new ReadOnlyObservableCollection<Item>(_counter);
 
         #endregion
 
@@ -329,24 +275,15 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _openCommand;
 
-        public ICommand OpenCommand
-        {
-            get { return _openCommand ?? (_openCommand = new RelayCommand(param => Open(), param => true)); }
-        }
+        public ICommand OpenCommand => _openCommand ?? (_openCommand = new RelayCommand(param => Open(), param => true));
 
         private RelayCommand _importCommand;
 
-        public ICommand ImportCommand
-        {
-            get { return _importCommand ?? (_importCommand = new RelayCommand(param => Import(), param => true)); }
-        }
+        public ICommand ImportCommand => _importCommand ?? (_importCommand = new RelayCommand(param => Import(), param => true));
 
         private RelayCommand _loadCommand;
 
-        public ICommand LoadCommand
-        {
-            get { return _loadCommand ?? (_loadCommand = new RelayCommand(param => GetSignals(), param => true)); }
-        }
+        public ICommand LoadCommand => _loadCommand ?? (_loadCommand = new RelayCommand(param => GetSignals(), param => true));
 
         #endregion
 

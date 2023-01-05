@@ -194,19 +194,10 @@ namespace miRobotEditor.ViewModel
         private RelayCommand _closeCommand;
         private RelayCommand _toggleGridCommand;
 
-        public ICommand ToggleGridCommand
-        {
-            get
-            {
-                return _toggleGridCommand ??
+        public ICommand ToggleGridCommand => _toggleGridCommand ??
                        (_toggleGridCommand = new RelayCommand(p => ToggleGrid(), p => Grid != null));
-            }
-        }
 
-        public new ICommand CloseCommand
-        {
-            get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
-        }
+        public new ICommand CloseCommand => _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true));
 
         #endregion
 

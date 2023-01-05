@@ -1,0 +1,5 @@
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.ViewModels\obj\Debug\net8.0-windows\miRobotEditor.Core.ViewModels.csproj.AssemblyReference.cache
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.ViewModels\obj\Debug\net8.0-windows\IOListBox.baml
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.ViewModels\obj\Debug\net8.0-windows\UserControl1.g.cs
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.ViewModels\obj\Debug\net8.0-windows\miRobotEditor.Core.ViewModels_MarkupCompile.cache
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditor.Core.ViewModels\obj\Debug\net8.0-windows\miRobotEditor.Core.ViewModels_MarkupCompile.lref

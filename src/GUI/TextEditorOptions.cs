@@ -349,10 +349,7 @@ namespace miRobotEditor.GUI
 
         #region Timestamp Sample
 
-        public string TimestampSample
-        {
-            get { return DateTime.Now.ToString(_timestampFormat); }
-        }
+        public string TimestampSample => DateTime.Now.ToString(_timestampFormat);
 
         #endregion
 
@@ -479,10 +476,7 @@ namespace miRobotEditor.GUI
 
         #endregion
 
-        public string Title
-        {
-            get { return "Text Editor Options"; }
-        }
+        public string Title => "Text Editor Options";
 
         ~EditorOptions()
         {
@@ -548,9 +542,6 @@ namespace miRobotEditor.GUI
         #endregion
 
         [Localizable(false)]
-        public string Title
-        {
-            get { return "Global Options"; }
-        }
+        public string Title => "Global Options";
     }
 }

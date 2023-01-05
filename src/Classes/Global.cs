@@ -101,10 +101,7 @@ namespace miRobotEditor.Classes
         public const string ImgSps = "..\\..\\Resources\\spsfile.png";
 
         [Localizable(false)]
-        public static string DockConfig
-        {
-            get { return AppDomain.CurrentDomain.BaseDirectory + DockConfigPath; }
-        }
+        public static string DockConfig => AppDomain.CurrentDomain.BaseDirectory + DockConfigPath;
 
         /// <summary>
         ///     Used to help prevent from freezing when network directory doesnt exist

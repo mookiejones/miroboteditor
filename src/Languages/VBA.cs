@@ -27,69 +27,33 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        public override List<string> SearchFilters
-        {
-            get { return new List<string> {"*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd"}; }
-        }
+        public override List<string> SearchFilters => new List<string> { "*.*", "*.dat", "*.src", "*.ini", "*.sub", "*.zip", "*.kfd" };
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.VBA; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.VBA;
 
-        internal override string SourceFile
-        {
-            get { return String.Empty; }
-        }
+        internal override string SourceFile => String.Empty;
 
 
         //Was XmlFoldingStrategy
         internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        protected override string ShiftRegex
-        {
-            get { return @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))"; }
-        }
+        protected override string ShiftRegex => @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))";
 
-        internal override string FunctionItems
-        {
-            get { return @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)"; }
-        }
+        internal override string FunctionItems => @"((?<!END)()()PROC\s([\d\w]*)[\(\)\w\d_. ]*)";
 
-        public override Regex MethodRegex
-        {
-            get { return new Regex("( sub )", RegexOptions.IgnoreCase); }
-        }
+        public override Regex MethodRegex => new Regex("( sub )", RegexOptions.IgnoreCase);
 
-        public override Regex StructRegex
-        {
-            get { return new Regex("( struc )", RegexOptions.IgnoreCase); }
-        }
+        public override Regex StructRegex => new Regex("( struc )", RegexOptions.IgnoreCase);
 
-        public override Regex FieldRegex
-        {
-            get { return new Regex("( boolean )", RegexOptions.IgnoreCase); }
-        }
+        public override Regex FieldRegex => new Regex("( boolean )", RegexOptions.IgnoreCase);
 
-        public override Regex EnumRegex
-        {
-            get { return new Regex("( enum )", RegexOptions.IgnoreCase); }
-        }
+        public override Regex EnumRegex => new Regex("( enum )", RegexOptions.IgnoreCase);
 
-        public override string CommentChar
-        {
-            get { return "'"; }
-        }
+        public override string CommentChar => "'";
 
-        public override Regex SignalRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex SignalRegex => new Regex(String.Empty);
 
-        public override Regex XYZRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex XYZRegex => new Regex(String.Empty);
 
         #region Folding Section
 

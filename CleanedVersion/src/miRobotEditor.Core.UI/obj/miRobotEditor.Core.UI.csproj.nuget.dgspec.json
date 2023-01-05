@@ -1,0 +1,241 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Core.UI\\miRobotEditor.Core.UI.csproj": {}
+  },
+  "projects": {
+    "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Core.UI\\miRobotEditor.Core.UI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Core.UI\\miRobotEditor.Core.UI.csproj",
+        "projectName": "miRobotEditor.Core.UI",
+        "projectPath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Core.UI\\miRobotEditor.Core.UI.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Core.UI\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Resources\\miRobotEditor.Resources.csproj": {
+                "projectPath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Resources\\miRobotEditor.Resources.csproj"
+              },
+              "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditorCore\\miRobotEditorCore.csproj": {
+                "projectPath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditorCore\\miRobotEditorCore.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "Dirkster.AvalonDock": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "Dirkster.ColorPickerLib": {
+              "target": "Package",
+              "version": "[1.6.2, )"
+            },
+            "Dirkster.NumericUpDownLib": {
+              "target": "Package",
+              "version": "[3.3.1, )"
+            },
+            "MaterialDesignThemes.MahApps": {
+              "target": "Package",
+              "version": "[*, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-alpha.1.22622.3\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Resources\\miRobotEditor.Resources.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Resources\\miRobotEditor.Resources.csproj",
+        "projectName": "miRobotEditor.Resources",
+        "projectPath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Resources\\miRobotEditor.Resources.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Resources\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditorCore\\miRobotEditorCore.csproj": {
+                "projectPath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditorCore\\miRobotEditorCore.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-alpha.1.22622.3\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditorCore\\miRobotEditorCore.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditorCore\\miRobotEditorCore.csproj",
+        "projectName": "miRobotEditorCore",
+        "projectPath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditorCore\\miRobotEditorCore.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditorCore\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "AvalonEdit": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "Dirkster.AvalonDock": {
+              "target": "Package",
+              "version": "[*, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-alpha.1.22622.3\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

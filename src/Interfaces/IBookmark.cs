@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Windows.Input;
+using miRobotEditor.GUI.Editor;
 using miRobotEditor.Interfaces;
 
 namespace miRobotEditor
@@ -43,4 +46,6 @@ namespace miRobotEditor
         /// </summary>
         void Drop(int lineNumber);
     }
+
+    
 }

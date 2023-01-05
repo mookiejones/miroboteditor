@@ -16,11 +16,8 @@ namespace miRobotEditor.Language_Specific
 	public partial class DatCleanControl : UserControl
 	{
 		private static DatCleanControl _instance;
-		public static DatCleanControl Instance
-		{
-			get { return _instance ?? (_instance = new DatCleanControl()); }
-		}
-		public DatCleanControl()
+        public static DatCleanControl Instance => _instance ?? (_instance = new DatCleanControl());
+        public DatCleanControl()
 		{
 			InitializeComponent();
 			_instance=this;

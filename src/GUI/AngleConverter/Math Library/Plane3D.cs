@@ -13,25 +13,13 @@ namespace miRobotEditor.GUI.AngleConverter
             Normal = normal;
         }
 
-        public double A
-        {
-            get { return Normal.X; }
-        }
+        public double A => Normal.X;
 
-        public double B
-        {
-            get { return Normal.Y; }
-        }
+        public double B => Normal.Y;
 
-        public double C
-        {
-            get { return Normal.Z; }
-        }
+        public double C => Normal.Z;
 
-        public double D
-        {
-            get { return -Vector.Dot(Normal, (Vector3D) Point); }
-        }
+        public double D => -Vector.Dot(Normal, (Vector3D)Point);
 
         public Vector3D Normal { get; private set; }
 
@@ -43,10 +31,7 @@ namespace miRobotEditor.GUI.AngleConverter
                 Normal.ToString(format, formatProvider));
         }
 
-        TransformationMatrix3D IGeometricElement3D.Position
-        {
-            get { throw new NotImplementedException(); }
-        }
+        TransformationMatrix3D IGeometricElement3D.Position => throw new NotImplementedException();
 
         public static Plane3D FitToPoints(Collection<Point3D> points)
         {

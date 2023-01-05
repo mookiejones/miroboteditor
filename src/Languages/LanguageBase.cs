@@ -7,8 +7,8 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
+using miRobotEditor.Abstract;
 using miRobotEditor.GUI.Editor;
-using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Languages
@@ -25,27 +25,15 @@ namespace miRobotEditor.Languages
         }
 
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.None; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.None;
 
-        internal override string FunctionItems
-        {
-            get { return string.Empty; }
-        }
+        internal override string FunctionItems => string.Empty;
 
-        internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
+        public override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        protected override string ShiftRegex
-        {
-            get { throw new NotImplementedException(); }
-        }
+        protected override string ShiftRegex => throw new NotImplementedException();
 
-        internal override string SourceFile
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal override string SourceFile => throw new NotImplementedException();
 
         #region Code Completion Section
 
@@ -64,40 +52,19 @@ namespace miRobotEditor.Languages
 
         private static ObservableCollection<Snippet> _snippets;
 
-        public override Regex MethodRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex MethodRegex => new Regex(String.Empty);
 
-        public override Regex StructRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex StructRegex => new Regex(String.Empty);
 
-        public override Regex FieldRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex FieldRegex => new Regex(String.Empty);
 
-        public override Regex EnumRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex EnumRegex => new Regex(String.Empty);
 
-        public override string CommentChar
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public override string CommentChar => throw new NotImplementedException();
 
-        public override Regex SignalRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex SignalRegex => new Regex(String.Empty);
 
-        public override Regex XYZRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex XYZRegex => new Regex(String.Empty);
 
         public override ObservableCollection<Snippet> GetSnippets()
         {
@@ -142,19 +109,13 @@ namespace miRobotEditor.Languages
         ///     Sets ComboBox Filter Items for searching
         /// </summary>
         /// <returns></returns>
-        public override List<string> SearchFilters
-        {
-            get { return DefaultSearchFilters; }
-        }
+        public override List<string> SearchFilters => DefaultSearchFilters;
 
         /// <summary>
         ///     Sets ComboBox Filter Items for searching
         /// </summary>
         /// <returns></returns>
-        private static List<string> DefaultSearchFilters
-        {
-            get { return new List<string> {"*.*"}; }
-        }
+        private static List<string> DefaultSearchFilters => new List<string> { "*.*" };
 
         #endregion
     }

@@ -35,20 +35,11 @@ namespace miRobotEditor.Languages
         ///     Sets ComboBox Filter Items for searching
         /// </summary>
         /// <returns></returns>
-        public override List<string> SearchFilters
-        {
-            get { return EXT; }
-        }
+        public override List<string> SearchFilters => EXT;
 
-        public static List<string> EXT
-        {
-            get { return new List<string> {".as", ".prg"}; }
-        }
+        public static List<string> EXT => new List<string> { ".as", ".prg" };
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.KAWASAKI; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.KAWASAKI;
 
         internal override IList<ICompletionData> CodeCompletion
         {
@@ -59,60 +50,30 @@ namespace miRobotEditor.Languages
             }
         }
 
-        protected override string ShiftRegex
-        {
-            get { throw new NotImplementedException(); }
-        }
+        protected override string ShiftRegex => throw new NotImplementedException();
 
-        internal override string SourceFile
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal override string SourceFile => throw new NotImplementedException();
 
 
-        internal override string FunctionItems
-        {
-            get { return @"(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)"; }
-        }
+        internal override string FunctionItems => @"(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)";
 
         internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         // public override string SignalRegex{get{return "DEFSIG_";}}
-        public override Regex MethodRegex
-        {
-            get { return new Regex("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)", Ro); }
-        }
+        public override Regex MethodRegex => new Regex("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)", Ro);
 
-        public override Regex StructRegex
-        {
-            get { return new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)", Ro); }
-        }
+        public override Regex StructRegex => new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)", Ro);
 
-        public override Regex FieldRegex
-        {
-            get { return new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)", Ro); }
-        }
+        public override Regex FieldRegex => new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)", Ro);
 
-        public override Regex EnumRegex
-        {
-            get { return new Regex("^ENUM ", Ro); }
-        }
+        public override Regex EnumRegex => new Regex("^ENUM ", Ro);
 
-        public override Regex XYZRegex
-        {
-            get { return new Regex(@"^(LINEAR|JOINT) ([^#])*#\[([^\]]*)", Ro); }
-        }
+        public override Regex XYZRegex => new Regex(@"^(LINEAR|JOINT) ([^#])*#\[([^\]]*)", Ro);
 
-        public override string CommentChar
-        {
-            get { return ";"; }
-        }
+        public override string CommentChar => ";";
 
 
-        public override Regex SignalRegex
-        {
-            get { return new Regex(String.Empty); }
-        }
+        public override Regex SignalRegex => new Regex(String.Empty);
 
         internal override bool IsFileValid(System.IO.FileInfo file)
         {

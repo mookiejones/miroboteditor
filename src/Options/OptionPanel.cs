@@ -7,10 +7,7 @@ namespace miRobotEditor.Options
     {
         public virtual object Owner { get; set; }
 
-        public virtual object Control
-        {
-            get { return this; }
-        }
+        public virtual object Control => this;
 
 
         public void LoadOptions()

@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using miRobotEditor.Commands;
 using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight;
+
 namespace miRobotEditor.Language_Specific
 {
     class LongTextViewModel:ViewModelBase
@@ -23,21 +25,12 @@ namespace miRobotEditor.Language_Specific
 
 
         private RelayCommand _openCommand;
-        public ICommand OpenCommand
-        {
-            get { return _openCommand ?? (_openCommand = new RelayCommand(param => Open(), param => true)); }
-        }
+        public ICommand OpenCommand => _openCommand ?? (_openCommand = new RelayCommand(param => Open(), param => true));
         private RelayCommand _importCommand;
-        public ICommand ImportCommand
-        {
-            get { return _importCommand ?? (_importCommand = new RelayCommand(param => Import(), param => true)); }
-        }
+        public ICommand ImportCommand => _importCommand ?? (_importCommand = new RelayCommand(param => Import(), param => true));
 
         private RelayCommand _getLanguageTextCommand;
-        public ICommand GetLanguageTextCommand
-        {
-            get { return _getLanguageTextCommand ?? (_getLanguageTextCommand = new RelayCommand(param => this.GetAllLangtextFromDatabase(), param => true)); }
-        }
+        public ICommand GetLanguageTextCommand => _getLanguageTextCommand ?? (_getLanguageTextCommand = new RelayCommand(param => this.GetAllLangtextFromDatabase(), param => true));
 
         public ObservableCollection<Signal> Inputs { get; set; }
         public ObservableCollection<Signal> Outputs { get; set; }

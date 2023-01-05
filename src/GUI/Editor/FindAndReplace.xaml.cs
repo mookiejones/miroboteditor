@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Core;
+using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.GUI.Editor
@@ -66,11 +67,11 @@ namespace miRobotEditor.GUI.Editor
             _array.Add(item);
         }
 
-        public int Count { get { return _array.Count; } }
+        public int Count => _array.Count;
 
-        public object SyncRoot { get { return this; } }
+        public object SyncRoot => this;
 
-        public bool IsSynchronized { get { return false; } }
+        public bool IsSynchronized => false;
     }
 
     [Localizable(false)]
@@ -334,14 +335,8 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the FindAllCommand.
         /// </summary>
-        public RelayCommand FindAllCommand
-        {
-            get
-            {
-                return _findAllCommand
+        public RelayCommand FindAllCommand => _findAllCommand
                     ?? (_findAllCommand = new RelayCommand(ExecuteFindAllCommand));
-            }
-        }
 
         private void ExecuteFindAllCommand()
         {
@@ -356,14 +351,8 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the ReplaceAllCommand.
         /// </summary>
-        public RelayCommand ReplaceAllCommand
-        {
-            get
-            {
-                return _replaceAllCommand
+        public RelayCommand ReplaceAllCommand => _replaceAllCommand
                     ?? (_replaceAllCommand = new RelayCommand(ExecuteReplaceAllCommand));
-            }
-        }
 
         private void ExecuteReplaceAllCommand()
         {
@@ -376,15 +365,9 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the FindCommand.
         /// </summary>
-        public RelayCommand FindCommand
-        {
-            get
-            {
-                return _findCommand ?? (_findCommand = new RelayCommand(
+        public RelayCommand FindCommand => _findCommand ?? (_findCommand = new RelayCommand(
                     ExecuteFindCommand,
                     CanExecuteFindCommand));
-            }
-        }
 
         private void ExecuteFindCommand()
         {
@@ -402,15 +385,9 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the ReplaceCommand.
         /// </summary>
-        public RelayCommand ReplaceCommand
-        {
-            get
-            {
-                return _replaceCommand ?? (_replaceCommand = new RelayCommand(
+        public RelayCommand ReplaceCommand => _replaceCommand ?? (_replaceCommand = new RelayCommand(
                     ExecuteReplaceCommand,
                     CanExecuteReplaceCommand));
-            }
-        }
 
         private void ExecuteReplaceCommand()
         {
@@ -427,15 +404,9 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the BrowseFoldersCommand.
         /// </summary>
-        public RelayCommand BrowseFoldersCommand
-        {
-            get
-            {
-                return _browseFoldersCommand ?? (_browseFoldersCommand = new RelayCommand(
+        public RelayCommand BrowseFoldersCommand => _browseFoldersCommand ?? (_browseFoldersCommand = new RelayCommand(
                     ExecuteBrowseFoldersCommand,
                     CanExecuteBrowseFoldersCommand));
-            }
-        }
 
         private void ExecuteBrowseFoldersCommand()
         {
@@ -759,14 +730,8 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the FindPreviousCommand.
         /// </summary>
-        public RelayCommand FindPreviousCommand
-        {
-            get
-            {
-                return _findPreviousCommand
+        public RelayCommand FindPreviousCommand => _findPreviousCommand
                     ?? (_findPreviousCommand = new RelayCommand(ExecuteFindPreviousCommand));
-            }
-        }
 
         private void ExecuteFindPreviousCommand()
         {
@@ -780,14 +745,8 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the FindNextCommand.
         /// </summary>
-        public RelayCommand FindNextCommand
-        {
-            get
-            {
-                return _findNextCommand
+        public RelayCommand FindNextCommand => _findNextCommand
                     ?? (_findNextCommand = new RelayCommand(ExecuteFindNextCommand));
-            }
-        }
 
         private void ExecuteFindNextCommand()
         {
@@ -802,14 +761,8 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the HighlightAllCommand.
         /// </summary>
-        public RelayCommand HighlightAllCommand
-        {
-            get
-            {
-                return _highlightAllCommand
+        public RelayCommand HighlightAllCommand => _highlightAllCommand
                     ?? (_highlightAllCommand = new RelayCommand(ExecuteHighlightAllCommand));
-            }
-        }
 
         private void ExecuteHighlightAllCommand()
         {
@@ -851,10 +804,7 @@ namespace miRobotEditor.GUI.Editor
             }
         }
 
-        public string RegexString
-        {
-            get { return UseRegex == false ? Regex.Escape(LookFor) : LookFor; }
-        }
+        public string RegexString => UseRegex == false ? Regex.Escape(LookFor) : LookFor;
 
         private string _lookfor = string.Empty;
 

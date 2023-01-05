@@ -264,10 +264,7 @@ namespace miRobotEditor.ViewModel
 
         private readonly CartesianItems _selectionitems = new CartesianItems();
 
-        public CartesianItems SelectionItems
-        {
-            get { return _selectionitems; }
-        }
+        public CartesianItems SelectionItems => _selectionitems;
 
         #endregion
 

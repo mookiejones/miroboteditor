@@ -355,20 +355,11 @@ namespace miRobotEditor.GUI.AngleConverter
             }
         }
 
-        public Matrix U
-        {
-            get { return _u; }
-        }
+        public Matrix U => _u;
 
-        public SquareMatrix V
-        {
-            get { return _v; }
-        }
+        public SquareMatrix V => _v;
 
-        public Vector W
-        {
-            get { return _w; }
-        }
+        public Vector W => _w;
 
         private static double Pythag(double a, double b)
         {

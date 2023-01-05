@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Dialogs\frmShift.xaml.cs"/>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Dialogs\frmShift.xaml"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\miRobotEditor.Resources\miRobotEditor.Resources.csproj"/>
+    <ProjectReference Include="..\miRobotEditorCore\miRobotEditorCore.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="*"/>
+    <PackageReference Include="Dirkster.AvalonDock" Version="*"/>
+    <PackageReference Include="Dirkster.ColorPickerLib" Version="1.6.2"/>
+    <PackageReference Include="Dirkster.NumericUpDownLib" Version="3.3.1"/>
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="*"/>
+  </ItemGroup>
+</Project>

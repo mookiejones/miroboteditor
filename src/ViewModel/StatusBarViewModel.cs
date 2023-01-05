@@ -21,14 +21,8 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _keyPressedCommand;
 
-        public ICommand KeyPressedCommand
-        {
-            get
-            {
-                return _keyPressedCommand ??
+        public ICommand KeyPressedCommand => _keyPressedCommand ??
                        (_keyPressedCommand = new RelayCommand(param => ManageKeys(param, null), param => true));
-            }
-        }
 
         #endregion
 
@@ -36,10 +30,7 @@ namespace miRobotEditor.ViewModel
 
         private static StatusBarViewModel _instance;
 
-        public static StatusBarViewModel Instance
-        {
-            get { return _instance ?? (_instance = new StatusBarViewModel()); }
-        }
+        public static StatusBarViewModel Instance => _instance ?? (_instance = new StatusBarViewModel());
 
         #endregion
 

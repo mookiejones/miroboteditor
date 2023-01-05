@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="*"/>
+    <PackageReference Include="Ionic.Zip" Version="*"/>
+    <PackageReference Include="AvalonEdit" Version="*"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../miRobotEditorCore/miRobotEditorCore.csproj"/>
+  </ItemGroup>
+</Project>

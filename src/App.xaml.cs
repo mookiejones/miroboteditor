@@ -22,10 +22,7 @@ namespace miRobotEditor
         private const string Unique = "My_Unique_Application_String";
         public static App Application;
 
-        public static string StartupPath
-        {
-            get { return Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); }
-        }
+        public static string StartupPath => Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
 
         public static string Version
@@ -37,10 +34,7 @@ namespace miRobotEditor
             }
         }
 
-        public static string ProductName
-        {
-            get { return Assembly.GetExecutingAssembly().GetName().ToString(); }
-        }
+        public static string ProductName => Assembly.GetExecutingAssembly().GetName().ToString();
 
         public bool SignalExternalCommandLineArgs(IList<string> args)
         {

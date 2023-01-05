@@ -16,10 +16,7 @@ namespace miRobotEditor.ValidationRules
 
         public string FieldName { get; set; }
 
-        public string Error
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public string Error => throw new NotImplementedException();
 
         public string this[string columnName]
         {

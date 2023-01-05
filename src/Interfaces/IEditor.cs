@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using ICSharpCode.AvalonEdit.Document;
 
 namespace miRobotEditor.Interfaces
 {

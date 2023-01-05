@@ -46,21 +46,12 @@ namespace miRobotEditor.ViewModel
             SimpleIoc.Default.Register<ObjectBrowserViewModel>();
         }
 
-        public MainViewModel Main
-        {
-            get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
-        }
+        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
 
 
-        public ObjectBrowserViewModel ObjectBrowser
-        {
-            get { return ServiceLocator.Current.GetInstance<ObjectBrowserViewModel>(); }
-        }
+        public ObjectBrowserViewModel ObjectBrowser => ServiceLocator.Current.GetInstance<ObjectBrowserViewModel>();
 
-        public StatusBarViewModel StatusBar
-        {
-            get { return ServiceLocator.Current.GetInstance<StatusBarViewModel>(); }
-        }
+        public StatusBarViewModel StatusBar => ServiceLocator.Current.GetInstance<StatusBarViewModel>();
 
         public static void Cleanup()
         {

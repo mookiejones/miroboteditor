@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "dgSpecHash": "KQcoxE4bPjhHrWDa/F7+Ozr/lM9f1dQhY4OL+EtViCngd48Jum8UVvghaKyKpkUK93X4WTijdnXw2SGBE29V2Q==",
+  "success": true,
+  "projectFilePath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditor.Core.ViewModels\\miRobotEditor.Core.ViewModels.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\avalonedit\\6.2.0.78\\avalonedit.6.2.0.78.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\communitytoolkit.mvvm\\8.0.0\\communitytoolkit.mvvm.8.0.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\dirkster.avalondock\\4.71.1\\dirkster.avalondock.4.71.1.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\ionic.zip\\1.9.1.8\\ionic.zip.1.9.1.8.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Ionic.Zip 1.9.1.8' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Ionic.Zip",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    }
+  ]
+}

@@ -58,48 +58,28 @@ namespace miRobotEditor.Language_Specific
 		
 		#region Commands
 		public static RelayCommand Cleandat;
-		public static ICommand CleanDatCMD
-		{
-			get { return Cleandat ?? (Cleandat = new RelayCommand(param => Instance.CleanDat(), param => true)); }
-		}
-		public void CleanDat(){throw new NotImplementedException();}
+        public static ICommand CleanDatCMD => Cleandat ?? (Cleandat = new RelayCommand(param => Instance.CleanDat(), param => true));
+        public void CleanDat(){throw new NotImplementedException();}
 		
 		private static RelayCommand _checked;
-		public static ICommand CheckedCMD
-		{
-			get { return _checked ?? (_checked = new RelayCommand(param => Instance.Checked(), param => true)); }
-		}
-		public void Checked()
+        public static ICommand CheckedCMD => _checked ?? (_checked = new RelayCommand(param => Instance.Checked(), param => true));
+        public void Checked()
 		{
 			throw new NotImplementedException();
 		}
 		
 		private static RelayCommand _deletevartype;
-		public static ICommand DeleteVarTypeCMD
-		{
-			get { return _deletevartype ?? (_deletevartype = new RelayCommand(param => Instance.DeleteVarType(), param => true)); }
-		}
-		public void DeleteVarType(){throw new NotImplementedException();}
+        public static ICommand DeleteVarTypeCMD => _deletevartype ?? (_deletevartype = new RelayCommand(param => Instance.DeleteVarType(), param => true));
+        public void DeleteVarType(){throw new NotImplementedException();}
 		private static RelayCommand _addvartype;
-		public static ICommand AddVarTypeCMD
-		{
-			get { return _addvartype ?? (_addvartype = new RelayCommand(param => Instance.AddVarType(), param => true)); }
-		}
-		public void AddVarType(){throw new NotImplementedException();}
+        public static ICommand AddVarTypeCMD => _addvartype ?? (_addvartype = new RelayCommand(param => Instance.AddVarType(), param => true));
+        public void AddVarType(){throw new NotImplementedException();}
 		private static RelayCommand _selectallcommand;
-		public static ICommand SelectAllCommand
-		{
-			get { return _selectallcommand ?? (_selectallcommand = new RelayCommand(param => Instance.SelectAll(), param => true)); }
-		}
-		private static RelayCommand _invertselection;
-		public static ICommand InvertSelectionCommand
-		{
-			get {
-			    return _invertselection ??
-			           (_invertselection = new RelayCommand(param => Instance.InvertSelection(), param => true));
-			}
-		}
-		void SelectAll()
+        public static ICommand SelectAllCommand => _selectallcommand ?? (_selectallcommand = new RelayCommand(param => Instance.SelectAll(), param => true));
+        private static RelayCommand _invertselection;
+        public static ICommand InvertSelectionCommand => _invertselection ??
+                       (_invertselection = new RelayCommand(param => Instance.InvertSelection(), param => true));
+        void SelectAll()
 		{
 			
 			
@@ -141,20 +121,11 @@ namespace miRobotEditor.Language_Specific
 			get{ return _selectedVarIndex;}
 			set{_selectedVarIndex=value; RaisePropertyChanged("SelectedVarIndex");}
 		}
-		public ObservableCollection<String> UsedVarTypes
-		{
-			get{return _usedvartypes;}
-		}
-		
-		public string NumberSelected
-		{
-			get
-			{
-				return String.Format("Selected:({0}/{1})",NItemsSelected.ToString(CultureInfo.InvariantCulture),NItemsTotal.ToString(CultureInfo.InvariantCulture));
-			}
-		}
-		
-		public DatCleanHelper()
+        public ObservableCollection<String> UsedVarTypes => _usedvartypes;
+
+        public string NumberSelected => String.Format("Selected:({0}/{1})", NItemsSelected.ToString(CultureInfo.InvariantCulture), NItemsTotal.ToString(CultureInfo.InvariantCulture));
+
+        public DatCleanHelper()
 		{
 			Instance=this;
 			_filename=DummyDoc.Instance.Filename;

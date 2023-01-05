@@ -30,20 +30,11 @@ namespace miRobotEditor.ViewModel
 
         public OptionsViewModel Instance { get; set; }
 
-        public ICommand ApplyCommand
-        {
-            get { return _applyCommand ?? (_applyCommand = new RelayCommand(param => Apply(), param => true)); }
-        }
+        public ICommand ApplyCommand => _applyCommand ?? (_applyCommand = new RelayCommand(param => Apply(), param => true));
 
-        public ICommand OkCommand
-        {
-            get { return _okCommand ?? (_okCommand = new RelayCommand(param => Ok(), param => true)); }
-        }
+        public ICommand OkCommand => _okCommand ?? (_okCommand = new RelayCommand(param => Ok(), param => true));
 
-        public ICommand CancelCommand
-        {
-            get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(param => Cancel(), param => true)); }
-        }
+        public ICommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(param => Cancel(), param => true));
 
         private static void Apply()
         {

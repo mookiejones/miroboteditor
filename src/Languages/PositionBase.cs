@@ -23,10 +23,7 @@ namespace miRobotEditor.Languages
         public string Name { get; set; }
         //  public List<PositionValue> PositionalValues { get; set; }
 
-        public ReadOnlyObservableCollection<PositionValue> PositionalValues
-        {
-            get { return _positionalValues ?? new ReadOnlyObservableCollection<PositionValue>(_values); }
-        }
+        public ReadOnlyObservableCollection<PositionValue> PositionalValues => _positionalValues ?? new ReadOnlyObservableCollection<PositionValue>(_values);
 
 
         public void ParseValues()

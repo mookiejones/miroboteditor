@@ -168,14 +168,8 @@ namespace miRobotEditor.Core
         /// <summary>
         /// Gets the ClearMessagesCommand.
         /// </summary>
-        public RelayCommand ClearMessagesCommand
-        {
-            get
-            {
-                return _clearMessagesCommand
+        public RelayCommand ClearMessagesCommand => _clearMessagesCommand
                     ?? (_clearMessagesCommand = new RelayCommand(ClearItems));
-            }
-        }
 
         #endregion
 
@@ -189,14 +183,8 @@ namespace miRobotEditor.Core
         /// <summary>
         /// Gets the MouseOverCommand.
         /// </summary>
-        public RelayCommand<object> MouseOverCommand
-        {
-            get
-            {
-                return _mouseOverCommand
+        public RelayCommand<object> MouseOverCommand => _mouseOverCommand
                     ?? (_mouseOverCommand = new RelayCommand<object>(HandleMouseOver));
-            }
-        }
 
 
         #endregion

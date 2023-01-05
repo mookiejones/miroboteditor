@@ -1,0 +1,12 @@
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\bin\Debug\net8.0-windows\miRobotEditorCore.deps.json
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\bin\Debug\net8.0-windows\miRobotEditorCore.dll
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\bin\Debug\net8.0-windows\miRobotEditorCore.pdb
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\obj\Debug\net8.0-windows\miRobotEditorCore.csproj.AssemblyReference.cache
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\obj\Debug\net8.0-windows\miRobotEditorCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\obj\Debug\net8.0-windows\miRobotEditorCore.AssemblyInfoInputs.cache
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\obj\Debug\net8.0-windows\miRobotEditorCore.AssemblyInfo.cs
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\obj\Debug\net8.0-windows\miRobotEditorCore.csproj.CoreCompileInputs.cache
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\obj\Debug\net8.0-windows\miRobotEditorCore.dll
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\obj\Debug\net8.0-windows\refint\miRobotEditorCore.dll
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\obj\Debug\net8.0-windows\miRobotEditorCore.pdb
+C:\Programming\miroboteditor\CleanedVersion\src\miRobotEditorCore\obj\Debug\net8.0-windows\ref\miRobotEditorCore.dll

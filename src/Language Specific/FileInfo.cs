@@ -65,18 +65,12 @@ namespace miRobotEditor.Pads
             }
         }
         #endregion
-   
 
 
-        public string DirectoryName
-        {
-            get { return _fi.DirectoryName; }
-        }
 
-        public DirectoryInfo Directory
-        {
-            get { return _fi.Directory; }
-        }
+        public string DirectoryName => _fi.DirectoryName;
+
+        public DirectoryInfo Directory => _fi.Directory;
 
 
         /// <summary>
@@ -99,33 +93,21 @@ namespace miRobotEditor.Pads
         /// </summary>
         /// <returns>The size of the current file in bytes.</returns>
         /// <exception cref="IOException"></exception>
-        public long Length
-        {
-            get { return _fi.Length; }
-        }
+        public long Length => _fi.Length;
 
         /// <summary>
         ///     Wrapper for Length
         /// </summary>
-        public string Size
-        {
-            get { return Length.ToString(CultureInfo.InvariantCulture); }
-        }
+        public string Size => Length.ToString(CultureInfo.InvariantCulture);
 
 
         /// <summary>
         ///     Gets the name of the file
         /// </summary>
         /// <returns>The name of the file.</returns>
-        public string Name
-        {
-            get { return _fi.Name; }
-        }
+        public string Name => _fi.Name;
 
-        public string Filetype
-        {
-            get { return _filetype.ToString(); }
-        }
+        public string Filetype => _filetype.ToString();
 
         public bool Visible { get; set; }
 

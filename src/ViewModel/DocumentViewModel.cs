@@ -36,10 +36,7 @@ namespace miRobotEditor.ViewModel
             InitializeViewModel(filepath);
         }
 
-        public ICommand CloseCommand
-        {
-            get { return _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true)); }
-        }
+        public ICommand CloseCommand => _closeCommand ?? (_closeCommand = new RelayCommand(p => CloseWindow(), p => true));
 
         public void Load(string filepath)
         {

@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Images\editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="miRobotEditor" version="0.0.0.37536" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="miRobotEditor" version="0.0.0.26547" language="neutral" processorArchitecture="msil" />
     <commandLine file="miRobotEditor.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -212,13 +212,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1425408">
-      <assemblyIdentity name="miRobotEditor" version="0.0.0.37536" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="miRobotEditor" version="0.0.0.26547" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>DM4ZWSBxfOSce9afbKPQakAADy6soVTQOtXsH90v3VA=</dsig:DigestValue>
+        <dsig:DigestValue>86ULoGi2dNWYj8YD2DrMkASBRI2pFkqTP1tgP0MSVB0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

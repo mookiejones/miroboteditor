@@ -209,37 +209,19 @@ namespace miRobotEditor.ViewModel
         private readonly NotesViewModel _notes = null;
         private readonly ObjectBrowserViewModel _objectBrowser = null;
 
-        public ObjectBrowserViewModel ObjectBrowser
-        {
-            get { return _objectBrowser ?? new ObjectBrowserViewModel(); }
-        }
+        public ObjectBrowserViewModel ObjectBrowser => _objectBrowser ?? new ObjectBrowserViewModel();
 
-        public NotesViewModel Notes
-        {
-            get { return _notes ?? new NotesViewModel(); }
-        }
+        public NotesViewModel Notes => _notes ?? new NotesViewModel();
 
-        public MessageViewModel MessageView
-        {
-            get { return _messageView ?? new MessageViewModel(); }
-        }
+        public MessageViewModel MessageView => _messageView ?? new MessageViewModel();
 
-        public FunctionViewModel Functions
-        {
-            get { return _functions ?? new FunctionViewModel(); }
-        }
+        public FunctionViewModel Functions => _functions ?? new FunctionViewModel();
 
 
-        public LocalVariablesViewModel LocalVariables
-        {
-            get { return _localVariables ?? new LocalVariablesViewModel(); }
-        }
+        public LocalVariablesViewModel LocalVariables => _localVariables ?? new LocalVariablesViewModel();
 
 
-        public AngleConvertorViewModel AngleConverter
-        {
-            get { return _angleConverter ?? new AngleConvertorViewModel(); }
-        }
+        public AngleConvertorViewModel AngleConverter => _angleConverter ?? new AngleConvertorViewModel();
 
         #endregion
 
@@ -376,10 +358,7 @@ namespace miRobotEditor.ViewModel
 
         private ILayoutUpdateStrategy _layoutInitializer;
 
-        public ILayoutUpdateStrategy LayoutStrategy
-        {
-            get { return _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer()); }
-        }
+        public ILayoutUpdateStrategy LayoutStrategy => _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer());
 
         #endregion
 
@@ -388,10 +367,7 @@ namespace miRobotEditor.ViewModel
         private readonly IEnumerable<ToolViewModel> _readonlyTools = null;
         private readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
 
-        public IEnumerable<ToolViewModel> Tools
-        {
-            get { return _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools); }
-        }
+        public IEnumerable<ToolViewModel> Tools => _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools);
 
         #endregion
 
@@ -432,10 +408,7 @@ namespace miRobotEditor.ViewModel
         private readonly ObservableCollection<IDocument> _files = new ObservableCollection<IDocument>();
         private readonly ReadOnlyObservableCollection<IDocument> _readonyFiles = null;
 
-        public IEnumerable<IDocument> Files
-        {
-            get { return _readonyFiles ?? new ReadOnlyObservableCollection<IDocument>(_files); }
-        }
+        public IEnumerable<IDocument> Files => _readonyFiles ?? new ReadOnlyObservableCollection<IDocument>(_files);
 
         #endregion
 
@@ -823,10 +796,7 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _showIOCommand;
 
-        public ICommand ShowIOCommand
-        {
-            get { return _showIOCommand ?? (_showIOCommand = new RelayCommand(p => ExecuteShowIO(), p => true)); }
-        }
+        public ICommand ShowIOCommand => _showIOCommand ?? (_showIOCommand = new RelayCommand(p => ExecuteShowIO(), p => true));
 
         #endregion
 
@@ -834,10 +804,7 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _newFileCommand;
 
-        public ICommand NewFileCommand
-        {
-            get { return _newFileCommand ?? (_newFileCommand = new RelayCommand(p => AddNewFile(), p => true)); }
-        }
+        public ICommand NewFileCommand => _newFileCommand ?? (_newFileCommand = new RelayCommand(p => AddNewFile(), p => true));
 
         #endregion
 
@@ -845,14 +812,8 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _changeThemeCommand;
 
-        public ICommand ChangeThemeCommand
-        {
-            get
-            {
-                return _changeThemeCommand ??
+        public ICommand ChangeThemeCommand => _changeThemeCommand ??
                        (_changeThemeCommand = new RelayCommand(ChangeTheme, p => true));
-            }
-        }
 
         #endregion
 
@@ -860,10 +821,7 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _changeAccentCommand;
 
-        public ICommand ChangeAccentCommand
-        {
-            get { return _changeAccentCommand ?? (_changeAccentCommand = new RelayCommand(ChangeAccent, p => true)); }
-        }
+        public ICommand ChangeAccentCommand => _changeAccentCommand ?? (_changeAccentCommand = new RelayCommand(ChangeAccent, p => true));
 
         #endregion
 
@@ -871,14 +829,8 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _showSettingsCommand;
 
-        public ICommand ShowSettingsCommand
-        {
-            get
-            {
-                return _showSettingsCommand ??
+        public ICommand ShowSettingsCommand => _showSettingsCommand ??
                        (_showSettingsCommand = new RelayCommand(p => ExecuteShowSettings(), p => true));
-            }
-        }
 
         #endregion
 
@@ -886,10 +838,7 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _showFindReplace;
 
-        public ICommand ShowFindReplaceCommand
-        {
-            get { return _showFindReplace ?? (_showFindReplace = new RelayCommand(p => ShowFindReplace(), p => true)); }
-        }
+        public ICommand ShowFindReplaceCommand => _showFindReplace ?? (_showFindReplace = new RelayCommand(p => ShowFindReplace(), p => true));
 
 
         private void ShowFindReplace()
@@ -907,19 +856,13 @@ namespace miRobotEditor.ViewModel
         private RelayCommand _exitCommand;
         private RelayCommand _showAboutCommand;
 
-        public ICommand ShowAboutCommand
-        {
-            get { return _showAboutCommand ?? (_showAboutCommand = new RelayCommand(p => ShowAbout(), p => true)); }
-        }
+        public ICommand ShowAboutCommand => _showAboutCommand ?? (_showAboutCommand = new RelayCommand(p => ShowAbout(), p => true));
 
         #endregion
 
         #region Exit
 
-        public ICommand ExitCommand
-        {
-            get { return _exitCommand ?? (_exitCommand = new RelayCommand(p => Exit(), p => true)); }
-        }
+        public ICommand ExitCommand => _exitCommand ?? (_exitCommand = new RelayCommand(p => Exit(), p => true));
 
         #endregion
 
@@ -927,16 +870,10 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _importCommand;
 
-        public ICommand ImportCommand
-        {
-            get
-            {
-                return _importCommand ??
+        public ICommand ImportCommand => _importCommand ??
                        (_importCommand =
                            new RelayCommand(p => ImportRobot(),
                                p => (!(p is LanguageBase) | (p is Fanuc) | (p is Kawasaki) | p == null)));
-            }
-        }
 
         #endregion
 
@@ -944,10 +881,7 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _openFileCommand;
 
-        public ICommand OpenFileCommand
-        {
-            get { return _openFileCommand ?? (_openFileCommand = new RelayCommand(OnOpen, p => true)); }
-        }
+        public ICommand OpenFileCommand => _openFileCommand ?? (_openFileCommand = new RelayCommand(OnOpen, p => true));
 
         #endregion
 
@@ -955,14 +889,8 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _changeViewAsCommand;
 
-        public ICommand ChangeViewAsCommand
-        {
-            get
-            {
-                return _changeViewAsCommand ??
+        public ICommand ChangeViewAsCommand => _changeViewAsCommand ??
                        (_changeViewAsCommand = new RelayCommand(ChangeViewAs, param => true));
-            }
-        }
 
         #endregion
 
@@ -970,10 +898,7 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _addToolCommand;
 
-        public ICommand AddToolCommand
-        {
-            get { return _addToolCommand ?? (_addToolCommand = new RelayCommand(AddTool, param => true)); }
-        }
+        public ICommand AddToolCommand => _addToolCommand ?? (_addToolCommand = new RelayCommand(AddTool, param => true));
 
         #endregion
 

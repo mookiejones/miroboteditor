@@ -31,14 +31,13 @@ using ICSharpCode.AvalonEdit.Search;
 using ICSharpCode.AvalonEdit.Snippets;
 using Microsoft.Win32;
 using miRobotEditor.Annotations;
-using miRobotEditor.Classes;
 using miRobotEditor.Controls;
 using miRobotEditor.Core;
+using miRobotEditor.GUI.Editor.Bookmark;
+using miRobotEditor.GUI.Editor.IconBar;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.ViewModel;
-using robot_editor.Classes;
-using robot_editor.Interfaces;
 using Global = miRobotEditor.Classes.Global;
 
 using Utilities = miRobotEditor.Classes.Utilities;
@@ -85,26 +84,17 @@ namespace miRobotEditor.GUI.Editor
         private String _filename = string.Empty;
         private IVariable _selectedVariable;
 
-        public int Line
-        {
-            get { return TextArea.Caret.Column; }
-        }
+        public int Line => TextArea.Caret.Column;
 
         /// <summary>
         ///     Used for displaying position in status bar
         /// </summary>
-        public int Column
-        {
-            get { return TextArea.Caret.Column; }
-        }
+        public int Column => TextArea.Caret.Column;
 
         /// <summary>
         ///     Used for displaying position in status bar
         /// </summary>
-        public int Offset
-        {
-            get { return TextArea.Caret.Offset; }
-        }
+        public int Offset => TextArea.Caret.Offset;
 
         public new string Text
         {
@@ -156,10 +146,7 @@ namespace miRobotEditor.GUI.Editor
         }
 
 
-        public ReadOnlyObservableCollection<IVariable> Variables
-        {
-            get { return _readonlyVariables ?? new ReadOnlyObservableCollection<IVariable>(_variables); }
-        }
+        public ReadOnlyObservableCollection<IVariable> Variables => _readonlyVariables ?? new ReadOnlyObservableCollection<IVariable>(_variables);
 
 
         public string FileSave
@@ -184,14 +171,8 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the UndoCommand.
         /// </summary>
-        public RelayCommand UndoCommand
-        {
-            get
-            {
-                return _undoCommand
+        public RelayCommand UndoCommand => _undoCommand
                     ?? (_undoCommand = new RelayCommand(ExecuteUndoCommand));
-            }
-        }
 
         private void ExecuteUndoCommand()
         {
@@ -206,14 +187,8 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the RedoCommand.
         /// </summary>
-        public RelayCommand RedoCommand
-        {
-            get
-            {
-                return _redoCommand
+        public RelayCommand RedoCommand => _redoCommand
                     ?? (_redoCommand = new RelayCommand(ExecuteRedoCommand));
-            }
-        }
 
         private void ExecuteRedoCommand()
         {
@@ -228,15 +203,9 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the SaveCommand.
         /// </summary>
-        public RelayCommand SaveCommand
-        {
-            get
-            {
-                return _saveCommand ?? (_saveCommand = new RelayCommand(
+        public RelayCommand SaveCommand => _saveCommand ?? (_saveCommand = new RelayCommand(
                     ExecuteSaveCommand,
                     CanExecuteSaveCommand));
-            }
-        }
 
         private void ExecuteSaveCommand()
         {
@@ -258,15 +227,9 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the SaveAsCommand.
         /// </summary>
-        public RelayCommand SaveAsCommand
-        {
-            get
-            {
-                return _saveAsCommand ?? (_saveAsCommand = new RelayCommand(
+        public RelayCommand SaveAsCommand => _saveAsCommand ?? (_saveAsCommand = new RelayCommand(
                     ExecuteSaveAsCommand,
                     CanExecuteSaveAsCommand));
-            }
-        }
 
         private void ExecuteSaveAsCommand()
         {
@@ -286,14 +249,8 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the ReplaceCommand.
         /// </summary>
-        public RelayCommand ReplaceCommand
-        {
-            get
-            {
-                return _replaceCommand
+        public RelayCommand ReplaceCommand => _replaceCommand
                     ?? (_replaceCommand = new RelayCommand(ExecuteReplaceCommand));
-            }
-        }
 
         private void ExecuteReplaceCommand()
         {
@@ -309,15 +266,9 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the VariableDoubleClickCommand.
         /// </summary>
-        public RelayCommand<object> VariableDoubleClickCommand
-        {
-            get
-            {
-                return _variableDoubleClickCommand ?? (_variableDoubleClickCommand = new RelayCommand<object>(
+        public RelayCommand<object> VariableDoubleClickCommand => _variableDoubleClickCommand ?? (_variableDoubleClickCommand = new RelayCommand<object>(
                     ExecuteVariableDoubleClickCommand,
                     CanExecuteVariableDoubleClickCommand));
-            }
-        }
 
         private void ExecuteVariableDoubleClickCommand(object parameter)
         {
@@ -338,15 +289,9 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the GotoCommand.
         /// </summary>
-        public RelayCommand GotoCommand
-        {
-            get
-            {
-                return _gotoCommand ?? (_gotoCommand = new RelayCommand(
+        public RelayCommand GotoCommand => _gotoCommand ?? (_gotoCommand = new RelayCommand(
                     ExecuteGotoCommand,
                     CanExecuteGotoCommand));
-            }
-        }
 
         private void ExecuteGotoCommand()
         {
@@ -367,16 +312,10 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         ///     Gets the OpenAllFoldsCommand.
         /// </summary>
-        public RelayCommand OpenAllFoldsCommand
-        {
-            get
-            {
-                return _openAllFoldsCommand ??
+        public RelayCommand OpenAllFoldsCommand => _openAllFoldsCommand ??
                        (_openAllFoldsCommand =
                            new RelayCommand(ExecuteOpenAllFoldsCommand,
                                CanOpenAllFoldsCommand));
-            }
-        }
 
         private void ExecuteOpenAllFoldsCommand()
         {
@@ -393,16 +332,9 @@ namespace miRobotEditor.GUI.Editor
 
         private RelayCommand _toggleCommentCommand;
 
-        public RelayCommand ToggleCommentCommand
-        {
-            get
-            {
-                return _toggleCommentCommand ??
+        public RelayCommand ToggleCommentCommand => _toggleCommentCommand ??
                        (_toggleCommentCommand =
                            new RelayCommand(ToggleComment, CanToggleCommentCommand));
-            }
-
-        }
 
         private bool CanToggleCommentCommand()
         {
@@ -415,15 +347,9 @@ namespace miRobotEditor.GUI.Editor
 
         private RelayCommand _toggleFoldsCommand;
 
-        public ICommand ToggleFoldsCommand
-        {
-            get
-            {
-                return _toggleFoldsCommand ??
+        public ICommand ToggleFoldsCommand => _toggleFoldsCommand ??
                        (_toggleFoldsCommand =
-                           new RelayCommand(ToggleFolds,CanToggleFoldsCommand));
-            }
-        }
+                           new RelayCommand(ToggleFolds, CanToggleFoldsCommand));
 
 
         private bool CanToggleFoldsCommand()
@@ -436,16 +362,9 @@ namespace miRobotEditor.GUI.Editor
 
         private RelayCommand _toggleAllFoldsCommand;
 
-        public ICommand ToggleAllFoldsCommand
-        {
-            get
-            {
-                return _toggleAllFoldsCommand ??
+        public ICommand ToggleAllFoldsCommand => _toggleAllFoldsCommand ??
                        (_toggleAllFoldsCommand =
                            new RelayCommand(ToggleAllFolds, CanToggleFoldsCommand));
-
-            }
-        }
 
         #endregion
 
@@ -453,15 +372,9 @@ namespace miRobotEditor.GUI.Editor
 
         private RelayCommand _closeAllFoldsCommand;
 
-        public ICommand CloseAllFoldsCommand
-        {
-            get
-            {
-                return _closeAllFoldsCommand ??
+        public ICommand CloseAllFoldsCommand => _closeAllFoldsCommand ??
                        (_closeAllFoldsCommand =
                            new RelayCommand(ExecuteCloseAllFoldsCommand, CanToggleFoldsCommand));
-             }
-        }
 
         private void ExecuteCloseAllFoldsCommand()
         {
@@ -479,15 +392,9 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the AddTimeStampCommand.
         /// </summary>
-        public RelayCommand AddTimeStampCommand
-        {
-            get
-            {
-                return _addTimeStampCommand
+        public RelayCommand AddTimeStampCommand => _addTimeStampCommand
                     ?? (_addTimeStampCommand = new RelayCommand(
                                           () => AddTimeStamp(true)));
-            }
-        }
         #endregion
 
 
@@ -535,15 +442,9 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         /// Gets the FindCommand.
         /// </summary>
-        public RelayCommand FindCommand
-        {
-            get
-            {
-                return _findCommand ?? (_findCommand = new RelayCommand(
+        public RelayCommand FindCommand => _findCommand ?? (_findCommand = new RelayCommand(
                     ExecuteFindCommand,
                     CanExecuteFindCommand));
-            }
-        }
 
         private void ExecuteFindCommand()
         {
@@ -562,10 +463,7 @@ namespace miRobotEditor.GUI.Editor
 
         private RelayCommand _reloadCommand;
 
-        public ICommand ReloadCommand
-        {
-            get { return _reloadCommand ?? (_reloadCommand = new RelayCommand( Reload)); }
-        }
+        public ICommand ReloadCommand => _reloadCommand ?? (_reloadCommand = new RelayCommand(Reload));
 
         #endregion
 
@@ -573,15 +471,9 @@ namespace miRobotEditor.GUI.Editor
 
         private RelayCommand _showDefinitionsCommand;
 
-        public ICommand ShowDefinitionsCommand
-        {
-            get
-            {
-                return _showDefinitionsCommand ??
+        public ICommand ShowDefinitionsCommand => _showDefinitionsCommand ??
                        (_showDefinitionsCommand =
-                           new RelayCommand( ShowDefinitions,()=> _foldingManager != null));
-            }
-        }
+                           new RelayCommand(ShowDefinitions, () => _foldingManager != null));
 
         #endregion
 
@@ -589,10 +481,7 @@ namespace miRobotEditor.GUI.Editor
 
         private RelayCommand _cutCommand;
 
-        public ICommand CutCommand
-        {
-            get { return _cutCommand ?? (_cutCommand = new RelayCommand( Cut, () => (Text.Length > 0))); }
-        }
+        public ICommand CutCommand => _cutCommand ?? (_cutCommand = new RelayCommand(Cut, () => (Text.Length > 0)));
 
         #endregion
 
@@ -600,10 +489,7 @@ namespace miRobotEditor.GUI.Editor
 
         private RelayCommand _copyCommand;
 
-        public ICommand CopyCommand
-        {
-            get { return _copyCommand ?? (_copyCommand = new RelayCommand(Cut, () => (Text.Length > 0))); }
-        }
+        public ICommand CopyCommand => _copyCommand ?? (_copyCommand = new RelayCommand(Cut, () => (Text.Length > 0)));
 
         #endregion
 
@@ -611,36 +497,24 @@ namespace miRobotEditor.GUI.Editor
 
         private RelayCommand _pasteCommand;
 
-        public ICommand PasteCommand
-        {
-            get
-            {
-                return _pasteCommand ?? (_pasteCommand = new RelayCommand(Paste, () => (Clipboard.ContainsText())));
-            }
-        }
+        public ICommand PasteCommand => _pasteCommand ?? (_pasteCommand = new RelayCommand(Paste, () => (Clipboard.ContainsText())));
 
         #endregion
 
         #region FunctionWindowClickCommand
 
 
-         private RelayCommand<object> _functionWindowClickCommand;
+        private RelayCommand<object> _functionWindowClickCommand;
 
         /// <summary>
         /// Gets the FunctionWindowClickCommand.
         /// </summary>
-        public RelayCommand<object> FunctionWindowClickCommand
-        {
-            get
-            {
-                return _functionWindowClickCommand
+        public RelayCommand<object> FunctionWindowClickCommand => _functionWindowClickCommand
                     ?? (_functionWindowClickCommand = new RelayCommand<object>(
                                           p =>
                                           {
                                               OpenFunctionItem(p);
                                           }));
-            }
-        }
         #endregion
 
         #endregion
@@ -652,19 +526,13 @@ namespace miRobotEditor.GUI.Editor
 
 
 
-    
+
         /// <summary>
         /// Gets the MyCommand.
         /// </summary>
-        public RelayCommand<object> ChangeIndentCommand
-        {
-            get
-            {
-                return _changeIndentCommand
+        public RelayCommand<object> ChangeIndentCommand => _changeIndentCommand
                     ?? (_changeIndentCommand = new RelayCommand<object>(
                                           ChangeIndent));
-            }
-        }
         #endregion
 
 

@@ -23,10 +23,7 @@ namespace miRobotEditor.GUI.AngleConverter
                 Direction.ToString(format, formatProvider));
         }
 
-        TransformationMatrix3D IGeometricElement3D.Position
-        {
-            get { throw new NotImplementedException(); }
-        }
+        TransformationMatrix3D IGeometricElement3D.Position => throw new NotImplementedException();
 
         public Point3D GetPoint(double u)
         {

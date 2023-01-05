@@ -71,10 +71,7 @@ namespace miRobotEditor.Forms
         /// <summary>
         ///     Get MessageListener instance
         /// </summary>
-        public static MessageListener Instance
-        {
-            get { return _listener ?? (_listener = new MessageListener()); }
-        }
+        public static MessageListener Instance => _listener ?? (_listener = new MessageListener());
 
         /// <summary>
         ///     Get or set received message

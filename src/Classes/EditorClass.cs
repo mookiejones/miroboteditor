@@ -10,92 +10,62 @@ namespace miRobotEditor.Classes
     public static class EditorClass
     {
         private static RelayCommand _closeAllFoldsCommand;
-            
+
         /// <summary>
         /// Gets the CloseAllFoldsCommand.
         /// </summary>
-        public static RelayCommand CloseAllFoldsCommand
-        {
-            get
-            {
-                return _closeAllFoldsCommand
+        public static RelayCommand CloseAllFoldsCommand => _closeAllFoldsCommand
                     ?? (_closeAllFoldsCommand = new RelayCommand(
                                           () =>
                                           {
-                                              
+
                                           }));
-            }
-        }
 
         private static RelayCommand _openAllFoldsCommand;
 
         /// <summary>
         /// Gets the OpenAllFoldsCommand.
         /// </summary>
-        public static RelayCommand OpenAllFoldsCommand
-        {
-            get
-            {
-                return _openAllFoldsCommand
+        public static RelayCommand OpenAllFoldsCommand => _openAllFoldsCommand
                     ?? (_openAllFoldsCommand = new RelayCommand(
                                           () =>
                                           {
-                                              
+
                                           }));
-            }
-        }
 
         private static RelayCommand _gotoCommand;
 
         /// <summary>
         /// Gets the GotoCommand.
         /// </summary>
-        public static RelayCommand GotoCommand
-        {
-            get
-            {
-                return _gotoCommand
+        public static RelayCommand GotoCommand => _gotoCommand
                     ?? (_gotoCommand = new RelayCommand(
                                           () =>
                                           {
-                                              
+
                                           }));
-            }
-        }
         private static RelayCommand _reloadCommand;
 
         /// <summary>
         /// Gets the ReloadCommand.
         /// </summary>
-        public static RelayCommand ReloadCommand
-        {
-            get
-            {
-                return _reloadCommand
+        public static RelayCommand ReloadCommand => _reloadCommand
                     ?? (_reloadCommand = new RelayCommand(
                                           () =>
                                           {
-                                              
+
                                           }));
-            }
-        }
 
         private static RelayCommand _renumberLinesCommand;
 
         /// <summary>
         /// Gets the RenumberLinesCommand.
         /// </summary>
-        public static  RelayCommand RenumberLinesCommand
-        {
-            get
-            {
-                return _renumberLinesCommand
+        public static RelayCommand RenumberLinesCommand => _renumberLinesCommand
                     ?? (_renumberLinesCommand = new RelayCommand(
                                           () =>
                                           {
-                                              
+
                                           }));
-            }
-        }
     }
 }

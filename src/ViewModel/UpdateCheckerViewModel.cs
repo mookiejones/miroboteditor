@@ -24,18 +24,9 @@ namespace miRobotEditor.ViewModel
         private RelayCommand _cancelcommand;
         private RelayCommand _updatecommand;
 
-        public ICommand UpdateCommand
-        {
-            get { return _updatecommand ?? (_updatecommand = new RelayCommand(param => Update(), param => true)); }
-        }
+        public ICommand UpdateCommand => _updatecommand ?? (_updatecommand = new RelayCommand(param => Update(), param => true));
 
-        public ICommand CancelCommand
-        {
-            get
-            {
-                return _cancelcommand ?? (_cancelcommand = new RelayCommand(param => Cancel(), param => Version != null));
-            }
-        }
+        public ICommand CancelCommand => _cancelcommand ?? (_cancelcommand = new RelayCommand(param => Cancel(), param => Version != null));
 
         #endregion
 
@@ -53,26 +44,14 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public string UpdateText
-        {
-            get
-            {
-                return Version != null
+        public string UpdateText => Version != null
                     ? String.Format("A New version of {0} {1} is available. Would you like to Update?", ProductName,
                         Version.Version)
                     : string.Empty;
-            }
-        }
 
-        public string Title
-        {
-            get { return String.Format("{0} Updater", ProductName); }
-        }
+        public string Title => String.Format("{0} Updater", ProductName);
 
-        public string ProductName
-        {
-            get { return App.ProductName; }
-        }
+        public string ProductName => App.ProductName;
 
 
         public bool AskForUpdates

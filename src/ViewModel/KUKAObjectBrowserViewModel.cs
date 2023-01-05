@@ -47,43 +47,25 @@ namespace miRobotEditor.ViewModel
             Instance = this;
         }
 
-        public ReadOnlyObservableCollection<FunctionClass> FunctionItems
-        {
-            get { return _readonlyFunctionItems ?? new ReadOnlyObservableCollection<FunctionClass>(_functionItems); }
-        }
+        public ReadOnlyObservableCollection<FunctionClass> FunctionItems => _readonlyFunctionItems ?? new ReadOnlyObservableCollection<FunctionClass>(_functionItems);
 
-        public ReadOnlyObservableCollection<VariableClass> VariableItems
-        {
-            get { return _readonlyVariableItems ?? new ReadOnlyObservableCollection<VariableClass>(_variableItems); }
-        }
+        public ReadOnlyObservableCollection<VariableClass> VariableItems => _readonlyVariableItems ?? new ReadOnlyObservableCollection<VariableClass>(_variableItems);
 
 
-        public ReadOnlyObservableCollection<EnumClass> EnumItems
-        {
-            get { return _readonlyEnumItems ?? new ReadOnlyObservableCollection<EnumClass>(_enumItems); }
-        }
+        public ReadOnlyObservableCollection<EnumClass> EnumItems => _readonlyEnumItems ?? new ReadOnlyObservableCollection<EnumClass>(_enumItems);
 
 
-        public ReadOnlyObservableCollection<StructureClass> StructureItems
-        {
-            get { return _readonlyStructureItems ?? new ReadOnlyObservableCollection<StructureClass>(_structureItems); }
-        }
+        public ReadOnlyObservableCollection<StructureClass> StructureItems => _readonlyStructureItems ?? new ReadOnlyObservableCollection<StructureClass>(_structureItems);
 
         public static KUKAObjectBrowserViewModel Instance { get; set; }
 
-        public ICommand ClearFilterCommand
-        {
-            get
-            {
-                return _clearFilterCommand ??
+        public ICommand ClearFilterCommand => _clearFilterCommand ??
                        (_clearFilterCommand =
                            new RelayCommand(param => FilterText = String.Empty,
                                param => (!String.IsNullOrEmpty(FilterText))));
-            }
-        }
 
 
-        
+
         #region SelectedItem
         /// <summary>
         /// The <see cref="SelectedItem" /> property's name.

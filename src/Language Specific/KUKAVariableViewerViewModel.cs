@@ -9,6 +9,8 @@ using miRobotEditor.Commands;
 using miRobotEditor.ViewModel;
 using System.Drawing;
 using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight;
+
 namespace miRobotEditor.Language_Specific
 {
     public delegate void VariableEventHandler(object sender, VariableEventArgs e);
@@ -52,10 +54,7 @@ namespace miRobotEditor.Language_Specific
         #region Commands
         private RelayCommand _playCommand;
 
-        public ICommand ShowAboutCommand
-        {
-            get { return _playCommand ?? (_playCommand = new RelayCommand(p => Play(p), p => true)); }
-        }
+        public ICommand ShowAboutCommand => _playCommand ?? (_playCommand = new RelayCommand(p => Play(p), p => true));
         #endregion
         #region "Members"
 
@@ -81,14 +80,8 @@ namespace miRobotEditor.Language_Specific
         private readonly ObservableCollection<Variable> _variables = new ObservableCollection<Variable>();
         private ReadOnlyObservableCollection<Variable> _readOnlyVariables;
 
-        public ReadOnlyObservableCollection<Variable> Variables
-        {
-            get
-            {
-                return _readOnlyVariables ??
+        public ReadOnlyObservableCollection<Variable> Variables => _readOnlyVariables ??
                        (_readOnlyVariables = new ReadOnlyObservableCollection<Variable>(_variables));
-            }
-        }
 
 
         enum command { CONNECTED, DISCONNECTED, CHAT, REFUSED, GET, SET, NONE };
@@ -482,12 +475,9 @@ namespace miRobotEditor.Language_Specific
                 set { _varname = value; }
             }
 
-            public string Value
-            {
-                get { return _varValue; }              
-            }
+            public string Value => _varValue;
 
-           
+
 
             /// <summary>
             /// Timer for monitoring variable
@@ -551,10 +541,7 @@ namespace miRobotEditor.Language_Specific
             }
             private readonly List<PointPair> _values = new List<PointPair>();
             [CLSCompliant(true)]
-            public List<PointPair> Values
-            {
-                get { return _values; }
-            }
+            public List<PointPair> Values => _values;
             public void Initialize()
             {
                
@@ -642,10 +629,7 @@ namespace miRobotEditor.Language_Specific
         set{_name = value;}
     }
         private readonly KUKAVariableViewerViewModel.Variable _variable;
-        public KUKAVariableViewerViewModel.Variable Variable
-        {
-            get { return _variable; }
-        }
+        public KUKAVariableViewerViewModel.Variable Variable => _variable;
 
         public VariableEventArgs(KUKAVariableViewerViewModel.Variable variable)
         {

@@ -23,10 +23,7 @@ namespace miRobotEditor.GUI.AngleConverter
             }
         }
 
-        public Vector3D ABC
-        {
-            get { return new Vector3D(RPY[2], RPY[1], RPY[0]); }
-        }
+        public Vector3D ABC => new Vector3D(RPY[2], RPY[1], RPY[0]);
 
         public Vector3D ABG
         {

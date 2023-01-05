@@ -181,6 +181,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\AbstractFoldingStrategy.cs" />
+    <Compile Include="Abstract\BaseLanguageClass.cs" />
     <Compile Include="Classes\AppException.cs" />
     <Compile Include="Classes\BookmarkBase.cs" />
     <Compile Include="Classes\CartesianItems.cs" />
@@ -213,10 +215,46 @@
       <DependentUpon>OptionsFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalOptions.cs" />
+    <Compile Include="GUI\DefaultBracketSearcher.cs" />
+    <Compile Include="GUI\Editor\BackgroundRenderer.cs" />
+    <Compile Include="GUI\Editor\Bookmark\BookmarkImage.cs" />
+    <Compile Include="GUI\Editor\Bookmark\ClassMemberBookmark.cs" />
+    <Compile Include="GUI\Editor\BracketHighlightRenderer.cs" />
+    <Compile Include="GUI\Editor\BracketSearchResult.cs" />
+    <Compile Include="GUI\Editor\CompletionContext.cs" />
+    <Compile Include="GUI\Editor\Completion\ICompletionItem.cs" />
+    <Compile Include="GUI\Editor\Completion\ICompletionItemList.cs" />
+    <Compile Include="GUI\Editor\Completion\ICompletionListWindow.cs" />
+    <Compile Include="GUI\Editor\Completion\ICompletionWindow.cs" />
+    <Compile Include="GUI\Editor\FindAndReplace.xaml.cs">
+      <DependentUpon>FindAndReplace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Editor\IBracketSearcher.cs" />
+    <Compile Include="GUI\Editor\ICompletionItemList.cs" />
+    <Compile Include="GUI\Editor\ICompletionListWindow.cs" />
+    <Compile Include="GUI\Editor\ICompletionWindow.cs" />
+    <Compile Include="GUI\Editor\IconBar\IconBarManager.cs" />
+    <Compile Include="GUI\Editor\IconBar\IconBarMargin.cs" />
     <Compile Include="GUI\KUKA\AdjustST\AdjustST.cs" />
     <Compile Include="GUI\TextEditorOptions.cs" />
     <Compile Include="Handlers\UpdateRequiredHandler.cs" />
+    <Compile Include="Interfaces\IBookmark.cs" />
+    <Compile Include="Interfaces\IBookmarkMargin.cs" />
+    <Compile Include="Interfaces\IDocument.cs" />
+    <Compile Include="Interfaces\IEditor.cs" />
     <Compile Include="Interfaces\IException.cs" />
+    <Compile Include="Interfaces\IFormattingStrategy.cs" />
+    <Compile Include="Interfaces\IImage.cs" />
+    <Compile Include="Interfaces\IInsightItem.cs" />
+    <Compile Include="Interfaces\IInsightWindow.cs" />
+    <Compile Include="Interfaces\ILanguageClass.cs" />
+    <Compile Include="Interfaces\ITextBuffer.cs" />
+    <Compile Include="Interfaces\ITextBufferVersion.cs" />
+    <Compile Include="Interfaces\ITextEditor.cs" />
+    <Compile Include="Interfaces\ITextEditorCaret.cs" />
+    <Compile Include="Interfaces\ITextEditorOptions.cs" />
+    <Compile Include="Interfaces\IVariable.cs" />
+    <Compile Include="Interfaces\Location.cs" />
     <Compile Include="Language Specific\DatCleanControl.xaml.cs">
       <DependentUpon>DatCleanControl.xaml</DependentUpon>
     </Compile>
@@ -567,6 +605,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GUI\Editor\Editor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Editor\FindAndReplace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -26,16 +26,13 @@ namespace miRobotEditor.GUI.Editor
         /// <summary>
         ///     Gets the length between EndOffset and StartOffset.
         /// </summary>
-        public int Length
-        {
-            get { return EndOffset - StartOffset; }
-        }
+        public int Length => EndOffset - StartOffset;
 
         /// <summary>
         ///     Gets/Sets the character that triggered completion.
         ///     This property is '\0' when completion was triggered using the mouse.
         /// </summary>
-// ReSharper disable once UnusedMember.Global
+        // ReSharper disable once UnusedMember.Global
         public char CompletionChar { get; set; }
 
         /// <summary>

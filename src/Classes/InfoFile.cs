@@ -31,9 +31,6 @@ namespace miRobotEditor.Classes
 
 
 
-        public ReadOnlyObservableCollection<Technology> Technologies
-        {
-            get { return _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies); }
-        }
+        public ReadOnlyObservableCollection<Technology> Technologies => _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies);
     }
 }

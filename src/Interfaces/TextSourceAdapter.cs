@@ -15,10 +15,7 @@ namespace miRobotEditor.Interfaces
             TextSource = textSource;
         }
 
-        public virtual ITextBufferVersion Version
-        {
-            get { return null; }
-        }
+        public virtual ITextBufferVersion Version => null;
 
         /// <summary>
         ///     Creates an immutable snapshot of this text buffer.
@@ -53,15 +50,9 @@ namespace miRobotEditor.Interfaces
             return TextSource.CreateSnapshot(offset, length).CreateReader();
         }
 
-        public int TextLength
-        {
-            get { return TextSource.TextLength; }
-        }
+        public int TextLength => TextSource.TextLength;
 
-        public string Text
-        {
-            get { return TextSource.Text; }
-        }
+        public string Text => TextSource.Text;
 
         /// <summary>
         ///     Is raised when the Text property changes.

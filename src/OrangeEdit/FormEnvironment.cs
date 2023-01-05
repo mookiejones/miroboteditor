@@ -16,48 +16,24 @@ namespace miRobotEditor.OrangeEdit
         private RelayCommand _folderCommand;
         private RelayCommand _textChangedCommand;
 
-        public ICommand ActivateCommand
-        {
-            get
-            {
-                return _activateCommand ?? (_activateCommand = new RelayCommand(param => Activate(), param => true));
-            }
-        }
+        public ICommand ActivateCommand => _activateCommand ?? (_activateCommand = new RelayCommand(param => Activate(), param => true));
 
-        public ICommand CloseCommand
-        {
-            get { return _closeCommand ?? (_closeCommand = new RelayCommand(param => Close(), param => true)); }
-        }
+        public ICommand CloseCommand => _closeCommand ?? (_closeCommand = new RelayCommand(param => Close(), param => true));
 
-        public ICommand ActivateDefaultCommand
-        {
-            get
-            {
-                return _activateDefaultCommand ??
+        public ICommand ActivateDefaultCommand => _activateDefaultCommand ??
                        (_activateDefaultCommand = new RelayCommand(param => ActivateDefault(), param => true));
-            }
-        }
 
-        public ICommand FolderCommand
-        {
-            get { return _folderCommand ?? (_folderCommand = new RelayCommand(param => Folder(), param => true)); }
-        }
+        public ICommand FolderCommand => _folderCommand ?? (_folderCommand = new RelayCommand(param => Folder(), param => true));
 
-        public ICommand TextChangedCommand
-        {
-            get
-            {
-                return _textChangedCommand ??
+        public ICommand TextChangedCommand => _textChangedCommand ??
                        (_textChangedCommand = new RelayCommand(param => TextChanged(), param => true));
-            }
-        }
 
         #endregion
 
         #region Properties 
 
 
-        
+
 
         #region Name
         /// <summary>

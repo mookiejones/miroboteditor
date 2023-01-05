@@ -74,10 +74,7 @@ namespace miRobotEditor.ViewModel
 
         private RelayCommand _okCommand;
 
-        public ICommand OkCommand
-        {
-            get { return _okCommand ?? (_okCommand = new RelayCommand(param => Accept(), param => (true))); }
-        }
+        public ICommand OkCommand => _okCommand ?? (_okCommand = new RelayCommand(param => Accept(), param => (true)));
 
         #endregion
 

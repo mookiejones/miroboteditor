@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "QrFzpZbbxwHfa3Z5q9K+hw+X8EMoFAH+jXSUm4yRRhAifhHDUqf1kdwyFCMKX0ORglX0gYFa9J/H+HwALFOyfQ==",
+  "success": true,
+  "projectFilePath": "C:\\Programming\\miroboteditor\\CleanedVersion\\src\\miRobotEditorCore\\miRobotEditorCore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\avalonedit\\6.2.0.78\\avalonedit.6.2.0.78.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\communitytoolkit.mvvm\\8.0.0\\communitytoolkit.mvvm.8.0.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\dirkster.avalondock\\4.71.1\\dirkster.avalondock.4.71.1.nupkg.sha512"
+  ],
+  "logs": []
+}

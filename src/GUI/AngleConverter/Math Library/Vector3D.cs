@@ -168,10 +168,7 @@ namespace miRobotEditor.GUI.AngleConverter
             return new Vector3D(-vec.X, -vec.Y, -vec.Z);
         }
 
-        TransformationMatrix3D IGeometricElement3D.Position
-        {
-            get { throw new NotImplementedException(); }
-        }
+        TransformationMatrix3D IGeometricElement3D.Position => throw new NotImplementedException();
 
         public double X
         {

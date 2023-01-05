@@ -88,10 +88,7 @@ namespace miRobotEditor.ViewModel
             set { throw new NotImplementedException(); }
         }
 
-        public string Error
-        {
-            get { return null; }
-        }
+        public string Error => null;
 
 
         #region Matrix

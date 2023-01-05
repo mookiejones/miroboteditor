@@ -20,16 +20,10 @@ namespace miRobotEditor.Languages
 
         private ReadOnlyCollection<IVariable> _listItems;
 
-        public ReadOnlyCollection<IVariable> ListItems
-        {
-            get
-            {
-                return _listItems ??
+        public ReadOnlyCollection<IVariable> ListItems => _listItems ??
                        (_listItems =
                            ServiceLocator.Current.GetInstance<ObjectBrowserViewModel>()
                                .GetVarForFile(KUKA.GetDatFileName(_filename)));
-            }
-        }
 
 
         private int _progress;
@@ -56,10 +50,7 @@ namespace miRobotEditor.Languages
 
         public static RelayCommand Cleandat;
 
-        public static ICommand CleanDatCmd
-        {
-            get { return Cleandat ?? (Cleandat = new RelayCommand(param => Instance.CleanDat(), param => true)); }
-        }
+        public static ICommand CleanDatCmd => Cleandat ?? (Cleandat = new RelayCommand(param => Instance.CleanDat(), param => true));
 
         public void CleanDat()
         {
@@ -68,10 +59,7 @@ namespace miRobotEditor.Languages
 
         private static RelayCommand _checked;
 
-        public static ICommand CheckedCmd
-        {
-            get { return _checked ?? (_checked = new RelayCommand(param => Instance.Checked(), param => true)); }
-        }
+        public static ICommand CheckedCmd => _checked ?? (_checked = new RelayCommand(param => Instance.Checked(), param => true));
 
         public void Checked()
         {
@@ -80,14 +68,8 @@ namespace miRobotEditor.Languages
 
         private static RelayCommand _deletevartype;
 
-        public static ICommand DeleteVarTypeCmd
-        {
-            get
-            {
-                return _deletevartype ??
+        public static ICommand DeleteVarTypeCmd => _deletevartype ??
                        (_deletevartype = new RelayCommand(param => Instance.DeleteVarType(), param => true));
-            }
-        }
 
         public void DeleteVarType()
         {
@@ -96,13 +78,7 @@ namespace miRobotEditor.Languages
 
         private static RelayCommand _addvartype;
 
-        public static ICommand AddVarTypeCmd
-        {
-            get
-            {
-                return _addvartype ?? (_addvartype = new RelayCommand(param => Instance.AddVarType(), param => true));
-            }
-        }
+        public static ICommand AddVarTypeCmd => _addvartype ?? (_addvartype = new RelayCommand(param => Instance.AddVarType(), param => true));
 
         public void AddVarType()
         {
@@ -111,25 +87,13 @@ namespace miRobotEditor.Languages
 
         private static RelayCommand _selectallcommand;
 
-        public static ICommand SelectAllCommand
-        {
-            get
-            {
-                return _selectallcommand ??
+        public static ICommand SelectAllCommand => _selectallcommand ??
                        (_selectallcommand = new RelayCommand(param => Instance.SelectAll(), param => true));
-            }
-        }
 
         private static RelayCommand _invertselection;
 
-        public static ICommand InvertSelectionCommand
-        {
-            get
-            {
-                return _invertselection ??
+        public static ICommand InvertSelectionCommand => _invertselection ??
                        (_invertselection = new RelayCommand(param => Instance.InvertSelection(), param => true));
-            }
-        }
 
         private void SelectAll()
         {
@@ -218,10 +182,7 @@ namespace miRobotEditor.Languages
             }
         }
 
-        public ObservableCollection<String> UsedVarTypes
-        {
-            get { return _usedvartypes; }
-        }
+        public ObservableCollection<String> UsedVarTypes => _usedvartypes;
 
 
         public DatCleanHelper() : base("Dat Cleaner")
