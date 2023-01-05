@@ -6,8 +6,6 @@
     xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
     xmlns:controls="clr-namespace:miRobotEditor.Controls"
     xmlns:selectors="clr-namespace:miRobotEditor.Selectors"
-    xmlns:classes="clr-namespace:miRobotEditor.Classes"
-    xmlns:ViewModel="clr-namespace:miRobotEditor.ViewModel"
     xmlns:texteditor="clr-namespace:miRobotEditor.Controls.TextEditor"
      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
