@@ -1,8 +1,8 @@
-﻿using miRobotEditor.Position;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
+using miRobotEditor.Position;
 
 namespace miRobotEditor.Converters
 {
@@ -19,8 +19,8 @@ namespace miRobotEditor.Converters
                 case CartesianEnum.ABB_Quaternion:
                     {
                         _title = "ABB Quaternion";
-                        var text = parameter.ToString();
-                        if (!String.IsNullOrEmpty(text))
+                        string text = parameter.ToString();
+                        if (!string.IsNullOrEmpty(text))
                         {
                             if (text == "V1")
                             {
@@ -48,7 +48,7 @@ namespace miRobotEditor.Converters
                 case CartesianEnum.Roll_Pitch_Yaw:
                     {
                         _title = "Roll Pitch Yaw";
-                        var text = parameter.ToString();
+                        string text = parameter.ToString();
                         if (text != null)
                         {
                             if (text == "V1")
@@ -76,8 +76,8 @@ namespace miRobotEditor.Converters
                 case CartesianEnum.Kuka_ABC:
                     {
                         _title = "Kuka ABC";
-                        var text = parameter.ToString();
-                        if (!String.IsNullOrEmpty(text))
+                        string text = parameter.ToString();
+                        if (!string.IsNullOrEmpty(text))
                         {
                             if (text == "V1")
                             {
@@ -109,6 +109,9 @@ namespace miRobotEditor.Converters
             return result;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

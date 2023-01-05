@@ -7,6 +7,9 @@ namespace miRobotEditor.Views
     /// </summary>
     public sealed partial class MessageView : UserControl
     {
-        public MessageView() => InitializeComponent();
+        public MessageView()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -1,4 +1,13 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Shell;
+using System.Windows.Threading;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using miRobotEditor.Classes;
@@ -10,15 +19,6 @@ using miRobotEditor.Model;
 using miRobotEditor.Utilities;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Shell;
-using System.Windows.Threading;
 using MessageBox = System.Windows.MessageBox;
 
 namespace miRobotEditor
@@ -47,27 +47,22 @@ namespace miRobotEditor
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            var services = new ServiceCollection();
+            ServiceCollection services = new ServiceCollection();
             // Services
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                services.AddSingleton<IDataService, DesignDataService>();
-            }
-            else
-            {
-                services.AddSingleton<IDataService, DataService>();
-            }
-            services.AddSingleton<IDataService, DataService>();
+            _ = ViewModelBase.IsInDesignModeStatic
+                ? services.AddSingleton<IDataService, DesignDataService>()
+                : services.AddSingleton<IDataService, DataService>();
+            _ = services.AddSingleton<IDataService, DataService>();
             //services.AddSingleton<ISettingsService, SettingsService>();
             //services.AddSingleton<IClipboardService, ClipboardService>();
             //services.AddSingleton<IShareService, ShareService>();
             //services.AddSingleton<IEmailService, EmailService>();
             // Viewmodels
 
-            services.AddSingleton<MainViewModel>();
-            services.AddSingleton<StatusBarViewModel>();
-            services.AddSingleton<ObjectBrowserViewModel>();
-            services.AddSingleton<MessageViewModel>();
+            _ = services.AddSingleton<MainViewModel>();
+            _ = services.AddSingleton<StatusBarViewModel>();
+            _ = services.AddSingleton<ObjectBrowserViewModel>();
+            _ = services.AddSingleton<MessageViewModel>();
 
             return services.BuildServiceProvider();
         }
@@ -79,8 +74,8 @@ namespace miRobotEditor
 
         public bool SignalExternalCommandLineArgs(IList<string> args)
         {
-            MainWindow.Activate();
-            var main = Ioc.Default.GetRequiredService<MainViewModel>();
+            _ = MainWindow.Activate();
+            MainViewModel main = Ioc.Default.GetRequiredService<MainViewModel>();
             main.LoadFile(args);
             return true;
         }
@@ -92,12 +87,12 @@ namespace miRobotEditor
             // used on another machine than it was installed on (e.g. "SharpDevelop on USB stick")
             if (Environment.Version < new Version(4, 0, 30319))
             {
-                MessageBox.Show(String.Format(miRobotEditor.Properties.Resources.CheckEnvironment,
+                _ = MessageBox.Show(string.Format(miRobotEditor.Properties.Resources.CheckEnvironment,
                     Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
                 return false;
             }
             // Work around a WPF issue when %WINDIR% is set to an incorrect path
-            var windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows,
+            string windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows,
                 Environment.SpecialFolderOption.DoNotVerify);
             if (Environment.GetEnvironmentVariable("WINDIR") != windir)
             {
@@ -108,15 +103,18 @@ namespace miRobotEditor
 
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            var msg = new ErrorMessage("App", e.Exception, MessageType.Error);
-            WeakReferenceMessenger.Default.Send(msg);
+            ErrorMessage msg = new ErrorMessage("App", e.Exception, MessageType.Error);
+            _ = WeakReferenceMessenger.Default.Send(msg);
 
             Logger.Log(e.ToString());
 
             e.Handled = true;
         }
 
-        protected override void OnExit(ExitEventArgs e) => base.OnExit(e);
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+        }
 
         [Localizable(false)]
         protected override void OnStartup(StartupEventArgs e)
@@ -129,8 +127,14 @@ namespace miRobotEditor
             Control.CheckForIllegalCrossThreadCalls = true;
 #endif
             if (!CheckEnvironment())
+            {
                 return;
-            if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
+            }
+
+            if (!SingleInstance<App>.InitializeAsFirstInstance(Unique))
+            {
+                return;
+            }
             //    Application = new App();
 
             //    Application.InitializeComponent();
@@ -152,7 +156,7 @@ namespace miRobotEditor
 
             if (e.Args.Length > 0)
             {
-                foreach (var v in e.Args)
+                foreach (string v in e.Args)
                 {
                 }
                 Debugger.Break();
@@ -161,7 +165,7 @@ namespace miRobotEditor
                 Shutdown();
             }
 
-            var task = new JumpTask
+            JumpTask task = new JumpTask
             {
                 Title = "Check for Updates",
                 Arguments = "/update",
@@ -171,9 +175,9 @@ namespace miRobotEditor
                 ApplicationPath = Assembly.GetEntryAssembly().CodeBase
             };
 
-            var asm = Assembly.GetExecutingAssembly();
+            Assembly asm = Assembly.GetExecutingAssembly();
 
-            var version = new JumpTask
+            JumpTask version = new JumpTask
             {
                 CustomCategory = "Version",
                 Title = asm.GetName().Version.ToString(),
@@ -181,7 +185,7 @@ namespace miRobotEditor
                 IconResourceIndex = 0
             };
 
-            var jumpList = new JumpList();
+            JumpList jumpList = new JumpList();
             jumpList.JumpItems.Add(version);
             jumpList.ShowFrequentCategory = true;
             jumpList.ShowRecentCategory = true;

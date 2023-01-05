@@ -1,16 +1,12 @@
-﻿using miRobotEditor.Classes;
-using miRobotEditor.ViewModel;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
+using miRobotEditor.Classes;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Utilities
 {
-    static class Logger
+    internal static class Logger
     {
         /// <summary>
         /// Log message to console and trace
@@ -18,13 +14,19 @@ namespace miRobotEditor.Utilities
         /// <param name="value"></param>
         public static void Log(string value)
         {
-             
+
             Trace.WriteLine(value);
         }
 
-        public static void WriteLog(string message) => LogWriter.WriteLog(message);
+        public static void WriteLog(string message)
+        {
+            LogWriter.WriteLog(message);
+        }
 
-        public static void ErrorHandler(string message) => ErrorHandler(message, false);
+        public static void ErrorHandler(string message)
+        {
+            ErrorHandler(message, false);
+        }
 
         private static void ErrorHandler(string message, bool showmessage)
         {

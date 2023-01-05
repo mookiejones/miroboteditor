@@ -1,9 +1,9 @@
-﻿using ICSharpCode.AvalonEdit.Document;
-using miRobotEditor.Controls.TextEditor.Brackets;
-using miRobotEditor.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using ICSharpCode.AvalonEdit.Document;
+using miRobotEditor.Controls.TextEditor.Brackets;
+using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -17,9 +17,9 @@ namespace miRobotEditor.Classes
             BracketSearchResult result;
             if (offset > 0)
             {
-                var charAt = document.GetCharAt(offset - 1);
-                var num = "([{".IndexOf(charAt);
-                var num2 = -1;
+                char charAt = document.GetCharAt(offset - 1);
+                int num = "([{".IndexOf(charAt);
+                int num2 = -1;
                 if (num > -1)
                 {
                     num2 = SearchBracketForward(document, offset, "([{"[num], ")]}"[num]);
@@ -42,7 +42,7 @@ namespace miRobotEditor.Classes
         private static int ScanLineStart(ITextSource document, int offset)
         {
             int result;
-            for (var i = offset - 1; i > 0; i--)
+            for (int i = offset - 1; i > 0; i--)
             {
                 if (document.GetCharAt(i) == '\n')
                 {
@@ -56,13 +56,13 @@ namespace miRobotEditor.Classes
 
         private static int GetStartType(ITextSource document, int linestart, int offset)
         {
-            var flag = false;
-            var flag2 = false;
-            var flag3 = false;
-            var num = 0;
-            for (var i = linestart; i < offset; i++)
+            bool flag = false;
+            bool flag2 = false;
+            bool flag3 = false;
+            int num = 0;
+            for (int i = linestart; i < offset; i++)
             {
-                var charAt = document.GetCharAt(i);
+                char charAt = document.GetCharAt(i);
                 if (charAt <= '\'')
                 {
                     if (charAt != '"')
@@ -138,32 +138,32 @@ namespace miRobotEditor.Classes
             }
             else
             {
-                var num = QuickSearchBracketBackward(document, offset, openBracket, closingBracket);
+                int num = QuickSearchBracketBackward(document, offset, openBracket, closingBracket);
                 if (num >= 0)
                 {
                     result = num;
                 }
                 else
                 {
-                    var linestart = ScanLineStart(document, offset + 1);
-                    var startType = GetStartType(document, linestart, offset + 1);
+                    int linestart = ScanLineStart(document, offset + 1);
+                    int startType = GetStartType(document, linestart, offset + 1);
                     if (startType == 1)
                     {
                         result = -1;
                     }
                     else
                     {
-                        var stack = new Stack<int>();
-                        var flag = false;
-                        var flag2 = false;
-                        var flag3 = false;
-                        var flag4 = false;
-                        var flag5 = false;
-                        var i = 0;
+                        Stack<int> stack = new Stack<int>();
+                        bool flag = false;
+                        bool flag2 = false;
+                        bool flag3 = false;
+                        bool flag4 = false;
+                        bool flag5 = false;
+                        int i = 0;
                         while (i <= offset)
                         {
-                            var charAt = document.GetCharAt(i);
-                            var c = charAt;
+                            char charAt = document.GetCharAt(i);
+                            char c = charAt;
                             if (c <= '"')
                             {
                                 if (c != '\n' && c != '\r')
@@ -271,21 +271,14 @@ namespace miRobotEditor.Classes
                                     {
                                         if (stack.Count > 0)
                                         {
-                                            stack.Pop();
+                                            _ = stack.Pop();
                                         }
                                     }
                                 }
                             }
                             goto IL_2DC;
                         }
-                        if (stack.Count > 0)
-                        {
-                            result = stack.Pop();
-                        }
-                        else
-                        {
-                            result = -1;
-                        }
+                        result = stack.Count > 0 ? stack.Pop() : -1;
                     }
                 }
             }
@@ -294,11 +287,11 @@ namespace miRobotEditor.Classes
 
         private static int SearchBracketForward(ITextSource document, int offset, char openBracket, char closingBracket)
         {
-            var flag = false;
-            var flag2 = false;
-            var flag3 = false;
-            var flag4 = false;
-            var flag5 = false;
+            bool flag = false;
+            bool flag2 = false;
+            bool flag3 = false;
+            bool flag4 = false;
+            bool flag5 = false;
             int result;
             if (offset < 0)
             {
@@ -306,26 +299,26 @@ namespace miRobotEditor.Classes
             }
             else
             {
-                var num = QuickSearchBracketForward(document, offset, openBracket, closingBracket);
+                int num = QuickSearchBracketForward(document, offset, openBracket, closingBracket);
                 if (num >= 0)
                 {
                     result = num;
                 }
                 else
                 {
-                    var linestart = ScanLineStart(document, offset);
-                    var startType = GetStartType(document, linestart, offset);
+                    int linestart = ScanLineStart(document, offset);
+                    int startType = GetStartType(document, linestart, offset);
                     if (startType != 0)
                     {
                         result = -1;
                     }
                     else
                     {
-                        var num2 = 1;
+                        int num2 = 1;
                         while (offset < document.TextLength)
                         {
-                            var charAt = document.GetCharAt(offset);
-                            var c = charAt;
+                            char charAt = document.GetCharAt(offset);
+                            char c = charAt;
                             if (c <= '"')
                             {
                                 if (c != '\n' && c != '\r')
@@ -453,11 +446,11 @@ namespace miRobotEditor.Classes
         private static int QuickSearchBracketBackward(ITextSource document, int offset, char openBracket,
             char closingBracket)
         {
-            var num = -1;
+            int num = -1;
             int result;
-            for (var i = offset; i >= 0; i--)
+            for (int i = offset; i >= 0; i--)
             {
-                var charAt = document.GetCharAt(i);
+                char charAt = document.GetCharAt(i);
                 if (charAt == openBracket)
                 {
                     num++;
@@ -504,11 +497,11 @@ namespace miRobotEditor.Classes
         private static int QuickSearchBracketForward(ITextSource document, int offset, char openBracket,
             char closingBracket)
         {
-            var num = 1;
+            int num = 1;
             int result;
-            for (var i = offset; i < document.TextLength; i++)
+            for (int i = offset; i < document.TextLength; i++)
             {
-                var charAt = document.GetCharAt(i);
+                char charAt = document.GetCharAt(i);
                 if (charAt == openBracket)
                 {
                     num++;

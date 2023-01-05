@@ -7,6 +7,9 @@ namespace miRobotEditor.Controls
     /// </summary>
     public partial class ListFromFileBox : UserControl
     {
-        public ListFromFileBox() => InitializeComponent();
+        public ListFromFileBox()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -1,6 +1,6 @@
-﻿using miRobotEditor.Abstract;
+﻿using System.Collections.Generic;
+using miRobotEditor.Abstract;
 using miRobotEditor.Enums;
-using System.Collections.Generic;
 
 namespace miRobotEditor.Interfaces
 {

@@ -1,17 +1,17 @@
-﻿using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using miRobotEditor.Classes;
-using miRobotEditor.Controls.TextEditor.SyntaxHighlighting;
-using miRobotEditor.Interfaces;
-using miRobotEditor.Languages;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
+using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using miRobotEditor.Classes;
+using miRobotEditor.Controls.TextEditor.SyntaxHighlighting;
+using miRobotEditor.Interfaces;
+using miRobotEditor.Languages;
 
 namespace miRobotEditor.Controls.TextEditor
 {
@@ -45,7 +45,10 @@ namespace miRobotEditor.Controls.TextEditor
         private string _timestampFormat = "ddd MMM d hh:mm:ss yyyy";
         private bool _wrapWords = true;
 
-        public EditorOptions() => RegisterSyntaxHighlighting();
+        public EditorOptions()
+        {
+            RegisterSyntaxHighlighting();
+        }
 
         private static string OptionsPath => Path.Combine(Global.StartupPath, "Options.xml");
 
@@ -308,7 +311,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         private void WriteXml()
         {
-            var xmlSerializer = new XmlSerializer(typeof(EditorOptions));
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(EditorOptions));
             TextWriter textWriter = new StreamWriter(OptionsPath);
             xmlSerializer.Serialize(textWriter, this);
             textWriter.Close();
@@ -316,7 +319,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         private static EditorOptions ReadXml()
         {
-            var editorOptions = new EditorOptions();
+            EditorOptions editorOptions = new EditorOptions();
             EditorOptions result;
             if (!File.Exists(OptionsPath))
             {
@@ -324,8 +327,8 @@ namespace miRobotEditor.Controls.TextEditor
             }
             else
             {
-                var xmlSerializer = new XmlSerializer(typeof(EditorOptions));
-                var fileStream = new FileStream(OptionsPath, FileMode.Open);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(EditorOptions));
+                FileStream fileStream = new FileStream(OptionsPath, FileMode.Open);
                 try
                 {
                     editorOptions = (EditorOptions)xmlSerializer.Deserialize(fileStream);
@@ -346,9 +349,9 @@ namespace miRobotEditor.Controls.TextEditor
         private static void Register(string name, string[] ext)
         {
 
-            var filename = SyntaxHighlightingHelper.Create().GetFilename(name);
-          
-            using (var manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(filename))
+            string filename = SyntaxHighlightingHelper.Create().GetFilename(name);
+
+            using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(filename))
             {
                 if (manifestResourceStream == null)
                 {
@@ -356,7 +359,7 @@ namespace miRobotEditor.Controls.TextEditor
                 }
                 IHighlightingDefinition highlighting;
 
-                using (var xmlTextReader = XmlReader.Create(manifestResourceStream))
+                using (XmlReader xmlTextReader = XmlReader.Create(manifestResourceStream))
                 {
                     highlighting = HighlightingLoader.Load(xmlTextReader, HighlightingManager.Instance);
                 }

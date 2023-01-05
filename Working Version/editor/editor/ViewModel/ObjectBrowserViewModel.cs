@@ -1,11 +1,11 @@
-using CommunityToolkit.Mvvm.DependencyInjection;
-using miRobotEditor.Classes;
-using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using miRobotEditor.Classes;
+using miRobotEditor.Enums;
+using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.ViewModel
 {
@@ -24,7 +24,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _selectedVariable = value;
-                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+                MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 instance.OpenFile(value);
                 OnPropertyChanged(nameof(SelectedVariable));
             }
@@ -53,12 +53,12 @@ namespace miRobotEditor.ViewModel
 
         private string GetDirectory()
         {
-            var folderBrowserDialog = new FolderBrowserDialog
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
             {
                 Description = @"Select Root Directory for Instance"
             };
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-            var filename = instance.ActiveEditor.TextBox.Filename;
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            string filename = instance.ActiveEditor.TextBox.Filename;
             if (Directory.Exists(filename))
             {
                 folderBrowserDialog.SelectedPath = Path.GetDirectoryName(filename);
@@ -78,17 +78,16 @@ namespace miRobotEditor.ViewModel
 
         public ReadOnlyCollection<IVariable> GetVarForFile(string filename)
         {
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-            var kukaViewModel = instance.ActiveEditor as KukaViewModel;
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
             ReadOnlyCollection<IVariable> result;
-            if (kukaViewModel == null)
+            if (!(instance.ActiveEditor is KukaViewModel kukaViewModel))
             {
                 result = null;
             }
             else
             {
-                var variables = kukaViewModel.Data.Variables;
-                var list = (
+                ReadOnlyObservableCollection<IVariable> variables = kukaViewModel.Data.Variables;
+                System.Collections.Generic.List<IVariable> list = (
                     from p in variables
                     where p.Type == "e6pos"
                     select p).ToList<IVariable>();

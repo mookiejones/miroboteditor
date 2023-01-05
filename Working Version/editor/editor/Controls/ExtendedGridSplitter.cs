@@ -1,5 +1,4 @@
-﻿using miRobotEditor.Enums;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,6 +6,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using miRobotEditor.Enums;
 
 namespace miRobotEditor.Controls
 {
@@ -152,31 +152,25 @@ namespace miRobotEditor.Controls
 
         private static void OnIsCollapsedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var extendedGridSplitter = d as ExtendedGridSplitter;
-            var isCollapsed = (bool)e.NewValue;
-            if (extendedGridSplitter != null)
-            {
-                extendedGridSplitter.OnIsCollapsedChanged(isCollapsed);
-            }
+            ExtendedGridSplitter extendedGridSplitter = d as ExtendedGridSplitter;
+            bool isCollapsed = (bool)e.NewValue;
+            extendedGridSplitter?.OnIsCollapsedChanged(isCollapsed);
         }
 
         private static void OnCollapseModePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var extendedGridSplitter = d as ExtendedGridSplitter;
-            var collapseMode = (GridSplitterCollapseMode)e.NewValue;
-            if (extendedGridSplitter != null)
-            {
-                extendedGridSplitter.OnCollapseModeChanged(collapseMode);
-            }
+            ExtendedGridSplitter extendedGridSplitter = d as ExtendedGridSplitter;
+            GridSplitterCollapseMode collapseMode = (GridSplitterCollapseMode)e.NewValue;
+            extendedGridSplitter?.OnCollapseModeChanged(collapseMode);
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             _elementHorizontalGridSplitterButton =
-                (GetTemplateChild("HorizontalGridSplitterHandle") as ToggleButton);
-            _elementVerticalGridSplitterButton = (GetTemplateChild("VerticalGridSplitterHandle") as ToggleButton);
-            _elementGridSplitterBackground = (GetTemplateChild("GridSplitterBackground") as Rectangle);
+                GetTemplateChild("HorizontalGridSplitterHandle") as ToggleButton;
+            _elementVerticalGridSplitterButton = GetTemplateChild("VerticalGridSplitterHandle") as ToggleButton;
+            _elementGridSplitterBackground = GetTemplateChild("GridSplitterBackground") as Rectangle;
             if (_elementHorizontalGridSplitterButton != null)
             {
                 _elementHorizontalGridSplitterButton.Checked += GridSplitterButtonChecked;
@@ -224,8 +218,7 @@ namespace miRobotEditor.Controls
 
         public void Collapse()
         {
-            var grid = Parent as Grid;
-            if (grid != null)
+            if (Parent is Grid grid)
             {
                 _parentGrid = grid;
             }
@@ -235,7 +228,7 @@ namespace miRobotEditor.Controls
             }
             if (_gridCollapseDirection == GridCollapseDirection.Rows)
             {
-                var num = (int)GetValue(Grid.RowProperty);
+                int num = (int)GetValue(Grid.RowProperty);
                 if (CollapseMode == GridSplitterCollapseMode.Previous)
                 {
                     if (grid != null)
@@ -274,7 +267,7 @@ namespace miRobotEditor.Controls
 
         public void Expand()
         {
-            var grid = Parent as Grid;
+            Grid grid = Parent as Grid;
             if (grid != null)
             {
                 _parentGrid = grid;
@@ -290,10 +283,7 @@ namespace miRobotEditor.Controls
                 }
                 else
                 {
-                    if (grid != null)
-                    {
-                        grid.RowDefinitions[2].SetValue(RowDefinition.HeightProperty, _savedGridLength);
-                    }
+                    grid?.RowDefinitions[2].SetValue(RowDefinition.HeightProperty, _savedGridLength);
                 }
             }
             else
@@ -307,10 +297,7 @@ namespace miRobotEditor.Controls
                 }
                 else
                 {
-                    if (grid != null)
-                    {
-                        grid.RowDefinitions[0].SetValue(RowDefinition.HeightProperty, _savedGridLength);
-                    }
+                    grid?.RowDefinitions[0].SetValue(RowDefinition.HeightProperty, _savedGridLength);
                 }
             }
             IsCollapsed = false;
@@ -318,20 +305,12 @@ namespace miRobotEditor.Controls
 
         protected virtual void OnCollapsed(EventArgs e)
         {
-            var collapsed = Collapsed;
-            if (collapsed != null)
-            {
-                collapsed(this, e);
-            }
+            Collapsed?.Invoke(this, e);
         }
 
         protected virtual void OnExpanded(EventArgs e)
         {
-            var expanded = Expanded;
-            if (expanded != null)
-            {
-                expanded(this, e);
-            }
+            Expanded?.Invoke(this, e);
         }
 
         private void GridSplitterButtonChecked(object sender, RoutedEventArgs e)
@@ -359,8 +338,7 @@ namespace miRobotEditor.Controls
 
         private static void RowHeightAnimationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var extendedGridSplitter = d as ExtendedGridSplitter;
-            if (extendedGridSplitter != null)
+            if (d is ExtendedGridSplitter extendedGridSplitter)
             {
                 extendedGridSplitter._animatingRow.Height = new GridLength((double)e.NewValue);
             }
@@ -368,11 +346,11 @@ namespace miRobotEditor.Controls
 
         private void AnimateCollapse(object definition)
         {
-            var doubleAnimation = new DoubleAnimation
+            DoubleAnimation doubleAnimation = new DoubleAnimation
             {
                 Duration = new Duration(TimeSpan.FromMilliseconds(200.0))
             };
-            var storyboard = new Storyboard();
+            Storyboard storyboard = new Storyboard();
             storyboard.Children.Add(doubleAnimation);
             _animatingRow = (RowDefinition)definition;
             Storyboard.SetTarget(doubleAnimation, this);
@@ -384,11 +362,11 @@ namespace miRobotEditor.Controls
 
         private void AnimateExpand(object definition)
         {
-            var doubleAnimation = new DoubleAnimation
+            DoubleAnimation doubleAnimation = new DoubleAnimation
             {
                 Duration = new Duration(TimeSpan.FromMilliseconds(200.0))
             };
-            var storyboard = new Storyboard();
+            Storyboard storyboard = new Storyboard();
             storyboard.Children.Add(doubleAnimation);
             _animatingRow = (RowDefinition)definition;
             Storyboard.SetTarget(doubleAnimation, this);

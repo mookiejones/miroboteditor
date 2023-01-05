@@ -1,5 +1,5 @@
-﻿using miRobotEditor.Controls.TextEditor.Snippets;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using miRobotEditor.Controls.TextEditor.Snippets;
 
 namespace miRobotEditor.Controls
 {
@@ -19,6 +19,9 @@ namespace miRobotEditor.Controls
             DataContext = this;
         }
 
-        public SnippetToolTip() => InitializeComponent();
+        public SnippetToolTip()
+        {
+            InitializeComponent();
+        }
     }
 }

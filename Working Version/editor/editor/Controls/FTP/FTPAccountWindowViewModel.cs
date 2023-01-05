@@ -1,5 +1,5 @@
-using miRobotEditor.ViewModel;
 using System.Collections.ObjectModel;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Controls.FTP
 {

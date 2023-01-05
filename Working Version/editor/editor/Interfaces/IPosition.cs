@@ -1,5 +1,5 @@
-﻿using miRobotEditor.Position;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using miRobotEditor.Position;
 
 namespace miRobotEditor.Interfaces
 {

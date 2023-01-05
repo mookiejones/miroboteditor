@@ -1,7 +1,6 @@
-﻿using miRobotEditor.Interfaces;
+﻿using System.Windows.Media.Imaging;
+using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using System;
-using System.Windows.Media.Imaging;
 
 namespace miRobotEditor.Variables
 {

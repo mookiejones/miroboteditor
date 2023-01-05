@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
@@ -46,17 +46,8 @@ namespace miRobotEditor.ViewModel
         /// <param name="property"></param>
         public void NotifyPropertyChanged<TProperty>(Expression<Func<TProperty>> property)
         {
-            var lambda = (LambdaExpression)property;
-            MemberExpression memberExpression;
-
-            if (lambda.Body is UnaryExpression)
-            {
-                var unaryExpression = (UnaryExpression)lambda.Body;
-                memberExpression = (MemberExpression)unaryExpression.Operand;
-            }
-            else
-                memberExpression = (MemberExpression)lambda.Body;
-
+            LambdaExpression lambda = property;
+            MemberExpression memberExpression = lambda.Body is UnaryExpression unaryExpression ? (MemberExpression)unaryExpression.Operand : (MemberExpression)lambda.Body;
             OnPropertyChanged(memberExpression.Member.Name);
         }
     }

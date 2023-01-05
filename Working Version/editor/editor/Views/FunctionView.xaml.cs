@@ -7,6 +7,9 @@ namespace miRobotEditor.Views
     /// </summary>
     public sealed partial class FunctionView : UserControl
     {
-        public FunctionView() => InitializeComponent();
+        public FunctionView()
+        {
+            InitializeComponent();
+        }
     }
 }

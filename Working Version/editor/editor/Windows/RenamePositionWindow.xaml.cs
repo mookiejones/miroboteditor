@@ -7,6 +7,9 @@ namespace miRobotEditor.Windows
     /// </summary>
     public sealed partial class RenamePositionWindow : Window
     {
-        public RenamePositionWindow() => InitializeComponent();
+        public RenamePositionWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

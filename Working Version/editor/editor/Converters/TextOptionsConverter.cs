@@ -1,9 +1,9 @@
-﻿using miRobotEditor.Controls.TextEditor;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
+using miRobotEditor.Controls.TextEditor;
 
 namespace miRobotEditor.Converters
 {
@@ -15,7 +15,7 @@ namespace miRobotEditor.Converters
             object result;
             if (value is EditorOptions)
             {
-                result = (value as EditorOptions);
+                result = value as EditorOptions;
             }
             else
             {

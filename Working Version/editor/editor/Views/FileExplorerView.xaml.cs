@@ -7,6 +7,9 @@ namespace miRobotEditor.Views
     /// </summary>
     public partial class FileExplorerView : UserControl
     {
-        public FileExplorerView() => InitializeComponent();
+        public FileExplorerView()
+        {
+            InitializeComponent();
+        }
     }
 }

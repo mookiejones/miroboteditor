@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Classes;
-using System.Windows.Input;
 
 namespace miRobotEditor.ViewModel
 {
@@ -16,10 +16,10 @@ namespace miRobotEditor.ViewModel
         private bool _isScrollPressed;
         private RelayCommand<object> _keyPressedCommand;
 
-        public StatusBarViewModel() => GetInitialKeyState();
-
-
-
+        public StatusBarViewModel()
+        {
+            GetInitialKeyState();
+        }
 
         public RelayCommand<object> KeyPressedCommand => _keyPressedCommand ??
                        (_keyPressedCommand = new RelayCommand<object>(param => ManageKeys(param, null)));
@@ -54,7 +54,7 @@ namespace miRobotEditor.ViewModel
         {
             if (e != null)
             {
-                var key = e.Key;
+                Key key = e.Key;
                 if (key != Key.Capital)
                 {
                     if (key != Key.Insert)
@@ -83,10 +83,10 @@ namespace miRobotEditor.ViewModel
 
         private void GetInitialKeyState()
         {
-            IsCapsPressed = (NativeMethods.GetKeyState(20) != 0);
-            IsInsPressed = (NativeMethods.GetKeyState(45) != 0);
-            IsNumPressed = (NativeMethods.GetKeyState(144) != 0);
-            IsScrollPressed = (NativeMethods.GetKeyState(145) != 0);
+            IsCapsPressed = NativeMethods.GetKeyState(20) != 0;
+            IsInsPressed = NativeMethods.GetKeyState(45) != 0;
+            IsNumPressed = NativeMethods.GetKeyState(144) != 0;
+            IsScrollPressed = NativeMethods.GetKeyState(145) != 0;
         }
 
         private enum VKeyStates

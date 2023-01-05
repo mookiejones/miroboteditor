@@ -1,15 +1,17 @@
-﻿using miRobotEditor.Interfaces;
+﻿using System.ComponentModel;
+using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using System.ComponentModel;
 
 namespace miRobotEditor.Classes
 {
     public sealed class GlobalOptions : IOptions
     {
         private static GlobalOptions _instance;
-        private GlobalOptionsViewModel _options = new GlobalOptionsViewModel();
 
-        private GlobalOptions() => FlyoutOpacity = 0.85;
+        private GlobalOptions()
+        {
+            FlyoutOpacity = 0.85;
+        }
 
         public static GlobalOptions Instance
         {
@@ -20,11 +22,7 @@ namespace miRobotEditor.Classes
         [DefaultValue(0.75)]
         public double FlyoutOpacity { get; set; }
 
-        public GlobalOptionsViewModel Options
-        {
-            get => _options;
-            set => _options = value;
-        }
+        public GlobalOptionsViewModel Options { get; set; } = new GlobalOptionsViewModel();
 
         [Localizable(false)]
         public string Title => "Global Options";

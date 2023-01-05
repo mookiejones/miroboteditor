@@ -1,9 +1,9 @@
-﻿using miRobotEditor.Position;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
+using miRobotEditor.Position;
 
 namespace miRobotEditor.Converters
 {
@@ -15,7 +15,7 @@ namespace miRobotEditor.Converters
             object result;
             if (value is GridView)
             {
-                var gridView = value as GridView;
+                GridView gridView = value as GridView;
                 result = gridView;
             }
             else
@@ -39,6 +39,9 @@ namespace miRobotEditor.Converters
             return result;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

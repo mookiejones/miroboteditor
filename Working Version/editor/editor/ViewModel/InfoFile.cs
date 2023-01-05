@@ -1,5 +1,5 @@
-﻿using miRobotEditor.Abstract;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using miRobotEditor.Abstract;
 
 namespace miRobotEditor.ViewModel
 {

@@ -1,10 +1,10 @@
-using miRobotEditor.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Position
 {
@@ -31,15 +31,15 @@ namespace miRobotEditor.Position
             try
             {
                 _values = new ObservableCollection<PositionValue>();
-                var array = RawValue.Split(new[]
+                string[] array = RawValue.Split(new[]
                 {
                     '='
                 });
-                var source = array[1].Substring(1, array[1].Length - 2).Split(new[]
+                string[] source = array[1].Substring(1, array[1].Length - 2).Split(new[]
                 {
                     ','
                 });
-                foreach (var current in
+                foreach (string[] current in
                     from s in source
                     select s.Split(new[]
                     {
@@ -61,7 +61,7 @@ namespace miRobotEditor.Position
         [Localizable(false)]
         public string ExtractFromMatch()
         {
-            var text = string.Empty;
+            string text = string.Empty;
             string result;
             try
             {
@@ -76,11 +76,14 @@ namespace miRobotEditor.Position
             return result;
         }
 
-        public override string ToString() => RawValue;
+        public override string ToString()
+        {
+            return RawValue;
+        }
 
         private string ConvertFromHex(string value)
         {
-            var value2 = double.Parse(value.Substring(1, value.Length - 2), NumberStyles.HexNumber);
+            double value2 = double.Parse(value.Substring(1, value.Length - 2), NumberStyles.HexNumber);
             return Convert.ToString(value2);
         }
 
@@ -89,7 +92,7 @@ namespace miRobotEditor.Position
             bool result;
             try
             {
-                var num = Convert.ToDouble(value);
+                double num = Convert.ToDouble(value);
                 result = true;
             }
             catch
@@ -99,6 +102,9 @@ namespace miRobotEditor.Position
             return result;
         }
 
-        public static string ExtractXYZ(string positionString) => new PositionBase(positionString).ExtractFromMatch();
+        public static string ExtractXYZ(string positionString)
+        {
+            return new PositionBase(positionString).ExtractFromMatch();
+        }
     }
 }

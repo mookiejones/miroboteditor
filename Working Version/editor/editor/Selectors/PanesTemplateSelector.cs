@@ -1,7 +1,6 @@
-﻿using AvalonDock.Layout;
-using miRobotEditor.ViewModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Selectors
 {
@@ -20,29 +19,28 @@ namespace miRobotEditor.Selectors
         public override DataTemplate SelectTemplate(object item,
             DependencyObject container)
         {
-            var itemAsLayoutContent = item as LayoutContent;
-
             if (item is ObjectBrowserViewModel)
+            {
                 return ObjectBrowserTemplate;
+            }
 
             if (item is KukaViewModel)
+            {
                 return KukaTemplate;
+            }
 
             if (item is NotesViewModel)
+            {
                 return NotesTemplate;
+            }
 
-            if (item is FunctionViewModel)
-                return FunctionTemplate;
-
-            if (item is DocumentViewModel)
-                return DocumentTemplate;
-
-            if (item is MessageViewModel)
-                return MessageTemplate;
-
-            if (item is AngleConvertorViewModel)
-                return AngleConverterTemplate;
-            return base.SelectTemplate(item, container);
+            return item is FunctionViewModel
+                ? FunctionTemplate
+                : item is DocumentViewModel
+                ? DocumentTemplate
+                : item is MessageViewModel
+                ? MessageTemplate
+                : item is AngleConvertorViewModel ? AngleConverterTemplate : base.SelectTemplate(item, container);
         }
     }
 }

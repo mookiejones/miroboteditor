@@ -16,17 +16,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             private set;
         }
 
-        public string Filename
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(Path))
-                {
-                    return string.Empty;
-                }
-                return System.IO.Path.GetFileName(Path);
-            }
-        }
+        public string Filename => string.IsNullOrEmpty(Path) ? string.Empty : System.IO.Path.GetFileName(Path);
 
         public SnippetHeader Header
         {
@@ -44,6 +34,9 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
         {
         }
 
-        internal SnippetInfo(string path) => Path = path;
+        internal SnippetInfo(string path)
+        {
+            Path = path;
+        }
     }
 }

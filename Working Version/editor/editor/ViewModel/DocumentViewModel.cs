@@ -1,8 +1,8 @@
+using System.IO;
+using System.Windows;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Interfaces;
-using System.IO;
-using System.Windows;
 
 namespace miRobotEditor.ViewModel
 {
@@ -30,7 +30,7 @@ namespace miRobotEditor.ViewModel
         {
             if (IsDirty)
             {
-                var messageBoxResult =
+                MessageBoxResult messageBoxResult =
                     MessageBox.Show(string.Format("Save changes for file '{0}'?", FileName), "miRobotEditor",
                         MessageBoxButton.YesNoCancel);
                 if (messageBoxResult == MessageBoxResult.Cancel)

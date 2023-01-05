@@ -7,6 +7,9 @@ namespace miRobotEditor.Windows
     /// </summary>
     public partial class KFDAssistantWindow : Window
     {
-        public KFDAssistantWindow() => InitializeComponent();
+        public KFDAssistantWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

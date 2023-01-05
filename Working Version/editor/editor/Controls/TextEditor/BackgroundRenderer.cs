@@ -1,9 +1,9 @@
-﻿using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Rendering;
-using miRobotEditor.Controls.TextEditor;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Rendering;
+using miRobotEditor.Controls.TextEditor;
 
 namespace miRobotEditor.Classes
 {
@@ -12,7 +12,10 @@ namespace miRobotEditor.Classes
     {
         private readonly DocumentLine _line;
 
-        public BackgroundRenderer(DocumentLine line) => _line = line;
+        public BackgroundRenderer(DocumentLine line)
+        {
+            _line = line;
+        }
 
         public KnownLayer Layer
         {
@@ -23,14 +26,18 @@ namespace miRobotEditor.Classes
         public void Draw(TextView textView, DrawingContext drawingContext)
         {
             textView.EnsureVisualLines();
-            if (_line.IsDeleted) return;
-            var segment = new TextSegment
+            if (_line.IsDeleted)
+            {
+                return;
+            }
+
+            TextSegment segment = new TextSegment
             {
                 StartOffset = _line.Offset,
                 EndOffset = _line.EndOffset
             };
             // ReSharper disable once RedundantArgumentDefaultValue
-            foreach (var current in BackgroundGeometryBuilder.GetRectsForSegment(textView, segment, false))
+            foreach (Rect current in BackgroundGeometryBuilder.GetRectsForSegment(textView, segment, false))
             {
                 drawingContext.DrawRoundedRectangle(new SolidColorBrush(EditorOptions.Instance.HighlightedLineColor),
                     new Pen(Brushes.Red, 0.0),

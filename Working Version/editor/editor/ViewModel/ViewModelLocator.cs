@@ -10,7 +10,6 @@
 */
 
 using CommunityToolkit.Mvvm.DependencyInjection;
-using System.Diagnostics.CodeAnalysis;
 
 namespace miRobotEditor.ViewModel
 {
@@ -24,7 +23,7 @@ namespace miRobotEditor.ViewModel
     public sealed class ViewModelLocator
     {
 
-        public  ViewModelLocator()
+        public ViewModelLocator()
         {
 
         }
@@ -35,9 +34,6 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the Main property.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
         public MainViewModel Main => Ioc.Default.GetRequiredService<MainViewModel>();
 
         /// <summary>

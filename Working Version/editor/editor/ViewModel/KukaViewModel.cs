@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System;
+using System.IO;
+using System.Windows;
+using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls;
 using miRobotEditor.Controls.TextEditor;
@@ -6,9 +9,6 @@ using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
-using System;
-using System.IO;
-using System.Windows;
 
 namespace miRobotEditor.ViewModel
 {
@@ -44,7 +44,10 @@ namespace miRobotEditor.ViewModel
                        ?? (_toggleGridCommand = new RelayCommand(ToggleGrid, CanToggleGrid));
 
 
-        public bool CanToggleGrid() => Grid != null;
+        public bool CanToggleGrid()
+        {
+            return Grid != null;
+        }
 
         #endregion
 
@@ -129,8 +132,8 @@ namespace miRobotEditor.ViewModel
             FileLanguage = lang;
             Source.FileLanguage = FileLanguage;
             Data.FileLanguage = FileLanguage;
-            Source.GotFocus += (s, e) => TextBox = (s as AvalonEditor);
-            Data.GotFocus += (s, e) => TextBox = (s as AvalonEditor);
+            Source.GotFocus += (s, e) => TextBox = s as AvalonEditor;
+            Data.GotFocus += (s, e) => TextBox = s as AvalonEditor;
             Source.TextChanged += (s, e) => TextChanged(s);
             Data.TextChanged += (s, e) => TextChanged(s);
             Source.IsModified = false;
@@ -177,7 +180,7 @@ namespace miRobotEditor.ViewModel
             {
                 SwitchTextBox();
             }
-            var flag = TextBox.Text.Length >= var.Offset;
+            bool flag = TextBox.Text.Length >= var.Offset;
             if (flag)
             {
                 TextBox.SelectText(var);
@@ -185,7 +188,7 @@ namespace miRobotEditor.ViewModel
             else
             {
                 TextBox = Data;
-                flag = (TextBox.Text.Length >= var.Offset);
+                flag = TextBox.Text.Length >= var.Offset;
                 if (flag)
                 {
                     TextBox.SelectText(var);
@@ -209,12 +212,12 @@ namespace miRobotEditor.ViewModel
             FileLanguage = TextBox.FileLanguage;
             Source.FileLanguage = FileLanguage;
             Grid.IsAnimated = false;
-            var flag = Path.GetExtension(filepath) == ".dat";
+            bool flag = Path.GetExtension(filepath) == ".dat";
             IconSource = ImageHelper.LoadBitmap(Global.ImgSrc);
             Source.Filename = filepath;
             Source.SetHighlighting();
-            Source.Text = (flag ? FileLanguage.DataText : FileLanguage.SourceText);
-            if (FileLanguage is KUKA && !String.IsNullOrEmpty(FileLanguage.DataText) &&
+            Source.Text = flag ? FileLanguage.DataText : FileLanguage.SourceText;
+            if (FileLanguage is KUKA && !string.IsNullOrEmpty(FileLanguage.DataText) &&
                 Source.Text != FileLanguage.DataText)
             {
                 ShowGrid = true;
@@ -224,7 +227,7 @@ namespace miRobotEditor.ViewModel
                 Data.Text = FileLanguage.DataText;
                 Data.SetHighlighting();
             }
-            TextBox = ((Source.Filename == filepath) ? Source : Data);
+            TextBox = (Source.Filename == filepath) ? Source : Data;
             Grid.IsAnimated = true;
             // ReSharper disable once ExplicitCallerInfoArgument
             OnPropertyChanged(nameof(Title));
@@ -242,7 +245,7 @@ namespace miRobotEditor.ViewModel
         {
             if (txtBox != null && txtBox.IsModified)
             {
-                var messageBoxResult =
+                MessageBoxResult messageBoxResult =
                     MessageBox.Show(string.Format("Save changes for file '{0}'?", txtBox.Filename), "miRobotEditor",
                         MessageBoxButton.YesNoCancel);
                 if (messageBoxResult != MessageBoxResult.Cancel)

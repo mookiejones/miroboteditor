@@ -68,6 +68,9 @@ namespace miRobotEditor.ViewModel
             Description = description;
         }
 
-        public override string ToString() => $"{Type};{Description}";
+        public override string ToString()
+        {
+            return $"{Type};{Description}";
+        }
     }
 }

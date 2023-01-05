@@ -1,28 +1,33 @@
-﻿using AvalonDock.Layout;
+﻿using System.ComponentModel;
+using System.Linq;
+using AvalonDock.Layout;
 using miRobotEditor.Enums;
 using miRobotEditor.ViewModel;
-using System.ComponentModel;
-using System.Linq;
 
 namespace miRobotEditor.Classes
 {
     [Localizable(false)]
     public sealed class LayoutInitializer : ILayoutUpdateStrategy
     {
-        public LayoutInitializer() => Strategy = this;
+        public LayoutInitializer()
+        {
+            Strategy = this;
+        }
 
         public static ILayoutUpdateStrategy Strategy { get; set; }
 
         public bool BeforeInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow,
             ILayoutContainer destinationContainer)
         {
-            var destPane = destinationContainer as LayoutAnchorablePane;
+            LayoutAnchorablePane destPane = destinationContainer as LayoutAnchorablePane;
 
             if (destinationContainer != null &&
                 destinationContainer.FindParent<LayoutFloatingWindow>() != null)
+            {
                 return false;
+            }
 
-            var content = anchorableToShow.Content;
+            object content = anchorableToShow.Content;
             bool result;
             if (destinationContainer != null && destinationContainer.FindParent<LayoutFloatingWindow>() != null)
             {
@@ -30,15 +35,15 @@ namespace miRobotEditor.Classes
             }
             else
             {
-                var layoutAnchorablePane =
+                LayoutAnchorablePane layoutAnchorablePane =
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault(d => d.Name == "BottomPane");
-                var layoutAnchorablePane2 =
+                LayoutAnchorablePane layoutAnchorablePane2 =
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault(d => d.Name == "LeftPane");
-                var layoutAnchorablePane3 =
+                LayoutAnchorablePane layoutAnchorablePane3 =
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault(d => d.Name == "RightPane");
@@ -71,7 +76,7 @@ namespace miRobotEditor.Classes
                         }
                         break;
                 }
-                var layoutAnchorablePane4 =
+                LayoutAnchorablePane layoutAnchorablePane4 =
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault((LayoutAnchorablePane d) => d.Name == "ToolsPane");
@@ -109,7 +114,10 @@ namespace miRobotEditor.Classes
         }
 
         public bool BeforeInsertDocument(LayoutRoot layout, LayoutDocument anchorableToShow,
-            ILayoutContainer destinationContainer) => false;
+            ILayoutContainer destinationContainer)
+        {
+            return false;
+        }
 
         public void AfterInsertDocument(LayoutRoot layout, LayoutDocument anchorableShown)
         {

@@ -1,7 +1,7 @@
-﻿using ICSharpCode.AvalonEdit.Document;
+﻿using System.Collections.Generic;
+using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Controls.TextEditor.Folding;
-using System.Collections.Generic;
 
 namespace miRobotEditor.Languages
 {
@@ -19,20 +19,26 @@ namespace miRobotEditor.Languages
             set;
         }
 
-        public KrlFoldingStrategy() => FoldFunctions = true;
+        public KrlFoldingStrategy()
+        {
+            FoldFunctions = true;
+        }
 
-        public KrlFoldingStrategy(bool foldFunctions) => FoldFunctions = foldFunctions;
+        public KrlFoldingStrategy(bool foldFunctions)
+        {
+            FoldFunctions = foldFunctions;
+        }
 
         protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
         {
-            var list = new List<NewFolding>();
+            List<NewFolding> list = new List<NewFolding>();
             firstErrorOffset = -1;
-            var stack = new Stack<DocumentLine>();
-            var stack2 = new Stack<DocumentLine>();
-            var flag = false;
-            foreach (var current in document.Lines)
+            Stack<DocumentLine> stack = new Stack<DocumentLine>();
+            Stack<DocumentLine> stack2 = new Stack<DocumentLine>();
+            bool flag = false;
+            foreach (DocumentLine current in document.Lines)
             {
-                var input = document.GetText(current).ToLower().TrimEnd(new[]
+                string input = document.GetText(current).ToLower().TrimEnd(new[]
                 {
                     ' ',
                     '\t'
@@ -48,9 +54,9 @@ namespace miRobotEditor.Languages
                 }
                 if (FoldFunctions && KrlRegularExpressions.EndDefLineRegex.IsMatch(input) && stack.Count > 0)
                 {
-                    var endOffset = current.EndOffset;
-                    var documentLine = stack.Pop();
-                    var name = document.GetText(documentLine).TrimStart(new[]
+                    int endOffset = current.EndOffset;
+                    DocumentLine documentLine = stack.Pop();
+                    string name = document.GetText(documentLine).TrimStart(new[]
                     {
                         ' ',
                         '\t'
@@ -71,9 +77,9 @@ namespace miRobotEditor.Languages
                 }
                 if (KrlRegularExpressions.FoldEndLineRegex.IsMatch(input) && stack2.Count > 0 && (flag | !FoldFunctions))
                 {
-                    var endOffset = current.EndOffset;
-                    var documentLine2 = stack2.Pop();
-                    var text = document.GetText(documentLine2).TrimStart(new[]
+                    int endOffset = current.EndOffset;
+                    DocumentLine documentLine2 = stack2.Pop();
+                    string text = document.GetText(documentLine2).TrimStart(new[]
                     {
                         ' ',
                         '\t'
@@ -87,7 +93,7 @@ namespace miRobotEditor.Languages
                         ' ',
                         '\t'
                     });
-                    var num = text.IndexOf(';');
+                    int num = text.IndexOf(';');
                     if (num > 0)
                     {
                         text = text.Remove(num);

@@ -1,6 +1,6 @@
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Controls.TextEditor;
-using System.Windows.Input;
 
 namespace miRobotEditor.ViewModel
 {
@@ -105,7 +105,10 @@ namespace miRobotEditor.ViewModel
 
         // ReSharper restore ExplicitCallerInfoArgument
 
-        public GotoViewModel(AvalonEditor editor) => Editor = editor;
+        public GotoViewModel(AvalonEditor editor)
+        {
+            Editor = editor;
+        }
 
         public GotoViewModel()
         {
@@ -115,7 +118,7 @@ namespace miRobotEditor.ViewModel
 
         private void Accept()
         {
-            var lineByNumber = Editor.Document.GetLineByNumber(EnteredText);
+            ICSharpCode.AvalonEdit.Document.DocumentLine lineByNumber = Editor.Document.GetLineByNumber(EnteredText);
             Editor.CaretOffset = lineByNumber.Offset;
             Editor.TextArea.Caret.BringCaretToView();
             Editor.ScrollToLine(_selectedLine);

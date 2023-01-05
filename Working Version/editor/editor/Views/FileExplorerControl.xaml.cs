@@ -1,7 +1,7 @@
-﻿using miRobotEditor.Controls;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using miRobotEditor.Controls;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using KeyEventHandler = System.Windows.Input.KeyEventHandler;
 using UserControl = System.Windows.Controls.UserControl;
@@ -16,15 +16,15 @@ namespace miRobotEditor.Views
         // ReSharper disable UnassignedField.Compiler
         // ReSharper disable UnusedField.Compiler
         private readonly ExplorerClass _explorer = new ExplorerClass();
-        private IContainer _components = null;
-        private ContextMenuStrip _ctxFileExplorer;
+        private readonly IContainer _components = null;
+        private readonly ContextMenuStrip _ctxFileExplorer;
         private string _filter = "*.*";
-        private ImageList _imgList;
-        private ToolStripMenuItem _mnuCopy;
-        private ToolStripMenuItem _mnuCut;
-        private ToolStripMenuItem _mnuDelete;
-        private ToolStripMenuItem _mnuPaste;
-        private ToolStripMenuItem _mnuRefresh;
+        private readonly ImageList _imgList;
+        private readonly ToolStripMenuItem _mnuCopy;
+        private readonly ToolStripMenuItem _mnuCut;
+        private readonly ToolStripMenuItem _mnuDelete;
+        private readonly ToolStripMenuItem _mnuPaste;
+        private readonly ToolStripMenuItem _mnuRefresh;
 
         public FileExplorerControl()
         {
@@ -56,26 +56,17 @@ namespace miRobotEditor.Views
 
         private void RaiseAfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (OnAfterSelect != null)
-            {
-                OnAfterSelect(sender, e);
-            }
+            OnAfterSelect?.Invoke(sender, e);
         }
 
         private void RaiseKeyUp(object sender, KeyEventArgs e)
         {
-            if (OnKeyUp != null)
-            {
-                OnKeyUp(sender, e);
-            }
+            OnKeyUp?.Invoke(sender, e);
         }
 
         private void RaiseMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (OnMouseClick != null)
-            {
-                OnMouseClick(sender, e);
-            }
+            OnMouseClick?.Invoke(sender, e);
         }
 
         private void CopyFile(object sender, EventArgs e)
@@ -105,7 +96,7 @@ namespace miRobotEditor.Views
 
         private void ContextOpening(object sender, CancelEventArgs e)
         {
-            var enabled = !string.IsNullOrEmpty(_explorer.SelectedFile) ||
+            bool enabled = !string.IsNullOrEmpty(_explorer.SelectedFile) ||
                            !string.IsNullOrEmpty(_explorer.SelectedDirectory);
             _mnuCopy.Enabled = enabled;
             _mnuCut.Enabled = enabled;

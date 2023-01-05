@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using Ionic.Zip;
-using miRobotEditor.Messages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,6 +7,9 @@ using System.Data.OleDb;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
+using CommunityToolkit.Mvvm.Messaging;
+using Ionic.Zip;
+using miRobotEditor.Messages;
 
 namespace miRobotEditor.ViewModel
 {
@@ -50,7 +50,7 @@ namespace miRobotEditor.ViewModel
         public IOViewModel(string filename)
         {
             DataBaseFile = filename;
-            var backgroundWorker = new BackgroundWorker();
+            BackgroundWorker backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += _backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
             backgroundWorker.RunWorkerAsync();
@@ -190,7 +190,7 @@ namespace miRobotEditor.ViewModel
 
         private OleDbConnection GetDBConnection()
         {
-            var connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
             try
             {
                 if (_oleDbConnection == null)
@@ -208,29 +208,31 @@ namespace miRobotEditor.ViewModel
 
         private IEnumerable<Item> getItems(string command, string itemType, int idx)
         {
-            var result = new List<Item>();
-            var dbConnection = GetDBConnection();
+            List<Item> result = new List<Item>();
+            OleDbConnection dbConnection = GetDBConnection();
             if (dbConnection != null)
             {
                 try
                 {
                     if (dbConnection.State != ConnectionState.Open)
+                    {
                         dbConnection.Open();
+                    }
                 }
                 catch (OleDbException ex)
                 {
-                    var msg = new ErrorMessage("Error on Opening Db", ex);
-                    WeakReferenceMessenger.Default.Send(msg);
+                    ErrorMessage msg = new ErrorMessage("Error on Opening Db", ex);
+                    _ = WeakReferenceMessenger.Default.Send(msg);
                 }
-                using (var cmd = new OleDbCommand(command, dbConnection))
+                using (OleDbCommand cmd = new OleDbCommand(command, dbConnection))
                 {
-                    using (var reader = cmd.ExecuteReader())
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader != null && reader.Read())
                         {
-                            var text = reader.GetValue(0).ToString();
-                            var item =
-                                new Item(String.Format(itemType, text.Substring(idx)), reader.GetValue(1).ToString());
+                            string text = reader.GetValue(0).ToString();
+                            Item item =
+                                new Item(string.Format(itemType, text.Substring(idx)), reader.GetValue(1).ToString());
                             result.Add(item);
                         }
                     }
@@ -244,28 +246,31 @@ namespace miRobotEditor.ViewModel
         {
             if (File.Exists(DataBaseFile))
             {
-                var dBConnection = GetDBConnection();
+                OleDbConnection dBConnection = GetDBConnection();
 
                 if (dBConnection == null)
                 {
                     return;
                 }
                 if (dBConnection.State != ConnectionState.Open)
+                {
                     dBConnection.Open();
+                }
+
                 using (
-                    var oleDbCommand =
+                    OleDbCommand oleDbCommand =
                         new OleDbCommand(
                             "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'IO')",
                             dBConnection))
                 {
-                    using (var oleDbDataReader = oleDbCommand.ExecuteReader())
+                    using (OleDbDataReader oleDbDataReader = oleDbCommand.ExecuteReader())
                     {
                         while (oleDbDataReader != null && oleDbDataReader.Read())
                         {
-                            var text2 = oleDbDataReader.GetValue(0).ToString();
-                            var text3 = oleDbDataReader.GetValue(1).ToString();
-                            var description = (text3 == "|EMPTY|") ? "Spare" : text3;
-                            var text4 = text2.Substring(0, text2.IndexOf("_", StringComparison.Ordinal));
+                            string text2 = oleDbDataReader.GetValue(0).ToString();
+                            string text3 = oleDbDataReader.GetValue(1).ToString();
+                            string description = (text3 == "|EMPTY|") ? "Spare" : text3;
+                            string text4 = text2.Substring(0, text2.IndexOf("_", StringComparison.Ordinal));
                             if (text4 != null)
                             {
                                 if (!(text4 == "IN"))
@@ -276,7 +281,7 @@ namespace miRobotEditor.ViewModel
                                         {
                                             if (text4 == "ANOUT")
                                             {
-                                                var item = new Item(string.Format("$ANOUT[{0}]", text2.Substring(6)),
+                                                Item item = new Item(string.Format("$ANOUT[{0}]", text2.Substring(6)),
                                                     description);
                                                 _anout.Add(item);
                                                 LanguageText = LanguageText + item + "\r\n";
@@ -284,7 +289,7 @@ namespace miRobotEditor.ViewModel
                                         }
                                         else
                                         {
-                                            var item = new Item(string.Format("$ANIN[{0}]", text2.Substring(5)),
+                                            Item item = new Item(string.Format("$ANIN[{0}]", text2.Substring(5)),
                                                 description);
                                             _anin.Add(item);
                                             LanguageText = LanguageText + item + "\r\n";
@@ -292,7 +297,7 @@ namespace miRobotEditor.ViewModel
                                     }
                                     else
                                     {
-                                        var item = new Item(string.Format("$OUT[{0}]", text2.Substring(4)), description);
+                                        Item item = new Item(string.Format("$OUT[{0}]", text2.Substring(4)), description);
                                         if (!_outputs.Contains(item))
                                         {
                                             _outputs.Add(item);
@@ -302,7 +307,7 @@ namespace miRobotEditor.ViewModel
                                 }
                                 else
                                 {
-                                    var item = new Item(string.Format("$IN[{0}]", text2.Substring(3)), description);
+                                    Item item = new Item(string.Format("$IN[{0}]", text2.Substring(3)), description);
                                     _inputs.Add(item);
                                     LanguageText = LanguageText + item + "\r\n";
                                 }
@@ -322,36 +327,36 @@ namespace miRobotEditor.ViewModel
 
         private void GetFlags()
         {
-            var items =
+            IEnumerable<Item> items =
                 getItems(
                     "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'FLAG')",
                     "$FLAG[{0}]", 8);
             _flags.AddRange(items);
-            FlagVisibility = ((Flags.Count > 0) ? Visibility.Visible : Visibility.Collapsed);
+            FlagVisibility = (Flags.Count > 0) ? Visibility.Visible : Visibility.Collapsed;
             OnPropertyChanged(nameof(FlagVisibility));
         }
 
         private void GetTimers()
         {
-            var items =
+            IEnumerable<Item> items =
                 getItems(
                     "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'TIMER')",
                     "$TIMER[{0}]", 9);
 
             //                            var item = new Item(string.Format("$TIMER[{0}]", text.Substring(9)), oleDbDataReader.GetValue(1).ToString());
             _timer.AddRange(items);
-            TimerVisibility = ((Timer.Count > 0) ? Visibility.Visible : Visibility.Collapsed);
+            TimerVisibility = (Timer.Count > 0) ? Visibility.Visible : Visibility.Collapsed;
             OnPropertyChanged(nameof(TimerVisibility));
         }
 
         private List<Item> GetValues(string cmd, int index)
         {
-            var list = new List<Item>();
-            var cmdText =
+            List<Item> list = new List<Item>();
+            string cmdText =
                 string.Format(
                     "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = '{0}')",
                     cmd);
-            var dBConnection = GetDBConnection();
+            OleDbConnection dBConnection = GetDBConnection();
             List<Item> result;
             if (dBConnection == null)
             {
@@ -360,14 +365,14 @@ namespace miRobotEditor.ViewModel
             else
             {
                 dBConnection.Open();
-                using (var oleDbCommand = new OleDbCommand(cmdText, dBConnection))
+                using (OleDbCommand oleDbCommand = new OleDbCommand(cmdText, dBConnection))
                 {
-                    using (var oleDbDataReader = oleDbCommand.ExecuteReader())
+                    using (OleDbDataReader oleDbDataReader = oleDbCommand.ExecuteReader())
                     {
                         while (oleDbDataReader != null && oleDbDataReader.Read())
                         {
-                            var text = oleDbDataReader.GetValue(0).ToString();
-                            var item = new Item(string.Format("${1}[{0}]", text.Substring(index), cmd),
+                            string text = oleDbDataReader.GetValue(0).ToString();
+                            Item item = new Item(string.Format("${1}[{0}]", text.Substring(index), cmd),
                                 oleDbDataReader.GetValue(1).ToString());
                             list.Add(item);
                         }
@@ -380,13 +385,13 @@ namespace miRobotEditor.ViewModel
 
         private void GetSignalsFromDataBase()
         {
-            var openFileDialog = new OpenFileDialog
+            OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Title = "Select Database",
                 Filter = "KUKA Connection Files (kuka_con.mdb)|kuka_con.mdb|All files (*.*)|*.*",
                 Multiselect = false
             };
-            openFileDialog.ShowDialog();
+            _ = openFileDialog.ShowDialog();
             LanguageText = string.Empty;
             DataBaseFile = openFileDialog.FileName;
             GetSignals();
@@ -397,23 +402,23 @@ namespace miRobotEditor.ViewModel
             LanguageText = string.Empty;
             if (File.Exists(DataBaseFile))
             {
-                var text = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
-                var dBConnection = GetDBConnection();
+                _ = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+                OleDbConnection dBConnection = GetDBConnection();
                 if (dBConnection != null)
                 {
                     dBConnection.Open();
                     using (
-                        var oleDbCommand =
+                        OleDbCommand oleDbCommand =
                             new OleDbCommand(
                                 "SELECT i.keystring, m.string FROM ITEMS i, messages m where i.key_id=m.key_id and m.language_id=99",
                                 dBConnection))
                     {
-                        using (var oleDbDataReader = oleDbCommand.ExecuteReader())
+                        using (OleDbDataReader oleDbDataReader = oleDbCommand.ExecuteReader())
                         {
                             while (oleDbDataReader != null && oleDbDataReader.Read())
                             {
-                                var arg = oleDbDataReader.GetValue(0).ToString();
-                                var arg2 = oleDbDataReader.GetValue(1).ToString();
+                                string arg = oleDbDataReader.GetValue(0).ToString();
+                                string arg2 = oleDbDataReader.GetValue(1).ToString();
                                 DataBase += string.Format("{0} {1}\r\n", arg, arg2);
                             }
                         }

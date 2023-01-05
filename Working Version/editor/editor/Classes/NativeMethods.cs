@@ -1,8 +1,8 @@
-﻿using miRobotEditor.Enums;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Security;
+using miRobotEditor.Enums;
 
 namespace miRobotEditor.Classes
 {
@@ -25,27 +25,26 @@ namespace miRobotEditor.Classes
 
         public static string[] CommandLineToArgvW(string cmdLine)
         {
-            var intPtr = IntPtr.Zero;
+            IntPtr intPtr = IntPtr.Zero;
             string[] result;
             try
             {
-                int num;
-                intPtr = _CommandLineToArgvW(cmdLine, out num);
+                intPtr = _CommandLineToArgvW(cmdLine, out int num);
                 if (intPtr == IntPtr.Zero)
                 {
                     throw new Win32Exception();
                 }
-                var array = new string[num];
-                for (var i = 0; i < num; i++)
+                string[] array = new string[num];
+                for (int i = 0; i < num; i++)
                 {
-                    var ptr = Marshal.ReadIntPtr(intPtr, i * Marshal.SizeOf(typeof(IntPtr)));
+                    IntPtr ptr = Marshal.ReadIntPtr(intPtr, i * Marshal.SizeOf(typeof(IntPtr)));
                     array[i] = Marshal.PtrToStringUni(ptr);
                 }
                 result = array;
             }
             finally
             {
-                var intPtr2 = _LocalFree(intPtr);
+                IntPtr intPtr2 = _LocalFree(intPtr);
                 Console.WriteLine(IntPtr.Zero.Equals(intPtr2));
             }
             return result;

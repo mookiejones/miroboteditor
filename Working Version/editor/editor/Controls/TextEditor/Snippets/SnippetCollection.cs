@@ -1,5 +1,5 @@
-﻿using ICSharpCode.AvalonEdit.Snippets;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ICSharpCode.AvalonEdit.Snippets;
 
 namespace miRobotEditor.Classes
 {

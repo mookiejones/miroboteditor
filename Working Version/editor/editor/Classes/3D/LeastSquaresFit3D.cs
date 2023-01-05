@@ -1,12 +1,12 @@
-using miRobotEditor.Controls.AngleConverter;
-using miRobotEditor.Controls.AngleConverter.Classes;
-using miRobotEditor.Controls.AngleConverter.Exceptions;
-using miRobotEditor.Controls.AngleConverter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using miRobotEditor.Controls.AngleConverter;
+using miRobotEditor.Controls.AngleConverter.Classes;
+using miRobotEditor.Controls.AngleConverter.Exceptions;
+using miRobotEditor.Controls.AngleConverter.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -24,7 +24,7 @@ namespace miRobotEditor.Classes
         {
             get
             {
-                var num = Errors.Sum((double num2) => num2 * num2);
+                double num = Errors.Sum((double num2) => num2 * num2);
                 num /= Errors.Count;
                 return Math.Sqrt(num);
             }
@@ -36,14 +36,14 @@ namespace miRobotEditor.Classes
         private void CalculateErrors(IList<Point3D> points, IGeometricElement3D element)
         {
             Errors = new Collection<double>();
-            var num = 0.0;
-            var num2 = 0.0;
+            double num = 0.0;
+            double num2 = 0.0;
             MaxError = 0.0;
             PointWithLargestError = -1;
-            for (var i = 0; i < points.Count; i++)
+            for (int i = 0; i < points.Count; i++)
             {
-                var e = points[i];
-                var num3 = Distance3D.Between(element, e);
+                Point3D e = points[i];
+                double num3 = Distance3D.Between(element, e);
                 Errors.Add(num3);
                 num += num3;
                 num2 += num3 * num3;
@@ -53,24 +53,24 @@ namespace miRobotEditor.Classes
                     PointWithLargestError = i;
                 }
             }
-            var count = points.Count;
+            int count = points.Count;
             AverageError = num / count;
-            StandardDeviationError = Math.Sqrt(count * num2 - AverageError * AverageError) / count;
+            StandardDeviationError = Math.Sqrt((count * num2) - (AverageError * AverageError)) / count;
         }
 
         public Point3D Centroid(Collection<Point3D> points)
         {
-            var count = points.Count;
-            var num = 0.0;
-            var num2 = 0.0;
-            var num3 = 0.0;
-            foreach (var current in points)
+            int count = points.Count;
+            double num = 0.0;
+            double num2 = 0.0;
+            double num3 = 0.0;
+            foreach (Point3D current in points)
             {
                 num += current.X;
                 num2 += current.Y;
                 num3 += current.Z;
             }
-            var point3D = new Point3D(num / count, num2 / count, num3 / count);
+            Point3D point3D = new Point3D(num / count, num2 / count, num3 / count);
             Transform = new TransformationMatrix3D(new Vector3D(point3D.X, point3D.Y, point3D.Z), new RotationMatrix3D());
             CalculateErrors(points, point3D);
             return point3D;
@@ -78,16 +78,16 @@ namespace miRobotEditor.Classes
 
         private Vector Circle3DErrorFunction(Vector vec)
         {
-            var vector = new Vector(_solver.NumEquations);
-            var index = 0;
-            var point3D = new Point3D(vec[0], vec[1], vec[2]);
-            var plane = new Plane3D(point3D, new Vector3D(vec[3], vec[4], vec[5]));
-            foreach (var current in _measuredPoints)
+            Vector vector = new Vector(_solver.NumEquations);
+            int index = 0;
+            Point3D point3D = new Point3D(vec[0], vec[1], vec[2]);
+            Plane3D plane = new Plane3D(point3D, new Vector3D(vec[3], vec[4], vec[5]));
+            foreach (Point3D current in _measuredPoints)
             {
-                var p = Project3D.PointOntoPlane(plane, current);
-                var vector3D = point3D - p;
+                Point3D p = Project3D.PointOntoPlane(plane, current);
+                Vector3D vector3D = point3D - p;
                 vector3D.Normalise();
-                var point3D2 = new Point3D();
+                Point3D point3D2 = new Point3D();
                 vector[index++] = current.X - point3D2.X;
                 vector[index++] = current.Y - point3D2.Y;
                 vector[index++] = current.Z - point3D2.Z;
@@ -106,18 +106,18 @@ namespace miRobotEditor.Classes
             {
                 throw new ArgumentException("Need at least 3 points to fit circle");
             }
-            _solver = new NRSolver(points.Count * 3 + 1, 7);
+            _solver = new NRSolver((points.Count * 3) + 1, 7);
             _measuredPoints = points;
-            var leastSquaresFit3D = new LeastSquaresFit3D();
-            var plane3D = leastSquaresFit3D.FitPlaneToPoints(points);
-            var initialGuess = new Circle3D
+            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
+            Plane3D plane3D = leastSquaresFit3D.FitPlaneToPoints(points);
+            Circle3D initialGuess = new Circle3D
             {
                 Origin = leastSquaresFit3D.Centroid(points),
                 Normal = plane3D.Normal,
                 Radius = leastSquaresFit3D.AverageError
             };
-            var vector = _solver.Solve(Circle3DErrorFunction, VectorFromCircle3D(initialGuess));
-            var circle3D = new Circle3D
+            Vector vector = _solver.Solve(Circle3DErrorFunction, VectorFromCircle3D(initialGuess));
+            Circle3D circle3D = new Circle3D
             {
                 Origin = new Point3D(vector[0], vector[1], vector[2]),
                 Normal = new Vector3D(vector[3], vector[4], vector[5]),
@@ -137,21 +137,21 @@ namespace miRobotEditor.Classes
             {
                 throw new ArgumentException("Need at least 3 points to fit circle");
             }
-            var circle3D = new Circle3D();
-            var leastSquaresFit3D = new LeastSquaresFit3D();
-            var matrix = new Matrix(points.Count, 7);
-            var vector = new Vector(points.Count);
-            for (var i = 0; i < 50; i++)
+            Circle3D circle3D = new Circle3D();
+            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
+            Matrix matrix = new Matrix(points.Count, 7);
+            Vector vector = new Vector(points.Count);
+            for (int i = 0; i < 50; i++)
             {
                 circle3D.Origin = leastSquaresFit3D.Centroid(points);
                 circle3D.Radius = leastSquaresFit3D.RmsError;
-                var plane3D = leastSquaresFit3D.FitPlaneToPoints(points);
+                Plane3D plane3D = leastSquaresFit3D.FitPlaneToPoints(points);
                 circle3D.Normal = plane3D.Normal;
-                var num = 0;
-                foreach (var current in points)
+                int num = 0;
+                foreach (Point3D current in points)
                 {
-                    var p = Project3D.PointOntoPlane(plane3D, current);
-                    var vector3D = circle3D.Origin - p;
+                    Point3D p = Project3D.PointOntoPlane(plane3D, current);
+                    Vector3D vector3D = circle3D.Origin - p;
                     vector3D.Normalise();
                     matrix[num, 0] = vector3D[0];
                     matrix[num, 1] = vector3D[1];
@@ -160,26 +160,26 @@ namespace miRobotEditor.Classes
                     matrix[num, 4] = plane3D.Normal.Y;
                     matrix[num, 5] = plane3D.Normal.Z;
                     matrix[num, 6] = -1.0;
-                    var value = Distance3D.PointToCircle(circle3D, current);
+                    double value = Distance3D.PointToCircle(circle3D, current);
                     vector[num] = value;
                     num++;
                 }
-                var vector2 = matrix.PseudoInverse() * vector;
+                Vector vector2 = matrix.PseudoInverse() * vector;
                 if (vector2.Length() < 1E-06)
                 {
                     break;
                 }
-                var origin = circle3D.Origin;
+                Point3D origin = circle3D.Origin;
                 origin.X += vector2[0];
-                var origin2 = circle3D.Origin;
+                Point3D origin2 = circle3D.Origin;
                 origin2.Y += vector2[1];
-                var origin3 = circle3D.Origin;
+                Point3D origin3 = circle3D.Origin;
                 origin3.Z += vector2[2];
-                var normal = circle3D.Normal;
+                Vector3D normal = circle3D.Normal;
                 normal.X += vector2[3];
-                var normal2 = circle3D.Normal;
+                Vector3D normal2 = circle3D.Normal;
                 normal2.Y += vector2[4];
-                var normal3 = circle3D.Normal;
+                Vector3D normal3 = circle3D.Normal;
                 normal3.Z += vector2[5];
                 circle3D.Radius -= vector2[6];
             }
@@ -193,18 +193,18 @@ namespace miRobotEditor.Classes
             {
                 throw new MatrixNullReference();
             }
-            var point3D = Centroid(points);
-            var num = 0.0;
-            var num2 = 0.0;
-            var num3 = 0.0;
-            var num4 = 0.0;
-            var num5 = 0.0;
-            var num6 = 0.0;
-            foreach (var current in points)
+            Point3D point3D = Centroid(points);
+            double num = 0.0;
+            double num2 = 0.0;
+            double num3 = 0.0;
+            double num4 = 0.0;
+            double num5 = 0.0;
+            double num6 = 0.0;
+            foreach (Point3D current in points)
             {
-                var num7 = current.X - point3D.X;
-                var num8 = current.Y - point3D.Y;
-                var num9 = current.Z - point3D.Z;
+                double num7 = current.X - point3D.X;
+                double num8 = current.Y - point3D.Y;
+                double num9 = current.Z - point3D.Z;
                 num += num7 * num7;
                 num2 += num8 * num8;
                 num3 += num9 * num9;
@@ -212,7 +212,7 @@ namespace miRobotEditor.Classes
                 num5 += num8 * num9;
                 num6 += num7 * num9;
             }
-            var mat = new SquareMatrix(3, new[]
+            SquareMatrix mat = new SquareMatrix(3, new[]
             {
                 num2 + num3,
                 -num4,
@@ -224,9 +224,9 @@ namespace miRobotEditor.Classes
                 -num5,
                 num + num2
             });
-            var sVD = new SVD(mat);
-            var direction = new Vector3D(sVD.U.GetColumn(sVD.SmallestSingularIndex));
-            var line3D = new Line3D(point3D, direction);
+            SVD sVD = new SVD(mat);
+            Vector3D direction = new Vector3D(sVD.U.GetColumn(sVD.SmallestSingularIndex));
+            Line3D line3D = new Line3D(point3D, direction);
             CalculateErrors(points, line3D);
             return line3D;
         }
@@ -241,18 +241,18 @@ namespace miRobotEditor.Classes
             {
                 throw new MatrixException("Not enough points to fit a plane");
             }
-            var point3D = Centroid(points);
-            var num = 0.0;
-            var num2 = 0.0;
-            var num3 = 0.0;
-            var num4 = 0.0;
-            var num5 = 0.0;
-            var num6 = 0.0;
-            foreach (var current in points)
+            Point3D point3D = Centroid(points);
+            double num = 0.0;
+            double num2 = 0.0;
+            double num3 = 0.0;
+            double num4 = 0.0;
+            double num5 = 0.0;
+            double num6 = 0.0;
+            foreach (Point3D current in points)
             {
-                var num7 = current.X - point3D.X;
-                var num8 = current.Y - point3D.Y;
-                var num9 = current.Z - point3D.Z;
+                double num7 = current.X - point3D.X;
+                double num8 = current.Y - point3D.Y;
+                double num9 = current.Z - point3D.Z;
                 num += num7 * num7;
                 num2 += num8 * num8;
                 num3 += num9 * num9;
@@ -260,7 +260,7 @@ namespace miRobotEditor.Classes
                 num5 += num8 * num9;
                 num6 += num7 * num9;
             }
-            var mat = new SquareMatrix(3, new[]
+            SquareMatrix mat = new SquareMatrix(3, new[]
             {
                 num,
                 num4,
@@ -272,9 +272,9 @@ namespace miRobotEditor.Classes
                 num5,
                 num3
             });
-            var sVD = new SVD(mat);
-            var normal = new Vector3D(sVD.U.GetColumn(sVD.SmallestSingularIndex));
-            var plane3D = new Plane3D(point3D, normal);
+            SVD sVD = new SVD(mat);
+            Vector3D normal = new Vector3D(sVD.U.GetColumn(sVD.SmallestSingularIndex));
+            Plane3D plane3D = new Plane3D(point3D, normal);
             CalculateErrors(points, plane3D);
             return plane3D;
         }
@@ -289,37 +289,37 @@ namespace miRobotEditor.Classes
             {
                 throw new MatrixException("Need at least 4 points to fit sphere");
             }
-            var sphere3D = new Sphere3D();
-            var leastSquaresFit3D = new LeastSquaresFit3D();
+            Sphere3D sphere3D = new Sphere3D();
+            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
             sphere3D.Origin = leastSquaresFit3D.Centroid(points);
             sphere3D.Radius = leastSquaresFit3D.RmsError;
-            var matrix = new Matrix(points.Count, 4);
-            var vector = new Vector(points.Count);
-            for (var i = 0; i < 50; i++)
+            Matrix matrix = new Matrix(points.Count, 4);
+            Vector vector = new Vector(points.Count);
+            for (int i = 0; i < 50; i++)
             {
-                var num = 0;
-                foreach (var current in points)
+                int num = 0;
+                foreach (Point3D current in points)
                 {
-                    var vector3D = Project3D.PointOntoSphere(sphere3D, current) - sphere3D.Origin;
+                    Vector3D vector3D = Project3D.PointOntoSphere(sphere3D, current) - sphere3D.Origin;
                     vector3D.Normalise();
                     matrix[num, 0] = vector3D.X;
                     matrix[num, 1] = vector3D.Y;
                     matrix[num, 2] = vector3D.Z;
                     matrix[num, 3] = -1.0;
-                    var value = Distance3D.PointToSphere(sphere3D, current);
+                    double value = Distance3D.PointToSphere(sphere3D, current);
                     vector[num] = value;
                     num++;
                 }
-                var vector2 = matrix.PseudoInverse() * vector;
+                Vector vector2 = matrix.PseudoInverse() * vector;
                 if (vector2.Length() < 1E-06)
                 {
                     break;
                 }
-                var origin = sphere3D.Origin;
+                Point3D origin = sphere3D.Origin;
                 origin.X += vector2[0];
-                var origin2 = sphere3D.Origin;
+                Point3D origin2 = sphere3D.Origin;
                 origin2.Y += vector2[1];
-                var origin3 = sphere3D.Origin;
+                Point3D origin3 = sphere3D.Origin;
                 origin3.Z += vector2[2];
                 sphere3D.Radius -= vector2[3];
             }
@@ -329,7 +329,7 @@ namespace miRobotEditor.Classes
 
         private static Vector VectorFromCircle3D(Circle3D initialGuess)
         {
-            var vector = new Vector(7);
+            Vector vector = new Vector(7);
             vector[0] = initialGuess.Origin.X;
             vector[1] = initialGuess.Origin.Y;
             vector[2] = initialGuess.Origin.Z;
@@ -358,20 +358,20 @@ namespace miRobotEditor.Classes
 
         private Matrix CalculateJacobian(ErrorFunction errorFunction, Vector guess)
         {
-            var matrix = new Matrix(NumEquations, NumVariables);
-            for (var i = 0; i < matrix.Columns; i++)
+            Matrix matrix = new Matrix(NumEquations, NumVariables);
+            for (int i = 0; i < matrix.Columns; i++)
             {
-                var num = (Math.Abs(guess[i]) >= 1.0) ? (Math.Abs(guess[i]) * 1E-07) : 1E-07;
-                var vector = new Vector(guess);
+                double num = (Math.Abs(guess[i]) >= 1.0) ? (Math.Abs(guess[i]) * 1E-07) : 1E-07;
+                Vector vector = new Vector(guess);
                 Vector vector2;
                 int index;
                 (vector2 = vector)[index = i] = vector2[index] + num;
-                var v = errorFunction(vector);
+                Vector v = errorFunction(vector);
                 Vector vector3;
                 int index2;
-                (vector3 = vector)[index2 = i] = vector3[index2] - 2.0 * num;
-                var v2 = errorFunction(vector);
-                var vec = v - v2;
+                (vector3 = vector)[index2 = i] = vector3[index2] - (2.0 * num);
+                Vector v2 = errorFunction(vector);
+                Vector vec = v - v2;
                 matrix.SetColumn(i, vec / (2.0 * num));
             }
             return matrix;
@@ -380,7 +380,7 @@ namespace miRobotEditor.Classes
         private static bool IsDone(Vector delta)
         {
             bool result;
-            for (var i = 0; i < delta.Rows; i++)
+            for (int i = 0; i < delta.Rows; i++)
             {
                 if (Math.Abs(delta[i]) > 1E-07)
                 {
@@ -398,17 +398,17 @@ namespace miRobotEditor.Classes
             {
                 throw new MatrixException("Size of the initial guess vector is not correct");
             }
-            var vector = new Vector(initialGuess);
+            Vector vector = new Vector(initialGuess);
             NumStepsToConverge = 0;
             Vector result;
-            for (var i = 0; i < 20; i++)
+            for (int i = 0; i < 20; i++)
             {
-                var matrix = CalculateJacobian(errorFunction, vector);
-                var vec = errorFunction(vector);
-                var matrix2 = matrix.Transpose();
-                var squareMatrix = new SquareMatrix(matrix2 * matrix);
-                var vec2 = matrix2 * vec;
-                var vector2 = squareMatrix.PseudoInverse() * vec2;
+                Matrix matrix = CalculateJacobian(errorFunction, vector);
+                Vector vec = errorFunction(vector);
+                Matrix matrix2 = matrix.Transpose();
+                SquareMatrix squareMatrix = new SquareMatrix(matrix2 * matrix);
+                Vector vec2 = matrix2 * vec;
+                Vector vector2 = squareMatrix.PseudoInverse() * vec2;
                 vector -= vector2;
                 if (IsDone(vector2))
                 {
@@ -435,35 +435,9 @@ namespace miRobotEditor.Classes
             }
             else
             {
-                if (geo is Line3D)
-                {
-                    result = TYP3D.Line3D;
-                }
-                else
-                {
-                    if (geo is Plane3D)
-                    {
-                        result = TYP3D.Plane3D;
-                    }
-                    else
-                    {
-                        if (geo is Circle3D)
-                        {
-                            result = TYP3D.Circle3D;
-                        }
-                        else
-                        {
-                            if (geo is Sphere3D)
-                            {
-                                result = TYP3D.Sphere3D;
-                            }
-                            else
-                            {
-                                result = TYP3D.None;
-                            }
-                        }
-                    }
-                }
+                result = geo is Line3D
+                    ? TYP3D.Line3D
+                    : geo is Plane3D ? TYP3D.Plane3D : geo is Circle3D ? TYP3D.Circle3D : geo is Sphere3D ? TYP3D.Sphere3D : TYP3D.None;
             }
             return result;
         }
@@ -473,7 +447,7 @@ namespace miRobotEditor.Classes
             double result;
             if (e1 is Point3D)
             {
-                var point3D = e1 as Point3D;
+                Point3D point3D = e1 as Point3D;
                 switch (getType(e2))
                 {
                     case TYP3D.Point3D:
@@ -501,7 +475,7 @@ namespace miRobotEditor.Classes
             {
                 if (e1 is Line3D)
                 {
-                    var line3D = e1 as Line3D;
+                    Line3D line3D = e1 as Line3D;
                     switch (getType(e2))
                     {
                         case TYP3D.Point3D:
@@ -524,7 +498,7 @@ namespace miRobotEditor.Classes
                 {
                     if (e1 is Plane3D)
                     {
-                        var plane = e1 as Plane3D;
+                        Plane3D plane = e1 as Plane3D;
                         switch (getType(e2))
                         {
                             case TYP3D.Point3D:
@@ -542,7 +516,7 @@ namespace miRobotEditor.Classes
                     {
                         if (e1 is Circle3D)
                         {
-                            var circle = e1 as Circle3D;
+                            Circle3D circle = e1 as Circle3D;
                             switch (getType(e2))
                             {
                                 case TYP3D.Point3D:
@@ -560,7 +534,7 @@ namespace miRobotEditor.Classes
                         {
                             if (e1 is Sphere3D)
                             {
-                                var sphere = e1 as Sphere3D;
+                                Sphere3D sphere = e1 as Sphere3D;
                                 switch (getType(e2))
                                 {
                                     case TYP3D.Point3D:
@@ -584,43 +558,44 @@ namespace miRobotEditor.Classes
             return result;
         }
 
-        private static double LineToCircle(Circle3D circle, Line3D point) => throw new NotImplementedException();
+        private static double LineToCircle(Circle3D circle, Line3D point)
+        {
+            throw new NotImplementedException();
+        }
 
         private static double LineToLine(Line3D line1, Line3D line2)
         {
-            Point3D point3D;
-            Point3D point3D2;
-            return LineToLine(line1, line2, out point3D, out point3D2);
+            return LineToLine(line1, line2, out _, out _);
         }
 
         private static double LineToLine(Line3D line1, Line3D line2, out Point3D closestPoint1,
             out Point3D closestPoint2)
         {
-            var origin = line1.Origin;
-            var origin2 = line2.Origin;
-            var direction = line1.Direction;
-            var direction2 = line2.Direction;
-            var vector3D = origin - origin2;
-            var num = Vector.Dot(-direction, direction2);
-            var num2 = Vector.Dot(vector3D, direction);
-            var num3 = vector3D.Length() * vector3D.Length();
-            var num4 = Math.Abs(1.0 - num * num);
+            Point3D origin = line1.Origin;
+            Point3D origin2 = line2.Origin;
+            Vector3D direction = line1.Direction;
+            Vector3D direction2 = line2.Direction;
+            Vector3D vector3D = origin - origin2;
+            double num = Vector.Dot(-direction, direction2);
+            double num2 = Vector.Dot(vector3D, direction);
+            double num3 = vector3D.Length() * vector3D.Length();
+            double num4 = Math.Abs(1.0 - (num * num));
             double num7;
             double num8;
             double d;
             if (num4 > 1E-05)
             {
-                var num5 = Vector.Dot(-vector3D, direction2);
-                var num6 = 1.0 / num4;
-                num7 = (num * num5 - num2) * num6;
-                num8 = (num * num2 - num5) * num6;
-                d = num7 * (num7 + num * num8 + 2.0 * num2) + num8 * (num * num7 + num8 + 2.0 * num5) + num3;
+                double num5 = Vector.Dot(-vector3D, direction2);
+                double num6 = 1.0 / num4;
+                num7 = ((num * num5) - num2) * num6;
+                num8 = ((num * num2) - num5) * num6;
+                d = (num7 * (num7 + (num * num8) + (2.0 * num2))) + (num8 * ((num * num7) + num8 + (2.0 * num5))) + num3;
             }
             else
             {
                 num7 = -num2;
                 num8 = 0.0;
-                d = num2 * num7 + num3;
+                d = (num2 * num7) + num3;
             }
             closestPoint1 = origin + new Vector3D(num7 * direction);
             closestPoint2 = origin2 + new Vector3D(num8 * direction2);
@@ -629,22 +604,34 @@ namespace miRobotEditor.Classes
 
         public static double PointToCircle(Circle3D circle, Point3D point)
         {
-            var plane = new Plane3D(circle.Origin, circle.Normal);
-            var point3D = Project3D.PointOntoPlane(plane, point);
-            Between(point, point3D);
-            var vector3D = circle.Origin - point3D;
+            Plane3D plane = new Plane3D(circle.Origin, circle.Normal);
+            Point3D point3D = Project3D.PointOntoPlane(plane, point);
+            _ = Between(point, point3D);
+            Vector3D vector3D = circle.Origin - point3D;
             vector3D.Normalise();
-            var p = new Point3D();
+            Point3D p = new Point3D();
             return PointToPoint(point, p);
         }
 
-        private static double PointToLine(Line3D line, Point3D point) => Vector3D.Cross(line.Direction, line.Origin - point).Length();
+        private static double PointToLine(Line3D line, Point3D point)
+        {
+            return Vector3D.Cross(line.Direction, line.Origin - point).Length();
+        }
 
-        private static double PointToPlane(Plane3D plane, Point3D point) => Vector.Dot(plane.Normal, point - plane.Point);
+        private static double PointToPlane(Plane3D plane, Point3D point)
+        {
+            return Vector.Dot(plane.Normal, point - plane.Point);
+        }
 
-        private static double PointToPoint(Point3D p1, Point3D p2) => (p1 - p2).Length();
+        private static double PointToPoint(Point3D p1, Point3D p2)
+        {
+            return (p1 - p2).Length();
+        }
 
-        public static double PointToSphere(Sphere3D sphere, Point3D point) => (point - sphere.Origin).Length() - sphere.Radius;
+        public static double PointToSphere(Sphere3D sphere, Point3D point)
+        {
+            return (point - sphere.Origin).Length() - sphere.Radius;
+        }
 
         private enum TYP3D
         {

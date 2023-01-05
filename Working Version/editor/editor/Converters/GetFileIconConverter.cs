@@ -1,11 +1,11 @@
-using CommunityToolkit.Mvvm.Messaging;
-using miRobotEditor.Classes;
-using miRobotEditor.Enums;
-using miRobotEditor.Messages;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Windows.Data;
+using CommunityToolkit.Mvvm.Messaging;
+using miRobotEditor.Classes;
+using miRobotEditor.Enums;
+using miRobotEditor.Messages;
 
 namespace miRobotEditor.Converters
 {
@@ -16,12 +16,12 @@ namespace miRobotEditor.Converters
             object result;
             try
             {
-                var extension = Path.GetExtension(value.ToString().ToLower());
-                if (!String.IsNullOrEmpty(extension))
+                string extension = Path.GetExtension(value.ToString().ToLower());
+                if (!string.IsNullOrEmpty(extension))
                 {
                     if (extension == ".src")
                     {
-                        var bitmapImage = ImageHelper.LoadBitmap(Global.ImgSrc);
+                        System.Windows.Media.Imaging.BitmapImage bitmapImage = ImageHelper.LoadBitmap(Global.ImgSrc);
                         result = bitmapImage;
                         return result;
                     }
@@ -39,12 +39,15 @@ namespace miRobotEditor.Converters
             }
             catch (Exception ex)
             {
-                var msg = new ErrorMessage("Convert", ex, MessageType.Error);
-                WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                ErrorMessage msg = new ErrorMessage("Convert", ex, MessageType.Error);
+                _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
             return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

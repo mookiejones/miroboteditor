@@ -1,6 +1,6 @@
-﻿using ICSharpCode.AvalonEdit.Document;
+﻿using System.Collections.Generic;
+using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using System.Collections.Generic;
 
 namespace miRobotEditor.Controls.TextEditor.Folding
 {
@@ -8,8 +8,7 @@ namespace miRobotEditor.Controls.TextEditor.Folding
     {
         public void UpdateFoldings(FoldingManager manager, TextDocument document)
         {
-            int firstErrorOffset;
-            var newFoldings = CreateNewFoldings(document, out firstErrorOffset);
+            IEnumerable<NewFolding> newFoldings = CreateNewFoldings(document, out int firstErrorOffset);
             manager.UpdateFoldings(newFoldings, firstErrorOffset);
         }
 

@@ -1,9 +1,9 @@
-using miRobotEditor.Controls.AngleConverter.Exceptions;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using miRobotEditor.Controls.AngleConverter.Exceptions;
 
 namespace miRobotEditor.Controls.AngleConverter.Classes
 {
@@ -16,21 +16,27 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         private double[,] _elements;
         private int _rows;
 
-        protected Matrix() => SetSize(0, 0);
+        protected Matrix()
+        {
+            SetSize(0, 0);
+        }
 
         public Matrix(Matrix mat)
         {
             SetSize(mat.Rows, mat.Columns);
-            for (var i = 0; i < Rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
-                for (var j = 0; j < Columns; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     _elements[i, j] = mat[i, j];
                 }
             }
         }
 
-        public Matrix(int rows, int columns) => SetSize(rows, columns);
+        public Matrix(int rows, int columns)
+        {
+            SetSize(rows, columns);
+        }
 
         protected Matrix(int rows, int columns, params double[] elements)
         {
@@ -39,11 +45,11 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                 throw new MatrixException("Number of elements does not match matrix dimension");
             }
             SetSize(rows, columns);
-            for (var i = 0; i < rows; i++)
+            for (int i = 0; i < rows; i++)
             {
-                for (var j = 0; j < columns; j++)
+                for (int j = 0; j < columns; j++)
                 {
-                    _elements[i, j] = elements[j + i * columns];
+                    _elements[i, j] = elements[j + (i * columns)];
                 }
             }
         }
@@ -60,7 +66,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public virtual string ToString(string format, IFormatProvider formatProvider)
         {
-            var stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
             if (format == null)
             {
                 format = "F2";
@@ -68,21 +74,21 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             string result;
             if (format.ToUpper().StartsWith("F"))
             {
-                for (var i = 0; i < Rows; i++)
+                for (int i = 0; i < Rows; i++)
                 {
-                    stringBuilder.Append("[");
-                    for (var j = 0; j < Columns; j++)
+                    _ = stringBuilder.Append("[");
+                    for (int j = 0; j < Columns; j++)
                     {
-                        stringBuilder.Append(this[i, j].ToString(format));
+                        _ = stringBuilder.Append(this[i, j].ToString(format));
                         if (j + 1 < Columns)
                         {
-                            stringBuilder.Append(", ");
+                            _ = stringBuilder.Append(", ");
                         }
                     }
-                    stringBuilder.Append("]");
+                    _ = stringBuilder.Append("]");
                     if (i + 1 < Rows)
                     {
-                        stringBuilder.Append(Environment.NewLine);
+                        _ = stringBuilder.Append(Environment.NewLine);
                     }
                 }
                 result = stringBuilder.ToString();
@@ -94,20 +100,20 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                     throw new FormatException("Invalid Format Specifier");
                 }
                 stringBuilder = new StringBuilder();
-                stringBuilder.Append("[");
-                for (var k = 0; k < Rows; k++)
+                _ = stringBuilder.Append("[");
+                for (int k = 0; k < Rows; k++)
                 {
-                    for (var l = 0; l < Columns; l++)
+                    for (int l = 0; l < Columns; l++)
                     {
-                        stringBuilder.Append(this[k, l].ToString("F5"));
+                        _ = stringBuilder.Append(this[k, l].ToString("F5"));
                         if (l + 1 < Columns)
                         {
-                            stringBuilder.Append(", ");
+                            _ = stringBuilder.Append(", ");
                         }
                     }
                     if (k + 1 < Rows)
                     {
-                        stringBuilder.Append(";" + Environment.NewLine);
+                        _ = stringBuilder.Append(";" + Environment.NewLine);
                     }
                 }
                 result = stringBuilder + "]";
@@ -115,25 +121,31 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             return result;
         }
 
-        private bool Equals(Matrix other) => _columns == other._columns && Equals(_elements, other._elements) && _rows == other._rows;
+        private bool Equals(Matrix other)
+        {
+            return _columns == other._columns && Equals(_elements, other._elements) && _rows == other._rows;
+        }
 
-        public override bool Equals(object obj) => !ReferenceEquals(null, obj) &&
+        public override bool Equals(object obj)
+        {
+            return obj is object &&
                    (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((Matrix)obj)));
+        }
 
         public override int GetHashCode()
         {
-            var num = _columns;
-            num = (num * 397 ^ ((_elements != null) ? _elements.GetHashCode() : 0));
-            return num * 397 ^ _rows;
+            int num = _columns;
+            num = (num * 397) ^ ((_elements != null) ? _elements.GetHashCode() : 0);
+            return (num * 397) ^ _rows;
         }
 
         protected void AddRowTimesScalar(int row1, int row2, double scalar)
         {
-            var row3 = GetRow(row2);
-            for (var i = 0; i < Columns; i++)
+            Vector row3 = GetRow(row2);
+            for (int i = 0; i < Columns; i++)
             {
                 int column;
-                this[row1, column = i] = this[row1, column] + scalar * row3[i, 0];
+                this[row1, column = i] = this[row1, column] + (scalar * row3[i, 0]);
             }
         }
 
@@ -143,12 +155,12 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Cannot augment matrices with different number of rows");
             }
-            var matrix = new Matrix(Rows, Columns + mat.Columns);
-            for (var i = 0; i < Columns; i++)
+            Matrix matrix = new Matrix(Rows, Columns + mat.Columns);
+            for (int i = 0; i < Columns; i++)
             {
                 matrix.SetColumn(i, GetColumn(i));
             }
-            for (var j = 0; j < mat.Columns; j++)
+            for (int j = 0; j < mat.Columns; j++)
             {
                 matrix.SetColumn(j + Columns, mat.GetColumn(j));
             }
@@ -157,14 +169,14 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public double ConditionNumber()
         {
-            var sVD = new SVD(this);
+            SVD sVD = new SVD(this);
             return sVD.ConditionNumber;
         }
 
         public Vector GetColumn(int column)
         {
-            var vector = new Vector(Rows);
-            for (var i = 0; i < Rows; i++)
+            Vector vector = new Vector(Rows);
+            for (int i = 0; i < Rows; i++)
             {
                 vector[i] = this[i, column];
             }
@@ -173,8 +185,8 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public Vector GetRow(int row)
         {
-            var vector = new Vector(Columns);
-            for (var i = 0; i < Columns; i++)
+            Vector vector = new Vector(Columns);
+            for (int i = 0; i < Columns; i++)
             {
                 vector[i] = this[row, i];
             }
@@ -184,7 +196,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         private bool IsColumnZeroBelowRow(int column, int row)
         {
             bool result;
-            for (var i = row; i < Rows; i++)
+            for (int i = row; i < Rows; i++)
             {
                 if (Math.Abs(this[i, column]) > 1E-08)
                 {
@@ -199,9 +211,9 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         protected bool IsNaN()
         {
             bool result;
-            for (var i = 0; i < Rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
-                for (var j = 0; j < Columns; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     if (!double.IsNaN(this[i, j]))
                     {
@@ -217,7 +229,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
         protected bool IsRowZero(int row)
         {
             bool result;
-            for (var i = 0; i < Columns; i++)
+            for (int i = 0; i < Columns; i++)
             {
                 if (Math.Abs(this[row, i]) > 1E-08)
                 {
@@ -231,12 +243,12 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public double MakeRowEchelon()
         {
-            var num = 1.0;
+            double num = 1.0;
             double result;
-            for (var i = 0; i < Rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
-                var num2 = -1;
-                for (var j = 0; j < Columns; j++)
+                int num2 = -1;
+                for (int j = 0; j < Columns; j++)
                 {
                     if (!IsColumnZeroBelowRow(j, i))
                     {
@@ -249,8 +261,8 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                     result = num;
                     return result;
                 }
-                var num3 = double.NaN;
-                for (var k = i; k < Rows; k++)
+                double num3 = double.NaN;
+                for (int k = i; k < Rows; k++)
                 {
                     if (Math.Abs(this[k, num2]) > 1E-05)
                     {
@@ -270,9 +282,9 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                 }
                 while (true)
                 {
-                    var num4 = -1;
-                    var num5 = double.NaN;
-                    for (var l = i + 1; l < Rows; l++)
+                    int num4 = -1;
+                    double num5 = double.NaN;
+                    for (int l = i + 1; l < Rows; l++)
                     {
                         if (Math.Abs(this[l, num2] - 0.0) > 0.0001)
                         {
@@ -281,7 +293,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                             break;
                         }
                     }
-                    var num6 = num4;
+                    int num6 = num4;
                     if (num6 == -1)
                     {
                         break;
@@ -295,7 +307,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         protected void MultiplyRow(int row, double scalar)
         {
-            for (var i = 0; i < Columns; i++)
+            for (int i = 0; i < Columns; i++)
             {
                 int column;
                 this[row, column = i] = this[row, column] * scalar;
@@ -304,11 +316,11 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         protected static Matrix NaN(int rows, int columns)
         {
-            var matrix = new Matrix(rows, columns);
+            Matrix matrix = new Matrix(rows, columns);
             matrix.SetSize(rows, columns);
-            for (var i = 0; i < rows; i++)
+            for (int i = 0; i < rows; i++)
             {
-                for (var j = 0; j < columns; j++)
+                for (int j = 0; j < columns; j++)
                 {
                     matrix[i, j] = double.NaN;
                 }
@@ -322,10 +334,10 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Matrices are not the same size");
             }
-            var matrix = new Matrix(lhs.Rows, lhs.Columns);
-            for (var i = 0; i < lhs.Rows; i++)
+            Matrix matrix = new Matrix(lhs.Rows, lhs.Columns);
+            for (int i = 0; i < lhs.Rows; i++)
             {
-                for (var j = 0; j < lhs.Columns; j++)
+                for (int j = 0; j < lhs.Columns; j++)
                 {
                     matrix[i, j] = lhs[i, j] + rhs[i, j];
                 }
@@ -335,10 +347,10 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator +(Matrix mat, double scalar)
         {
-            var matrix = new Matrix(mat);
-            for (var i = 0; i < matrix.Rows; i++)
+            Matrix matrix = new Matrix(mat);
+            for (int i = 0; i < matrix.Rows; i++)
             {
-                for (var j = 0; j < matrix.Columns; j++)
+                for (int j = 0; j < matrix.Columns; j++)
                 {
                     Matrix matrix2;
                     int row;
@@ -356,11 +368,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator /(Matrix mat, double scalar)
         {
-            if (Math.Abs(scalar - 0.0) < 0.0001)
-            {
-                throw new DivideByZeroException();
-            }
-            return mat * (1.0 / scalar);
+            return Math.Abs(scalar - 0.0) < 0.0001 ? throw new DivideByZeroException() : mat * (1.0 / scalar);
         }
 
         public static bool operator ==(Matrix m1, Matrix m2)
@@ -375,9 +383,9 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
                 else
                 {
                     Debug.Assert(m1 != null, "m1 != null");
-                    for (var i = 0; i < m1.Rows; i++)
+                    for (int i = 0; i < m1.Rows; i++)
                     {
-                        for (var j = 0; j < m1.Columns; j++)
+                        for (int j = 0; j < m1.Columns; j++)
                         {
                             if (m2 != null && Math.Abs(m1[i, j] - m2[i, j]) > 0.0001)
                             {
@@ -407,13 +415,13 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Matrices are not compatible for multiplication");
             }
-            var matrix = new Matrix(lhs.Rows, rhs.Columns);
-            for (var i = 0; i < matrix.Rows; i++)
+            Matrix matrix = new Matrix(lhs.Rows, rhs.Columns);
+            for (int i = 0; i < matrix.Rows; i++)
             {
-                for (var j = 0; j < matrix.Columns; j++)
+                for (int j = 0; j < matrix.Columns; j++)
                 {
-                    var num = 0.0;
-                    for (var k = 0; k < lhs.Columns; k++)
+                    double num = 0.0;
+                    for (int k = 0; k < lhs.Columns; k++)
                     {
                         num += lhs[i, k] * rhs[k, j];
                     }
@@ -425,10 +433,10 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator *(Matrix mat, double scalar)
         {
-            var matrix = new Matrix(mat.Rows, mat.Columns);
-            for (var i = 0; i < mat.Rows; i++)
+            Matrix matrix = new Matrix(mat.Rows, mat.Columns);
+            for (int i = 0; i < mat.Rows; i++)
             {
-                for (var j = 0; j < mat.Columns; j++)
+                for (int j = 0; j < mat.Columns; j++)
                 {
                     matrix[i, j] = mat[i, j] * scalar;
                 }
@@ -447,10 +455,10 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Matrices are not the same size");
             }
-            var matrix = new Matrix(lhs.Rows, lhs.Columns);
-            for (var i = 0; i < lhs.Rows; i++)
+            Matrix matrix = new Matrix(lhs.Rows, lhs.Columns);
+            for (int i = 0; i < lhs.Rows; i++)
             {
-                for (var j = 0; j < lhs.Columns; j++)
+                for (int j = 0; j < lhs.Columns; j++)
                 {
                     matrix[i, j] = lhs[i, j] - rhs[i, j];
                 }
@@ -460,10 +468,10 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator -(Matrix mat, double scalar)
         {
-            var matrix = new Matrix(mat);
-            for (var i = 0; i < matrix.Rows; i++)
+            Matrix matrix = new Matrix(mat);
+            for (int i = 0; i < matrix.Rows; i++)
             {
-                for (var j = 0; j < matrix.Columns; j++)
+                for (int j = 0; j < matrix.Columns; j++)
                 {
                     Matrix matrix2;
                     int row;
@@ -476,10 +484,10 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator -(Matrix mat)
         {
-            var matrix = new Matrix(mat);
-            for (var i = 0; i < mat.Rows; i++)
+            Matrix matrix = new Matrix(mat);
+            for (int i = 0; i < mat.Rows; i++)
             {
-                for (var j = 0; j < mat.Columns; j++)
+                for (int j = 0; j < mat.Columns; j++)
                 {
                     matrix[i, j] = -mat[i, j];
                 }
@@ -489,9 +497,9 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public Matrix PseudoInverse()
         {
-            var sVD = new SVD(this);
+            SVD sVD = new SVD(this);
             Matrix matrix = new SquareMatrix(Columns);
-            for (var i = 0; i < sVD.W.Rows; i++)
+            for (int i = 0; i < sVD.W.Rows; i++)
             {
                 if (sVD.W[i] > 1E-05)
                 {
@@ -503,7 +511,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public void SetColumn(int column, Vector vec)
         {
-            for (var i = 0; i < Rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
                 this[i, column] = vec[i];
             }
@@ -511,7 +519,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         public void SetRow(int row, Vector vec)
         {
-            for (var i = 0; i < Columns; i++)
+            for (int i = 0; i < Columns; i++)
             {
                 this[row, i] = vec[i];
             }
@@ -526,20 +534,23 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
 
         private void SwapRows(int row1, int row2)
         {
-            var row3 = GetRow(row1);
-            var row4 = GetRow(row2);
+            Vector row3 = GetRow(row1);
+            Vector row4 = GetRow(row2);
             SetRow(row1, row4);
             SetRow(row2, row3);
         }
 
-        public override string ToString() => ToString(null, null);
+        public override string ToString()
+        {
+            return ToString(null, null);
+        }
 
         public Matrix Transpose()
         {
-            var matrix = new Matrix(Columns, Rows);
-            for (var i = 0; i < Rows; i++)
+            Matrix matrix = new Matrix(Columns, Rows);
+            for (int i = 0; i < Rows; i++)
             {
-                for (var j = 0; j < Columns; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     matrix[j, i] = this[i, j];
                 }

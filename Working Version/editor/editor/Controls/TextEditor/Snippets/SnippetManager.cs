@@ -1,14 +1,14 @@
-using CommunityToolkit.Mvvm.Messaging;
-using ICSharpCode.AvalonEdit.Snippets;
-using miRobotEditor.Enums;
-using miRobotEditor.Messages;
-using miRobotEditor.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using CommunityToolkit.Mvvm.Messaging;
+using ICSharpCode.AvalonEdit.Snippets;
+using miRobotEditor.Enums;
+using miRobotEditor.Messages;
+using miRobotEditor.Utilities;
 
 namespace miRobotEditor.Controls.TextEditor.Snippets
 {
@@ -21,9 +21,9 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
         {
             get
             {
-                var dictionary = new Dictionary<SnippetInfo, string>();
-                var list = new List<SnippetCompletionData>();
-                foreach (var current in Snippets.Values)
+                Dictionary<SnippetInfo, string> dictionary = new Dictionary<SnippetInfo, string>();
+                List<SnippetCompletionData> list = new List<SnippetCompletionData>();
+                foreach (SnippetInfo current in Snippets.Values)
                 {
                     if (!dictionary.ContainsKey(current))
                     {
@@ -39,7 +39,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
         {
             if (SnippetsByExtension.ContainsKey(extension))
             {
-                foreach (var current in SnippetsByExtension[extension])
+                foreach (SnippetInfo current in SnippetsByExtension[extension])
                 {
                     yield return new SnippetCompletionData(current);
                 }
@@ -49,18 +49,14 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
 
         public static SnippetInfo GetSnippetForShortcut(string shortCut)
         {
-            if (Snippets.ContainsKey(shortCut))
-            {
-                return Snippets[shortCut];
-            }
-            return null;
+            return Snippets.ContainsKey(shortCut) ? Snippets[shortCut] : null;
         }
 
         public static IEnumerable<SnippetInfo> GetSnippetsForExtension(string extension)
         {
             if (SnippetsByExtension.ContainsKey(extension))
             {
-                foreach (var current in SnippetsByExtension[extension])
+                foreach (SnippetInfo current in SnippetsByExtension[extension])
                 {
                     yield return current;
                 }
@@ -68,13 +64,16 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             yield break;
         }
 
-        public static bool HasSnippetsForExtension(string extension) => SnippetsByExtension.ContainsKey(extension);
+        public static bool HasSnippetsForExtension(string extension)
+        {
+            return SnippetsByExtension.ContainsKey(extension);
+        }
 
         public static bool HasSnippetsFor(string shortCut, string extension)
         {
             if (Snippets.ContainsKey(shortCut))
             {
-                var snippetInfo = Snippets[shortCut];
+                SnippetInfo snippetInfo = Snippets[shortCut];
                 if (snippetInfo.Header.Extensions.Contains(extension))
                 {
                     return true;
@@ -83,7 +82,10 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             return false;
         }
 
-        public static bool KnowsShortCut(string shortCut) => Snippets.ContainsKey(shortCut);
+        public static bool KnowsShortCut(string shortCut)
+        {
+            return Snippets.ContainsKey(shortCut);
+        }
 
         public static bool LoadSnippet(string file)
         {
@@ -95,7 +97,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             bool result;
             try
             {
-                var xElement = XElement.Load(file);
+                XElement xElement = XElement.Load(file);
                 if (xElement.Name != "CodeSnippets")
                 {
                     result = false;
@@ -108,10 +110,10 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                     }
                     else
                     {
-                        foreach (var current in xElement.Elements("CodeSnippet"))
+                        foreach (XElement current in xElement.Elements("CodeSnippet"))
                         {
-                            var snippetInfo = BuildSnippet(current, file);
-                            foreach (var current2 in snippetInfo.Header.Shortcuts)
+                            SnippetInfo snippetInfo = BuildSnippet(current, file);
+                            foreach (string current2 in snippetInfo.Header.Shortcuts)
                             {
                                 if (!Snippets.ContainsKey(current2))
                                 {
@@ -119,16 +121,16 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                                 }
                                 else
                                 {
-                                    var msg = new ErrorMessage(string.Format("Duplicate Shortcut :", file), null,
+                                    ErrorMessage msg = new ErrorMessage(string.Format("Duplicate Shortcut :", file), null,
                                         MessageType.Error);
-                                    WeakReferenceMessenger.Default.Send(msg);
+                                    _ = WeakReferenceMessenger.Default.Send(msg);
                                 }
                             }
-                            foreach (var current3 in snippetInfo.Header.Extensions)
+                            foreach (string current3 in snippetInfo.Header.Extensions)
                             {
                                 if (SnippetsByExtension.ContainsKey(current3))
                                 {
-                                    var list = SnippetsByExtension[current3];
+                                    List<SnippetInfo> list = SnippetsByExtension[current3];
                                     if (!list.Contains(snippetInfo))
                                     {
                                         list.Add(snippetInfo);
@@ -149,8 +151,8 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
             catch (Exception ex2)
             {
-                var msg = new ErrorMessage("ErrorOnLoadingSnippet", ex2, MessageType.Error);
-                WeakReferenceMessenger.Default.Send(msg);
+                ErrorMessage msg = new ErrorMessage("ErrorOnLoadingSnippet", ex2, MessageType.Error);
+                _ = WeakReferenceMessenger.Default.Send(msg);
 
                 result = false;
             }
@@ -163,12 +165,12 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             {
                 return;
             }
-            foreach (var current in
+            foreach (string current in
                 from x in Directory.GetFiles(directory)
                 where x.ToLowerInvariant().EndsWith(".snippet")
                 select x)
             {
-                LoadSnippet(current);
+                _ = LoadSnippet(current);
             }
         }
 
@@ -188,10 +190,10 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
             if (!Directory.Exists(targetDirectory))
             {
-                Directory.CreateDirectory(targetDirectory);
+                _ = Directory.CreateDirectory(targetDirectory);
             }
-            var name = FileExtended.GetName(sourceFilePath);
-            var destFileName = Path.Combine(targetDirectory, name);
+            string name = FileExtended.GetName(sourceFilePath);
+            string destFileName = Path.Combine(targetDirectory, name);
             if (LoadSnippet(sourceFilePath))
             {
                 File.Copy(sourceFilePath, destFileName, true);
@@ -204,15 +206,15 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             {
                 throw new ArgumentNullException("element");
             }
-            var xAttribute = element.Attribute("Format");
+            XAttribute xAttribute = element.Attribute("Format");
             if (xAttribute == null)
             {
                 throw new XmlException("The Attribute 'Format' is missing on element'" + element + "'");
             }
-            var value = xAttribute.Value;
-            var headerElement = element.Element("Header");
-            var header = new SnippetHeader(headerElement);
-            var element2 = element.Element("Snippet");
+            string value = xAttribute.Value;
+            XElement headerElement = element.Element("Header");
+            SnippetHeader header = new SnippetHeader(headerElement);
+            XElement element2 = element.Element("Snippet");
             Snippet snippet = SnippetParser.BuildSnippet(element2);
             return new SnippetInfo(path)
             {

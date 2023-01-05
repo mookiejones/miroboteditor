@@ -1,6 +1,6 @@
-﻿using miRobotEditor.Classes;
+﻿using System.Windows.Media.Imaging;
+using miRobotEditor.Classes;
 using miRobotEditor.Enums;
-using System.Windows.Media.Imaging;
 
 namespace miRobotEditor.Messages
 {
@@ -29,7 +29,10 @@ namespace miRobotEditor.Messages
         /// Initializes a new instance of the MessageBase class.
         /// </summary>
         /// <param name="sender">The message's original sender.</param>
-        public MessageBase(object sender) => Sender = sender;
+        public MessageBase(object sender)
+        {
+            Sender = sender;
+        }
 
         /// <summary>
         /// Initializes a new instance of the MessageBase class.
@@ -39,7 +42,10 @@ namespace miRobotEditor.Messages
         /// to give an indication as to whom the message was intended for. Of course
         /// this is only an indication, amd may be null.</param>
         public MessageBase(object sender, object target)
-            : this(sender) => Target = target;
+            : this(sender)
+        {
+            Target = target;
+        }
 
         protected MessageBase(string title, string description, MessageType icon, bool force = false)
         {

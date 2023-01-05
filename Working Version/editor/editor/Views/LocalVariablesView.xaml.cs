@@ -7,6 +7,9 @@ namespace miRobotEditor.Views
     /// </summary>
     public partial class LocalVariablesView : UserControl
     {
-        public LocalVariablesView() => InitializeComponent();
+        public LocalVariablesView()
+        {
+            InitializeComponent();
+        }
     }
 }

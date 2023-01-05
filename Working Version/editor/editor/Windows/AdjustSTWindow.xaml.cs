@@ -7,6 +7,9 @@ namespace miRobotEditor.Windows
     /// </summary>
     public partial class AdjustSTWindow : Window
     {
-        public AdjustSTWindow() => InitializeComponent();
+        public AdjustSTWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

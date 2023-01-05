@@ -7,6 +7,9 @@ namespace miRobotEditor.Controls
     /// </summary>
     public partial class KukaControl : UserControl
     {
-        public KukaControl() => InitializeComponent();
+        public KukaControl()
+        {
+            InitializeComponent();
+        }
     }
 }

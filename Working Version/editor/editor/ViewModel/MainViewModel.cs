@@ -1,5 +1,13 @@
 ﻿
 
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Shell;
 using AvalonDock.Layout;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -13,18 +21,10 @@ using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Messages;
 using miRobotEditor.Windows;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Windows;
-using System.Windows.Shell;
 
 namespace miRobotEditor.ViewModel
 {
-    
+
     public sealed class MainViewModel : ViewModelBase
     {
         private static IEditorDocument _activeEditor;
@@ -47,13 +47,16 @@ namespace miRobotEditor.ViewModel
 
         }
 
-        private void GetMessage(object recipient, WindowMessage message) => Open(message.Description);
+        private void GetMessage(object recipient, WindowMessage message)
+        {
+            _ = Open(message.Description);
+        }
 
         public string Title
         {
             get
             {
-                var pathname = ActiveEditor.FilePath ?? string.Empty;
+                string pathname = ActiveEditor.FilePath ?? string.Empty;
                 return ShortenPathname(pathname, 100);
             }
         }
@@ -62,26 +65,20 @@ namespace miRobotEditor.ViewModel
 
         #region Tools
 
-        private readonly AngleConvertorViewModel _angleConverter = new AngleConvertorViewModel();
-        private readonly FunctionViewModel _functions = new FunctionViewModel();
-        private readonly LocalVariablesViewModel _localVariables = new LocalVariablesViewModel();
-        private readonly MessageViewModel _messageView = new MessageViewModel();
-        private readonly NotesViewModel _notes = new NotesViewModel();
-        private readonly ObjectBrowserViewModel _objectBrowser = new ObjectBrowserViewModel();
         private readonly IEnumerable<ToolViewModel> _readonlyTools = null;
         private readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
 
-        public ObjectBrowserViewModel ObjectBrowser => _objectBrowser;
+        public ObjectBrowserViewModel ObjectBrowser { get; } = new ObjectBrowserViewModel();
 
-        public NotesViewModel Notes => _notes;
+        public NotesViewModel Notes { get; } = new NotesViewModel();
 
-        public MessageViewModel MessageView => _messageView;
+        public MessageViewModel MessageView { get; } = new MessageViewModel();
 
-        public FunctionViewModel Functions => _functions;
+        public FunctionViewModel Functions { get; } = new FunctionViewModel();
 
-        public LocalVariablesViewModel LocalVariables => _localVariables;
+        public LocalVariablesViewModel LocalVariables { get; } = new LocalVariablesViewModel();
 
-        public AngleConvertorViewModel AngleConverter => _angleConverter;
+        public AngleConvertorViewModel AngleConverter { get; } = new AngleConvertorViewModel();
 
         #endregion Tools
 
@@ -178,8 +175,7 @@ namespace miRobotEditor.ViewModel
                 if (_activeEditor != value)
                 {
                     _activeEditor = value;
-                    if (_activeEditor != null)
-                        _activeEditor.TextBox.Focus();
+                    _ = (_activeEditor?.TextBox.Focus());
                     // ReSharper disable once RedundantArgumentDefaultValue
                     OnPropertyChanged(nameof(ActiveEditor));
                     // ReSharper disable once ExplicitCallerInfoArgument
@@ -221,7 +217,7 @@ namespace miRobotEditor.ViewModel
 
         private void ExecuteCloseCommand(object obj)
         {
-            _files.Remove(ActiveEditor);
+            _ = _files.Remove(ActiveEditor);
 
             ActiveEditor.Close();
             ActiveEditor = _files.FirstOrDefault();
@@ -229,7 +225,10 @@ namespace miRobotEditor.ViewModel
             OnPropertyChanged(nameof(ActiveEditor));
         }
 
-        private bool CanExecuteCloseCommand(object arg) => true;
+        private bool CanExecuteCloseCommand(object arg)
+        {
+            return true;
+        }
 
         #endregion CloseCommand
 
@@ -315,7 +314,10 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public RelayCommand<object> ImportCommand => _importCommand ?? (_importCommand = new RelayCommand<object>(p => ImportRobot(), CanImport));
 
-        public bool CanImport(object p) => !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
+        public bool CanImport(object p)
+        {
+            return !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
+        }
 
         #endregion ImportCommand
 
@@ -364,55 +366,36 @@ namespace miRobotEditor.ViewModel
             }
             else
             {
-                var text = Path.GetPathRoot(pathname);
+                string text = Path.GetPathRoot(pathname);
                 if (text.Length > 3)
                 {
                     text += Path.DirectorySeparatorChar;
                 }
-                var array = pathname.Substring(text.Length).Split(new[]
+                string[] array = pathname.Substring(text.Length).Split(new[]
                 {
                     Path.DirectorySeparatorChar,
                     Path.AltDirectorySeparatorChar
                 });
-                var num = array.GetLength(0) - 1;
+                int num = array.GetLength(0) - 1;
                 if (array.GetLength(0) == 1)
                 {
-                    if (array[0].Length > 5)
-                    {
-                        if (text.Length + 6 >= maxLength)
-                        {
-                            result = text + array[0].Substring(0, 3) + "...";
-                        }
-                        else
-                        {
-                            result = pathname.Substring(0, maxLength - 3) + "...";
-                        }
-                    }
-                    else
-                    {
-                        result = pathname;
-                    }
+                    result = array[0].Length > 5
+                        ? text.Length + 6 >= maxLength ? text + array[0].Substring(0, 3) + "..." : pathname.Substring(0, maxLength - 3) + "..."
+                        : pathname;
                 }
                 else
                 {
                     if (text.Length + 4 + array[num].Length > maxLength)
                     {
                         text += "...\\";
-                        var num2 = array[num].Length;
+                        int num2 = array[num].Length;
                         if (num2 < 6)
                         {
                             result = text + array[num];
                         }
                         else
                         {
-                            if (text.Length + 6 >= maxLength)
-                            {
-                                num2 = 3;
-                            }
-                            else
-                            {
-                                num2 = maxLength - text.Length - 3;
-                            }
+                            num2 = text.Length + 6 >= maxLength ? 3 : maxLength - text.Length - 3;
                             result = text + array[num].Substring(0, num2) + "...";
                         }
                     }
@@ -424,9 +407,9 @@ namespace miRobotEditor.ViewModel
                         }
                         else
                         {
-                            var num2 = 0;
-                            var num3 = 0;
-                            for (var i = 0; i < num; i++)
+                            int num2 = 0;
+                            int num3 = 0;
+                            for (int i = 0; i < num; i++)
                             {
                                 if (array[i].Length > num2)
                                 {
@@ -434,8 +417,8 @@ namespace miRobotEditor.ViewModel
                                     num2 = array[i].Length;
                                 }
                             }
-                            var j = pathname.Length - num2 + 3;
-                            var num4 = num3 + 1;
+                            int j = pathname.Length - num2 + 3;
+                            int num4 = num3 + 1;
                             while (j > maxLength)
                             {
                                 if (num3 > 0)
@@ -455,12 +438,12 @@ namespace miRobotEditor.ViewModel
                                     break;
                                 }
                             }
-                            for (var i = 0; i < num3; i++)
+                            for (int i = 0; i < num3; i++)
                             {
                                 text = text + array[i] + '\\';
                             }
                             text += "...\\";
-                            for (var i = num4; i < num; i++)
+                            for (int i = num4; i < num; i++)
                             {
                                 text = text + array[i] + '\\';
                             }
@@ -472,7 +455,10 @@ namespace miRobotEditor.ViewModel
             return result;
         }
 
-        private void ExecuteShowIO() => ShowIO = !ShowIO;
+        private void ExecuteShowIO()
+        {
+            ShowIO = !ShowIO;
+        }
 
         private void ShowFindReplace()
         {
@@ -480,14 +466,15 @@ namespace miRobotEditor.ViewModel
             //findandReplaceControl.ShowDialog().GetValueOrDefault();
         }
 
-        private void ExecuteShowSettings() => ShowSettings = !ShowSettings;
-
-
+        private void ExecuteShowSettings()
+        {
+            ShowSettings = !ShowSettings;
+        }
 
         private void OnOpen(object param)
         {
-            var directoryName = Path.GetDirectoryName(ActiveEditor.FilePath);
-            var openFileDialog = new OpenFileDialog
+            string directoryName = Path.GetDirectoryName(ActiveEditor.FilePath);
+            OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = "Allfiles (*.*)|*.*",
                 Multiselect = true,
@@ -496,13 +483,13 @@ namespace miRobotEditor.ViewModel
             };
             if (openFileDialog.ShowDialog().GetValueOrDefault())
             {
-                Open(openFileDialog.FileName);
+                _ = Open(openFileDialog.FileName);
             }
         }
 
         public IEditorDocument Open(string filepath)
         {
-            var document = OpenFile(filepath);
+            IEditorDocument document = OpenFile(filepath);
             ActiveEditor = document;
             ActiveEditor.IsActive = true;
             return document;
@@ -510,7 +497,7 @@ namespace miRobotEditor.ViewModel
 
         private IEditorDocument OpenFile(string filepath)
         {
-            var document = _files.FirstOrDefault(fm => fm.FileName == filepath);
+            IEditorDocument document = _files.FirstOrDefault(fm => fm.FileName == filepath);
             IEditorDocument result;
             if (document != null)
             {
@@ -536,7 +523,7 @@ namespace miRobotEditor.ViewModel
 
         public void OpenFile(IVariable variable)
         {
-            var document = Open(variable.Path);
+            IEditorDocument document = Open(variable.Path);
             document.SelectText(variable);
         }
 
@@ -548,66 +535,69 @@ namespace miRobotEditor.ViewModel
 
         public void LoadFile(IList<string> args)
         {
-            for (var i = 1; i < args.Count; i++)
+            for (int i = 1; i < args.Count; i++)
             {
-                Open(args[i]);
+                _ = Open(args[i]);
             }
         }
 
         private void ChangeViewAs(object param)
         {
-            var abstractLanguageClass = ActiveEditor.FileLanguage;
+            _ = ActiveEditor.FileLanguage;
 
-            var text = param.ToString();
+            string text = param.ToString();
 
             switch (text)
             {
                 case "ABB":
-                    var abb = new ABB(ActiveEditor.FilePath);
+                    ABB abb = new ABB(ActiveEditor.FilePath);
                     ActiveEditor.FileLanguage = abb;
                     break;
 
                 case "Fanuc":
-                    var fanuc = new Fanuc(ActiveEditor.FilePath);
+                    Fanuc fanuc = new Fanuc(ActiveEditor.FilePath);
                     ActiveEditor.FileLanguage = fanuc;
                     break;
 
                 case "KUKA":
-                    var kuka = new KUKA(ActiveEditor.FilePath);
+                    KUKA kuka = new KUKA(ActiveEditor.FilePath);
                     ActiveEditor.FileLanguage = kuka;
                     break;
 
                 case "Kawasaki":
-                    var kawasaki = new Kawasaki(ActiveEditor.FilePath);
+                    Kawasaki kawasaki = new Kawasaki(ActiveEditor.FilePath);
                     ActiveEditor.FileLanguage = kawasaki;
                     break;
             }
         }
 
-        private void Exit() => MainWindow.Instance.Close();
+        private void Exit()
+        {
+            MainWindow.Instance.Close();
+        }
 
         internal void Close(IEditorDocument fileToClose)
         {
-            _files.Remove(fileToClose);
+            _ = _files.Remove(fileToClose);
             // ReSharper disable once ExplicitCallerInfoArgument
             OnPropertyChanged(nameof(ActiveEditor));
         }
 
         public void AddTool(ToolViewModel toolModel)
         {
-            var layoutAnchorable = new LayoutAnchorable();
+            LayoutAnchorable layoutAnchorable = new LayoutAnchorable();
             if (toolModel != null)
             {
                 layoutAnchorable.Title = toolModel.Title;
                 layoutAnchorable.Content = toolModel;
-                using (var enumerator = (
+                using (IEnumerator<ToolViewModel> enumerator = (
                     from t in Tools
                     where t.Title == toolModel.Title
                     select t).GetEnumerator())
                 {
                     if (enumerator.MoveNext())
                     {
-                        var current = enumerator.Current;
+                        ToolViewModel current = enumerator.Current;
                         current.IsActive = true;
                         return;
                     }
@@ -623,10 +613,10 @@ namespace miRobotEditor.ViewModel
         [Localizable(false)]
         private void AddTool(object parameter)
         {
-            var text = parameter as string;
+            string text = parameter as string;
             ToolViewModel toolModel = null;
-            var layoutAnchorable = new LayoutAnchorable();
-            var text2 = text;
+            LayoutAnchorable layoutAnchorable = new LayoutAnchorable();
+            string text2 = text;
             switch (text2)
             {
                 case "Angle Converter":
@@ -664,23 +654,23 @@ namespace miRobotEditor.ViewModel
                     goto IL_1EE;
             }
 
-            var msg = new ErrorMessage("Not Implemented",
+            ErrorMessage msg = new ErrorMessage("Not Implemented",
                 string.Format("Add Tool Parameter of {0} not Implemented", text), MessageType.Error);
-            WeakReferenceMessenger.Default.Send<IMessage>(msg);
+            _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
 
         IL_1EE:
             if (toolModel != null)
             {
                 layoutAnchorable.Title = toolModel.Title;
                 layoutAnchorable.Content = toolModel;
-                using (var enumerator = (
+                using (IEnumerator<ToolViewModel> enumerator = (
                     from t in Tools
                     where t.Title == toolModel.Title
                     select t).GetEnumerator())
                 {
                     if (enumerator.MoveNext())
                     {
-                        var current = enumerator.Current;
+                        ToolViewModel current = enumerator.Current;
                         current.IsActive = true;
                         return;
                     }
@@ -701,7 +691,7 @@ namespace miRobotEditor.ViewModel
         public void BringToFront(string windowname)
         {
             foreach (
-                var current in
+                LayoutAnchorable current in
                     MainWindow.Instance.DockManager.Layout.Descendents().OfType<LayoutAnchorable>())
             {
                 if (current.Title == windowname)
@@ -711,11 +701,14 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public void ShowAbout() => new AboutWindow().ShowDialog();
+        public void ShowAbout()
+        {
+            _ = new AboutWindow().ShowDialog();
+        }
 
         public bool UserSelectsFileToOpen(out string filePath)
         {
-            var openFileDialog = new OpenFileDialog();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
             bool result;
             // ReSharper disable once PossibleInvalidOperationException
             if (openFileDialog.ShowDialog().Value)
@@ -734,7 +727,7 @@ namespace miRobotEditor.ViewModel
         // ReSharper disable once UnusedMember.Global
         public bool UserSelectsNewFilePath(string oldFilePath, out string newFilePath)
         {
-            var saveFileDialog = new SaveFileDialog();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
             bool result;
             // ReSharper disable once PossibleInvalidOperationException
             if (saveFileDialog.ShowDialog().Value)
@@ -751,12 +744,18 @@ namespace miRobotEditor.ViewModel
         }
 
         // ReSharper disable UnusedMember.Global
-        public void ErrorMessage(string msg) => MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
+        public void ErrorMessage(string msg)
+        {
+            _ = MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
+        }
 
         // ReSharper disable  UnusedMember.Local
         // ReSharper disable  UnusedParameter.Local
 
-        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e) => throw new NotImplementedException();
+        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     // ReSharper enable UnusedMember.Local

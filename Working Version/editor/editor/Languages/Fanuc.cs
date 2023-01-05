@@ -1,20 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Classes;
-using miRobotEditor.Controls.TextEditor.Brackets;
 using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
-using miRobotEditor.Position;
 using miRobotEditor.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text.RegularExpressions;
 using FileInfo = System.IO.FileInfo;
 
 namespace miRobotEditor.Languages
@@ -23,9 +19,15 @@ namespace miRobotEditor.Languages
     public sealed class Fanuc : AbstractLanguageClass
     {
         public Fanuc(string file)
-            : base(file) => FoldingStrategy = new RegionFoldingStrategy();
+            : base(file)
+        {
+            FoldingStrategy = new RegionFoldingStrategy();
+        }
 
-        public Fanuc() => FoldingStrategy = new RegionFoldingStrategy();
+        public Fanuc()
+        {
+            FoldingStrategy = new RegionFoldingStrategy();
+        }
 
         public override List<string> SearchFilters => EXT;
 
@@ -57,7 +59,10 @@ namespace miRobotEditor.Languages
 
         public override Regex EnumRegex => new Regex(string.Empty);
 
-        public override void Initialize(string filename) => Initialize();
+        public override void Initialize(string filename)
+        {
+            Initialize();
+        }
 
         [Localizable(false)]
         public override string CommentChar => "!";
@@ -66,13 +71,16 @@ namespace miRobotEditor.Languages
 
         public override Regex XYZRegex => new Regex(string.Empty);
 
-        protected override bool IsFileValid(FileInfo file) => EXT.Any((string e) => file.Extension.ToLower() == e);
+        protected override bool IsFileValid(FileInfo file)
+        {
+            return EXT.Any((string e) => file.Extension.ToLower() == e);
+        }
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
-            var array = Regex.Split(section.Title, "æ");
-            var offset = section.StartOffset + array[0].Length;
-            var length = section.Length - (array[0].Length + array[1].Length);
+            string[] array = Regex.Split(section.Title, "æ");
+            int offset = section.StartOffset + array[0].Length;
+            int length = section.Length - (array[0].Length + array[1].Length);
             return doc.GetText(offset, length);
         }
 
@@ -90,7 +98,7 @@ namespace miRobotEditor.Languages
             string result;
             if (regex != null)
             {
-                var match = regex.Match(text);
+                Match match = regex.Match(text);
                 if (match.Success)
                 {
                     result = match.Groups[1] + match.Groups[2].ToString();
@@ -103,22 +111,25 @@ namespace miRobotEditor.Languages
 
         public override int CommentOffset(string text)
         {
-            var regex = new Regex("(^[\\s\\d:]+)");
-            var match = regex.Match(text);
-            var result = match.Success ? match.Groups[1].Length : 0;
+            Regex regex = new Regex("(^[\\s\\d:]+)");
+            Match match = regex.Match(text);
+            int result = match.Success ? match.Groups[1].Length : 0;
             return result;
         }
 
         public override bool IsLineCommented(string text)
         {
-            var regex = new Regex("^[\\s]*\\d*:\\s*!");
-            var regex2 = new Regex("^[\\s]*!");
+            Regex regex = new Regex("^[\\s]*\\d*:\\s*!");
+            Regex regex2 = new Regex("^[\\s]*!");
             return regex.IsMatch(text) || regex2.IsMatch(text);
         }
 
-     
 
-        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
+
+        public override DocumentViewModel GetFile(string filepath)
+        {
+            return new DocumentViewModel(filepath);
+        }
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {
@@ -130,7 +141,7 @@ namespace miRobotEditor.Languages
 
             public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
-                var list = new List<NewFolding>();
+                List<NewFolding> list = new List<NewFolding>();
                 list.AddRange(CreateFoldingHelper(document, ";fold", ";endfold", true));
                 list.Sort((NewFolding a, NewFolding b) => a.StartOffset.CompareTo(b.StartOffset));
                 return list;

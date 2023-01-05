@@ -7,6 +7,9 @@ namespace miRobotEditor.Controls
     /// </summary>
     public sealed partial class FunctionItem : UserControl
     {
-        public FunctionItem() => InitializeComponent();
+        public FunctionItem()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -1,5 +1,5 @@
-﻿using miRobotEditor.Controls.TextEditor.Bookmarks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using miRobotEditor.Controls.TextEditor.Bookmarks;
 
 namespace miRobotEditor.Interfaces
 {

@@ -6,37 +6,37 @@ namespace miRobotEditor.Position
     {
         public CartesianItems()
         {
-            var item = new CartesianTypes
+            CartesianTypes item = new CartesianTypes
             {
                 ValueCartesianEnum = CartesianEnum.ABB_Quaternion,
                 ValueCartesianString = "ABB Quaternion"
             };
             Add(item);
-            var item2 = new CartesianTypes
+            CartesianTypes item2 = new CartesianTypes
             {
                 ValueCartesianEnum = CartesianEnum.Roll_Pitch_Yaw,
                 ValueCartesianString = "Roll-Pitch-Yaw"
             };
             Add(item2);
-            var item3 = new CartesianTypes
+            CartesianTypes item3 = new CartesianTypes
             {
                 ValueCartesianEnum = CartesianEnum.Axis_Angle,
                 ValueCartesianString = "Axis Angle"
             };
             Add(item3);
-            var item4 = new CartesianTypes
+            CartesianTypes item4 = new CartesianTypes
             {
                 ValueCartesianEnum = CartesianEnum.Kuka_ABC,
                 ValueCartesianString = "Kuka ABC"
             };
             Add(item4);
-            var item5 = new CartesianTypes
+            CartesianTypes item5 = new CartesianTypes
             {
                 ValueCartesianEnum = CartesianEnum.Euler_ZYZ,
                 ValueCartesianString = "Euler ZYZ"
             };
             Add(item5);
-            var item6 = new CartesianTypes
+            CartesianTypes item6 = new CartesianTypes
             {
                 ValueCartesianEnum = CartesianEnum.Alpha_Beta_Gamma,
                 ValueCartesianString = "Alpha-Beta-Gamma"

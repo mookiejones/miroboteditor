@@ -10,9 +10,15 @@ namespace miRobotEditor.Windows
     {
         private static FindAndReplaceWindow _instance;
 
-        public FindAndReplaceWindow() => InitializeComponent();
+        public FindAndReplaceWindow()
+        {
+            InitializeComponent();
+        }
 
-        public FindAndReplaceWindow(MainWindow instance) => throw new NotImplementedException();
+        public FindAndReplaceWindow(MainWindow instance)
+        {
+            throw new NotImplementedException();
+        }
 
         public static FindAndReplaceWindow Instance
         {

@@ -1,7 +1,7 @@
-using miRobotEditor.Controls.AngleConverter.Classes;
-using miRobotEditor.Controls.AngleConverter.Interfaces;
 using System;
 using System.ComponentModel;
+using miRobotEditor.Controls.AngleConverter.Classes;
+using miRobotEditor.Controls.AngleConverter.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -21,15 +21,21 @@ namespace miRobotEditor.Classes
 
         TransformationMatrix3D IGeometricElement3D.Position => throw new NotImplementedException();
 
-        public string ToString(string format, IFormatProvider formatProvider) => string.Format("Line: Origin={0}, Direction={1}", Origin.ToString(format, formatProvider),
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return string.Format("Line: Origin={0}, Direction={1}", Origin.ToString(format, formatProvider),
                 Direction.ToString(format, formatProvider));
+        }
 
         public Point3D GetPoint(double u)
         {
-            var vec = new Vector3D(u * Direction);
+            Vector3D vec = new Vector3D(u * Direction);
             return Origin + vec;
         }
 
-        public override string ToString() => string.Format("Line: Origin={0}, Direction={1}", Origin, Direction);
+        public override string ToString()
+        {
+            return string.Format("Line: Origin={0}, Direction={1}", Origin, Direction);
+        }
     }
 }

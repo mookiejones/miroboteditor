@@ -1,11 +1,11 @@
-﻿using miRobotEditor.Controls.TextEditor;
+﻿using System;
+using System.IO;
+using System.Windows;
+using miRobotEditor.Controls.TextEditor;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.ViewModel;
-using System;
-using System.IO;
-using System.Windows;
 
 namespace miRobotEditor.Classes
 {
@@ -32,14 +32,17 @@ namespace miRobotEditor.Classes
 
         public abstract void Load(string filepath);
 
-        public void SelectText(IVariable variable) => throw new NotImplementedException();
+        public void SelectText(IVariable variable)
+        {
+            throw new NotImplementedException();
+        }
 
         private void InitializeControl()
         {
             TextBox.FileLanguage = FileLanguage;
             Load(ContentId);
 
-            TextBox.GotFocus += delegate (object s, RoutedEventArgs e) { TextBox = (s as AvalonEditor); };
+            TextBox.GotFocus += delegate (object s, RoutedEventArgs e) { TextBox = s as AvalonEditor; };
             TextBox.TextChanged += (s, e) => TextChanged(s);
             TextBox.IsModified = false;
             if (ContentId != null)
@@ -52,7 +55,7 @@ namespace miRobotEditor.Classes
 
         protected void TextChanged(object sender)
         {
-            TextBox = (sender as AvalonEditor);
+            TextBox = sender as AvalonEditor;
             if (TextBox != null)
             {
                 FileLanguage.RawText = TextBox.Text;

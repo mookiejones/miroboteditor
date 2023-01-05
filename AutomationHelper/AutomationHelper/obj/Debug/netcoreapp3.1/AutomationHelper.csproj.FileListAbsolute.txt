@@ -1,7 +1,0 @@
-C:\Programming\miroboteditor\AutomationHelper\AutomationHelper\obj\Debug\netcoreapp3.1\MainWindow.g.cs
-C:\Programming\miroboteditor\AutomationHelper\AutomationHelper\obj\Debug\netcoreapp3.1\App.g.cs
-C:\Programming\miroboteditor\AutomationHelper\AutomationHelper\obj\Debug\netcoreapp3.1\AutomationHelper_MarkupCompile.cache
-C:\Programming\miroboteditor\AutomationHelper\AutomationHelper\obj\Debug\netcoreapp3.1\AutomationHelper_MarkupCompile.lref
-C:\Programming\miroboteditor\AutomationHelper\AutomationHelper\obj\Debug\netcoreapp3.1\MainWindow.baml
-C:\Programming\miroboteditor\AutomationHelper\AutomationHelper\obj\Debug\netcoreapp3.1\AutomationHelper.dll
-C:\Programming\miroboteditor\AutomationHelper\AutomationHelper\obj\Debug\netcoreapp3.1\AutomationHelper.pdb

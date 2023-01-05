@@ -9,13 +9,7 @@ namespace miRobotEditor.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            SolidColorBrush solidColorBrush = value as SolidColorBrush;
-
-            if (solidColorBrush != null)
-            {
-                return solidColorBrush.Color;
-            }
-            return default(Color);
+            return value is SolidColorBrush solidColorBrush ? solidColorBrush.Color : (object)default(Color);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

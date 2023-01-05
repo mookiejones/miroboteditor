@@ -1,8 +1,3 @@
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using miRobotEditor.Classes;
-using miRobotEditor.Enums;
-using miRobotEditor.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -10,6 +5,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using miRobotEditor.Classes;
+using miRobotEditor.Enums;
+using miRobotEditor.Messages;
 
 namespace miRobotEditor.ViewModel
 {
@@ -31,7 +31,10 @@ namespace miRobotEditor.ViewModel
 
         }
 
-        private void AddMessage(object recipient, IMessage message) => _messages.Add(message);
+        private void AddMessage(object recipient, IMessage message)
+        {
+            _messages.Add(message);
+        }
 
 
         #endregion
@@ -47,17 +50,13 @@ namespace miRobotEditor.ViewModel
 
         private void RaiseMessageAdded()
         {
-            if (MessageAdded != null)
-            {
-                MessageAdded(this, new EventArgs());
-            }
+            MessageAdded?.Invoke(this, new EventArgs());
         }
 
         public void Add(IMessage msg)
         {
             Add(msg.Title, msg.Description, msg.Icon, true);
-            if (MessageAdded != null)
-                MessageAdded(this, new EventArgs());
+            MessageAdded?.Invoke(this, new EventArgs());
         }
 
         public void Add(string title, string message, MsgIcon icon, bool forceactivate = true)
@@ -84,9 +83,15 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        private void HandleMouseOver(object param) => SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
+        private void HandleMouseOver(object param)
+        {
+            SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
+        }
 
-        public static void ShowMessage(string message) => MessageBox.Show(message);
+        public static void ShowMessage(string message)
+        {
+            _ = MessageBox.Show(message);
+        }
 
         private void ClearItems()
         {
@@ -96,8 +101,8 @@ namespace miRobotEditor.ViewModel
 
         public void AddError(string message, Exception ex)
         {
-            var stackTrace = new StackTrace();
-            var item = new OutputWindowMessage
+            StackTrace stackTrace = new StackTrace();
+            OutputWindowMessage item = new OutputWindowMessage
             {
                 Title = "Internal Error",
                 Icon = ImageHelper.LoadBitmap("..\\..\\Resources\\error.png"),

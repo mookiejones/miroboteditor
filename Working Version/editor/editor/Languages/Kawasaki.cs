@@ -1,18 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
 using miRobotEditor.Position;
 using miRobotEditor.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text.RegularExpressions;
 using FileInfo = System.IO.FileInfo;
 
 namespace miRobotEditor.Languages
@@ -29,7 +28,10 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        public Kawasaki() => FoldingStrategy = new RegionFoldingStrategy();
+        public Kawasaki()
+        {
+            FoldingStrategy = new RegionFoldingStrategy();
+        }
 
         public override List<string> SearchFilters => EXT;
 
@@ -68,33 +70,45 @@ namespace miRobotEditor.Languages
         public override Regex XYZRegex => new Regex("^(LINEAR|JOINT) ([^#])*#\\[([^\\]]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override void Initialize(string filename) => Initialize();
+        public override void Initialize(string filename)
+        {
+            Initialize();
+        }
 
         public override string CommentChar => ";";
 
         public override Regex SignalRegex => new Regex(string.Empty);
 
-        protected override bool IsFileValid(FileInfo file) => EXT.Any((string e) => file.Extension.ToLower() == e);
+        protected override bool IsFileValid(FileInfo file)
+        {
+            return EXT.Any((string e) => file.Extension.ToLower() == e);
+        }
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
-            var array = Regex.Split(section.Title, "æ");
-            var startOffset = section.StartOffset;
-            var length = section.Length - (array[0].Length + array[1].Length);
+            string[] array = Regex.Split(section.Title, "æ");
+            int startOffset = section.StartOffset;
+            int length = section.Length - (array[0].Length + array[1].Length);
             return doc.GetText(startOffset, length);
         }
 
         public override string ExtractXYZ(string positionstring)
         {
-            var positionBase = new PositionBase(positionstring);
+            _ = new PositionBase(positionstring);
             return positionstring.Substring(positionstring.IndexOf("#[", StringComparison.Ordinal) + 2);
         }
 
-        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
+        public override DocumentViewModel GetFile(string filepath)
+        {
+            return new DocumentViewModel(filepath);
+        }
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {
-            public new void UpdateFoldings(FoldingManager manager, TextDocument document) => throw new NotImplementedException();
+            public new void UpdateFoldings(FoldingManager manager, TextDocument document)
+            {
+                throw new NotImplementedException();
+            }
 
             protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
             {
@@ -104,7 +118,7 @@ namespace miRobotEditor.Languages
 
             private IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
-                var list = new List<NewFolding>();
+                List<NewFolding> list = new List<NewFolding>();
                 list.AddRange(CreateFoldingHelper(document, ".program", ".end", false));
                 list.AddRange(CreateFoldingHelper(document, ".robotdata1", ".end", false));
                 list.AddRange(CreateFoldingHelper(document, ".ope_info1", ".end", false));

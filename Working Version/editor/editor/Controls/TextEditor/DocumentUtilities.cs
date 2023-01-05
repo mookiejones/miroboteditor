@@ -1,22 +1,25 @@
-﻿using ICSharpCode.AvalonEdit.Document;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ICSharpCode.AvalonEdit.Document;
 
 namespace miRobotEditor.Controls.TextEditor
 {
     public static class DocumentUtilities
     {
-        public static int FindNextWordEnd(this TextDocument document, int offset) => document.FindNextWordEnd(offset, new List<char>());
+        public static int FindNextWordEnd(this TextDocument document, int offset)
+        {
+            return document.FindNextWordEnd(offset, new List<char>());
+        }
 
         public static int FindNextWordEnd(this TextDocument document, int offset, IList<char> allowedChars)
         {
-            for (var num = offset; num != -1; num++)
+            for (int num = offset; num != -1; num++)
             {
                 if (num >= document.TextLength)
                 {
                     return -1;
                 }
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWordPart(charAt) && !allowedChars.Contains(charAt))
                 {
                     return num;
@@ -27,13 +30,13 @@ namespace miRobotEditor.Controls.TextEditor
 
         public static int FindNextWordStart(this TextDocument document, int offset)
         {
-            for (var num = offset; num != -1; num++)
+            for (int num = offset; num != -1; num++)
             {
                 if (num >= document.TextLength)
                 {
                     return 0;
                 }
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWhitespaceOrNewline(charAt))
                 {
                     return num;
@@ -44,9 +47,9 @@ namespace miRobotEditor.Controls.TextEditor
 
         public static int FindNextWordStartRelativeTo(this TextDocument document, int offset)
         {
-            for (var num = offset; num != -1; num++)
+            for (int num = offset; num != -1; num++)
             {
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWhitespaceOrNewline(charAt))
                 {
                     return num - offset;
@@ -57,9 +60,9 @@ namespace miRobotEditor.Controls.TextEditor
 
         public static int FindPrevWordStart(this TextDocument document, int offset)
         {
-            for (var num = offset - 1; num != -1; num--)
+            for (int num = offset - 1; num != -1; num--)
             {
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWordPart(charAt))
                 {
                     return num + 1;
@@ -70,18 +73,16 @@ namespace miRobotEditor.Controls.TextEditor
 
         public static ISegment GetLineWithoutIndent(this TextDocument document, int lineNumber)
         {
-            var lineByNumber = document.GetLineByNumber(lineNumber);
-            var whitespaceAfter = TextUtilities.GetWhitespaceAfter(document, lineByNumber.Offset);
-            if (whitespaceAfter.Length == 0)
-            {
-                return lineByNumber;
-            }
-            return new TextSegment
-            {
-                StartOffset = lineByNumber.Offset + whitespaceAfter.Length,
-                EndOffset = lineByNumber.EndOffset,
-                Length = lineByNumber.Length - whitespaceAfter.Length
-            };
+            DocumentLine lineByNumber = document.GetLineByNumber(lineNumber);
+            ISegment whitespaceAfter = TextUtilities.GetWhitespaceAfter(document, lineByNumber.Offset);
+            return whitespaceAfter.Length == 0
+                ? lineByNumber
+                : (ISegment)new TextSegment
+                {
+                    StartOffset = lineByNumber.Offset + whitespaceAfter.Length,
+                    EndOffset = lineByNumber.EndOffset,
+                    Length = lineByNumber.Length - whitespaceAfter.Length
+                };
         }
 
         public static string GetWordBeforeCaret(this ICSharpCode.AvalonEdit.TextEditor editor)
@@ -90,13 +91,9 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var offset = editor.TextArea.Caret.Offset;
-            var num = editor.Document.FindPrevWordStart(offset);
-            if (num < 0)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, offset - num);
+            int offset = editor.TextArea.Caret.Offset;
+            int num = editor.Document.FindPrevWordStart(offset);
+            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
         }
 
         public static string GetWordBeforeCaret(this ICSharpCode.AvalonEdit.TextEditor editor, char[] allowedChars)
@@ -105,13 +102,9 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var offset = editor.TextArea.Caret.Offset;
-            var num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            if (num < 0)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, offset - num);
+            int offset = editor.TextArea.Caret.Offset;
+            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
+            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
         }
 
         public static string GetStringBeforeCaret(this AvalonEditor editor)
@@ -120,18 +113,18 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var line = editor.TextArea.Caret.Line;
+            int line = editor.TextArea.Caret.Line;
             if (line < 1)
             {
                 return string.Empty;
             }
-            var offset = editor.TextArea.Caret.Offset;
+            int offset = editor.TextArea.Caret.Offset;
             if (line > editor.Document.LineCount)
             {
                 return string.Empty;
             }
-            var lineByNumber = editor.Document.GetLineByNumber(line);
-            var length = offset - lineByNumber.Offset;
+            DocumentLine lineByNumber = editor.Document.GetLineByNumber(line);
+            int length = offset - lineByNumber.Offset;
             return editor.Document.GetText(lineByNumber.Offset, length);
         }
 
@@ -141,12 +134,8 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            if (num < 0)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, offset - num);
+            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
+            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
         }
 
         public static string GetTokenBeforeOffset(this AvalonEditor editor, int offset)
@@ -155,21 +144,17 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var num = -1;
-            for (var i = offset - 1; i > -1; i--)
+            int num = -1;
+            for (int i = offset - 1; i > -1; i--)
             {
-                var charAt = editor.Document.GetCharAt(i);
+                char charAt = editor.Document.GetCharAt(i);
                 if (charAt == ' ' || charAt == '\n' || charAt == '\r' || charAt == '\t')
                 {
                     num = i + 1;
                     break;
                 }
             }
-            if (num < 0)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, offset - num);
+            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
         }
 
         public static string GetWordUnderCaret(this AvalonEditor editor, char[] allowedChars)
@@ -178,23 +163,15 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var offset = editor.TextArea.Caret.Offset;
-            var num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            var num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
-            if (num < 0 || num2 == 0 || num2 < num)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, num2 - num);
+            int offset = editor.TextArea.Caret.Offset;
+            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
+            int num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
 
         public static string GetFirstWordInLine(this AvalonEditor editor, int lineNumber)
         {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            return editor.Document.GetFirstWordInLine(lineNumber);
+            return editor == null ? throw new ArgumentNullException("editor") : editor.Document.GetFirstWordInLine(lineNumber);
         }
 
         public static string GetFirstWordInLine(this TextDocument document, int lineNumber)
@@ -203,18 +180,14 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("document");
             }
-            var offset = document.GetOffset(lineNumber, 0);
-            var num = document.FindNextWordStart(offset);
+            int offset = document.GetOffset(lineNumber, 0);
+            int num = document.FindNextWordStart(offset);
             if (num < 0)
             {
                 return string.Empty;
             }
-            var num2 = document.FindNextWordEnd(num);
-            if (num2 < 0)
-            {
-                return string.Empty;
-            }
-            return document.GetText(num, num2 - num);
+            int num2 = document.FindNextWordEnd(num);
+            return num2 < 0 ? string.Empty : document.GetText(num, num2 - num);
         }
 
         public static string GetWordUnderCaret(this AvalonEditor editor)
@@ -223,14 +196,10 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var offset = editor.TextArea.Caret.Offset;
-            var num = editor.Document.FindPrevWordStart(offset);
-            var num2 = editor.Document.FindNextWordEnd(offset);
-            if (num < 0 || num2 == 0 || num2 < num)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, num2 - num);
+            int offset = editor.TextArea.Caret.Offset;
+            int num = editor.Document.FindPrevWordStart(offset);
+            int num2 = editor.Document.FindNextWordEnd(offset);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
 
         public static string GetWordUnderOffset(this AvalonEditor editor, int offset)
@@ -239,13 +208,9 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var num = editor.Document.FindPrevWordStart(offset);
-            var num2 = editor.Document.FindNextWordEnd(offset);
-            if (num < 0 || num2 == 0 || num2 < num)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, num2 - num);
+            int num = editor.Document.FindPrevWordStart(offset);
+            int num2 = editor.Document.FindNextWordEnd(offset);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
 
         public static string GetWordUnderOffset(this AvalonEditor editor, int offset, char[] allowedChars)
@@ -254,20 +219,16 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            var num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
-            if (num < 0 || num2 == 0 || num2 < num)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, num2 - num);
+            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
+            int num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
 
         private static int FindPrevWordStart(TextDocument document, int offset, IList<char> allowedChars)
         {
-            for (var num = offset - 1; num != -1; num--)
+            for (int num = offset - 1; num != -1; num--)
             {
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWordPart(charAt) && !allowedChars.Contains(charAt))
                 {
                     return num + 1;
@@ -276,8 +237,14 @@ namespace miRobotEditor.Controls.TextEditor
             return 0;
         }
 
-        public static bool IsWhitespaceOrNewline(char ch) => ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
+        public static bool IsWhitespaceOrNewline(char ch)
+        {
+            return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
+        }
 
-        private static bool IsWordPart(char ch) => char.IsLetterOrDigit(ch) || ch == '_';
+        private static bool IsWordPart(char ch)
+        {
+            return char.IsLetterOrDigit(ch) || ch == '_';
+        }
     }
 }

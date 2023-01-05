@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 
 namespace miRobotEditor.ViewModel
@@ -7,7 +6,7 @@ namespace miRobotEditor.ViewModel
     {
         #region FilePath
 
-        private string _filePath = String.Empty;
+        private string _filePath = string.Empty;
 
         /// <summary>
         ///     Sets and gets the FilePath property.
@@ -52,15 +51,7 @@ namespace miRobotEditor.ViewModel
         {
             get
             {
-                string result;
-                if (FilePath == null)
-                {
-                    result = "Noname" + (IsDirty ? "*" : "");
-                }
-                else
-                {
-                    result = Path.GetFileName(FilePath) + (IsDirty ? "*" : "");
-                }
+                string result = FilePath == null ? "Noname" + (IsDirty ? "*" : "") : Path.GetFileName(FilePath) + (IsDirty ? "*" : "");
                 return result;
             }
         }

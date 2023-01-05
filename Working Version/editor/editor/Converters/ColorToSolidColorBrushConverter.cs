@@ -9,20 +9,12 @@ namespace miRobotEditor.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null)
-            {
-                return new SolidColorBrush((Color)value);
-            }
-            return value;
+            return value != null ? new SolidColorBrush((Color)value) : value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null)
-            {
-                return ((SolidColorBrush)value).Color;
-            }
-            return value;
+            return value != null ? ((SolidColorBrush)value).Color : value;
         }
     }
 }

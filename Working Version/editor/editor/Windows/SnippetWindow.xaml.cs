@@ -7,6 +7,9 @@ namespace miRobotEditor.Windows
     /// </summary>
     public partial class SnippetWindow : Window
     {
-        public SnippetWindow() => InitializeComponent();
+        public SnippetWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

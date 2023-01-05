@@ -7,11 +7,15 @@ namespace miRobotEditor.Utilities
     public static class FileExtended
     {
 
-        public static FileInfo GetFileInfo(this FileInfo fi, string path) => null;
+        public static FileInfo GetFileInfo(this FileInfo fi, string path)
+        {
+            return null;
+        }
+
         public static bool AreEqual(string path1, string path2)
         {
-            var fullName = new FileInfo(path1).FullName;
-            var fullName2 = new FileInfo(path2).FullName;
+            string fullName = new FileInfo(path1).FullName;
+            string fullName2 = new FileInfo(path2).FullName;
             return fullName.Equals(fullName2, StringComparison.InvariantCultureIgnoreCase);
         }
 
@@ -35,22 +39,25 @@ namespace miRobotEditor.Utilities
                     throw new InvalidOperationException("Target path should not be null.");
                 }
             }
-            Directory.CreateDirectory(text);
+            _ = Directory.CreateDirectory(text);
             File.Copy(sourcePath, targetPath, true);
             return targetPath;
         }
 
         public static void CopyIfExisting(string sourceDirectory, string pattern, string targetDirectory)
         {
-            var files = Directory.GetFiles(sourceDirectory, pattern);
-            for (var i = 0; i < files.Length; i++)
+            string[] files = Directory.GetFiles(sourceDirectory, pattern);
+            for (int i = 0; i < files.Length; i++)
             {
-                var sourcePath = files[i];
-                CopyIfExisting(sourcePath, targetDirectory);
+                string sourcePath = files[i];
+                _ = CopyIfExisting(sourcePath, targetDirectory);
             }
         }
 
-        public static void DeleteIfExisting(string path) => DeleteIfExisting(path, true);
+        public static void DeleteIfExisting(string path)
+        {
+            DeleteIfExisting(path, true);
+        }
 
         public static void DeleteIfExisting(string path, bool force)
         {
@@ -67,7 +74,7 @@ namespace miRobotEditor.Utilities
                 File.SetAttributes(path, FileAttributes.Normal);
             }
             File.Delete(path);
-            for (var i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 if (!File.Exists(path))
                 {
@@ -83,32 +90,24 @@ namespace miRobotEditor.Utilities
             {
                 return;
             }
-            var files = Directory.GetFiles(directory, pattern);
-            for (var i = 0; i < files.Length; i++)
+            string[] files = Directory.GetFiles(directory, pattern);
+            for (int i = 0; i < files.Length; i++)
             {
-                var path = files[i];
+                string path = files[i];
                 DeleteIfExisting(path);
             }
         }
 
         public static string GetName(string path)
         {
-            var fileName = Path.GetFileName(path);
-            if (fileName == null)
-            {
-                throw new InvalidOperationException("Could not acquire filename from " + path);
-            }
-            return fileName;
+            string fileName = Path.GetFileName(path);
+            return fileName ?? throw new InvalidOperationException("Could not acquire filename from " + path);
         }
 
         public static string GetNameWithoutExtension(string path)
         {
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
-            if (fileNameWithoutExtension == null)
-            {
-                throw new InvalidOperationException("Could not acquire filename from " + path);
-            }
-            return fileNameWithoutExtension;
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+            return fileNameWithoutExtension ?? throw new InvalidOperationException("Could not acquire filename from " + path);
         }
 
         public static void MakeWriteable(string path)
@@ -121,14 +120,14 @@ namespace miRobotEditor.Utilities
 
         public static void Move(string sourcePath, string targetPath)
         {
-            var directoryName = Path.GetDirectoryName(targetPath);
+            string directoryName = Path.GetDirectoryName(targetPath);
             if (directoryName == null)
             {
                 return;
             }
             if (!Directory.Exists(directoryName))
             {
-                Directory.CreateDirectory(directoryName);
+                _ = Directory.CreateDirectory(directoryName);
             }
             File.Move(sourcePath, targetPath);
         }

@@ -1,10 +1,10 @@
+using System;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using System;
-using System.Collections.ObjectModel;
 
 namespace miRobotEditor.Languages
 {
@@ -15,14 +15,6 @@ namespace miRobotEditor.Languages
         private static DatCleanHelper _instance;
         public static RelayCommand Cleandat;
         private readonly string _filename;
-
-        private readonly ObservableCollection<string> _usedvartypes = new ObservableCollection<string>
-        {
-            "actual selection",
-            "actual dat",
-            "all Dat's"
-        };
-
         private bool _commentdeclaration;
         private bool _deletedeclaration;
         private bool _exclusivetypes;
@@ -37,7 +29,7 @@ namespace miRobotEditor.Languages
         {
             Instance = this;
             DefaultPane = DefaultToolPane.Right;
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
             _filename = instance.ActiveEditor.FilePath;
             base.Width = 619;
             base.Height = 506;
@@ -51,9 +43,9 @@ namespace miRobotEditor.Languages
                 if ((_items = _listItems) == null)
                 {
                     _items =
-                        (_listItems =
+                        _listItems =
                            Ioc.Default.GetRequiredService<ObjectBrowserViewModel>()
-                                .GetVarForFile(KUKA.GetDatFileName(_filename)));
+                                .GetVarForFile(KUKA.GetDatFileName(_filename));
                 }
                 return _items;
             }
@@ -72,7 +64,7 @@ namespace miRobotEditor.Languages
                 DatCleanHelper arg_15_0;
                 if ((arg_15_0 = _instance) == null)
                 {
-                    arg_15_0 = (_instance = new DatCleanHelper());
+                    arg_15_0 = _instance = new DatCleanHelper();
                 }
                 return arg_15_0;
             }
@@ -109,7 +101,12 @@ namespace miRobotEditor.Languages
             set => SetProperty(ref _selectedVarIndex, value);
         }
 
-        public ObservableCollection<string> UsedVarTypes => _usedvartypes;
+        public ObservableCollection<string> UsedVarTypes { get; } = new ObservableCollection<string>
+        {
+            "actual selection",
+            "actual dat",
+            "all Dat's"
+        };
 
         #region CleanDatCmd
 
@@ -147,7 +144,10 @@ namespace miRobotEditor.Languages
         public RelayCommand DeleteVarTypeCmd => _deleteVarTypeCmd
                        ?? (_deleteVarTypeCmd = new RelayCommand(ExecuteDeleteVarTypeCmd));
 
-        private void ExecuteDeleteVarTypeCmd() => Instance.DeleteVarType();
+        private void ExecuteDeleteVarTypeCmd()
+        {
+            Instance.DeleteVarType();
+        }
 
         #endregion DeleteVarTypeCmd
 
@@ -161,7 +161,10 @@ namespace miRobotEditor.Languages
         public RelayCommand AddVarTypeCmd => _addVarTypeCmd
                        ?? (_addVarTypeCmd = new RelayCommand(ExecuteAddVarTypeCmd));
 
-        private void ExecuteAddVarTypeCmd() => Instance.AddVarType();
+        private void ExecuteAddVarTypeCmd()
+        {
+            Instance.AddVarType();
+        }
 
         #endregion AddVarTypeCmd
 
@@ -175,7 +178,10 @@ namespace miRobotEditor.Languages
         public RelayCommand SelectAllCommand => _selectAllCommand
                        ?? (_selectAllCommand = new RelayCommand(ExecuteSelectAllCommand));
 
-        private void ExecuteSelectAllCommand() => Instance.SelectAll();
+        private void ExecuteSelectAllCommand()
+        {
+            Instance.SelectAll();
+        }
 
         #endregion SelectAllCommand
 
@@ -192,17 +198,29 @@ namespace miRobotEditor.Languages
 
         #endregion InvertSelectionCommand
 
-        public void CleanDat() => throw new NotImplementedException();
+        public void CleanDat()
+        {
+            throw new NotImplementedException();
+        }
 
-        public void Checked() => throw new NotImplementedException();
+        public void Checked()
+        {
+            throw new NotImplementedException();
+        }
 
-        public void DeleteVarType() => throw new NotImplementedException();
+        public void DeleteVarType()
+        {
+            throw new NotImplementedException();
+        }
 
-        public void AddVarType() => throw new NotImplementedException();
+        public void AddVarType()
+        {
+            throw new NotImplementedException();
+        }
 
         private void SelectAll()
         {
-            foreach (var current in ListItems)
+            foreach (IVariable current in ListItems)
             {
                 current.IsSelected = true;
             }
@@ -211,7 +229,7 @@ namespace miRobotEditor.Languages
 
         private void InvertSelection()
         {
-            foreach (var current in ListItems)
+            foreach (IVariable current in ListItems)
             {
                 current.IsSelected = !current.IsSelected;
             }

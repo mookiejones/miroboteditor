@@ -7,6 +7,9 @@ namespace miRobotEditor.Controls
     /// </summary>
     public sealed partial class InfoFile : UserControl
     {
-        public InfoFile() => InitializeComponent();
+        public InfoFile()
+        {
+            InitializeComponent();
+        }
     }
 }

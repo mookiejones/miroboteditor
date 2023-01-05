@@ -1,7 +1,7 @@
-﻿using miRobotEditor.Interfaces;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Converters
 {
@@ -9,13 +9,13 @@ namespace miRobotEditor.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var editor = value as IEditorDocument;
+            IEditorDocument editor = value as IEditorDocument;
             return editor ?? Binding.DoNothing;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var editor = value as IEditorDocument;
+            IEditorDocument editor = value as IEditorDocument;
             return editor ?? Binding.DoNothing;
         }
     }

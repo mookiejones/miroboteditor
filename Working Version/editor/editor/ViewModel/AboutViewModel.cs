@@ -25,12 +25,12 @@ namespace miRobotEditor.ViewModel
         {
             get
             {
-                var stringBuilder = new StringBuilder();
-                stringBuilder.AppendLine(" Name                : " + Name);
-                stringBuilder.AppendLine(" .Net Version        : " + NetVersion);
-                stringBuilder.AppendLine(" OS Version          : " + OSVersion);
-                stringBuilder.AppendLine(" Current Culture     : " + CurrentCulture);
-                stringBuilder.AppendLine(" Working Set Memory  : " + WorkingSetMemory);
+                StringBuilder stringBuilder = new StringBuilder();
+                _ = stringBuilder.AppendLine(" Name                : " + Name);
+                _ = stringBuilder.AppendLine(" .Net Version        : " + NetVersion);
+                _ = stringBuilder.AppendLine(" OS Version          : " + OSVersion);
+                _ = stringBuilder.AppendLine(" Current Culture     : " + CurrentCulture);
+                _ = stringBuilder.AppendLine(" Working Set Memory  : " + WorkingSetMemory);
                 return stringBuilder.ToString();
             }
         }

@@ -7,6 +7,9 @@ namespace miRobotEditor.Windows
     /// </summary>
     public partial class KFDDialogWindow : Window
     {
-        public KFDDialogWindow() => InitializeComponent();
+        public KFDDialogWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

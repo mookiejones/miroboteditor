@@ -1,5 +1,5 @@
-﻿using miRobotEditor.Enums;
-using System;
+﻿using System;
+using miRobotEditor.Enums;
 
 namespace miRobotEditor.Messages
 {
@@ -10,7 +10,10 @@ namespace miRobotEditor.Messages
         }
 
         public ErrorMessage(string title, Exception exception, MessageType icon)
-            : base(title, exception.ToString(), icon) => Exception = exception;
+            : base(title, exception.ToString(), icon)
+        {
+            Exception = exception;
+        }
 
         public ErrorMessage(string title, string exception, MessageType icon, bool force = false)
             : base(title, exception, icon, force)

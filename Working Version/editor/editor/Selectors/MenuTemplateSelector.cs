@@ -13,8 +13,7 @@ namespace miRobotEditor.Selectors
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            var frameworkElement = container as FrameworkElement;
-            if (frameworkElement != null && item != null && item is Task)
+            if (container is FrameworkElement && item != null && item is Task)
             {
             }
             return null;

@@ -1,11 +1,4 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Win32;
-using miRobotEditor.Classes;
-using miRobotEditor.Enums;
-using miRobotEditor.Messages;
-using miRobotEditor.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,6 +9,13 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Win32;
+using miRobotEditor.Classes;
+using miRobotEditor.Enums;
+using miRobotEditor.Messages;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Controls
 {
@@ -45,7 +45,7 @@ namespace miRobotEditor.Controls
                 RecentFileList arg_15_0;
                 if ((arg_15_0 = _instance) == null)
                 {
-                    arg_15_0 = (_instance = new RecentFileList());
+                    arg_15_0 = _instance = new RecentFileList();
                 }
                 return arg_15_0;
             }
@@ -61,20 +61,34 @@ namespace miRobotEditor.Controls
 
         public List<string> RecentFiles => Persister.RecentFiles(MaxNumberOfFiles);
 
-        public void UseRegistryPersister() => Persister = new RegistryPersister();
+        public void UseRegistryPersister()
+        {
+            Persister = new RegistryPersister();
+        }
 
-        public void UseRegistryPersister(string key) => Persister = new RegistryPersister(key);
+        public void UseRegistryPersister(string key)
+        {
+            Persister = new RegistryPersister(key);
+        }
 
-        public void UseXmlPersister() => Persister = new XmlPersister();
+        public void UseXmlPersister()
+        {
+            Persister = new XmlPersister();
+        }
 
-        public void UseXmlPersister(string filepath) => Persister = new XmlPersister(filepath);
+        public void UseXmlPersister(string filepath)
+        {
+            Persister = new XmlPersister(filepath);
+        }
 
-        public void UseXmlPersister(Stream stream) => Persister = new XmlPersister(stream);
+        public void UseXmlPersister(Stream stream)
+        {
+            Persister = new XmlPersister(stream);
+        }
 
         private void HookFileMenu()
         {
-            var menuItem = base.Parent as MenuItem;
-            if (menuItem == null)
+            if (!(base.Parent is MenuItem menuItem))
             {
                 throw new ApplicationException("Parent must be a MenuItem");
             }
@@ -89,11 +103,20 @@ namespace miRobotEditor.Controls
             }
         }
 
-        public void RemoveFile(string filepath) => Persister.RemoveFile(filepath, MaxNumberOfFiles);
+        public void RemoveFile(string filepath)
+        {
+            Persister.RemoveFile(filepath, MaxNumberOfFiles);
+        }
 
-        public void InsertFile(string filepath) => Persister.InsertFile(filepath, MaxNumberOfFiles);
+        public void InsertFile(string filepath)
+        {
+            Persister.InsertFile(filepath, MaxNumberOfFiles);
+        }
 
-        private void FileMenuSubmenuOpened(object sender, RoutedEventArgs e) => SetMenuItems();
+        private void FileMenuSubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            SetMenuItems();
+        }
 
         private void SetMenuItems()
         {
@@ -110,7 +133,7 @@ namespace miRobotEditor.Controls
             }
             if (_recentFiles != null)
             {
-                foreach (var current in
+                foreach (RecentFile current in
                     from r in _recentFiles
                     where r.MenuItem != null
                     select r)
@@ -128,10 +151,10 @@ namespace miRobotEditor.Controls
             {
                 if (_recentFiles.Count != 0)
                 {
-                    var num = FileMenu.Items.IndexOf(this);
-                    foreach (var current in _recentFiles)
+                    int num = FileMenu.Items.IndexOf(this);
+                    foreach (RecentFile current in _recentFiles)
                     {
-                        var menuItemText = GetMenuItemText(current.Number + 1, current.Filepath, current.DisplayPath);
+                        string menuItemText = GetMenuItemText(current.Number + 1, current.Filepath, current.DisplayPath);
                         current.MenuItem = new MenuItem
                         {
                             Header = menuItemText
@@ -147,7 +170,7 @@ namespace miRobotEditor.Controls
 
         private string GetMenuItemText(int index, string filepath, string displaypath)
         {
-            var getMenuItemTextHandler = GetMenuItemTextHandler;
+            GetMenuItemTextDelegate getMenuItemTextHandler = GetMenuItemTextHandler;
             string result;
             if (getMenuItemTextHandler != null)
             {
@@ -155,8 +178,8 @@ namespace miRobotEditor.Controls
             }
             else
             {
-                var format = (index < 10) ? MenuItemFormatOneToNine : MenuItemFormatTenPlus;
-                var arg = ShortenPathname(displaypath, MaxPathLength);
+                string format = (index < 10) ? MenuItemFormatOneToNine : MenuItemFormatTenPlus;
+                string arg = ShortenPathname(displaypath, MaxPathLength);
                 result = string.Format(format, index, filepath, arg);
             }
             return result;
@@ -171,55 +194,36 @@ namespace miRobotEditor.Controls
             }
             else
             {
-                var text = Path.GetPathRoot(pathname);
+                string text = Path.GetPathRoot(pathname);
                 if (text.Length > 3)
                 {
                     text += Path.DirectorySeparatorChar;
                 }
-                var array = pathname.Substring(text.Length).Split(new[]
+                string[] array = pathname.Substring(text.Length).Split(new[]
                 {
                     Path.DirectorySeparatorChar,
                     Path.AltDirectorySeparatorChar
                 });
-                var num = array.GetLength(0) - 1;
+                int num = array.GetLength(0) - 1;
                 if (array.GetLength(0) == 1)
                 {
-                    if (array[0].Length > 5)
-                    {
-                        if (text.Length + 6 >= maxLength)
-                        {
-                            result = text + array[0].Substring(0, 3) + "...";
-                        }
-                        else
-                        {
-                            result = pathname.Substring(0, maxLength - 3) + "...";
-                        }
-                    }
-                    else
-                    {
-                        result = pathname;
-                    }
+                    result = array[0].Length > 5
+                        ? text.Length + 6 >= maxLength ? text + array[0].Substring(0, 3) + "..." : pathname.Substring(0, maxLength - 3) + "..."
+                        : pathname;
                 }
                 else
                 {
                     if (text.Length + 4 + array[num].Length > maxLength)
                     {
                         text += "...\\";
-                        var num2 = array[num].Length;
+                        int num2 = array[num].Length;
                         if (num2 < 6)
                         {
                             result = text + array[num];
                         }
                         else
                         {
-                            if (text.Length + 6 >= maxLength)
-                            {
-                                num2 = 3;
-                            }
-                            else
-                            {
-                                num2 = maxLength - text.Length - 3;
-                            }
+                            num2 = text.Length + 6 >= maxLength ? 3 : maxLength - text.Length - 3;
                             result = text + array[num].Substring(0, num2) + "...";
                         }
                     }
@@ -231,9 +235,9 @@ namespace miRobotEditor.Controls
                         }
                         else
                         {
-                            var num2 = 0;
-                            var num3 = 0;
-                            for (var i = 0; i < num; i++)
+                            int num2 = 0;
+                            int num3 = 0;
+                            for (int i = 0; i < num; i++)
                             {
                                 if (array[i].Length > num2)
                                 {
@@ -241,8 +245,8 @@ namespace miRobotEditor.Controls
                                     num2 = array[i].Length;
                                 }
                             }
-                            var j = pathname.Length - num2 + 3;
-                            var num4 = num3 + 1;
+                            int j = pathname.Length - num2 + 3;
+                            int num4 = num3 + 1;
                             while (j > maxLength)
                             {
                                 if (num3 > 0)
@@ -262,12 +266,12 @@ namespace miRobotEditor.Controls
                                     break;
                                 }
                             }
-                            for (var i = 0; i < num3; i++)
+                            for (int i = 0; i < num3; i++)
                             {
                                 text = text + array[i] + '\\';
                             }
                             text += "...\\";
-                            for (var i = num4; i < num; i++)
+                            for (int i = num4; i < num; i++)
                             {
                                 text = text + array[i] + '\\';
                             }
@@ -279,13 +283,16 @@ namespace miRobotEditor.Controls
             return result;
         }
 
-        private void LoadRecentFiles() => _recentFiles = LoadRecentFilesCore();
+        private void LoadRecentFiles()
+        {
+            _recentFiles = LoadRecentFilesCore();
+        }
 
         private List<RecentFile> LoadRecentFilesCore()
         {
-            var recentFiles = RecentFiles;
-            var list = new List<RecentFile>(recentFiles.Count);
-            var i = 0;
+            List<string> recentFiles = RecentFiles;
+            List<RecentFile> list = new List<RecentFile>(recentFiles.Count);
+            int i = 0;
             list.AddRange(
                 from filepath in recentFiles
                 select new RecentFile(i++, filepath));
@@ -294,13 +301,13 @@ namespace miRobotEditor.Controls
 
         private void MenuItemClick(object sender, EventArgs e)
         {
-            var menuItem = sender as MenuItem;
+            MenuItem menuItem = sender as MenuItem;
             OnMenuClick(menuItem);
         }
 
         protected virtual void OnMenuClick(MenuItem menuItem)
         {
-            var filepath = GetFilepath(menuItem);
+            string filepath = GetFilepath(menuItem);
             if (!string.IsNullOrEmpty(filepath))
             {
                 if (!Global.DoesDirectoryExist(filepath))
@@ -311,8 +318,8 @@ namespace miRobotEditor.Controls
                 {
                     if (File.Exists(filepath))
                     {
-                        var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-                        instance.Open(filepath);
+                        MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
+                        _ = instance.Open(filepath);
                     }
                     else
                     {
@@ -324,7 +331,7 @@ namespace miRobotEditor.Controls
 
         private void PromptForDelete(string filepath)
         {
-            var messageBoxResult =
+            MessageBoxResult messageBoxResult =
                 MessageBox.Show(
                     string.Format("{0} is not accessible. Would you like to remove from the recent file list?", filepath),
                     "File Doesnt Exist", MessageBoxButton.YesNo, MessageBoxImage.Hand);
@@ -337,14 +344,14 @@ namespace miRobotEditor.Controls
         private string GetFilepath(MenuItem menuItem)
         {
             string result;
-            using (var enumerator = (
+            using (IEnumerator<RecentFile> enumerator = (
                 from r in _recentFiles
                 where r.MenuItem.Equals(menuItem)
                 select r).GetEnumerator())
             {
                 if (enumerator.MoveNext())
                 {
-                    var current = enumerator.Current;
+                    RecentFile current = enumerator.Current;
                     result = current.Filepath;
                     return result;
                 }
@@ -374,11 +381,11 @@ namespace miRobotEditor.Controls
                     Assembly = Assembly.GetEntryAssembly();
                     if (Assembly != null)
                     {
-                        var customAttributes = Assembly.GetCustomAttributes(false);
-                        var array = customAttributes;
-                        foreach (var obj in array)
+                        object[] customAttributes = Assembly.GetCustomAttributes(false);
+                        object[] array = customAttributes;
+                        foreach (object obj in array)
                         {
-                            var type = obj.GetType();
+                            Type type = obj.GetType();
                             if (type == typeof(AssemblyTitleAttribute))
                             {
                                 _Title = (AssemblyTitleAttribute)obj;
@@ -421,8 +428,8 @@ namespace miRobotEditor.Controls
                 }
                 catch (Exception ex)
                 {
-                    var msg = new ErrorMessage("RecentFileList.ApplicationAttributes", ex, MessageType.Error);
-                    WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                    ErrorMessage msg = new ErrorMessage("RecentFileList.ApplicationAttributes", ex, MessageType.Error);
+                    _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 }
             }
 
@@ -444,7 +451,10 @@ namespace miRobotEditor.Controls
 
         public class MenuClickEventArgs : EventArgs
         {
-            public MenuClickEventArgs(string filepath) => Filepath = filepath;
+            public MenuClickEventArgs(string filepath)
+            {
+                Filepath = filepath;
+            }
 
             public string Filepath { get; private set; }
         }
@@ -465,8 +475,8 @@ namespace miRobotEditor.Controls
             {
                 get
                 {
-                    var directoryName = Path.GetDirectoryName(Filepath);
-                    var path = GlobalOptions.Instance.Options.FileOptions.ShowFullName
+                    string directoryName = Path.GetDirectoryName(Filepath);
+                    string path = GlobalOptions.Instance.Options.FileOptions.ShowFullName
                         ? Path.GetFileName(Filepath)
                         : Path.GetFileNameWithoutExtension(Filepath);
                     return Path.Combine(directoryName, path);
@@ -477,7 +487,9 @@ namespace miRobotEditor.Controls
         [Localizable(false)]
         private class RegistryPersister : IPersist
         {
-            public RegistryPersister() => RegistryKey = string.Concat(new[]
+            public RegistryPersister()
+            {
+                RegistryKey = string.Concat(new[]
                 {
                     "Software\\",
                     ApplicationAttributes.CompanyName,
@@ -485,21 +497,25 @@ namespace miRobotEditor.Controls
                     ApplicationAttributes.ProductName,
                     "\\RecentFileList"
                 });
+            }
 
-            public RegistryPersister(string key) => RegistryKey = key;
+            public RegistryPersister(string key)
+            {
+                RegistryKey = key;
+            }
 
             private string RegistryKey { get; set; }
 
             public List<string> RecentFiles(int max)
             {
-                var registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey) ??
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey) ??
                                           Registry.CurrentUser.CreateSubKey(RegistryKey);
-                var list = new List<string>(max);
-                for (var i = 0; i < max; i++)
+                List<string> list = new List<string>(max);
+                for (int i = 0; i < max; i++)
                 {
                     if (registryKey != null)
                     {
-                        var text = (string)registryKey.GetValue(Key(i));
+                        string text = (string)registryKey.GetValue(Key(i));
                         if (string.IsNullOrEmpty(text))
                         {
                             break;
@@ -512,42 +528,39 @@ namespace miRobotEditor.Controls
 
             public void InsertFile(string filepath, int max)
             {
-                var registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey);
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey);
                 if (registryKey == null)
                 {
-                    Registry.CurrentUser.CreateSubKey(RegistryKey);
+                    _ = Registry.CurrentUser.CreateSubKey(RegistryKey);
                 }
                 registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey, true);
                 RemoveFile(filepath, max);
-                for (var i = max - 2; i >= 0; i--)
+                for (int i = max - 2; i >= 0; i--)
                 {
-                    var name = Key(i);
-                    var name2 = Key(i + 1);
+                    string name = Key(i);
+                    string name2 = Key(i + 1);
                     if (registryKey != null)
                     {
-                        var value = registryKey.GetValue(name);
+                        object value = registryKey.GetValue(name);
                         if (value != null)
                         {
                             registryKey.SetValue(name2, value);
                         }
                     }
                 }
-                if (registryKey != null)
-                {
-                    registryKey.SetValue(Key(0), filepath);
-                }
+                registryKey?.SetValue(Key(0), filepath);
             }
 
             public void RemoveFile(string filepath, int max)
             {
-                var registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey);
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey);
                 if (registryKey != null)
                 {
-                    for (var i = 0; i < max; i++)
+                    for (int i = 0; i < max; i++)
                     {
                         while (true)
                         {
-                            var text = (string)registryKey.GetValue(Key(i));
+                            string text = (string)registryKey.GetValue(Key(i));
                             if (text == null || !text.Equals(filepath, StringComparison.CurrentCultureIgnoreCase))
                             {
                                 break;
@@ -558,19 +571,22 @@ namespace miRobotEditor.Controls
                 }
             }
 
-            private static string Key(int i) => i.ToString("00");
+            private static string Key(int i)
+            {
+                return i.ToString("00");
+            }
 
             private void RemoveFile(int index, int max)
             {
-                var registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey, true);
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey, true);
                 if (registryKey != null)
                 {
                     registryKey.DeleteValue(Key(index), false);
-                    for (var i = index; i < max - 1; i++)
+                    for (int i = index; i < max - 1; i++)
                     {
-                        var name = Key(i);
-                        var name2 = Key(i + 1);
-                        var value = registryKey.GetValue(name2);
+                        string name = Key(i);
+                        string name2 = Key(i + 1);
+                        object value = registryKey.GetValue(name2);
                         if (value == null)
                         {
                             break;
@@ -584,27 +600,45 @@ namespace miRobotEditor.Controls
 
         private class XmlPersister : IPersist
         {
-            public XmlPersister() => Filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            public XmlPersister()
+            {
+                Filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                     ApplicationAttributes.CompanyName + "\\" + ApplicationAttributes.ProductName +
                     "\\RecentFileList.xml");
+            }
 
-            public XmlPersister(string filepath) => Filepath = filepath;
+            public XmlPersister(string filepath)
+            {
+                Filepath = filepath;
+            }
 
-            public XmlPersister(Stream stream) => Stream = stream;
+            public XmlPersister(Stream stream)
+            {
+                Stream = stream;
+            }
 
             private string Filepath { get; set; }
             private Stream Stream { get; set; }
 
-            public List<string> RecentFiles(int max) => Load(max);
+            public List<string> RecentFiles(int max)
+            {
+                return Load(max);
+            }
 
-            public void InsertFile(string filepath, int max) => Update(filepath, true, max);
+            public void InsertFile(string filepath, int max)
+            {
+                Update(filepath, true, max);
+            }
 
-            public void RemoveFile(string filepath, int max) => Update(filepath, false, max);
+            public void RemoveFile(string filepath, int max)
+            {
+                Update(filepath, false, max);
+            }
 
             private void Update(string filepath, bool insert, int max)
             {
-                var list = Load(max);
-                var list2 = new List<string>(list.Count + 1);
+                List<string> list = Load(max);
+                List<string> list2 = new List<string>(list.Count + 1);
                 if (insert)
                 {
                     list2.Add(filepath);
@@ -616,7 +650,7 @@ namespace miRobotEditor.Controls
             private static void CopyExcluding(IEnumerable<string> source, string exclude, ICollection<string> target,
                 int max)
             {
-                foreach (var current in
+                foreach (string current in
                     from s in source
                     where !string.IsNullOrEmpty(s)
                     where !s.Equals(exclude, StringComparison.OrdinalIgnoreCase)
@@ -627,15 +661,18 @@ namespace miRobotEditor.Controls
                 }
             }
 
-            private SmartStream OpenStream(FileMode mode) => (!string.IsNullOrEmpty(Filepath)) ? new SmartStream(Filepath, mode) : new SmartStream(Stream);
+            private SmartStream OpenStream(FileMode mode)
+            {
+                return (!string.IsNullOrEmpty(Filepath)) ? new SmartStream(Filepath, mode) : new SmartStream(Stream);
+            }
 
             private List<string> Load(int max)
             {
-                var list = new List<string>(max);
+                List<string> list = new List<string>(max);
                 List<string> result;
-                using (var memoryStream = new MemoryStream())
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    using (var smartStream = OpenStream(FileMode.OpenOrCreate))
+                    using (SmartStream smartStream = OpenStream(FileMode.OpenOrCreate))
                     {
                         if (smartStream.Stream.Length == 0L)
                         {
@@ -643,10 +680,10 @@ namespace miRobotEditor.Controls
                             return result;
                         }
                         smartStream.Stream.Position = 0L;
-                        var array = new byte[1048576];
+                        byte[] array = new byte[1048576];
                         while (true)
                         {
-                            var num = smartStream.Stream.Read(array, 0, array.Length);
+                            int num = smartStream.Stream.Read(array, 0, array.Length);
                             if (num == 0)
                             {
                                 break;
@@ -661,7 +698,7 @@ namespace miRobotEditor.Controls
                         xmlTextReader = new XmlTextReader(memoryStream);
                         while (xmlTextReader.Read())
                         {
-                            var nodeType = xmlTextReader.NodeType;
+                            XmlNodeType nodeType = xmlTextReader.NodeType;
                             if (nodeType != XmlNodeType.Element)
                             {
                                 switch (nodeType)
@@ -671,7 +708,7 @@ namespace miRobotEditor.Controls
                                         continue;
                                     case XmlNodeType.EndElement:
                                         {
-                                            var name = xmlTextReader.Name;
+                                            string name = xmlTextReader.Name;
                                             if (name != null)
                                             {
                                                 if (name == "RecentFiles")
@@ -688,7 +725,7 @@ namespace miRobotEditor.Controls
                             }
                             else
                             {
-                                var name = xmlTextReader.Name;
+                                string name = xmlTextReader.Name;
                                 if (name == null)
                                 {
                                     goto IL_13E;
@@ -712,10 +749,7 @@ namespace miRobotEditor.Controls
                     }
                     finally
                     {
-                        if (xmlTextReader != null)
-                        {
-                            xmlTextReader.Close();
-                        }
+                        xmlTextReader?.Close();
                     }
                 }
                 result = list;
@@ -724,7 +758,7 @@ namespace miRobotEditor.Controls
 
             private void Save(IEnumerable<string> list)
             {
-                using (var memoryStream = new MemoryStream())
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
                     XmlTextWriter xmlTextWriter = null;
                     try
@@ -735,7 +769,7 @@ namespace miRobotEditor.Controls
                         };
                         xmlTextWriter.WriteStartDocument();
                         xmlTextWriter.WriteStartElement("RecentFiles");
-                        foreach (var current in list)
+                        foreach (string current in list)
                         {
                             xmlTextWriter.WriteStartElement("RecentFile");
                             xmlTextWriter.WriteAttributeString("Filepath", current);
@@ -744,14 +778,14 @@ namespace miRobotEditor.Controls
                         xmlTextWriter.WriteEndElement();
                         xmlTextWriter.WriteEndDocument();
                         xmlTextWriter.Flush();
-                        using (var smartStream = OpenStream(FileMode.Create))
+                        using (SmartStream smartStream = OpenStream(FileMode.Create))
                         {
                             smartStream.Stream.SetLength(0L);
                             memoryStream.Position = 0L;
-                            var array = new byte[1048576];
+                            byte[] array = new byte[1048576];
                             while (true)
                             {
-                                var num = memoryStream.Read(array, 0, array.Length);
+                                int num = memoryStream.Read(array, 0, array.Length);
                                 if (num == 0)
                                 {
                                     break;
@@ -762,10 +796,7 @@ namespace miRobotEditor.Controls
                     }
                     finally
                     {
-                        if (xmlTextWriter != null)
-                        {
-                            xmlTextWriter.Close();
-                        }
+                        xmlTextWriter?.Close();
                     }
                 }
             }
@@ -777,8 +808,8 @@ namespace miRobotEditor.Controls
                 public SmartStream(string filepath, FileMode mode)
                 {
                     _isStreamOwned = true;
-                    var directoryName = Path.GetDirectoryName(filepath);
-                    Directory.CreateDirectory(directoryName);
+                    string directoryName = Path.GetDirectoryName(filepath);
+                    _ = Directory.CreateDirectory(directoryName);
                     Stream = File.Open(filepath, mode);
                 }
 

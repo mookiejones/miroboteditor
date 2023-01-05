@@ -1,10 +1,8 @@
-﻿using miRobotEditor.ViewModel;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Windows.Media;
 
 namespace miRobotEditor.Classes
 {
@@ -38,7 +36,7 @@ namespace miRobotEditor.Classes
         {
             get
             {
-                var executingAssembly = Assembly.GetExecutingAssembly();
+                Assembly executingAssembly = Assembly.GetExecutingAssembly();
                 return executingAssembly.GetName().Version.ToString();
             }
         }
@@ -47,19 +45,19 @@ namespace miRobotEditor.Classes
 
         private static string GetDockConfig()
         {
-             var result = AppDomain.CurrentDomain.BaseDirectory + "dockConfig.xml";
+            string result = AppDomain.CurrentDomain.BaseDirectory + "dockConfig.xml";
             return result;
         }
         [Localizable(false)]
-        public static string DockConfig =>GetDockConfig();
+        public static string DockConfig => GetDockConfig();
 
         public static bool DoesDirectoryExist(string filename)
         {
-            var fileInfo = new System.IO.FileInfo(filename);
+            FileInfo fileInfo = new System.IO.FileInfo(filename);
             bool result;
             if (fileInfo.DirectoryName != null)
             {
-                var directoryInfo = new DirectoryInfo(fileInfo.DirectoryName);
+                DirectoryInfo directoryInfo = new DirectoryInfo(fileInfo.DirectoryName);
                 try
                 {
                     if (Directory.GetDirectories(directoryInfo.Root.ToString()).Length > 0)
@@ -78,6 +76,6 @@ namespace miRobotEditor.Classes
             return result;
         }
 
-     
+
     }
 }

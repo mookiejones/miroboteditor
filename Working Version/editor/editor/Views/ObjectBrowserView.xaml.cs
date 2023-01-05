@@ -7,6 +7,9 @@ namespace miRobotEditor.Views
     /// </summary>
     public sealed partial class ObjectBrowserView : UserControl
     {
-        public ObjectBrowserView() => InitializeComponent();
+        public ObjectBrowserView()
+        {
+            InitializeComponent();
+        }
     }
 }

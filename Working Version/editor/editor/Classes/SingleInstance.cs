@@ -1,5 +1,4 @@
-﻿using miRobotEditor.Interfaces;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -31,10 +31,9 @@ namespace miRobotEditor.Classes
         public static bool InitializeAsFirstInstance(string uniqueName)
         {
             CommandLineArgs = GetCommandLineArgs(uniqueName);
-            var text = uniqueName + Environment.UserName;
-            var channelName = text + ":" + "SingeInstanceIPCChannel";
-            var flag = false;
-            _singleInstanceMutex = new Mutex(true, text, out flag);
+            string text = uniqueName + Environment.UserName;
+            string channelName = text + ":" + "SingeInstanceIPCChannel";
+            _singleInstanceMutex = new Mutex(true, text, out bool flag);
             if (flag)
             {
                 CreateRemoteService(channelName);
@@ -69,9 +68,9 @@ namespace miRobotEditor.Classes
             }
             else
             {
-                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                     uniqueApplicationName);
-                var path2 = Path.Combine(path, "cmdline.txt");
+                string path2 = Path.Combine(path, "cmdline.txt");
                 if (File.Exists(path2))
                 {
                     try
@@ -97,27 +96,29 @@ namespace miRobotEditor.Classes
         [Localizable(false)]
         private static void CreateRemoteService(string channelName)
         {
-            var sinkProvider = new BinaryServerFormatterSinkProvider
+            BinaryServerFormatterSinkProvider sinkProvider = new BinaryServerFormatterSinkProvider
             {
                 TypeFilterLevel = TypeFilterLevel.Full
             };
-            IDictionary dictionary = new Dictionary<string, string>();
-            dictionary["name"] = channelName;
-            dictionary["portName"] = channelName;
-            dictionary["exclusiveAddressUse"] = "false";
+            IDictionary dictionary = new Dictionary<string, string>
+            {
+                ["name"] = channelName,
+                ["portName"] = channelName,
+                ["exclusiveAddressUse"] = "false"
+            };
             _channel = new IpcServerChannel(dictionary, sinkProvider);
             ChannelServices.RegisterChannel(_channel, true);
-            var obj = new IpcRemoteService();
-            RemotingServices.Marshal(obj, "SingleInstanceApplicationService");
+            IpcRemoteService obj = new IpcRemoteService();
+            _ = RemotingServices.Marshal(obj, "SingleInstanceApplicationService");
         }
 
         [Localizable(false)]
         private static void SignalFirstInstance(string channelName, IList<string> args)
         {
-            var chnl = new IpcClientChannel();
+            IpcClientChannel chnl = new IpcClientChannel();
             ChannelServices.RegisterChannel(chnl, true);
-            var url = "ipc://" + channelName + "/SingleInstanceApplicationService";
-            var ipcRemoteService = (IpcRemoteService)RemotingServices.Connect(typeof(IpcRemoteService), url);
+            string url = "ipc://" + channelName + "/SingleInstanceApplicationService";
+            IpcRemoteService ipcRemoteService = (IpcRemoteService)RemotingServices.Connect(typeof(IpcRemoteService), url);
             if (ipcRemoteService != null)
             {
                 try
@@ -132,7 +133,7 @@ namespace miRobotEditor.Classes
 
         private static object ActivateFirstInstanceCallback(object arg)
         {
-            var args = arg as IList<string>;
+            IList<string> args = arg as IList<string>;
             ActivateFirstInstance(args);
             return null;
         }
@@ -141,8 +142,8 @@ namespace miRobotEditor.Classes
         {
             if (Application.Current != null)
             {
-                var tApplication = (TApplication)Application.Current;
-                tApplication.SignalExternalCommandLineArgs(args);
+                TApplication tApplication = (TApplication)Application.Current;
+                _ = tApplication.SignalExternalCommandLineArgs(args);
             }
         }
 
@@ -150,14 +151,14 @@ namespace miRobotEditor.Classes
         {
             public void InvokeFirstInstance(IList<string> args)
             {
-                if (Application.Current != null)
-                {
-                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                        new DispatcherOperationCallback(ActivateFirstInstanceCallback), args);
-                }
+                _ = (Application.Current?.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                        new DispatcherOperationCallback(ActivateFirstInstanceCallback), args));
             }
 
-            public override object InitializeLifetimeService() => null;
+            public override object InitializeLifetimeService()
+            {
+                return null;
+            }
         }
     }
 }

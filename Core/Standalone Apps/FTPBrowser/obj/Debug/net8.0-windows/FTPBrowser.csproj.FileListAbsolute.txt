@@ -1,0 +1,15 @@
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\FTPBrowser.csproj.AssemblyReference.cache
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\Views\ConnectionForm.g.cs
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\App.g.cs
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\FTPBrowser_MarkupCompile.cache
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\FTPBrowser_MarkupCompile.lref
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\Themes\Generic.baml
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\Themes\ListBoxDictionary.baml
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\Themes\TreeViewDictionary.baml
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\FTPBrowser.dll
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\refint\FTPBrowser.dll
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\FTPBrowser.pdb
+C:\Programming\miroboteditor\Core\Standalone Apps\FTPBrowser\obj\Debug\net8.0-windows\App.baml

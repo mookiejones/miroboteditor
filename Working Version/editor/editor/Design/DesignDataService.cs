@@ -1,5 +1,5 @@
-﻿using miRobotEditor.Model;
-using System;
+﻿using System;
+using miRobotEditor.Model;
 
 namespace miRobotEditor.Design
 {
@@ -9,7 +9,7 @@ namespace miRobotEditor.Design
         {
             // Use this to create design time data
 
-            var item = new DataItem("Welcome to MVVM Light [design]");
+            DataItem item = new DataItem("Welcome to MVVM Light [design]");
             callback(item, null);
         }
     }

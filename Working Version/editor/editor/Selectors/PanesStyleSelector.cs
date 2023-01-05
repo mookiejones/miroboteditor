@@ -1,7 +1,7 @@
-﻿using miRobotEditor.Interfaces;
-using miRobotEditor.ViewModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using miRobotEditor.Interfaces;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Selectors
 {
@@ -12,22 +12,7 @@ namespace miRobotEditor.Selectors
 
         public override Style SelectStyle(object item, DependencyObject container)
         {
-            Style result;
-            if (item is ToolViewModel)
-            {
-                result = ToolStyle;
-            }
-            else
-            {
-                if (item is IEditorDocument)
-                {
-                    result = FileStyle;
-                }
-                else
-                {
-                    result = base.SelectStyle(item, container);
-                }
-            }
+            Style result = item is ToolViewModel ? ToolStyle : item is IEditorDocument ? FileStyle : base.SelectStyle(item, container);
             return result;
         }
     }

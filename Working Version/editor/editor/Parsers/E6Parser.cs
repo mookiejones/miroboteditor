@@ -1,8 +1,8 @@
-﻿using miRobotEditor.Abstract;
-using miRobotEditor.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
+using miRobotEditor.Abstract;
+using miRobotEditor.Enums;
 
 namespace miRobotEditor.Parsers
 {
@@ -55,7 +55,7 @@ namespace miRobotEditor.Parsers
         private void PrepareRegex()
         {
             _regExMatchCollection.Clear();
-            foreach (var current in _tokens)
+            foreach (KeyValuePair<Tokens, string> current in _tokens)
             {
                 _regExMatchCollection.Add(current.Key, Regex.Matches(_inputString, current.Value));
             }
@@ -77,7 +77,7 @@ namespace miRobotEditor.Parsers
             }
             else
             {
-                foreach (var current in _regExMatchCollection)
+                foreach (KeyValuePair<Tokens, MatchCollection> current in _regExMatchCollection)
                 {
                     foreach (Match match in current.Value)
                     {
@@ -99,11 +99,14 @@ namespace miRobotEditor.Parsers
             return result;
         }
 
-        public PeekToken Peek() => Peek(new PeekToken(_index, new Token(Tokens.UNDEFINED, string.Empty)));
+        public PeekToken Peek()
+        {
+            return Peek(new PeekToken(_index, new Token(Tokens.UNDEFINED, string.Empty)));
+        }
 
         public PeekToken Peek(PeekToken peekToken)
         {
-            var index = _index;
+            int index = _index;
             _index = peekToken.TokenIndex;
             PeekToken result;
             if (_index >= _inputString.Length)
@@ -113,20 +116,20 @@ namespace miRobotEditor.Parsers
             }
             else
             {
-                foreach (var current in _tokens)
+                foreach (KeyValuePair<Tokens, string> current in _tokens)
                 {
-                    var regex = new Regex(current.Value);
-                    var match = regex.Match(_inputString, _index);
+                    Regex regex = new Regex(current.Value);
+                    Match match = regex.Match(_inputString, _index);
                     if (match.Success && match.Index == _index)
                     {
                         _index += match.Length;
-                        var peekToken2 = new PeekToken(_index, new Token(current.Key, match.Value));
+                        PeekToken peekToken2 = new PeekToken(_index, new Token(current.Key, match.Value));
                         _index = index;
                         result = peekToken2;
                         return result;
                     }
                 }
-                var peekToken3 = new PeekToken(_index + 1, new Token(Tokens.UNDEFINED, string.Empty));
+                PeekToken peekToken3 = new PeekToken(_index + 1, new Token(Tokens.UNDEFINED, string.Empty));
                 _index = index;
                 result = peekToken3;
             }

@@ -1,20 +1,20 @@
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Text.RegularExpressions;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 
 namespace miRobotEditor.ViewModel
 {
     public sealed class FindReplaceViewModel : ViewModelBase
     {
         // ReSharper disable UnusedField.Compiler
-        private static RelayCommand _findpreviouscommand;
-        private static RelayCommand _findnextcommand;
-        private static RelayCommand _replacecommand;
-        private static RelayCommand _replaceallcommand;
-        private static RelayCommand _highlightallcommand;
+        private static readonly RelayCommand _findpreviouscommand;
+        private static readonly RelayCommand _findnextcommand;
+        private static readonly RelayCommand _replacecommand;
+        private static readonly RelayCommand _replaceallcommand;
+        private static readonly RelayCommand _highlightallcommand;
         private static FindReplaceViewModel _instance;
-        private RelayCommand _findallcommand;
+        private readonly RelayCommand _findallcommand;
         private string _lookfor = string.Empty;
         private bool _matchcase;
         private bool _matchwholeword;
@@ -105,7 +105,7 @@ namespace miRobotEditor.ViewModel
                 FindReplaceViewModel arg_15_0;
                 if ((arg_15_0 = _instance) == null)
                 {
-                    arg_15_0 = (_instance = new FindReplaceViewModel());
+                    arg_15_0 = _instance = new FindReplaceViewModel();
                 }
                 return arg_15_0;
             }
@@ -134,8 +134,8 @@ namespace miRobotEditor.ViewModel
         {
             get
             {
-                var pattern = (!UseRegex) ? Regex.Escape(LookFor) : LookFor;
-                var options = MatchCase ? 0 : 1;
+                string pattern = (!UseRegex) ? Regex.Escape(LookFor) : LookFor;
+                int options = MatchCase ? 0 : 1;
                 return new Regex(pattern, (RegexOptions)options);
             }
         }
@@ -160,25 +160,37 @@ namespace miRobotEditor.ViewModel
             set => SetProperty(ref _searchresult, value);
         }
 
-        private static void FindPrevious() => throw new NotImplementedException();
+        private static void FindPrevious()
+        {
+            throw new NotImplementedException();
+        }
 
         private static void FindNext()
         {
 
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.ActiveEditor.TextBox.FindText();
         }
 
         private static void Replace()
         {
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.ActiveEditor.TextBox.ReplaceText();
         }
 
-        private static void ReplaceAll() => throw new NotImplementedException();
+        private static void ReplaceAll()
+        {
+            throw new NotImplementedException();
+        }
 
-        private static void HighlightAll() => throw new NotImplementedException();
+        private static void HighlightAll()
+        {
+            throw new NotImplementedException();
+        }
 
-        private static void FindAll() => throw new NotImplementedException();
+        private static void FindAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

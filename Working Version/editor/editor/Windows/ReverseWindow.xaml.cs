@@ -7,6 +7,9 @@ namespace miRobotEditor.Windows
     /// </summary>
     public partial class ReverseWindow : Window
     {
-        public ReverseWindow() => InitializeComponent();
+        public ReverseWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

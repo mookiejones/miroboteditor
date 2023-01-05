@@ -1,8 +1,8 @@
-using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Editing;
 using System;
 using System.Linq;
 using System.Windows.Media;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Editing;
 
 namespace miRobotEditor.Controls.TextEditor.Snippets
 {
@@ -15,13 +15,16 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
         public override double Priority => 100.0;
         public override string Text => snippetInfo.Header.Text;
 
-        public SnippetCompletionData(SnippetInfo snippetInfo) => this.snippetInfo = snippetInfo;
+        public SnippetCompletionData(SnippetInfo snippetInfo)
+        {
+            this.snippetInfo = snippetInfo;
+        }
 
         public override void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
             if (snippetInfo.Header.Types.Contains(SnippetType.Expansion) && textArea.Selection.IsEmpty)
             {
-                ReplaceIfNeeded(textArea, snippetInfo);
+                _ = ReplaceIfNeeded(textArea, snippetInfo);
                 snippetInfo.Snippet.Insert(textArea);
                 return;
             }
@@ -31,14 +34,17 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
         }
 
-        private static bool IsWhitespace(char ch) => ch == '\t' || ch == ' ' || ch == '\n';
+        private static bool IsWhitespace(char ch)
+        {
+            return ch == '\t' || ch == ' ' || ch == '\n';
+        }
 
         private bool ReplaceIfNeeded(TextArea area, SnippetInfo snippInfo)
         {
-            var i = area.Caret.Offset;
-            var shortcuts = snippInfo.Header.Shortcuts;
-            var num = -1;
-            var document = area.Document;
+            int i = area.Caret.Offset;
+            System.Collections.Generic.List<string> shortcuts = snippInfo.Header.Shortcuts;
+            int num = -1;
+            TextDocument document = area.Document;
             if (i <= 0)
             {
                 return false;
@@ -49,7 +55,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                 {
                     i--;
                 }
-                var charAt = document.GetCharAt(i);
+                char charAt = document.GetCharAt(i);
                 if (IsWhitespace(charAt))
                 {
                     num = i + 1;
@@ -61,8 +67,8 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             if (num < area.Caret.Offset)
             {
                 num = Math.Max(num, 0);
-                var length = area.Caret.Offset - num;
-                var text = document.GetText(num, length);
+                int length = area.Caret.Offset - num;
+                string text = document.GetText(num, length);
                 if (shortcuts.Any((string shortcut) => shortcut.Contains(text)))
                 {
                     document.Replace(num, length, string.Empty);

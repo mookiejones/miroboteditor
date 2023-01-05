@@ -1,7 +1,7 @@
-﻿using miRobotEditor.Controls.TextEditor;
-using miRobotEditor.Controls.TextEditor.Language;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
+using miRobotEditor.Controls.TextEditor;
+using miRobotEditor.Controls.TextEditor.Language;
 
 namespace miRobotEditor.Interfaces
 {

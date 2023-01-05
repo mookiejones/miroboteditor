@@ -1,8 +1,8 @@
-using miRobotEditor.Controls.AngleConverter.Classes;
-using miRobotEditor.Controls.AngleConverter.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using miRobotEditor.Controls.AngleConverter.Classes;
+using miRobotEditor.Controls.AngleConverter.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -28,15 +28,21 @@ namespace miRobotEditor.Classes
 
         TransformationMatrix3D IGeometricElement3D.Position => throw new NotImplementedException();
 
-        public string ToString(string format, IFormatProvider formatProvider = null) => string.Format("Plane: Origin={0}, Normal={1}", Point.ToString(format, formatProvider),
+        public string ToString(string format, IFormatProvider formatProvider = null)
+        {
+            return string.Format("Plane: Origin={0}, Normal={1}", Point.ToString(format, formatProvider),
                 Normal.ToString(format, formatProvider));
+        }
 
         public static Plane3D FitToPoints(Collection<Point3D> points)
         {
-            var leastSquaresFit3D = new LeastSquaresFit3D();
+            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
             return leastSquaresFit3D.FitPlaneToPoints(points);
         }
 
-        public override string ToString() => string.Format("Plane: Origin={0}, Normal={1}", Point, Normal);
+        public override string ToString()
+        {
+            return string.Format("Plane: Origin={0}, Normal={1}", Point, Normal);
+        }
     }
 }

@@ -1,10 +1,10 @@
+using System;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 using miRobotEditor.Controls.AngleConverter;
 using miRobotEditor.Controls.AngleConverter.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Position;
-using System;
-using System.Windows;
-using System.Windows.Controls.Primitives;
 
 namespace miRobotEditor.ViewModel
 {
@@ -67,9 +67,9 @@ namespace miRobotEditor.ViewModel
                 if (!_isConverting)
                 {
                     _isConverting = true;
-                    var result = new Vector3D();
-                    var num = 0.0;
-                    var quaternion = new Quaternion();
+                    Vector3D result = new Vector3D();
+                    double num = 0.0;
+                    Quaternion quaternion = new Quaternion();
                     switch (InputItems.SelectedItem)
                     {
                         case CartesianEnum.ABB_Quaternion:
@@ -115,7 +115,7 @@ namespace miRobotEditor.ViewModel
                             result = _rotationMatrix.ABG;
                             break;
                     }
-                    var text = quaternion.ToString();
+                    string text = quaternion.ToString();
 
                     //                    var text = quaternion.ToString("F3");
                     if (Matrix != null && Matrix != text)
@@ -157,7 +157,6 @@ namespace miRobotEditor.ViewModel
 
     public class ValueBoxViewModel : ViewModelBase
     {
-        private readonly CartesianItems _selectionitems = new CartesianItems();
         private Visibility _boxVisibility = Visibility.Visible;
         private string _header = string.Empty;
         private bool _isReadOnly;
@@ -172,7 +171,7 @@ namespace miRobotEditor.ViewModel
             get => _v1;
             set
             {
-                SetProperty(ref _v1, value);
+                _ = SetProperty(ref _v1, value);
                 RaiseItemsChanged();
             }
         }
@@ -182,7 +181,7 @@ namespace miRobotEditor.ViewModel
             get => _v2;
             set
             {
-                SetProperty(ref _v2, value);
+                _ = SetProperty(ref _v2, value);
                 RaiseItemsChanged();
             }
         }
@@ -192,7 +191,7 @@ namespace miRobotEditor.ViewModel
             get => _v3;
             set
             {
-                SetProperty(ref _v3, value);
+                _ = SetProperty(ref _v3, value);
 
                 RaiseItemsChanged();
             }
@@ -203,7 +202,7 @@ namespace miRobotEditor.ViewModel
             get => _v4;
             set
             {
-                SetProperty(ref _v4, value);
+                _ = SetProperty(ref _v4, value);
                 RaiseItemsChanged();
             }
         }
@@ -226,7 +225,7 @@ namespace miRobotEditor.ViewModel
             set => SetProperty(ref _boxVisibility, value);
         }
 
-        public CartesianItems SelectionItems => _selectionitems;
+        public CartesianItems SelectionItems { get; } = new CartesianItems();
 
         public CartesianEnum SelectedItem
         {
@@ -246,13 +245,10 @@ namespace miRobotEditor.ViewModel
 
         private void RaiseItemsChanged()
         {
-            if (ItemsChanged != null)
-            {
-                 
 
-                
-                ItemsChanged(this, null);
-            }
+
+
+            ItemsChanged?.Invoke(this, null);
         }
 
         private void CheckVisibility()

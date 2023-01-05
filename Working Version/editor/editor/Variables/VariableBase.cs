@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
+using System.Windows.Media.Imaging;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor.Language;
@@ -6,10 +10,6 @@ using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.ViewModel;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
-using System.Windows.Media.Imaging;
 
 namespace miRobotEditor.Variables
 {
@@ -83,7 +83,7 @@ namespace miRobotEditor.Variables
 
         public static void GetPositions(string filename, AbstractLanguageClass lang, string iconpath)
         {
-            var backgroundWorker = new BackgroundWorker();
+            BackgroundWorker backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += BackgroundworkerDoWork;
             backgroundWorker.RunWorkerCompleted += BackgroundworkerRunWorkerCompleted;
             backgroundWorker.RunWorkerAsync(new WorkerArgs
@@ -100,19 +100,18 @@ namespace miRobotEditor.Variables
 
         private static void BackgroundworkerDoWork(object sender, DoWorkEventArgs e)
         {
-            var workerArgs = e.Argument as WorkerArgs;
-            if (workerArgs != null)
+            if (e.Argument is WorkerArgs workerArgs)
             {
-                var bitmapImage = ImageHelper.LoadBitmap(workerArgs.IconPath);
-                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-                var fileLanguage = instance.ActiveEditor.FileLanguage;
-                var match = VariableHelper.FindMatches(workerArgs.Lang.XYZRegex, workerArgs.Filename);
-                var fileNameWithoutExtension =
+                BitmapImage bitmapImage = ImageHelper.LoadBitmap(workerArgs.IconPath);
+                MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
+                AbstractLanguageClass fileLanguage = instance.ActiveEditor.FileLanguage;
+                Match match = VariableHelper.FindMatches(workerArgs.Lang.XYZRegex, workerArgs.Filename);
+                string fileNameWithoutExtension =
                     System.IO.Path.GetFileNameWithoutExtension(bitmapImage.UriSource.AbsolutePath);
-                var flag = fileNameWithoutExtension != null && fileNameWithoutExtension.Contains("XYZ");
+                bool flag = fileNameWithoutExtension != null && fileNameWithoutExtension.Contains("XYZ");
                 while (match.Success)
                 {
-                    var item = new Variable
+                    Variable item = new Variable
                     {
                         Icon = bitmapImage,
                         Path = workerArgs.Filename,
@@ -130,27 +129,27 @@ namespace miRobotEditor.Variables
 
         public static List<IVariable> GetVariables(string filename, Regex regex, string iconpath)
         {
-            var list = new List<IVariable>();
-            var bitmapImage = ImageHelper.LoadBitmap(iconpath);
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-            var fileLanguage = instance.ActiveEditor.FileLanguage;
-            var match = VariableHelper.FindMatches(regex, filename);
-            var fileNameWithoutExtension =
+            List<IVariable> list = new List<IVariable>();
+            BitmapImage bitmapImage = ImageHelper.LoadBitmap(iconpath);
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            AbstractLanguageClass fileLanguage = instance.ActiveEditor.FileLanguage;
+            Match match = VariableHelper.FindMatches(regex, filename);
+            string fileNameWithoutExtension =
                 System.IO.Path.GetFileNameWithoutExtension(bitmapImage.UriSource.AbsolutePath);
-            var flag = fileNameWithoutExtension != null && fileNameWithoutExtension.Contains("XYZ");
+            bool flag = fileNameWithoutExtension != null && fileNameWithoutExtension.Contains("XYZ");
             List<IVariable> result;
             if (match == null)
             {
-                var msg = new ErrorMessage("Variable for " + fileLanguage.RobotType,
+                ErrorMessage msg = new ErrorMessage("Variable for " + fileLanguage.RobotType,
                     "Does not exist in VariableBase.GetVariables", MessageType.Error);
-                WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 result = null;
             }
             else
             {
                 while (match.Success)
                 {
-                    var item = new Variable
+                    Variable item = new Variable
                     {
                         Icon = bitmapImage,
                         Path = filename,

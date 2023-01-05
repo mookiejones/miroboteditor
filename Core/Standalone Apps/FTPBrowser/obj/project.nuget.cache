@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "wQNELA71krqGBtyQ1dOz9A89Bqrov9ZOARPQ3isrx0W4JdalKjKhmoHfUXO7X4VdgSx3OByyabhIx1AaRr74ZQ==",
+  "success": true,
+  "projectFilePath": "C:\\Programming\\miroboteditor\\Core\\Standalone Apps\\FTPBrowser\\FTPBrowser.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\communitytoolkit.mvvm\\8.0.0\\communitytoolkit.mvvm.8.0.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

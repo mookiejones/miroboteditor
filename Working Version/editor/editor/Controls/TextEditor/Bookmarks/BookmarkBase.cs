@@ -1,7 +1,7 @@
-﻿using ICSharpCode.AvalonEdit.Document;
-using miRobotEditor.Interfaces;
-using System;
+﻿using System;
 using System.Windows.Input;
+using ICSharpCode.AvalonEdit.Document;
+using miRobotEditor.Interfaces;
 using ITextAnchor = miRobotEditor.Interfaces.ITextAnchor;
 
 namespace miRobotEditor.Controls.TextEditor.Bookmarks
@@ -12,7 +12,10 @@ namespace miRobotEditor.Controls.TextEditor.Bookmarks
         private IEditor _document;
         private TextLocation _location;
 
-        public BookmarkBase(TextLocation location) => Location = location;
+        public BookmarkBase(TextLocation location)
+        {
+            Location = location;
+        }
 
         public IEditor Document
         {
@@ -83,9 +86,9 @@ namespace miRobotEditor.Controls.TextEditor.Bookmarks
         {
             if (_document != null)
             {
-                var num = Math.Max(1, Math.Min(_location.Line, _document.TotalNumberOfLines));
-                var length = _document.GetLine(num).Length;
-                var offset = _document.PositionToOffset(num, Math.Max(1, Math.Min(_location.Column, length + 1)));
+                int num = Math.Max(1, Math.Min(_location.Line, _document.TotalNumberOfLines));
+                int length = _document.GetLine(num).Length;
+                int offset = _document.PositionToOffset(num, Math.Max(1, Math.Min(_location.Column, length + 1)));
                 Anchor = _document.CreateAnchor(offset);
                 Anchor.MovementType = AnchorMovementType.AfterInsertion;
                 Anchor.Deleted += AnchorDeleted;
@@ -107,31 +110,22 @@ namespace miRobotEditor.Controls.TextEditor.Bookmarks
         {
             if (_document != null)
             {
-                var bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
-                if (bookmarkMargin != null)
-                {
-                    bookmarkMargin.Bookmarks.Remove(this);
-                }
+                IBookmarkMargin bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
+                _ = (bookmarkMargin?.Bookmarks.Remove(this));
             }
         }
 
         protected virtual void OnDocumentChanged(EventArgs e)
         {
-            if (DocumentChanged != null)
-            {
-                DocumentChanged(this, e);
-            }
+            DocumentChanged?.Invoke(this, e);
         }
 
         protected virtual void Redraw()
         {
             if (_document != null)
             {
-                var bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
-                if (bookmarkMargin != null)
-                {
-                    bookmarkMargin.Redraw();
-                }
+                IBookmarkMargin bookmarkMargin = _document.GetService(typeof(IBookmarkMargin)) as IBookmarkMargin;
+                bookmarkMargin?.Redraw();
             }
         }
     }

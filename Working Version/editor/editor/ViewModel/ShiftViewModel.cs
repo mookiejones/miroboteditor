@@ -22,7 +22,10 @@ namespace miRobotEditor.ViewModel
         };
 
         public ShiftViewModel()
-            : base("Shift Program") => DefaultPane = DefaultToolPane.Right;
+            : base("Shift Program")
+        {
+            DefaultPane = DefaultToolPane.Right;
+        }
 
         public CartesianPosition OldValues
         {

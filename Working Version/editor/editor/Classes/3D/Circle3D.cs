@@ -1,9 +1,9 @@
-using miRobotEditor.Controls.AngleConverter;
-using miRobotEditor.Controls.AngleConverter.Classes;
-using miRobotEditor.Controls.AngleConverter.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using miRobotEditor.Controls.AngleConverter;
+using miRobotEditor.Controls.AngleConverter.Classes;
+using miRobotEditor.Controls.AngleConverter.Interfaces;
 
 namespace miRobotEditor.Classes
 {
@@ -24,20 +24,26 @@ namespace miRobotEditor.Classes
 
         public TransformationMatrix3D Position => new TransformationMatrix3D((Vector3D)Origin, RotationMatrix3D.Identity());
 
-        public string ToString(string format, IFormatProvider formatProvider) => string.Format("Circle3D: Centre {0}, Normal {1}, Radius {2:F2}", Origin, Normal, Radius);
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return string.Format("Circle3D: Centre {0}, Normal {1}, Radius {2:F2}", Origin, Normal, Radius);
+        }
 
         public static Circle3D FitToPoints(Collection<Point3D> points)
         {
-            var leastSquaresFit3D = new LeastSquaresFit3D();
+            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
             return leastSquaresFit3D.FitCircleToPoints(points);
         }
 
         public static Circle3D FitToPoints2(Collection<Point3D> points)
         {
-            var leastSquaresFit3D = new LeastSquaresFit3D();
+            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
             return leastSquaresFit3D.FitCircleToPoints2(points);
         }
 
-        public override string ToString() => ToString(null, null);
+        public override string ToString()
+        {
+            return ToString(null, null);
+        }
     }
 }

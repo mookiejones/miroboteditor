@@ -7,6 +7,9 @@ namespace miRobotEditor.Windows
     /// </summary>
     public sealed partial class FileExplorerWindow : Window
     {
-        public FileExplorerWindow() => InitializeComponent();
+        public FileExplorerWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

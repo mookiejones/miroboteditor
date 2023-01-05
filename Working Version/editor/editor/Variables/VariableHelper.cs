@@ -1,9 +1,9 @@
-﻿using miRobotEditor.Interfaces;
-using miRobotEditor.ViewModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
+using miRobotEditor.Interfaces;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Variables
 {
@@ -14,7 +14,7 @@ namespace miRobotEditor.Variables
 
         public static Match FindMatches(Regex matchstring, string filename)
         {
-            var text = File.ReadAllText(filename);
+            string text = File.ReadAllText(filename);
             Match result;
             if (string.IsNullOrEmpty(matchstring.ToString()))
             {
@@ -22,7 +22,7 @@ namespace miRobotEditor.Variables
             }
             else
             {
-                var match = matchstring.Match(text.ToLower());
+                Match match = matchstring.Match(text.ToLower());
                 result = match;
             }
             return result;

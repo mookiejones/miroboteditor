@@ -1,8 +1,8 @@
-﻿using miRobotEditor.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using miRobotEditor.Abstract;
 
 namespace miRobotEditor.Variables
 {
@@ -19,15 +19,15 @@ namespace miRobotEditor.Variables
 
         protected static GroupCollection GetMatchCollection(string text, string matchstring)
         {
-            var regex = new Regex(matchstring, RegexOptions.IgnoreCase);
-            var match = regex.Match(text);
+            Regex regex = new Regex(matchstring, RegexOptions.IgnoreCase);
+            Match match = regex.Match(text);
             return match.Success ? match.Groups : null;
         }
 
         public void Add(string text, AbstractVariableClass vartype)
         {
-            var regex = new Regex(Expression, RegexOptions.IgnoreCase);
-            var match = regex.Match(text);
+            Regex regex = new Regex(Expression, RegexOptions.IgnoreCase);
+            Match match = regex.Match(text);
             while (match.Success)
             {
                 Raw = match.ToString();
@@ -38,6 +38,9 @@ namespace miRobotEditor.Variables
 
         internal abstract void GetVariable(GroupCollection m);
 
-        public string Key(string line) => throw new NotImplementedException();
+        public string Key(string line)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
