@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Images\editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="miRobotEditor" version="0.0.0.30814" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="miRobotEditor" version="0.0.0.33645" language="neutral" processorArchitecture="msil" />
     <commandLine file="miRobotEditor.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -40,6 +40,18 @@
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
       <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AngleConverterControl.dll" size="68096">
+      <assemblyIdentity name="AngleConverterControl" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ib0TdZoVNX+1tFzQiv9rbeH9Yn0sseZbetbMoIDF41E=</dsig:DigestValue>
+      </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
@@ -211,14 +223,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1428480">
-      <assemblyIdentity name="miRobotEditor" version="0.0.0.30814" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1371648">
+      <assemblyIdentity name="miRobotEditor" version="0.0.0.33645" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>cvHcthjfn74Ehw8XMZJH0TIh6/7IacNQByH1lggtoJw=</dsig:DigestValue>
+        <dsig:DigestValue>5P29FucnbK/h/toOFQUKEwVoZ8Bf9f5FTYScFgtJ/IA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

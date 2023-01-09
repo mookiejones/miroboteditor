@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using AngleConverter.ViewModels;
+using AngleConverterControl.ViewModels;
 
 namespace AngleConverter
 {

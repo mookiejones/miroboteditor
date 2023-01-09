@@ -14,14 +14,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="miRobotEditor.exe.manifest" size="20955">
+    <dependentAssembly dependencyType="install" codebase="miRobotEditor.exe.manifest" size="21615">
       <assemblyIdentity name="miRobotEditor.exe" version="1.0.0.12" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>o3mG4nR7E8jBre/fsRsl5MqpjtJJCH/Jk2hzpW/vy94=</dsig:DigestValue>
+        <dsig:DigestValue>EtuqEowc+mal8EuiTApuv1WXVgUhzoNLq2VxAxbSIHQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

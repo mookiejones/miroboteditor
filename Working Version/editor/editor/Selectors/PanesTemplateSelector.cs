@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using miRobotEditor.ViewModel;
 
@@ -19,28 +20,36 @@ namespace miRobotEditor.Selectors
         public override DataTemplate SelectTemplate(object item,
             DependencyObject container)
         {
-            if (item is ObjectBrowserViewModel)
-            {
-                return ObjectBrowserTemplate;
-            }
 
-            if (item is KukaViewModel)
+            var contentPresenter = item as ContentPresenter;
+            switch (contentPresenter.Content)
             {
-                return KukaTemplate;
+                case ObjectBrowserViewModel _:
+                    return ObjectBrowserTemplate;
+                case KukaViewModel _:
+                    return KukaTemplate;
+                case NotesViewModel _:
+                    return NotesTemplate;
+                case FunctionViewModel _:
+                    return FunctionTemplate;
+                    case DocumentViewModel _:
+                    return DocumentTemplate;
+                        case MessageViewModel _:
+                    return MessageTemplate;
+                    case AngleConvertorViewModel _:
+                        return AngleConverterTemplate;
+                default:
+                    Console.WriteLine();
+                    break;
+                    //return item is FunctionViewModel
+                    //    ? FunctionTemplate
+                    //    : item is DocumentViewModel
+                    //    ? DocumentTemplate
+                    //    : item is MessageViewModel
+                    //    ? MessageTemplate
+                    //    : item is AngleConvertorViewModel ? AngleConverterTemplate : base.SelectTemplate(item, container);
             }
-
-            if (item is NotesViewModel)
-            {
-                return NotesTemplate;
-            }
-
-            return item is FunctionViewModel
-                ? FunctionTemplate
-                : item is DocumentViewModel
-                ? DocumentTemplate
-                : item is MessageViewModel
-                ? MessageTemplate
-                : item is AngleConvertorViewModel ? AngleConverterTemplate : base.SelectTemplate(item, container);
+            return base.SelectTemplate(item, container);
         }
     }
 }

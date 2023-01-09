@@ -6,6 +6,7 @@
                     xmlns:views="clr-namespace:miRobotEditor.Views" 
                     xmlns:converters="clr-namespace:miRobotEditor.Converters"
                     xmlns:variable="clr-namespace:miRobotEditor.Variables"
+                    xmlns:angleConverter="clr-namespace:AngleConverterControl.Controls;assembly=AngleConverterControl"
                     xmlns:controls="clr-namespace:miRobotEditor.Controls">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/miRobotEditor;component/Themes/Style.DataGrid.xaml" />
@@ -34,8 +35,8 @@
     </Style>
 
     <!-- Angle Converter -->
-    <DataTemplate x:Key="AngleConverterTemplate" DataType="{x:Type vm:AngleConvertorViewModel}">
-        <views:AngleConverterView/>
+    <DataTemplate x:Key="AngleConverterTemplate" >
+        <angleConverter:AngleConverterView/>
     </DataTemplate>
 
     <DataTemplate x:Key="NotesTemplate">

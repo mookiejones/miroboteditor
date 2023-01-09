@@ -204,9 +204,6 @@
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ValueBox.xaml.cs">
-      <DependentUpon>ValueBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\DockHelper.cs" />
     <Compile Include="Utilities\FileExtended.cs" />
     <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
@@ -226,25 +223,19 @@
     <Compile Include="Controls\TextEditor\CaretHighlightAdorner.cs" />
     <Compile Include="Position\CartesianItems.cs" />
     <Compile Include="Position\CartesianTypes.cs" />
-    <Compile Include="Classes\3D\Circle3D.cs" />
     <Compile Include="Controls\TextEditor\Completion\CodeCompletion.cs" />
     <Compile Include="Classes\DocumentBase.cs" />
     <Compile Include="Classes\FTPFolder.cs" />
     <Compile Include="Classes\GlobalOptions.cs" />
     <Compile Include="Controls\TextEditor\IconBar\IconBarManager.cs" />
     <Compile Include="Controls\TextEditor\IconBar\IconBarMargin.cs" />
-    <Compile Include="Classes\3D\LeastSquaresFit3D.cs" />
-    <Compile Include="Classes\3D\Line3D.cs" />
     <Compile Include="Classes\MatrixNullReference.cs" />
     <Compile Include="Controls\TextEditor\Brackets\MyBracketSearcher.cs" />
     <Compile Include="Messages\OutputWindowMessage.cs" />
-    <Compile Include="Classes\3D\Plane3D.cs" />
     <Compile Include="Position\PositionBase.cs" />
     <Compile Include="Position\PositionValue.cs" />
-    <Compile Include="Classes\3D\Project3D.cs" />
     <Compile Include="Position\ShiftClass.cs" />
     <Compile Include="Controls\TextEditor\Snippets\SnippetCollection.cs" />
-    <Compile Include="Classes\3D\Sphere3D.cs" />
     <Compile Include="Classes\Splasher.cs" />
     <Compile Include="Controls\TextEditor\Text\TextChangeEventArgs.cs" />
     <Compile Include="Classes\ImageElementGenerator.cs" />
@@ -268,18 +259,6 @@
     <Compile Include="Variables\VariableBase.cs" />
     <Compile Include="Variables\VariableHelper.cs" />
     <Compile Include="Variables\VariableItem.cs" />
-    <Compile Include="Controls\AngleConverter\RotationMatrix3D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\TransformationMatrix3D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Matrix.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Point2D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Point3D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Quaternion.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\SquareMatrix.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\SVD.cs" />
-    <Compile Include="Controls\AngleConverter\Exceptions\MatrixException.cs" />
-    <Compile Include="Controls\AngleConverter\Interfaces\IGeometricElement3D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Vector.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Vector2D.cs" />
     <Compile Include="Controls\ExplorerClass.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -374,9 +353,6 @@
     <Compile Include="ViewModel\ToolTipViewModel.cs" />
     <Compile Include="ViewModel\ValueBoxViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="Views\AngleConverterView.xaml.cs">
-      <DependentUpon>AngleConverterView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ArchiveInfoView.xaml.cs">
       <DependentUpon>ArchiveInfoView.xaml</DependentUpon>
     </Compile>
@@ -536,14 +512,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Templates.ViewModels.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\ValueBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AngleConverterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -856,11 +824,16 @@
   <ItemGroup>
     <Resource Include="Images\resources-vxmethod_icon.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Images\kuka.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AngleConverterControl\AngleConverterControl.csproj">
+      <Project>{06f26a17-a9dc-4b04-b7ea-c02a1761d490}</Project>
+      <Name>AngleConverterControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

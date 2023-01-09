@@ -13,7 +13,5 @@
         <ResourceDictionary Source="/miRobotEditor;component/Themes/Templates.AvalonEditor.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <DataTemplate DataType="{x:Type vm:ValueBoxViewModel}">
-        <ui:ValueBox/>
-    </DataTemplate>
+   
 </ResourceDictionary>

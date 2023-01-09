@@ -86,7 +86,6 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\Li
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\SnippetToolTip.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\VisualVariableControl.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\VisualVariableItem.baml
-C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\AngleConverterView.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\ArchiveInfoView.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\FileExplorerControl.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\FileExplorerView.baml
@@ -114,8 +113,6 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\Vi
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\VisualVariableItem.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Flyouts\EditorOptionView.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\TestWindow.g.cs
-C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\UI\ValueBox.g.cs
-C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\AngleConverterView.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\ArchiveInfoView.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\FileExplorerControl.g.cs
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\FileExplorerView.g.cs
@@ -151,7 +148,6 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Controls\Ku
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Flyouts\EditorOptionView.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Languages\LanguageTemplates.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\TestWindow.baml
-C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\UI\ValueBox.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\MessageView.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\ObjectBrowserView.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Views\OptionsView.baml
@@ -184,3 +180,6 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\Temp
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\MainSkin.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\Template.GotoViewModel.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\Templates.ViewModels.baml
+C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\AngleConverterControl.dll
+C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\AngleConverterControl.pdb
+C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\AngleConverterControl.dll.config
