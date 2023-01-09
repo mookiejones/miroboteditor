@@ -12,9 +12,9 @@ DEBUG;TRACE
 C:\Programming\miroboteditor\Working Version\editor\editor\App.xaml
 521355722084
 1-456746117
-252-931242771
+253-1737527915
 45251912612
 Themes\Style.DataGrid.xaml;Controls\FilesControl.xaml;Controls\FunctionItem.xaml;Controls\InfoFile.xaml;Controls\KukaControl.xaml;Controls\ListFromFileBox.xaml;Controls\SnippetToolTip.xaml;Controls\VisualVariableControl.xaml;Controls\VisualVariableItem.xaml;Flyouts\EditorOptionView.xaml;Languages\LanguageTemplates.xaml;Themes\Brushes.Generic.xaml;Themes\Template.Explorer.xaml;Themes\Template.IOListBox.xaml;Themes\Template.MenuDictionaryTemplate.xaml;Themes\Template.ShiftTemplate.xaml;TestWindow.xaml;Themes\Controls.ExtendedGridSplitter.xaml;Themes\Generic.xaml;Themes\Templates.AvalonEditor.xaml;Themes\Templates.Kuka.xaml;Themes\Templates.Layout.xaml;Themes\Templates.StatusBar.xaml;Themes\Templates.ViewModels.xaml;UI\ValueBox.xaml;Views\AngleConverterView.xaml;Views\ArchiveInfoView.xaml;Views\FileExplorerControl.xaml;Views\FileExplorerView.xaml;Views\FunctionView.xaml;Views\IOView.xaml;Views\LocalVariablesView.xaml;Views\MessageView.xaml;Views\ObjectBrowserView.xaml;Views\OptionsView.xaml;Windows\AboutWindow.xaml;Windows\AdjustSTWindow.xaml;Windows\AttributeViewerWindow.xaml;Windows\FileExplorerWindow.xaml;Windows\FindAndReplaceWindow.xaml;Windows\GotoWindow.xaml;Windows\KFDAssistantWindow.xaml;Windows\KFDDialogWindow.xaml;Windows\ReverseWindow.xaml;Windows\ShiftWindow.xaml;Windows\SnippetWindow.xaml;Windows\SplashScreenWindow.xaml;Windows\XmlReaderWindow.xaml;MainWindow.xaml;Themes\MainSkin.xaml;Windows\RenamePositionWindow.xaml;Themes\Template.GotoViewModel.xaml;
 
-True
+False
 

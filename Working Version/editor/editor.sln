@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "editor", "editor\editor.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "editorCore", "..\editorCore\editorCore\editorCore.csproj", "{D464E2B9-42E4-42EC-83AA-B2CA7218C533}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleConverter", "..\..\AngleConverter\AngleConverter.csproj", "{3C859127-C006-402A-887A-5AC50A31158F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D464E2B9-42E4-42EC-83AA-B2CA7218C533}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D464E2B9-42E4-42EC-83AA-B2CA7218C533}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D464E2B9-42E4-42EC-83AA-B2CA7218C533}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C859127-C006-402A-887A-5AC50A31158F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C859127-C006-402A-887A-5AC50A31158F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C859127-C006-402A-887A-5AC50A31158F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C859127-C006-402A-887A-5AC50A31158F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
