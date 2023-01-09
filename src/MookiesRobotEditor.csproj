@@ -206,6 +206,7 @@
     <Compile Include="Classes\MsgIcon.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
     <Compile Include="Classes\PaneViewModel.cs" />
+    <Compile Include="Classes\Variable.cs" />
     <Compile Include="Converters\AngleToolTipConverter.cs" />
     <Compile Include="Converters\EnumtoInt32.cs" />
     <Compile Include="Converters\GetFileIconConverter.cs" />

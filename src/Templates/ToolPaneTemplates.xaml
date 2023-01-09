@@ -118,7 +118,7 @@
     </DataTemplate>
 
     <!-- Editor -->
-    <DataTemplate DataType="{x:Type editor:Editor}">
+    <DataTemplate DataType="{x:Type editor:AvlonEditor}">
         <DockPanel>
             <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}"
                       DockPanel.Dock="Top" />

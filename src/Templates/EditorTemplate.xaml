@@ -11,7 +11,7 @@
     <custom:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <xctk:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
 
-    <Style TargetType="{x:Type editor:Editor}">
+    <Style TargetType="{x:Type editor:AvlonEditor}">
 
         <Setter Property="Background"
                 Value="{Binding BackgroundColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static gui:EditorOptions.Instance}}" />

@@ -22,8 +22,8 @@ namespace miRobotEditor.ViewModel
             FileLanguage = lang;
             Source.FileLanguage = FileLanguage;
             Data.FileLanguage = FileLanguage;
-            Source.GotFocus += (s, e) => { TextBox = s as Editor; };
-            Data.GotFocus += (s, e) => { TextBox = s as Editor; };
+            Source.GotFocus += (s, e) => { TextBox = s as AvlonEditor; };
+            Data.GotFocus += (s, e) => { TextBox = s as AvlonEditor; };
             Source.TextChanged += (s, e) => TextChanged(s);
             Data.TextChanged += (s, e) => TextChanged(s);
             Source.IsModified = false;
@@ -49,7 +49,7 @@ namespace miRobotEditor.ViewModel
                         break;
                     case false:
                         if (Data == null)
-                            Data = new Editor();
+                            Data = new AvlonEditor();
                         Data.Visibility = Visibility.Collapsed;
                         Grid.Visibility = Visibility.Collapsed;
                         break;
@@ -142,7 +142,7 @@ namespace miRobotEditor.ViewModel
         ///     Checks both boxes to determine if they should be saved or not
         /// </summary>
         /// <param name="txtBox"></param>
-        private void CheckClose(Editor txtBox)
+        private void CheckClose(AvlonEditor txtBox)
         {
             if (txtBox != null)
                 if (txtBox.IsModified)
@@ -203,12 +203,12 @@ namespace miRobotEditor.ViewModel
 
         #region Properties
 
-        private IEditor _data = new Editor();
+        private IEditor _data = new AvlonEditor();
 
         private ExtendedGridSplitter _grid = new ExtendedGridSplitter();
         private int _gridrow = 1;
 
-        private Editor _source = new Editor();
+        private AvlonEditor _source = new AvlonEditor();
 
         public ExtendedGridSplitter Grid
         {
@@ -220,7 +220,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public Editor Source
+        public AvlonEditor Source
         {
             get { return _source; }
             set

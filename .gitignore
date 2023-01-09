@@ -3,3 +3,7 @@
 packages/
 src/[Bb]in/
 src/[Oo]bj/
+**/[Bb]in/
+**/[Oo]bj/
+Working Version/editor/editor/[Bb]in/
+Working Version/editor/editor/bin/Debug/miRobotEditor.application

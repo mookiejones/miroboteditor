@@ -220,7 +220,7 @@ namespace miRobotEditor.Languages
 
 // ReSharper restore FunctionNeverReturns
 
-        public static Editor ReversePath(Editor editor)
+        public static AvlonEditor ReversePath(AvlonEditor editor)
         {
             var points = new Collection<Collection<string>>();
             for (int i = 0; i <= (editor.Document.Lines.Count - 1); i++)

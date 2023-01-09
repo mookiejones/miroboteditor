@@ -326,13 +326,13 @@ namespace miRobotEditor
     /// </summary>
     internal class InstanceOf
     {
-        private static Editor _ieditor;
+        private static AvlonEditor _ieditor;
 
         private static DocumentViewModel _idocument;
 
-        public static Editor Editor
+        public static AvlonEditor Editor
         {
-            get { return _ieditor ?? (_ieditor = new Editor()); }
+            get { return _ieditor ?? (_ieditor = new AvlonEditor()); }
             set { _ieditor = value; }
         }
 

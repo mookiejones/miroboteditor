@@ -2,13 +2,13 @@
 <LayoutRoot>
   <RootPanel Orientation="Vertical">
     <LayoutPanel Orientation="Horizontal">
-      <LayoutDocumentPane>
-        <LayoutDocument Title="Noname" LastActivationTimeStamp="01/03/2023 20:18:55" />
-        <LayoutDocument Title="cell.src" IsSelected="True" IsLastFocusedDocument="True" ContentId="C:\Temp\R1\cell.src" ToolTip="C:\Temp\R1\cell.src" LastActivationTimeStamp="01/03/2023 20:18:58" />
+      <LayoutDocumentPane Id="bb791a83-f518-4546-93bd-d70f36e5bb6c">
+        <LayoutDocument Title="Noname" IsSelected="True" IsLastFocusedDocument="True" LastActivationTimeStamp="01/05/2023 17:07:15" />
+        <LayoutDocument Title="miRobotEditor.exe" ContentId="C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\miRobotEditor.exe" ToolTip="C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\miRobotEditor.exe" />
       </LayoutDocumentPane>
       <LayoutAnchorablePane Name="RightPane" DockWidth="250">
-        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Functions" IsSelected="True" ContentId="FunctionTool" />
-        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Angle Converter" ContentId="AngleConverterTool" />
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Functions" ContentId="FunctionTool" LastActivationTimeStamp="01/05/2023 17:07:44" />
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Angle Converter" IsSelected="True" ContentId="AngleConverterTool" LastActivationTimeStamp="01/05/2023 17:07:47" />
       </LayoutAnchorablePane>
     </LayoutPanel>
     <LayoutAnchorablePane Name="BottomPane" DockHeight="200">

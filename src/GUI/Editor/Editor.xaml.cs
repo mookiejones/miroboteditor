@@ -49,12 +49,12 @@ namespace miRobotEditor.GUI.Editor
     /// </summary>
     [Localizable(false)]
 // ReSharper disable RedundantExtendsListEntry
-    public sealed partial class Editor : TextEditor, INotifyPropertyChanged,IEditor
+    public sealed partial class AvlonEditor : TextEditor, INotifyPropertyChanged,IEditor
 // ReSharper restore RedundantExtendsListEntry
     {
         #region Constructor
 
-        public Editor()
+        public AvlonEditor()
         {
 
 
@@ -63,6 +63,10 @@ namespace miRobotEditor.GUI.Editor
             _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
             InitializeMyControl();
             MouseHoverStopped += delegate { _toolTip.IsOpen = false; };
+            PreviewMouseWheel += EditorPreviewMouseWheel;
+            GotFocus += TextEditorGotFocus;
+            PreviewKeyDown += TextEditor_PreviewKeyDown;
+
         }
 
         #endregion
@@ -70,9 +74,9 @@ namespace miRobotEditor.GUI.Editor
         #region ViewModel Properties
 
         public static DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof (string),
-            typeof (Editor), new PropertyMetadata((obj, args) =>
+            typeof (AvlonEditor), new PropertyMetadata((obj, args) =>
             {
-                var target = (Editor) obj;
+                var target = (AvlonEditor) obj;
                 target.Text = (string) args.NewValue;
             }));
 
@@ -947,6 +951,8 @@ namespace miRobotEditor.GUI.Editor
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler<Interfaces.TextChangeEventArgs> Changing;
+        public event EventHandler<Interfaces.TextChangeEventArgs> Changed;
 
         private void OnPropertyChanged(string propertyName)
         {
@@ -987,7 +993,7 @@ namespace miRobotEditor.GUI.Editor
         #region Code Completion
 
         public static readonly DependencyProperty CompletionWindowProperty =
-            DependencyProperty.Register("CompletionWindow", typeof (CompletionWindow), typeof (Editor));
+            DependencyProperty.Register("CompletionWindow", typeof (CompletionWindow), typeof (AvlonEditor));
 
         private CompletionWindow CompletionWindow
         {
@@ -1060,7 +1066,14 @@ namespace miRobotEditor.GUI.Editor
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
         public IList<ICompletionData> CompletionData { get; private set; }
-// ReSharper restore UnusedAutoPropertyAccessor.Local
+
+        public int TotalNumberOfLines => throw new NotImplementedException();
+
+        public ITextBufferVersion Version => throw new NotImplementedException();
+
+        public int TextLength => throw new NotImplementedException();
+
+        // ReSharper restore UnusedAutoPropertyAccessor.Local
         private IEnumerable<ICompletionData> GetCompletionItems()
         {
             var items = new List<ICompletionData>();
@@ -1520,6 +1533,96 @@ namespace miRobotEditor.GUI.Editor
 
             // call base handler
             base.OnKeyUp(e);
+        }
+
+        IDocumentLine IEditor.GetLine(int lineNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDocumentLine GetLineForOffset(int offset)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int PositionToOffset(int line, int column)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Location OffsetToPosition(int offset)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(int offset, string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(int offset, string text, Interfaces.AnchorMovementType defaultAnchorMovementType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int offset, int length)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Replace(int offset, int length, string newText)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartUndoableAction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EndUndoableAction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDisposable OpenUndoGroup()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ITextAnchor CreateAnchor(int offset)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ITextBuffer CreateSnapshot()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ITextBuffer CreateSnapshot(int offset, int length)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TextReader CreateReader()
+        {
+            throw new NotImplementedException();
+        }
+
+        public TextReader CreateReader(int offset, int length)
+        {
+            throw new NotImplementedException();
+        }
+
+        public char GetCharAt(int offset)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetText(int offset, int length)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
