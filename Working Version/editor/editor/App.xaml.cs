@@ -12,12 +12,12 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using miRobotEditor.Classes;
 using miRobotEditor.Design;
-using miRobotEditor.Enums; 
+using miRobotEditor.Enums;
 using miRobotEditor.Messages;
-using miRobotEditor.Model; 
+using miRobotEditor.Model;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
-using Mookie.WPF; 
+using Mookie.WPF;
 using Mookie.WPF.Shared.Helpers;
 using MessageBox = System.Windows.MessageBox;
 
@@ -80,14 +80,14 @@ namespace miRobotEditor
             return true;
         }
 
-       
+
 
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             ErrorMessage msg = new("App", e.Exception, MessageType.Error);
             _ = WeakReferenceMessenger.Default.Send(msg);
 
-             
+
 
             e.Handled = true;
         }

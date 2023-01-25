@@ -643,7 +643,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
                     DirectoryInfo directoryInfo2 = new(_rootName);
                     DirectoryInfo[] directories = directoryInfo2.GetDirectories();
-                    if(directories.Any())
+                    if (directories.Any())
                     {
 
 
@@ -652,10 +652,10 @@ namespace miRobotEditor.Controls.TextEditor.Language
                             _rootName = directoryInfo2.FullName;
                         }
                         _rootFound = true;
-                       var rootFiles= GetRootFiles(_rootName);
+                        var rootFiles = GetRootFiles(_rootName);
                         FileCount = Files.Count;
 
-                      var _ =  await  GetVariables(rootFiles);
+                        var _ = await GetVariables(rootFiles);
                     }
                 }
             }
@@ -685,16 +685,16 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
 
                 return newFiles;
- 
+
             }
             catch (Exception ex)
             {
                 ErrorMessage msg = new("Error When Getting Files for Object Browser", ex, MessageType.Error);
-                  WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 throw;
             }
 
-            
+
         }
 
         private readonly object locker = new();
@@ -737,7 +737,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
             var validFiles = files.Where(o => IsFileValid(o)).ToList();
 
 
-            foreach(var validFile in validFiles)
+            foreach (var validFile in validFiles)
             {
                 var ext = Path.GetExtension(validFile.FullName);
 
@@ -754,7 +754,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
                 result.Positions.AddRange(variableMembers.Positions.ToList());
             }
 
- 
+
 
             OnPropertyChanged(nameof(Structures));
             OnPropertyChanged(nameof(Functions));
@@ -771,14 +771,14 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         private Task<VariableMembers> GetVariablesAsync()
         {
-            var task = Task.Run(()=>GetVariables(Files));
+            var task = Task.Run(() => GetVariables(Files));
             return task;
         }
 
         public sealed class VariableMembers
         {
-            
-            public static VariableMembers Create(string fileName,ILanguageRegex regex)
+
+            public static VariableMembers Create(string fileName, ILanguageRegex regex)
             {
                 var result = new VariableMembers();
                 result.FindVariables(fileName, regex);

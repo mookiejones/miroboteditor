@@ -32,12 +32,12 @@ namespace miRobotEditor.Selectors
                     return NotesTemplate;
                 case FunctionViewModel _:
                     return FunctionTemplate;
-                    case DocumentViewModel _:
+                case DocumentViewModel _:
                     return DocumentTemplate;
-                        case MessageViewModel _:
+                case MessageViewModel _:
                     return MessageTemplate;
-                    case AngleConvertorViewModel _:
-                        return AngleConverterTemplate;
+                case AngleConvertorViewModel _:
+                    return AngleConverterTemplate;
                 default:
                     Console.WriteLine();
                     break;

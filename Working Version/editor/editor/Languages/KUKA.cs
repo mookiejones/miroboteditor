@@ -22,7 +22,7 @@ using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
-using miRobotEditor.Messages; 
+using miRobotEditor.Messages;
 using miRobotEditor.ViewModel;
 using Mookie.WPF.Utilities;
 using MenuItem = System.Windows.Controls.MenuItem;

@@ -25,7 +25,7 @@ using Mookie.WPF.Behaviors;
 namespace miRobotEditor.ViewModel
 {
 
-    public sealed class MainViewModel : ViewModelBase,IFilesDropped
+    public sealed class MainViewModel : ViewModelBase, IFilesDropped
     {
         private static IEditorDocument _activeEditor;
         private ILayoutUpdateStrategy _layoutInitializer;

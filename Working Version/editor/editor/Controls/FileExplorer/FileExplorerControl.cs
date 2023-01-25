@@ -203,28 +203,28 @@ namespace miRobotEditor.Controls.FileExplorer
 
 
                 var nodes = directories.Select(o => new TreeNode(o.Name, 0, 1) { Tag = node.Tag.ToString() });
-                foreach(var n in nodes)
+                foreach (var n in nodes)
                 {
                     node.Nodes.Add(n);
                     n.Nodes.Add("");
                 }
- 
 
 
- 
+
+
                 string[] files = Directory.GetFiles(text, Views.FileExplorerControl.Instance.Filter);
                 Array.Sort(files);
                 string[] array = files;
                 string[] array2 = array;
 
-             
+
                 foreach (string path in array2)
                 {
                     TreeNode treeNode = new(Path.GetFileName(path))
                     {
                         Tag = node.Tag.ToString()
                     };
-                    string extension = Path.GetExtension(path)??"".ToLowerInvariant();
+                    string extension = Path.GetExtension(path) ?? "".ToLowerInvariant();
                     if (!string.IsNullOrEmpty(extension))
                     {
                         var isKuka = KUKA.IsKukaFile(extension);
