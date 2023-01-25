@@ -23,11 +23,11 @@
                     </GroupBox.Resources>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding Offset, StringFormat=Offset:\=\{0\}}"
-                                   Visibility="{Binding ShowOffset, Converter={StaticResource BoolToVisConverter}}" />
+                                   Visibility="{Binding ShowOffset, Converter={StaticResource BoolToVisConverter},FallbackValue=true}" />
                         <TextBlock Text="{Binding Returns, StringFormat=Returns:\=\{0\}}"
-                                   Visibility="{Binding ShowReturns, Converter={StaticResource BoolToVisConverter}}" />
+                                   Visibility="{Binding ShowReturns, Converter={StaticResource BoolToVisConverter},FallbackValue=true}" />
                         <TextBlock Text="{Binding Declaration, StringFormat=Returns:\=\{0\}}"
-                                   Visibility="{Binding ShowDeclaration, Converter={StaticResource BoolToVisConverter}}" />
+                                   Visibility="{Binding ShowDeclaration, Converter={StaticResource BoolToVisConverter},FallbackValue=true}" />
                     </StackPanel>
                 </GroupBox>
             </Label.ToolTip>

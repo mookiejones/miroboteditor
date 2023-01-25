@@ -28,7 +28,6 @@ namespace miRobotEditor
     /// </summary>
     public partial class App : ISingleInstanceApp
     {
-        private const string Unique = "miRobotEditor";
         public static App Application;
 
         /// <summary>
@@ -109,7 +108,9 @@ namespace miRobotEditor
                 return;
             }
 
-            if (!SingleInstance<App>.InitializeAsFirstInstance(Unique))
+            var name = Assembly.GetExecutingAssembly().GetName().Name;
+
+            if (!SingleInstance<App>.InitializeAsFirstInstance(name))
             {
                 return;
             }

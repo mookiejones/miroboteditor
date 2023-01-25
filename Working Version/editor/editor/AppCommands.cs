@@ -26,13 +26,13 @@ namespace miRobotEditor
         }
         internal static void ProcessArgs()
         {
-            string[] commandLineArgs = Environment.GetCommandLineArgs();
+            var commandLineArgs = Environment.GetCommandLineArgs().Skip(1);
             OpenFiles(commandLineArgs);
 
         }
         internal static void LoadOpenFiles()
         {
-            IEnumerable<string> files = Regex.Split(Settings.Default.OpenDocuments, ";")
+            var files = Regex.Split(Settings.Default.OpenDocuments, ";")
                 .Where(File.Exists);
 
 

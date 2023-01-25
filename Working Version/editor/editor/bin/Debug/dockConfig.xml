@@ -3,17 +3,17 @@
   <RootPanel Orientation="Vertical">
     <LayoutPanel Orientation="Horizontal">
       <LayoutDocumentPane Id="bb791a83-f518-4546-93bd-d70f36e5bb6c">
-        <LayoutDocument Title="Noname" IsSelected="True" IsLastFocusedDocument="True" LastActivationTimeStamp="01/05/2023 17:07:15" />
-        <LayoutDocument Title="miRobotEditor.exe" ContentId="C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\miRobotEditor.exe" ToolTip="C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\miRobotEditor.exe" />
+        <LayoutDocument Title="Noname" LastActivationTimeStamp="01/25/2023 01:31:33" />
+        <LayoutDocument Title="cell.src" IsSelected="True" IsLastFocusedDocument="True" ContentId="C:\Temp\red dwarf\KRC\R1\cell.src" ToolTip="C:\Temp\red dwarf\KRC\R1\cell.src" LastActivationTimeStamp="01/25/2023 01:31:57" />
       </LayoutDocumentPane>
-      <LayoutAnchorablePane Name="RightPane" DockWidth="250">
-        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Functions" ContentId="FunctionTool" LastActivationTimeStamp="01/05/2023 17:07:44" />
-        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Angle Converter" IsSelected="True" ContentId="AngleConverterTool" LastActivationTimeStamp="01/05/2023 17:07:47" />
+      <LayoutAnchorablePane Id="da8c451a-5cf2-4c15-9e72-28bfe2fc74a7" Name="RightPane" DockWidth="250">
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Functions" IsSelected="True" ContentId="FunctionTool" LastActivationTimeStamp="01/25/2023 01:31:53" />
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Angle Converter" />
       </LayoutAnchorablePane>
     </LayoutPanel>
     <LayoutAnchorablePane Name="BottomPane" DockHeight="200">
-      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Object Browser" ContentId="ObjectBrowserTool" />
-      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Messages" IsSelected="True" ContentId="MessageViewTool" LastActivationTimeStamp="01/03/2023 20:19:00" />
+      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Object Browser" IsSelected="True" ContentId="ObjectBrowserTool" LastActivationTimeStamp="01/25/2023 01:21:01" />
+      <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Messages" ContentId="MessageViewTool" LastActivationTimeStamp="01/03/2023 20:19:00" />
       <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Notes" ContentId="NotesTool" />
       <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Local Variables" ContentId="LocalVariablesTool" />
     </LayoutAnchorablePane>
@@ -23,5 +23,10 @@
   <LeftSide />
   <BottomSide />
   <FloatingWindows />
-  <Hidden />
+  <Hidden>
+    <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Angle Converter" IsSelected="True" ContentId="AngleConverterTool" LastActivationTimeStamp="01/25/2023 01:31:26" PreviousContainerId="da8c451a-5cf2-4c15-9e72-28bfe2fc74a7" PreviousContainerIndex="1" />
+    <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Angle Converter" IsSelected="True" LastActivationTimeStamp="01/25/2023 01:31:26" PreviousContainerId="da8c451a-5cf2-4c15-9e72-28bfe2fc74a7" PreviousContainerIndex="1" />
+    <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Angle Converter" IsSelected="True" LastActivationTimeStamp="01/25/2023 01:31:26" PreviousContainerId="da8c451a-5cf2-4c15-9e72-28bfe2fc74a7" PreviousContainerIndex="1" />
+    <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Angle Converter" IsSelected="True" LastActivationTimeStamp="01/25/2023 01:31:26" PreviousContainerId="da8c451a-5cf2-4c15-9e72-28bfe2fc74a7" PreviousContainerIndex="1" />
+  </Hidden>
 </LayoutRoot>

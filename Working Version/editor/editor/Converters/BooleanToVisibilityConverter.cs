@@ -15,6 +15,8 @@ namespace miRobotEditor.Converters
         {
             if (targetType == typeof(Visibility))
             {
+                if (string.IsNullOrEmpty(value.ToString()))
+                    return Visibility.Visible;
                 bool flag = System.Convert.ToBoolean(value, culture);
                 if (InvertVisibility)
                 {

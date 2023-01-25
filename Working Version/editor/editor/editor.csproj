@@ -201,6 +201,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\FileExplorer\RobotDirectoryHelper.cs" />
+    <Compile Include="Controls\TextEditor\Language\AbstractLanguageClass.VariableMembers.cs" />
     <Compile Include="Controls\TextEditor\SyntaxHighlighting\SyntaxHighlightingHelper.cs" />
     <Compile Include="ExplorerWindow.xaml.cs">
       <DependentUpon>ExplorerWindow.xaml</DependentUpon>

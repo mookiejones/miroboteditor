@@ -16,6 +16,7 @@
 			</ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <!--  Main.ActiveEditor.FileLanguage-->
     <Grid
         DataContext="{Binding Main.ActiveEditor.FileLanguage, IsAsync=True, NotifyOnSourceUpdated=True, Source={StaticResource Locator}}">
 

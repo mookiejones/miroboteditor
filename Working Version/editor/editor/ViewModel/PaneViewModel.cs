@@ -6,7 +6,6 @@ namespace miRobotEditor.ViewModel
     public class PaneViewModel : ViewModelBase
     {
         private string _contentId;
-        private readonly bool _isActive;
         private bool _isSelected;
         private string _title;
 

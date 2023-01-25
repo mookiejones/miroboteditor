@@ -15,7 +15,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
@@ -29,7 +28,7 @@ using Mookie.WPF.Utilities;
 namespace miRobotEditor.Controls.TextEditor.Language
 {
     [Localizable(false)]
-    public abstract class AbstractLanguageClass : ViewModelBase, ILanguageRegex
+    public abstract partial class AbstractLanguageClass : ViewModelBase, ILanguageRegex
     {
         public const string RootPathPropertyName = "RootPath";
         public const string FileNamePropertyName = "FileName";
@@ -655,7 +654,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
                         var rootFiles = GetRootFiles(_rootName);
                         FileCount = Files.Count;
 
-                        var _ = await GetVariables(rootFiles);
+                        var _ = GetVariables(rootFiles);
                     }
                 }
             }
@@ -699,9 +698,9 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         private readonly object locker = new();
 
-        private async Task<bool> GetVariables()
+        private bool GetVariables()
         {
-            var result = await GetVariablesAsync();
+            var result =  GetVariables(Files);
             _enums.AddRange(result.Enums);
             _fields.AddRange(result.Fields);
             _positions.AddRange(result.Positions);
@@ -723,36 +722,42 @@ namespace miRobotEditor.Controls.TextEditor.Language
             result.FindVariables(fileName, this);
             return result;
         }
-        private Task<VariableMembers> GetVariableMembersAsync(string filename)
+       
+        private VariableMembers GetVariableMembers(FileInfo file)
         {
-            var task = Task.Run(() => GetVariableMembers(filename));
-
-            return task;
+            VariableMembers result = new();
+            result.FindVariables(file.FullName, this);
+            return result;
         }
 
-        private async Task<VariableMembers> GetVariables(IEnumerable<FileInfo> files)
+        private VariableMembers GetVariables(IEnumerable<FileInfo> files)
         {
             var result = new VariableMembers();
 
-            var validFiles = files.Where(o => IsFileValid(o)).ToList();
+            var members = files
+                            .Where(IsFileValid)
+                            .Select(GetVariableMembers)
+                            .ToList();
 
 
-            foreach (var validFile in validFiles)
-            {
-                var ext = Path.GetExtension(validFile.FullName);
 
-                if (ext == ".dat")
-                {
+            var functions = members.SelectMany(o => o.Functions).ToList();
+            var structures = members.SelectMany(o => o.Structures).ToList();
+            var fields = members.SelectMany(o => o.Fields).ToList();
+            var signals = members.SelectMany(o => o.Signals).ToList();
+            var enums = members.SelectMany(o => o.Enums).ToList();
+            var positions = members.SelectMany(o => o.Positions).ToList();
+            result.Functions.AddRange(functions);
+            result.Structures.AddRange(structures);
+            result.Fields.AddRange(fields);
+            result.Signals.AddRange(signals);
+            result.Enums.AddRange(enums);
+            result.Positions.AddRange(positions);
 
-                }
-                var variableMembers = await GetVariableMembersAsync(validFile.FullName);
-                result.Functions.AddRange(variableMembers.Structures.ToList());
-                result.Structures.AddRange(variableMembers.Structures.ToList());
-                result.Fields.AddRange(variableMembers.Fields.ToList());
-                result.Signals.AddRange(variableMembers.Signals.ToList());
-                result.Enums.AddRange(variableMembers.Enums.ToList());
-                result.Positions.AddRange(variableMembers.Positions.ToList());
-            }
+
+          
+
+
 
 
 
@@ -767,50 +772,6 @@ namespace miRobotEditor.Controls.TextEditor.Language
             instance.EnableIO = File.Exists(_kukaCon);
             IOModel = new IOViewModel(_kukaCon);
             return result;
-        }
-
-        private Task<VariableMembers> GetVariablesAsync()
-        {
-            var task = Task.Run(() => GetVariables(Files));
-            return task;
-        }
-
-        public sealed class VariableMembers
-        {
-
-            public static VariableMembers Create(string fileName, ILanguageRegex regex)
-            {
-                var result = new VariableMembers();
-                result.FindVariables(fileName, regex);
-                return result;
-            }
-
-
-            #region Variables
-
-            public List<IVariable> Functions { get; private set; } = new List<IVariable>();
-
-            public List<IVariable> Structures { get; private set; } = new List<IVariable>();
-
-            public List<IVariable> Fields { get; private set; } = new List<IVariable>();
-
-            public List<IVariable> Signals { get; private set; } = new List<IVariable>();
-
-            public List<IVariable> Enums { get; private set; } = new List<IVariable>();
-
-            public List<IVariable> Positions { get; private set; }
-
-            #endregion Variables
-
-            public void FindVariables(string filename, ILanguageRegex regex)
-            {
-                Functions = FindMatches(regex.MethodRegex, Global.ImgMethod, filename).ToList();
-                Structures = FindMatches(regex.StructRegex, Global.ImgStruct, filename).ToList();
-                Fields = FindMatches(regex.FieldRegex, Global.ImgField, filename).ToList();
-                Signals = FindMatches(regex.SignalRegex, Global.ImgSignal, filename).ToList();
-                Enums = FindMatches(regex.EnumRegex, Global.ImgEnum, filename).ToList();
-                Positions = FindMatches(regex.XYZRegex, Global.ImgXyz, filename).ToList();
-            }
         }
 
         internal static IEnumerable<IVariable> FindMatches(Regex matchString, string imgPath, string filePath)
