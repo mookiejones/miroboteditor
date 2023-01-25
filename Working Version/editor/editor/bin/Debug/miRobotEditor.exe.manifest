@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Images\editor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="miRobotEditor" version="0.0.0.33645" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="miRobotEditor" version="0.0.0.39655" language="neutral" processorArchitecture="msil" />
     <commandLine file="miRobotEditor.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AngleConverterControl.dll" size="68096">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AngleConverterControl.dll" size="74240">
       <assemblyIdentity name="AngleConverterControl" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ib0TdZoVNX+1tFzQiv9rbeH9Yn0sseZbetbMoIDF41E=</dsig:DigestValue>
+        <dsig:DigestValue>BsnqZWzYYJF/MvcXhLwPc2G69b30Zr2qCb2FBS4VXfg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -223,14 +223,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1371648">
-      <assemblyIdentity name="miRobotEditor" version="0.0.0.33645" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="miRobotEditor.exe" size="1370624">
+      <assemblyIdentity name="miRobotEditor" version="0.0.0.39655" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5P29FucnbK/h/toOFQUKEwVoZ8Bf9f5FTYScFgtJ/IA=</dsig:DigestValue>
+        <dsig:DigestValue>Cex4lxCma5KHGPh9ePh+7j6wv99dwCmR62nItNn3SKE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Mookie.WPF.dll" size="19456">
+      <assemblyIdentity name="Mookie.WPF" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ecbCDgRsqNTy4IlkLVh/Q9ICHdLCivl9niMmLuWHEbc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

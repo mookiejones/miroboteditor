@@ -5,8 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Classes;
-using miRobotEditor.Core;
-using robot_editor.Interfaces;
+using miRobotEditor.Interfaces;
 using Global = miRobotEditor.Classes.Global;
 using Utilities = miRobotEditor.Classes.Utilities;
 
@@ -19,6 +18,7 @@ namespace miRobotEditor.ViewModel
         public ObjectBrowserViewModel() : base("Object Browser")
         {
             Initialize();
+            Instance = this;
         }
 
         #endregion
@@ -124,6 +124,8 @@ namespace miRobotEditor.ViewModel
         #endregion
 
         #endregion
+
+        public static ObjectBrowserViewModel Instance { get; private set; }
 
         public const string ToolContentId = "ObjectBrowserTool";
 

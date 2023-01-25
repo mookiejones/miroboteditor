@@ -10,6 +10,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Messages;
+using Mookie.WPF.Utilities;
 
 namespace miRobotEditor.ViewModel
 {

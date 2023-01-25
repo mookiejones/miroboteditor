@@ -1,6 +1,7 @@
 ﻿using System.Windows.Media.Imaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
+using Mookie.WPF.Utilities;
 
 namespace miRobotEditor.Messages
 {

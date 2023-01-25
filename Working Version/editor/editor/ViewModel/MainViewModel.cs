@@ -12,7 +12,7 @@ using AvalonDock.Layout;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ControlzEx.Theming;
-using Microsoft.Win32;
+using Microsoft.Win32; 
 using miRobotEditor.Classes;
 using miRobotEditor.Controls;
 using miRobotEditor.Controls.TextEditor.Language;
@@ -21,11 +21,12 @@ using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Messages;
 using miRobotEditor.Windows;
+using Mookie.WPF.Behaviors;
 
 namespace miRobotEditor.ViewModel
 {
 
-    public sealed class MainViewModel : ViewModelBase
+    public sealed class MainViewModel : ViewModelBase,IFilesDropped
     {
         private static IEditorDocument _activeEditor;
         private ILayoutUpdateStrategy _layoutInitializer;
@@ -533,11 +534,11 @@ namespace miRobotEditor.ViewModel
             ActiveEditor = _files.Last();
         }
 
-        public void LoadFile(IList<string> args)
+        public void LoadFile(IEnumerable<string> args)
         {
-            for (int i = 1; i < args.Count; i++)
+            foreach (var arg in args)
             {
-                _ = Open(args[i]);
+                _ = Open(arg);
             }
         }
 
@@ -753,6 +754,11 @@ namespace miRobotEditor.ViewModel
         // ReSharper disable  UnusedParameter.Local
 
         private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnFilesDropped(string[] files)
         {
             throw new NotImplementedException();
         }

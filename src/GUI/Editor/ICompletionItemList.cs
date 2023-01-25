@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using miRobotEditor.GUI.Editor.Completion;
 using miRobotEditor.Languages;
 
 namespace miRobotEditor.GUI.Editor

@@ -63,6 +63,7 @@ namespace miRobotEditor.Interfaces
         ///     Creates a new text anchor at the specified position.
         /// </summary>
         ITextAnchor CreateAnchor(int offset);
+        void ReplaceAll();
 
         event EventHandler<TextChangeEventArgs> Changing;
         event EventHandler<TextChangeEventArgs> Changed;

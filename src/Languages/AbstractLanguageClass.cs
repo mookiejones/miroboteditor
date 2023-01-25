@@ -10,9 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using GalaSoft.MvvmLight;
 using ICSharpCode.AvalonEdit.CodeCompletion;
-using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.Annotations;
@@ -23,6 +21,7 @@ using miRobotEditor.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Abstract;
+using ICSharpCode.AvalonEdit.Document;
 
 namespace miRobotEditor.Languages
 {
@@ -340,6 +339,7 @@ namespace miRobotEditor.Languages
         //TODO Need to figure a way to use multiple extensions
 
         public abstract string FoldTitle(FoldingSection section, TextDocument doc);
+       
 
         #endregion
 
@@ -559,7 +559,7 @@ namespace miRobotEditor.Languages
         /// <param name="shift"></param>
         /// <returns></returns>
 // ReSharper disable once UnusedMember.Global
-        public ShiftClass ShiftProgram(IDocument doc, ShiftViewModel shift)
+        public ShiftClass ShiftProgram(Interfaces.IDocument doc, ShiftViewModel shift)
         {
             if (doc is KukaViewModel)
             {
@@ -832,6 +832,7 @@ namespace miRobotEditor.Languages
             return result;
         }
 
+        
         #region Properties for Background Worker and StatusBar
 
         #region BWProgress
@@ -959,6 +960,8 @@ namespace miRobotEditor.Languages
                 RaisePropertyChanged(BWProgressVisibilityPropertyName);
             }
         }
+
+        IEnumerable<IVariable> ILanguageClass.Fields { get => ((ILanguageClass)Instance).Fields; set => ((ILanguageClass)Instance).Fields = value; }
 
         #endregion
 

@@ -8,7 +8,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.Enums;
 using miRobotEditor.Messages;
-using miRobotEditor.Utilities;
+using Mookie.WPF.Utilities;
 
 namespace miRobotEditor.Controls.TextEditor.Snippets
 {

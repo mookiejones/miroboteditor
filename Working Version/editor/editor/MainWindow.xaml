@@ -18,11 +18,15 @@
     WindowState="Maximized"
     TitleForeground="#FF000000"
     AllowDrop="True"
-    Icon="Images/editor.ico" Closing="WindowClosing"
-    Loaded="WindowLoaded" Drop="DropFiles" DragEnter="onDragEnter"
+    Icon="Images/editor.ico" 
+    Closing="WindowClosing"
+    Loaded="WindowLoaded" 
+    
+    xmlns:behaviors="clr-namespace:Mookie.WPF.Behaviors;assembly=Mookie.WPF"
     DataContext="{StaticResource Locator}"
     d:DesignHeight="600"
-    d:DesignWidth="800">
+    d:DesignWidth="800"
+    >
     <!--Title="{Binding Title, Mode=OneWay, StringFormat=miRobotEditor:= {0}}"-->
     <mw:MetroWindow.Resources>
         <ResourceDictionary>
@@ -352,10 +356,12 @@
             Background="#00FFFFFF"
             Grid.Row="2"
             Style="{StaticResource DockingStyle}" 
-			 
-            AnchorablesSource="{Binding Main.Tools}"
-            DocumentsSource="{Binding Main.Files}"
-            ActiveContent="{Binding Main.ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay}"
+            DataContext="{Binding Main}"
+			     behaviors:DropFilesBehaviorExtension.IsEnabled="True"
+
+            AnchorablesSource="{Binding Tools}"
+            DocumentsSource="{Binding Files}"
+            ActiveContent="{Binding ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay}"
 			
 			>
 

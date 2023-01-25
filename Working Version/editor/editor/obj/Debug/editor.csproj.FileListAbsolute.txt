@@ -183,3 +183,7 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\Themes\Temp
 C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\AngleConverterControl.dll
 C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\AngleConverterControl.pdb
 C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\AngleConverterControl.dll.config
+C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\ExplorerWindow.g.cs
+C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\ExplorerWindow.baml
+C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\Mookie.WPF.dll
+C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\Mookie.WPF.pdb

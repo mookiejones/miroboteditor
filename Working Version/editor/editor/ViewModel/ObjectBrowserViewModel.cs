@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
+using Mookie.WPF.Utilities;
 
 namespace miRobotEditor.ViewModel
 {

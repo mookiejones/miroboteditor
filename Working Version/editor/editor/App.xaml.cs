@@ -12,13 +12,13 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using miRobotEditor.Classes;
 using miRobotEditor.Design;
-using miRobotEditor.Enums;
-using miRobotEditor.Interfaces;
+using miRobotEditor.Enums; 
 using miRobotEditor.Messages;
-using miRobotEditor.Model;
-using miRobotEditor.Utilities;
+using miRobotEditor.Model; 
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
+using Mookie.WPF; 
+using Mookie.WPF.Shared.Helpers;
 using MessageBox = System.Windows.MessageBox;
 
 namespace miRobotEditor
@@ -72,7 +72,7 @@ namespace miRobotEditor
             // DispatcherHelper.Initialize();
         }
 
-        public bool SignalExternalCommandLineArgs(IList<string> args)
+        public bool SignalExternalCommandLineArgs(IEnumerable<string> args)
         {
             _ = MainWindow.Activate();
             MainViewModel main = Ioc.Default.GetRequiredService<MainViewModel>();
@@ -80,33 +80,14 @@ namespace miRobotEditor
             return true;
         }
 
-        [Localizable(false)]
-        private static bool CheckEnvironment()
-        {
-            // Safety check: our setup already checks that .NET 4 is installed, but we manually check the .NET version in case SharpDevelop is
-            // used on another machine than it was installed on (e.g. "SharpDevelop on USB stick")
-            if (Environment.Version < new Version(4, 0, 30319))
-            {
-                _ = MessageBox.Show(string.Format(miRobotEditor.Properties.Resources.CheckEnvironment,
-                    Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
-                return false;
-            }
-            // Work around a WPF issue when %WINDIR% is set to an incorrect path
-            string windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows,
-                Environment.SpecialFolderOption.DoNotVerify);
-            if (Environment.GetEnvironmentVariable("WINDIR") != windir)
-            {
-                Environment.SetEnvironmentVariable("WINDIR", windir);
-            }
-            return true;
-        }
+       
 
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             ErrorMessage msg = new ErrorMessage("App", e.Exception, MessageType.Error);
             _ = WeakReferenceMessenger.Default.Send(msg);
 
-            Logger.Log(e.ToString());
+             
 
             e.Handled = true;
         }
@@ -126,7 +107,7 @@ namespace miRobotEditor
 #if DEBUG
             Control.CheckForIllegalCrossThreadCalls = true;
 #endif
-            if (!CheckEnvironment())
+            if (!this.CheckEnvironment())
             {
                 return;
             }

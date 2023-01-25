@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -55,3 +56,4 @@ using System.Windows;
 [assembly: AssemblyFileVersion("0.0.0.1")]
 [assembly: Guid("DF4E7F27-F8FF-4AFC-977E-E21D58AADA86")]
 [assembly: NeutralResourcesLanguage("en-US")]
+[assembly: InternalsVisibleTo("editor.tests")]

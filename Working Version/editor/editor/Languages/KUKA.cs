@@ -22,9 +22,9 @@ using miRobotEditor.Controls.TextEditor.Completion;
 using miRobotEditor.Controls.TextEditor.Folding;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
-using miRobotEditor.Messages;
-using miRobotEditor.Utilities;
+using miRobotEditor.Messages; 
 using miRobotEditor.ViewModel;
+using Mookie.WPF.Utilities;
 using MenuItem = System.Windows.Controls.MenuItem;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -65,6 +65,8 @@ namespace miRobotEditor.Languages
                     ".zip",
                     ".kfd"
                 };
+
+        public static bool IsKukaFile(string ext) => Ext.Contains(ext.ToLowerInvariant());
 
         public override List<string> SearchFilters => Ext;
 

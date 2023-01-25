@@ -2,10 +2,11 @@
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using AngleConverterControl.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace AngleConverterControl.ViewModels
 {
-    public class ValueBoxViewModel : ObservableObject
+    public class ValueBoxViewModel : ObservableValidator
     {
         private Visibility _boxVisibility = Visibility.Visible;
         private string _header = string.Empty;
@@ -16,43 +17,54 @@ namespace AngleConverterControl.ViewModels
         private double _v3;
         private double _v4;
 
+
+        private static ValidationResult ValidateValue(object value,ValidationContext context)
+        {
+            return new ValidationResult("The name was not validated by the fancy service");
+        }
+
+        [Required]
+        [CustomValidation(typeof(ValueBoxViewModel),nameof(ValidateValue))]
         public double V1
         {
             get => _v1;
             set
             {
-                _ = SetProperty(ref _v1, value);
+                 SetProperty(ref _v1, value);
                 RaiseItemsChanged();
             }
         }
-
+        [Required]
+        [CustomValidation(typeof(ValueBoxViewModel), nameof(ValidateValue))]
         public double V2
         {
             get => _v2;
             set
             {
-                _ = SetProperty(ref _v2, value);
+                SetProperty(ref _v2, value);
                 RaiseItemsChanged();
             }
         }
-
+        [Required]
+        [CustomValidation(typeof(ValueBoxViewModel), nameof(ValidateValue))]
         public double V3
         {
             get => _v3;
             set
             {
-                _ = SetProperty(ref _v3, value);
+                 SetProperty(ref _v3, value);
 
                 RaiseItemsChanged();
             }
         }
-
+        [Required]
+        [CustomValidation(typeof(ValueBoxViewModel), nameof(ValidateValue))]
         public double V4
         {
             get => _v4;
             set
             {
-                _ = SetProperty(ref _v4, value);
+                SetProperty(ref _v4, value);
                 RaiseItemsChanged();
             }
         }

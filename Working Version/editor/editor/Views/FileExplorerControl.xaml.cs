@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using miRobotEditor.Controls;
+using miRobotEditor.Controls.FileExplorer;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using KeyEventHandler = System.Windows.Input.KeyEventHandler;
 using UserControl = System.Windows.Controls.UserControl;
@@ -15,7 +16,7 @@ namespace miRobotEditor.Views
     {
         // ReSharper disable UnassignedField.Compiler
         // ReSharper disable UnusedField.Compiler
-        private readonly ExplorerClass _explorer = new ExplorerClass();
+        private readonly Controls.FileExplorer.FileExplorerControl _explorer = new Controls.FileExplorer.FileExplorerControl();
         private readonly IContainer _components = null;
         private readonly ContextMenuStrip _ctxFileExplorer;
         private string _filter = "*.*";
@@ -29,11 +30,13 @@ namespace miRobotEditor.Views
         public FileExplorerControl()
         {
             InitializeComponent();
-            Instance = this;
+            _instance = this;
             _explorer.ShowTree();
         }
 
-        public static FileExplorerControl Instance { get; set; }
+
+        private static FileExplorerControl _instance;
+        public static FileExplorerControl Instance => _instance ?? new FileExplorerControl();
 
         [Localizable(false)]
         public string Filter

@@ -539,6 +539,7 @@
     <Compile Include="ViewModel\ToolViewModel.cs" />
     <Compile Include="ViewModel\UpdateCheckerViewModel.cs" />
     <Compile Include="ViewModel\ValueBoxViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>

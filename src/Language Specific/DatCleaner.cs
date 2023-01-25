@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using miRobotEditor.ViewModel;
+﻿using GalaSoft.MvvmLight;
 namespace miRobotEditor.Language_Specific
 {
     class DatCleaner:ViewModelBase

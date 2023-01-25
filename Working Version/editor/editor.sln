@@ -11,6 +11,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleConverter", "..\..\Ang
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleConverterControl", "..\..\AngleConverterControl\AngleConverterControl.csproj", "{06F26A17-A9DC-4B04-B7EA-C02A1761D490}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "editor.tests", "editor.tests\editor.tests.csproj", "{E9D60ADE-EB6B-4053-8C07-BEE3A474DED5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0CA4BDD7-ECD0-4A9B-8AE0-B952BA83FA8C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.Props = Directory.Build.Props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mookie", "Mookie", "{47AA414D-F36D-4F6A-BB3C-1C8D1D94F723}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mookie.WPF", "..\..\..\Mookie.WPF\Mookie.WPF\Mookie.WPF.csproj", "{36B48BE9-9E7F-473E-9B68-40BA049C20BE}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Mookie.WPF.Shared", "..\..\..\Mookie.WPF\Mookie.WPF.Shared\Mookie.WPF.Shared.shproj", "{11C87443-84E1-406C-BB0F-07C5E129B736}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,11 +47,27 @@ Global
 		{06F26A17-A9DC-4B04-B7EA-C02A1761D490}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06F26A17-A9DC-4B04-B7EA-C02A1761D490}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06F26A17-A9DC-4B04-B7EA-C02A1761D490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9D60ADE-EB6B-4053-8C07-BEE3A474DED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9D60ADE-EB6B-4053-8C07-BEE3A474DED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9D60ADE-EB6B-4053-8C07-BEE3A474DED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9D60ADE-EB6B-4053-8C07-BEE3A474DED5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36B48BE9-9E7F-473E-9B68-40BA049C20BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36B48BE9-9E7F-473E-9B68-40BA049C20BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36B48BE9-9E7F-473E-9B68-40BA049C20BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36B48BE9-9E7F-473E-9B68-40BA049C20BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{36B48BE9-9E7F-473E-9B68-40BA049C20BE} = {47AA414D-F36D-4F6A-BB3C-1C8D1D94F723}
+		{11C87443-84E1-406C-BB0F-07C5E129B736} = {47AA414D-F36D-4F6A-BB3C-1C8D1D94F723}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C814820-1E90-42C1-8A5F-93E3FDFFC008}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\..\Mookie.WPF\Mookie.WPF.Shared\Mookie.WPF.Shared.projitems*{11c87443-84e1-406c-bb0f-07c5e129b736}*SharedItemsImports = 13
+		..\..\..\Mookie.WPF\Mookie.WPF.Shared\Mookie.WPF.Shared.projitems*{36b48be9-9e7f-473e-9b68-40ba049c20be}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

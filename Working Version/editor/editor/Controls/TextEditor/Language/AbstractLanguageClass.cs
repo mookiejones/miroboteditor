@@ -24,6 +24,7 @@ using miRobotEditor.Messages;
 using miRobotEditor.Position;
 using miRobotEditor.Variables;
 using miRobotEditor.ViewModel;
+using Mookie.WPF.Utilities;
 
 namespace miRobotEditor.Controls.TextEditor.Language
 {
@@ -76,11 +77,11 @@ namespace miRobotEditor.Controls.TextEditor.Language
             Instance = this;
         }
 
-        private readonly string flename;
+        private readonly string _fileName;
 
         protected virtual void Initialize()
         {
-            string filename = flename;
+            string filename = _fileName;
             DataText = string.Empty;
             SourceText = string.Empty;
             string directoryName = Path.GetDirectoryName(filename);
@@ -121,7 +122,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         protected AbstractLanguageClass(string filename)
         {
-            flename = filename;
+            _fileName = filename;
             Initialize(filename);
         }
 
@@ -618,7 +619,12 @@ namespace miRobotEditor.Controls.TextEditor.Language
             return doc.Text;
         }
 
-        public void GetRootDirectory(string dir)
+        public void GetRootDirectory()
+        {
+            var directory = Path.GetDirectoryName(_fileName);
+            GetRootDirectory(directory);
+        }
+        public async void GetRootDirectory(string dir)
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(dir);
             if (directoryInfo.Name == directoryInfo.Root.Name)
@@ -640,19 +646,22 @@ namespace miRobotEditor.Controls.TextEditor.Language
                             ? directoryInfo.Parent.Parent.FullName
                             : directoryInfo.Parent.Parent.Parent.FullName;
                     }
+
                     DirectoryInfo directoryInfo2 = new DirectoryInfo(_rootName);
                     DirectoryInfo[] directories = directoryInfo2.GetDirectories();
-                    if (directories.Length >= 1)
+                    if(directories.Any())
                     {
-                        if (directories[0].Name == "C" && directories[1].Name == "KRC")
+
+
+                        if (directories[0].Name.Equals("C") && directories[1].Name.Equals("KRC"))
                         {
                             _rootName = directoryInfo2.FullName;
                         }
                         _rootFound = true;
-                        GetRootFiles(_rootName);
+                       var rootFiles= GetRootFiles(_rootName);
                         FileCount = Files.Count;
 
-                        GetVariables();
+                      var _ =  await  GetVariables(rootFiles);
                     }
                 }
             }
@@ -663,85 +672,95 @@ namespace miRobotEditor.Controls.TextEditor.Language
             }
         }
 
-        private void GetRootFiles(string dir)
+        private List<FileInfo> GetRootFiles(string dir)
         {
             try
             {
-                List<FileInfo> newFiles = (from directory in Directory.GetDirectories(dir)
-                                           let files = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories)
-                                           from file in files
-                                           select new FileInfo(file)).ToList();
 
-                foreach (FileInfo file in newFiles)
-                {
-                    if (file.Name.Equals("kuka_con.mdb", StringComparison.OrdinalIgnoreCase))
-                    {
-                        _kukaCon = file.Name;
-                    }
+                var newFiles = Directory.GetDirectories(dir)
+                            .SelectMany(directory => Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories))
+                            .Select(file => new FileInfo(file))
+                            .ToList();
 
+                // There
+
+                _kukaCon = newFiles.FirstOrDefault(o => o.Name.Equals("kuka_con.mdb", StringComparison.InvariantCultureIgnoreCase))?.Name;
+
+                foreach (var file in newFiles)
                     _files.Add(file);
-                }
+
+
+                return newFiles;
+ 
             }
             catch (Exception ex)
             {
                 ErrorMessage msg = new ErrorMessage("Error When Getting Files for Object Browser", ex, MessageType.Error);
-                _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                  WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                throw;
             }
+
+            
         }
 
         private readonly object locker = new object();
 
-        private void GetVariables()
+        private async Task<bool> GetVariables()
         {
-            Task<VariableMembers> task = GetVariablesAsync();
-            _ = task.ContinueWith((r) =>
-            {
-                _enums.AddRange(r.Result.Enums);
-                _fields.AddRange(r.Result.Fields);
-                _positions.AddRange(r.Result.Positions);
-                _signals.AddRange(r.Result.Signals);
-                _functions.AddRange(r.Result.Functions);
-                _structures.AddRange(r.Result.Structures);
+            var result = await GetVariablesAsync();
+            _enums.AddRange(result.Enums);
+            _fields.AddRange(result.Fields);
+            _positions.AddRange(result.Positions);
+            _signals.AddRange(result.Signals);
+            _functions.AddRange(result.Functions);
+            _structures.AddRange(result.Structures);
 
-                _allVariables.AddRange(Functions);
-                _allVariables.AddRange(Fields);
-                _allVariables.AddRange(Positions);
-                _allVariables.AddRange(Signals);
-            })
-            ;
+            _allVariables.AddRange(Functions);
+            _allVariables.AddRange(Fields);
+            _allVariables.AddRange(Positions);
+            _allVariables.AddRange(Signals);
+
+            return true;
         }
 
-        private Task<VariableMembers> GetVariableMembers(string filename)
+        private VariableMembers GetVariableMembers(string fileName)
         {
-            Task<VariableMembers> task = Task.Factory.StartNew(() =>
-            {
-                VariableMembers result = new VariableMembers();
-                result.FindVariables(filename, this);
-                return result;
-            });
+            VariableMembers result = new VariableMembers();
+            result.FindVariables(fileName, this);
+            return result;
+        }
+        private Task<VariableMembers> GetVariableMembersAsync(string filename)
+        {
+            var task = Task.Run(() => GetVariableMembers(filename));
 
             return task;
         }
 
-        private VariableMembers GetVariables(IEnumerable<FileInfo> files)
+        private async Task<VariableMembers> GetVariables(IEnumerable<FileInfo> files)
         {
-            VariableMembers variableMembers = new VariableMembers();
-            IEnumerable<FileInfo> validFiles = from file in files
-                                               where IsFileValid(file)
-                                               select file;
+            var result = new VariableMembers();
 
-            IEnumerable<Task> results = from file in validFiles
-                                        select GetVariableMembers(file.FullName).ContinueWith((var) =>
-                                        {
-                                            variableMembers.Functions.AddRange(var.Result.Structures.ToList());
-                                            variableMembers.Structures.AddRange(var.Result.Structures.ToList());
-                                            variableMembers.Fields.AddRange(var.Result.Fields.ToList());
-                                            variableMembers.Signals.AddRange(var.Result.Signals.ToList());
-                                            variableMembers.Enums.AddRange(var.Result.Enums.ToList());
-                                            variableMembers.Positions.AddRange(var.Result.Positions.ToList());
-                                        });
+            var validFiles = files.Where(o => IsFileValid(o)).ToList();
 
-            Task.WaitAll(results.ToArray());
+
+            foreach(var validFile in validFiles)
+            {
+                var ext = Path.GetExtension(validFile.FullName);
+
+                if (ext == ".dat")
+                {
+
+                }
+                var variableMembers = await GetVariableMembersAsync(validFile.FullName);
+                result.Functions.AddRange(variableMembers.Structures.ToList());
+                result.Structures.AddRange(variableMembers.Structures.ToList());
+                result.Fields.AddRange(variableMembers.Fields.ToList());
+                result.Signals.AddRange(variableMembers.Signals.ToList());
+                result.Enums.AddRange(variableMembers.Enums.ToList());
+                result.Positions.AddRange(variableMembers.Positions.ToList());
+            }
+
+ 
 
             OnPropertyChanged(nameof(Structures));
             OnPropertyChanged(nameof(Functions));
@@ -753,44 +772,37 @@ namespace miRobotEditor.Controls.TextEditor.Language
             MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.EnableIO = File.Exists(_kukaCon);
             IOModel = new IOViewModel(_kukaCon);
-            return variableMembers;
+            return result;
         }
 
         private Task<VariableMembers> GetVariablesAsync()
         {
-            Task<VariableMembers> task = Task<VariableMembers>.Factory.StartNew(() => GetVariables(Files));
-
+            var task = Task.Run(()=>GetVariables(Files));
             return task;
         }
 
         public sealed class VariableMembers
         {
-            private void Initialize()
+            
+            public static VariableMembers Create(string fileName,ILanguageRegex regex)
             {
-                Functions = new List<IVariable>();
-                Structures = new List<IVariable>();
-                Fields = new List<IVariable>();
-                Signals = new List<IVariable>();
-                Enums = new List<IVariable>();
-                Positions = new List<IVariable>();
+                var result = new VariableMembers();
+                result.FindVariables(fileName, regex);
+                return result;
             }
 
-            public VariableMembers()
-            {
-                Initialize();
-            }
 
             #region Variables
 
-            public List<IVariable> Functions { get; private set; }
+            public List<IVariable> Functions { get; private set; } = new List<IVariable>();
 
-            public List<IVariable> Structures { get; private set; }
+            public List<IVariable> Structures { get; private set; } = new List<IVariable>();
 
-            public List<IVariable> Fields { get; private set; }
+            public List<IVariable> Fields { get; private set; } = new List<IVariable>();
 
-            public List<IVariable> Signals { get; private set; }
+            public List<IVariable> Signals { get; private set; } = new List<IVariable>();
 
-            public List<IVariable> Enums { get; private set; }
+            public List<IVariable> Enums { get; private set; } = new List<IVariable>();
 
             public List<IVariable> Positions { get; private set; }
 
@@ -807,20 +819,32 @@ namespace miRobotEditor.Controls.TextEditor.Language
             }
         }
 
-        private static IEnumerable<IVariable> FindMatches(Regex matchstring, string imgPath, string filepath)
+        internal static IEnumerable<IVariable> FindMatches(Regex matchString, string imgPath, string filePath)
         {
             List<IVariable> list = new List<IVariable>();
+
+            var ext = Path.GetExtension(filePath);
+
+            switch (ext)
+            {
+                case ".src":
+                case ".dat":
+                case ".sub":
+                    Console.WriteLine();
+                    break;
+
+            }
 
             IEnumerable<IVariable> result;
             try
             {
-                string input = File.ReadAllText(filepath);
-                if (string.IsNullOrEmpty(matchstring.ToString()))
+                string input = File.ReadAllText(filePath);
+                if (string.IsNullOrEmpty(matchString.ToString()))
                 {
                     result = list;
                     return result;
                 }
-                Match match = matchstring.Match(input);
+                Match match = matchString.Match(input);
                 while (match.Success)
                 {
                     list.Add(new Variable
@@ -830,7 +854,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
                         Type = match.Groups[1].ToString(),
                         Name = match.Groups[2].ToString(),
                         Value = match.Groups[3].ToString(),
-                        Path = filepath,
+                        Path = filePath,
                         Icon = ImageHelper.LoadBitmap(imgPath)
                     });
                     match = match.NextMatch();

@@ -196,7 +196,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppCommands.cs" />
+    <Compile Include="Controls\FileExplorer\delegates.cs" />
+    <Compile Include="Controls\FileExplorer\FileExplorerControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FileExplorer\RobotDirectoryHelper.cs" />
     <Compile Include="Controls\TextEditor\SyntaxHighlighting\SyntaxHighlightingHelper.cs" />
+    <Compile Include="ExplorerWindow.xaml.cs">
+      <DependentUpon>ExplorerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Flyouts\EditorOptionView.xaml.cs">
       <DependentUpon>EditorOptionView.xaml</DependentUpon>
     </Compile>
@@ -205,10 +213,8 @@
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DockHelper.cs" />
-    <Compile Include="Utilities\FileExtended.cs" />
     <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
     <Compile Include="Controls\TextEditor\Language\AbstractLanguageClass.cs" />
-    <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Variables\AbstractVariableClass.cs" />
     <Compile Include="Parsers\AbstractParser.cs" />
     <Compile Include="Controls\TextEditor\Completion\CompletionContext.cs" />
@@ -250,18 +256,12 @@
     <Compile Include="Controls\TextEditor\Indentation\IndentationStrategy.cs" />
     <Compile Include="Classes\LayoutInitializer.cs" />
     <Compile Include="Classes\LogWriter.cs" />
-    <Compile Include="Classes\NativeMethods.cs" />
-    <Compile Include="Classes\SingleInstance.cs" />
     <Compile Include="Controls\TextEditor\Text\TextSourceAdapter.cs" />
     <Compile Include="Classes\TraceWriter.cs" />
-    <Compile Include="Utilities\ImageHelper.cs" />
     <Compile Include="Variables\Variable.cs" />
     <Compile Include="Variables\VariableBase.cs" />
     <Compile Include="Variables\VariableHelper.cs" />
     <Compile Include="Variables\VariableItem.cs" />
-    <Compile Include="Controls\ExplorerClass.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\ExtendedGridSplitter.cs" />
     <Compile Include="Controls\FilesControl.xaml.cs">
       <DependentUpon>FilesControl.xaml</DependentUpon>
@@ -319,7 +319,7 @@
     <Compile Include="Controls\TextEditor\IEditorDocument.cs" />
     <Compile Include="Controls\TextEditor\IEditorDocumentLine.cs" />
     <Compile Include="Controls\TextEditor\Options\IOptions.cs" />
-    <Compile Include="Interfaces\public interface ILanguageRegex.cs" />
+    <Compile Include="Interfaces\ILanguageRegex.cs" />
     <Compile Include="Languages\DatCleaner.cs" />
     <Compile Include="Languages\Fanuc.cs" />
     <Compile Include="Languages\Kawasaki.cs" />
@@ -419,6 +419,10 @@
     <Compile Include="Windows\XmlReaderWindow.xaml.cs">
       <DependentUpon>XmlReaderWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="ExplorerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Style.DataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -643,7 +647,6 @@
     <Compile Include="Controls\TextEditor\Bookmarks\IBookmarkMargin.cs" />
     <Compile Include="Controls\TextEditor\IEditor.cs" />
     <Compile Include="Controls\TextEditor\Bookmarks\IImage.cs" />
-    <Compile Include="Interfaces\ISingleInstanceApp.cs" />
     <Compile Include="Controls\TextEditor\Text\ITextBuffer.cs" />
     <Compile Include="Controls\TextEditor\Text\ITextBufferVersion.cs" />
     <Compile Include="Interfaces\IVariable.cs" />
@@ -721,6 +724,9 @@
     <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\NoneHighlight.xshd" />
     <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\RobotBaseHighlight.xshd" />
     <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\VBAHighlight.xshd" />
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -830,6 +836,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Mookie.WPF\Mookie.WPF\Mookie.WPF.csproj">
+      <Project>{36b48be9-9e7f-473e-9b68-40ba049c20be}</Project>
+      <Name>Mookie.WPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\AngleConverterControl\AngleConverterControl.csproj">
       <Project>{06f26a17-a9dc-4b04-b7ea-c02a1761d490}</Project>
       <Name>AngleConverterControl</Name>

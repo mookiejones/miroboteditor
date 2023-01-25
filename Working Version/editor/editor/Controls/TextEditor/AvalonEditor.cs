@@ -39,6 +39,7 @@ using miRobotEditor.Messages;
 using miRobotEditor.Variables;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
+using Mookie.WPF.Utilities;
 
 namespace miRobotEditor.Controls.TextEditor
 {
