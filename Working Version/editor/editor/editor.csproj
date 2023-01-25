@@ -243,7 +243,7 @@
     <Compile Include="Controls\TextEditor\Snippets\SnippetCollection.cs" />
     <Compile Include="Classes\Splasher.cs" />
     <Compile Include="Controls\TextEditor\Text\TextChangeEventArgs.cs" />
-    <Compile Include="Classes\ImageElementGenerator.cs" />
+    <Compile Include="Controls\TextEditor\ImageElementGenerator.cs" />
     <Compile Include="Classes\StringTextBuffer.cs" />
     <Compile Include="Controls\TextEditor\Bookmarks\ClassMemberBookmark.cs" />
     <Compile Include="Controls\TextEditor\Formatting\DefaultFormattingStrategy.cs" />

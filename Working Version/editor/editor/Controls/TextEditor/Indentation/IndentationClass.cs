@@ -553,10 +553,7 @@ namespace miRobotEditor.Classes
                 OneLineBlock = 0;
             }
 
-            public void Indent(IndentationSettings set)
-            {
-                Indent(set.IndentString);
-            }
+            public void Indent(IndentationSettings set) => Indent(set.IndentString);
 
             public void Indent(string indentationString)
             {
@@ -568,9 +565,7 @@ namespace miRobotEditor.Classes
             }
 
             [Localizable(false)]
-            public override string ToString()
-            {
-                return string.Format(CultureInfo.InvariantCulture,
+            public override string ToString() => string.Format(CultureInfo.InvariantCulture,
                     "[Block StartLine={0}, LastWord='{1}', Continuation={2}, OneLineBlock={3}, PreviousOneLineBlock={4}]",
                     new object[]
                     {
@@ -580,7 +575,6 @@ namespace miRobotEditor.Classes
                         OneLineBlock,
                         PreviousOneLineBlock
                     });
-            }
         }
     }
 }

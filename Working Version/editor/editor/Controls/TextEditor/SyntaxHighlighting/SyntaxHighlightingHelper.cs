@@ -2,14 +2,8 @@
 {
     internal sealed class SyntaxHighlightingHelper
     {
-        public string GetFilename(string name)
-        {
-            return $"{GetType().Namespace}.{name}Highlight.xshd";
-        }
+        public string GetFilename(string name) => $"{GetType().Namespace}.{name}Highlight.xshd";
 
-        public static SyntaxHighlightingHelper Create()
-        {
-            return new SyntaxHighlightingHelper();
-        }
+        public static SyntaxHighlightingHelper Create() => new SyntaxHighlightingHelper();
     }
 }

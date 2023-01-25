@@ -32,10 +32,7 @@ namespace miRobotEditor.Model
 
         public abstract void Load(string filepath);
 
-        public void SelectText(IVariable variable)
-        {
-            throw new NotImplementedException();
-        }
+        public void SelectText(IVariable variable) => throw new NotImplementedException();
 
         private void InitializeControl()
         {

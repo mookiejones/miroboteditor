@@ -6,10 +6,7 @@ namespace miRobotEditor.Controls.TextEditor
 {
     public static class DocumentUtilities
     {
-        public static int FindNextWordEnd(this TextDocument document, int offset)
-        {
-            return document.FindNextWordEnd(offset, new List<char>());
-        }
+        public static int FindNextWordEnd(this TextDocument document, int offset) => document.FindNextWordEnd(offset, new List<char>());
 
         public static int FindNextWordEnd(this TextDocument document, int offset, IList<char> allowedChars)
         {
@@ -169,10 +166,7 @@ namespace miRobotEditor.Controls.TextEditor
             return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
 
-        public static string GetFirstWordInLine(this AvalonEditor editor, int lineNumber)
-        {
-            return editor == null ? throw new ArgumentNullException("editor") : editor.Document.GetFirstWordInLine(lineNumber);
-        }
+        public static string GetFirstWordInLine(this AvalonEditor editor, int lineNumber) => editor == null ? throw new ArgumentNullException("editor") : editor.Document.GetFirstWordInLine(lineNumber);
 
         public static string GetFirstWordInLine(this TextDocument document, int lineNumber)
         {
@@ -237,14 +231,8 @@ namespace miRobotEditor.Controls.TextEditor
             return 0;
         }
 
-        public static bool IsWhitespaceOrNewline(char ch)
-        {
-            return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
-        }
+        public static bool IsWhitespaceOrNewline(char ch) => ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
 
-        private static bool IsWordPart(char ch)
-        {
-            return char.IsLetterOrDigit(ch) || ch == '_';
-        }
+        private static bool IsWordPart(char ch) => char.IsLetterOrDigit(ch) || ch == '_';
     }
 }

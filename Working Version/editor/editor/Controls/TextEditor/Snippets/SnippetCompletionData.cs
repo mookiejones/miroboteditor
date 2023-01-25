@@ -34,10 +34,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             }
         }
 
-        private static bool IsWhitespace(char ch)
-        {
-            return ch == '\t' || ch == ' ' || ch == '\n';
-        }
+        private static bool IsWhitespace(char ch) => ch == '\t' || ch == ' ' || ch == '\n';
 
         private bool ReplaceIfNeeded(TextArea area, SnippetInfo snippInfo)
         {

@@ -4,10 +4,7 @@ namespace miRobotEditor.Abstract
 {
     public abstract class AbstractParser
     {
-        public string Parse(Token value)
-        {
-            return string.Empty;
-        }
+        public string Parse(Token value) => string.Empty;
 
         public sealed class PeekToken
         {

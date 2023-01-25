@@ -303,15 +303,9 @@ namespace miRobotEditor.Controls
             IsCollapsed = false;
         }
 
-        protected virtual void OnCollapsed(EventArgs e)
-        {
-            Collapsed?.Invoke(this, e);
-        }
+        protected virtual void OnCollapsed(EventArgs e) => Collapsed?.Invoke(this, e);
 
-        protected virtual void OnExpanded(EventArgs e)
-        {
-            Expanded?.Invoke(this, e);
-        }
+        protected virtual void OnExpanded(EventArgs e) => Expanded?.Invoke(this, e);
 
         private void GridSplitterButtonChecked(object sender, RoutedEventArgs e)
         {

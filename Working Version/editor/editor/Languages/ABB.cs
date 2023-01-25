@@ -60,10 +60,7 @@ namespace miRobotEditor.Languages
         public override Regex XYZRegex => new("^[PERS ]*(robtarget|jointtarget) ([\\w\\d_]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override void Initialize(string filename)
-        {
-            Initialize();
-        }
+        public override void Initialize(string filename) => Initialize();
 
         public override string CommentChar => "!";
 
@@ -74,10 +71,7 @@ namespace miRobotEditor.Languages
                     new CodeCompletion("Item1")
                 };
 
-        protected override bool IsFileValid(FileInfo file)
-        {
-            return EXT.Any(e => file.Extension.ToLower(CultureInfo.InvariantCulture) == e);
-        }
+        protected override bool IsFileValid(FileInfo file) => EXT.Any(e => file.Extension.ToLower(CultureInfo.InvariantCulture) == e);
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {

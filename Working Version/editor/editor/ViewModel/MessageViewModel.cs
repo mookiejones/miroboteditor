@@ -32,10 +32,7 @@ namespace miRobotEditor.ViewModel
 
         }
 
-        private void AddMessage(object recipient, IMessage message)
-        {
-            _messages.Add(message);
-        }
+        private void AddMessage(object recipient, IMessage message) => _messages.Add(message);
 
 
         #endregion
@@ -49,10 +46,7 @@ namespace miRobotEditor.ViewModel
 
         public event MessageAddedHandler MessageAdded;
 
-        private void RaiseMessageAdded()
-        {
-            MessageAdded?.Invoke(this, new EventArgs());
-        }
+        private void RaiseMessageAdded() => MessageAdded?.Invoke(this, new EventArgs());
 
         public void Add(IMessage msg)
         {
@@ -84,15 +78,9 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        private void HandleMouseOver(object param)
-        {
-            SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
-        }
+        private void HandleMouseOver(object param) => SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
 
-        public static void ShowMessage(string message)
-        {
-            _ = MessageBox.Show(message);
-        }
+        public static void ShowMessage(string message) => _ = MessageBox.Show(message);
 
         private void ClearItems()
         {

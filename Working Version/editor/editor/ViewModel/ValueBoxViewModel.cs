@@ -92,13 +92,7 @@ namespace miRobotEditor.ViewModel
 
         public event ItemsChangedEventHandler ItemsChanged;
 
-        private void RaiseItemsChanged()
-        {
-
-
-
-            ItemsChanged?.Invoke(this, null);
-        }
+        private void RaiseItemsChanged() => ItemsChanged?.Invoke(this, null);
 
         private void CheckVisibility()
         {

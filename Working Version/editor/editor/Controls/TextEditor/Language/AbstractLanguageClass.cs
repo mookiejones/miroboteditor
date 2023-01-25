@@ -355,10 +355,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
         public abstract DocumentViewModel GetFile(string filename);
 
 
-        public virtual string ExtractXYZ(string positionString)
-        {
-            return PositionBase.ExtractXYZ(positionString);
-        }
+        public virtual string ExtractXYZ(string positionString) => PositionBase.ExtractXYZ(positionString);
 
         internal abstract string FoldTitle(FoldingSection section, TextDocument doc);
 
@@ -452,10 +449,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
             return result;
         }
 
-        public virtual bool IsLineCommented(string text)
-        {
-            return text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
-        }
+        public virtual bool IsLineCommented(string text) => text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
 
         private static bool IsValidFold(string text, string s, string e)
         {

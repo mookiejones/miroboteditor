@@ -48,10 +48,7 @@ namespace miRobotEditor.ViewModel
 
         }
 
-        private void GetMessage(object recipient, WindowMessage message)
-        {
-            _ = Open(message.Description);
-        }
+        private void GetMessage(object recipient, WindowMessage message) => _ = Open(message.Description);
 
         public string Title
         {
@@ -226,10 +223,7 @@ namespace miRobotEditor.ViewModel
             OnPropertyChanged(nameof(ActiveEditor));
         }
 
-        private bool CanExecuteCloseCommand(object arg)
-        {
-            return true;
-        }
+        private bool CanExecuteCloseCommand(object arg) => true;
 
         #endregion CloseCommand
 
@@ -315,10 +309,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public RelayCommand<object> ImportCommand => _importCommand ?? (_importCommand = new RelayCommand<object>(p => ImportRobot(), CanImport));
 
-        public bool CanImport(object p)
-        {
-            return !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
-        }
+        public bool CanImport(object p) => !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
 
         #endregion ImportCommand
 
@@ -456,10 +447,7 @@ namespace miRobotEditor.ViewModel
             return result;
         }
 
-        private void ExecuteShowIO()
-        {
-            ShowIO = !ShowIO;
-        }
+        private void ExecuteShowIO() => ShowIO = !ShowIO;
 
         private void ShowFindReplace()
         {
@@ -467,10 +455,7 @@ namespace miRobotEditor.ViewModel
             //findandReplaceControl.ShowDialog().GetValueOrDefault();
         }
 
-        private void ExecuteShowSettings()
-        {
-            ShowSettings = !ShowSettings;
-        }
+        private void ExecuteShowSettings() => ShowSettings = !ShowSettings;
 
         private void OnOpen(object param)
         {
@@ -572,10 +557,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        private void Exit()
-        {
-            MainWindow.Instance.Close();
-        }
+        private void Exit() => MainWindow.Instance.Close();
 
         internal void Close(IEditorDocument fileToClose)
         {
@@ -702,10 +684,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public void ShowAbout()
-        {
-            _ = new AboutWindow().ShowDialog();
-        }
+        public void ShowAbout() => _ = new AboutWindow().ShowDialog();
 
         public bool UserSelectsFileToOpen(out string filePath)
         {
@@ -745,23 +724,14 @@ namespace miRobotEditor.ViewModel
         }
 
         // ReSharper disable UnusedMember.Global
-        public void ErrorMessage(string msg)
-        {
-            _ = MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-        }
+        public void ErrorMessage(string msg) => _ = MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
 
         // ReSharper disable  UnusedMember.Local
         // ReSharper disable  UnusedParameter.Local
 
-        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e) => throw new NotImplementedException();
 
-        public void OnFilesDropped(string[] files)
-        {
-            throw new NotImplementedException();
-        }
+        public void OnFilesDropped(string[] files) => throw new NotImplementedException();
     }
 
     // ReSharper enable UnusedMember.Local

@@ -76,10 +76,7 @@ namespace miRobotEditor.Position
             return result;
         }
 
-        public override string ToString()
-        {
-            return RawValue;
-        }
+        public override string ToString() => RawValue;
 
         private string ConvertFromHex(string value)
         {
@@ -102,9 +99,6 @@ namespace miRobotEditor.Position
             return result;
         }
 
-        public static string ExtractXYZ(string positionString)
-        {
-            return new PositionBase(positionString).ExtractFromMatch();
-        }
+        public static string ExtractXYZ(string positionString) => new PositionBase(positionString).ExtractFromMatch();
     }
 }

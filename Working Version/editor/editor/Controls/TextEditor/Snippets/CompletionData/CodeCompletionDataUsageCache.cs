@@ -18,10 +18,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets.CompletionData
 
         private class SaveItemsComparer : IComparer<KeyValuePair<string, UsageStruct>>
         {
-            public int Compare(KeyValuePair<string, UsageStruct> x, KeyValuePair<string, UsageStruct> y)
-            {
-                return -(x.Value.Uses / (double)x.Value.ShowCount).CompareTo(y.Value.Uses / (double)y.Value.ShowCount);
-            }
+            public int Compare(KeyValuePair<string, UsageStruct> x, KeyValuePair<string, UsageStruct> y) => -(x.Value.Uses / (double)x.Value.ShowCount).CompareTo(y.Value.Uses / (double)y.Value.ShowCount);
         }
 
         private const long magic = 7306916068411589443L;
@@ -31,10 +28,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets.CompletionData
 
         public static bool DataUsageCacheEnabled { get; set; } = true;
 
-        public static void ResetCache()
-        {
-            dict = new Dictionary<string, UsageStruct>();
-        }
+        public static void ResetCache() => dict = new Dictionary<string, UsageStruct>();
 
         public static double GetPriority(string dotnetName, bool incrementShowCount)
         {

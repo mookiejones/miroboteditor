@@ -114,10 +114,7 @@ namespace miRobotEditor.Classes
         }
 
         public bool BeforeInsertDocument(LayoutRoot layout, LayoutDocument anchorableToShow,
-            ILayoutContainer destinationContainer)
-        {
-            return false;
-        }
+            ILayoutContainer destinationContainer) => false;
 
         public void AfterInsertDocument(LayoutRoot layout, LayoutDocument anchorableShown)
         {

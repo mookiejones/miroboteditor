@@ -47,10 +47,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             yield break;
         }
 
-        public static SnippetInfo GetSnippetForShortcut(string shortCut)
-        {
-            return Snippets.ContainsKey(shortCut) ? Snippets[shortCut] : null;
-        }
+        public static SnippetInfo GetSnippetForShortcut(string shortCut) => Snippets.ContainsKey(shortCut) ? Snippets[shortCut] : null;
 
         public static IEnumerable<SnippetInfo> GetSnippetsForExtension(string extension)
         {
@@ -64,10 +61,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             yield break;
         }
 
-        public static bool HasSnippetsForExtension(string extension)
-        {
-            return SnippetsByExtension.ContainsKey(extension);
-        }
+        public static bool HasSnippetsForExtension(string extension) => SnippetsByExtension.ContainsKey(extension);
 
         public static bool HasSnippetsFor(string shortCut, string extension)
         {
@@ -82,10 +76,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             return false;
         }
 
-        public static bool KnowsShortCut(string shortCut)
-        {
-            return Snippets.ContainsKey(shortCut);
-        }
+        public static bool KnowsShortCut(string shortCut) => Snippets.ContainsKey(shortCut);
 
         public static bool LoadSnippet(string file)
         {

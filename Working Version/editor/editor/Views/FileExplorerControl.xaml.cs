@@ -57,20 +57,11 @@ namespace miRobotEditor.Views
         public new event KeyEventHandler OnKeyUp;
         public event TreeViewEventHandler OnAfterSelect;
 
-        private void RaiseAfterSelect(object sender, TreeViewEventArgs e)
-        {
-            OnAfterSelect?.Invoke(sender, e);
-        }
+        private void RaiseAfterSelect(object sender, TreeViewEventArgs e) => OnAfterSelect?.Invoke(sender, e);
 
-        private void RaiseKeyUp(object sender, KeyEventArgs e)
-        {
-            OnKeyUp?.Invoke(sender, e);
-        }
+        private void RaiseKeyUp(object sender, KeyEventArgs e) => OnKeyUp?.Invoke(sender, e);
 
-        private void RaiseMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            OnMouseClick?.Invoke(sender, e);
-        }
+        private void RaiseMouseClick(object sender, TreeNodeMouseClickEventArgs e) => OnMouseClick?.Invoke(sender, e);
 
         private void CopyFile(object sender, EventArgs e)
         {

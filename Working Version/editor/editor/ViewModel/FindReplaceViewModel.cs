@@ -160,10 +160,7 @@ namespace miRobotEditor.ViewModel
             set => SetProperty(ref _searchresult, value);
         }
 
-        private static void FindPrevious()
-        {
-            throw new NotImplementedException();
-        }
+        private static void FindPrevious() => throw new NotImplementedException();
 
         private static void FindNext()
         {
@@ -178,19 +175,10 @@ namespace miRobotEditor.ViewModel
             instance.ActiveEditor.TextBox.ReplaceText();
         }
 
-        private static void ReplaceAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void ReplaceAll() => throw new NotImplementedException();
 
-        private static void HighlightAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void HighlightAll() => throw new NotImplementedException();
 
-        private static void FindAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void FindAll() => throw new NotImplementedException();
     }
 }
