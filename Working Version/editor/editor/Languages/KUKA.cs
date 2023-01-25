@@ -44,8 +44,7 @@ namespace miRobotEditor.Languages
 
         public override void Initialize(string filename) => base.Initialize();
 
-        public ICommand SystemFunctionCommand => _systemFunctionCommand ??
-                       (_systemFunctionCommand = new RelayCommand(() => FunctionGenerator.GetSystemFunctions()));
+        public ICommand SystemFunctionCommand => _systemFunctionCommand ??= new RelayCommand(() => FunctionGenerator.GetSystemFunctions());
 
         internal override Typlanguage RobotType => Typlanguage.KUKA;
 

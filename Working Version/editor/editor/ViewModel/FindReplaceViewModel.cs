@@ -22,8 +22,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the FindPreviousCommand.
         /// </summary>
-        public RelayCommand FindPreviousCommand => _findPreviousCommand
-                       ?? (_findPreviousCommand = new RelayCommand(FindPrevious));
+        public RelayCommand FindPreviousCommand => _findPreviousCommand ??= new RelayCommand(FindPrevious);
 
         #endregion
 
@@ -34,8 +33,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the FindNextCommand.
         /// </summary>
-        public RelayCommand FindNextCommand => _findNextCommand
-                       ?? (_findNextCommand = new RelayCommand(FindNext));
+        public RelayCommand FindNextCommand => _findNextCommand ??= new RelayCommand(FindNext);
 
         #endregion
 
@@ -46,8 +44,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ReplaceCommand.
         /// </summary>
-        public static RelayCommand ReplaceCommand => _replaceCommand
-                       ?? (_replaceCommand = new RelayCommand(Replace));
+        public static RelayCommand ReplaceCommand => _replaceCommand ??= new RelayCommand(Replace);
 
         #endregion
 
@@ -58,8 +55,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ReplaceAllCommand.
         /// </summary>
-        public static RelayCommand ReplaceAllCommand => _replaceAllCommand
-                       ?? (_replaceAllCommand = new RelayCommand(ReplaceAll));
+        public static RelayCommand ReplaceAllCommand => _replaceAllCommand ??= new RelayCommand(ReplaceAll);
 
         #endregion
 
@@ -70,9 +66,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the HighlightAllCommand.
         /// </summary>
-        public static RelayCommand HighlightAllCommand => _highlightAllCommand
-                       ?? (_highlightAllCommand = new RelayCommand(
-                           HighlightAll));
+        public static RelayCommand HighlightAllCommand => _highlightAllCommand ??= new RelayCommand(
+                           HighlightAll);
 
         #endregion
 
@@ -83,9 +78,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the FindAllCommand.
         /// </summary>
-        public RelayCommand FindAllCommand => _findAllCommand
-                       ?? (_findAllCommand = new RelayCommand(
-                           FindAll));
+        public RelayCommand FindAllCommand => _findAllCommand ??= new RelayCommand(
+                           FindAll);
 
         #endregion
 

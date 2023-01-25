@@ -115,9 +115,8 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the CleanDatCmd.
         /// </summary>
-        public static RelayCommand<object> CleanDatCmd => _cleanDatCmd
-                       ?? (_cleanDatCmd = new RelayCommand<object>(
-                           p => Instance.CleanDat()));
+        public static RelayCommand<object> CleanDatCmd => _cleanDatCmd ??= new RelayCommand<object>(
+                           p => Instance.CleanDat());
 
         #endregion CleanDatCmd
 
@@ -128,9 +127,8 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the CheckedCmd.
         /// </summary>
-        public static RelayCommand CheckedCmd => _checkedCmd
-                       ?? (_checkedCmd = new RelayCommand(
-                           () => Instance.Checked()));
+        public static RelayCommand CheckedCmd => _checkedCmd ??= new RelayCommand(
+                           () => Instance.Checked());
 
         #endregion CheckedCmd
 
@@ -141,8 +139,7 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the DeleteVarTypeCmd.
         /// </summary>
-        public RelayCommand DeleteVarTypeCmd => _deleteVarTypeCmd
-                       ?? (_deleteVarTypeCmd = new RelayCommand(ExecuteDeleteVarTypeCmd));
+        public RelayCommand DeleteVarTypeCmd => _deleteVarTypeCmd ??= new RelayCommand(ExecuteDeleteVarTypeCmd);
 
         private void ExecuteDeleteVarTypeCmd() => Instance.DeleteVarType();
 
@@ -155,8 +152,7 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the AddVarTypeCmd.
         /// </summary>
-        public RelayCommand AddVarTypeCmd => _addVarTypeCmd
-                       ?? (_addVarTypeCmd = new RelayCommand(ExecuteAddVarTypeCmd));
+        public RelayCommand AddVarTypeCmd => _addVarTypeCmd ??= new RelayCommand(ExecuteAddVarTypeCmd);
 
         private void ExecuteAddVarTypeCmd() => Instance.AddVarType();
 
@@ -169,8 +165,7 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the SelectAllCommand.
         /// </summary>
-        public RelayCommand SelectAllCommand => _selectAllCommand
-                       ?? (_selectAllCommand = new RelayCommand(ExecuteSelectAllCommand));
+        public RelayCommand SelectAllCommand => _selectAllCommand ??= new RelayCommand(ExecuteSelectAllCommand);
 
         private void ExecuteSelectAllCommand() => Instance.SelectAll();
 
@@ -183,9 +178,8 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the InvertSelectionCommand.
         /// </summary>
-        public static RelayCommand InvertSelectionCommand => _invertSelectionCommand
-                       ?? (_invertSelectionCommand = new RelayCommand(
-                           () => Instance.InvertSelection()));
+        public static RelayCommand InvertSelectionCommand => _invertSelectionCommand ??= new RelayCommand(
+                           () => Instance.InvertSelection());
 
         #endregion InvertSelectionCommand
 

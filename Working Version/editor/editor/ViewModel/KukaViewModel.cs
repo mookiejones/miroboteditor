@@ -42,8 +42,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ToggleGridCommand.
         /// </summary>
-        public RelayCommand ToggleGridCommand => _toggleGridCommand
-                       ?? (_toggleGridCommand = new RelayCommand(ToggleGrid, CanToggleGrid));
+        public RelayCommand ToggleGridCommand => _toggleGridCommand ??= new RelayCommand(ToggleGrid, CanToggleGrid);
 
 
         public bool CanToggleGrid() => Grid != null;
@@ -146,10 +145,7 @@ namespace miRobotEditor.ViewModel
                 switch (value)
                 {
                     case false:
-                        if (Data == null)
-                        {
-                            Data = new AvalonEditor();
-                        }
+                        Data ??= new AvalonEditor();
                         Data.Visibility = Visibility.Collapsed;
                         Grid.Visibility = Visibility.Collapsed;
                         break;

@@ -14,9 +14,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
         {
             get
             {
-                if (_defaults == null)
-                {
-                    _defaults = new Dictionary<string, Declaration>
+                _defaults ??= new Dictionary<string, Declaration>
                     {
                         {
                             "$end$", new Declaration
@@ -31,7 +29,6 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                             }
                         }
                     };
-                }
                 return _defaults;
             }
         }

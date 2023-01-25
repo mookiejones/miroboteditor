@@ -160,7 +160,7 @@ namespace miRobotEditor.ViewModel
 
         #endregion EnableIO
 
-        public ILayoutUpdateStrategy LayoutStrategy => _layoutInitializer ?? (_layoutInitializer = new LayoutInitializer());
+        public ILayoutUpdateStrategy LayoutStrategy => _layoutInitializer ??= new LayoutInitializer();
 
         public IEnumerable<ToolViewModel> Tools => _readonlyTools ?? new ObservableCollection<ToolViewModel>(_tools);
 
@@ -210,7 +210,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the CloseCommand.
         /// </summary>
-        public RelayCommand<object> CloseCommand => _closeCommand ?? (_closeCommand = new RelayCommand<object>(ExecuteCloseCommand, CanExecuteCloseCommand));
+        public RelayCommand<object> CloseCommand => _closeCommand ??= new RelayCommand<object>(ExecuteCloseCommand, CanExecuteCloseCommand);
 
         private void ExecuteCloseCommand(object obj)
         {
@@ -233,8 +233,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ShowIOCommand.
         /// </summary>
-        public RelayCommand ShowIOCommand => _showIOCommand
-                       ?? (_showIOCommand = new RelayCommand(ExecuteShowIO));
+        public RelayCommand ShowIOCommand => _showIOCommand ??= new RelayCommand(ExecuteShowIO);
 
         #endregion ShowIOCommand
 
@@ -246,9 +245,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the NewFileCommand.
         /// </summary>
-        public RelayCommand NewFileCommand => _newFileCommand
-                       ?? (_newFileCommand = new RelayCommand(
-                           AddNewFile));
+        public RelayCommand NewFileCommand => _newFileCommand ??= new RelayCommand(
+                           AddNewFile);
 
         #endregion NewFileCommand
 
@@ -259,8 +257,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ShowFindReplaceCommand.
         /// </summary>
-        public RelayCommand ShowFindReplaceCommand => _showFileReplaceCommand
-                       ?? (_showFileReplaceCommand = new RelayCommand(ShowFindReplace));
+        public RelayCommand ShowFindReplaceCommand => _showFileReplaceCommand ??= new RelayCommand(ShowFindReplace);
 
         #endregion ShowFindReplaceCommand
 
@@ -271,8 +268,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ShowSettingsCommand.
         /// </summary>
-        public RelayCommand ShowSettingsCommand => _showSettingsCommand
-                       ?? (_showSettingsCommand = new RelayCommand(ExecuteShowSettings));
+        public RelayCommand ShowSettingsCommand => _showSettingsCommand ??= new RelayCommand(ExecuteShowSettings);
 
         #endregion ShowSettingsCommand
 
@@ -283,7 +279,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ChangeViewAsCommand.
         /// </summary>
-        public RelayCommand<string> ChangeViewAsCommand => _changeViewAsCommand ?? (_changeViewAsCommand = new RelayCommand<string>(ChangeViewAs));
+        public RelayCommand<string> ChangeViewAsCommand => _changeViewAsCommand ??= new RelayCommand<string>(ChangeViewAs);
 
         #endregion ChangeViewAsCommand
 
@@ -294,8 +290,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ExitCommand.
         /// </summary>
-        public RelayCommand ExitCommand => _exitCommand
-                       ?? (_exitCommand = new RelayCommand(Exit));
+        public RelayCommand ExitCommand => _exitCommand ??= new RelayCommand(Exit);
 
         #endregion ExitCommand
 
@@ -306,7 +301,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ImportCommand.
         /// </summary>
-        public RelayCommand<object> ImportCommand => _importCommand ?? (_importCommand = new RelayCommand<object>(p => ImportRobot(), CanImport));
+        public RelayCommand<object> ImportCommand => _importCommand ??= new RelayCommand<object>(p => ImportRobot(), CanImport);
 
         public bool CanImport(object p) => !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
 
@@ -319,7 +314,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the AddToolCommand.
         /// </summary>
-        public RelayCommand<object> AddToolCommand => _addToolCommand ?? (_addToolCommand = new RelayCommand<object>(AddTool));
+        public RelayCommand<object> AddToolCommand => _addToolCommand ??= new RelayCommand<object>(AddTool);
 
         #endregion AddToolCommand
 
@@ -330,7 +325,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ShowAboutCommand.
         /// </summary>
-        public RelayCommand ShowAboutCommand => _showAboutCommand ?? (_showAboutCommand = new RelayCommand(ShowAbout));
+        public RelayCommand ShowAboutCommand => _showAboutCommand ??= new RelayCommand(ShowAbout);
 
         #endregion ShowAboutCommand
 
@@ -341,8 +336,7 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the OpenFileCommand.
         /// </summary>
-        public RelayCommand<object> OpenFileCommand => _openFileCommand
-                       ?? (_openFileCommand = new RelayCommand<object>(OnOpen));
+        public RelayCommand<object> OpenFileCommand => _openFileCommand ??= new RelayCommand<object>(OnOpen);
 
         #endregion OpenFileCommand
 

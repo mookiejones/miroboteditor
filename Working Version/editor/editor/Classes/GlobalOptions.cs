@@ -15,7 +15,7 @@ namespace miRobotEditor.Classes
 
         public static GlobalOptions Instance
         {
-            get => _instance ?? (_instance = new GlobalOptions());
+            get => _instance ??= new GlobalOptions();
             set => _instance = value;
         }
 

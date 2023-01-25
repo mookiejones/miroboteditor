@@ -36,10 +36,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets.CompletionData
             {
                 return 0.0;
             }
-            if (dict == null)
-            {
-                dict = new Dictionary<string, UsageStruct>();
-            }
+            dict ??= new Dictionary<string, UsageStruct>();
             if (!dict.TryGetValue(dotnetName, out UsageStruct value))
             {
                 return 0.0;
@@ -63,10 +60,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets.CompletionData
             {
                 return;
             }
-            if (dict == null)
-            {
-                dict = new Dictionary<string, UsageStruct>();
-            }
+            dict ??= new Dictionary<string, UsageStruct>();
             if (!dict.TryGetValue(dotnetName, out UsageStruct value))
             {
                 value = new UsageStruct(0, 2);

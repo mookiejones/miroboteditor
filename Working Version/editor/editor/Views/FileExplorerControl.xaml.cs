@@ -16,6 +16,7 @@ namespace miRobotEditor.Views
         // ReSharper disable UnassignedField.Compiler
         // ReSharper disable UnusedField.Compiler
         private readonly Controls.FileExplorer.FileExplorerControl _explorer = new();
+#pragma warning disable IDE0051 // Remove unused private members
         private readonly IContainer _components = null;
         private readonly ContextMenuStrip _ctxFileExplorer;
         private string _filter = "*.*";
@@ -25,6 +26,7 @@ namespace miRobotEditor.Views
         private readonly ToolStripMenuItem _mnuDelete;
         private readonly ToolStripMenuItem _mnuPaste;
         private readonly ToolStripMenuItem _mnuRefresh;
+#pragma warning restore IDE0051 // Remove unused private members
 
         public FileExplorerControl()
         {

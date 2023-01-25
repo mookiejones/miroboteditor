@@ -40,9 +40,9 @@ namespace miRobotEditor.ViewModel
         private RelayCommand _clearMessagesCommand;
         private RelayCommand<object> _mouseOverCommand;
 
-        public ICommand ClearMessagesCommand => _clearMessagesCommand ?? (_clearMessagesCommand = new RelayCommand(ClearItems));
+        public ICommand ClearMessagesCommand => _clearMessagesCommand ??= new RelayCommand(ClearItems);
 
-        public RelayCommand<object> MouseOverCommand => _mouseOverCommand ?? (_mouseOverCommand = new RelayCommand<object>(HandleMouseOver));
+        public RelayCommand<object> MouseOverCommand => _mouseOverCommand ??= new RelayCommand<object>(HandleMouseOver);
 
         public event MessageAddedHandler MessageAdded;
 
@@ -139,7 +139,7 @@ namespace miRobotEditor.ViewModel
         private readonly ObservableCollection<IMessage> _messages = new();
         private ReadOnlyObservableCollection<IMessage> _readOnlyMessages;
 
-        public ReadOnlyObservableCollection<IMessage> Messages => _readOnlyMessages ?? (_readOnlyMessages = new ReadOnlyObservableCollection<IMessage>(_messages));
+        public ReadOnlyObservableCollection<IMessage> Messages => _readOnlyMessages ??= new ReadOnlyObservableCollection<IMessage>(_messages);
 
         #endregion
     }

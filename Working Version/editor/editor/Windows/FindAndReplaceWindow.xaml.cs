@@ -22,7 +22,7 @@ namespace miRobotEditor.Windows
 
         public static FindAndReplaceWindow Instance
         {
-            get => _instance ?? (_instance = new FindAndReplaceWindow());
+            get => _instance ??= new FindAndReplaceWindow();
             set => _instance = value;
         }
     }

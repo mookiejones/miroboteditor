@@ -186,11 +186,11 @@ namespace miRobotEditor.ViewModel
 
         public ReadOnlyObservableCollection<Item> Counter => _readonlyCounter ?? new ReadOnlyObservableCollection<Item>(_counter);
 
-        public ICommand OpenCommand => _openCommand ?? (_openCommand = new RelayCommand(Open));
+        public ICommand OpenCommand => _openCommand ??= new RelayCommand(Open);
 
-        public ICommand ImportCommand => _importCommand ?? (_importCommand = new RelayCommand(Import));
+        public ICommand ImportCommand => _importCommand ??= new RelayCommand(Import);
 
-        public ICommand LoadCommand => _loadCommand ?? (_loadCommand = new RelayCommand(GetSignals));
+        public ICommand LoadCommand => _loadCommand ??= new RelayCommand(GetSignals);
 
         private void Import()
         {

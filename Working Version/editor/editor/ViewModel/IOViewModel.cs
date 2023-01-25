@@ -193,10 +193,7 @@ namespace miRobotEditor.ViewModel
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
             try
             {
-                if (_oleDbConnection == null)
-                {
-                    _oleDbConnection = new OleDbConnection(connectionString);
-                }
+                _oleDbConnection ??= new OleDbConnection(connectionString);
             }
             catch (Exception ex)
             {

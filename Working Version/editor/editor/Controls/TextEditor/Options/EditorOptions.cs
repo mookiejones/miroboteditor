@@ -54,7 +54,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         public static EditorOptions Instance
         {
-            get => _instance ?? (_instance = ReadXml());
+            get => _instance ??= ReadXml();
             set => _instance = value;
         }
 
