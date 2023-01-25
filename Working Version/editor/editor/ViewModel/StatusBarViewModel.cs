@@ -1,6 +1,5 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
-using miRobotEditor.Classes;
 using Mookie.WPF;
 
 namespace miRobotEditor.ViewModel

@@ -12,7 +12,7 @@
 		<ResourceDictionary Source="/miRobotEditor;component/Themes/Style.DataGrid.xaml" />
 	</ResourceDictionary.MergedDictionaries>
     <converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter"/>
-    <classes:LayoutInitializer x:Key="LayoutInitializer"/>
+    <controls:LayoutInitializer x:Key="LayoutInitializer"/>
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     

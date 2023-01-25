@@ -7,14 +7,7 @@ namespace miRobotEditor.ViewModel
 {
     public sealed class FindReplaceViewModel : ViewModelBase
     {
-        // ReSharper disable UnusedField.Compiler
-        private static readonly RelayCommand _findpreviouscommand;
-        private static readonly RelayCommand _findnextcommand;
-        private static readonly RelayCommand _replacecommand;
-        private static readonly RelayCommand _replaceallcommand;
-        private static readonly RelayCommand _highlightallcommand;
         private static FindReplaceViewModel _instance;
-        private readonly RelayCommand _findallcommand;
         private string _lookfor = string.Empty;
         private bool _matchcase;
         private bool _matchwholeword;

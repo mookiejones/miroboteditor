@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using miRobotEditor.Controls;
 using miRobotEditor.Controls.FileExplorer;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using KeyEventHandler = System.Windows.Input.KeyEventHandler;

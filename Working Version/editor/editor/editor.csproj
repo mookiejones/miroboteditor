@@ -234,7 +234,6 @@
     <Compile Include="Classes\GlobalOptions.cs" />
     <Compile Include="Controls\TextEditor\IconBar\IconBarManager.cs" />
     <Compile Include="Controls\TextEditor\IconBar\IconBarMargin.cs" />
-    <Compile Include="Classes\MatrixNullReference.cs" />
     <Compile Include="Controls\TextEditor\Brackets\MyBracketSearcher.cs" />
     <Compile Include="Messages\OutputWindowMessage.cs" />
     <Compile Include="Position\PositionBase.cs" />
@@ -244,7 +243,7 @@
     <Compile Include="Classes\Splasher.cs" />
     <Compile Include="Controls\TextEditor\Text\TextChangeEventArgs.cs" />
     <Compile Include="Controls\TextEditor\ImageElementGenerator.cs" />
-    <Compile Include="Classes\StringTextBuffer.cs" />
+    <Compile Include="Controls\TextEditor\StringTextBuffer.cs" />
     <Compile Include="Controls\TextEditor\Bookmarks\ClassMemberBookmark.cs" />
     <Compile Include="Controls\TextEditor\Formatting\DefaultFormattingStrategy.cs" />
     <Compile Include="Model\DocumentClosingEventArgs.cs" />
@@ -253,7 +252,7 @@
     <Compile Include="Controls\TextEditor\Indentation\IndentationClass.cs" />
     <Compile Include="Controls\TextEditor\Indentation\IndentationSettings.cs" />
     <Compile Include="Controls\TextEditor\Indentation\IndentationStrategy.cs" />
-    <Compile Include="Classes\LayoutInitializer.cs" />
+    <Compile Include="Controls\LayoutInitializer.cs" />
     <Compile Include="Classes\LogWriter.cs" />
     <Compile Include="Controls\TextEditor\Text\TextSourceAdapter.cs" />
     <Compile Include="Classes\TraceWriter.cs" />

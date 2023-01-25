@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using Mookie.WPF.Utilities;

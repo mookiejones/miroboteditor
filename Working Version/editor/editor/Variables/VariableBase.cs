@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
-using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
