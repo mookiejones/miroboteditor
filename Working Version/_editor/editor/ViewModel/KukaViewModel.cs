@@ -9,6 +9,7 @@ using miRobotEditor.Controls.TextEditor;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
+using miRobotEditor.Utilities;
 
 namespace miRobotEditor.ViewModel
 {
@@ -297,7 +298,7 @@ namespace miRobotEditor.ViewModel
             Source.FileLanguage = FileLanguage;
             Grid.IsAnimated = false;
             var flag = Path.GetExtension(filepath) == ".dat";
-            IconSource = Utilities.LoadBitmap(Global.ImgSrc);
+            IconSource = ImageHelper.LoadBitmap(Global.ImgSrc);
             Source.Filename = filepath;
             Source.SetHighlighting();
             Source.Text = (flag ? FileLanguage.DataText : FileLanguage.SourceText);

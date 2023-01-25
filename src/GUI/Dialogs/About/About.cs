@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
 using miRobotEditor.Core;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.GUI.Dialogs.About
 {

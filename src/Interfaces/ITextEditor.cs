@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 using miRobotEditor.GUI.Editor;
+using miRobotEditor.GUI.Editor.Completion;
 using miRobotEditor.Languages;
 
 namespace miRobotEditor.Interfaces

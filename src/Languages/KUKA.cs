@@ -15,16 +15,17 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
-using miRobotEditor.Core;
+using miRobotEditor.Abstract;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Properties;
 using miRobotEditor.Snippets;
 using miRobotEditor.ViewModel;
+using Mookie.WPF.Utilities;
 using Global = miRobotEditor.Classes.Global;
 using MenuItem = System.Windows.Controls.MenuItem;
 using RelayCommand = miRobotEditor.Commands.RelayCommand;
-using Utilities = miRobotEditor.Classes.Utilities;
+
 
 namespace miRobotEditor.Languages
 {
@@ -220,7 +221,7 @@ namespace miRobotEditor.Languages
 
 // ReSharper restore FunctionNeverReturns
 
-        public static AvlonEditor ReversePath(AvlonEditor editor)
+        public static AvalonEditor ReversePath(AvalonEditor editor)
         {
             var points = new Collection<Collection<string>>();
             for (int i = 0; i <= (editor.Document.Lines.Count - 1); i++)
@@ -265,17 +266,17 @@ namespace miRobotEditor.Languages
             {
                 case ".src":
                     GetInfo();
-                    icon = Utilities.GetIcon(Global.ImgSrc);
+                    icon = ImageHelper.GetIcon(Global.ImgSrc);
                     break;
                 case ".dat":
                     GetInfo();
-                    icon = Utilities.GetIcon(Global.ImgDat);
+                    icon = ImageHelper.GetIcon(Global.ImgDat);
                     break;
                 case ".sub":
                 case ".sps":
                 case ".kfd":
                     GetInfo();
-                    icon = Utilities.GetIcon(Global.ImgSps);
+                    icon = ImageHelper.GetIcon(Global.ImgSps);
                     break;
             }
 
@@ -461,7 +462,7 @@ namespace miRobotEditor.Languages
 
         #region Folding Section
 
-        internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
+        public override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         public override string FoldTitle(FoldingSection section, TextDocument doc)
         {

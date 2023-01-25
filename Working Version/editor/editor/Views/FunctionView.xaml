@@ -8,8 +8,8 @@
 
     <Grid>
         <ListView DataContext="{Binding Main.ActiveEditor, IsAsync=True, Source={StaticResource Locator}}"
-                  Background="White" Foreground="Black" SelectedItem="{Binding TextBox.SelectedVariable}"
-                  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+                  Background="White" Foreground="Black" SelectedItem="{Binding Content.TextBox.SelectedVariable}"
+                  ItemsSource="{Binding Content.TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
                   ItemTemplate="{DynamicResource FunctionItemTemplate}" />
 
     </Grid>

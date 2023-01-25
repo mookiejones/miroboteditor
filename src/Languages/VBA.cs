@@ -7,6 +7,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
+using miRobotEditor.Abstract;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
@@ -35,7 +36,7 @@ namespace miRobotEditor.Languages
 
 
         //Was XmlFoldingStrategy
-        internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
+        public override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         protected override string ShiftRegex => @"((RobTarget\s*[\w]*\s*:=\s*\[\[)([\d.-]*),([\d.-]*),([-.\d]*))";
 

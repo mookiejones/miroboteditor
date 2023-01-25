@@ -7,8 +7,8 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using Microsoft.Practices.ServiceLocation;
-using miRobotEditor.Core;
 using miRobotEditor.ViewModel;
+using Mookie.WPF;
 using MessageBox = System.Windows.MessageBox;
 
 namespace miRobotEditor
@@ -76,7 +76,7 @@ namespace miRobotEditor
             //      }
             //  }
             // Allow single instance code to perform cleanup operations
-            SingleInstance<App>.Cleanup();
+            Mookie.WPF.SingleInstance<App>.Cleanup();
         }
 
 
@@ -107,6 +107,14 @@ namespace miRobotEditor
             MessageViewModel.AddError("App", e.Exception);
             Console.Write(e);
             e.Handled = true;
+        }
+
+        public bool SignalExternalCommandLineArgs(IEnumerable<string> args)
+        {
+            MainWindow.Activate();
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            main.LoadFile(args);
+            return true;
         }
 
         #region Unused Overrides

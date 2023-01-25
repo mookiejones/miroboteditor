@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>miRobotEditor</RootNamespace>
     <AssemblyName>miRobotEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -179,6 +179,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\AbstractFoldingStrategy.cs" />
@@ -204,7 +207,6 @@
     <Compile Include="Classes\Messages\MessageType.cs" />
     <Compile Include="Classes\MethodVariable.cs" />
     <Compile Include="Classes\MsgIcon.cs" />
-    <Compile Include="Classes\NativeMethods.cs" />
     <Compile Include="Classes\PaneViewModel.cs" />
     <Compile Include="Classes\Variable.cs" />
     <Compile Include="Converters\AngleToolTipConverter.cs" />
@@ -239,6 +241,7 @@
     <Compile Include="GUI\KUKA\AdjustST\AdjustST.cs" />
     <Compile Include="GUI\TextEditorOptions.cs" />
     <Compile Include="Handlers\UpdateRequiredHandler.cs" />
+    <Compile Include="InstanceOf.cs" />
     <Compile Include="Interfaces\IBookmark.cs" />
     <Compile Include="Interfaces\IBookmarkMargin.cs" />
     <Compile Include="Interfaces\IDocument.cs" />
@@ -263,6 +266,10 @@
     <Compile Include="Language Specific\DatCleanHelper.cs" />
     <Compile Include="Language Specific\KUKAVariableViewerViewModel.cs" />
     <Compile Include="Language Specific\LongTextViewModel.cs" />
+    <Compile Include="Language Specific\Signal.cs" />
+    <Compile Include="Language Specific\VariableAdder.cs" />
+    <Compile Include="Language Specific\VariableEventArgs.cs" />
+    <Compile Include="Language Specific\VariableInfoEventArgs.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -270,7 +277,6 @@
     <Compile Include="Selectors\PanesStyleSelector.cs" />
     <Compile Include="Classes\PanesStyleSelector.cs" />
     <Compile Include="Classes\RecentFileList.cs" />
-    <Compile Include="Classes\Utilities.cs" />
     <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\AbstractMenuCommand.cs" />
     <Compile Include="Commands\Commands.cs" />
@@ -556,7 +562,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="SingleInstance.cs" />
     <Compile Include="Tracking\Notes.cs" />
     <Page Include="Controls\frmReverse.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -932,6 +937,7 @@
     <Resource Include="Images\PinMaximize_Dark.png" />
     <Resource Include="Images\PinMenu.png" />
     <Resource Include="Images\_new.png" />
+    <Resource Include="License-LGPL.txt" />
     <Content Include="Tracking\Changes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -975,6 +981,12 @@
       <Progid>src</Progid>
       <DefaultIcon>Images\editor.ico</DefaultIcon>
     </FileAssociation>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Mookie.WPF\Mookie.WPF\Mookie.WPF.csproj">
+      <Project>{c03ba39a-8bd2-4632-8d43-580fe02c1ce3}</Project>
+      <Name>Mookie.WPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

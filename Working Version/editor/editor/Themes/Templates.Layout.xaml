@@ -81,8 +81,8 @@
                     </Style.Triggers>
                 </Style>
             </DockPanel.Resources>
-            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"
-                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+            <ComboBox SelectedItem="{Binding Content.TextBox.SelectedVariable}"
+                      ItemsSource="{Binding Content.TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
                       DockPanel.Dock="Top" />
             <Grid DockPanel.Dock="Top">
                 <Grid.InputBindings>
@@ -117,8 +117,8 @@
                     </Style.Triggers>
                 </Style>
             </DockPanel.Resources>
-            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"
-                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+            <ComboBox SelectedItem="{Binding Content.TextBox.SelectedVariable}"
+                      ItemsSource="{Binding Content.TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
                       DockPanel.Dock="Top" />
             <ContentPresenter Content="{Binding TextBox}" DockPanel.Dock="Top" />
         </DockPanel>

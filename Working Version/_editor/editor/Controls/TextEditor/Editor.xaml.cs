@@ -34,6 +34,7 @@ using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Messages;
+using miRobotEditor.Utilities;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Windows;
 
@@ -98,7 +99,7 @@ namespace miRobotEditor.Controls.TextEditor
         private ToolTip _toolTip = new ToolTip();
         private static BitmapImage _imgMethod;
         // ReSharper disable once UnassignedField.Compiler
-        private static readonly BitmapImage _imgStruct = Utilities.LoadBitmap(Global.ImgStruct);
+        private static readonly BitmapImage _imgStruct = ImageHelper.LoadBitmap(Global.ImgStruct);
         private static BitmapImage _imgEnum;
         private static BitmapImage _imgSignal;
         // ReSharper disable once UnassignedField.Compiler
@@ -973,19 +974,19 @@ namespace miRobotEditor.Controls.TextEditor
         private void CreateImages()
         {
             if (_imgMethod == null)
-                _imgMethod = Utilities.LoadBitmap(Global.ImgMethod);
+                _imgMethod = ImageHelper.LoadBitmap(Global.ImgMethod);
 
             if (_imgStruct == null)
-                _imgMethod = Utilities.LoadBitmap(Global.ImgStruct);
+                _imgMethod = ImageHelper.LoadBitmap(Global.ImgStruct);
 
             if (_imgEnum == null)
-                _imgEnum = Utilities.LoadBitmap(Global.ImgEnum);
+                _imgEnum = ImageHelper.LoadBitmap(Global.ImgEnum);
 
             if (_imgSignal == null)
-                _imgSignal = Utilities.LoadBitmap(Global.ImgSignal);
+                _imgSignal = ImageHelper.LoadBitmap(Global.ImgSignal);
 
             if (_imgXyz == null)
-                _imgXyz = Utilities.LoadBitmap(Global.ImgXyz);
+                _imgXyz = ImageHelper.LoadBitmap(Global.ImgXyz);
         }
 
         private void FindBookmarkMembers()

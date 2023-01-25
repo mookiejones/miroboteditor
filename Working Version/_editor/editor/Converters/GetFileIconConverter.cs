@@ -7,6 +7,7 @@ using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
+using miRobotEditor.Utilities;
 
 namespace miRobotEditor.Converters
 {
@@ -22,18 +23,18 @@ namespace miRobotEditor.Converters
                 {
                     if (extension == ".src")
                     {
-                        var bitmapImage = Utilities.LoadBitmap(Global.ImgSrc);
+                        var bitmapImage = ImageHelper.LoadBitmap(Global.ImgSrc);
                         result = bitmapImage;
                         return result;
                     }
                     if (extension == ".dat")
                     {
-                        result = Utilities.LoadBitmap(Global.ImgDat);
+                        result = ImageHelper.LoadBitmap(Global.ImgDat);
                         return result;
                     }
                     if (extension == ".sub")
                     {
-                        result = Utilities.LoadBitmap(Global.ImgSps);
+                        result = ImageHelper.LoadBitmap(Global.ImgSps);
                         return result;
                     }
                 }

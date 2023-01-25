@@ -11,8 +11,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using miRobotEditor.Core;
 using miRobotEditor.GUI.ExplorerControl;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.ExplorerControl
 {

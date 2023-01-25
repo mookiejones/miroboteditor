@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ICSharpCode.AvalonEdit.CodeCompletion;
+using RobotEditor.Core.Enums;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;

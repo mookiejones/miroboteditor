@@ -14,10 +14,10 @@ using miRobotEditor.Classes;
 using miRobotEditor.Core;
 using miRobotEditor.ExplorerControl;
 using miRobotEditor.Forms;
+using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Pads;
 using miRobotEditor.Properties;
-using robot_editor.Interfaces;
 using Xceed.Wpf.AvalonDock.Layout;
 using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
@@ -781,13 +781,11 @@ namespace miRobotEditor.ViewModel
             ActiveEditor = _files.Last();
         }
 
-        public void LoadFile(IList<string> args)
+        public void LoadFile(IEnumerable<string> args)
         {
-            // Argument 0 is The Path of the main application so i start with argument 1
-            for (int i = 1; i < args.Count; i++)
-            {
-                Open(args[i]);
-            }
+            foreach (var arg in args.Skip(1))
+                Open(arg);
+           
         }
 
         #endregion

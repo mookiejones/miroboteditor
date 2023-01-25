@@ -14,14 +14,14 @@ using System.Security;
 using System.Security.AccessControl;
 using System.Windows;
 using GalaSoft.MvvmLight;
-using miRobotEditor.Core;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Pads
 {
     /// <summary>
     ///     Wrapper for fileinfo for kuka robot
     /// </summary>
-    public class FileInfo : ViewModelBase
+    public class FileInfo : ViewModel.ViewModelBase
     {
         private readonly System.IO.FileInfo _fi;
         private readonly FileType _filetype = FileType.NONE;

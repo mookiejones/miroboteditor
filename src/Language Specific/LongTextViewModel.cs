@@ -13,7 +13,7 @@ using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.Language_Specific
 {
-    class LongTextViewModel:ViewModelBase
+    class LongTextViewModel:ViewModel.ViewModelBase
     {
 
         #region Commands
@@ -340,26 +340,12 @@ namespace miRobotEditor.Language_Specific
                 }
                 for (var i = 1; i < 256; i++)
                 {
-                    Flags.Add(new Signal(String.Format("$CYCFKAG[{0}]", i), string.Empty));
+                    Flags.Add(new Signal(String.Format("$CYCFLAG[{0}]", i), string.Empty));
                     _progress.Value++;
                 }
                
                 this._progress.IsVisible = false;
             }
         }
-    }
-    public class Signal : ViewModelBase
-    {
-
-        public Signal(string type, string description)
-        {
-            Type = type;
-            Description = description;
-        }
-        private string _type = string.Empty;
-        public string Type { get { return _type; } set { _type = value; RaisePropertyChanged("Type"); } }
-
-        private string _description = string.Empty;
-        public string Description { get { return _description; } set { _description = value; RaisePropertyChanged("Description"); } }
     }
 }

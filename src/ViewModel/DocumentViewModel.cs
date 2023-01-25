@@ -16,7 +16,7 @@ using miRobotEditor.Classes;
 using miRobotEditor.Commands;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Languages;
-using robot_editor.Interfaces;
+using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.ViewModel
 {
@@ -80,7 +80,7 @@ namespace miRobotEditor.ViewModel
             Load(filepath);
             TextBox.FileLanguage = FileLanguage;
 
-            TextBox.GotFocus += (s, e) => { TextBox = s as AvlonEditor; };
+            TextBox.GotFocus += (s, e) => { TextBox = s as AvalonEditor; };
             TextBox.TextChanged += (s, e) => TextChanged(s);
             TextBox.IsModified = false;
 
@@ -120,7 +120,7 @@ namespace miRobotEditor.ViewModel
 
         protected void TextChanged(object sender)
         {
-            TextBox = sender as AvlonEditor;
+            TextBox = sender as AvalonEditor;
             if (TextBox != null) FileLanguage.RawText = TextBox.Text;
 
 
@@ -130,7 +130,7 @@ namespace miRobotEditor.ViewModel
         #region Properties
 
         private ILanguageClass _filelanguage = new LanguageBase();
-        private AvlonEditor _textBox = new AvlonEditor();
+        private AvalonEditor _textBox = new AvalonEditor();
         private Visibility _visibility = Visibility.Visible;
 
         public static DocumentViewModel Instance { get; set; }
@@ -155,7 +155,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public AvlonEditor TextBox
+        public AvalonEditor TextBox
         {
             get { return _textBox; }
             set

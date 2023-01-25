@@ -11,7 +11,6 @@ using System.Windows.Controls;
 using System.Xml;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Win32;
-using miRobotEditor.Core;
 using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Classes

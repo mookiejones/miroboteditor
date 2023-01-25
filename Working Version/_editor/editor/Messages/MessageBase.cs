@@ -2,6 +2,7 @@
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
+using miRobotEditor.Utilities;
 
 namespace miRobotEditor.Messages
 {
@@ -25,9 +26,9 @@ namespace miRobotEditor.Messages
             switch (icon)
             {
                 case MessageType.Error:
-                    return Utilities.LoadBitmap(Global.ImgError);
+                    return ImageHelper.LoadBitmap(Global.ImgError);
                 case MessageType.Information:
-                    return Utilities.LoadBitmap(Global.ImgInfo);
+                    return ImageHelper.LoadBitmap(Global.ImgInfo);
             }
             return null;
         }

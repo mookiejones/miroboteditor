@@ -27,8 +27,8 @@
                 </Style.Triggers>
             </Style>
         </DockPanel.Resources>
-        <ComboBox x:Name="MethodSelector" SelectedItem="{Binding TextBox.SelectedVariable}"
-                  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+        <ComboBox x:Name="MethodSelector" SelectedItem="{Binding Content.TextBox.SelectedVariable}"
+                  ItemsSource="{Binding Content.TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
                   DockPanel.Dock="Top" />
         <Grid DockPanel.Dock="Top">
             <Grid.InputBindings>

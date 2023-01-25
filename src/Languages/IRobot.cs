@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.ViewModel;
 

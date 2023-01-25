@@ -22,8 +22,8 @@ using miRobotEditor.Controls.TextEditor;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
-using miRobotEditor.ViewModel;
-using FileInfo = miRobotEditor.Classes.FileInfo;
+using miRobotEditor.Utilities;
+using miRobotEditor.ViewModel; 
 using MenuItem = System.Windows.Controls.MenuItem;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -31,7 +31,7 @@ namespace miRobotEditor.Languages
 {
     public class KUKA : AbstractLanguageClass
     {
-        private readonly FileInfo _fi = new FileInfo();
+         
         private RelayCommand _systemFunctionCommand;
 
         public KUKA(string file)
@@ -246,7 +246,9 @@ namespace miRobotEditor.Languages
 
         public FileInfo GetFileInfo(string text)
         {
-            return _fi.GetFileInfo(text);
+            var result = new FileInfo(text);
+            return result;
+//            return _fi.GetFileInfo(text);
         }
 
         protected void Dispose(bool disposing)
@@ -367,19 +369,19 @@ namespace miRobotEditor.Languages
                         if (extension == ".sub" || extension == ".sps" || extension == ".kfd")
                         {
                             GetInfo();
-                            iconSource = Utilities.GetIcon("..\\..\\Resources\\spsfile.png");
+                            iconSource = ImageHelper.GetIcon("..\\..\\Resources\\spsfile.png");
                         }
                     }
                     else
                     {
                         GetInfo();
-                        iconSource = Utilities.GetIcon("..\\..\\Resources\\datfile.png");
+                        iconSource = ImageHelper.GetIcon("..\\..\\Resources\\datfile.png");
                     }
                 }
                 else
                 {
                     GetInfo();
-                    iconSource = Utilities.GetIcon("..\\..\\Resources\\srcfile.png");
+                    iconSource = ImageHelper.GetIcon("..\\..\\Resources\\srcfile.png");
                 }
             }
             return new DocumentViewModel(filepath)

@@ -8,6 +8,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
+using miRobotEditor.Abstract;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
@@ -57,7 +58,7 @@ namespace miRobotEditor.Languages
 
         internal override string FunctionItems => @"(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)";
 
-        internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
+        public override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         // public override string SignalRegex{get{return "DEFSIG_";}}
         public override Regex MethodRegex => new Regex("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)", Ro);

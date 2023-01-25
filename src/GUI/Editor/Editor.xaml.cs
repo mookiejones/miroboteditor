@@ -32,15 +32,14 @@ using ICSharpCode.AvalonEdit.Snippets;
 using Microsoft.Win32;
 using miRobotEditor.Annotations;
 using miRobotEditor.Controls;
-using miRobotEditor.Core;
 using miRobotEditor.GUI.Editor.Bookmark;
 using miRobotEditor.GUI.Editor.IconBar;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.ViewModel;
+using Mookie.WPF.Utilities;
 using Global = miRobotEditor.Classes.Global;
 
-using Utilities = miRobotEditor.Classes.Utilities;
 
 namespace miRobotEditor.GUI.Editor
 {
@@ -49,12 +48,12 @@ namespace miRobotEditor.GUI.Editor
     /// </summary>
     [Localizable(false)]
 // ReSharper disable RedundantExtendsListEntry
-    public sealed partial class AvlonEditor : TextEditor, INotifyPropertyChanged,IEditor
+    public sealed partial class AvalonEditor : TextEditor, INotifyPropertyChanged,IEditor
 // ReSharper restore RedundantExtendsListEntry
     {
         #region Constructor
 
-        public AvlonEditor()
+        public AvalonEditor()
         {
 
 
@@ -74,9 +73,9 @@ namespace miRobotEditor.GUI.Editor
         #region ViewModel Properties
 
         public static DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof (string),
-            typeof (AvlonEditor), new PropertyMetadata((obj, args) =>
+            typeof (AvalonEditor), new PropertyMetadata((obj, args) =>
             {
-                var target = (AvlonEditor) obj;
+                var target = (AvalonEditor) obj;
                 target.Text = (string) args.NewValue;
             }));
 
@@ -591,7 +590,7 @@ namespace miRobotEditor.GUI.Editor
 
         private void AddBookMark(int lineNumber, string imgpath)
         {
-            BitmapImage bitmap = Utilities.LoadBitmap(imgpath);
+            BitmapImage bitmap = ImageHelper.LoadBitmap(imgpath);
             var bmi = new BookmarkImage(bitmap);
             _iconBarManager.Bookmarks.Add(new ClassMemberBookmark(lineNumber, bmi));
         }
@@ -993,7 +992,7 @@ namespace miRobotEditor.GUI.Editor
         #region Code Completion
 
         public static readonly DependencyProperty CompletionWindowProperty =
-            DependencyProperty.Register("CompletionWindow", typeof (CompletionWindow), typeof (AvlonEditor));
+            DependencyProperty.Register("CompletionWindow", typeof (CompletionWindow), typeof (AvalonEditor));
 
         private CompletionWindow CompletionWindow
         {

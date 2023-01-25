@@ -15,7 +15,7 @@ namespace miRobotEditor.Language_Specific
 {
     public delegate void VariableEventHandler(object sender, VariableEventArgs e);
     
-    public class KUKAVariableViewerViewModel:ViewModelBase
+    public class KUKAVariableViewerViewModel:miRobotEditor.ViewModel.ViewModelBase
     {
         public KUKAVariableViewerViewModel()
         {
@@ -616,63 +616,6 @@ namespace miRobotEditor.Language_Specific
 
 
     }
-    public class VariableEventArgs:EventArgs
-{ 
-    public VariableEventArgs()
-    {}
-    public VariableEventArgs(string name)
-    {_name = name;}
-    private string _name = string.Empty;   
-    public string Name
-    {
-        get{return _name;}
-        set{_name = value;}
-    }
-        private readonly KUKAVariableViewerViewModel.Variable _variable;
-        public KUKAVariableViewerViewModel.Variable Variable => _variable;
-
-        public VariableEventArgs(KUKAVariableViewerViewModel.Variable variable)
-        {
-            _variable = variable;
-        }
-    }    
     public delegate void AddVariableEventHandler(object sender,VariableEventArgs e);
-    public class VariableAdder:ViewModelBase
-    {
-
-         public event AddVariableEventHandler AddVariableClick;
-        private string _text;
-        public string Text{get { return _text; }set { _text = value;RaisePropertyChanged("Text"); }}
-
-        private int _interval;
-        public int Interval{get { return _interval; }set { _interval = value;RaisePropertyChanged("Interval"); }}
-
-
-
-        void AddVariable(object param)
-        {
-            if ((!String.IsNullOrEmpty(Text))&&(AddVariableClick!=null))
-                AddVariableClick(this,new VariableEventArgs(new KUKAVariableViewerViewModel.Variable(Interval,Text)));
-        }
-
-        public void Clear()
-        {
-            
-        }
-    }
-     public class VariableInfoEventArgs : EventArgs
-    {
-        private string _name = string.Empty;
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-        public VariableInfoEventArgs(string name)
-        {
-            _name = name;
-        }
-
-    }
 }
 

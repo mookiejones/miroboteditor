@@ -14,14 +14,14 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
-using miRobotEditor.Core;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Language_Specific
 {
     /// <summary>
     ///     Description of KUKAKFDHelper.
     /// </summary>
-    public class KUKAKFDHelper : ViewModelBase
+    public class KUKAKFDHelper : ViewModel.ViewModelBase
     {
 #pragma warning disable 169
         private List<String> _ilf = new List<String>();

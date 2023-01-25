@@ -8,7 +8,7 @@
     xmlns:selectors="clr-namespace:miRobotEditor.Selectors"
     xmlns:classes="clr-namespace:miRobotEditor.Classes"
     xmlns:ViewModel="clr-namespace:miRobotEditor.ViewModel" 
-    xmlns:xcad="https://github.com/Dirkster99/AvalonDock"
+     
     x:Class="miRobotEditor.MainWindow" x:Name="MetroWindow"
     SnapsToDevicePixels="True"
     WindowState="Maximized"
@@ -21,9 +21,9 @@
     <mw:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/miRobotEditor;component/Templates/StatusBarTemplate.xaml" />
-                <ResourceDictionary Source="/miRobotEditor;component/Templates/KUKASpecificTemplates.xaml" />
-                <ResourceDictionary Source="/miRobotEditor;component/Templates/LayoutItemTemplates.xaml" />
+                <ResourceDictionary Source="/miRobotEditor;component/Assets/Templates/StatusBarTemplate.xaml" />
+                <ResourceDictionary Source="/miRobotEditor;component/Assets/Templates/KUKASpecificTemplates.xaml" />
+                <ResourceDictionary Source="/miRobotEditor;component/Assets/Templates/LayoutItemTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Image x:Key="CopyImage" Source="Images/resources-copy.png" />
             <Image x:Key="PasteImage" Source="Images/resources-paste.png" />
@@ -72,6 +72,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
+         
         <Menu Background="#00FFFFFF" IsMainMenu="True" Margin="10,2,0,0" DataContext="{Binding Main, Mode=OneWay}">
             <Menu.Resources>
                 <Style x:Key="{x:Type Image}" TargetType="{x:Type Image}">
@@ -88,7 +89,7 @@
                 </Style>
             </Menu.Resources>
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Command="{Binding NewFileCommand}">
+                <MenuItem Header="_New" Command="{Binding NewFileCommand}"  >
                     <MenuItem.Icon>
                         <Image Source="/Images/resources-newfile.png" />
                     </MenuItem.Icon>
@@ -440,17 +441,17 @@
                 <Image Source="/Images/resources-increaseindent.png" />
             </Button>
         </StackPanel>
-        <xcad:DockingManager
+        <DockingManager
             x:Name="DockManager"
             Background="#00FFFFFF"
             Grid.Row="2"
             AnchorablesSource="{Binding Main.Tools}"
             DocumentsSource="{Binding Main.Files}"
             ActiveContent="{Binding Main.ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay}">
-            <xcad:DockingManager.LayoutUpdateStrategy>
+            <DockingManager.LayoutUpdateStrategy>
                 <classes:LayoutInitializer />
-            </xcad:DockingManager.LayoutUpdateStrategy>
-            <xcad:DockingManager.LayoutItemTemplateSelector>
+            </DockingManager.LayoutUpdateStrategy>
+            <DockingManager.LayoutItemTemplateSelector>
                 <selectors:PanesTemplateSelector AngleConverterTemplate="{StaticResource AngleConverterTemplate}"
                                                  NotesTemplate="{StaticResource Notes}"
                                                  FunctionTemplate="{StaticResource Functions}"
@@ -459,24 +460,24 @@
                                                  KukaTemplate="{StaticResource Kuka}"
                                                  FileTemplate="{StaticResource Document}"
                                                  MessageTemplate="{StaticResource MessageTemplate}" />
-            </xcad:DockingManager.LayoutItemTemplateSelector>
-            <xcad:DockingManager.LayoutItemContainerStyleSelector>
+            </DockingManager.LayoutItemTemplateSelector>
+            <DockingManager.LayoutItemContainerStyleSelector>
                 <selectors:PanesStyleSelector FileStyle="{StaticResource FileStyle}"
                                               ToolStyle="{StaticResource ToolStyle}" />
-            </xcad:DockingManager.LayoutItemContainerStyleSelector>
-            <xcad:LayoutRoot>
-                <xcad:LayoutPanel Orientation="Vertical">
-                    <xcad:LayoutPanel Orientation="Horizontal">
-                        <xcad:LayoutAnchorablePaneGroup DockWidth="300">
-                            <xcad:LayoutAnchorablePane Name="LeftPane" />
-                        </xcad:LayoutAnchorablePaneGroup>
-                        <xcad:LayoutDocumentPane />
-                        <xcad:LayoutAnchorablePane Name="RightPane" DockWidth="250" />
-                    </xcad:LayoutPanel>
-                    <xcad:LayoutAnchorablePane Name="BottomPane" DockHeight="200" />
-                </xcad:LayoutPanel>
-            </xcad:LayoutRoot>
-        </xcad:DockingManager>
+            </DockingManager.LayoutItemContainerStyleSelector>
+            <LayoutRoot>
+                <LayoutPanel Orientation="Vertical">
+                    <LayoutPanel Orientation="Horizontal">
+                        <LayoutAnchorablePaneGroup DockWidth="300">
+                            <LayoutAnchorablePane Name="LeftPane" />
+                        </LayoutAnchorablePaneGroup>
+                        <LayoutDocumentPane />
+                        <LayoutAnchorablePane Name="RightPane" DockWidth="250" />
+                    </LayoutPanel>
+                    <LayoutAnchorablePane Name="BottomPane" DockHeight="200" />
+                </LayoutPanel>
+            </LayoutRoot>
+        </DockingManager>
         <StatusBar Grid.Row="3" DataContext="{Binding StatusBar, Mode=OneWay}">
             <StatusBar.Resources>
                 <Style x:Key="{x:Type StatusBarItem}" TargetType="{x:Type StatusBarItem}">

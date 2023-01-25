@@ -4,8 +4,9 @@ using System.Windows.Input;
 using Microsoft.Practices.ServiceLocation;
 using miRobotEditor.Classes;
 using miRobotEditor.Core;
+using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using robot_editor.Interfaces;
+
 using RelayCommand = miRobotEditor.Commands.RelayCommand;
 
 namespace miRobotEditor.Languages

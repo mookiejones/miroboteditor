@@ -6,6 +6,7 @@ using CommonServiceLocator;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
+using miRobotEditor.Utilities;
 
 namespace miRobotEditor.ViewModel
 {
@@ -79,7 +80,7 @@ namespace miRobotEditor.ViewModel
         private void Initialize()
         {
             ContentId = ToolContentId;
-            IconSource=Utilities.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
+            IconSource=ImageHelper.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
             //  IconSource = Utilities.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
             DefaultPane = DefaultToolPane.Bottom;
         }

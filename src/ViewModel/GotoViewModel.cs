@@ -11,11 +11,11 @@ namespace miRobotEditor.ViewModel
         #region Properties
 
         private string _description = string.Empty;
-        private AvlonEditor _editor = new AvlonEditor();
+        private AvalonEditor _editor = new AvalonEditor();
         private int _enteredText;
         private int _selectedLine;
 
-        public AvlonEditor Editor
+        public AvalonEditor Editor
         {
             get { return _editor; }
             set
@@ -59,7 +59,7 @@ namespace miRobotEditor.ViewModel
 
         #region Constructor
 
-        public GotoViewModel(AvlonEditor editor)
+        public GotoViewModel(AvalonEditor editor)
         {
             Editor = editor;
         }

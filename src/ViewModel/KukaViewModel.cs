@@ -8,7 +8,7 @@ using miRobotEditor.Commands;
 using miRobotEditor.Controls;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Languages;
-using robot_editor.Interfaces;
+using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.ViewModel
 {
@@ -22,8 +22,8 @@ namespace miRobotEditor.ViewModel
             FileLanguage = lang;
             Source.FileLanguage = FileLanguage;
             Data.FileLanguage = FileLanguage;
-            Source.GotFocus += (s, e) => { TextBox = s as AvlonEditor; };
-            Data.GotFocus += (s, e) => { TextBox = s as AvlonEditor; };
+            Source.GotFocus += (s, e) => { TextBox = s as AvalonEditor; };
+            Data.GotFocus += (s, e) => { TextBox = s as AvalonEditor; };
             Source.TextChanged += (s, e) => TextChanged(s);
             Data.TextChanged += (s, e) => TextChanged(s);
             Source.IsModified = false;
@@ -49,7 +49,7 @@ namespace miRobotEditor.ViewModel
                         break;
                     case false:
                         if (Data == null)
-                            Data = new AvlonEditor();
+                            Data = new AvalonEditor();
                         Data.Visibility = Visibility.Collapsed;
                         Grid.Visibility = Visibility.Collapsed;
                         break;
@@ -142,7 +142,7 @@ namespace miRobotEditor.ViewModel
         ///     Checks both boxes to determine if they should be saved or not
         /// </summary>
         /// <param name="txtBox"></param>
-        private void CheckClose(AvlonEditor txtBox)
+        private void CheckClose(AvalonEditor txtBox)
         {
             if (txtBox != null)
                 if (txtBox.IsModified)
@@ -203,12 +203,12 @@ namespace miRobotEditor.ViewModel
 
         #region Properties
 
-        private IEditor _data = new AvlonEditor();
+        private IEditor _data = new AvalonEditor();
 
         private ExtendedGridSplitter _grid = new ExtendedGridSplitter();
         private int _gridrow = 1;
 
-        private AvlonEditor _source = new AvlonEditor();
+        private AvalonEditor _source = new AvalonEditor();
 
         public ExtendedGridSplitter Grid
         {
@@ -220,7 +220,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public AvlonEditor Source
+        public AvalonEditor Source
         {
             get { return _source; }
             set

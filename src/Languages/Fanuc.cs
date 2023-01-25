@@ -12,7 +12,8 @@ using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
-using robot_editor.Classes;
+using miRobotEditor.Classes;
+using miRobotEditor.Abstract;
 
 namespace miRobotEditor.Languages
 {

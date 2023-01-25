@@ -15,7 +15,6 @@ using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.Annotations;
 using miRobotEditor.Classes;
-using miRobotEditor.Core;
 using miRobotEditor.GUI.Editor;
 using miRobotEditor.ViewModel;
 using Microsoft.Practices.ServiceLocation;
@@ -25,7 +24,7 @@ using ICSharpCode.AvalonEdit.Document;
 
 namespace miRobotEditor.Languages
 {
-    
+
 
     [Localizable(false)]
     public abstract class AbstractLanguageClass : ViewModelBase,ILanguageClass

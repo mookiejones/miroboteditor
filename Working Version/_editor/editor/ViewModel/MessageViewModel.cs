@@ -9,7 +9,9 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
-using miRobotEditor.Interfaces; 
+using miRobotEditor.Interfaces;
+using miRobotEditor.Utilities;
+
 namespace miRobotEditor.ViewModel
 {
     public delegate void MessageAddedHandler(object sender, EventArgs e);
@@ -73,10 +75,10 @@ namespace miRobotEditor.ViewModel
             switch (icon)
             {
                 case MsgIcon.Error:
-                    icon2 = Utilities.LoadBitmap("..\\..\\Resources\\error.png");
+                    icon2 = ImageHelper.LoadBitmap("..\\..\\Resources\\error.png");
                     break;
                 case MsgIcon.Info:
-                    icon2 = Utilities.LoadBitmap("..\\..\\Resources\\info.png");
+                    icon2 = ImageHelper.LoadBitmap("..\\..\\Resources\\info.png");
                     break;
             }
             _messages.Add(new OutputWindowMessage
@@ -113,13 +115,13 @@ namespace miRobotEditor.ViewModel
             var item = new OutputWindowMessage
             {
                 Title = "Internal Error",
-                Icon = Utilities.LoadBitmap("..\\..\\Resources\\error.png"),
+                Icon = ImageHelper.LoadBitmap("..\\..\\Resources\\error.png"),
                 Description = string.Format("Internal error\r\n {0} \r\n in {1}", ex.Message, stackTrace.GetFrame(2))
             };
             _messages.Add(item);
         }
 
-        public void Add(string title, string message, BitmapImage icon, bool forceactivate = true)
+        public void Add(string title, string message, BitmapImage icon, bool forceActivate = true)
         {
             _messages.Add(new OutputWindowMessage
             {
@@ -127,7 +129,7 @@ namespace miRobotEditor.ViewModel
                 Description = message,
                 Icon = icon
             });
-            if (forceactivate)
+            if (forceActivate)
             {
                 RaiseMessageAdded();
             }

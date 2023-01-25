@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using miRobotEditor.Classes;
-using miRobotEditor.Core;
+using miRobotEditor.ViewModel;
 
 namespace miRobotEditor.Converters
 {
