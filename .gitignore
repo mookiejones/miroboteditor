@@ -7,3 +7,124 @@ src/[Oo]bj/
 **/[Oo]bj/
 Working Version/editor/editor/[Bb]in/
 Working Version/editor/editor/bin/Debug/miRobotEditor.application
+/CleanedVersion/src/miRobotEditor.EditorControl/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/CleanedVersion/src/miRobotEditor.Core/obj/Debug/miRobotEditor.Core.csproj.CoreCompileInputs.cache
+/CleanedVersion/src/miRobotEditor.Core/obj/Debug/miRobotEditor.Core.csproj.AssemblyReference.cache
+/CleanedVersion/src/miRobotEditor.Core/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/CleanedVersion/src/miRobotEditor/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/CleanedVersion/src/miRobotEditor.Resources/bin/Debug/net8.0-windows/miRobotEditor.Resources.pdb
+/CleanedVersion/src/miRobotEditor.Resources/bin/Debug/net8.0-windows/miRobotEditor.Resources.dll
+/CleanedVersion/src/miRobotEditor.Resources/bin/Debug/net8.0-windows/miRobotEditor.Resources.deps.json
+/CleanedVersion/src/miRobotEditor.Resources/obj/Debug/net8.0-windows/miRobotEditor.Resources_MarkupCompile.i.cache
+/CleanedVersion/src/miRobotEditor.Resources/obj/Debug/net8.0-windows/miRobotEditor.Resources_MarkupCompile.cache
+/CleanedVersion/src/miRobotEditor.Resources/obj/Debug/net8.0-windows/miRobotEditor.Resources.pdb
+/CleanedVersion/src/miRobotEditor.Resources/obj/Debug/net8.0-windows/miRobotEditor.Resources.dll
+/CleanedVersion/src/miRobotEditor.Resources/obj/Debug/net8.0-windows/miRobotEditor.Resources.csproj.CoreCompileInputs.cache
+/CleanedVersion/src/miRobotEditor.Resources/obj/Debug/net8.0-windows/miRobotEditor.Resources.csproj.AssemblyReference.cache
+/CleanedVersion/src/miRobotEditor.Resources/obj/Debug/net8.0-windows/miRobotEditor.Resources.assets.cache
+/CleanedVersion/src/miRobotEditor.UI/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/CleanedVersion/src/miRobotEditor.ViewModels/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/CleanedVersion/src/miRobotEditor.Resources/obj/project.nuget.cache
+/CleanedVersion/src/miRobotEditor.Resources/obj/project.assets.json
+/CleanedVersion/src/miRobotEditor.Resources/obj/miRobotEditor.Resources.csproj.nuget.g.targets
+/Working Version/editor/editor/bin/Debug/app.publish/miRobotEditor.exe
+/Working Version/editor/editor/bin/Debug/miRobotEditor.pdb
+/Working Version/editor/editor/bin/Debug/miRobotEditor.exe.manifest
+/Working Version/editor/editor/bin/Debug/miRobotEditor.exe
+/Working Version/editor/editor/bin/Debug/miRobotEditor.application
+/Working Version/editor/editor/obj/Debug/Controls/KukaControl.g.i.cs
+/Working Version/editor/editor/obj/Debug/Controls/KukaControl.g.cs
+/Working Version/editor/editor/obj/Debug/Views/FunctionView.g.i.cs
+/Working Version/editor/editor/obj/Debug/Views/FunctionView.g.cs
+/Working Version/editor/editor/obj/Debug/Views/FunctionView.baml
+/Working Version/editor/editor/obj/Debug/miRobotEditor.pdb
+/Working Version/editor/editor/obj/Debug/miRobotEditor.g.resources
+/Working Version/editor/editor/obj/Debug/miRobotEditor.exe.manifest
+/Working Version/editor/editor/obj/Debug/miRobotEditor.exe
+/Working Version/editor/editor/obj/Debug/miRobotEditor.application
+/Working Version/_editor/AutomationHelper.Core/obj/Debug/netcoreapp3.1/AutomationHelper.Core.csproj.FileListAbsolute.txt
+/Working Version/_editor/AutomationHelper.Core/obj/Debug/netcoreapp3.1/AutomationHelper.Core.csproj.AssemblyReference.cache
+/Working Version/_editor/AutomationHelper.Core/obj/Debug/netcoreapp3.1/AutomationHelper.Core.assets.cache
+/Working Version/_editor/AutomationHelper.Core/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs
+/Working Version/_editor/AutomationHelper.Core/obj/project.nuget.cache
+/Working Version/_editor/AutomationHelper.Core/obj/project.assets.json
+/Working Version/_editor/AutomationHelper.Core/obj/AutomationHelper.Core.csproj.nuget.g.targets
+/Working Version/_editor/AutomationHelper.Core/obj/AutomationHelper.Core.csproj.nuget.g.props
+/Working Version/_editor/AutomationHelper.Core/obj/AutomationHelper.Core.csproj.nuget.dgspec.json
+/Working Version/_editor/editor/bin/Debug/app.publish/miRobotEditor.exe
+/Working Version/_editor/editor/bin/Debug/ca-ES/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/cs-CZ/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/de/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/es/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/fr/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/hu/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/it/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/ja/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/ko/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/nl-BE/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/pl/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/pt/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/ro/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/ru/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/sv/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/zh-Hans/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/zh-Hant/AvalonDock.resources.dll
+/Working Version/_editor/editor/bin/Debug/RobotEditor.Core.pdb
+/Working Version/_editor/editor/bin/Debug/RobotEditor.Core.dll
+/Working Version/_editor/editor/bin/Debug/NumericUpDownLib.dll
+/Working Version/_editor/editor/bin/Debug/miRobotEditor.pdb
+/Working Version/_editor/editor/bin/Debug/miRobotEditor.exe.manifest
+/Working Version/_editor/editor/bin/Debug/miRobotEditor.exe
+/Working Version/_editor/editor/bin/Debug/miRobotEditor.application
+/Working Version/_editor/editor/bin/Debug/MaterialDesignThemes.MahApps.pdb
+/Working Version/_editor/editor/bin/Debug/MaterialDesignThemes.MahApps.dll
+/Working Version/_editor/editor/bin/Debug/MaterialDesignColors.pdb
+/Working Version/_editor/editor/bin/Debug/MaterialDesignColors.dll
+/Working Version/_editor/editor/bin/Debug/ICSharpCode.AvalonEdit.xml
+/Working Version/_editor/editor/bin/Debug/ICSharpCode.AvalonEdit.dll
+/Working Version/_editor/editor/bin/Debug/dockConfig.xml
+/Working Version/_editor/editor/bin/Debug/ControlzEx.xml
+/Working Version/_editor/editor/bin/Debug/ControlzEx.pdb
+/Working Version/_editor/editor/bin/Debug/ControlzEx.dll
+/Working Version/_editor/editor/bin/Debug/AvalonDock.dll
+/Working Version/_editor/editor/obj/Debug/Controls/TextEditor/Editor.baml
+/Working Version/_editor/editor/obj/Debug/Windows/XmlReaderWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/SplashScreenWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/SnippetWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/ShiftWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/ReverseWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/RenamePositionWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/KFDDialogWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/KFDAssistantWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/GotoWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/FindAndReplaceWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/FileExplorerWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/AttributeViewerWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/AdjustSTWindow.baml
+/Working Version/_editor/editor/obj/Debug/Windows/AboutWindow.baml
+/Working Version/_editor/RobotEditor/bin/Debug/RobotEditor.pdb
+/Working Version/_editor/RobotEditor/bin/Debug/RobotEditor.exe
+/Working Version/_editor/RobotEditor/obj/Debug/MainWindow.g.i.cs
+/Working Version/_editor/RobotEditor/obj/Debug/MainWindow.g.cs
+/Working Version/_editor/RobotEditor/obj/Debug/MainWindow.baml
+/Working Version/_editor/RobotEditor/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Working Version/_editor/RobotEditor/obj/Debug/DesignTimeResolveAssemblyReferences.cache
+/Working Version/_editor/RobotEditor/obj/Debug/App.baml
+/Working Version/_editor/RobotEditor/obj/Debug/RobotEditor_MarkupCompile.cache
+/Working Version/_editor/RobotEditor/obj/Debug/RobotEditor.pdb
+/Working Version/_editor/RobotEditor/obj/Debug/RobotEditor.g.resources
+/Working Version/_editor/RobotEditor/obj/Debug/RobotEditor.exe
+/Working Version/_editor/RobotEditor/obj/Debug/RobotEditor.csproj.GenerateResource.cache
+/Working Version/_editor/RobotEditor/obj/Debug/RobotEditor.csproj.FileListAbsolute.txt
+/Working Version/_editor/RobotEditor/obj/Debug/RobotEditor.csproj.AssemblyReference.cache
+/Working Version/_editor/RobotEditor/obj/Debug/RobotEditor_MarkupCompile.i.cache
+/Working Version/_editor/RobotEditor.Core/obj/Debug/TempPE/Properties.Resources.Designer.cs.dll
+/Working Version/_editor/RobotEditor.Core/obj/Debug/RobotEditor.Core_MarkupCompile.i.cache
+/Working Version/_editor/RobotEditor.Core/obj/Debug/RobotEditor.Core.csproj.GenerateResource.cache
+/Working Version/_editor/RobotEditor.Core/obj/Debug/RobotEditor.Core.csproj.CoreCompileInputs.cache
+/Working Version/_editor/RobotEditor.Core/obj/Debug/RobotEditor.Core.csproj.AssemblyReference.cache
+/Working Version/_editor/RobotEditor.Core/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Working Version/_editor/RobotEditor.Editor/obj/Debug/TempPE/Properties.Resources.Designer.cs.dll
+/Working Version/_editor/RobotEditor.Editor/obj/Debug/RobotEditor.Editor_MarkupCompile.i.cache
+/Working Version/_editor/RobotEditor.Editor/obj/Debug/RobotEditor.Editor.csproj.AssemblyReference.cache
+/Working Version/_editor/RobotEditor.Editor/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
