@@ -6,7 +6,7 @@ namespace miRobotEditor.ViewModel
     {
         #region FileOptions
 
-        private FileOptionsViewModel _fileOptions = new FileOptionsViewModel();
+        private FileOptionsViewModel _fileOptions = new();
 
         /// <summary>
         ///     Sets and gets the FileOptions property.

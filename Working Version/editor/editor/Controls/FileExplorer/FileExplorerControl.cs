@@ -125,14 +125,14 @@ namespace miRobotEditor.Controls.FileExplorer
             }
             catch (Exception ex)
             {
-                ErrorMessage msg = new ErrorMessage("ExplorerClass", ex, MessageType.Error);
+                ErrorMessage msg = new("ExplorerClass", ex, MessageType.Error);
                 _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 
         private void AddNode(string name, int unselected, int selected)
         {
-            TreeNode treeNode = new TreeNode(name, unselected, selected);
+            TreeNode treeNode = new(name, unselected, selected);
             _ = Nodes.Add(treeNode);
             treeNode.Tag = name;
             _ = treeNode.Nodes.Add(string.Empty);
@@ -147,7 +147,7 @@ namespace miRobotEditor.Controls.FileExplorer
                 num = 11;
                 text = sRobName;
             }
-            TreeNode treeNode = new TreeNode(text, num, num);
+            TreeNode treeNode = new(text, num, num);
             if (bArchiveRoot)
             {
                 treeNode.Tag = path;
@@ -199,7 +199,7 @@ namespace miRobotEditor.Controls.FileExplorer
                         text = root + text.Substring(text.IndexOf("\\", StringComparison.Ordinal));
                     }
                 }
-                DirectoryInfo directoryInfo = new DirectoryInfo(text);
+                DirectoryInfo directoryInfo = new(text);
                 DirectoryInfo[] directories = directoryInfo.GetDirectories();
                 //Comparer comparer = new Comparer(CultureInfo.InvariantCulture);
                 //Array.Sort(directories, comparer);
@@ -223,7 +223,7 @@ namespace miRobotEditor.Controls.FileExplorer
              
                 foreach (string path in array2)
                 {
-                    TreeNode treeNode = new TreeNode(Path.GetFileName(path))
+                    TreeNode treeNode = new(Path.GetFileName(path))
                     {
                         Tag = node.Tag.ToString()
                     };
@@ -243,7 +243,7 @@ namespace miRobotEditor.Controls.FileExplorer
             }
             catch (Exception ex)
             {
-                ErrorMessage msg = new ErrorMessage("ExplorerClass.FillTreeNode", ex, MessageType.Error);
+                ErrorMessage msg = new("ExplorerClass.FillTreeNode", ex, MessageType.Error);
                 _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 Cursor = Cursors.Default;
             }

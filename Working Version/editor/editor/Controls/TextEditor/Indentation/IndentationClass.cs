@@ -61,7 +61,7 @@ namespace miRobotEditor.Classes
             if (!set.LeaveEmptyLines || text.Length != 0)
             {
                 text = text.TrimStart(new char[0]);
-                StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder = new();
                 if (text.Length == 0)
                 {
                     if (!_blockComment && (!_inString || !_verbatim))
@@ -482,7 +482,7 @@ namespace miRobotEditor.Classes
                 }
                 else
                 {
-                    StringBuilder stringBuilder = new StringBuilder(text.Length * count);
+                    StringBuilder stringBuilder = new(text.Length * count);
                     for (int i = 0; i < count; i++)
                     {
                         _ = stringBuilder.Append(text);

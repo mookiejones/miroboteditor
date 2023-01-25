@@ -56,8 +56,8 @@ namespace miRobotEditor.Languages
 
         public static string GetSystemFunctions => FunctionGenerator.GetSystemFunctions();
 
-        public static List<string> Ext => new List<string>
-                {
+        public static List<string> Ext => new()
+        {
                     ".dat",
                     ".src",
                     ".ini",
@@ -83,11 +83,11 @@ namespace miRobotEditor.Languages
         {
             get
             {
-                MenuItem menuItem = new MenuItem
+                MenuItem menuItem = new()
                 {
                     Header = "KUKA"
                 };
-                MenuItem newItem = new MenuItem
+                MenuItem newItem = new()
                 {
                     Header = "Test 456"
                 };
@@ -96,7 +96,7 @@ namespace miRobotEditor.Languages
             }
         }
 
-        private static Snippet ForSnippet => new Snippet
+        private static Snippet ForSnippet => new()
         {
             Elements =
                     {
@@ -140,28 +140,28 @@ namespace miRobotEditor.Languages
                     }
         };
 
-        public override Regex EnumRegex => new Regex("^(ENUM)\\s+([\\d\\w]+)\\s+([\\d\\w,]+)",
+        public override Regex EnumRegex => new("^(ENUM)\\s+([\\d\\w]+)\\s+([\\d\\w,]+)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override Regex StructRegex => new Regex("DECL STRUC|^STRUC\\s([\\w\\d]+\\s*)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        public override Regex StructRegex => new("DECL STRUC|^STRUC\\s([\\w\\d]+\\s*)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override Regex FieldRegex => new Regex(
+        public override Regex FieldRegex => new(
                         "^[DECL ]*[GLOBAL ]*[CONST ]*(INT|REAL|BOOL|CHAR)\\s+([\\$0-9a-zA-Z_\\[\\],\\$]+)=?([^\\r\\n;]*);?([^\\r\\n]*)",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         protected override string ShiftRegex => "((E6POS [\\w]*={)X\\s([\\d.-]*)\\s*,*Y\\s*([-.\\d]*)\\s*,Z\\s*([-\\d.]*))";
 
-        public override Regex MethodRegex => new Regex("^[GLOBAL ]*(DEF)+\\s+([\\w_\\d]+\\s*)\\(",
+        public override Regex MethodRegex => new("^[GLOBAL ]*(DEF)+\\s+([\\w_\\d]+\\s*)\\(",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         internal override string FunctionItems => "((DEF|DEFFCT (BOOL|CHAR|INT|REAL|FRAME)) ([\\w_\\s]*)\\(([\\w\\]\\s:_\\[,]*)\\))";
 
         public override string CommentChar => ";";
 
-        public override Regex SignalRegex => new Regex("^(SIGNAL+)\\s+([\\d\\w]+)\\s+([^\\r\\;]*)",
+        public override Regex SignalRegex => new("^(SIGNAL+)\\s+([\\d\\w]+)\\s+([^\\r\\;]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override Regex XYZRegex => new Regex("^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\\w\\d_\\$]+)=?\\{?([^}}]*)?\\}?",
+        public override Regex XYZRegex => new("^[DECL ]*[GLOBAL ]*(POS|E6POS|E6AXIS|FRAME) ([\\w\\d_\\$]+)=?\\{?([^}}]*)?\\}?",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public FileInfo GetFileInfo(string text)
@@ -187,7 +187,7 @@ namespace miRobotEditor.Languages
         public static string SystemFileName()
         {
             string result;
-            using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
+            using (System.Windows.Forms.OpenFileDialog openFileDialog = new())
             {
                 openFileDialog.Filter = "All File (*.*)|*.*";
                 openFileDialog.InitialDirectory = "C:\\krc\\bin\\";
@@ -220,7 +220,7 @@ namespace miRobotEditor.Languages
 
         private static Collection<string> GetPositionFromFile(int line, ITextEditorComponent editor)
         {
-            Collection<string> collection = new Collection<string>();
+            Collection<string> collection = new();
             while (true)
             {
                 collection.Add(editor.Document.Lines[line].ToString());
@@ -232,7 +232,7 @@ namespace miRobotEditor.Languages
 
         public static AvalonEditor ReversePath(AvalonEditor editor)
         {
-            Collection<Collection<string>> collection = new Collection<Collection<string>>();
+            Collection<Collection<string>> collection = new();
             for (int i = 0; i <= editor.Document.Lines.Count - 1; i++)
             {
                 if (
@@ -329,7 +329,7 @@ namespace miRobotEditor.Languages
         public static List<string> GetModuleFileNames(string filename)
         {
             string str = filename.Substring(0, filename.LastIndexOf('.'));
-            List<string> list = new List<string>();
+            List<string> list = new();
             if (File.Exists(str + ".src"))
             {
                 list.Add(str + ".src");
@@ -353,16 +353,16 @@ namespace miRobotEditor.Languages
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public static string GetSystemFunctions()
             {
-                StringBuilder stringBuilder = new StringBuilder();
-                SystemFunctionsViewModel systemFunctionsViewModel = new SystemFunctionsViewModel();
-                Window window = new Window
+                StringBuilder stringBuilder = new();
+                SystemFunctionsViewModel systemFunctionsViewModel = new();
+                Window window = new()
                 {
                     Content = systemFunctionsViewModel
                 };
                 string result;
                 if (window.DialogResult.HasValue && window.DialogResult.Value)
                 {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    OpenFileDialog openFileDialog = new();
                     try
                     {
                         openFileDialog.Filter =
@@ -404,7 +404,7 @@ namespace miRobotEditor.Languages
                     }
                     catch (Exception ex)
                     {
-                        ErrorMessage msg = new ErrorMessage("GetSystemFiles", ex, MessageType.Error);
+                        ErrorMessage msg = new("GetSystemFiles", ex, MessageType.Error);
                         _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                     }
                 }
@@ -414,12 +414,12 @@ namespace miRobotEditor.Languages
 
             private static string RemoveFromFile(string functionfile, string matchString)
             {
-                StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder = new();
                 string input;
-                using (StreamReader streamReader = new StreamReader(_functionFile))
+                using (StreamReader streamReader = new(_functionFile))
                 {
                     input = streamReader.ReadToEnd();
-                    Regex regex = new Regex(matchString, RegexOptions.IgnoreCase);
+                    Regex regex = new(matchString, RegexOptions.IgnoreCase);
                     MatchCollection matchCollection = regex.Matches(input);
                     if (matchCollection.Count > 0)
                     {
@@ -429,9 +429,9 @@ namespace miRobotEditor.Languages
                         }
                     }
                 }
-                Regex regex2 = new Regex(matchString);
+                Regex regex2 = new(matchString);
                 string value = regex2.Replace(input, string.Empty);
-                using (StreamWriter streamWriter = new StreamWriter(functionfile))
+                using (StreamWriter streamWriter = new(functionfile))
                 {
                     streamWriter.Write(value);
                 }
@@ -447,11 +447,11 @@ namespace miRobotEditor.Languages
                 }
                 else
                 {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    using (StreamReader streamReader = new StreamReader(functionFile))
+                    StringBuilder stringBuilder = new();
+                    using (StreamReader streamReader = new(functionFile))
                     {
                         string input = streamReader.ReadToEnd();
-                        Regex regex = new Regex(matchString, RegexOptions.IgnoreCase);
+                        Regex regex = new(matchString, RegexOptions.IgnoreCase);
                         MatchCollection matchCollection = regex.Matches(input);
                         if (matchCollection.Count > 0)
                         {
@@ -472,7 +472,7 @@ namespace miRobotEditor.Languages
             protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
             {
                 firstErrorOffset = -1;
-                List<LanguageFold> list = new List<LanguageFold>();
+                List<LanguageFold> list = new();
                 list.AddRange(CreateFoldingHelper(document, ";fold", ";endfold", true));
                 list.AddRange(CreateFoldingHelper(document, "def", "end", true));
                 list.AddRange(CreateFoldingHelper(document, "global def", "end", true));

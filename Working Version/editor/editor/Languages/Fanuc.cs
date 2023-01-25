@@ -31,8 +31,8 @@ namespace miRobotEditor.Languages
 
         public override List<string> SearchFilters => EXT;
 
-        public static List<string> EXT => new List<string>
-                {
+        public static List<string> EXT => new()
+        {
                     ".ls"
                 };
 
@@ -51,13 +51,13 @@ namespace miRobotEditor.Languages
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        public override Regex MethodRegex => new Regex(string.Empty);
+        public override Regex MethodRegex => new(string.Empty);
 
-        public override Regex StructRegex => new Regex(string.Empty);
+        public override Regex StructRegex => new(string.Empty);
 
-        public override Regex FieldRegex => new Regex(string.Empty);
+        public override Regex FieldRegex => new(string.Empty);
 
-        public override Regex EnumRegex => new Regex(string.Empty);
+        public override Regex EnumRegex => new(string.Empty);
 
         public override void Initialize(string filename)
         {
@@ -67,9 +67,9 @@ namespace miRobotEditor.Languages
         [Localizable(false)]
         public override string CommentChar => "!";
 
-        public override Regex SignalRegex => new Regex(string.Empty);
+        public override Regex SignalRegex => new(string.Empty);
 
-        public override Regex XYZRegex => new Regex(string.Empty);
+        public override Regex XYZRegex => new(string.Empty);
 
         protected override bool IsFileValid(FileInfo file)
         {
@@ -111,7 +111,7 @@ namespace miRobotEditor.Languages
 
         public override int CommentOffset(string text)
         {
-            Regex regex = new Regex("(^[\\s\\d:]+)");
+            Regex regex = new("(^[\\s\\d:]+)");
             Match match = regex.Match(text);
             int result = match.Success ? match.Groups[1].Length : 0;
             return result;
@@ -119,8 +119,8 @@ namespace miRobotEditor.Languages
 
         public override bool IsLineCommented(string text)
         {
-            Regex regex = new Regex("^[\\s]*\\d*:\\s*!");
-            Regex regex2 = new Regex("^[\\s]*!");
+            Regex regex = new("^[\\s]*\\d*:\\s*!");
+            Regex regex2 = new("^[\\s]*!");
             return regex.IsMatch(text) || regex2.IsMatch(text);
         }
 
@@ -141,7 +141,7 @@ namespace miRobotEditor.Languages
 
             public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
-                List<NewFolding> list = new List<NewFolding>();
+                List<NewFolding> list = new();
                 list.AddRange(CreateFoldingHelper(document, ";fold", ";endfold", true));
                 list.Sort((NewFolding a, NewFolding b) => a.StartOffset.CompareTo(b.StartOffset));
                 return list;

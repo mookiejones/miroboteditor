@@ -102,8 +102,8 @@ namespace miRobotEditor.ViewModel
 
         public void AddError(string message, Exception ex)
         {
-            StackTrace stackTrace = new StackTrace();
-            OutputWindowMessage item = new OutputWindowMessage
+            StackTrace stackTrace = new();
+            OutputWindowMessage item = new()
             {
                 Title = "Internal Error",
                 Icon = ImageHelper.LoadBitmap("..\\..\\Resources\\error.png"),
@@ -148,7 +148,7 @@ namespace miRobotEditor.ViewModel
 
         #region Messages
 
-        private readonly ObservableCollection<IMessage> _messages = new ObservableCollection<IMessage>();
+        private readonly ObservableCollection<IMessage> _messages = new();
         private ReadOnlyObservableCollection<IMessage> _readOnlyMessages;
 
         public ReadOnlyObservableCollection<IMessage> Messages => _readOnlyMessages ?? (_readOnlyMessages = new ReadOnlyObservableCollection<IMessage>(_messages));

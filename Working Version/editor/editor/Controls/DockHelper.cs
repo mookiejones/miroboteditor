@@ -16,7 +16,7 @@ namespace miRobotEditor.Controls
                 return;
             }
 
-            XmlLayoutSerializer xmlLayoutSerializer = new XmlLayoutSerializer(dockingManager);
+            XmlLayoutSerializer xmlLayoutSerializer = new(dockingManager);
             using (new StreamReader(Global.DockConfig))
             {
                 xmlLayoutSerializer.Deserialize(Global.DockConfig);
@@ -24,8 +24,8 @@ namespace miRobotEditor.Controls
         }
         internal static void SaveLayout(this DockingManager dockingManager)
         {
-            XmlLayoutSerializer xmlLayoutSerializer = new XmlLayoutSerializer(dockingManager);
-            using (StreamWriter streamWriter = new StreamWriter(Global.DockConfig))
+            XmlLayoutSerializer xmlLayoutSerializer = new(dockingManager);
+            using (StreamWriter streamWriter = new(Global.DockConfig))
             {
                 xmlLayoutSerializer.Serialize(streamWriter);
             }

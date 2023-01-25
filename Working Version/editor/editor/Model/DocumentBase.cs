@@ -7,7 +7,7 @@ using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.ViewModel;
 
-namespace miRobotEditor.Classes
+namespace miRobotEditor.Model
 {
     public abstract class DocumentBase : FileViewModel, IEditorDocument
     {
@@ -102,7 +102,7 @@ namespace miRobotEditor.Classes
 
         #region TextBox
 
-        private AvalonEditor _textBox = new AvalonEditor();
+        private AvalonEditor _textBox = new();
 
         /// <summary>
         ///     Sets and gets the TextBox property.

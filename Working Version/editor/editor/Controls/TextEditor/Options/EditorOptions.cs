@@ -311,7 +311,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         private void WriteXml()
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(EditorOptions));
+            XmlSerializer xmlSerializer = new(typeof(EditorOptions));
             TextWriter textWriter = new StreamWriter(OptionsPath);
             xmlSerializer.Serialize(textWriter, this);
             textWriter.Close();
@@ -319,7 +319,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         private static EditorOptions ReadXml()
         {
-            EditorOptions editorOptions = new EditorOptions();
+            EditorOptions editorOptions = new();
             EditorOptions result;
             if (!File.Exists(OptionsPath))
             {
@@ -327,8 +327,8 @@ namespace miRobotEditor.Controls.TextEditor
             }
             else
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(EditorOptions));
-                FileStream fileStream = new FileStream(OptionsPath, FileMode.Open);
+                XmlSerializer xmlSerializer = new(typeof(EditorOptions));
+                FileStream fileStream = new(OptionsPath, FileMode.Open);
                 try
                 {
                     editorOptions = (EditorOptions)xmlSerializer.Deserialize(fileStream);

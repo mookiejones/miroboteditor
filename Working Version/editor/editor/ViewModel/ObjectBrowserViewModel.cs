@@ -54,7 +54,7 @@ namespace miRobotEditor.ViewModel
 
         private string GetDirectory()
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
+            FolderBrowserDialog folderBrowserDialog = new()
             {
                 Description = @"Select Root Directory for Instance"
             };

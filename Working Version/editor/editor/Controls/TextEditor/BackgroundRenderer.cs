@@ -31,7 +31,7 @@ namespace miRobotEditor.Classes
                 return;
             }
 
-            TextSegment segment = new TextSegment
+            TextSegment segment = new()
             {
                 StartOffset = _line.Offset,
                 EndOffset = _line.EndOffset

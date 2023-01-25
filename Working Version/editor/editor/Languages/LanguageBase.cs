@@ -28,8 +28,8 @@ namespace miRobotEditor.Languages
 
         public override List<string> SearchFilters => DefaultSearchFilters;
 
-        private static List<string> DefaultSearchFilters => new List<string>
-                {
+        private static List<string> DefaultSearchFilters => new()
+        {
                     "*.*"
                 };
 
@@ -48,13 +48,13 @@ namespace miRobotEditor.Languages
                     new CodeCompletion("Item1")
                 };
 
-        public override Regex MethodRegex => new Regex(string.Empty);
+        public override Regex MethodRegex => new(string.Empty);
 
-        public override Regex StructRegex => new Regex(string.Empty);
+        public override Regex StructRegex => new(string.Empty);
 
-        public override Regex FieldRegex => new Regex(string.Empty);
+        public override Regex FieldRegex => new(string.Empty);
 
-        public override Regex EnumRegex => new Regex(string.Empty);
+        public override Regex EnumRegex => new(string.Empty);
 
         public override void Initialize(string filename)
         {
@@ -63,9 +63,9 @@ namespace miRobotEditor.Languages
 
         public override string CommentChar => throw new NotImplementedException();
 
-        public override Regex SignalRegex => new Regex(string.Empty);
+        public override Regex SignalRegex => new(string.Empty);
 
-        public override Regex XYZRegex => new Regex(string.Empty);
+        public override Regex XYZRegex => new(string.Empty);
 
         protected override bool IsFileValid(FileInfo file)
         {

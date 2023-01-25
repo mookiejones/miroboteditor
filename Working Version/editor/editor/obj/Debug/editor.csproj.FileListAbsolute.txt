@@ -187,3 +187,4 @@ C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\ExplorerWin
 C:\Programming\miroboteditor\Working Version\editor\editor\obj\Debug\ExplorerWindow.baml
 C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\Mookie.WPF.dll
 C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\Mookie.WPF.pdb
+C:\Programming\miroboteditor\Working Version\editor\editor\bin\Debug\Mookie.WPF.xml

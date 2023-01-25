@@ -19,14 +19,14 @@ namespace miRobotEditor.Variables
 
         protected static GroupCollection GetMatchCollection(string text, string matchstring)
         {
-            Regex regex = new Regex(matchstring, RegexOptions.IgnoreCase);
+            Regex regex = new(matchstring, RegexOptions.IgnoreCase);
             Match match = regex.Match(text);
             return match.Success ? match.Groups : null;
         }
 
         public void Add(string text, AbstractVariableClass vartype)
         {
-            Regex regex = new Regex(Expression, RegexOptions.IgnoreCase);
+            Regex regex = new(Expression, RegexOptions.IgnoreCase);
             Match match = regex.Match(text);
             while (match.Success)
             {

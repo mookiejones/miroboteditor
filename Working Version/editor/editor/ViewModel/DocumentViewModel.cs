@@ -1,8 +1,8 @@
 using System.IO;
 using System.Windows;
-using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Interfaces;
+using miRobotEditor.Model;
 
 namespace miRobotEditor.ViewModel
 {

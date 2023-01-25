@@ -11,7 +11,7 @@ namespace miRobotEditor.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ObservableCollection<IVariable> list = new ObservableCollection<IVariable>();
+            ObservableCollection<IVariable> list = new();
             if (!(value is ReadOnlyObservableCollection<IVariable> items))
             {
                 return Binding.DoNothing;

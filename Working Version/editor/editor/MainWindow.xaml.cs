@@ -97,7 +97,7 @@ namespace miRobotEditor
             }
             SafeThreadAsyncCall(delegate
             {
-                Timer t = new Timer
+                Timer t = new()
                 {
                     Interval = Math.Max(1, delayMilliseconds)
                 };
@@ -145,7 +145,7 @@ namespace miRobotEditor
             Splasher.CloseSplash();
             DockManager.LoadLayout();
 
-            WindowMessage msg = new WindowMessage("Application Loaded", "Application Loaded", MessageType.Information);
+            WindowMessage msg = new("Application Loaded", "Application Loaded", MessageType.Information);
             _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
         }
 

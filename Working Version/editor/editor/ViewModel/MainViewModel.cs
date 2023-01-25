@@ -67,7 +67,7 @@ namespace miRobotEditor.ViewModel
         #region Tools
 
         private readonly IEnumerable<ToolViewModel> _readonlyTools = null;
-        private readonly ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
+        private readonly ObservableCollection<ToolViewModel> _tools = new();
 
         public ObjectBrowserViewModel ObjectBrowser { get; } = new ObjectBrowserViewModel();
 
@@ -85,7 +85,7 @@ namespace miRobotEditor.ViewModel
 
         #region Files
 
-        private readonly ObservableCollection<IEditorDocument> _files = new ObservableCollection<IEditorDocument>();
+        private readonly ObservableCollection<IEditorDocument> _files = new();
         private readonly ReadOnlyObservableCollection<IEditorDocument> _readonlyFiles = null;
 
         public IEnumerable<IEditorDocument> Files => _readonlyFiles ?? new ReadOnlyObservableCollection<IEditorDocument>(_files);
@@ -475,7 +475,7 @@ namespace miRobotEditor.ViewModel
         private void OnOpen(object param)
         {
             string directoryName = Path.GetDirectoryName(ActiveEditor.FilePath);
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            OpenFileDialog openFileDialog = new()
             {
                 Filter = "Allfiles (*.*)|*.*",
                 Multiselect = true,
@@ -551,22 +551,22 @@ namespace miRobotEditor.ViewModel
             switch (text)
             {
                 case "ABB":
-                    ABB abb = new ABB(ActiveEditor.FilePath);
+                    ABB abb = new(ActiveEditor.FilePath);
                     ActiveEditor.FileLanguage = abb;
                     break;
 
                 case "Fanuc":
-                    Fanuc fanuc = new Fanuc(ActiveEditor.FilePath);
+                    Fanuc fanuc = new(ActiveEditor.FilePath);
                     ActiveEditor.FileLanguage = fanuc;
                     break;
 
                 case "KUKA":
-                    KUKA kuka = new KUKA(ActiveEditor.FilePath);
+                    KUKA kuka = new(ActiveEditor.FilePath);
                     ActiveEditor.FileLanguage = kuka;
                     break;
 
                 case "Kawasaki":
-                    Kawasaki kawasaki = new Kawasaki(ActiveEditor.FilePath);
+                    Kawasaki kawasaki = new(ActiveEditor.FilePath);
                     ActiveEditor.FileLanguage = kawasaki;
                     break;
             }
@@ -586,7 +586,7 @@ namespace miRobotEditor.ViewModel
 
         public void AddTool(ToolViewModel toolModel)
         {
-            LayoutAnchorable layoutAnchorable = new LayoutAnchorable();
+            LayoutAnchorable layoutAnchorable = new();
             if (toolModel != null)
             {
                 layoutAnchorable.Title = toolModel.Title;
@@ -616,7 +616,7 @@ namespace miRobotEditor.ViewModel
         {
             string text = parameter as string;
             ToolViewModel toolModel = null;
-            LayoutAnchorable layoutAnchorable = new LayoutAnchorable();
+            LayoutAnchorable layoutAnchorable = new();
             string text2 = text;
             switch (text2)
             {
@@ -655,7 +655,7 @@ namespace miRobotEditor.ViewModel
                     goto IL_1EE;
             }
 
-            ErrorMessage msg = new ErrorMessage("Not Implemented",
+            ErrorMessage msg = new("Not Implemented",
                 string.Format("Add Tool Parameter of {0} not Implemented", text), MessageType.Error);
             _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
 
@@ -709,7 +709,7 @@ namespace miRobotEditor.ViewModel
 
         public bool UserSelectsFileToOpen(out string filePath)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            OpenFileDialog openFileDialog = new();
             bool result;
             // ReSharper disable once PossibleInvalidOperationException
             if (openFileDialog.ShowDialog().Value)
@@ -728,7 +728,7 @@ namespace miRobotEditor.ViewModel
         // ReSharper disable once UnusedMember.Global
         public bool UserSelectsNewFilePath(string oldFilePath, out string newFilePath)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            SaveFileDialog saveFileDialog = new();
             bool result;
             // ReSharper disable once PossibleInvalidOperationException
             if (saveFileDialog.ShowDialog().Value)

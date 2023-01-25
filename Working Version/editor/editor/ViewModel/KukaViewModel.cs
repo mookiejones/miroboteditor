@@ -9,6 +9,7 @@ using miRobotEditor.Controls.TextEditor.Language;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
+using miRobotEditor.Model;
 using Mookie.WPF.Utilities;
 
 namespace miRobotEditor.ViewModel
@@ -54,7 +55,7 @@ namespace miRobotEditor.ViewModel
 
         #region Grid
 
-        private ExtendedGridSplitter _grid = new ExtendedGridSplitter();
+        private ExtendedGridSplitter _grid = new();
 
         /// <summary>
         ///     Sets and gets the Grid property.
@@ -74,7 +75,7 @@ namespace miRobotEditor.ViewModel
 
 
 
-        private AvalonEditor _source = new AvalonEditor();
+        private AvalonEditor _source = new();
 
         /// <summary>
         ///     Sets and gets the Source property.
@@ -92,7 +93,7 @@ namespace miRobotEditor.ViewModel
         #region Data
 
 
-        private AvalonEditor _data = new AvalonEditor();
+        private AvalonEditor _data = new();
 
         /// <summary>
         ///     Sets and gets the Data property.

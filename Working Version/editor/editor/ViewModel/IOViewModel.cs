@@ -16,13 +16,13 @@ namespace miRobotEditor.ViewModel
     public sealed class IOViewModel : ViewModelBase
     {
         private static OleDbConnection _oleDbConnection;
-        private readonly List<Item> _anin = new List<Item>();
-        private readonly List<Item> _anout = new List<Item>();
-        private readonly List<Item> _counter = new List<Item>();
-        private readonly List<Item> _cycflags = new List<Item>();
-        private readonly List<Item> _flags = new List<Item>();
-        private readonly List<Item> _inputs = new List<Item>();
-        private readonly List<Item> _outputs = new List<Item>();
+        private readonly List<Item> _anin = new();
+        private readonly List<Item> _anout = new();
+        private readonly List<Item> _counter = new();
+        private readonly List<Item> _cycflags = new();
+        private readonly List<Item> _flags = new();
+        private readonly List<Item> _inputs = new();
+        private readonly List<Item> _outputs = new();
         private readonly ReadOnlyCollection<Item> _readonlyAnIn = null;
         private readonly ReadOnlyCollection<Item> _readonlyAnOut = null;
         private readonly ReadOnlyCollection<Item> _readonlyCounter = null;
@@ -32,8 +32,8 @@ namespace miRobotEditor.ViewModel
         private readonly ReadOnlyObservableCollection<DirectoryInfo> _readonlyRoot = null;
         private readonly ReadOnlyCollection<Item> _readonlyTimer = null;
         private readonly ReadOnlyCollection<Item> _readonlyinputs = null;
-        private readonly ObservableCollection<DirectoryInfo> _root = new ObservableCollection<DirectoryInfo>();
-        private readonly List<Item> _timer = new List<Item>();
+        private readonly ObservableCollection<DirectoryInfo> _root = new();
+        private readonly List<Item> _timer = new();
         private string _archivePath = " ";
         private string _buffersize = string.Empty;
         private Visibility _counterVisibility = Visibility.Collapsed;
@@ -42,7 +42,7 @@ namespace miRobotEditor.ViewModel
         private string _databaseText = string.Empty;
         private string _filecount = string.Empty;
         private Visibility _flagVisibility = Visibility.Collapsed;
-        private InfoFile _info = new InfoFile();
+        private InfoFile _info = new();
         private string _languageText = string.Empty;
         private DirectoryInfo _rootpath;
         private Visibility _timerVisibility = Visibility.Collapsed;
@@ -50,7 +50,7 @@ namespace miRobotEditor.ViewModel
         public IOViewModel(string filename)
         {
             DataBaseFile = filename;
-            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            BackgroundWorker backgroundWorker = new();
             backgroundWorker.DoWork += _backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
             backgroundWorker.RunWorkerAsync();
@@ -208,7 +208,7 @@ namespace miRobotEditor.ViewModel
 
         private IEnumerable<Item> getItems(string command, string itemType, int idx)
         {
-            List<Item> result = new List<Item>();
+            List<Item> result = new();
             OleDbConnection dbConnection = GetDBConnection();
             if (dbConnection != null)
             {
@@ -221,10 +221,10 @@ namespace miRobotEditor.ViewModel
                 }
                 catch (OleDbException ex)
                 {
-                    ErrorMessage msg = new ErrorMessage("Error on Opening Db", ex);
+                    ErrorMessage msg = new("Error on Opening Db", ex);
                     _ = WeakReferenceMessenger.Default.Send(msg);
                 }
-                using (OleDbCommand cmd = new OleDbCommand(command, dbConnection))
+                using (OleDbCommand cmd = new(command, dbConnection))
                 {
                     using (OleDbDataReader reader = cmd.ExecuteReader())
                     {
@@ -232,7 +232,7 @@ namespace miRobotEditor.ViewModel
                         {
                             string text = reader.GetValue(0).ToString();
                             Item item =
-                                new Item(string.Format(itemType, text.Substring(idx)), reader.GetValue(1).ToString());
+                                new(string.Format(itemType, text.Substring(idx)), reader.GetValue(1).ToString());
                             result.Add(item);
                         }
                     }
@@ -259,7 +259,7 @@ namespace miRobotEditor.ViewModel
 
                 using (
                     OleDbCommand oleDbCommand =
-                        new OleDbCommand(
+                        new(
                             "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'IO')",
                             dBConnection))
                 {
@@ -281,7 +281,7 @@ namespace miRobotEditor.ViewModel
                                         {
                                             if (text4 == "ANOUT")
                                             {
-                                                Item item = new Item(string.Format("$ANOUT[{0}]", text2.Substring(6)),
+                                                Item item = new(string.Format("$ANOUT[{0}]", text2.Substring(6)),
                                                     description);
                                                 _anout.Add(item);
                                                 LanguageText = LanguageText + item + "\r\n";
@@ -289,7 +289,7 @@ namespace miRobotEditor.ViewModel
                                         }
                                         else
                                         {
-                                            Item item = new Item(string.Format("$ANIN[{0}]", text2.Substring(5)),
+                                            Item item = new(string.Format("$ANIN[{0}]", text2.Substring(5)),
                                                 description);
                                             _anin.Add(item);
                                             LanguageText = LanguageText + item + "\r\n";
@@ -297,7 +297,7 @@ namespace miRobotEditor.ViewModel
                                     }
                                     else
                                     {
-                                        Item item = new Item(string.Format("$OUT[{0}]", text2.Substring(4)), description);
+                                        Item item = new(string.Format("$OUT[{0}]", text2.Substring(4)), description);
                                         if (!_outputs.Contains(item))
                                         {
                                             _outputs.Add(item);
@@ -307,7 +307,7 @@ namespace miRobotEditor.ViewModel
                                 }
                                 else
                                 {
-                                    Item item = new Item(string.Format("$IN[{0}]", text2.Substring(3)), description);
+                                    Item item = new(string.Format("$IN[{0}]", text2.Substring(3)), description);
                                     _inputs.Add(item);
                                     LanguageText = LanguageText + item + "\r\n";
                                 }
@@ -351,7 +351,7 @@ namespace miRobotEditor.ViewModel
 
         private List<Item> GetValues(string cmd, int index)
         {
-            List<Item> list = new List<Item>();
+            List<Item> list = new();
             string cmdText =
                 string.Format(
                     "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = '{0}')",
@@ -365,14 +365,14 @@ namespace miRobotEditor.ViewModel
             else
             {
                 dBConnection.Open();
-                using (OleDbCommand oleDbCommand = new OleDbCommand(cmdText, dBConnection))
+                using (OleDbCommand oleDbCommand = new(cmdText, dBConnection))
                 {
                     using (OleDbDataReader oleDbDataReader = oleDbCommand.ExecuteReader())
                     {
                         while (oleDbDataReader != null && oleDbDataReader.Read())
                         {
                             string text = oleDbDataReader.GetValue(0).ToString();
-                            Item item = new Item(string.Format("${1}[{0}]", text.Substring(index), cmd),
+                            Item item = new(string.Format("${1}[{0}]", text.Substring(index), cmd),
                                 oleDbDataReader.GetValue(1).ToString());
                             list.Add(item);
                         }
@@ -385,7 +385,7 @@ namespace miRobotEditor.ViewModel
 
         private void GetSignalsFromDataBase()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            OpenFileDialog openFileDialog = new()
             {
                 Title = "Select Database",
                 Filter = "KUKA Connection Files (kuka_con.mdb)|kuka_con.mdb|All files (*.*)|*.*",
@@ -409,7 +409,7 @@ namespace miRobotEditor.ViewModel
                     dBConnection.Open();
                     using (
                         OleDbCommand oleDbCommand =
-                            new OleDbCommand(
+                            new(
                                 "SELECT i.keystring, m.string FROM ITEMS i, messages m where i.key_id=m.key_id and m.language_id=99",
                                 dBConnection))
                     {

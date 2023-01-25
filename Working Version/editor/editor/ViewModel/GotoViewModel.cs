@@ -12,7 +12,7 @@ namespace miRobotEditor.ViewModel
 
 
 
-        private AvalonEditor _editor = new AvalonEditor();
+        private AvalonEditor _editor = new();
 
         /// <summary>
         ///     Sets and gets the Editor property.

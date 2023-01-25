@@ -153,7 +153,7 @@ namespace miRobotEditor.Classes
                     }
                     else
                     {
-                        Stack<int> stack = new Stack<int>();
+                        Stack<int> stack = new();
                         bool flag = false;
                         bool flag2 = false;
                         bool flag3 = false;

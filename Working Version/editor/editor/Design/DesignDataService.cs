@@ -9,7 +9,7 @@ namespace miRobotEditor.Design
         {
             // Use this to create design time data
 
-            DataItem item = new DataItem("Welcome to MVVM Light [design]");
+            DataItem item = new("Welcome to MVVM Light [design]");
             callback(item, null);
         }
     }

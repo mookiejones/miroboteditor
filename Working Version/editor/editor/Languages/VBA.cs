@@ -22,8 +22,8 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        public override List<string> SearchFilters => new List<string>
-                {
+        public override List<string> SearchFilters => new()
+        {
                     "*.*",
                     "*.dat",
                     "*.src",
@@ -48,13 +48,13 @@ namespace miRobotEditor.Languages
                     new CodeCompletion("Item1")
                 };
 
-        public override Regex MethodRegex => new Regex("( sub )", RegexOptions.IgnoreCase);
+        public override Regex MethodRegex => new("( sub )", RegexOptions.IgnoreCase);
 
-        public override Regex StructRegex => new Regex("( struc )", RegexOptions.IgnoreCase);
+        public override Regex StructRegex => new("( struc )", RegexOptions.IgnoreCase);
 
-        public override Regex FieldRegex => new Regex("( boolean )", RegexOptions.IgnoreCase);
+        public override Regex FieldRegex => new("( boolean )", RegexOptions.IgnoreCase);
 
-        public override Regex EnumRegex => new Regex("( enum )", RegexOptions.IgnoreCase);
+        public override Regex EnumRegex => new("( enum )", RegexOptions.IgnoreCase);
 
         public override void Initialize(string filename)
         {
@@ -63,9 +63,9 @@ namespace miRobotEditor.Languages
 
         public override string CommentChar => "'";
 
-        public override Regex SignalRegex => new Regex(string.Empty);
+        public override Regex SignalRegex => new(string.Empty);
 
-        public override Regex XYZRegex => new Regex(string.Empty);
+        public override Regex XYZRegex => new(string.Empty);
 
         protected override bool IsFileValid(FileInfo file)
         {
@@ -94,7 +94,7 @@ namespace miRobotEditor.Languages
         {
             private IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
-                List<NewFolding> list = new List<NewFolding>();
+                List<NewFolding> list = new();
                 list.AddRange(CreateFoldingHelper(document, "public function", "end function", true));
                 list.AddRange(CreateFoldingHelper(document, "private function", "end function", true));
                 list.AddRange(CreateFoldingHelper(document, "public sub", "end sub", true));

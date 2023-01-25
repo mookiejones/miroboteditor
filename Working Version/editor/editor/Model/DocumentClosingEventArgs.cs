@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace miRobotEditor.Classes
+namespace miRobotEditor.Model
 {
     public sealed class DocumentClosingEventArgs : EventArgs
     {

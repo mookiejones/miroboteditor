@@ -90,7 +90,7 @@ namespace miRobotEditor.Classes
                 return;
             }
             // create a dictionary line number => first bookmark
-            Dictionary<int, IBookmark> bookmarkDict = new Dictionary<int, IBookmark>();
+            Dictionary<int, IBookmark> bookmarkDict = new();
             foreach (IBookmark bm in _manager.Bookmarks)
             {
                 int line = bm.LineNumber;

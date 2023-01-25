@@ -47,7 +47,7 @@ namespace miRobotEditor
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            ServiceCollection services = new ServiceCollection();
+            ServiceCollection services = new();
             // Services
             _ = ViewModelBase.IsInDesignModeStatic
                 ? services.AddSingleton<IDataService, DesignDataService>()
@@ -84,7 +84,7 @@ namespace miRobotEditor
 
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            ErrorMessage msg = new ErrorMessage("App", e.Exception, MessageType.Error);
+            ErrorMessage msg = new("App", e.Exception, MessageType.Error);
             _ = WeakReferenceMessenger.Default.Send(msg);
 
              
@@ -146,7 +146,7 @@ namespace miRobotEditor
                 Shutdown();
             }
 
-            JumpTask task = new JumpTask
+            JumpTask task = new()
             {
                 Title = "Check for Updates",
                 Arguments = "/update",
@@ -158,7 +158,7 @@ namespace miRobotEditor
 
             Assembly asm = Assembly.GetExecutingAssembly();
 
-            JumpTask version = new JumpTask
+            JumpTask version = new()
             {
                 CustomCategory = "Version",
                 Title = asm.GetName().Version.ToString(),
@@ -166,7 +166,7 @@ namespace miRobotEditor
                 IconResourceIndex = 0
             };
 
-            JumpList jumpList = new JumpList();
+            JumpList jumpList = new();
             jumpList.JumpItems.Add(version);
             jumpList.ShowFrequentCategory = true;
             jumpList.ShowRecentCategory = true;

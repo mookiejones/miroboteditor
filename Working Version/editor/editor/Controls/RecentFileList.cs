@@ -291,7 +291,7 @@ namespace miRobotEditor.Controls
         private List<RecentFile> LoadRecentFilesCore()
         {
             List<string> recentFiles = RecentFiles;
-            List<RecentFile> list = new List<RecentFile>(recentFiles.Count);
+            List<RecentFile> list = new(recentFiles.Count);
             int i = 0;
             list.AddRange(
                 from filepath in recentFiles
@@ -428,7 +428,7 @@ namespace miRobotEditor.Controls
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage msg = new ErrorMessage("RecentFileList.ApplicationAttributes", ex, MessageType.Error);
+                    ErrorMessage msg = new("RecentFileList.ApplicationAttributes", ex, MessageType.Error);
                     _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 }
             }
@@ -510,7 +510,7 @@ namespace miRobotEditor.Controls
             {
                 RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(RegistryKey) ??
                                           Registry.CurrentUser.CreateSubKey(RegistryKey);
-                List<string> list = new List<string>(max);
+                List<string> list = new(max);
                 for (int i = 0; i < max; i++)
                 {
                     if (registryKey != null)
@@ -638,7 +638,7 @@ namespace miRobotEditor.Controls
             private void Update(string filepath, bool insert, int max)
             {
                 List<string> list = Load(max);
-                List<string> list2 = new List<string>(list.Count + 1);
+                List<string> list2 = new(list.Count + 1);
                 if (insert)
                 {
                     list2.Add(filepath);
@@ -668,9 +668,9 @@ namespace miRobotEditor.Controls
 
             private List<string> Load(int max)
             {
-                List<string> list = new List<string>(max);
+                List<string> list = new(max);
                 List<string> result;
-                using (MemoryStream memoryStream = new MemoryStream())
+                using (MemoryStream memoryStream = new())
                 {
                     using (SmartStream smartStream = OpenStream(FileMode.OpenOrCreate))
                     {
@@ -758,7 +758,7 @@ namespace miRobotEditor.Controls
 
             private void Save(IEnumerable<string> list)
             {
-                using (MemoryStream memoryStream = new MemoryStream())
+                using (MemoryStream memoryStream = new())
                 {
                     XmlTextWriter xmlTextWriter = null;
                     try

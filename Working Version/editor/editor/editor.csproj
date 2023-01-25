@@ -230,8 +230,7 @@
     <Compile Include="Position\CartesianItems.cs" />
     <Compile Include="Position\CartesianTypes.cs" />
     <Compile Include="Controls\TextEditor\Completion\CodeCompletion.cs" />
-    <Compile Include="Classes\DocumentBase.cs" />
-    <Compile Include="Classes\FTPFolder.cs" />
+    <Compile Include="Model\DocumentBase.cs" />
     <Compile Include="Classes\GlobalOptions.cs" />
     <Compile Include="Controls\TextEditor\IconBar\IconBarManager.cs" />
     <Compile Include="Controls\TextEditor\IconBar\IconBarMargin.cs" />
@@ -248,7 +247,7 @@
     <Compile Include="Classes\StringTextBuffer.cs" />
     <Compile Include="Controls\TextEditor\Bookmarks\ClassMemberBookmark.cs" />
     <Compile Include="Controls\TextEditor\Formatting\DefaultFormattingStrategy.cs" />
-    <Compile Include="Classes\DocumentClosingEventArgs.cs" />
+    <Compile Include="Model\DocumentClosingEventArgs.cs" />
     <Compile Include="Classes\FindReplaceResult.cs" />
     <Compile Include="Classes\Global.cs" />
     <Compile Include="Controls\TextEditor\Indentation\IndentationClass.cs" />

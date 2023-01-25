@@ -81,12 +81,12 @@ namespace miRobotEditor.Controls.TextEditor
         public static readonly DependencyProperty CompletionWindowProperty =
             DependencyProperty.Register("CompletionWindow", typeof(CompletionWindow), typeof(AvalonEditor));
 
-        private readonly MyBracketSearcher _bracketSearcher = new MyBracketSearcher();
+        private readonly MyBracketSearcher _bracketSearcher = new();
 
         private readonly IconBarManager _iconBarManager;
         private readonly IconBarMargin _iconBarMargin;
         private readonly ReadOnlyObservableCollection<IVariable> _readonlyVariables = null;
-        private readonly ObservableCollection<IVariable> _variables = new ObservableCollection<IVariable>();
+        private readonly ObservableCollection<IVariable> _variables = new();
         private BracketHighlightRenderer _bracketRenderer;
         private string _fileSave = string.Empty;
         private string _filename = string.Empty;
@@ -127,7 +127,7 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 if (current.Command == AvalonEditCommands.DeleteLine)
                 {
-                    RoutedCommand command = new RoutedCommand("DeleteLine", typeof(AvalonEditor), new InputGestureCollection
+                    RoutedCommand command = new("DeleteLine", typeof(AvalonEditor), new InputGestureCollection
             {
                 new KeyGesture(Key.L, ModifierKeys.Control)
             });
@@ -675,11 +675,11 @@ namespace miRobotEditor.Controls.TextEditor
         private void AddTimeStamp(bool b)
         // ReSharper restore UnusedParameter.Local
         {
-            SnippetTextElement item = new SnippetTextElement
+            SnippetTextElement item = new()
             {
                 Text = "\r\n; * "
             };
-            SnippetTextElement item2 = new SnippetTextElement
+            SnippetTextElement item2 = new()
             {
                 Text = "By : "
             };
@@ -688,15 +688,15 @@ namespace miRobotEditor.Controls.TextEditor
             {
 
 
-                SnippetReplaceableTextElement item3 = new SnippetReplaceableTextElement
+                SnippetReplaceableTextElement item3 = new()
                 {
                     Text = current.Name
                 };
-                SnippetTextElement item4 = new SnippetTextElement
+                SnippetTextElement item4 = new()
                 {
                     Text = DateTime.Now.ToString(((EditorOptions)Options).TimestampFormat)
                 };
-                Snippet snippet = new Snippet
+                Snippet snippet = new()
                 {
                     Elements =
                     {
@@ -805,7 +805,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         private void AddBookMark(int lineNumber, BitmapImage img)
         {
-            BookmarkImage image = new BookmarkImage(img);
+            BookmarkImage image = new(img);
             _iconBarManager.Bookmarks.Add(new ClassMemberBookmark(lineNumber, image));
         }
 
@@ -930,7 +930,7 @@ namespace miRobotEditor.Controls.TextEditor
                     while (documentLine.LineNumber < lineByOffset2.LineNumber + 1)
                     {
                         string line = GetLine(documentLine.LineNumber);
-                        Regex regex = new Regex("(^[\\s]+)");
+                        Regex regex = new("(^[\\s]+)");
                         Match match = regex.Match(line);
                         if (match.Success)
                         {
@@ -954,7 +954,7 @@ namespace miRobotEditor.Controls.TextEditor
             }
             catch (Exception ex)
             {
-                ErrorMessage msg = new ErrorMessage("Editor.ChangeIndent", ex);
+                ErrorMessage msg = new("Editor.ChangeIndent", ex);
 
                 _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
@@ -1001,8 +1001,8 @@ namespace miRobotEditor.Controls.TextEditor
 
         private void Goto()
         {
-            GotoViewModel dataContext = new GotoViewModel(this);
-            GotoWindow gotoDialog = new GotoWindow
+            GotoViewModel dataContext = new(this);
+            GotoWindow gotoDialog = new()
             {
                 DataContext = dataContext
             };
@@ -1024,7 +1024,7 @@ namespace miRobotEditor.Controls.TextEditor
                 }
                 catch (IOException ex)
                 {
-                    ErrorMessage msg = new ErrorMessage("File is locked!", ex);
+                    ErrorMessage msg = new("File is locked!", ex);
                     _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                     return true;
                 }
@@ -1038,7 +1038,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         private string GetFilename()
         {
-            SaveFileDialog ofd = new SaveFileDialog { Title = "Save As", Filter = "All _files(*.*)|*.*" };
+            SaveFileDialog ofd = new() { Title = "Save As", Filter = "All _files(*.*)|*.*" };
 
             if (!string.IsNullOrEmpty(Filename))
             {
@@ -1066,7 +1066,7 @@ namespace miRobotEditor.Controls.TextEditor
                     File.WriteAllText(Filename, Text);
                     OnPropertyChanged("Title");
 
-                    OutputWindowMessage msg = new OutputWindowMessage
+                    OutputWindowMessage msg = new()
                     {
                         Title = "File Saved",
                         Description = Filename,
@@ -1126,7 +1126,7 @@ namespace miRobotEditor.Controls.TextEditor
             }
             catch (Exception ex)
             {
-                ErrorMessage msg = new ErrorMessage(string.Format("Could not load Syntax Highlighting for {0}", Filename), ex,
+                ErrorMessage msg = new(string.Format("Could not load Syntax Highlighting for {0}", Filename), ex,
                     MessageType.Error);
                 _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
@@ -1202,7 +1202,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         private IEnumerable<ICompletionData> GetCompletionItems()
         {
-            List<ICompletionData> list = new List<ICompletionData>();
+            List<ICompletionData> list = new();
             list.AddRange(HighlightList());
             list.AddRange(ObjectBrowserCompletionList());
             return list.ToArray();
@@ -1210,7 +1210,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         private IEnumerable<ICompletionData> HighlightList()
         {
-            List<CodeCompletion> items = new List<CodeCompletion>();
+            List<CodeCompletion> items = new();
             foreach (CodeCompletion current in
                 from rule in SyntaxHighlighting.MainRuleSet.Rules
                 select rule.Regex.ToString()
@@ -1323,7 +1323,7 @@ namespace miRobotEditor.Controls.TextEditor
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(TextArea.TextView);
                 if (adornerLayer != null)
                 {
-                    CaretHighlightAdorner adorner = new CaretHighlightAdorner(TextArea);
+                    CaretHighlightAdorner adorner = new(TextArea);
                     adornerLayer.Add(adorner);
                 }
             }

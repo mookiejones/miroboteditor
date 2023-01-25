@@ -59,10 +59,10 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
     {
         public static Snippet BuildSnippet(XElement element)
         {
-            Snippet snippet = new Snippet();
+            Snippet snippet = new();
             Dictionary<string, Declaration> decarations = GetDecarations(element);
             Dictionary<string, SnippetReplaceableTextElement> dictionary =
-                new Dictionary<string, SnippetReplaceableTextElement>();
+                new();
             string text = GetTheCode(element);
             while (text.ContainsDeclaration(decarations))
             {
@@ -98,7 +98,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                         }
                         else
                         {
-                            SnippetReplaceableTextElement snippetReplaceableTextElement = new SnippetReplaceableTextElement
+                            SnippetReplaceableTextElement snippetReplaceableTextElement = new()
                             {
                                 Text = decarations[theNextId].Default
                             };
@@ -120,13 +120,13 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
 
         private static Dictionary<string, Declaration> GetDecarations(XElement element)
         {
-            Dictionary<string, Declaration> dictionary = new Dictionary<string, Declaration>(Declaration.Defaults);
+            Dictionary<string, Declaration> dictionary = new(Declaration.Defaults);
             XElement xElement = element.Elements("Declarations").FirstOrDefault<XElement>();
             if (xElement != null)
             {
                 foreach (XElement current in xElement.Elements("Literal"))
                 {
-                    Literal literal = new Literal(current);
+                    Literal literal = new(current);
                     dictionary.Add(literal.Id, literal);
                 }
             }

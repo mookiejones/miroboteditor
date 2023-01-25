@@ -25,7 +25,7 @@ namespace miRobotEditor.ViewModel
         {
             get
             {
-                StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder = new();
                 _ = stringBuilder.AppendLine(" Name                : " + Name);
                 _ = stringBuilder.AppendLine(" .Net Version        : " + NetVersion);
                 _ = stringBuilder.AppendLine(" OS Version          : " + OSVersion);

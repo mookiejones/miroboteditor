@@ -38,11 +38,11 @@ namespace miRobotEditor.Controls.TextEditor.Language
         public const string BWFilesMinPropertyName = "BWFilesMin";
         public const string BWFilesMaxPropertyName = "BWFilesMax";
         public const string BWProgressVisibilityPropertyName = "BWProgressVisibility";
-        internal readonly List<IVariable> _allVariables = new List<IVariable>();
-        private readonly List<IVariable> _enums = new List<IVariable>();
+        internal readonly List<IVariable> _allVariables = new();
+        private readonly List<IVariable> _enums = new();
 
-        private readonly ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
-        private readonly ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
+        private readonly ObservableCollection<MenuItem> _menuItems = new();
+        private readonly ObservableCollection<IVariable> _objectBrowserVariables = new();
         private readonly ReadOnlyCollection<IVariable> _readOnlyAllVariables = null;
         private readonly ReadOnlyObservableCollection<IVariable> _readOnlyBrowserVariables = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlyFields = null;
@@ -53,18 +53,18 @@ namespace miRobotEditor.Controls.TextEditor.Language
         private readonly ReadOnlyCollection<IVariable> _readOnlysignals = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlystructures = null;
         private readonly ReadOnlyObservableCollection<MenuItem> _readonlyMenuItems = null;
-        private readonly List<IVariable> _signals = new List<IVariable>();
-        private readonly List<IVariable> _structures = new List<IVariable>();
+        private readonly List<IVariable> _signals = new();
+        private readonly List<IVariable> _structures = new();
         private int _bwFilesMax;
         private int _bwFilesMin;
         private int _bwProgress;
         private Visibility _bwProgressVisibility = Visibility.Collapsed;
-        private readonly List<IVariable> _fields = new List<IVariable>();
+        private readonly List<IVariable> _fields = new();
         private string _filename = string.Empty;
-        private readonly List<IVariable> _functions = new List<IVariable>();
+        private readonly List<IVariable> _functions = new();
         private IOViewModel _ioModel;
         private string _kukaCon;
-        private readonly List<IVariable> _positions = new List<IVariable>();
+        private readonly List<IVariable> _positions = new();
         private MenuItem _robotMenuItems;
         private bool _rootFound;
         private string _rootName = string.Empty;
@@ -211,7 +211,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         #region Files
 
-        private readonly ObservableCollection<FileInfo> _files = new ObservableCollection<FileInfo>();
+        private readonly ObservableCollection<FileInfo> _files = new();
 
 #pragma warning disable 649
         private readonly ReadOnlyObservableCollection<FileInfo> _readOnlyFiles;
@@ -365,7 +365,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
         private MenuItem GetMenuItems()
         {
             return new MenuItem();
-            ResourceDictionary resourceDictionary = new ResourceDictionary
+            ResourceDictionary resourceDictionary = new()
             {
                 Source = new Uri("/miRobotEditor;component/Templates/MenuDictionary.xaml", UriKind.RelativeOrAbsolute)
             };
@@ -421,13 +421,13 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         private static IEditorDocument GetKukaViewModel(string filepath)
         {
-            FileInfo fileInfo = new FileInfo(filepath);
+            FileInfo fileInfo = new(filepath);
             string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
             Debug.Assert(name != null, "file != null");
             Debug.Assert(fileInfo.DirectoryName != null, "dir != null");
             name = Path.Combine(fileInfo.DirectoryName, name);
-            FileInfo src = new FileInfo(name + ".src");
-            FileInfo dat = new FileInfo(name + ".dat");
+            FileInfo src = new(name + ".src");
+            FileInfo dat = new(name + ".dat");
 
             IEditorDocument result = src.Exists && dat.Exists
                 ? new KukaViewModel(src.FullName, new KUKA(src.FullName))
@@ -438,7 +438,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
         public virtual string CommentReplaceString(string text)
         {
             string pattern = string.Format("^([ ]*)([{0}]*)([^\r\n]*)", CommentChar);
-            Regex regex = new Regex(pattern);
+            Regex regex = new(pattern);
             Match match = regex.Match(text);
             string result = match.Success ? match.Groups[1] + match.Groups[3].ToString() : text;
             return result;
@@ -446,7 +446,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         public virtual int CommentOffset(string text)
         {
-            Regex regex = new Regex("(^[\\s]+)");
+            Regex regex = new("(^[\\s]+)");
             Match match = regex.Match(text);
             int result = match.Success ? match.Groups[1].Length : 0;
             return result;
@@ -488,8 +488,8 @@ namespace miRobotEditor.Controls.TextEditor.Language
         protected static IEnumerable<LanguageFold> CreateFoldingHelper(ITextSource document, string startFold,
             string endFold, bool defaultclosed)
         {
-            List<LanguageFold> list = new List<LanguageFold>();
-            Stack<int> stack = new Stack<int>();
+            List<LanguageFold> list = new();
+            Stack<int> stack = new();
             endFold = endFold.ToLower();
             int num = 0;
             if (document is TextDocument textDocument)
@@ -534,7 +534,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
                                         int end = lineByNumber.Offset + text.Length;
                                         string text3 = textDocument.GetText(num2 + startFold.Length + 1,
                                             lineByNumber.Offset - num2 - endFold.Length);
-                                        LanguageFold item = new LanguageFold(num2, end, text3, startFold, endFold, defaultclosed);
+                                        LanguageFold item = new(num2, end, text3, startFold, endFold, defaultclosed);
                                         list.Add(item);
                                     }
                                 }
@@ -559,7 +559,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
             if (doc is KukaViewModel)
             {
                 KukaViewModel kukaViewModel = doc as KukaViewModel;
-                ShiftClass shiftClass = new ShiftClass
+                ShiftClass shiftClass = new()
                 {
                     Source = ShiftProgram(kukaViewModel.Source, shift)
                 };
@@ -571,7 +571,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
             }
             else
             {
-                ShiftClass shiftClass = new ShiftClass
+                ShiftClass shiftClass = new()
                 {
                     Source = ShiftProgram(doc.TextBox, shift)
                 };
@@ -582,12 +582,12 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         private string ShiftProgram(AvalonEditor doc, ShiftViewModel shift)
         {
-            Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new();
             stopwatch.Start();
             double num = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.X);
             double num2 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Y);
             double num3 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Z);
-            Regex regex = new Regex(ShiftRegex, RegexOptions.IgnoreCase);
+            Regex regex = new(ShiftRegex, RegexOptions.IgnoreCase);
             MatchCollection matchCollection = regex.Matches(doc.Text);
             int count = matchCollection.Count;
             double num4 = 0.0;
@@ -626,7 +626,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
         }
         public async void GetRootDirectory(string dir)
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(dir);
+            DirectoryInfo directoryInfo = new(dir);
             if (directoryInfo.Name == directoryInfo.Root.Name)
             {
                 _rootFound = true;
@@ -647,7 +647,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
                             : directoryInfo.Parent.Parent.Parent.FullName;
                     }
 
-                    DirectoryInfo directoryInfo2 = new DirectoryInfo(_rootName);
+                    DirectoryInfo directoryInfo2 = new(_rootName);
                     DirectoryInfo[] directories = directoryInfo2.GetDirectories();
                     if(directories.Any())
                     {
@@ -667,7 +667,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
             }
             catch (Exception ex)
             {
-                ErrorMessage msg = new ErrorMessage("Get Root Directory", ex, MessageType.Error);
+                ErrorMessage msg = new("Get Root Directory", ex, MessageType.Error);
                 _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
@@ -695,7 +695,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
             }
             catch (Exception ex)
             {
-                ErrorMessage msg = new ErrorMessage("Error When Getting Files for Object Browser", ex, MessageType.Error);
+                ErrorMessage msg = new("Error When Getting Files for Object Browser", ex, MessageType.Error);
                   WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 throw;
             }
@@ -703,7 +703,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
             
         }
 
-        private readonly object locker = new object();
+        private readonly object locker = new();
 
         private async Task<bool> GetVariables()
         {
@@ -725,7 +725,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         private VariableMembers GetVariableMembers(string fileName)
         {
-            VariableMembers result = new VariableMembers();
+            VariableMembers result = new();
             result.FindVariables(fileName, this);
             return result;
         }
@@ -821,7 +821,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
 
         internal static IEnumerable<IVariable> FindMatches(Regex matchString, string imgPath, string filePath)
         {
-            List<IVariable> list = new List<IVariable>();
+            List<IVariable> list = new();
 
             var ext = Path.GetExtension(filePath);
 
@@ -862,7 +862,7 @@ namespace miRobotEditor.Controls.TextEditor.Language
             }
             catch (Exception ex)
             {
-                ErrorMessage msg = new ErrorMessage("Find Matches", ex, MessageType.Error);
+                ErrorMessage msg = new("Find Matches", ex, MessageType.Error);
                 _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
             result = list;

@@ -9,14 +9,14 @@ namespace miRobotEditor.Classes
 {
     public class ImageElementGenerator : VisualLineElementGenerator
     {
-        private static readonly Regex ImageRegex = new Regex("<img src=\"([\\.\\/\\w\\d]+)\"/?>",
+        private static readonly Regex ImageRegex = new("<img src=\"([\\.\\/\\w\\d]+)\"/?>",
             RegexOptions.IgnoreCase);
 
         private readonly string _basePath;
 
         public ImageElementGenerator(string basePath)
         {
-            _basePath = basePath ?? throw new ArgumentNullException("basePath");
+            _basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
         }
 
         private Match FindMatch(int startOffset)
@@ -42,7 +42,7 @@ namespace miRobotEditor.Classes
                 BitmapImage bitmapImage = LoadBitmap(match.Groups[1].Value);
                 if (bitmapImage != null)
                 {
-                    Image element = new Image
+                    Image element = new()
                     {
                         Source = bitmapImage,
                         Width = bitmapImage.PixelWidth,
@@ -64,7 +64,7 @@ namespace miRobotEditor.Classes
                 string text = Path.Combine(_basePath, fileName);
                 if (File.Exists(text))
                 {
-                    BitmapImage bitmapImage = new BitmapImage(new Uri(text));
+                    BitmapImage bitmapImage = new(new Uri(text));
                     bitmapImage.Freeze();
                     result = bitmapImage;
                     return result;

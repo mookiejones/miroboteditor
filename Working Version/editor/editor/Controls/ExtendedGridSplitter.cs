@@ -346,11 +346,11 @@ namespace miRobotEditor.Controls
 
         private void AnimateCollapse(object definition)
         {
-            DoubleAnimation doubleAnimation = new DoubleAnimation
+            DoubleAnimation doubleAnimation = new()
             {
                 Duration = new Duration(TimeSpan.FromMilliseconds(200.0))
             };
-            Storyboard storyboard = new Storyboard();
+            Storyboard storyboard = new();
             storyboard.Children.Add(doubleAnimation);
             _animatingRow = (RowDefinition)definition;
             Storyboard.SetTarget(doubleAnimation, this);
@@ -362,11 +362,11 @@ namespace miRobotEditor.Controls
 
         private void AnimateExpand(object definition)
         {
-            DoubleAnimation doubleAnimation = new DoubleAnimation
+            DoubleAnimation doubleAnimation = new()
             {
                 Duration = new Duration(TimeSpan.FromMilliseconds(200.0))
             };
-            Storyboard storyboard = new Storyboard();
+            Storyboard storyboard = new();
             storyboard.Children.Add(doubleAnimation);
             _animatingRow = (RowDefinition)definition;
             Storyboard.SetTarget(doubleAnimation, this);

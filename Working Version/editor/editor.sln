@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mookie", "Mookie", "{47AA41
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mookie.WPF", "..\..\..\Mookie.WPF\Mookie.WPF\Mookie.WPF.csproj", "{36B48BE9-9E7F-473E-9B68-40BA049C20BE}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Mookie.WPF.Shared", "..\..\..\Mookie.WPF\Mookie.WPF.Shared\Mookie.WPF.Shared.shproj", "{11C87443-84E1-406C-BB0F-07C5E129B736}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,13 +59,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{36B48BE9-9E7F-473E-9B68-40BA049C20BE} = {47AA414D-F36D-4F6A-BB3C-1C8D1D94F723}
-		{11C87443-84E1-406C-BB0F-07C5E129B736} = {47AA414D-F36D-4F6A-BB3C-1C8D1D94F723}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C814820-1E90-42C1-8A5F-93E3FDFFC008}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\..\Mookie.WPF\Mookie.WPF.Shared\Mookie.WPF.Shared.projitems*{11c87443-84e1-406c-bb0f-07c5e129b736}*SharedItemsImports = 13
-		..\..\..\Mookie.WPF\Mookie.WPF.Shared\Mookie.WPF.Shared.projitems*{36b48be9-9e7f-473e-9b68-40ba049c20be}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

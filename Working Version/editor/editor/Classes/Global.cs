@@ -53,11 +53,11 @@ namespace miRobotEditor.Classes
 
         public static bool DoesDirectoryExist(string filename)
         {
-            FileInfo fileInfo = new System.IO.FileInfo(filename);
+            FileInfo fileInfo = new(filename);
             bool result;
             if (fileInfo.DirectoryName != null)
             {
-                DirectoryInfo directoryInfo = new DirectoryInfo(fileInfo.DirectoryName);
+                DirectoryInfo directoryInfo = new(fileInfo.DirectoryName);
                 try
                 {
                     if (Directory.GetDirectories(directoryInfo.Root.ToString()).Length > 0)
