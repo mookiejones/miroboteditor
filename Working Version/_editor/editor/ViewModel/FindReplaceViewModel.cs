@@ -1,12 +1,11 @@
 using System;
 using System.Text.RegularExpressions;
 using CommonServiceLocator;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command; 
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class FindReplaceViewModel : ViewModelBase
+    public sealed class FindReplaceViewModel : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
     {
         // ReSharper disable UnusedField.Compiler
         private static RelayCommand _findpreviouscommand;

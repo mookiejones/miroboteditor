@@ -1,8 +1,9 @@
-using GalaSoft.MvvmLight;
+
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class FileOptionsViewModel : ViewModelBase
+    public sealed class FileOptionsViewModel : ObservableObject
     {
         #region ShowFullName
 

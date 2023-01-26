@@ -1,8 +1,9 @@
-﻿using GalaSoft.MvvmLight;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class CartesianPosition : ViewModelBase
+    public sealed class CartesianPosition : ObservableObject
     {
         #region Header
 
@@ -21,17 +22,7 @@ namespace miRobotEditor.ViewModel
         {
             get => _header;
 
-            set
-            {
-                if (_header == value)
-                {
-                    return;
-                }
-
-
-                _header = value;
-                OnPropertyChanged(HeaderPropertyName);
-            }
+            set => SetProperty(ref _header, value); 
         }
 
         #endregion
