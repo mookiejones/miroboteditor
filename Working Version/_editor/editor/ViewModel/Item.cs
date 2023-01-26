@@ -1,8 +1,8 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class Item : ViewModelBase
+    public sealed class Item :  ObservableRecipient
     {
         #region Index
 

@@ -982,12 +982,6 @@
       <DefaultIcon>Images\editor.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Mookie.WPF\Mookie.WPF\Mookie.WPF.csproj">
-      <Project>{c03ba39a-8bd2-4632-8d43-580fe02c1ce3}</Project>
-      <Name>Mookie.WPF</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

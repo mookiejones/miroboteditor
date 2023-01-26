@@ -2,10 +2,11 @@ using System;
 using System.Text.RegularExpressions;
 using CommonServiceLocator;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class FindReplaceViewModel : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
+    public sealed class FindReplaceViewModel : ObservableObject
     {
         // ReSharper disable UnusedField.Compiler
         private static RelayCommand _findpreviouscommand;

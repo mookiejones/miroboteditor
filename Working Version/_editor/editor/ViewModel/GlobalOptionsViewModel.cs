@@ -1,16 +1,12 @@
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class GlobalOptionsViewModel : ViewModelBase
+    public sealed class GlobalOptionsViewModel :  ObservableRecipient
     {
         #region FileOptions
 
-        /// <summary>
-        ///     The <see cref="FileOptions" /> property's name.
-        /// </summary>
-        private const string FileOptionsPropertyName = "FileOptions";
-
+      
         private FileOptionsViewModel _fileOptions = new FileOptionsViewModel();
 
         /// <summary>
@@ -20,18 +16,8 @@ namespace miRobotEditor.ViewModel
         public FileOptionsViewModel FileOptions
         {
             get => _fileOptions;
-
-            set
-            {
-                if (_fileOptions == value)
-                {
-                    return;
-                }
-
-
-                _fileOptions = value;
-                OnPropertyChanged(FileOptionsPropertyName);
-            }
+            set=>SetProperty(ref _fileOptions, value);
+             
         }
 
         #endregion

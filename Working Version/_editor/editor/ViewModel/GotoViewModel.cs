@@ -1,20 +1,17 @@
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Controls.TextEditor;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class GotoViewModel : ViewModelBase
+    public sealed class GotoViewModel :  ObservableRecipient
     {
         private RelayCommand _okCommand;
 
         #region Editor
 
-        /// <summary>
-        ///     The <see cref="Editor" /> property's name.
-        /// </summary>
-        private const string EditorPropertyName = "Editor";
+       
 
         private Editor _editor = new Editor();
 
@@ -25,20 +22,8 @@ namespace miRobotEditor.ViewModel
         public Editor Editor
         {
             get => _editor;
-
-            set
-            {
-                // ReSharper disable once PossibleUnintendedReferenceComparison
-                if (_editor == value)
-                {
-                    return;
-                }
-                // ReSharper disable ExplicitCallerInfoArgument
-
-
-                _editor = value;
-                OnPropertyChanged(EditorPropertyName);
-            }
+            set=>SetProperty(ref _editor, value);
+            
         }
 
         #endregion

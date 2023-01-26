@@ -11,7 +11,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 using GalaSoft.MvvmLight.Ioc; 
 using miRobotEditor.Design;
 using miRobotEditor.Model;
@@ -30,15 +30,8 @@ namespace miRobotEditor.ViewModel
         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            }
-            else
-            {
-                SimpleIoc.Default.Register<IDataService, DataService>();
-            }
+ 
+            SimpleIoc.Default.Register<IDataService, DataService>();
             SimpleIoc.Default.Register<StatusBarViewModel>();
             SimpleIoc.Default.Register<ObjectBrowserViewModel>();
             SimpleIoc.Default.Register<MainViewModel>(true);

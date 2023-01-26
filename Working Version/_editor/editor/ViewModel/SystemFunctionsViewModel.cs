@@ -1,8 +1,8 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class SystemFunctionsViewModel : ViewModelBase
+    public sealed class SystemFunctionsViewModel :  ObservableRecipient
     {
         #region Structures
 

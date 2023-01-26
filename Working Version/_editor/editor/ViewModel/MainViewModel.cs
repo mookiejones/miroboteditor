@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Shell;
 using AvalonDock.Layout;
 using ControlzEx.Theming;
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro;
@@ -20,7 +20,8 @@ using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Languages;
 using miRobotEditor.Messages;
-using miRobotEditor.Windows; 
+using miRobotEditor.Windows;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace miRobotEditor.ViewModel
 {
@@ -31,7 +32,7 @@ namespace miRobotEditor.ViewModel
     ///     </para>
     /// </summary>
 // ReSharper disable once ClassNeverInstantiated.Global
-    public sealed class MainViewModel : ViewModelBase
+    public sealed class MainViewModel :  ObservableRecipient
     {
         private static IEditorDocument _activeEditor;
         private ILayoutUpdateStrategy _layoutInitializer;
@@ -50,10 +51,10 @@ namespace miRobotEditor.ViewModel
             };
 
 
-            Messenger.Default.Register<WindowMessage>(this, GetMessage);
+            WeakReferenceMessenger.Default.Register<WindowMessage>(this, GetMessage);
         }
 
-        private void GetMessage(WindowMessage obj) => Open(obj.Description);
+        private void GetMessage(object sender, WindowMessage obj) => Open(obj.Description);
 
         public string Title
         {
@@ -794,7 +795,7 @@ namespace miRobotEditor.ViewModel
 
             var msg = new ErrorMessage("Not Implemented",
                 string.Format("Add Tool Parameter of {0} not Implemented", text), MessageType.Error);
-            Messenger.Default.Send<IMessage>(msg);
+            WeakReferenceMessenger.Default.Send<IMessage>(msg);
 
             IL_1EE:
             if (toolModel != null)

@@ -5,8 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
@@ -45,17 +45,7 @@ namespace miRobotEditor.ViewModel
         {
             get => _selectedMessage;
 
-            set
-            {
-                if (_selectedMessage == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(SelectedMessagePropertyName);
-                _selectedMessage = value;
-                OnPropertyChanged(SelectedMessagePropertyName);
-            }
+            set => SetProperty(ref _selectedMessage, value); 
         }
         #endregion
 
@@ -74,11 +64,10 @@ namespace miRobotEditor.ViewModel
             Messages = new ObservableCollection<IMessage>();
             Instance = this;
 
-
-            Messenger.Default.Register<Exception>(this, GetException);
+            WeakReferenceMessenger.Default.Register<Exception>(this,  GetException);
         }
 
-        private void GetException(Exception obj) => throw new NotImplementedException();
+        private void GetException(object sender,Exception obj) => throw new NotImplementedException();
 
         #endregion
 

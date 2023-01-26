@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using CommunityToolkit.Mvvm.Messaging;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using ICSharpCode.AvalonEdit;
@@ -394,14 +395,14 @@ namespace miRobotEditor.Languages
                     catch (Exception ex)
                     {
                         var msg = new ErrorMessage("GetSystemFiles", ex, MessageType.Error);
-                        Messenger.Default.Send<IMessage>(msg);
+                        WeakReferenceMessenger.Default.Send<IMessage>(msg);
                     }
                 }
                 result = stringBuilder.ToString();
                 return result;
             }
 
-            private static string RemoveFromFile(string functionfile, string matchString)
+            private static string RemoveFromFile(string functionFile, string matchString)
             {
                 var stringBuilder = new StringBuilder();
                 string input;
@@ -420,7 +421,7 @@ namespace miRobotEditor.Languages
                 }
                 var regex2 = new Regex(matchString);
                 var value = regex2.Replace(input, string.Empty);
-                using (var streamWriter = new StreamWriter(functionfile))
+                using (var streamWriter = new StreamWriter(functionFile))
                 {
                     streamWriter.Write(value);
                 }

@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "miRobotEditor", "miRobotEdi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MookiesRobotEditor", "src\MookiesRobotEditor.csproj", "{A2DB7828-113C-4334-8676-0002887BA4FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mookie.WPF", "..\Mookie.WPF\Mookie.WPF\Mookie.WPF.csproj", "{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,18 +27,6 @@ Global
 		{A2DB7828-113C-4334-8676-0002887BA4FC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A2DB7828-113C-4334-8676-0002887BA4FC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A2DB7828-113C-4334-8676-0002887BA4FC}.Release|x86.ActiveCfg = Release|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Debug|x86.Build.0 = Debug|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Release|x86.ActiveCfg = Release|Any CPU
-		{C03BA39A-8BD2-4632-8D43-580FE02C1CE3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

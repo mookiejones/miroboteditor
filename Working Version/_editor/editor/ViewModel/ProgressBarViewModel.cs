@@ -1,8 +1,8 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class ProgressBarViewModel : ViewModelBase
+    public sealed class ProgressBarViewModel :  ObservableRecipient
     {
         #region Minimum
 

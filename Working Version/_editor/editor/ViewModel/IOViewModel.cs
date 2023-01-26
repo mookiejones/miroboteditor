@@ -7,12 +7,12 @@ using System.Data.OleDb;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Ionic.Zip;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class IOViewModel : ViewModelBase
+    public sealed class IOViewModel :  ObservableRecipient
     {
         private static OleDbConnection _oleDbConnection;
         private readonly List<Item> _anin = new List<Item>();
@@ -123,6 +123,8 @@ namespace miRobotEditor.ViewModel
 
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            if (string.IsNullOrEmpty(DataBaseFile))
+                return;
             GetSignals();
             GetTimers();
             GetAllLangtextFromDatabase();

@@ -1,8 +1,8 @@
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class ToolTipViewModel : ViewModelBase
+    public sealed class ToolTipViewModel :  ObservableRecipient
     {
         private static ToolTipViewModel _instance;
         private string _message = string.Empty;

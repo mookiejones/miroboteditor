@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 using miRobotEditor.Interfaces;
 
 namespace miRobotEditor.Classes
 {
-    public sealed class Variable : ViewModelBase, IVariable
+    public sealed class Variable : ObservableObject, IVariable
     {
         private string _comment = string.Empty;
         private string _declaration = string.Empty;

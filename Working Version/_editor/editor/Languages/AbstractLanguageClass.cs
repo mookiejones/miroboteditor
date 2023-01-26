@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using CommonServiceLocator;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding; 
@@ -29,7 +29,7 @@ using FileInfo = System.IO.FileInfo;
 namespace miRobotEditor.Abstract
 {
     [Localizable(false)]
-    public abstract class AbstractLanguageClass : ViewModelBase,ILanguageRegex
+    public abstract class AbstractLanguageClass : ObservableRecipient,ILanguageRegex
     {
         public const string RootPathPropertyName = "RootPath";
         public const string FileNamePropertyName = "FileName";
@@ -519,6 +519,8 @@ namespace miRobotEditor.Abstract
         }
 
         private object locker = new object();
+        //TODO Split this up for a robot by robot basis
+        private const string TargetDirectory = "KRC";
 
         public void GetRootDirectory(string dir)
         {
@@ -526,10 +528,16 @@ namespace miRobotEditor.Abstract
             var dd = new DirectoryInfo(dir);
 
             // Cannot Parse Directory
-            if (dd.Name == dd.Root.Name) _rootFound = true;
-
+            if (dd.Name == dd.Root.Name)
+            {
+                _rootFound = true;
+                
+            }
             try
             {
+
+                var directories = dd.GetDirectories("KRC", SearchOption.AllDirectories);
+
                 while (dd.Parent != null && ((!_rootFound) && (dd.Parent.Name != TargetDirectory)))
                 {
                     GetRootDirectory(dd.Parent.FullName);
@@ -558,8 +566,8 @@ namespace miRobotEditor.Abstract
 
                 GetRootFiles(_rootName);
                 FileCount = Files.Count;
-
                 GetVariables();
+                GetVariables(Files);
                 _allVariables.AddRange(Functions);
                 _allVariables.AddRange(Fields);
                 _allVariables.AddRange(Positions);
@@ -595,7 +603,50 @@ namespace miRobotEditor.Abstract
                 GetRootFiles(d);
             }
         }
+        private BackgroundWorker _bw;
+        private void backgroundVariableWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BWFilesMax = Files.Count;
+            int i = 0;
+            _functions = new List<IVariable>();
+            _fields = new List<IVariable>();
+            _positions = new List<IVariable>();
+            foreach (System.IO.FileInfo f in Files)
+            {
+                // Check to see if file is ok to check for values
+                if (IsFileValid(f))
+                {
+                    _functions.AddRange(FindMatches(MethodRegex, Global.ImgMethod, f.FullName));
+                    _structures.AddRange(FindMatches(StructRegex, Global.ImgStruct, f.FullName));
+                    _fields.AddRange(FindMatches(FieldRegex, Global.ImgField, f.FullName));
+                    _signals.AddRange(FindMatches(SignalRegex, Global.ImgSignal, f.FullName));
+                    _enums.AddRange(FindMatches(EnumRegex, Global.ImgEnum, f.FullName));
+                    _positions.AddRange(FindMatches(XYZRegex, Global.ImgXyz, f.FullName));
+                }
+                i++;
+                _bw.ReportProgress(i);
+            }
+        }
+        private void _bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            BWProgress = e.ProgressPercentage;
+        }
 
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            OnPropertyChanged("Functions");
+            OnPropertyChanged("Fields");
+            OnPropertyChanged("Files");
+            OnPropertyChanged("Positions");
+            BWProgressVisibility = Visibility.Collapsed;
+
+            // Dispose of Background worker
+            _bw = null;
+            //TODO Open Variable Monitor
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            main.EnableIO = File.Exists(_kukaCon);
+            IOModel = new IOViewModel(_kukaCon);
+        }
         private void GetVariables()
         {
             _bw = new BackgroundWorker();
@@ -742,7 +793,7 @@ namespace miRobotEditor.Abstract
             catch (Exception ex)
             {
                 var msg = new ErrorMessage("Find Matches", ex, MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
             result = list;
             return result;

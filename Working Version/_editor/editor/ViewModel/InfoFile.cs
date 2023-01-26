@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 using miRobotEditor.Abstract;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class InfoFile : ViewModelBase
+    public sealed class InfoFile :  ObservableRecipient
     {
         private readonly ReadOnlyObservableCollection<Technology> _readonlyTechnology = null;
         private readonly ObservableCollection<Technology> _technologies = new ObservableCollection<Technology>();

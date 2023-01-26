@@ -1,8 +1,8 @@
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class KFDDialogViewModel : ViewModelBase
+    public sealed class KFDDialogViewModel :  ObservableRecipient
     {
         private int _answer;
         private bool _b1Visible = true;

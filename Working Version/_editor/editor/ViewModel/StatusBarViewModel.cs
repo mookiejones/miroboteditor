@@ -1,11 +1,11 @@
 ﻿using System.Windows.Input;
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 using GalaSoft.MvvmLight.Command;
 using miRobotEditor.Classes;
 
 namespace miRobotEditor.ViewModel
 {
-    public sealed class StatusBarViewModel : ViewModelBase
+    public sealed class StatusBarViewModel :  ObservableRecipient
     {
 
 

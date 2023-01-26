@@ -2,8 +2,7 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
+ 
 using CommonServiceLocator;
 
 using miRobotEditor.Abstract;
@@ -12,10 +11,12 @@ using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.ViewModel;
 using miRobotEditor.Utilities;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace miRobotEditor.Classes
 {
-    public class VariableBase : ViewModelBase, IVariable
+    public class VariableBase : ObservableRecipient, IVariable
     {
         private string _comment;
         private string _declaration;
@@ -109,7 +110,7 @@ namespace miRobotEditor.Classes
             {
                 var msg = new ErrorMessage("Variable for " + fileLanguage.RobotType,
                     "Does not exist in VariableBase.GetVariables", MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 result = null;
             }
             else

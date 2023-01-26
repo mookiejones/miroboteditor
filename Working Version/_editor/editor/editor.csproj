@@ -194,6 +194,7 @@
     <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
     <Compile Include="Languages\AbstractLanguageClass.cs" />
     <Compile Include="Languages\Data\AbstractVariableClass.cs" />
+    <Compile Include="Languages\ILanguageClass.cs" />
     <Compile Include="Parsers\AbstractParser.cs" />
     <Compile Include="Controls\TextEditor\Snippets\CompletionData\CompletionContext.cs" />
     <Compile Include="Controls\FTP\FTPAccount.cs" />
