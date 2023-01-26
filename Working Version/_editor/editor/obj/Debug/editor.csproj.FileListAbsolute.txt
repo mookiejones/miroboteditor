@@ -312,3 +312,7 @@ C:\Programming\miroboteditor\Working Version\_editor\editor\obj\Debug\Assets\Tem
 C:\Programming\miroboteditor\Working Version\_editor\editor\obj\Debug\Assets\Templates\ShiftTemplate.baml
 C:\Programming\miroboteditor\Working Version\_editor\editor\obj\Debug\Assets\Templates\StatusBarTemplate.baml
 C:\Programming\miroboteditor\Working Version\_editor\editor\obj\Debug\Assets\Skins\MainSkin.baml
+C:\Programming\miroboteditor\Working Version\_editor\editor\obj\Debug\Assets\Styles\Controls.DataGrid.baml
+C:\Programming\miroboteditor\Working Version\_editor\editor\obj\Debug\Assets\Styles\Controls.MessageView.baml
+C:\Programming\miroboteditor\Working Version\_editor\editor\obj\Debug\Assets\Styles\Controls.Menu.baml
+C:\Programming\miroboteditor\Working Version\_editor\editor\obj\Debug\Assets\Styles\Controls.Toolbar.baml

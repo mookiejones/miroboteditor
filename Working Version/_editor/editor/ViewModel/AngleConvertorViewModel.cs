@@ -41,7 +41,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _inputItems = value;
-                RaisePropertyChanged("InputItems");
+                RaisePropertyChanged(nameof(InputItems));
             }
         }
 
@@ -51,7 +51,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _outputItems = value;
-                RaisePropertyChanged("OutputItems");
+                RaisePropertyChanged(nameof(OutputItems));
             }
         }
 
@@ -61,10 +61,7 @@ namespace miRobotEditor.ViewModel
             set { throw new NotImplementedException(); }
         }
 
-        public string Error
-        {
-            get { return null; }
-        }
+        public string Error => null;
 
         public string Matrix
         {
@@ -72,7 +69,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _matrix = value;
-                RaisePropertyChanged("Matrix");
+                RaisePropertyChanged(nameof(Matrix));
             }
         }
 
@@ -189,7 +186,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _v1 = value;
-                RaisePropertyChanged("V1");
+                RaisePropertyChanged(nameof(V1));
                 RaiseItemsChanged();
             }
         }
@@ -200,7 +197,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _v2 = value;
-                RaisePropertyChanged("V2");
+                RaisePropertyChanged(nameof(V2));
                 RaiseItemsChanged();
             }
         }
@@ -211,7 +208,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _v3 = value;
-                RaisePropertyChanged("V3");
+                RaisePropertyChanged(nameof(V3));
                 RaiseItemsChanged();
             }
         }
@@ -222,7 +219,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _v4 = value;
-                RaisePropertyChanged("V4");
+                RaisePropertyChanged(nameof(V4));
                 RaiseItemsChanged();
             }
         }
@@ -233,7 +230,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _isReadOnly = value;
-                RaisePropertyChanged("IsReadOnly");
+                RaisePropertyChanged(nameof(IsReadOnly));
             }
         }
 
@@ -243,7 +240,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _header = value;
-                RaisePropertyChanged("Header");
+                RaisePropertyChanged(nameof(Header));
             }
         }
 
@@ -253,14 +250,11 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _boxVisibility = value;
-                RaisePropertyChanged("BoxVisibility");
+                RaisePropertyChanged(nameof(BoxVisibility));
             }
         }
 
-        public CartesianItems SelectionItems
-        {
-            get { return _selectionitems; }
-        }
+        public CartesianItems SelectionItems => _selectionitems;
 
         public CartesianEnum SelectedItem
         {
@@ -269,7 +263,7 @@ namespace miRobotEditor.ViewModel
             {
                 _selectedItem = value;
                 CheckVisibility();
-                RaisePropertyChanged("SelectedItem");
+                RaisePropertyChanged(nameof(SelectedItem));
                 RaiseItemsChanged();
             }
         }

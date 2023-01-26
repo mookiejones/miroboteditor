@@ -30,9 +30,6 @@ namespace miRobotEditor.Classes
         }
 
         [Localizable(false)]
-        public string Title
-        {
-            get { return "Global Options"; }
-        }
+        public string Title => "Global Options";
     }
 }

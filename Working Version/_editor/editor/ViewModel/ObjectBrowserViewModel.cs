@@ -27,7 +27,7 @@ namespace miRobotEditor.ViewModel
                 _selectedVariable = value;
                 var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
                 instance.OpenFile(value);
-                RaisePropertyChanged("SelectedVariable");
+                RaisePropertyChanged(nameof(SelectedVariable));
             }
         }
 
@@ -37,7 +37,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _progress = value;
-                RaisePropertyChanged("Progress");
+                RaisePropertyChanged(nameof(Progress));
             }
         }
 
@@ -47,7 +47,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _progressMax = value;
-                RaisePropertyChanged("ProgressMax");
+                RaisePropertyChanged(nameof(ProgressMax));
             }
         }
 
@@ -80,7 +80,7 @@ namespace miRobotEditor.ViewModel
         private void Initialize()
         {
             ContentId = ToolContentId;
-            IconSource=ImageHelper.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
+            IconSource=ImageHelper.GetIcon(Global.IconObjectBrowser);
             //  IconSource = Utilities.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
             DefaultPane = DefaultToolPane.Bottom;
         }

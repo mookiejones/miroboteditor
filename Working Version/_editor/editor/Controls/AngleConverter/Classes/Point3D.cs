@@ -49,10 +49,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             set { _position[2] = value; }
         }
 
-        TransformationMatrix3D IGeometricElement3D.Position
-        {
-            get { return new TransformationMatrix3D(_position, RotationMatrix3D.Identity()); }
-        }
+        TransformationMatrix3D IGeometricElement3D.Position => new TransformationMatrix3D(_position, RotationMatrix3D.Identity());
 
         public string ToString(string format, IFormatProvider formatProvider = null)
         {

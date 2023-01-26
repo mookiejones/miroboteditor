@@ -42,15 +42,9 @@ namespace miRobotEditor.ViewModel
         private RelayCommand _clearMessagesCommand;
         private RelayCommand<object> _mouseOverCommand;
 
-        public ICommand ClearMessagesCommand
-        {
-            get { return _clearMessagesCommand ?? (_clearMessagesCommand = new RelayCommand(ClearItems)); }
-        }
+        public ICommand ClearMessagesCommand => _clearMessagesCommand ?? (_clearMessagesCommand = new RelayCommand(ClearItems));
 
-        public RelayCommand<object> MouseOverCommand
-        {
-            get { return _mouseOverCommand ?? (_mouseOverCommand = new RelayCommand<object>(HandleMouseOver)); }
-        }
+        public RelayCommand<object> MouseOverCommand => _mouseOverCommand ?? (_mouseOverCommand = new RelayCommand<object>(HandleMouseOver));
 
         public event MessageAddedHandler MessageAdded;
 
@@ -106,7 +100,7 @@ namespace miRobotEditor.ViewModel
         private void ClearItems()
         {
             _messages.Clear();
-            RaisePropertyChanged("Messages");
+            RaisePropertyChanged(nameof(Messages));
         }
 
         public void AddError(string message, Exception ex)
@@ -169,13 +163,7 @@ namespace miRobotEditor.ViewModel
         private readonly ObservableCollection<IMessage> _messages = new ObservableCollection<IMessage>();
         private ReadOnlyObservableCollection<IMessage> _readOnlyMessages;
 
-        public ReadOnlyObservableCollection<IMessage> Messages
-        {
-            get
-            {
-                return _readOnlyMessages ?? (_readOnlyMessages = new ReadOnlyObservableCollection<IMessage>(_messages));
-            }
-        }
+        public ReadOnlyObservableCollection<IMessage> Messages => _readOnlyMessages ?? (_readOnlyMessages = new ReadOnlyObservableCollection<IMessage>(_messages));
 
         #endregion
     }

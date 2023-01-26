@@ -8,40 +8,19 @@ namespace miRobotEditor.ViewModel
 {
     public sealed class AboutViewModel : ViewModelBase
     {
-        public static string Copyright
-        {
-            get { return "Copyright 2012-2013 Charles Berman"; }
-        }
+        public static string Copyright => "Copyright 2012-2013 Charles Berman";
 
-        public static string Name
-        {
-            get { return Assembly.GetExecutingAssembly().GetName().Name; }
-        }
+        public static string Name => Assembly.GetExecutingAssembly().GetName().Name;
 
-        public static string Version
-        {
-            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
-        }
+        public static string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        private static string NetVersion
-        {
-            get { return Environment.Version.ToString(); }
-        }
+        private static string NetVersion => Environment.Version.ToString();
 
-        private static string OSVersion
-        {
-            get { return Environment.OSVersion.ToString(); }
-        }
+        private static string OSVersion => Environment.OSVersion.ToString();
 
-        private static string CurrentCulture
-        {
-            get { return CultureInfo.CurrentCulture.Name; }
-        }
+        private static string CurrentCulture => CultureInfo.CurrentCulture.Name;
 
-        private static string WorkingSetMemory
-        {
-            get { return GC.GetTotalMemory(true).ToString(CultureInfo.InvariantCulture); }
-        }
+        private static string WorkingSetMemory => GC.GetTotalMemory(true).ToString(CultureInfo.InvariantCulture);
 
         public string Info
         {

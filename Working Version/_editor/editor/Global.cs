@@ -16,7 +16,7 @@ namespace miRobotEditor.Classes
         public const string LogFile = "logFile.txt";
         public const string ImgError = "..\\..\\Images\\resources-error.png";
         public const string ImgInfo = "..\\..\\Images\\resources-info.png";
-        public const string IconObjectBrowser = "pack://application:,,/Resources/resources-objectbrowser.png";
+        public const string IconObjectBrowser = "pack://application:,,,/Images/resources-objectbrowser.png";
         public const string IconProperty = "pack://application:,,/Resources/property-blue.png";
         public const string ImgConst = "..\\..\\Images\\resources-vxconstant_icon.png";
         public const string ImgStruct = "..\\..\\Images\\resources-vxstruct_icon.png";
@@ -32,10 +32,7 @@ namespace miRobotEditor.Classes
 
         #endregion
 
-        public static string StartupPath
-        {
-            get { return Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); }
-        }
+        public static string StartupPath => Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
         public static string Version
         {
@@ -46,16 +43,10 @@ namespace miRobotEditor.Classes
             }
         }
 
-        public static string ProductName
-        {
-            get { return Assembly.GetExecutingAssembly().GetName().ToString(); }
-        }
+        public static string ProductName => Assembly.GetExecutingAssembly().GetName().ToString();
 
         [Localizable(false)]
-        public static string DockConfig
-        {
-            get { return AppDomain.CurrentDomain.BaseDirectory + "dockConfig.xml"; }
-        }
+        public static string DockConfig => AppDomain.CurrentDomain.BaseDirectory + "dockConfig.xml";
 
         public static bool DoesDirectoryExist(string filename)
         {

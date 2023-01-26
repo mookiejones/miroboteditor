@@ -16,7 +16,7 @@
     <avalonedit:TextEditor.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/miRobotEditor;component/Templates/EditorTemplate.xaml" />
+                <ResourceDictionary Source="/miRobotEditor;component/Assets/Templates/EditorTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate x:Key="CodeCompletion" DataType="{x:Type classes:CodeCompletion}">
                 <StackPanel Orientation="Vertical">

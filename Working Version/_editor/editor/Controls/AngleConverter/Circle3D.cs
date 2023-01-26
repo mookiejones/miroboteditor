@@ -22,10 +22,7 @@ namespace miRobotEditor.Classes
 
         public double Radius { get; set; }
 
-        public TransformationMatrix3D Position
-        {
-            get { return new TransformationMatrix3D((Vector3D) Origin, RotationMatrix3D.Identity()); }
-        }
+        public TransformationMatrix3D Position => new TransformationMatrix3D((Vector3D)Origin, RotationMatrix3D.Identity());
 
         public string ToString(string format, IFormatProvider formatProvider)
         {

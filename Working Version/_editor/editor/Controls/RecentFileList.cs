@@ -61,10 +61,7 @@ namespace miRobotEditor.Controls
         public string MenuItemFormatTenPlus { get; set; }
         public GetMenuItemTextDelegate GetMenuItemTextHandler { get; set; }
 
-        public List<string> RecentFiles
-        {
-            get { return Persister.RecentFiles(MaxNumberOfFiles); }
-        }
+        public List<string> RecentFiles => Persister.RecentFiles(MaxNumberOfFiles);
 
         public void UseRegistryPersister()
         {

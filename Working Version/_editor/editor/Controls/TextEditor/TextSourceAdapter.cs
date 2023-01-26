@@ -24,20 +24,11 @@ namespace miRobotEditor.Classes
             remove { }
         }
 
-        public virtual ITextBufferVersion Version
-        {
-            get { return null; }
-        }
+        public virtual ITextBufferVersion Version => null;
 
-        public int TextLength
-        {
-            get { return TextSource.TextLength; }
-        }
+        public int TextLength => TextSource.TextLength;
 
-        public string Text
-        {
-            get { return TextSource.Text; }
-        }
+        public string Text => TextSource.Text;
 
         public virtual ITextBuffer CreateSnapshot()
         {

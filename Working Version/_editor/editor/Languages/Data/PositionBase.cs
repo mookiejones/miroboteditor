@@ -24,10 +24,7 @@ namespace miRobotEditor.Classes
         public string Scope { get; set; }
         public string Name { get; set; }
 
-        public IEnumerable<PositionValue> PositionalValues
-        {
-            get { return _positionalValues ?? new ReadOnlyObservableCollection<PositionValue>(_values); }
-        }
+        public IEnumerable<PositionValue> PositionalValues => _positionalValues ?? new ReadOnlyObservableCollection<PositionValue>(_values);
 
         public void ParseValues()
         {

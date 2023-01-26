@@ -403,6 +403,22 @@
     <Compile Include="Windows\XmlReaderWindow.xaml.cs">
       <DependentUpon>XmlReaderWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Assets\Styles\Controls.DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\Styles\Controls.Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\Styles\Controls.MessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\Styles\Controls.Toolbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FileInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -736,42 +752,28 @@
     <Resource Include="Images\editor.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\folder_open.png" />
     <Resource Include="Images\miRobotEditor.Resources.vxmethod_icon.png" />
     <Resource Include="Images\mnuCopy.png" />
     <Resource Include="Images\mnuCut.png" />
     <Resource Include="Images\mnuDelete.png" />
     <Resource Include="Images\mnuPaste.png" />
     <Resource Include="Images\resources-comment.png" />
-    <Resource Include="Images\resources-copy.png" />
-    <Resource Include="Images\resources-cut.png" />
-    <Resource Include="Images\resources-decreaseindent.png" />
     <Resource Include="Images\resources-document.png" />
     <Resource Include="Images\resources-editdelete.png" />
     <Resource Include="Images\resources-editor.png" />
     <Resource Include="Images\resources-error.png" />
-    <Resource Include="Images\resources-exit.png" />
     <Resource Include="Images\resources-expandfolds.png" />
     <Resource Include="Images\resources-folder.png" />
     <Resource Include="Images\resources-foldingdisabled.png" />
     <Resource Include="Images\resources-foldingenabled.png" />
-    <Resource Include="Images\resources-increaseindent.png" />
     <Resource Include="Images\resources-info.png" />
     <Resource Include="Images\resources-lineendings.png" />
-    <Resource Include="Images\resources-line_numbers.png" />
-    <Resource Include="Images\resources-newfile.png" />
     <Resource Include="Images\resources-new_edit_find_replace.png" />
     <Resource Include="Images\resources-objectbrowser.png" />
-    <Resource Include="Images\resources-paste.png" />
-    <Resource Include="Images\resources-print.png" />
-    <Resource Include="Images\resources-print_preview.png" />
     <Resource Include="Images\resources-property-blue.png" />
     <Resource Include="Images\resources-redo.png" />
     <Resource Include="Images\resources-refresh_yellow.png" />
-    <Resource Include="Images\resources-save.png" />
-    <Resource Include="Images\resources-save_all.png" />
     <Resource Include="Images\resources-search.png" />
-    <Resource Include="Images\resources-select_all.png" />
     <Resource Include="Images\resources-showspaces.png" />
     <Resource Include="Images\resources-splash.png" />
     <Resource Include="Images\resources-spsfile.png" />

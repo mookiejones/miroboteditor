@@ -23,10 +23,7 @@ namespace miRobotEditor.Classes
             _textView.BackgroundRenderers.Add(this);
         }
 
-        public KnownLayer Layer
-        {
-            get { return KnownLayer.Selection; }
-        }
+        public KnownLayer Layer => KnownLayer.Selection;
 
         public void Draw(TextView textview, DrawingContext drawingContext)
         {

@@ -54,10 +54,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             }
         }
 
-        public int Columns
-        {
-            get { return _columns; }
-        }
+        public int Columns => _columns;
 
         public double this[int row, int column]
         {
@@ -65,10 +62,7 @@ namespace miRobotEditor.Controls.AngleConverter.Classes
             set { _elements[row, column] = value; }
         }
 
-        public int Rows
-        {
-            get { return _rows; }
-        }
+        public int Rows => _rows;
 
         public virtual string ToString(string format, IFormatProvider formatProvider)
         {

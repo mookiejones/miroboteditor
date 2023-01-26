@@ -56,14 +56,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ToggleGridCommand.
         /// </summary>
-        public RelayCommand ToggleGridCommand
-        {
-            get
-            {
-                return _toggleGridCommand
+        public RelayCommand ToggleGridCommand => _toggleGridCommand
                        ?? (_toggleGridCommand = new RelayCommand(ToggleGrid, CanToggleGrid));
-            }
-        }
 
 
         public bool CanToggleGrid()
@@ -315,7 +309,7 @@ namespace miRobotEditor.ViewModel
             TextBox = ((Source.Filename == filepath) ? Source : Data);
             Grid.IsAnimated = true;
 // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged("Title");
+            RaisePropertyChanged(nameof(Title));
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)

@@ -8,17 +8,10 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModel:MessageViewModel }"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <ResourceDictionary>
-
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid>
         <DataGrid Height="Auto" IsReadOnly="True" Width="Auto"
-                  ColumnHeaderStyle="{StaticResource DataGridHeaderGlassEffect}" Style="{StaticResource DataGridStyle}"
+                    
+                  Style="{StaticResource DataGridStyle}"
                   ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type ListViewItem}">

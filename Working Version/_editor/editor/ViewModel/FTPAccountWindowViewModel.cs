@@ -14,9 +14,6 @@ namespace miRobotEditor.ViewModel
         {
         }
 
-        public ReadOnlyObservableCollection<FTPAccount> Accounts
-        {
-            get { return _readonlyAccounts ?? new ReadOnlyObservableCollection<FTPAccount>(_accounts); }
-        }
+        public ReadOnlyObservableCollection<FTPAccount> Accounts => _readonlyAccounts ?? new ReadOnlyObservableCollection<FTPAccount>(_accounts);
     }
 }

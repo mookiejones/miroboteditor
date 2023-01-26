@@ -64,7 +64,7 @@ namespace miRobotEditor.Controls.TextEditor
             set
             {
                 base.Text = value;
-                RaisePropertyChanged("Text");
+                RaisePropertyChanged(nameof(Text));
             }
         }
 
@@ -175,20 +175,11 @@ namespace miRobotEditor.Controls.TextEditor
 
         #region Properties
 
-        public int Line
-        {
-            get { return TextArea.Caret.Column; }
-        }
+        public int Line => TextArea.Caret.Column;
 
-        public int Column
-        {
-            get { return TextArea.Caret.Column; }
-        }
+        public int Column => TextArea.Caret.Column;
 
-        public int Offset
-        {
-            get { return TextArea.Caret.Offset; }
-        }
+        public int Offset => TextArea.Caret.Offset;
 
         public string FileSave
         {
@@ -264,10 +255,7 @@ namespace miRobotEditor.Controls.TextEditor
 
         #region Variables
 
-        public ReadOnlyObservableCollection<IVariable> Variables
-        {
-            get { return _readonlyVariables ?? new ReadOnlyObservableCollection<IVariable>(_variables); }
-        }
+        public ReadOnlyObservableCollection<IVariable> Variables => _readonlyVariables ?? new ReadOnlyObservableCollection<IVariable>(_variables);
 
         #endregion
 
@@ -282,15 +270,9 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the VariableDoubleClickCommand.
         /// </summary>
-        public RelayCommand<object> VariableDoubleClickCommand
-        {
-            get
-            {
-                return _variableDoubleClickCommand ?? (_variableDoubleClickCommand = new RelayCommand<object>(
+        public RelayCommand<object> VariableDoubleClickCommand => _variableDoubleClickCommand ?? (_variableDoubleClickCommand = new RelayCommand<object>(
                     ExecuteVariableDoubleClickCommand,
                     CanExecuteVariableDoubleClickCommand));
-            }
-        }
 
         private void ExecuteVariableDoubleClickCommand(object parameter)
         {
@@ -311,15 +293,9 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the UndoCommand.
         /// </summary>
-        public RelayCommand UndoCommand
-        {
-            get
-            {
-                return _undoCommand ?? (_undoCommand = new RelayCommand(
+        public RelayCommand UndoCommand => _undoCommand ?? (_undoCommand = new RelayCommand(
                     ExecuteUndoCommand,
                     CanExecuteUndoCommand));
-            }
-        }
 
         private void ExecuteUndoCommand()
         {
@@ -340,15 +316,9 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the RedoCommand.
         /// </summary>
-        public RelayCommand<object> RedoCommand
-        {
-            get
-            {
-                return _redoCommand ?? (_redoCommand = new RelayCommand<object>(
+        public RelayCommand<object> RedoCommand => _redoCommand ?? (_redoCommand = new RelayCommand<object>(
                     ExecuteRedoCommand,
                     CanExecuteRedoCommand));
-            }
-        }
 
         private void ExecuteRedoCommand(object parameter)
         {
@@ -369,14 +339,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the SaveCommand.
         /// </summary>
-        public RelayCommand SaveCommand
-        {
-            get
-            {
-                return _saveCommand
+        public RelayCommand SaveCommand => _saveCommand
                        ?? (_saveCommand = new RelayCommand(Save, CanSave));
-            }
-        }
 
         #endregion
 
@@ -387,14 +351,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the SaveAsCommand.
         /// </summary>
-        public RelayCommand SaveAsCommand
-        {
-            get
-            {
-                return _saveAsCommand
+        public RelayCommand SaveAsCommand => _saveAsCommand
                        ?? (_saveAsCommand = new RelayCommand(SaveAs, CanSave));
-            }
-        }
 
         #endregion
 
@@ -405,14 +363,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ReplaceCommand.
         /// </summary>
-        public RelayCommand ReplaceCommand
-        {
-            get
-            {
-                return _replaceCommand
+        public RelayCommand ReplaceCommand => _replaceCommand
                        ?? (_replaceCommand = new RelayCommand(Replace));
-            }
-        }
 
         #endregion
 
@@ -423,14 +375,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the GotoCommand.
         /// </summary>
-        public RelayCommand GotoCommand
-        {
-            get
-            {
-                return _gotoCommand
+        public RelayCommand GotoCommand => _gotoCommand
                        ?? (_gotoCommand = new RelayCommand(Goto, CanGoto));
-            }
-        }
 
 
         public bool CanGoto()
@@ -447,14 +393,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the OpenAllFoldsCommand.
         /// </summary>
-        public RelayCommand OpenAllFoldsCommand
-        {
-            get
-            {
-                return _openAllFoldsCommand
+        public RelayCommand OpenAllFoldsCommand => _openAllFoldsCommand
                        ?? (_openAllFoldsCommand = new RelayCommand(ExecuteOpenAllFoldsCommand, CanChangeFoldStatus));
-            }
-        }
 
         private void ExecuteOpenAllFoldsCommand()
         {
@@ -476,14 +416,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ToggleCommentCommand.
         /// </summary>
-        public RelayCommand ToggleCommentCommand
-        {
-            get
-            {
-                return _toggleCommentCommand
+        public RelayCommand ToggleCommentCommand => _toggleCommentCommand
                        ?? (_toggleCommentCommand = new RelayCommand(ToggleComment, CanToggleComment));
-            }
-        }
 
         public bool CanToggleComment()
         {
@@ -499,14 +433,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ToggleFoldsCommand.
         /// </summary>
-        public RelayCommand ToggleFoldsCommand
-        {
-            get
-            {
-                return _toggleFoldsCommand
+        public RelayCommand ToggleFoldsCommand => _toggleFoldsCommand
                        ?? (_toggleFoldsCommand = new RelayCommand(ToggleFolds, CanToggleFolds));
-            }
-        }
 
         public bool CanToggleFolds()
         {
@@ -522,14 +450,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ToggleAllFoldsCommand.
         /// </summary>
-        public RelayCommand ToggleAllFoldsCommand
-        {
-            get
-            {
-                return _toggleAllFoldsCommand
+        public RelayCommand ToggleAllFoldsCommand => _toggleAllFoldsCommand
                        ?? (_toggleAllFoldsCommand = new RelayCommand(ToggleAllFolds, CanToggleFolds));
-            }
-        }
 
         #endregion
 
@@ -540,15 +462,9 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the CloseAllFoldsCommand.
         /// </summary>
-        public RelayCommand<object> CloseAllFoldsCommand
-        {
-            get
-            {
-                return _closeAllFoldsCommand ?? (_closeAllFoldsCommand = new RelayCommand<object>(
+        public RelayCommand<object> CloseAllFoldsCommand => _closeAllFoldsCommand ?? (_closeAllFoldsCommand = new RelayCommand<object>(
                     ExecuteCloseAllFoldsCommand,
                     CanExecuteCloseAllFoldsCommand));
-            }
-        }
 
         private void ExecuteCloseAllFoldsCommand(object parameter)
         {
@@ -569,14 +485,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the AddTimeStampCommand.
         /// </summary>
-        public RelayCommand AddTimeStampCommand
-        {
-            get
-            {
-                return _addTimeStampCommand ?? (_addTimeStampCommand = new RelayCommand(
+        public RelayCommand AddTimeStampCommand => _addTimeStampCommand ?? (_addTimeStampCommand = new RelayCommand(
                     ExecuteAddTimeStampCommand));
-            }
-        }
 
         private void ExecuteAddTimeStampCommand()
         {
@@ -592,14 +502,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the FindCommand.
         /// </summary>
-        public RelayCommand FindCommand
-        {
-            get
-            {
-                return _findCommand
+        public RelayCommand FindCommand => _findCommand
                        ?? (_findCommand = new RelayCommand(ExecuteFindCommand, CanFind));
-            }
-        }
 
         private void ExecuteFindCommand()
         {
@@ -620,14 +524,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ReloadCommand.
         /// </summary>
-        public RelayCommand ReloadCommand
-        {
-            get
-            {
-                return _reloadCommand
+        public RelayCommand ReloadCommand => _reloadCommand
                        ?? (_reloadCommand = new RelayCommand(Reload));
-            }
-        }
 
         #endregion
 
@@ -638,14 +536,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ShowDefinitionsCommand.
         /// </summary>
-        public RelayCommand ShowDefinitionsCommand
-        {
-            get
-            {
-                return _showDefinitionsCommand
+        public RelayCommand ShowDefinitionsCommand => _showDefinitionsCommand
                        ?? (_showDefinitionsCommand = new RelayCommand(ShowDefinitions, CanShowDefinitions));
-            }
-        }
 
         public bool CanShowDefinitions()
         {
@@ -661,14 +553,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the CutCommand.
         /// </summary>
-        public RelayCommand CutCommand
-        {
-            get
-            {
-                return _cutCommand
+        public RelayCommand CutCommand => _cutCommand
                        ?? (_cutCommand = new RelayCommand(ExecuteCutCommand, CanCut));
-            }
-        }
 
         private void ExecuteCutCommand()
         {
@@ -690,14 +576,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the CopyCommand.
         /// </summary>
-        public RelayCommand CopyCommand
-        {
-            get
-            {
-                return _copyCommand
+        public RelayCommand CopyCommand => _copyCommand
                        ?? (_copyCommand = new RelayCommand(ExecuteCopy, CanCopy));
-            }
-        }
 
 
         public void ExecuteCopy()
@@ -719,14 +599,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the FunctionWindowClickCommand.
         /// </summary>
-        public RelayCommand<object> FunctionWindowClickCommand
-        {
-            get
-            {
-                return _functionWindowClickCommand ??
+        public RelayCommand<object> FunctionWindowClickCommand => _functionWindowClickCommand ??
                        (_functionWindowClickCommand = new RelayCommand<object>(OpenFunctionItem));
-            }
-        }
 
         #endregion
 
@@ -737,14 +611,8 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the ChangeIndentCommand.
         /// </summary>
-        public RelayCommand<object> ChangeIndentCommand
-        {
-            get
-            {
-                return _changeIndentCommand
+        public RelayCommand<object> ChangeIndentCommand => _changeIndentCommand
                        ?? (_changeIndentCommand = new RelayCommand<object>(ChangeIndent));
-            }
-        }
 
         #endregion
 
@@ -755,15 +623,9 @@ namespace miRobotEditor.Controls.TextEditor
         /// <summary>
         ///     Gets the PasteCommand.
         /// </summary>
-        public RelayCommand PasteCommand
-        {
-            get
-            {
-                return _pasteCommand ?? (_pasteCommand = new RelayCommand(
+        public RelayCommand PasteCommand => _pasteCommand ?? (_pasteCommand = new RelayCommand(
                     ExecutePasteCommand,
                     CanExecutePasteCommand));
-            }
-        }
 
         private void ExecutePasteCommand()
         {

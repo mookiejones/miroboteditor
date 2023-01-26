@@ -12,9 +12,6 @@ namespace miRobotEditor.Exceptions
             this.exception = exception;
         }
 
-        public Exception Exception
-        {
-            get { return exception; }
-        }
+        public Exception Exception => exception;
     }
 }

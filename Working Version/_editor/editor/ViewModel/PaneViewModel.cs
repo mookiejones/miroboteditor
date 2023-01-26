@@ -18,7 +18,7 @@ namespace miRobotEditor.ViewModel
                 if (!(_title == value))
                 {
                     _title = value;
-                    RaisePropertyChanged("Title");
+                    RaisePropertyChanged(nameof(Title));
                 }
             }
         }
@@ -33,7 +33,7 @@ namespace miRobotEditor.ViewModel
                 if (!(_contentId == value))
                 {
                     _contentId = value;
-                    RaisePropertyChanged("ContentId");
+                    RaisePropertyChanged(nameof(ContentId));
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace miRobotEditor.ViewModel
                 if (_isSelected != value)
                 {
                     _isSelected = value;
-                    RaisePropertyChanged("IsSelected");
+                    RaisePropertyChanged(nameof(IsSelected));
                 }
             }
         }
@@ -59,7 +59,7 @@ namespace miRobotEditor.ViewModel
                 if (_isActive != value)
                 {
                     _isActive = value;
-                    RaisePropertyChanged("IsActive");
+                    RaisePropertyChanged(nameof(IsActive));
                 }
             }
         }

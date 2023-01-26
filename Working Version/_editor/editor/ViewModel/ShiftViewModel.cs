@@ -33,7 +33,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _oldvalues = value;
-                RaisePropertyChanged("OldValues");
+                RaisePropertyChanged(nameof(OldValues));
             }
         }
 
@@ -43,7 +43,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _newvalues = value;
-                RaisePropertyChanged("NewValues");
+                RaisePropertyChanged(nameof(NewValues));
             }
         }
 
@@ -53,7 +53,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _diffvalues = value;
-                RaisePropertyChanged("DiffValues");
+                RaisePropertyChanged(nameof(DiffValues));
             }
         }
 

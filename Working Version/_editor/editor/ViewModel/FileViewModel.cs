@@ -35,9 +35,9 @@ namespace miRobotEditor.ViewModel
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(FilePathPropertyName);
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged("FileName");
+                RaisePropertyChanged(nameof(FileName));
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged("Title");
+                RaisePropertyChanged(nameof(Title));
                 if (File.Exists(_filePath))
                 {
                     ContentId = _filePath;
@@ -102,7 +102,7 @@ namespace miRobotEditor.ViewModel
 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(IsDirtyPropertyName);
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged("FileName");
+                RaisePropertyChanged(nameof(FileName));
             }
         }
 

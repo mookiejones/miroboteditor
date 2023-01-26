@@ -146,14 +146,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the CancelCommand.
         /// </summary>
-        public RelayCommand CancelCommand
-        {
-            get
-            {
-                return _cancelCommand
+        public RelayCommand CancelCommand => _cancelCommand
                        ?? (_cancelCommand = new RelayCommand(ExecuteCancelCommand));
-            }
-        }
 
         private void ExecuteCancelCommand()
         {
@@ -172,10 +166,7 @@ namespace miRobotEditor.ViewModel
         {
         }
 
-        public ICommand OkCommand
-        {
-            get { return _okCommand ?? (_okCommand = new RelayCommand(Accept)); }
-        }
+        public ICommand OkCommand => _okCommand ?? (_okCommand = new RelayCommand(Accept));
 
         private void Accept()
         {

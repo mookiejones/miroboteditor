@@ -20,7 +20,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _message = value;
-                RaisePropertyChanged("Message");
+                RaisePropertyChanged(nameof(Message));
             }
         }
 
@@ -30,7 +30,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _title = value;
-                RaisePropertyChanged("Title");
+                RaisePropertyChanged(nameof(Title));
             }
         }
     }

@@ -65,7 +65,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _progress = value;
-                RaisePropertyChanged("Progress");
+                RaisePropertyChanged(nameof(Progress));
             }
         }
 
@@ -89,7 +89,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _ignoretypes = value;
-                RaisePropertyChanged("IgnoreTypes");
+                RaisePropertyChanged(nameof(IgnoreTypes));
             }
         }
 
@@ -99,7 +99,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _exclusivetypes = value;
-                RaisePropertyChanged("ExclusiveTypes");
+                RaisePropertyChanged(nameof(ExclusiveTypes));
             }
         }
 
@@ -109,7 +109,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _deletedeclaration = value;
-                RaisePropertyChanged("DeleteDeclaration");
+                RaisePropertyChanged(nameof(DeleteDeclaration));
             }
         }
 
@@ -119,7 +119,7 @@ namespace miRobotEditor.Languages
             set
             {
                 _commentdeclaration = value;
-                RaisePropertyChanged("CommentDeclaration");
+                RaisePropertyChanged(nameof(CommentDeclaration));
             }
         }
 
@@ -129,14 +129,11 @@ namespace miRobotEditor.Languages
             set
             {
                 _selectedVarIndex = value;
-                RaisePropertyChanged("SelectedVarIndex");
+                RaisePropertyChanged(nameof(SelectedVarIndex));
             }
         }
 
-        public ObservableCollection<string> UsedVarTypes
-        {
-            get { return _usedvartypes; }
-        }
+        public ObservableCollection<string> UsedVarTypes => _usedvartypes;
 
         #region CleanDatCmd
 
@@ -145,15 +142,9 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the CleanDatCmd.
         /// </summary>
-        public static RelayCommand<object> CleanDatCmd
-        {
-            get
-            {
-                return _cleanDatCmd
+        public static RelayCommand<object> CleanDatCmd => _cleanDatCmd
                        ?? (_cleanDatCmd = new RelayCommand<object>(
                            p => Instance.CleanDat()));
-            }
-        }
 
         #endregion
 
@@ -164,15 +155,9 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the CheckedCmd.
         /// </summary>
-        public static RelayCommand CheckedCmd
-        {
-            get
-            {
-                return _checkedCmd
+        public static RelayCommand CheckedCmd => _checkedCmd
                        ?? (_checkedCmd = new RelayCommand(
                            () => Instance.Checked()));
-            }
-        }
 
         #endregion
 
@@ -183,14 +168,8 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the DeleteVarTypeCmd.
         /// </summary>
-        public RelayCommand DeleteVarTypeCmd
-        {
-            get
-            {
-                return _deleteVarTypeCmd
+        public RelayCommand DeleteVarTypeCmd => _deleteVarTypeCmd
                        ?? (_deleteVarTypeCmd = new RelayCommand(ExecuteDeleteVarTypeCmd));
-            }
-        }
 
         private void ExecuteDeleteVarTypeCmd()
         {
@@ -206,14 +185,8 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the AddVarTypeCmd.
         /// </summary>
-        public RelayCommand AddVarTypeCmd
-        {
-            get
-            {
-                return _addVarTypeCmd
+        public RelayCommand AddVarTypeCmd => _addVarTypeCmd
                        ?? (_addVarTypeCmd = new RelayCommand(ExecuteAddVarTypeCmd));
-            }
-        }
 
         private void ExecuteAddVarTypeCmd()
         {
@@ -229,14 +202,8 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the SelectAllCommand.
         /// </summary>
-        public RelayCommand SelectAllCommand
-        {
-            get
-            {
-                return _selectAllCommand
+        public RelayCommand SelectAllCommand => _selectAllCommand
                        ?? (_selectAllCommand = new RelayCommand(ExecuteSelectAllCommand));
-            }
-        }
 
         private void ExecuteSelectAllCommand()
         {
@@ -252,15 +219,9 @@ namespace miRobotEditor.Languages
         /// <summary>
         ///     Gets the InvertSelectionCommand.
         /// </summary>
-        public static RelayCommand InvertSelectionCommand
-        {
-            get
-            {
-                return _invertSelectionCommand
+        public static RelayCommand InvertSelectionCommand => _invertSelectionCommand
                        ?? (_invertSelectionCommand = new RelayCommand(
                            () => Instance.InvertSelection()));
-            }
-        }
 
         #endregion
 
@@ -290,7 +251,7 @@ namespace miRobotEditor.Languages
             {
                 current.IsSelected = true;
             }
-            RaisePropertyChanged("IgnoreTypes");
+            RaisePropertyChanged(nameof(IgnoreTypes));
         }
 
         private void InvertSelection()
@@ -299,7 +260,7 @@ namespace miRobotEditor.Languages
             {
                 current.IsSelected = !current.IsSelected;
             }
-            RaisePropertyChanged("IgnoreTypes");
+            RaisePropertyChanged(nameof(IgnoreTypes));
         }
 
         public void Clean()

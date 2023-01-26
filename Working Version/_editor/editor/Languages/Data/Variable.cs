@@ -24,7 +24,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _isSelected = value;
-                RaisePropertyChanged("IsSelected");
+                RaisePropertyChanged(nameof(IsSelected));
             }
         }
 
@@ -34,7 +34,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _icon = value;
-                RaisePropertyChanged("Icon");
+                RaisePropertyChanged(nameof(Icon));
             }
         }
 
@@ -44,7 +44,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _description = value;
-                RaisePropertyChanged("Description");
+                RaisePropertyChanged(nameof(Description));
             }
         }
 
@@ -54,7 +54,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _name = value;
-                RaisePropertyChanged("Name");
+                RaisePropertyChanged(nameof(Name));
             }
         }
 
@@ -64,7 +64,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _type = value;
-                RaisePropertyChanged("Type");
+                RaisePropertyChanged(nameof(Type));
             }
         }
 
@@ -74,7 +74,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _path = value;
-                RaisePropertyChanged("Path");
+                RaisePropertyChanged(nameof(Path));
             }
         }
 
@@ -84,7 +84,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _value = value;
-                RaisePropertyChanged("Value");
+                RaisePropertyChanged(nameof(Value));
             }
         }
 
@@ -94,7 +94,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _comment = value;
-                RaisePropertyChanged("Comment");
+                RaisePropertyChanged(nameof(Comment));
             }
         }
 
@@ -104,7 +104,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _declaration = value;
-                RaisePropertyChanged("Declaration");
+                RaisePropertyChanged(nameof(Declaration));
             }
         }
 
@@ -114,7 +114,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _offset = value;
-                RaisePropertyChanged("Offset");
+                RaisePropertyChanged(nameof(Offset));
             }
         }
 

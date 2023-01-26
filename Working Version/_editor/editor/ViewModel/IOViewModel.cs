@@ -55,45 +55,21 @@ namespace miRobotEditor.ViewModel
             backgroundWorker.RunWorkerAsync();
         }
 
-        public Visibility DigInVisibility
-        {
-            get { return (Inputs.Count > 0) ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility DigInVisibility => (Inputs.Count > 0) ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility DigOutVisibility
-        {
-            get { return (Outputs.Count > 0) ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility DigOutVisibility => (Outputs.Count > 0) ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility AnInVisibility
-        {
-            get { return (AnIn.Count > 0) ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility AnInVisibility => (AnIn.Count > 0) ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility AnOutVisibility
-        {
-            get { return (AnOut.Count > 0) ? Visibility.Visible : Visibility.Hidden; }
-        }
+        public Visibility AnOutVisibility => (AnOut.Count > 0) ? Visibility.Visible : Visibility.Hidden;
 
-        public Visibility DigitalVisibility
-        {
-            get
-            {
-                return (DigInVisibility == Visibility.Visible && DigOutVisibility == Visibility.Visible)
+        public Visibility DigitalVisibility => (DigInVisibility == Visibility.Visible && DigOutVisibility == Visibility.Visible)
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-            }
-        }
 
-        public Visibility AnalogVisibility
-        {
-            get
-            {
-                return (AnOutVisibility == Visibility.Visible || AnInVisibility == Visibility.Visible)
+        public Visibility AnalogVisibility => (AnOutVisibility == Visibility.Visible || AnInVisibility == Visibility.Visible)
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-            }
-        }
 
         public Visibility FlagVisibility
         {
@@ -101,7 +77,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _flagVisibility = value;
-                RaisePropertyChanged("FlagVisibility");
+                RaisePropertyChanged(nameof(FlagVisibility));
             }
         }
 
@@ -111,7 +87,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _timerVisibility = value;
-                RaisePropertyChanged("TimerVisibility");
+                RaisePropertyChanged(nameof(TimerVisibility));
             }
         }
 
@@ -121,7 +97,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _cyclicFlagVisibility = value;
-                RaisePropertyChanged("CyclicFlagVisibility");
+                RaisePropertyChanged(nameof(CyclicFlagVisibility));
             }
         }
 
@@ -131,7 +107,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _counterVisibility = value;
-                RaisePropertyChanged("CounterVisibility");
+                RaisePropertyChanged(nameof(CounterVisibility));
             }
         }
 
@@ -141,7 +117,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _info = value;
-                RaisePropertyChanged("Info");
+                RaisePropertyChanged(nameof(Info));
             }
         }
 
@@ -153,7 +129,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _archivePath = value;
-                RaisePropertyChanged("ArchivePath");
+                RaisePropertyChanged(nameof(ArchivePath));
             }
         }
 
@@ -163,7 +139,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _filecount = value;
-                RaisePropertyChanged("FileCount");
+                RaisePropertyChanged(nameof(FileCount));
             }
         }
 
@@ -175,7 +151,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _buffersize = value;
-                RaisePropertyChanged("BufferSize");
+                RaisePropertyChanged(nameof(BufferSize));
             }
         }
 
@@ -187,16 +163,13 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _database = value;
-                RaisePropertyChanged("DataBase");
+                RaisePropertyChanged(nameof(DataBase));
             }
         }
 
         public string InfoFile { get; set; }
 
-        public ReadOnlyObservableCollection<DirectoryInfo> Root
-        {
-            get { return _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root); }
-        }
+        public ReadOnlyObservableCollection<DirectoryInfo> Root => _readonlyRoot ?? new ReadOnlyObservableCollection<DirectoryInfo>(_root);
 
         public DirectoryInfo RootPath
         {
@@ -204,7 +177,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _rootpath = value;
-                RaisePropertyChanged("RootPath");
+                RaisePropertyChanged(nameof(RootPath));
             }
         }
 
@@ -214,7 +187,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _languageText = value;
-                RaisePropertyChanged("LanguageText");
+                RaisePropertyChanged(nameof(LanguageText));
             }
         }
 
@@ -224,49 +197,25 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _databaseText = value;
-                RaisePropertyChanged("DatabaseText");
+                RaisePropertyChanged(nameof(DatabaseText));
             }
         }
 
-        public ReadOnlyCollection<Item> Inputs
-        {
-            get { return _readonlyinputs ?? new ReadOnlyCollection<Item>(_inputs); }
-        }
+        public ReadOnlyCollection<Item> Inputs => _readonlyinputs ?? new ReadOnlyCollection<Item>(_inputs);
 
-        public ReadOnlyCollection<Item> Outputs
-        {
-            get { return _readonlyOutputs ?? new ReadOnlyCollection<Item>(_outputs); }
-        }
+        public ReadOnlyCollection<Item> Outputs => _readonlyOutputs ?? new ReadOnlyCollection<Item>(_outputs);
 
-        public ReadOnlyCollection<Item> AnIn
-        {
-            get { return _readonlyAnIn ?? new ReadOnlyCollection<Item>(_anin); }
-        }
+        public ReadOnlyCollection<Item> AnIn => _readonlyAnIn ?? new ReadOnlyCollection<Item>(_anin);
 
-        public ReadOnlyCollection<Item> AnOut
-        {
-            get { return _readonlyAnOut ?? new ReadOnlyCollection<Item>(_anout); }
-        }
+        public ReadOnlyCollection<Item> AnOut => _readonlyAnOut ?? new ReadOnlyCollection<Item>(_anout);
 
-        public ReadOnlyCollection<Item> Timer
-        {
-            get { return _readonlyTimer ?? new ReadOnlyCollection<Item>(_timer); }
-        }
+        public ReadOnlyCollection<Item> Timer => _readonlyTimer ?? new ReadOnlyCollection<Item>(_timer);
 
-        public ReadOnlyCollection<Item> Flags
-        {
-            get { return _readonlyFlags ?? new ReadOnlyCollection<Item>(_flags); }
-        }
+        public ReadOnlyCollection<Item> Flags => _readonlyFlags ?? new ReadOnlyCollection<Item>(_flags);
 
-        public ReadOnlyCollection<Item> CycFlags
-        {
-            get { return _readonlyCycFlags ?? new ReadOnlyCollection<Item>(_cycflags); }
-        }
+        public ReadOnlyCollection<Item> CycFlags => _readonlyCycFlags ?? new ReadOnlyCollection<Item>(_cycflags);
 
-        public ReadOnlyCollection<Item> Counter
-        {
-            get { return _readonlyCounter ?? new ReadOnlyCollection<Item>(_counter); }
-        }
+        public ReadOnlyCollection<Item> Counter => _readonlyCounter ?? new ReadOnlyCollection<Item>(_counter);
 
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -277,13 +226,13 @@ namespace miRobotEditor.ViewModel
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            RaisePropertyChanged("Inputs");
-            RaisePropertyChanged("Outputs");
-            RaisePropertyChanged("AnIn");
-            RaisePropertyChanged("AnOut");
-            RaisePropertyChanged("Counter");
-            RaisePropertyChanged("Flags");
-            RaisePropertyChanged("Timer");
+            RaisePropertyChanged(nameof(Inputs));
+            RaisePropertyChanged(nameof(Outputs));
+            RaisePropertyChanged(nameof(AnIn));
+            RaisePropertyChanged(nameof(AnOut));
+            RaisePropertyChanged(nameof(Counter));
+            RaisePropertyChanged(nameof(Flags));
+            RaisePropertyChanged(nameof(Timer));
         }
 
         private OleDbConnection GetDBConnection()
@@ -404,10 +353,10 @@ namespace miRobotEditor.ViewModel
             GetFlags();
             GetTimers();
             GetAllLangtextFromDatabase();
-            RaisePropertyChanged("DigInVisibility");
-            RaisePropertyChanged("DigOutVisibility");
-            RaisePropertyChanged("AnalogVisibility");
-            RaisePropertyChanged("DigitalVisibility");
+            RaisePropertyChanged(nameof(DigInVisibility));
+            RaisePropertyChanged(nameof(DigOutVisibility));
+            RaisePropertyChanged(nameof(AnalogVisibility));
+            RaisePropertyChanged(nameof(DigitalVisibility));
         }
 
         private void GetFlags()
@@ -418,7 +367,7 @@ namespace miRobotEditor.ViewModel
                     "$FLAG[{0}]", 8);
             _flags.AddRange(items);
             FlagVisibility = ((Flags.Count > 0) ? Visibility.Visible : Visibility.Collapsed);
-            RaisePropertyChanged("FlagVisibility");
+            RaisePropertyChanged(nameof(FlagVisibility));
         }
 
         private void GetTimers()
@@ -431,7 +380,7 @@ namespace miRobotEditor.ViewModel
 //                            var item = new Item(string.Format("$TIMER[{0}]", text.Substring(9)), oleDbDataReader.GetValue(1).ToString());
             _timer.AddRange(items);
             TimerVisibility = ((Timer.Count > 0) ? Visibility.Visible : Visibility.Collapsed);
-            RaisePropertyChanged("TimerVisibility");
+            RaisePropertyChanged(nameof(TimerVisibility));
         }
 
         private List<Item> GetValues(string cmd, int index)

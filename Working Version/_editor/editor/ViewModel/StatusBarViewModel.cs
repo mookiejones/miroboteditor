@@ -25,22 +25,10 @@ namespace miRobotEditor.ViewModel
 
 
 
-        public RelayCommand<object> KeyPressedCommand
-        {
-            get
-            {
-                return _keyPressedCommand ??
+        public RelayCommand<object> KeyPressedCommand => _keyPressedCommand ??
                        (_keyPressedCommand = new RelayCommand<object>(param => ManageKeys(param, null)));
-            }
-        }
 
-        public static StatusBarViewModel Instance
-        {
-            get
-            {
-                return _instance ?? (_instance = new StatusBarViewModel());
-            }
-        }
+        public static StatusBarViewModel Instance => _instance ?? (_instance = new StatusBarViewModel());
 
         public bool IsScrollPressed
         {
@@ -48,7 +36,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _isScrollPressed = value;
-                RaisePropertyChanged("IsScrollPressed");
+                RaisePropertyChanged(nameof(IsScrollPressed));
             }
         }
 
@@ -58,7 +46,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _isNumPressed = value;
-                RaisePropertyChanged("IsNumPressed");
+                RaisePropertyChanged(nameof(IsNumPressed));
             }
         }
 
@@ -68,7 +56,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _isInsPressed = value;
-                RaisePropertyChanged("IsInsPressed");
+                RaisePropertyChanged(nameof(IsInsPressed));
             }
         }
 
@@ -78,7 +66,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _isCapsPressed = value;
-                RaisePropertyChanged("IsCapsPressed");
+                RaisePropertyChanged(nameof(IsCapsPressed));
             }
         }
 

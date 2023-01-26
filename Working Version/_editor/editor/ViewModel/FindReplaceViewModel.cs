@@ -30,14 +30,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the FindPreviousCommand.
         /// </summary>
-        public RelayCommand FindPreviousCommand
-        {
-            get
-            {
-                return _findPreviousCommand
+        public RelayCommand FindPreviousCommand => _findPreviousCommand
                        ?? (_findPreviousCommand = new RelayCommand(FindPrevious));
-            }
-        }
 
         #endregion
 
@@ -48,14 +42,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the FindNextCommand.
         /// </summary>
-        public RelayCommand FindNextCommand
-        {
-            get
-            {
-                return _findNextCommand
+        public RelayCommand FindNextCommand => _findNextCommand
                        ?? (_findNextCommand = new RelayCommand(FindNext));
-            }
-        }
 
         #endregion
 
@@ -66,14 +54,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ReplaceCommand.
         /// </summary>
-        public static RelayCommand ReplaceCommand
-        {
-            get
-            {
-                return _replaceCommand
+        public static RelayCommand ReplaceCommand => _replaceCommand
                        ?? (_replaceCommand = new RelayCommand(Replace));
-            }
-        }
 
         #endregion
 
@@ -84,14 +66,8 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the ReplaceAllCommand.
         /// </summary>
-        public static RelayCommand ReplaceAllCommand
-        {
-            get
-            {
-                return _replaceAllCommand
+        public static RelayCommand ReplaceAllCommand => _replaceAllCommand
                        ?? (_replaceAllCommand = new RelayCommand(ReplaceAll));
-            }
-        }
 
         #endregion
 
@@ -102,15 +78,9 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the HighlightAllCommand.
         /// </summary>
-        public static RelayCommand HighlightAllCommand
-        {
-            get
-            {
-                return _highlightAllCommand
+        public static RelayCommand HighlightAllCommand => _highlightAllCommand
                        ?? (_highlightAllCommand = new RelayCommand(
                            HighlightAll));
-            }
-        }
 
         #endregion
 
@@ -121,15 +91,9 @@ namespace miRobotEditor.ViewModel
         /// <summary>
         ///     Gets the FindAllCommand.
         /// </summary>
-        public RelayCommand FindAllCommand
-        {
-            get
-            {
-                return _findAllCommand
+        public RelayCommand FindAllCommand => _findAllCommand
                        ?? (_findAllCommand = new RelayCommand(
                            FindAll));
-            }
-        }
 
         #endregion
 
@@ -155,7 +119,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _useregex = value;
-                RaisePropertyChanged("UseRegex");
+                RaisePropertyChanged(nameof(UseRegex));
             }
         }
 
@@ -165,7 +129,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _matchcase = value;
-                RaisePropertyChanged("MatchCase");
+                RaisePropertyChanged(nameof(MatchCase));
             }
         }
 
@@ -175,7 +139,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _matchwholeword = value;
-                RaisePropertyChanged("MatchWholeWord");
+                RaisePropertyChanged(nameof(MatchWholeWord));
             }
         }
 
@@ -189,10 +153,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public string RegexString
-        {
-            get { return (!UseRegex) ? Regex.Escape(LookFor) : LookFor; }
-        }
+        public string RegexString => (!UseRegex) ? Regex.Escape(LookFor) : LookFor;
 
         public string LookFor
         {
@@ -200,7 +161,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _lookfor = value;
-                RaisePropertyChanged("LookFor");
+                RaisePropertyChanged(nameof(LookFor));
             }
         }
 
@@ -210,7 +171,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _replacewith = value;
-                RaisePropertyChanged("ReplaceWith");
+                RaisePropertyChanged(nameof(ReplaceWith));
             }
         }
 
@@ -220,7 +181,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _searchresult = value;
-                RaisePropertyChanged("SearchResult");
+                RaisePropertyChanged(nameof(SearchResult));
             }
         }
 

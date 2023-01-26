@@ -31,38 +31,20 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        public override List<string> SearchFilters
-        {
-            get { return EXT; }
-        }
+        public override List<string> SearchFilters => EXT;
 
-        public static List<string> EXT
-        {
-            get
-            {
-                return new List<string>
+        public static List<string> EXT => new List<string>
                 {
                     ".as",
                     ".prg"
                 };
-            }
-        }
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.KAWASAKI; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.KAWASAKI;
 
-        internal override IList<ICompletionData> CodeCompletion
-        {
-            get
-            {
-                return new List<ICompletionData>
+        internal override IList<ICompletionData> CodeCompletion => new List<ICompletionData>
                 {
                     new CodeCompletion("Item1")
                 };
-            }
-        }
 
         protected override string ShiftRegex
         {
@@ -74,68 +56,32 @@ namespace miRobotEditor.Languages
             get { throw new NotImplementedException(); }
         }
 
-        internal override string FunctionItems
-        {
-            get { return "(\\\\.Program [\\\\d\\\\w]*[\\\\(\\\\)\\\\w\\\\d_.]*)"; }
-        }
+        internal override string FunctionItems => "(\\\\.Program [\\\\d\\\\w]*[\\\\(\\\\)\\\\w\\\\d_.]*)";
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        public override Regex MethodRegex
-        {
-            get
-            {
-                return new Regex("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)",
+        public override Regex MethodRegex => new Regex("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
 
-        public override Regex StructRegex
-        {
-            get
-            {
-                return new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)",
+        public override Regex StructRegex => new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
 
-        public override Regex FieldRegex
-        {
-            get
-            {
-                return new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)",
+        public override Regex FieldRegex => new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
 
-        public override Regex EnumRegex
-        {
-            get { return new Regex("^ENUM ", RegexOptions.IgnoreCase | RegexOptions.Multiline); }
-        }
+        public override Regex EnumRegex => new Regex("^ENUM ", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override Regex XYZRegex
-        {
-            get
-            {
-                return new Regex("^(LINEAR|JOINT) ([^#])*#\\[([^\\]]*)",
+        public override Regex XYZRegex => new Regex("^(LINEAR|JOINT) ([^#])*#\\[([^\\]]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            }
-        }
 
         public override void Initialize(string filename)
         {
             Initialize();
         }
 
-        public override string CommentChar
-        {
-            get { return ";"; }
-        }
+        public override string CommentChar => ";";
 
-        public override Regex SignalRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex SignalRegex => new Regex(string.Empty);
 
         protected override bool IsFileValid(FileInfo file)
         {

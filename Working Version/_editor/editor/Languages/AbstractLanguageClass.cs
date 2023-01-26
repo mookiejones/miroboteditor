@@ -139,7 +139,7 @@ namespace miRobotEditor.Abstract
                 {
                    
                     _rootPath = value;
-                    RaisePropertyChanged("RootPath");
+                    RaisePropertyChanged(nameof(RootPath));
                 }
             }
         }
@@ -154,7 +154,7 @@ namespace miRobotEditor.Abstract
                 if (_filename == value) return;
                
                 _filename = value;
-                RaisePropertyChanged("FileName");
+                RaisePropertyChanged(nameof(FileName));
             }
         }
         #endregion
@@ -169,17 +169,14 @@ namespace miRobotEditor.Abstract
                 {
                      
                     _robotMenuItems = value;
-                    RaisePropertyChanged("RobotMenuItems");
+                    RaisePropertyChanged(nameof(RobotMenuItems));
                 }
             }
         }
         #endregion
 
         #region Name
-        public string Name
-        {
-            get { return (RobotType == Typlanguage.None) ? string.Empty : RobotType.ToString(); }
-        }
+        public string Name => (RobotType == Typlanguage.None) ? string.Empty : RobotType.ToString();
         #endregion
 
         #region DataName
@@ -195,18 +192,9 @@ namespace miRobotEditor.Abstract
         #endregion
 
 
-        public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable
-        {
-            get
-            {
-                return _readOnlyBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables);
-            }
-        }
+        public ReadOnlyObservableCollection<IVariable> ObjectBrowserVariable => _readOnlyBrowserVariables ?? new ReadOnlyObservableCollection<IVariable>(_objectBrowserVariables);
 
-        public IEnumerable<MenuItem> MenuItems
-        {
-            get { return _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems); }
-        }
+        public IEnumerable<MenuItem> MenuItems => _readonlyMenuItems ?? new ReadOnlyObservableCollection<MenuItem>(_menuItems);
 
 
         #region Files
@@ -217,10 +205,7 @@ namespace miRobotEditor.Abstract
 #pragma warning disable 649
         private readonly ReadOnlyObservableCollection<FileInfo> _readOnlyFiles;
 #pragma warning restore 649
-        public ReadOnlyObservableCollection<FileInfo> Files
-        {
-            get { return _readOnlyFiles ?? new ReadOnlyObservableCollection<FileInfo>(_files); }
-        }
+        public ReadOnlyObservableCollection<FileInfo> Files => _readOnlyFiles ?? new ReadOnlyObservableCollection<FileInfo>(_files);
         #endregion
 
         internal string RawText { private get; set; }
@@ -228,74 +213,35 @@ namespace miRobotEditor.Abstract
         internal string SourceText { get; private set; }
         internal string DataText { get; private set; }
 
-        public string SnippetPath
-        {
-            get { return ".\\Editor\\Config _files\\Snippet.xml"; }
-        }
+        public string SnippetPath => ".\\Editor\\Config _files\\Snippet.xml";
 
-        protected string Intellisense
-        {
-            get { return RobotType + "Intellisense.xml"; }
-        }
+        protected string Intellisense => $"{RobotType}Intellisense.xml";
 
-        protected string SnippetFilePath
-        {
-            get { return RobotType + "Snippets.xml"; }
-        }
+        protected string SnippetFilePath => $"{RobotType}Snippets.xml";
 
         internal string Filename { get; set; }
 
-        protected string ConfigFilePath
-        {
-            get { return RobotType + "Config.xml"; }
-        }
+        protected string ConfigFilePath => RobotType + "Config.xml";
 
-        internal string SyntaxHighlightFilePath
-        {
-            get { return RobotType + "Highlight.xshd"; }
-        }
+        internal string SyntaxHighlightFilePath => $"{RobotType}Highlight.xshd";
 
-        internal string StyleFilePath
-        {
-            get { return RobotType + "Style.xshd"; }
-        }
+        internal string StyleFilePath => $"{RobotType}Style.xshd";
 
         public static int FileCount { get; private set; }
 
-        public ReadOnlyCollection<IVariable> AllVariables
-        {
-            get { return _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables); }
-        }
+        public ReadOnlyCollection<IVariable> AllVariables => _readOnlyAllVariables ?? new ReadOnlyCollection<IVariable>(_allVariables);
 
-        public ReadOnlyCollection<IVariable> Functions
-        {
-            get { return _readOnlyFunctions ?? new ReadOnlyCollection<IVariable>(_functions); }
-        }
+        public ReadOnlyCollection<IVariable> Functions => _readOnlyFunctions ?? new ReadOnlyCollection<IVariable>(_functions);
 
-        public ReadOnlyCollection<IVariable> Fields
-        {
-            get { return _readOnlyFields ?? new ReadOnlyCollection<IVariable>(_fields); }
-        }
+        public ReadOnlyCollection<IVariable> Fields => _readOnlyFields ?? new ReadOnlyCollection<IVariable>(_fields);
 
-        public ReadOnlyCollection<IVariable> Positions
-        {
-            get { return _readOnlypositions ?? new ReadOnlyCollection<IVariable>(_positions); }
-        }
+        public ReadOnlyCollection<IVariable> Positions => _readOnlypositions ?? new ReadOnlyCollection<IVariable>(_positions);
 
-        public ReadOnlyCollection<IVariable> Enums
-        {
-            get { return _readOnlyenums ?? new ReadOnlyCollection<IVariable>(_enums); }
-        }
+        public ReadOnlyCollection<IVariable> Enums => _readOnlyenums ?? new ReadOnlyCollection<IVariable>(_enums);
 
-        public ReadOnlyCollection<IVariable> Structures
-        {
-            get { return _readOnlystructures ?? new ReadOnlyCollection<IVariable>(_structures); }
-        }
+        public ReadOnlyCollection<IVariable> Structures => _readOnlystructures ?? new ReadOnlyCollection<IVariable>(_structures);
 
-        public ReadOnlyCollection<IVariable> Signals
-        {
-            get { return _readOnlysignals ?? new ReadOnlyCollection<IVariable>(_signals); }
-        }
+        public ReadOnlyCollection<IVariable> Signals => _readOnlysignals ?? new ReadOnlyCollection<IVariable>(_signals);
 
         public abstract string CommentChar { get; }
         public abstract List<string> SearchFilters { get; }
@@ -318,7 +264,7 @@ namespace miRobotEditor.Abstract
             set
             {
                 _ioModel = value;
-                RaisePropertyChanged("IOModel");
+                RaisePropertyChanged(nameof(IOModel));
             }
         }
 
@@ -331,7 +277,7 @@ namespace miRobotEditor.Abstract
                 {
                      
                     _bwProgress = value;
-                    RaisePropertyChanged("BWProgress");
+                    RaisePropertyChanged(nameof(BWProgress));
                 }
             }
         }
@@ -345,7 +291,7 @@ namespace miRobotEditor.Abstract
                 {
                     
                     _bwFilesMin = value;
-                    RaisePropertyChanged("BWFilesMin");
+                    RaisePropertyChanged(nameof(BWFilesMin));
                 }
             }
         }
@@ -359,7 +305,7 @@ namespace miRobotEditor.Abstract
                 {
                    
                     _bwFilesMax = value;
-                    RaisePropertyChanged("BWFilesMax");
+                    RaisePropertyChanged(nameof(BWFilesMax));
                 }
             }
         }
@@ -373,7 +319,7 @@ namespace miRobotEditor.Abstract
                 {
                    
                     _bwProgressVisibility = value;
-                    RaisePropertyChanged("BWProgressVisibility");
+                    RaisePropertyChanged(nameof(BWProgressVisibility));
                 }
             }
         }
@@ -394,7 +340,7 @@ namespace miRobotEditor.Abstract
             return new MenuItem();
             var resourceDictionary = new ResourceDictionary
             {
-                Source = new Uri("/miRobotEditor;component/Templates/MenuDictionary.xaml", UriKind.RelativeOrAbsolute)
+                Source = new Uri("/miRobotEditor;component/Assets/Templates/MenuDictionary.xaml", UriKind.RelativeOrAbsolute)
             };
             return (resourceDictionary[RobotType + "Menu"] as MenuItem) ?? new MenuItem();
         }
@@ -732,17 +678,15 @@ namespace miRobotEditor.Abstract
 
         private void GetVariables()
         {
+            var result = GetVariables(Files);
             
-            var task = GetVariablesAsync();
-            task.ContinueWith((r)=>
-            {
           
-                    _enums.AddRange(r.Result.Enums);
-                    _fields.AddRange(r.Result.Fields);
-                    _positions.AddRange(r.Result.Positions);
-                    _signals.AddRange(r.Result.Signals);
-                    _functions.AddRange(r.Result.Functions);
-                    _structures.AddRange(r.Result.Structures);
+                    _enums.AddRange(result.Enums);
+                    _fields.AddRange(result.Fields);
+                    _positions.AddRange(result.Positions);
+                    _signals.AddRange(result.Signals);
+                    _functions.AddRange(result.Functions);
+                    _structures.AddRange(result.Structures);
 
 
 
@@ -753,11 +697,16 @@ namespace miRobotEditor.Abstract
              
                
 
-            })
+            
             ;
 
         }
-
+        private VariableMembers GetVariableMembers(FileInfo fi)
+        {
+            var result = new VariableMembers();
+            result.FindVariables(fi.FullName, this);
+            return result;
+        }
         private Task<VariableMembers> GetVariableMembers(string filename)
         {
            var task =  Task.Factory.StartNew(() =>
@@ -774,34 +723,32 @@ namespace miRobotEditor.Abstract
         private  VariableMembers GetVariables(IEnumerable<FileInfo> files)
         {            
             var variableMembers = new VariableMembers();
-            var num = 0;
-            var validFiles = from file in files
-                             where IsFileValid(file)
-                             select file;
 
+            var validFiles = files
+                .Where(IsFileValid)
+                .Select(GetVariableMembers)
+                .ToList();
+            var num = 0;
+            
+
+            foreach(var file in validFiles)
+            {
+                variableMembers.Functions.AddRange(file.Structures.ToList());
+                variableMembers.Structures.AddRange(file.Structures.ToList());
+                variableMembers.Fields.AddRange(file.Fields.ToList());
+                variableMembers.Signals.AddRange(file.Signals.ToList());
+                variableMembers.Enums.AddRange(file.Enums.ToList());
+                variableMembers.Positions.AddRange(file.Positions.ToList());
+            }
           
 
-           var results = from file in validFiles
-                select GetVariableMembers(file.FullName).ContinueWith((var) =>
-                {
-                    variableMembers.Functions.AddRange(var.Result.Structures.ToList());
-                    variableMembers.Structures.AddRange(var.Result.Structures.ToList());
-                    variableMembers.Fields.AddRange(var.Result.Fields.ToList());
-                    variableMembers.Signals.AddRange(var.Result.Signals.ToList());
-                    variableMembers.Enums.AddRange(var.Result.Enums.ToList());
-                    variableMembers.Positions.AddRange(var.Result.Positions.ToList());
+       
 
-
-                });
-
-                Task.WaitAll(results.ToArray());
-
-
-                RaisePropertyChanged("Structures");
-                RaisePropertyChanged("Functions");
-                RaisePropertyChanged("Fields");
-                RaisePropertyChanged("Files");
-                RaisePropertyChanged("Positions");
+                RaisePropertyChanged(nameof(Structures));
+                RaisePropertyChanged(nameof(Functions));
+                RaisePropertyChanged(nameof(Fields));
+                RaisePropertyChanged(nameof(Files));
+                RaisePropertyChanged(nameof(Positions));
                 BWProgressVisibility = Visibility.Collapsed;
 
                 var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
@@ -813,15 +760,7 @@ namespace miRobotEditor.Abstract
 
   
         }
-        private Task<VariableMembers> GetVariablesAsync()
-        {
-
-            var task = Task<VariableMembers>.Factory.StartNew(()=>GetVariables(Files));
-
-
-            return task;
-        }
-
+       
         public  sealed class VariableMembers
         {
           

@@ -66,7 +66,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _button1Text = value;
-                RaisePropertyChanged("Button1Text");
+                RaisePropertyChanged(nameof(Button1Text));
             }
         }
 
@@ -76,7 +76,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _button2Text = value;
-                RaisePropertyChanged("Button2Text");
+                RaisePropertyChanged(nameof(Button2Text));
             }
         }
 
@@ -86,7 +86,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _button3Text = value;
-                RaisePropertyChanged("Button3Text");
+                RaisePropertyChanged(nameof(Button3Text));
             }
         }
 
@@ -96,7 +96,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _button4Text = value;
-                RaisePropertyChanged("Button4Text");
+                RaisePropertyChanged(nameof(Button4Text));
             }
         }
 
@@ -106,7 +106,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _button5Text = value;
-                RaisePropertyChanged("Button5Text");
+                RaisePropertyChanged(nameof(Button5Text));
             }
         }
 
@@ -116,7 +116,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _button6Text = value;
-                RaisePropertyChanged("Button6Text");
+                RaisePropertyChanged(nameof(Button6Text));
             }
         }
 
@@ -126,7 +126,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _button7Text = value;
-                RaisePropertyChanged("Button7Text");
+                RaisePropertyChanged(nameof(Button7Text));
             }
         }
 
@@ -136,7 +136,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _b1Visible = value;
-                RaisePropertyChanged("Button1Visible");
+                RaisePropertyChanged(nameof(Button1Visible));
             }
         }
 
@@ -146,7 +146,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _b2Visible = value;
-                RaisePropertyChanged("Button2Visible");
+                RaisePropertyChanged(nameof(Button2Visible));
             }
         }
 
@@ -156,7 +156,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _b3Visible = value;
-                RaisePropertyChanged("Button3Visible");
+                RaisePropertyChanged(nameof(Button3Visible));
             }
         }
 
@@ -166,7 +166,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _b4Visible = value;
-                RaisePropertyChanged("Button4Visible");
+                RaisePropertyChanged(nameof(Button4Visible));
             }
         }
 
@@ -176,7 +176,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _b5Visible = value;
-                RaisePropertyChanged("Button5Visible");
+                RaisePropertyChanged(nameof(Button5Visible));
             }
         }
 
@@ -186,7 +186,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _b6Visible = value;
-                RaisePropertyChanged("Button6Visible");
+                RaisePropertyChanged(nameof(Button6Visible));
             }
         }
 
@@ -196,7 +196,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _b7Visible = value;
-                RaisePropertyChanged("Button7Visible");
+                RaisePropertyChanged(nameof(Button7Visible));
             }
         }
 
@@ -206,7 +206,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _width = value;
-                RaisePropertyChanged("Width");
+                RaisePropertyChanged(nameof(Width));
             }
         }
 
@@ -216,7 +216,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _answer = value;
-                RaisePropertyChanged("Answer");
+                RaisePropertyChanged(nameof(Answer));
             }
         }
     }

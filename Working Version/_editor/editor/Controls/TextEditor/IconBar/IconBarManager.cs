@@ -18,10 +18,7 @@ namespace miRobotEditor.Classes
 
         public event EventHandler RedrawRequested;
 
-        public IList<IBookmark> Bookmarks
-        {
-            get { return _bookmarks; }
-        }
+        public IList<IBookmark> Bookmarks => _bookmarks;
 
         public void Redraw()
         {

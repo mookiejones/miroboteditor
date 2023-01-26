@@ -7,9 +7,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/miRobotEditor;component/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+           
             <ToolTip x:Key="tooltip" Background="#FFF8F8FF" BorderThickness="0" BorderBrush="#FF000000">
                 <GroupBox>
                     <GroupBox.Header>
@@ -27,8 +25,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="VisualVariable" IsReadOnly="True" ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}"
-                  Style="{DynamicResource DataGridStyle}" ToolTipOpening="ToolTip_Opening" ItemsSource="{Binding}"
+        <DataGrid x:Name="VisualVariable" IsReadOnly="True"                    
+                  ToolTipOpening="ToolTip_Opening" ItemsSource="{Binding}"
                   MouseDoubleClick="OnMouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>

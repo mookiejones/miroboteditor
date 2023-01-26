@@ -61,7 +61,7 @@ namespace miRobotEditor.Classes
             {
                 FileLanguage.RawText = TextBox.Text;
             }
-            RaisePropertyChanged("Title");
+            RaisePropertyChanged(nameof(Title));
         }
 
         internal void Save(Editor txtBox)
@@ -87,7 +87,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _filelanguage = value;
-                RaisePropertyChanged("FileLanguage");
+                RaisePropertyChanged(nameof(FileLanguage));
             }
         }
 
@@ -103,7 +103,7 @@ namespace miRobotEditor.Classes
             set
             {
                 _visibility = value;
-                RaisePropertyChanged("Visibility");
+                RaisePropertyChanged(nameof(Visibility));
             }
         }
 

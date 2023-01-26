@@ -44,15 +44,9 @@ namespace miRobotEditor.ViewModel
             SimpleIoc.Default.Register<MainViewModel>(true);
         }
 
-        public ObjectBrowserViewModel ObjectBrowser
-        {
-            get { return ServiceLocator.Current.GetInstance<ObjectBrowserViewModel>(); }
-        }
+        public ObjectBrowserViewModel ObjectBrowser => ServiceLocator.Current.GetInstance<ObjectBrowserViewModel>();
 
-        public StatusBarViewModel StatusBar
-        {
-            get { return ServiceLocator.Current.GetInstance<StatusBarViewModel>(); }
-        }
+        public StatusBarViewModel StatusBar => ServiceLocator.Current.GetInstance<StatusBarViewModel>();
 
         /// <summary>
         ///     Gets the Main property.
@@ -60,10 +54,7 @@ namespace miRobotEditor.ViewModel
         [SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main
-        {
-            get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
-        }
+        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
 
         /// <summary>
         ///     Cleans up all the resources.

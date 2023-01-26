@@ -23,7 +23,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _archivename = value;
-                RaisePropertyChanged("ArchiveName");
+                RaisePropertyChanged(nameof(ArchiveName));
             }
         }
 
@@ -33,7 +33,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _archiveconfigtype = value;
-                RaisePropertyChanged("ArchiveConfigType");
+                RaisePropertyChanged(nameof(ArchiveConfigType));
             }
         }
 
@@ -43,7 +43,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _archiveDiskNo = value;
-                RaisePropertyChanged("ArchiveDiskNo");
+                RaisePropertyChanged(nameof(ArchiveDiskNo));
             }
         }
 
@@ -53,7 +53,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _archiveID = value;
-                RaisePropertyChanged("ArchiveID");
+                RaisePropertyChanged(nameof(ArchiveID));
             }
         }
 
@@ -63,7 +63,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _archiveDate = value;
-                RaisePropertyChanged("ArchiveDate");
+                RaisePropertyChanged(nameof(ArchiveDate));
             }
         }
 
@@ -73,7 +73,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _archiveRobotName = value;
-                RaisePropertyChanged("RobotName");
+                RaisePropertyChanged(nameof(RobotName));
             }
         }
 
@@ -83,7 +83,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _archiveRobotSerial = value;
-                RaisePropertyChanged("RobotSerial");
+                RaisePropertyChanged(nameof(RobotSerial));
             }
         }
 
@@ -93,13 +93,10 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _archiveKssVersion = value;
-                RaisePropertyChanged("KSSVersion");
+                RaisePropertyChanged(nameof(KSSVersion));
             }
         }
 
-        public ReadOnlyObservableCollection<Technology> Technologies
-        {
-            get { return _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies); }
-        }
+        public ReadOnlyObservableCollection<Technology> Technologies => _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies);
     }
 }

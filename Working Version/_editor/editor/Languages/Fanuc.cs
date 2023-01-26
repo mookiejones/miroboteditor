@@ -29,37 +29,19 @@ namespace miRobotEditor.Languages
             FoldingStrategy = new RegionFoldingStrategy();
         }
 
-        public override List<string> SearchFilters
-        {
-            get { return EXT; }
-        }
+        public override List<string> SearchFilters => EXT;
 
-        public static List<string> EXT
-        {
-            get
-            {
-                return new List<string>
+        public static List<string> EXT => new List<string>
                 {
                     ".ls"
                 };
-            }
-        }
 
-        internal override Typlanguage RobotType
-        {
-            get { return Typlanguage.Fanuc; }
-        }
+        internal override Typlanguage RobotType => Typlanguage.Fanuc;
 
-        internal override IList<ICompletionData> CodeCompletion
-        {
-            get
-            {
-                return new List<ICompletionData>
+        internal override IList<ICompletionData> CodeCompletion => new List<ICompletionData>
                 {
                     new CodeCompletion("Item1")
                 };
-            }
-        }
 
         protected override string ShiftRegex
         {
@@ -71,32 +53,17 @@ namespace miRobotEditor.Languages
             get { throw new NotImplementedException(); }
         }
 
-        internal override string FunctionItems
-        {
-            get { return "(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)"; }
-        }
+        internal override string FunctionItems => "(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)";
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        public override Regex MethodRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex MethodRegex => new Regex(string.Empty);
 
-        public override Regex StructRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex StructRegex => new Regex(string.Empty);
 
-        public override Regex FieldRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex FieldRegex => new Regex(string.Empty);
 
-        public override Regex EnumRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex EnumRegex => new Regex(string.Empty);
 
         public override void Initialize(string filename)
         {
@@ -104,20 +71,11 @@ namespace miRobotEditor.Languages
         }
 
         [Localizable(false)]
-        public override string CommentChar
-        {
-            get { return "!"; }
-        }
+        public override string CommentChar => "!";
 
-        public override Regex SignalRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex SignalRegex => new Regex(string.Empty);
 
-        public override Regex XYZRegex
-        {
-            get { return new Regex(string.Empty); }
-        }
+        public override Regex XYZRegex => new Regex(string.Empty);
 
         protected override bool IsFileValid(FileInfo file)
         {

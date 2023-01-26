@@ -48,10 +48,7 @@ namespace miRobotEditor.Classes
             RegisterSyntaxHighlighting();
         }
 
-        private static string OptionsPath
-        {
-            get { return Path.Combine(Global.StartupPath, "Options.xml"); }
-        }
+        private static string OptionsPath => Path.Combine(Global.StartupPath, "Options.xml");
 
         public static EditorOptions Instance
         {
@@ -250,10 +247,7 @@ namespace miRobotEditor.Classes
             }
         }
 
-        public string TimestampSample
-        {
-            get { return DateTime.Now.ToString(_timestampFormat); }
-        }
+        public string TimestampSample => DateTime.Now.ToString(_timestampFormat);
 
         public new bool HighlightCurrentLine
         {
@@ -306,10 +300,7 @@ namespace miRobotEditor.Classes
             }
         }
 
-        public string Title
-        {
-            get { return "Text Editor Options"; }
-        }
+        public string Title => "Text Editor Options";
 
         ~EditorOptions()
         {

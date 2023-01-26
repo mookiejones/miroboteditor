@@ -25,7 +25,7 @@ namespace miRobotEditor.ViewModel
                 if (_isVisible != value)
                 {
                     _isVisible = value;
-                    RaisePropertyChanged("IsVisible");
+                    RaisePropertyChanged(nameof(IsVisible));
                 }
             }
         }

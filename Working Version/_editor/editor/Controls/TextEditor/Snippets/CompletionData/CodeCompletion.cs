@@ -30,10 +30,7 @@ namespace miRobotEditor.Classes
         public ImageSource Image { get; set; }
         public string Text { get; private set; }
 
-        public object Content
-        {
-            get { return Text; }
-        }
+        public object Content => Text;
 
         [Localizable(false)]
         public object Description
@@ -47,10 +44,7 @@ namespace miRobotEditor.Classes
             set { _description = (string) value; }
         }
 
-        public double Priority
-        {
-            get { return 0.0; }
-        }
+        public double Priority => 0.0;
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {

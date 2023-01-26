@@ -14,15 +14,9 @@ namespace miRobotEditor.Classes
         public int LineNumber { get; private set; }
         public IImage Image { get; private set; }
 
-        public int ZOrder
-        {
-            get { return -10; }
-        }
+        public int ZOrder => -10;
 
-        public bool CanDragDrop
-        {
-            get { return false; }
-        }
+        public bool CanDragDrop => false;
 
         public void MouseDown(MouseButtonEventArgs e)
         {
