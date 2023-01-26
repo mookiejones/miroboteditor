@@ -110,38 +110,14 @@ namespace miRobotEditor.ViewModel
                 }
                 return arg_15_0;
             }
-            set { _instance = value; }
+            set => _instance = value;
         }
 
-        public bool UseRegex
-        {
-            get { return _useregex; }
-            set
-            {
-                _useregex = value;
-                RaisePropertyChanged(nameof(UseRegex));
-            }
-        }
+        public bool UseRegex { get =>_useregex; set=>SetProperty(ref _useregex,value); }
 
-        public bool MatchCase
-        {
-            get { return _matchcase; }
-            set
-            {
-                _matchcase = value;
-                RaisePropertyChanged(nameof(MatchCase));
-            }
-        }
+        public bool MatchCase { get =>_matchcase; set=>SetProperty(ref _matchcase,value); }
 
-        public bool MatchWholeWord
-        {
-            get { return _matchwholeword; }
-            set
-            {
-                _matchwholeword = value;
-                RaisePropertyChanged(nameof(MatchWholeWord));
-            }
-        }
+        public bool MatchWholeWord { get =>_matchwholeword; set=>SetProperty(ref _matchwholeword,value); }
 
         public Regex RegexPattern
         {
@@ -155,40 +131,13 @@ namespace miRobotEditor.ViewModel
 
         public string RegexString => (!UseRegex) ? Regex.Escape(LookFor) : LookFor;
 
-        public string LookFor
-        {
-            get { return _lookfor; }
-            set
-            {
-                _lookfor = value;
-                RaisePropertyChanged(nameof(LookFor));
-            }
-        }
+        public string LookFor { get =>_lookfor; set=>SetProperty(ref _lookfor,value); }
 
-        public string ReplaceWith
-        {
-            get { return _replacewith; }
-            set
-            {
-                _replacewith = value;
-                RaisePropertyChanged(nameof(ReplaceWith));
-            }
-        }
+        public string ReplaceWith { get =>_replacewith; set=>SetProperty(ref _replacewith,value); }
 
-        public string SearchResult
-        {
-            get { return _searchresult; }
-            set
-            {
-                _searchresult = value;
-                RaisePropertyChanged(nameof(SearchResult));
-            }
-        }
+        public string SearchResult { get =>_searchresult; set=>SetProperty(ref _searchresult,value); }
 
-        private static void FindPrevious()
-        {
-            throw new NotImplementedException();
-        }
+        private static void FindPrevious() => throw new NotImplementedException();
 
         private static void FindNext()
         {
@@ -202,19 +151,10 @@ namespace miRobotEditor.ViewModel
             instance.ActiveEditor.TextBox.ReplaceText();
         }
 
-        private static void ReplaceAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void ReplaceAll() => throw new NotImplementedException();
 
-        private static void HighlightAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void HighlightAll() => throw new NotImplementedException();
 
-        private static void FindAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void FindAll() => throw new NotImplementedException();
     }
 }

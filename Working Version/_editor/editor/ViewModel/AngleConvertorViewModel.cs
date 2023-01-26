@@ -1,8 +1,4 @@
 using System;
-using System.Windows;
-using System.Windows.Controls.Primitives;
-using GalaSoft.MvvmLight;
-using miRobotEditor.Classes;
 using miRobotEditor.Controls.AngleConverter;
 using miRobotEditor.Controls.AngleConverter.Classes;
 using miRobotEditor.Enums;
@@ -35,43 +31,19 @@ namespace miRobotEditor.ViewModel
 
         public static CartesianEnum CartesianType { get; set; }
 
-        public ValueBoxViewModel InputItems
-        {
-            get { return _inputItems; }
-            set
-            {
-                _inputItems = value;
-                RaisePropertyChanged(nameof(InputItems));
-            }
-        }
+        public ValueBoxViewModel InputItems { get =>_inputItems; set=>SetProperty(ref _inputItems,value); }
 
-        public ValueBoxViewModel OutputItems
-        {
-            get { return _outputItems; }
-            set
-            {
-                _outputItems = value;
-                RaisePropertyChanged(nameof(OutputItems));
-            }
-        }
+        public ValueBoxViewModel OutputItems { get =>_outputItems; set=>SetProperty(ref _outputItems,value); }
 
         private double EPSILON
         {
-            get { return 4.94065645841247E-324; }
-            set { throw new NotImplementedException(); }
+            get => 4.94065645841247E-324;
+            set => throw new NotImplementedException();
         }
 
         public string Error => null;
 
-        public string Matrix
-        {
-            get { return _matrix; }
-            set
-            {
-                _matrix = value;
-                RaisePropertyChanged(nameof(Matrix));
-            }
-        }
+        public string Matrix { get =>_matrix; set=>SetProperty(ref _matrix,value); }
 
         public void Convert()
         {
@@ -165,129 +137,6 @@ namespace miRobotEditor.ViewModel
                     OutputItems.V4 = result.Z;
                     break;
             }
-        }
-    }
-
-    public class ValueBoxViewModel : ViewModelBase
-    {
-        private readonly CartesianItems _selectionitems = new CartesianItems();
-        private Visibility _boxVisibility = Visibility.Visible;
-        private string _header = string.Empty;
-        private bool _isReadOnly;
-        private CartesianEnum _selectedItem = CartesianEnum.ABB_Quaternion;
-        private double _v1;
-        private double _v2;
-        private double _v3;
-        private double _v4;
-
-        public double V1
-        {
-            get { return _v1; }
-            set
-            {
-                _v1 = value;
-                RaisePropertyChanged(nameof(V1));
-                RaiseItemsChanged();
-            }
-        }
-
-        public double V2
-        {
-            get { return _v2; }
-            set
-            {
-                _v2 = value;
-                RaisePropertyChanged(nameof(V2));
-                RaiseItemsChanged();
-            }
-        }
-
-        public double V3
-        {
-            get { return _v3; }
-            set
-            {
-                _v3 = value;
-                RaisePropertyChanged(nameof(V3));
-                RaiseItemsChanged();
-            }
-        }
-
-        public double V4
-        {
-            get { return _v4; }
-            set
-            {
-                _v4 = value;
-                RaisePropertyChanged(nameof(V4));
-                RaiseItemsChanged();
-            }
-        }
-
-        public bool IsReadOnly
-        {
-            get { return _isReadOnly; }
-            set
-            {
-                _isReadOnly = value;
-                RaisePropertyChanged(nameof(IsReadOnly));
-            }
-        }
-
-        public string Header
-        {
-            get { return _header; }
-            set
-            {
-                _header = value;
-                RaisePropertyChanged(nameof(Header));
-            }
-        }
-
-        public Visibility BoxVisibility
-        {
-            get { return _boxVisibility; }
-            set
-            {
-                _boxVisibility = value;
-                RaisePropertyChanged(nameof(BoxVisibility));
-            }
-        }
-
-        public CartesianItems SelectionItems => _selectionitems;
-
-        public CartesianEnum SelectedItem
-        {
-            get { return _selectedItem; }
-            set
-            {
-                _selectedItem = value;
-                CheckVisibility();
-                RaisePropertyChanged(nameof(SelectedItem));
-                RaiseItemsChanged();
-            }
-        }
-
-        public event ItemsChangedEventHandler ItemsChanged;
-
-        private void RaiseItemsChanged()
-        {
-            if (ItemsChanged != null)
-            {
-                ItemsChanged(this, (ItemsChangedEventArgs) new EventArgs());
-            }
-        }
-
-        private void CheckVisibility()
-        {
-            switch (_selectedItem)
-            {
-                case CartesianEnum.ABB_Quaternion:
-                case CartesianEnum.Axis_Angle:
-                    BoxVisibility = Visibility.Visible;
-                    return;
-            }
-            BoxVisibility = Visibility.Collapsed;
         }
     }
 }

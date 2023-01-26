@@ -20,18 +20,9 @@ namespace miRobotEditor.Classes
 
         public IList<IBookmark> Bookmarks => _bookmarks;
 
-        public void Redraw()
-        {
-            if (RedrawRequested != null)
-            {
-                RedrawRequested(this, EventArgs.Empty);
-            }
-        }
+        public void Redraw() => RedrawRequested?.Invoke(this, EventArgs.Empty);
 
-        private void BookmarksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            Redraw();
-        }
+        private void BookmarksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => Redraw();
 
         public void AddBookMark(UIElement item)
         {

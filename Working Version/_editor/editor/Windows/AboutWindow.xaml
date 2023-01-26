@@ -10,9 +10,7 @@
         </LinearGradientBrush>
     </Window.Background>
     <StackPanel Orientation="Vertical">
-        <StackPanel.DataContext>
-            <viewModel:AboutViewModel />
-        </StackPanel.DataContext>
+       
         <Label Height="225">
             <Image Source="/Resources\Editor.png" Height="48" Width="48" />
         </Label>

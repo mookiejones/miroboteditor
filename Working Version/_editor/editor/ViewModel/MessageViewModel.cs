@@ -15,133 +15,35 @@ using miRobotEditor.Utilities;
 namespace miRobotEditor.ViewModel
 {
     public delegate void MessageAddedHandler(object sender, EventArgs e);
-
     public sealed class MessageViewModel : ToolViewModel
     {
         private const string ToolContentId = "MessageViewTool";
-
-        #region Constructor
-
-        public MessageViewModel()
-            : base("Messages")
-        {
-            ContentId = ToolContentId;
-            DefaultPane = DefaultToolPane.Bottom;
-
-
-            Messenger.Default.Register<IMessage>(this, AddMessage);
-        }
-
-        private void AddMessage(IMessage obj)
-        {
-            _messages.Add(obj);
-        }
-
-        #endregion
-
-        private RelayCommand _clearMessagesCommand;
-        private RelayCommand<object> _mouseOverCommand;
-
-        public ICommand ClearMessagesCommand => _clearMessagesCommand ?? (_clearMessagesCommand = new RelayCommand(ClearItems));
-
-        public RelayCommand<object> MouseOverCommand => _mouseOverCommand ?? (_mouseOverCommand = new RelayCommand<object>(HandleMouseOver));
-
         public event MessageAddedHandler MessageAdded;
 
-        private void RaiseMessageAdded()
+        #region Properties
+        private static MessageViewModel _instance;
+        public static MessageViewModel Instance
         {
-            if (MessageAdded != null)
-            {
-                MessageAdded(this, new EventArgs());
-            }
+            get => _instance ?? new MessageViewModel();
+            private set => _instance = value;
         }
 
-        public void Add(IMessage msg)
-        {
-            Add(msg.Title, msg.Description, msg.Icon, true);
-            if (MessageAdded != null)
-                MessageAdded(this, new EventArgs());
-        }
-
-        public void Add(string title, string message, MsgIcon icon, bool forceactivate = true)
-        {
-            BitmapImage icon2 = null;
-            switch (icon)
-            {
-                case MsgIcon.Error:
-                    icon2 = ImageHelper.LoadBitmap("..\\..\\Resources\\error.png");
-                    break;
-                case MsgIcon.Info:
-                    icon2 = ImageHelper.LoadBitmap("..\\..\\Resources\\info.png");
-                    break;
-            }
-            _messages.Add(new OutputWindowMessage
-            {
-                Title = title,
-                Description = message,
-                Icon = icon2
-            });
-            if (forceactivate)
-            {
-                RaiseMessageAdded();
-            }
-        }
-
-        private void HandleMouseOver(object param)
-        {
-            SelectedMessage = (OutputWindowMessage) ((ListViewItem) param).Content;
-        }
-
-        public static void ShowMessage(string message)
-        {
-            MessageBox.Show(message);
-        }
-
-        private void ClearItems()
-        {
-            _messages.Clear();
-            RaisePropertyChanged(nameof(Messages));
-        }
-
-        public void AddError(string message, Exception ex)
-        {
-            var stackTrace = new StackTrace();
-            var item = new OutputWindowMessage
-            {
-                Title = "Internal Error",
-                Icon = ImageHelper.LoadBitmap("..\\..\\Resources\\error.png"),
-                Description = string.Format("Internal error\r\n {0} \r\n in {1}", ex.Message, stackTrace.GetFrame(2))
-            };
-            _messages.Add(item);
-        }
-
-        public void Add(string title, string message, BitmapImage icon, bool forceActivate = true)
-        {
-            _messages.Add(new OutputWindowMessage
-            {
-                Title = title,
-                Description = message,
-                Icon = icon
-            });
-            if (forceActivate)
-            {
-                RaiseMessageAdded();
-            }
-        }
 
         #region SelectedMessage
+        /// <summary>
+        /// The <see cref="SelectedMessage" /> property's name.
+        /// </summary>
+        public const string SelectedMessagePropertyName = "SelectedMessage";
 
-       
-
-        private IMessage _selectedMessage;
+        private OutputWindowMessage _selectedMessage = null;
 
         /// <summary>
-        ///     Sets and gets the SelectedMessage property.
-        ///     Changes to that property's value raise the PropertyChanged event.
+        /// Sets and gets the SelectedMessage property.
+        /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public IMessage SelectedMessage
+        public OutputWindowMessage SelectedMessage
         {
-            get { return _selectedMessage; }
+            get => _selectedMessage;
 
             set
             {
@@ -150,21 +52,129 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                 
+                RaisePropertyChanging(SelectedMessagePropertyName);
                 _selectedMessage = value;
-                RaisePropertyChanged(nameof(SelectedMessage));
+                OnPropertyChanged(SelectedMessagePropertyName);
             }
         }
+        #endregion
+
+
+        public ObservableCollection<IMessage> Messages { get; set; }
 
         #endregion
 
-        #region Messages
+        void RaiseMessageAdded() => MessageAdded?.Invoke(this, new EventArgs());
 
-        private readonly ObservableCollection<IMessage> _messages = new ObservableCollection<IMessage>();
-        private ReadOnlyObservableCollection<IMessage> _readOnlyMessages;
+        #region Constructor
+        public MessageViewModel() : base("Output Window")
+        {
+            ContentId = ToolContentId;
+            DefaultPane = DefaultToolPane.Bottom;
+            Messages = new ObservableCollection<IMessage>();
+            Instance = this;
 
-        public ReadOnlyObservableCollection<IMessage> Messages => _readOnlyMessages ?? (_readOnlyMessages = new ReadOnlyObservableCollection<IMessage>(_messages));
+
+            Messenger.Default.Register<Exception>(this, GetException);
+        }
+
+        private void GetException(Exception obj) => throw new NotImplementedException();
 
         #endregion
+
+        public static void Add(IMessage msg) => Add(msg.Title, msg.Description, msg.Icon);
+
+        public void Add(string title, string message, MsgIcon icon, bool forceactivate = true)
+        {
+            BitmapImage img = null;
+
+            switch (icon)
+            {
+                case MsgIcon.Error:
+                    img = ImageHelper.LoadBitmap(Global.ImgError);
+                    break;
+                case MsgIcon.Info:
+                    img = ImageHelper.LoadBitmap(Global.ImgInfo);
+                    break;
+            }
+
+
+            Messages.Add(new OutputWindowMessage { Title = title, Description = message, Icon = img });
+
+            if (forceactivate)
+                RaiseMessageAdded();
+        }
+
+
+        void HandleMouseOver(object param) => SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
+
+        /// <summary>
+        /// Create MessageBox window and displays
+        /// </summary>
+        /// <param name="message"></param>
+        public static void ShowMessage(string message) => System.Windows.MessageBox.Show(message);
+
+        void ClearItems()
+        {
+            Messages.Clear();//=new ObservableCollection<OutputWindowMessage>();
+
+            OnPropertyChanged("Messages");
+        }
+
+        public static void AddError(string message, Exception ex)
+        {
+            var trace = new System.Diagnostics.StackTrace();
+            var msg = new OutputWindowMessage
+            {
+                Title = "Internal Error",
+                Icon = ImageHelper.LoadBitmap(Global.ImgError),
+                Description = string.Format("Internal error\r\n {0} \r\n in {1}", ex.Message, trace.GetFrame(2))
+            };
+            //            msg.Icon = (BitmapImage)Application.Current.Resources.MergedDictionaries[0]["error"];
+
+            Instance.Messages.Add(msg);
+
+        }
+
+        public static void Add(string title, string message, BitmapImage icon, bool forceactivate = true)
+        {
+
+            Instance.Messages.Add(new OutputWindowMessage { Title = title, Description = message, Icon = icon });
+
+            if (forceactivate)
+                Instance.RaiseMessageAdded();
+        }
+
+        #region Commands
+
+
+        #region ClearMessagesCommand
+        private RelayCommand _clearMessagesCommand;
+
+        /// <summary>
+        /// Gets the ClearMessagesCommand.
+        /// </summary>
+        public RelayCommand ClearMessagesCommand => _clearMessagesCommand
+                    ?? (_clearMessagesCommand = new RelayCommand(ClearItems));
+
+        #endregion
+
+
+
+
+
+        #region MouseOverCommand
+        private RelayCommand<object> _mouseOverCommand;
+
+        /// <summary>
+        /// Gets the MouseOverCommand.
+        /// </summary>
+        public RelayCommand<object> MouseOverCommand => _mouseOverCommand
+                    ?? (_mouseOverCommand = new RelayCommand<object>(HandleMouseOver));
+
+
+        #endregion
+        #endregion
+
     }
 }

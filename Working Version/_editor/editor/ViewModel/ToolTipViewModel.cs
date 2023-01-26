@@ -10,28 +10,12 @@ namespace miRobotEditor.ViewModel
 
         public static ToolTipViewModel Instance
         {
-            get { return _instance ?? new ToolTipViewModel(); }
-            set { _instance = value; }
+            get => _instance ?? new ToolTipViewModel();
+            set => _instance = value;
         }
 
-        public string Message
-        {
-            get { return _message; }
-            set
-            {
-                _message = value;
-                RaisePropertyChanged(nameof(Message));
-            }
-        }
+        public string Message { get =>_message; set=>SetProperty(ref _message,value); }
 
-        public string Title
-        {
-            get { return _title; }
-            set
-            {
-                _title = value;
-                RaisePropertyChanged(nameof(Title));
-            }
-        }
+        public string Title { get =>_title; set=>SetProperty(ref _title,value); }
     }
 }

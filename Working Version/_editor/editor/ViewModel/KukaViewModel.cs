@@ -30,7 +30,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int GridRow
         {
-            get { return _gridrow; }
+            get => _gridrow;
 
             set
             {
@@ -39,11 +39,11 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                 
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _gridrow = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(GridRowPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(GridRowPropertyName);
             }
         }
 
@@ -60,10 +60,7 @@ namespace miRobotEditor.ViewModel
                        ?? (_toggleGridCommand = new RelayCommand(ToggleGrid, CanToggleGrid));
 
 
-        public bool CanToggleGrid()
-        {
-            return Grid != null;
-        }
+        public bool CanToggleGrid() => Grid != null;
 
         #endregion
 
@@ -82,7 +79,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public ExtendedGridSplitter Grid
         {
-            get { return _grid; }
+            get => _grid;
 
             set
             {
@@ -91,11 +88,11 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                 
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _grid = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(GridPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(GridPropertyName);
             }
         }
 
@@ -116,7 +113,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public Editor Source
         {
-            get { return _source; }
+            get => _source;
 
             set
             {
@@ -125,11 +122,11 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                 
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _source = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(SourcePropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(SourcePropertyName);
             }
         }
 
@@ -150,7 +147,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public Editor Data
         {
-            get { return _data; }
+            get => _data;
 
             set
             {
@@ -159,11 +156,11 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _data = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(DataPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(DataPropertyName);
             }
         }
 
@@ -184,7 +181,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int DataRow
         {
-            get { return _dataRow; }
+            get => _dataRow;
 
             set
             {
@@ -193,11 +190,11 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                 
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _dataRow = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(DataRowPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(DataRowPropertyName);
             }
         }
 
@@ -309,7 +306,7 @@ namespace miRobotEditor.ViewModel
             TextBox = ((Source.Filename == filepath) ? Source : Data);
             Grid.IsAnimated = true;
 // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(nameof(Title));
+            OnPropertyChanged(nameof(Title));
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)

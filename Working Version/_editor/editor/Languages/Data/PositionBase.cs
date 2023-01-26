@@ -76,10 +76,7 @@ namespace miRobotEditor.Classes
             return result;
         }
 
-        public override string ToString()
-        {
-            return RawValue;
-        }
+        public override string ToString() => RawValue;
 
         private string ConvertFromHex(string value)
         {

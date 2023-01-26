@@ -19,7 +19,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool Structures
         {
-            get { return _structures; }
+            get => _structures;
 
             set
             {
@@ -28,9 +28,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-              
+
                 _structures = value;
-                RaisePropertyChanged(StructuresPropertyName);
+                OnPropertyChanged(StructuresPropertyName);
             }
         }
 
@@ -51,7 +51,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool Programs
         {
-            get { return _programs; }
+            get => _programs;
 
             set
             {
@@ -60,9 +60,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _programs = value;
-                RaisePropertyChanged(ProgramsPropertyName);
+                OnPropertyChanged(ProgramsPropertyName);
             }
         }
 
@@ -83,7 +83,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool Functions
         {
-            get { return _functions; }
+            get => _functions;
 
             set
             {
@@ -92,9 +92,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _functions = value;
-                RaisePropertyChanged(FunctionsPropertyName);
+                OnPropertyChanged(FunctionsPropertyName);
             }
         }
 
@@ -115,7 +115,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool Variables
         {
-            get { return _variables; }
+            get => _variables;
 
             set
             {
@@ -124,9 +124,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _variables = value;
-                RaisePropertyChanged(VariablesPropertyName);
+                OnPropertyChanged(VariablesPropertyName);
             }
         }
 

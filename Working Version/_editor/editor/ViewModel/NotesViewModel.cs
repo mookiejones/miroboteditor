@@ -16,7 +16,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string Text
         {
-            get { return _text; }
+            get => _text;
 
             set
             {
@@ -25,9 +25,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                 
+
                 _text = value;
-                RaisePropertyChanged(nameof(Text));
+                OnPropertyChanged(nameof(Text));
             }
         }
 

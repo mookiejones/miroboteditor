@@ -21,35 +21,19 @@ namespace miRobotEditor.ViewModel
 
         public IVariable SelectedVariable
         {
-            get { return _selectedVariable; }
+            get => _selectedVariable;
             set
             {
                 _selectedVariable = value;
                 var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
                 instance.OpenFile(value);
-                RaisePropertyChanged(nameof(SelectedVariable));
+                OnPropertyChanged(nameof(SelectedVariable));
             }
         }
 
-        public int Progress
-        {
-            get { return _progress; }
-            set
-            {
-                _progress = value;
-                RaisePropertyChanged(nameof(Progress));
-            }
-        }
+        public int Progress { get =>_progress; set=>SetProperty(ref _progress,value); }
 
-        public int ProgressMax
-        {
-            get { return _progressMax; }
-            set
-            {
-                _progressMax = value;
-                RaisePropertyChanged(nameof(ProgressMax));
-            }
-        }
+        public int ProgressMax { get =>_progressMax; set=>SetProperty(ref _progressMax,value); }
 
         #endregion
 

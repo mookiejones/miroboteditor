@@ -33,10 +33,7 @@ namespace miRobotEditor.Classes
 
         public abstract void Load(string filepath);
 
-        public void SelectText(IVariable variable)
-        {
-            throw new NotImplementedException();
-        }
+        public void SelectText(IVariable variable) => throw new NotImplementedException();
 
         private void InitializeControl()
         {
@@ -61,7 +58,7 @@ namespace miRobotEditor.Classes
             {
                 FileLanguage.RawText = TextBox.Text;
             }
-            RaisePropertyChanged(nameof(Title));
+            OnPropertyChanged(nameof(Title));
         }
 
         internal void Save(Editor txtBox)
@@ -81,15 +78,7 @@ namespace miRobotEditor.Classes
 
         private AbstractLanguageClass _filelanguage = new LanguageBase();
 
-        public AbstractLanguageClass FileLanguage
-        {
-            get { return _filelanguage; }
-            set
-            {
-                _filelanguage = value;
-                RaisePropertyChanged(nameof(FileLanguage));
-            }
-        }
+        public AbstractLanguageClass FileLanguage { get =>_filelanguage; set=>SetProperty(ref _filelanguage,value); }
 
         #endregion
 
@@ -97,15 +86,7 @@ namespace miRobotEditor.Classes
 
         private Visibility _visibility = Visibility.Visible;
 
-        public Visibility Visibility
-        {
-            get { return _visibility; }
-            set
-            {
-                _visibility = value;
-                RaisePropertyChanged(nameof(Visibility));
-            }
-        }
+        public Visibility Visibility { get =>_visibility; set=>SetProperty(ref _visibility,value); }
 
         #endregion        public AbstractLanguageClass FileLanguage { get; set; }
 
@@ -124,7 +105,7 @@ namespace miRobotEditor.Classes
         /// </summary>
         public Editor TextBox
         {
-            get { return _textBox; }
+            get => _textBox;
 
             set
             {
@@ -133,9 +114,9 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                
+
                 _textBox = value;
-                RaisePropertyChanged(TextBoxPropertyName);
+                OnPropertyChanged(TextBoxPropertyName);
             }
         }
 

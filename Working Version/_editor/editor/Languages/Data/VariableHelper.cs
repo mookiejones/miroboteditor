@@ -41,95 +41,23 @@ namespace miRobotEditor.Classes
             private string _value = string.Empty;
             public bool IsSelected { get; set; }
 
-            public string Description
-            {
-                get { return _description; }
-                set
-                {
-                    _description = value;
-                    RaisePropertyChanged(nameof(Description));
-                }
-            }
+            public string Description { get =>_description; set=>SetProperty(ref _description,value); }
 
-            public BitmapImage Icon
-            {
-                get { return _icon; }
-                set
-                {
-                    _icon = value;
-                    RaisePropertyChanged(nameof(Icon));
-                }
-            }
+            public BitmapImage Icon { get =>_icon; set=>SetProperty(ref _icon,value); }
 
-            public string Name
-            {
-                get { return _name; }
-                set
-                {
-                    _name = value;
-                    RaisePropertyChanged(nameof(Name));
-                }
-            }
+            public string Name { get =>_name; set=>SetProperty(ref _name,value); }
 
-            public string Type
-            {
-                get { return _type; }
-                set
-                {
-                    _type = value;
-                    RaisePropertyChanged(nameof(Type));
-                }
-            }
+            public string Type { get =>_type; set=>SetProperty(ref _type,value); }
 
-            public string Path
-            {
-                get { return _path; }
-                set
-                {
-                    _path = value;
-                    RaisePropertyChanged(nameof(Path));
-                }
-            }
+            public string Path { get =>_path; set=>SetProperty(ref _path,value); }
 
-            public string Value
-            {
-                get { return _value; }
-                set
-                {
-                    _value = value;
-                    RaisePropertyChanged(nameof(Value));
-                }
-            }
+            public string Value { get =>_value; set=>SetProperty(ref _value,value); }
 
-            public int Offset
-            {
-                get { return _offset; }
-                set
-                {
-                    _offset = value;
-                    RaisePropertyChanged(nameof(Offset));
-                }
-            }
+            public int Offset { get =>_offset; set=>SetProperty(ref _offset,value); }
 
-            public string Comment
-            {
-                get { return _comment; }
-                set
-                {
-                    _comment = value;
-                    RaisePropertyChanged(nameof(Comment));
-                }
-            }
+            public string Comment { get =>_comment; set=>SetProperty(ref _comment,value); }
 
-            public string Declaration
-            {
-                get { return _declaration; }
-                set
-                {
-                    _declaration = value;
-                    RaisePropertyChanged(nameof(Declaration));
-                }
-            }
+            public string Declaration { get =>_declaration; set=>SetProperty(ref _declaration,value); }
         }
     }
 }

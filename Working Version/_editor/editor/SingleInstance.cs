@@ -155,10 +155,7 @@ namespace miRobotEditor.Classes
                 }
             }
 
-            public override object InitializeLifetimeService()
-            {
-                return null;
-            }
+            public override object InitializeLifetimeService() => null;
         }
     }
 }

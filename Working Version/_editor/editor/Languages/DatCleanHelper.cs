@@ -59,15 +59,7 @@ namespace miRobotEditor.Languages
             }
         }
 
-        public int Progress
-        {
-            get { return _progress; }
-            set
-            {
-                _progress = value;
-                RaisePropertyChanged(nameof(Progress));
-            }
-        }
+        public int Progress { get =>_progress; set=>SetProperty(ref _progress,value); }
 
         public static DatCleanHelper Instance
         {
@@ -80,58 +72,18 @@ namespace miRobotEditor.Languages
                 }
                 return arg_15_0;
             }
-            set { _instance = value; }
+            set => _instance = value;
         }
 
-        public bool IgnoreTypes
-        {
-            get { return _ignoretypes; }
-            set
-            {
-                _ignoretypes = value;
-                RaisePropertyChanged(nameof(IgnoreTypes));
-            }
-        }
+        public bool IgnoreTypes { get =>_ignoretypes; set=>SetProperty(ref _ignoretypes,value); }
 
-        public bool ExclusiveTypes
-        {
-            get { return _exclusivetypes; }
-            set
-            {
-                _exclusivetypes = value;
-                RaisePropertyChanged(nameof(ExclusiveTypes));
-            }
-        }
+        public bool ExclusiveTypes { get =>_exclusivetypes; set=>SetProperty(ref _exclusivetypes,value); }
 
-        public bool DeleteDeclaration
-        {
-            get { return _deletedeclaration; }
-            set
-            {
-                _deletedeclaration = value;
-                RaisePropertyChanged(nameof(DeleteDeclaration));
-            }
-        }
+        public bool DeleteDeclaration { get =>_deletedeclaration; set=>SetProperty(ref _deletedeclaration,value); }
 
-        public bool CommentDeclaration
-        {
-            get { return _commentdeclaration; }
-            set
-            {
-                _commentdeclaration = value;
-                RaisePropertyChanged(nameof(CommentDeclaration));
-            }
-        }
+        public bool CommentDeclaration { get =>_commentdeclaration; set=>SetProperty(ref _commentdeclaration,value); }
 
-        public int SelectedVarIndex
-        {
-            get { return _selectedVarIndex; }
-            set
-            {
-                _selectedVarIndex = value;
-                RaisePropertyChanged(nameof(SelectedVarIndex));
-            }
-        }
+        public int SelectedVarIndex { get =>_selectedVarIndex; set=>SetProperty(ref _selectedVarIndex,value); }
 
         public ObservableCollection<string> UsedVarTypes => _usedvartypes;
 
@@ -171,10 +123,7 @@ namespace miRobotEditor.Languages
         public RelayCommand DeleteVarTypeCmd => _deleteVarTypeCmd
                        ?? (_deleteVarTypeCmd = new RelayCommand(ExecuteDeleteVarTypeCmd));
 
-        private void ExecuteDeleteVarTypeCmd()
-        {
-            Instance.DeleteVarType();
-        }
+        private void ExecuteDeleteVarTypeCmd() => Instance.DeleteVarType();
 
         #endregion
 
@@ -188,10 +137,7 @@ namespace miRobotEditor.Languages
         public RelayCommand AddVarTypeCmd => _addVarTypeCmd
                        ?? (_addVarTypeCmd = new RelayCommand(ExecuteAddVarTypeCmd));
 
-        private void ExecuteAddVarTypeCmd()
-        {
-            Instance.AddVarType();
-        }
+        private void ExecuteAddVarTypeCmd() => Instance.AddVarType();
 
         #endregion
 
@@ -205,10 +151,7 @@ namespace miRobotEditor.Languages
         public RelayCommand SelectAllCommand => _selectAllCommand
                        ?? (_selectAllCommand = new RelayCommand(ExecuteSelectAllCommand));
 
-        private void ExecuteSelectAllCommand()
-        {
-            Instance.SelectAll();
-        }
+        private void ExecuteSelectAllCommand() => Instance.SelectAll();
 
         #endregion
 
@@ -225,25 +168,13 @@ namespace miRobotEditor.Languages
 
         #endregion
 
-        public void CleanDat()
-        {
-            throw new NotImplementedException();
-        }
+        public void CleanDat() => throw new NotImplementedException();
 
-        public void Checked()
-        {
-            throw new NotImplementedException();
-        }
+        public void Checked() => throw new NotImplementedException();
 
-        public void DeleteVarType()
-        {
-            throw new NotImplementedException();
-        }
+        public void DeleteVarType() => throw new NotImplementedException();
 
-        public void AddVarType()
-        {
-            throw new NotImplementedException();
-        }
+        public void AddVarType() => throw new NotImplementedException();
 
         private void SelectAll()
         {
@@ -251,7 +182,7 @@ namespace miRobotEditor.Languages
             {
                 current.IsSelected = true;
             }
-            RaisePropertyChanged(nameof(IgnoreTypes));
+            OnPropertyChanged(nameof(IgnoreTypes));
         }
 
         private void InvertSelection()
@@ -260,7 +191,7 @@ namespace miRobotEditor.Languages
             {
                 current.IsSelected = !current.IsSelected;
             }
-            RaisePropertyChanged(nameof(IgnoreTypes));
+            OnPropertyChanged(nameof(IgnoreTypes));
         }
 
         public void Clean()

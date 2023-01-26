@@ -19,7 +19,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public FileOptionsViewModel FileOptions
         {
-            get { return _fileOptions; }
+            get => _fileOptions;
 
             set
             {
@@ -28,9 +28,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _fileOptions = value;
-                RaisePropertyChanged(FileOptionsPropertyName);
+                OnPropertyChanged(FileOptionsPropertyName);
             }
         }
 

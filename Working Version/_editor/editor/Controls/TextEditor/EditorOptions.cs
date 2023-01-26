@@ -52,13 +52,13 @@ namespace miRobotEditor.Classes
 
         public static EditorOptions Instance
         {
-            get { return _instance ?? (_instance = ReadXml()); }
-            set { _instance = value; }
+            get => _instance ?? (_instance = ReadXml());
+            set => _instance = value;
         }
 
         public override bool ShowSpaces
         {
-            get { return base.ShowSpaces; }
+            get => base.ShowSpaces;
             set
             {
                 base.ShowSpaces = value;
@@ -68,7 +68,7 @@ namespace miRobotEditor.Classes
 
         public Color SelectedTextBackground
         {
-            get { return _selectedTextBackground; }
+            get => _selectedTextBackground;
             set
             {
                 _selectedTextBackground = value;
@@ -78,7 +78,7 @@ namespace miRobotEditor.Classes
 
         public Color BackgroundColor
         {
-            get { return _backgroundColor; }
+            get => _backgroundColor;
             set
             {
                 _backgroundColor = value;
@@ -88,7 +88,7 @@ namespace miRobotEditor.Classes
 
         public Color FontColor
         {
-            get { return _fontColor; }
+            get => _fontColor;
             set
             {
                 _fontColor = value;
@@ -98,7 +98,7 @@ namespace miRobotEditor.Classes
 
         public Color SelectedFontColor
         {
-            get { return _selectedFontColor; }
+            get => _selectedFontColor;
             set
             {
                 _selectedFontColor = value;
@@ -108,7 +108,7 @@ namespace miRobotEditor.Classes
 
         public Color SelectedBorderColor
         {
-            get { return _selectedBorderColor; }
+            get => _selectedBorderColor;
             set
             {
                 _selectedBorderColor = value;
@@ -118,7 +118,7 @@ namespace miRobotEditor.Classes
 
         public bool AllowScrollingBelowDocument
         {
-            get { return _allowScrollingBelowDocument; }
+            get => _allowScrollingBelowDocument;
             set
             {
                 _allowScrollingBelowDocument = value;
@@ -128,7 +128,7 @@ namespace miRobotEditor.Classes
 
         public Color LineNumbersFontColor
         {
-            get { return _lineNumbersFontColor; }
+            get => _lineNumbersFontColor;
             set
             {
                 _lineNumbersFontColor = value;
@@ -138,7 +138,7 @@ namespace miRobotEditor.Classes
 
         public Color BorderColor
         {
-            get { return _borderColor; }
+            get => _borderColor;
             set
             {
                 _borderColor = value;
@@ -148,7 +148,7 @@ namespace miRobotEditor.Classes
 
         public Color LineNumbersForeground
         {
-            get { return _lineNumbersForeground; }
+            get => _lineNumbersForeground;
             set
             {
                 _lineNumbersForeground = value;
@@ -158,7 +158,7 @@ namespace miRobotEditor.Classes
 
         public Color SelectedTextBorderColor
         {
-            get { return _selectedTextBorderColor; }
+            get => _selectedTextBorderColor;
             set
             {
                 _selectedTextBorderColor = value;
@@ -168,7 +168,7 @@ namespace miRobotEditor.Classes
 
         public double SelectedBorderThickness
         {
-            get { return _selectedBorderThickness; }
+            get => _selectedBorderThickness;
             set
             {
                 _selectedBorderThickness = value;
@@ -178,7 +178,7 @@ namespace miRobotEditor.Classes
 
         public double BorderThickness
         {
-            get { return _borderThickness; }
+            get => _borderThickness;
             set
             {
                 _borderThickness = value;
@@ -188,7 +188,7 @@ namespace miRobotEditor.Classes
 
         public Color HighlightedLineColor
         {
-            get { return _selectedlinecolor; }
+            get => _selectedlinecolor;
             set
             {
                 _selectedlinecolor = value;
@@ -198,7 +198,7 @@ namespace miRobotEditor.Classes
 
         public Color FoldToolTipBackgroundColor
         {
-            get { return _foldToolTipBackgroundColor; }
+            get => _foldToolTipBackgroundColor;
             set
             {
                 _foldToolTipBackgroundColor = value;
@@ -208,7 +208,7 @@ namespace miRobotEditor.Classes
 
         public Color FoldToolTipBackgroundBorderColor
         {
-            get { return _foldToolTipBackgroundBorderColor; }
+            get => _foldToolTipBackgroundBorderColor;
             set
             {
                 _foldToolTipBackgroundBorderColor = value;
@@ -218,7 +218,7 @@ namespace miRobotEditor.Classes
 
         public double FoldToolTipBorderThickness
         {
-            get { return _foldToolTipBorderThickness; }
+            get => _foldToolTipBorderThickness;
             set
             {
                 _foldToolTipBorderThickness = value;
@@ -228,7 +228,7 @@ namespace miRobotEditor.Classes
 
         public bool WrapWords
         {
-            get { return _wrapWords; }
+            get => _wrapWords;
             set
             {
                 _wrapWords = value;
@@ -238,7 +238,7 @@ namespace miRobotEditor.Classes
 
         public string TimestampFormat
         {
-            get { return _timestampFormat; }
+            get => _timestampFormat;
             set
             {
                 _timestampFormat = value;
@@ -251,14 +251,14 @@ namespace miRobotEditor.Classes
 
         public new bool HighlightCurrentLine
         {
-            get { return _highlightcurrentline; }
-            set { _highlightcurrentline = value; }
+            get => _highlightcurrentline;
+            set => _highlightcurrentline = value;
         }
 
         [DefaultValue(true)]
         public bool EnableFolding
         {
-            get { return _enableFolding; }
+            get => _enableFolding;
             set
             {
                 _enableFolding = value;
@@ -269,7 +269,7 @@ namespace miRobotEditor.Classes
         [DefaultValue(true)]
         public bool MouseWheelZoom
         {
-            get { return _mouseWheelZoom; }
+            get => _mouseWheelZoom;
             set
             {
                 if (_mouseWheelZoom != value)
@@ -282,7 +282,7 @@ namespace miRobotEditor.Classes
 
         public bool EnableAnimations
         {
-            get { return _enableAnimations; }
+            get => _enableAnimations;
             set
             {
                 _enableAnimations = value;
@@ -292,7 +292,7 @@ namespace miRobotEditor.Classes
 
         public bool ShowLineNumbers
         {
-            get { return _showlinenumbers; }
+            get => _showlinenumbers;
             set
             {
                 _showlinenumbers = value;

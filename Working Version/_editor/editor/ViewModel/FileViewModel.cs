@@ -20,7 +20,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string FilePath
         {
-            get { return _filePath; }
+            get => _filePath;
 
             set
             {
@@ -29,15 +29,15 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _filePath = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(FilePathPropertyName);
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(nameof(FileName));
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(nameof(Title));
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(FilePathPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(nameof(FileName));
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(nameof(Title));
                 if (File.Exists(_filePath))
                 {
                     ContentId = _filePath;
@@ -87,7 +87,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool IsDirty
         {
-            get { return _isDirty; }
+            get => _isDirty;
 
             set
             {
@@ -96,21 +96,21 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _isDirty = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(IsDirtyPropertyName);
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(nameof(FileName));
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(IsDirtyPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(nameof(FileName));
             }
         }
 
         #endregion
 
-/*
-        private static ImageSourceConverter _isc = new ImageSourceConverter();
-*/
+        /*
+                private static ImageSourceConverter _isc = new ImageSourceConverter();
+        */
 
         public FileViewModel(string filePath)
         {

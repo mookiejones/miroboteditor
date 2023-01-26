@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33318.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "editor", "editor\editor.csproj", "{7DD9D9C5-F83D-474A-A6CA-7A113C6EFD40}"
 EndProject
@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RobotEditor", "RobotEditor"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationHelper", "..\..\AutomationHelper\AutomationHelper\AutomationHelper.csproj", "{6CEAC799-5C9B-4ACC-92EB-94057EE01435}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationHelper.Core", "AutomationHelper.Core\AutomationHelper.Core.csproj", "{8B10A5C0-79F6-491D-906D-927AB44A967C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationHelper.Core", "AutomationHelper.Core\AutomationHelper.Core.csproj", "{8B10A5C0-79F6-491D-906D-927AB44A967C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mookie.WPF", "..\..\..\Mookie.WPF\Mookie.WPF\Mookie.WPF.csproj", "{FF1440EF-5228-4D05-B0E0-1A04A2140EB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{8B10A5C0-79F6-491D-906D-927AB44A967C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B10A5C0-79F6-491D-906D-927AB44A967C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B10A5C0-79F6-491D-906D-927AB44A967C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF1440EF-5228-4D05-B0E0-1A04A2140EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1440EF-5228-4D05-B0E0-1A04A2140EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF1440EF-5228-4D05-B0E0-1A04A2140EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF1440EF-5228-4D05-B0E0-1A04A2140EB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

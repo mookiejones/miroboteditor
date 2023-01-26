@@ -575,10 +575,7 @@ namespace miRobotEditor.Classes
             return result;
         }
 
-        private static double LineToCircle(Circle3D circle, Line3D point)
-        {
-            throw new NotImplementedException();
-        }
+        private static double LineToCircle(Circle3D circle, Line3D point) => throw new NotImplementedException();
 
         private static double LineToLine(Line3D line1, Line3D line2)
         {
@@ -632,25 +629,13 @@ namespace miRobotEditor.Classes
             return PointToPoint(point, p);
         }
 
-        private static double PointToLine(Line3D line, Point3D point)
-        {
-            return Vector3D.Cross(line.Direction, line.Origin - point).Length();
-        }
+        private static double PointToLine(Line3D line, Point3D point) => Vector3D.Cross(line.Direction, line.Origin - point).Length();
 
-        private static double PointToPlane(Plane3D plane, Point3D point)
-        {
-            return Vector.Dot(plane.Normal, point - plane.Point);
-        }
+        private static double PointToPlane(Plane3D plane, Point3D point) => Vector.Dot(plane.Normal, point - plane.Point);
 
-        private static double PointToPoint(Point3D p1, Point3D p2)
-        {
-            return (p1 - p2).Length();
-        }
+        private static double PointToPoint(Point3D p1, Point3D p2) => (p1 - p2).Length();
 
-        public static double PointToSphere(Sphere3D sphere, Point3D point)
-        {
-            return (point - sphere.Origin).Length() - sphere.Radius;
-        }
+        public static double PointToSphere(Sphere3D sphere, Point3D point) => (point - sphere.Origin).Length() - sphere.Radius;
 
         private enum TYP3D
         {

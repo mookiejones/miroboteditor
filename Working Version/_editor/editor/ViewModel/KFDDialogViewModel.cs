@@ -60,164 +60,36 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public string Button1Text
-        {
-            get { return _button1Text; }
-            set
-            {
-                _button1Text = value;
-                RaisePropertyChanged(nameof(Button1Text));
-            }
-        }
+        public string Button1Text { get =>_button1Text; set=>SetProperty(ref _button1Text,value); }
 
-        public string Button2Text
-        {
-            get { return _button2Text; }
-            set
-            {
-                _button2Text = value;
-                RaisePropertyChanged(nameof(Button2Text));
-            }
-        }
+        public string Button2Text { get =>_button2Text; set=>SetProperty(ref _button2Text,value); }
 
-        public string Button3Text
-        {
-            get { return _button3Text; }
-            set
-            {
-                _button3Text = value;
-                RaisePropertyChanged(nameof(Button3Text));
-            }
-        }
+        public string Button3Text { get =>_button3Text; set=>SetProperty(ref _button3Text,value); }
 
-        public string Button4Text
-        {
-            get { return _button4Text; }
-            set
-            {
-                _button4Text = value;
-                RaisePropertyChanged(nameof(Button4Text));
-            }
-        }
+        public string Button4Text { get =>_button4Text; set=>SetProperty(ref _button4Text,value); }
 
-        public string Button5Text
-        {
-            get { return _button5Text; }
-            set
-            {
-                _button5Text = value;
-                RaisePropertyChanged(nameof(Button5Text));
-            }
-        }
+        public string Button5Text { get =>_button5Text; set=>SetProperty(ref _button5Text,value); }
 
-        public string Button6Text
-        {
-            get { return _button6Text; }
-            set
-            {
-                _button6Text = value;
-                RaisePropertyChanged(nameof(Button6Text));
-            }
-        }
+        public string Button6Text { get =>_button6Text; set=>SetProperty(ref _button6Text,value); }
 
-        public string Button7Text
-        {
-            get { return _button7Text; }
-            set
-            {
-                _button7Text = value;
-                RaisePropertyChanged(nameof(Button7Text));
-            }
-        }
+        public string Button7Text { get =>_button7Text; set=>SetProperty(ref _button7Text,value); }
 
-        public bool Button1Visible
-        {
-            get { return _b1Visible; }
-            set
-            {
-                _b1Visible = value;
-                RaisePropertyChanged(nameof(Button1Visible));
-            }
-        }
+        public bool Button1Visible { get =>_b1Visible; set=>SetProperty(ref _b1Visible,value); }
 
-        public bool Button2Visible
-        {
-            get { return _b2Visible; }
-            set
-            {
-                _b2Visible = value;
-                RaisePropertyChanged(nameof(Button2Visible));
-            }
-        }
+        public bool Button2Visible { get =>_b2Visible; set=>SetProperty(ref _b2Visible,value); }
 
-        public bool Button3Visible
-        {
-            get { return _b3Visible; }
-            set
-            {
-                _b3Visible = value;
-                RaisePropertyChanged(nameof(Button3Visible));
-            }
-        }
+        public bool Button3Visible { get =>_b3Visible; set=>SetProperty(ref _b3Visible,value); }
 
-        public bool Button4Visible
-        {
-            get { return _b4Visible; }
-            set
-            {
-                _b4Visible = value;
-                RaisePropertyChanged(nameof(Button4Visible));
-            }
-        }
+        public bool Button4Visible { get =>_b4Visible; set=>SetProperty(ref _b4Visible,value); }
 
-        public bool Button5Visible
-        {
-            get { return _b5Visible; }
-            set
-            {
-                _b5Visible = value;
-                RaisePropertyChanged(nameof(Button5Visible));
-            }
-        }
+        public bool Button5Visible { get =>_b5Visible; set=>SetProperty(ref _b5Visible,value); }
 
-        public bool Button6Visible
-        {
-            get { return _b6Visible; }
-            set
-            {
-                _b6Visible = value;
-                RaisePropertyChanged(nameof(Button6Visible));
-            }
-        }
+        public bool Button6Visible { get =>_b6Visible; set=>SetProperty(ref _b6Visible,value); }
 
-        public bool Button7Visible
-        {
-            get { return _b7Visible; }
-            set
-            {
-                _b7Visible = value;
-                RaisePropertyChanged(nameof(Button7Visible));
-            }
-        }
+        public bool Button7Visible { get =>_b7Visible; set=>SetProperty(ref _b7Visible,value); }
 
-        public int Width
-        {
-            get { return _width; }
-            set
-            {
-                _width = value;
-                RaisePropertyChanged(nameof(Width));
-            }
-        }
+        public int Width { get =>_width; set=>SetProperty(ref _width,value); }
 
-        public int Answer
-        {
-            get { return _answer; }
-            set
-            {
-                _answer = value;
-                RaisePropertyChanged(nameof(Answer));
-            }
-        }
+        public int Answer { get =>_answer; set=>SetProperty(ref _answer,value); }
     }
 }

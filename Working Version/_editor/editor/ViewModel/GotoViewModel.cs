@@ -24,20 +24,20 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public Editor Editor
         {
-            get { return _editor; }
+            get => _editor;
 
             set
             {
-// ReSharper disable once PossibleUnintendedReferenceComparison
+                // ReSharper disable once PossibleUnintendedReferenceComparison
                 if (_editor == value)
                 {
                     return;
                 }
                 // ReSharper disable ExplicitCallerInfoArgument
 
-                
+
                 _editor = value;
-                RaisePropertyChanged(EditorPropertyName);
+                OnPropertyChanged(EditorPropertyName);
             }
         }
 
@@ -58,7 +58,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string Description
         {
-            get { return _description; }
+            get => _description;
 
             set
             {
@@ -67,9 +67,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _description = value;
-                RaisePropertyChanged(DescriptionPropertyName);
+                OnPropertyChanged(DescriptionPropertyName);
             }
         }
 
@@ -90,7 +90,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int EnteredText
         {
-            get { return _enteredText; }
+            get => _enteredText;
 
             set
             {
@@ -99,9 +99,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _enteredText = value;
-                RaisePropertyChanged(EnteredTextPropertyName);
+                OnPropertyChanged(EnteredTextPropertyName);
             }
         }
 
@@ -122,7 +122,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int SelectedLine
         {
-            get { return _selectedLine; }
+            get => _selectedLine;
 
             set
             {
@@ -131,9 +131,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _selectedLine = value;
-                RaisePropertyChanged(SelectedLinePropertyName);
+                OnPropertyChanged(SelectedLinePropertyName);
             }
         }
 

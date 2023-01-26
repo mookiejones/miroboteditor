@@ -19,7 +19,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int Minimum
         {
-            get { return _minimum; }
+            get => _minimum;
 
             set
             {
@@ -28,9 +28,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _minimum = value;
-                RaisePropertyChanged(MinimumPropertyName);
+                OnPropertyChanged(MinimumPropertyName);
             }
         }
 
@@ -51,7 +51,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int Maximum
         {
-            get { return _maximum; }
+            get => _maximum;
 
             set
             {
@@ -60,9 +60,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                 
+
                 _maximum = value;
-                RaisePropertyChanged(MaximumPropertyName);
+                OnPropertyChanged(MaximumPropertyName);
             }
         }
 
@@ -83,7 +83,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int Value
         {
-            get { return _value; }
+            get => _value;
 
             set
             {
@@ -92,9 +92,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _value = value;
-                RaisePropertyChanged(ValuePropertyName);
+                OnPropertyChanged(ValuePropertyName);
             }
         }
 
@@ -115,7 +115,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool IsVisible
         {
-            get { return _isVisibile; }
+            get => _isVisibile;
 
             set
             {
@@ -124,9 +124,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _isVisibile = value;
-                RaisePropertyChanged(IsVisiblePropertyName);
+                OnPropertyChanged(IsVisiblePropertyName);
             }
         }
 

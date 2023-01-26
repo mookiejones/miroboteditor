@@ -20,7 +20,7 @@ namespace miRobotEditor.Classes
 
         public IEditor Document
         {
-            get { return _document; }
+            get => _document;
             set
             {
                 if (_document != value)
@@ -28,7 +28,7 @@ namespace miRobotEditor.Classes
                     if (Anchor != null)
                     {
                         throw new NotImplementedException();
-//                        _location = Anchor.Location;
+                        //                        _location = Anchor.Location;
                         Anchor = null;
                     }
                     _document = value;
@@ -42,11 +42,7 @@ namespace miRobotEditor.Classes
 
         public TextLocation Location
         {
-            get
-            {
-                throw new NotImplementedException();
-//                return (Anchor != null) ? Anchor.Location : _location;
-            }
+            get => throw new NotImplementedException();//                return (Anchor != null) ? Anchor.Location : _location;
             set
             {
                 _location = value;
@@ -123,13 +119,7 @@ namespace miRobotEditor.Classes
             }
         }
 
-        protected virtual void OnDocumentChanged(EventArgs e)
-        {
-            if (DocumentChanged != null)
-            {
-                DocumentChanged(this, e);
-            }
-        }
+        protected virtual void OnDocumentChanged(EventArgs e) => DocumentChanged?.Invoke(this, e);
 
         protected virtual void Redraw()
         {

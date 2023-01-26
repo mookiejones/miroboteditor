@@ -31,11 +31,8 @@ namespace miRobotEditor.Classes
             get { throw new NotImplementedException(); }
         }
 
-        public string ToString(string format, IFormatProvider formatProvider = null)
-        {
-            return string.Format("Plane: Origin={0}, Normal={1}", Point.ToString(format, formatProvider),
+        public string ToString(string format, IFormatProvider formatProvider = null) => string.Format("Plane: Origin={0}, Normal={1}", Point.ToString(format, formatProvider),
                 Normal.ToString(format, formatProvider));
-        }
 
         public static Plane3D FitToPoints(Collection<Point3D> points)
         {
@@ -43,9 +40,6 @@ namespace miRobotEditor.Classes
             return leastSquaresFit3D.FitPlaneToPoints(points);
         }
 
-        public override string ToString()
-        {
-            return string.Format("Plane: Origin={0}, Normal={1}", Point, Normal);
-        }
+        public override string ToString() => string.Format("Plane: Origin={0}, Normal={1}", Point, Normal);
     }
 }

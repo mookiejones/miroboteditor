@@ -53,11 +53,7 @@ namespace miRobotEditor.ViewModel
             Messenger.Default.Register<WindowMessage>(this, GetMessage);
         }
 
-        private void GetMessage(WindowMessage obj)
-        {
-            Open(obj.Description);
-
-        }
+        private void GetMessage(WindowMessage obj) => Open(obj.Description);
 
         public string Title
         {
@@ -119,7 +115,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool ShowSettings
         {
-            get { return _showSettings; }
+            get => _showSettings;
 
             set
             {
@@ -128,17 +124,17 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                 
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _showSettings = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(ShowSettingsPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(ShowSettingsPropertyName);
             }
         }
 
         #endregion
 
-   
+
 
         #region CurrentTheme
 
@@ -155,7 +151,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public Theme CurrentTheme
         {
-            get { return _currentTheme; }
+            get => _currentTheme;
 
             set
             {
@@ -164,10 +160,10 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
+                // ReSharper disable once ExplicitCallerInfoArgument
                 _currentTheme = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(CurrentThemePropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(CurrentThemePropertyName);
             }
         }
 
@@ -188,7 +184,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool ShowIO
         {
-            get { return _showIO; }
+            get => _showIO;
 
             set
             {
@@ -197,11 +193,11 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _showIO = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(ShowIOPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(ShowIOPropertyName);
             }
         }
 
@@ -222,7 +218,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool EnableIO
         {
-            get { return _enableIO; }
+            get => _enableIO;
 
             set
             {
@@ -231,11 +227,11 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                 
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _enableIO = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(EnableIOPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(EnableIOPropertyName);
             }
         }
 
@@ -248,18 +244,18 @@ namespace miRobotEditor.ViewModel
 
         public IEditorDocument ActiveEditor
         {
-            get { return _activeEditor; }
+            get => _activeEditor;
             set
             {
                 if (_activeEditor != value)
                 {
                     _activeEditor = value;
-                    if (_activeEditor!=null)
+                    if (_activeEditor != null)
                         _activeEditor.TextBox.Focus();
                     // ReSharper disable once RedundantArgumentDefaultValue
-                    RaisePropertyChanged(nameof(ActiveEditor));
+                    OnPropertyChanged(nameof(ActiveEditor));
                     // ReSharper disable once ExplicitCallerInfoArgument
-                    RaisePropertyChanged(nameof(Title));
+                    OnPropertyChanged(nameof(Title));
                 }
             }
         }
@@ -279,7 +275,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool IsClosing
         {
-            get { return _isClosing; }
+            get => _isClosing;
 
             set
             {
@@ -288,11 +284,11 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-// ReSharper disable once ExplicitCallerInfoArgument
-                 
+                // ReSharper disable once ExplicitCallerInfoArgument
+
                 _isClosing = value;
-// ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(IsClosingPropertyName);
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(IsClosingPropertyName);
             }
         }
 
@@ -321,13 +317,10 @@ namespace miRobotEditor.ViewModel
             ActiveEditor.Close();
             ActiveEditor = _files.FirstOrDefault();
            // Close(ActiveEditor);
-            RaisePropertyChanged(nameof(ActiveEditor));
+            OnPropertyChanged(nameof(ActiveEditor));
         }
 
-        private bool CanExecuteCloseCommand(object arg)
-        {
-            return true;
-        }
+        private bool CanExecuteCloseCommand(object arg) => true;
 
         #endregion
 
@@ -438,10 +431,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public RelayCommand<object> ImportCommand => _importCommand ?? (_importCommand = new RelayCommand<object>(p => ImportRobot(), CanImport));
 
-        public bool CanImport(object p)
-        {
-            return !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
-        }
+        public bool CanImport(object p) => !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
 
         #endregion
 
@@ -598,10 +588,7 @@ namespace miRobotEditor.ViewModel
             return result;
         }
 
-        private void ExecuteShowIO()
-        {
-            ShowIO = !ShowIO;
-        }
+        private void ExecuteShowIO() => ShowIO = !ShowIO;
 
         private void ShowFindReplace()
         {
@@ -609,10 +596,7 @@ namespace miRobotEditor.ViewModel
             //findandReplaceControl.ShowDialog().GetValueOrDefault();
         }
 
-        private void ExecuteShowSettings()
-        {
-            ShowSettings = !ShowSettings;
-        }
+        private void ExecuteShowSettings() => ShowSettings = !ShowSettings;
 
         private void ChangeAccent(object param)
         {
@@ -728,16 +712,13 @@ namespace miRobotEditor.ViewModel
             
         }
 
-        private void Exit()
-        {
-            MainWindow.Instance.Close();
-        }
+        private void Exit() => MainWindow.Instance.Close();
 
         internal void Close(IEditorDocument fileToClose)
         {
             _files.Remove(fileToClose);
 // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(nameof(ActiveEditor));
+            OnPropertyChanged(nameof(ActiveEditor));
         }
 
         public void AddTool(ToolViewModel toolModel)
@@ -763,7 +744,7 @@ namespace miRobotEditor.ViewModel
                 _tools.Add(toolModel);
                 toolModel.IsActive = true;
 // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(nameof(Tools));
+                OnPropertyChanged(nameof(Tools));
             }
         }
 
@@ -836,7 +817,7 @@ namespace miRobotEditor.ViewModel
                 _tools.Add(toolModel);
             }
 // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(nameof(Tools));
+            OnPropertyChanged(nameof(Tools));
         }
 
         private void ImportRobot()
@@ -858,10 +839,7 @@ namespace miRobotEditor.ViewModel
             }
         }
 
-        public void ShowAbout()
-        {
-            new AboutWindow().ShowDialog();
-        }
+        public void ShowAbout() => new AboutWindow().ShowDialog();
 
         public bool UserSelectsFileToOpen(out string filePath)
         {
@@ -900,20 +878,13 @@ namespace miRobotEditor.ViewModel
             return result;
         }
 
-// ReSharper disable UnusedMember.Global
-        public void ErrorMessage(string msg)
-// ReSharper restore UnusedMember.Global
-        {
-            MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-        }
+        // ReSharper disable UnusedMember.Global
+        public void ErrorMessage(string msg) => MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
 
-// ReSharper disable  UnusedMember.Local
-// ReSharper disable  UnusedParameter.Local
+        // ReSharper disable  UnusedMember.Local
+        // ReSharper disable  UnusedParameter.Local
 
-        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e) => throw new NotImplementedException();
     }
 
     // ReSharper enable UnusedMember.Local

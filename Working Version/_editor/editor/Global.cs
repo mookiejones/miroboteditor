@@ -73,15 +73,9 @@ namespace miRobotEditor.Classes
             return result;
         }
 
-        public static void WriteLog(string message)
-        {
-            LogWriter.WriteLog(message);
-        }
+        public static void WriteLog(string message) => LogWriter.WriteLog(message);
 
-        public static void ErrorHandler(string message)
-        {
-            ErrorHandler(message, false);
-        }
+        public static void ErrorHandler(string message) => ErrorHandler(message, false);
 
         private static void ErrorHandler(string message, bool showmessage)
         {

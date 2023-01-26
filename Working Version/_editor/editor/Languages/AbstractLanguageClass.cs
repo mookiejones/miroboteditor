@@ -130,49 +130,25 @@ namespace miRobotEditor.Abstract
         #endregion
 
         #region RootPath
-        public DirectoryInfo RootPath
-        {
-            get { return _rootPath; }
-            set
-            {
-                if (_rootPath != value)
-                {
-                   
-                    _rootPath = value;
-                    RaisePropertyChanged(nameof(RootPath));
-                }
-            }
-        }
+        public DirectoryInfo RootPath { get =>_rootPath; set=>SetProperty(ref _rootPath,value); }
 
         #endregion
         #region FileName
         public string FileName
         {
-            get { return _filename; }
+            get => _filename;
             set
             {
                 if (_filename == value) return;
-               
+
                 _filename = value;
-                RaisePropertyChanged(nameof(FileName));
+                OnPropertyChanged(nameof(FileName));
             }
         }
         #endregion
 
         #region RobotMenuItems
-        public MenuItem RobotMenuItems
-        {
-            get { return _robotMenuItems; }
-            set
-            {
-                if (_robotMenuItems != value)
-                {
-                     
-                    _robotMenuItems = value;
-                    RaisePropertyChanged(nameof(RobotMenuItems));
-                }
-            }
-        }
+        public MenuItem RobotMenuItems { get =>_robotMenuItems; set=>SetProperty(ref _robotMenuItems,value); }
         #endregion
 
         #region Name
@@ -258,71 +234,15 @@ namespace miRobotEditor.Abstract
         internal abstract AbstractFoldingStrategy FoldingStrategy { get; set; }
         internal abstract string SourceFile { get; }
 
-        public IOViewModel IOModel
-        {
-            get { return _ioModel; }
-            set
-            {
-                _ioModel = value;
-                RaisePropertyChanged(nameof(IOModel));
-            }
-        }
+        public IOViewModel IOModel { get =>_ioModel; set=>SetProperty(ref _ioModel,value); }
 
-        public int BWProgress
-        {
-            get { return _bwProgress; }
-            set
-            {
-                if (_bwProgress != value)
-                {
-                     
-                    _bwProgress = value;
-                    RaisePropertyChanged(nameof(BWProgress));
-                }
-            }
-        }
+        public int BWProgress { get =>_bwProgress; set=>SetProperty(ref _bwProgress,value); }
 
-        public int BWFilesMin
-        {
-            get { return _bwFilesMin; }
-            set
-            {
-                if (_bwFilesMin != value)
-                {
-                    
-                    _bwFilesMin = value;
-                    RaisePropertyChanged(nameof(BWFilesMin));
-                }
-            }
-        }
+        public int BWFilesMin { get =>_bwFilesMin; set=>SetProperty(ref _bwFilesMin,value); }
 
-        public int BWFilesMax
-        {
-            get { return _bwFilesMax; }
-            set
-            {
-                if (_bwFilesMax != value)
-                {
-                   
-                    _bwFilesMax = value;
-                    RaisePropertyChanged(nameof(BWFilesMax));
-                }
-            }
-        }
+        public int BWFilesMax { get =>_bwFilesMax; set=>SetProperty(ref _bwFilesMax,value); }
 
-        public Visibility BWProgressVisibility
-        {
-            get { return _bwProgressVisibility; }
-            set
-            {
-                if (_bwProgressVisibility != value)
-                {
-                   
-                    _bwProgressVisibility = value;
-                    RaisePropertyChanged(nameof(BWProgressVisibility));
-                }
-            }
-        }
+        public Visibility BWProgressVisibility { get =>_bwProgressVisibility; set=>SetProperty(ref _bwProgressVisibility,value); }
 
         /// <summary>
         ///     Check to see if file is valid
@@ -434,10 +354,7 @@ namespace miRobotEditor.Abstract
             return result;
         }
 
-        public virtual bool IsLineCommented(string text)
-        {
-            return text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
-        }
+        public virtual bool IsLineCommented(string text) => text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
 
         private static bool IsValidFold(string text, string s, string e)
         {
@@ -601,105 +518,93 @@ namespace miRobotEditor.Abstract
             return doc.Text;
         }
 
+        private object locker = new object();
+
         public void GetRootDirectory(string dir)
         {
-            var directoryInfo = new DirectoryInfo(dir);
-            if (directoryInfo.Name == directoryInfo.Root.Name)
-            {
-                _rootFound = true;
-            }
+            //Search Backwards from current point to root directory
+            var dd = new DirectoryInfo(dir);
+
+            // Cannot Parse Directory
+            if (dd.Name == dd.Root.Name) _rootFound = true;
+
             try
             {
-                while (directoryInfo.Parent != null && !_rootFound && directoryInfo.Parent.Name != "KRC")
+                while (dd.Parent != null && ((!_rootFound) && (dd.Parent.Name != TargetDirectory)))
                 {
-                    GetRootDirectory(directoryInfo.Parent.FullName);
+                    GetRootDirectory(dd.Parent.FullName);
                 }
-                if (!_rootFound)
-                {
-                    if (directoryInfo.Parent != null && directoryInfo.Parent.Parent != null &&
-                        directoryInfo.Parent.Parent.Parent != null)
-                    {
-                        _rootName = ((directoryInfo.Parent != null && directoryInfo.Parent.Parent.Name != "C")
-                            ? directoryInfo.Parent.Parent.FullName
-                            : directoryInfo.Parent.Parent.Parent.FullName);
-                    }
-                    var directoryInfo2 = new DirectoryInfo(_rootName);
-                    var directories = directoryInfo2.GetDirectories();
-                    if (directories.Length >= 1)
-                    {
-                        if (directories[0].Name == "C" && directories[1].Name == "KRC")
-                        {
-                            _rootName = directoryInfo2.FullName;
-                        }
-                        _rootFound = true;
-                        GetRootFiles(_rootName);
-                        FileCount = Files.Count;
 
-                        GetVariables();
-                      
-                    }
-                }
+
+                if (_rootFound) return;
+
+                if (dd.Parent != null)
+                    if (dd.Parent.Parent != null)
+                        if (dd.Parent.Parent.Parent != null)
+                            _rootName = dd.Parent != null && dd.Parent.Parent.Name != "C"
+                                ? dd.Parent.Parent.FullName
+                                : dd.Parent.Parent.Parent.FullName;
+
+                var r = new DirectoryInfo(_rootName);
+
+                DirectoryInfo[] f = r.GetDirectories();
+
+
+                if (f.Length < 1) return;
+                if ((f[0].Name == "C") && (f[1].Name == "KRC"))
+                    _rootName = r.FullName;
+
+                _rootFound = true;
+
+                GetRootFiles(_rootName);
+                FileCount = Files.Count;
+
+                GetVariables();
+                _allVariables.AddRange(Functions);
+                _allVariables.AddRange(Fields);
+                _allVariables.AddRange(Positions);
+                _allVariables.AddRange(Signals);
             }
             catch (Exception ex)
             {
-                var msg = new ErrorMessage("Get Root Directory", ex, MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                MessageViewModel.AddError("Get Root Directory", ex);
             }
+
+            // Need to get further to the root so that i can interrogate system files as well.
         }
 
         private void GetRootFiles(string dir)
         {
-            try{
-
-            var newFiles = (from directory in Directory.GetDirectories(dir)
-                let files = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories)
-                from file in files
-                select new FileInfo(file)).ToList();
-
-                foreach (var file in newFiles)
+            foreach (string d in Directory.GetDirectories(dir))
+            {
+                foreach (string f in Directory.GetFiles(d))
                 {
-                    if (file.Name.Equals("kuka_con.mdb",StringComparison.OrdinalIgnoreCase))
-                        _kukaCon = file.Name;
-                    _files.Add(file);
-
+                    try
+                    {
+                        var file = new System.IO.FileInfo(f);
+                        if (file.Name.ToLower() == "kuka_con.mdb")
+                            _kukaCon = file.FullName;
+                        _files.Add(file);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageViewModel.AddError("Error When Getting Files for Object Browser", e);
+                    }
                 }
 
-        }
-            catch(Exception ex)
-            {
-                var msg = new ErrorMessage("Error When Getting Files for Object Browser", ex, MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
-                
+                GetRootFiles(d);
             }
         }
 
-
-        private object locker = new object();
-
         private void GetVariables()
         {
-            var result = GetVariables(Files);
-            
-          
-                    _enums.AddRange(result.Enums);
-                    _fields.AddRange(result.Fields);
-                    _positions.AddRange(result.Positions);
-                    _signals.AddRange(result.Signals);
-                    _functions.AddRange(result.Functions);
-                    _structures.AddRange(result.Structures);
-
-
-
-                    _allVariables.AddRange(Functions);
-                    _allVariables.AddRange(Fields);
-                    _allVariables.AddRange(Positions);
-                    _allVariables.AddRange(Signals);
-             
-               
-
-            
-            ;
-
+            _bw = new BackgroundWorker();
+            BWProgressVisibility = Visibility.Visible;
+            _bw.DoWork += backgroundVariableWorker_DoWork;
+            _bw.WorkerReportsProgress = true;
+            _bw.ProgressChanged += _bw_ProgressChanged;
+            _bw.RunWorkerCompleted += bw_RunWorkerCompleted;
+            _bw.RunWorkerAsync();
         }
         private VariableMembers GetVariableMembers(FileInfo fi)
         {
@@ -744,11 +649,11 @@ namespace miRobotEditor.Abstract
 
        
 
-                RaisePropertyChanged(nameof(Structures));
-                RaisePropertyChanged(nameof(Functions));
-                RaisePropertyChanged(nameof(Fields));
-                RaisePropertyChanged(nameof(Files));
-                RaisePropertyChanged(nameof(Positions));
+                OnPropertyChanged(nameof(Structures));
+                OnPropertyChanged(nameof(Functions));
+                OnPropertyChanged(nameof(Fields));
+                OnPropertyChanged(nameof(Files));
+                OnPropertyChanged(nameof(Positions));
                 BWProgressVisibility = Visibility.Collapsed;
 
                 var instance = ServiceLocator.Current.GetInstance<MainViewModel>();

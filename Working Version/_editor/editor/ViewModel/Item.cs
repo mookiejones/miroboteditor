@@ -19,7 +19,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public int Index
         {
-            get { return _index; }
+            get => _index;
 
             set
             {
@@ -28,9 +28,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _index = value;
-                RaisePropertyChanged(IndexPropertyName);
+                OnPropertyChanged(IndexPropertyName);
             }
         }
 
@@ -51,7 +51,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string Type
         {
-            get { return _type; }
+            get => _type;
 
             set
             {
@@ -60,9 +60,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _type = value;
-                RaisePropertyChanged(TypePropertyName);
+                OnPropertyChanged(TypePropertyName);
             }
         }
 
@@ -83,7 +83,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public string Description
         {
-            get { return _description; }
+            get => _description;
 
             set
             {
@@ -92,9 +92,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _description = value;
-                RaisePropertyChanged(DescriptionPropertyName);
+                OnPropertyChanged(DescriptionPropertyName);
             }
         }
 
@@ -106,9 +106,6 @@ namespace miRobotEditor.ViewModel
             Description = description;
         }
 
-        public override string ToString()
-        {
-            return string.Format("{0};{1}", Type, Description);
-        }
+        public override string ToString() => string.Format("{0};{1}", Type, Description);
     }
 }

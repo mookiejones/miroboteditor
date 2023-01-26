@@ -1,67 +1,26 @@
 ﻿using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 using GalaSoft.MvvmLight;
 
 namespace miRobotEditor.ViewModel
 {
-    public class PaneViewModel : ViewModelBase
+    public class PaneViewModel : ObservableRecipient
     {
         private string _contentId;
         private bool _isActive;
         private bool _isSelected;
         private string _title;
 
-        public string Title
-        {
-            get { return _title; }
-            set
-            {
-                if (!(_title == value))
-                {
-                    _title = value;
-                    RaisePropertyChanged(nameof(Title));
-                }
-            }
-        }
+        public string Title { get =>_title; set=>SetProperty(ref _title,value); }
+        
 
         public ImageSource IconSource { get; set; }
 
-        public string ContentId
-        {
-            get { return _contentId; }
-            set
-            {
-                if (!(_contentId == value))
-                {
-                    _contentId = value;
-                    RaisePropertyChanged(nameof(ContentId));
-                }
-            }
-        }
+        public string ContentId { get =>_contentId; set=>SetProperty(ref _contentId,value); }
+        
 
-        public bool IsSelected
-        {
-            get { return _isSelected; }
-            set
-            {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    RaisePropertyChanged(nameof(IsSelected));
-                }
-            }
-        }
+        public bool IsSelected { get =>_isSelected; set=>SetProperty(ref _isSelected,value); }
 
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set
-            {
-                if (_isActive != value)
-                {
-                    _isActive = value;
-                    RaisePropertyChanged(nameof(IsActive));
-                }
-            }
-        }
+        public bool IsActive { get =>_isActive; set=>SetProperty(ref _isActive,value); }
     }
 }

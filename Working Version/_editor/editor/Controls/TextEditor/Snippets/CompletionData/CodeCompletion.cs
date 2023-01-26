@@ -35,13 +35,10 @@ namespace miRobotEditor.Classes
         [Localizable(false)]
         public object Description
         {
-            get
-            {
-                return string.IsNullOrEmpty(_description)
+            get => string.IsNullOrEmpty(_description)
                     ? null
                     : string.Format("Description for {0} \r\n {1}", Text, _description);
-            }
-            set { _description = (string) value; }
+            set => _description = (string)value;
         }
 
         public double Priority => 0.0;

@@ -66,16 +66,10 @@ namespace miRobotEditor.Classes
             }
         }
 
-        protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters)
-        {
-            return new PointHitTestResult(this, hitTestParameters.HitPoint);
-        }
+        protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters) => new PointHitTestResult(this, hitTestParameters.HitPoint);
 
         [DebuggerStepThrough]
-        protected override Size MeasureOverride(Size availableSize)
-        {
-            return new Size(18.0, 0.0);
-        }
+        protected override Size MeasureOverride(Size availableSize) => new Size(18.0, 0.0);
 
         [DebuggerStepThrough]
         protected override void OnRender(DrawingContext drawingContext)

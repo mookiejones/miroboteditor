@@ -49,13 +49,7 @@ namespace miRobotEditor.Controls
             SelectedNode.ToolTipText = sFile;
         }
 
-        private void RaiseFileSelected(object sender, FileSelectedEventArgs e)
-        {
-            if (OnFileSelected != null)
-            {
-                OnFileSelected(sender, e);
-            }
-        }
+        private void RaiseFileSelected(object sender, FileSelectedEventArgs e) => OnFileSelected?.Invoke(sender, e);
 
         protected override void OnMouseDoubleClick(MouseEventArgs e)
         {

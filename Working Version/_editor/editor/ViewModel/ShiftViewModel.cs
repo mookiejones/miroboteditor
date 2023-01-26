@@ -27,40 +27,16 @@ namespace miRobotEditor.ViewModel
             DefaultPane = DefaultToolPane.Right;
         }
 
-        public CartesianPosition OldValues
-        {
-            get { return _oldvalues; }
-            set
-            {
-                _oldvalues = value;
-                RaisePropertyChanged(nameof(OldValues));
-            }
-        }
+        public CartesianPosition OldValues { get =>_oldvalues; set=>SetProperty(ref _oldvalues,value); }
 
-        public CartesianPosition NewValues
-        {
-            get { return _newvalues; }
-            set
-            {
-                _newvalues = value;
-                RaisePropertyChanged(nameof(NewValues));
-            }
-        }
+        public CartesianPosition NewValues { get =>_newvalues; set=>SetProperty(ref _newvalues,value); }
 
-        public CartesianPosition DiffValues
-        {
-            get { return _diffvalues; }
-            set
-            {
-                _diffvalues = value;
-                RaisePropertyChanged(nameof(DiffValues));
-            }
-        }
+        public CartesianPosition DiffValues { get =>_diffvalues; set=>SetProperty(ref _diffvalues,value); }
 
         public static ShiftViewModel Instance
         {
-            get { return _instance ?? new ShiftViewModel(); }
-            set { _instance = value; }
+            get => _instance ?? new ShiftViewModel();
+            set => _instance = value;
         }
     }
 }

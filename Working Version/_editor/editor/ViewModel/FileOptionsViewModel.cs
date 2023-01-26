@@ -19,7 +19,7 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public bool ShowFullName
         {
-            get { return _showFullName; }
+            get => _showFullName;
 
             set
             {
@@ -28,9 +28,9 @@ namespace miRobotEditor.ViewModel
                     return;
                 }
 
-                
+
                 _showFullName = value;
-                RaisePropertyChanged(ShowFullNamePropertyName);
+                OnPropertyChanged(ShowFullNamePropertyName);
             }
         }
 

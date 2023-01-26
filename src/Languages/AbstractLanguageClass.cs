@@ -660,7 +660,7 @@ namespace miRobotEditor.Languages
             }
         }
 
-        public void GetRootDirectory(string dir)
+        public void GetRootDirectory(string dirs)
         {
             //Search Backwards from current point to root directory
             var dd = new DirectoryInfo(dir);

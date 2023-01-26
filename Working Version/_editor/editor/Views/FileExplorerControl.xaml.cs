@@ -37,45 +37,27 @@ namespace miRobotEditor.Views
         [Localizable(false)]
         public string Filter
         {
-            get { return string.IsNullOrEmpty(_filter) ? "*.*" : _filter; }
-            set { _filter = value; }
+            get => string.IsNullOrEmpty(_filter) ? "*.*" : _filter;
+            set => _filter = value;
         }
 
         // ReSharper restore UnassignedField.Compiler
         // ReSharper restore UnusedField.Compiler
         public event FileSelectedEventHandler FileSelected
         {
-            add { _explorer.OnFileSelected += value; }
-            remove { _explorer.OnFileSelected -= value; }
+            add => _explorer.OnFileSelected += value;
+            remove => _explorer.OnFileSelected -= value;
         }
 
         public event TreeNodeMouseClickEventHandler OnMouseClick;
         public new event KeyEventHandler OnKeyUp;
         public event TreeViewEventHandler OnAfterSelect;
 
-        private void RaiseAfterSelect(object sender, TreeViewEventArgs e)
-        {
-            if (OnAfterSelect != null)
-            {
-                OnAfterSelect(sender, e);
-            }
-        }
+        private void RaiseAfterSelect(object sender, TreeViewEventArgs e) => OnAfterSelect?.Invoke(sender, e);
 
-        private void RaiseKeyUp(object sender, KeyEventArgs e)
-        {
-            if (OnKeyUp != null)
-            {
-                OnKeyUp(sender, e);
-            }
-        }
+        private void RaiseKeyUp(object sender, KeyEventArgs e) => OnKeyUp?.Invoke(sender, e);
 
-        private void RaiseMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (OnMouseClick != null)
-            {
-                OnMouseClick(sender, e);
-            }
-        }
+        private void RaiseMouseClick(object sender, TreeNodeMouseClickEventArgs e) => OnMouseClick?.Invoke(sender, e);
 
         private void CopyFile(object sender, EventArgs e)
         {

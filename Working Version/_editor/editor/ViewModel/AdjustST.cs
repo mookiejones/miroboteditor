@@ -1,8 +1,10 @@
-﻿using GalaSoft.MvvmLight;
+﻿
+
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace miRobotEditor.ViewModel
 {
-    internal sealed class AdjustST : ViewModelBase
+    internal sealed class AdjustST : ObservableObject
     {
         #region ToolItems
 
@@ -19,19 +21,9 @@ namespace miRobotEditor.ViewModel
         /// </summary>
         public ToolItems ToolItems
         {
-            get { return _toolItems; }
-
-            set
-            {
-                if (_toolItems == value)
-                {
-                    return;
-                }
-
-                
-                _toolItems = value;
-                RaisePropertyChanged(ToolItemsPropertyName);
-            }
+            get => _toolItems;
+            set=>SetProperty(ref _toolItems, value);
+             
         }
 
         #endregion

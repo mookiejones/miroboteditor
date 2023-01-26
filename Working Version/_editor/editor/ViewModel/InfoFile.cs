@@ -17,85 +17,21 @@ namespace miRobotEditor.ViewModel
         private string _archiveconfigtype = string.Empty;
         private string _archivename = string.Empty;
 
-        public string ArchiveName
-        {
-            get { return _archivename; }
-            set
-            {
-                _archivename = value;
-                RaisePropertyChanged(nameof(ArchiveName));
-            }
-        }
+        public string ArchiveName { get =>_archivename; set=>SetProperty(ref _archivename,value); }
 
-        public string ArchiveConfigType
-        {
-            get { return _archiveconfigtype; }
-            set
-            {
-                _archiveconfigtype = value;
-                RaisePropertyChanged(nameof(ArchiveConfigType));
-            }
-        }
+        public string ArchiveConfigType { get =>_archiveconfigtype; set=>SetProperty(ref _archiveconfigtype,value); }
 
-        public string ArchiveDiskNo
-        {
-            get { return _archiveDiskNo; }
-            set
-            {
-                _archiveDiskNo = value;
-                RaisePropertyChanged(nameof(ArchiveDiskNo));
-            }
-        }
+        public string ArchiveDiskNo { get =>_archiveDiskNo; set=>SetProperty(ref _archiveDiskNo,value); }
 
-        public string ArchiveID
-        {
-            get { return _archiveID; }
-            set
-            {
-                _archiveID = value;
-                RaisePropertyChanged(nameof(ArchiveID));
-            }
-        }
+        public string ArchiveID { get =>_archiveID; set=>SetProperty(ref _archiveID,value); }
 
-        public string ArchiveDate
-        {
-            get { return _archiveDate; }
-            set
-            {
-                _archiveDate = value;
-                RaisePropertyChanged(nameof(ArchiveDate));
-            }
-        }
+        public string ArchiveDate { get =>_archiveDate; set=>SetProperty(ref _archiveDate,value); }
 
-        public string RobotName
-        {
-            get { return _archiveRobotName; }
-            set
-            {
-                _archiveRobotName = value;
-                RaisePropertyChanged(nameof(RobotName));
-            }
-        }
+        public string RobotName { get =>_archiveRobotName; set=>SetProperty(ref _archiveRobotName,value); }
 
-        public string RobotSerial
-        {
-            get { return _archiveRobotSerial; }
-            set
-            {
-                _archiveRobotSerial = value;
-                RaisePropertyChanged(nameof(RobotSerial));
-            }
-        }
+        public string RobotSerial { get =>_archiveRobotSerial; set=>SetProperty(ref _archiveRobotSerial,value); }
 
-        public string KSSVersion
-        {
-            get { return _archiveKssVersion; }
-            set
-            {
-                _archiveKssVersion = value;
-                RaisePropertyChanged(nameof(KSSVersion));
-            }
-        }
+        public string KSSVersion { get =>_archiveKssVersion; set=>SetProperty(ref _archiveKssVersion,value); }
 
         public ReadOnlyObservableCollection<Technology> Technologies => _readonlyTechnology ?? new ReadOnlyObservableCollection<Technology>(_technologies);
     }

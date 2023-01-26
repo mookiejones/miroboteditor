@@ -30,45 +30,13 @@ namespace miRobotEditor.ViewModel
 
         public static StatusBarViewModel Instance => _instance ?? (_instance = new StatusBarViewModel());
 
-        public bool IsScrollPressed
-        {
-            get { return _isScrollPressed; }
-            set
-            {
-                _isScrollPressed = value;
-                RaisePropertyChanged(nameof(IsScrollPressed));
-            }
-        }
+        public bool IsScrollPressed { get =>_isScrollPressed; set=>SetProperty(ref _isScrollPressed,value); }
 
-        public bool IsNumPressed
-        {
-            get { return _isNumPressed; }
-            set
-            {
-                _isNumPressed = value;
-                RaisePropertyChanged(nameof(IsNumPressed));
-            }
-        }
+        public bool IsNumPressed { get =>_isNumPressed; set=>SetProperty(ref _isNumPressed,value); }
 
-        public bool IsInsPressed
-        {
-            get { return _isInsPressed; }
-            set
-            {
-                _isInsPressed = value;
-                RaisePropertyChanged(nameof(IsInsPressed));
-            }
-        }
+        public bool IsInsPressed { get =>_isInsPressed; set=>SetProperty(ref _isInsPressed,value); }
 
-        public bool IsCapsPressed
-        {
-            get { return _isCapsPressed; }
-            set
-            {
-                _isCapsPressed = value;
-                RaisePropertyChanged(nameof(IsCapsPressed));
-            }
-        }
+        public bool IsCapsPressed { get =>_isCapsPressed; set=>SetProperty(ref _isCapsPressed,value); }
 
         public void ManageKeys(object sender, KeyEventArgs e)
         {

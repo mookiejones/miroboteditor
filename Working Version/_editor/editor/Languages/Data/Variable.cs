@@ -18,105 +18,25 @@ namespace miRobotEditor.Classes
         private string _type = string.Empty;
         private string _value = string.Empty;
 
-        public bool IsSelected
-        {
-            get { return _isSelected; }
-            set
-            {
-                _isSelected = value;
-                RaisePropertyChanged(nameof(IsSelected));
-            }
-        }
+        public bool IsSelected { get =>_isSelected; set=>SetProperty(ref _isSelected,value); }
 
-        public BitmapImage Icon
-        {
-            get { return _icon; }
-            set
-            {
-                _icon = value;
-                RaisePropertyChanged(nameof(Icon));
-            }
-        }
+        public BitmapImage Icon { get =>_icon; set=>SetProperty(ref _icon,value); }
 
-        public string Description
-        {
-            get { return _description; }
-            set
-            {
-                _description = value;
-                RaisePropertyChanged(nameof(Description));
-            }
-        }
+        public string Description { get =>_description; set=>SetProperty(ref _description,value); }
 
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                RaisePropertyChanged(nameof(Name));
-            }
-        }
+        public string Name { get =>_name; set=>SetProperty(ref _name,value); }
 
-        public string Type
-        {
-            get { return _type; }
-            set
-            {
-                _type = value;
-                RaisePropertyChanged(nameof(Type));
-            }
-        }
+        public string Type { get =>_type; set=>SetProperty(ref _type,value); }
 
-        public string Path
-        {
-            get { return _path; }
-            set
-            {
-                _path = value;
-                RaisePropertyChanged(nameof(Path));
-            }
-        }
+        public string Path { get =>_path; set=>SetProperty(ref _path,value); }
 
-        public string Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                RaisePropertyChanged(nameof(Value));
-            }
-        }
+        public string Value { get =>_value; set=>SetProperty(ref _value,value); }
 
-        public string Comment
-        {
-            get { return _comment; }
-            set
-            {
-                _comment = value;
-                RaisePropertyChanged(nameof(Comment));
-            }
-        }
+        public string Comment { get =>_comment; set=>SetProperty(ref _comment,value); }
 
-        public string Declaration
-        {
-            get { return _declaration; }
-            set
-            {
-                _declaration = value;
-                RaisePropertyChanged(nameof(Declaration));
-            }
-        }
+        public string Declaration { get =>_declaration; set=>SetProperty(ref _declaration,value); }
 
-        public int Offset
-        {
-            get { return _offset; }
-            set
-            {
-                _offset = value;
-                RaisePropertyChanged(nameof(Offset));
-            }
-        }
+        public int Offset { get =>_offset; set=>SetProperty(ref _offset,value); }
 
         #region Returns
 
@@ -133,7 +53,7 @@ namespace miRobotEditor.Classes
         /// </summary>
         public string Returns
         {
-            get { return _returns; }
+            get => _returns;
 
             set
             {
@@ -142,9 +62,9 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                
+
                 _returns = value;
-                RaisePropertyChanged(ReturnsPropertyName);
+                OnPropertyChanged(ReturnsPropertyName);
             }
         }
 
@@ -165,7 +85,7 @@ namespace miRobotEditor.Classes
         /// </summary>
         public bool ShowDeclaration
         {
-            get { return _showDeclaration; }
+            get => _showDeclaration;
 
             set
             {
@@ -174,9 +94,9 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                
+
                 _showDeclaration = value;
-                RaisePropertyChanged(ShowDeclarationPropertyName);
+                OnPropertyChanged(ShowDeclarationPropertyName);
             }
         }
 
@@ -197,7 +117,7 @@ namespace miRobotEditor.Classes
         /// </summary>
         public bool ShowReturns
         {
-            get { return _showReturns; }
+            get => _showReturns;
 
             set
             {
@@ -206,9 +126,9 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                
+
                 _showReturns = value;
-                RaisePropertyChanged(ShowReturnsPropertyName);
+                OnPropertyChanged(ShowReturnsPropertyName);
             }
         }
 
@@ -229,7 +149,7 @@ namespace miRobotEditor.Classes
         /// </summary>
         public string ShowOffset
         {
-            get { return _showOffset; }
+            get => _showOffset;
 
             set
             {
@@ -238,9 +158,9 @@ namespace miRobotEditor.Classes
                     return;
                 }
 
-                
+
                 _showOffset = value;
-                RaisePropertyChanged(ShowOffsetPropertyName);
+                OnPropertyChanged(ShowOffsetPropertyName);
             }
         }
 

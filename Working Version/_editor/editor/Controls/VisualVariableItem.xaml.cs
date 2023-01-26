@@ -106,9 +106,6 @@ namespace miRobotEditor.Controls
             return result;
         }
 
-        private void ToolTip_Opening(object sender, ToolTipEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        private void ToolTip_Opening(object sender, ToolTipEventArgs e) => throw new NotImplementedException();
     }
 }
