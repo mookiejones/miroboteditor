@@ -15,6 +15,8 @@ using miRobotEditor.Windows;
 
 using MessageBox = System.Windows.MessageBox;
 using Mookie.WPF;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace miRobotEditor
 {
@@ -30,7 +32,7 @@ namespace miRobotEditor
         {
             DispatcherHelper.Initialize();
         }
-
+ 
         public bool SignalExternalCommandLineArgs(IEnumerable<string> args)
         {
             MainWindow.Activate();
@@ -63,7 +65,7 @@ namespace miRobotEditor
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             var msg = new ErrorMessage("App", e.Exception, MessageType.Error);
-            Messenger.Default.Send(msg);
+            WeakReferenceMessenger.Default.Send(msg);
 
             Console.Write(e);
             e.Handled = true;

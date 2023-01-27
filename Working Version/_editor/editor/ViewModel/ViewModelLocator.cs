@@ -24,15 +24,15 @@ namespace miRobotEditor.ViewModel
     /// </summary>
     public sealed class ViewModelLocator
     {
-        static ViewModelLocator()
-        {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+        //static ViewModelLocator()
+        //{
+        //    ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
  
-            SimpleIoc.Default.Register<IDataService, DataService>();
-            SimpleIoc.Default.Register<StatusBarViewModel>();
-            SimpleIoc.Default.Register<ObjectBrowserViewModel>();
-            SimpleIoc.Default.Register<MainViewModel>(true);
-        }
+        //    SimpleIoc.Default.Register<IDataService, DataService>();
+        //    SimpleIoc.Default.Register<StatusBarViewModel>();
+        //    SimpleIoc.Default.Register<ObjectBrowserViewModel>();
+        //    SimpleIoc.Default.Register<MainViewModel>(true);
+        //}
 
         public ObjectBrowserViewModel ObjectBrowser => Ioc.Default.GetRequiredService<ObjectBrowserViewModel>();
 

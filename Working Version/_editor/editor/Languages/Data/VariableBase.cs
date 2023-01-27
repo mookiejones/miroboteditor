@@ -11,6 +11,7 @@ using miRobotEditor.ViewModel;
 using miRobotEditor.Utilities;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace miRobotEditor.Classes
 {

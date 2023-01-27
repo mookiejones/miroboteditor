@@ -125,6 +125,12 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -176,11 +182,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="App.Initialize.cs" />
     <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
     <Compile Include="Controls\TextEditor\Views\CountToVisibilityHiddenConverter.cs" />
     <Compile Include="Controls\TextEditor\Views\GotoLineView.cs" />
     <Compile Include="Controls\TextEditor\Views\Msg.cs" />
     <Compile Include="Controls\TextEditor\Views\MsgTypeToResourceConverter.cs" />
+    <Compile Include="DispatcherHelper.cs" />
     <Compile Include="Languages\AbstractLanguageClass.cs" />
     <Compile Include="Languages\Data\AbstractVariableClass.cs" />
     <Compile Include="Languages\ILanguageClass.cs" />

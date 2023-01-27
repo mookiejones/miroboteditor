@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.Enums;
 using miRobotEditor.Messages;
@@ -112,7 +113,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
                                 {
                                     var msg = new ErrorMessage(string.Format("Duplicate Shortcut :", file), null,
                                         MessageType.Error);
-                                    Messenger.Default.Send(msg);
+                                    WeakReferenceMessenger.Default.Send(msg);
 
                                 }
                             }
@@ -142,7 +143,7 @@ namespace miRobotEditor.Controls.TextEditor.Snippets
             catch (Exception ex2)
             {
                 var msg = new ErrorMessage("ErrorOnLoadingSnippet", ex2, MessageType.Error);
-                Messenger.Default.Send(msg);
+                WeakReferenceMessenger.Default.Send(msg);
                
                 result = false;
             }

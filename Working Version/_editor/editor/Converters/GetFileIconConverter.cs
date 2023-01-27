@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Windows.Data;
+using CommunityToolkit.Mvvm.Messaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
@@ -41,7 +42,7 @@ namespace miRobotEditor.Converters
             catch (Exception ex)
             {
                 var msg = new ErrorMessage("Convert", ex, MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
             return null;
         }

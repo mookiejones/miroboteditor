@@ -92,7 +92,7 @@ namespace miRobotEditor.Controls.TextEditor
         private FoldingManager _foldingManager;
         private object _foldingStrategy;
         private KeyEventArgs _lastKeyUpArgs;
-        private ToolTip _toolTip = new ToolTip();
+        private ToolTip _toolTip;
         private static BitmapImage _imgMethod;
         // ReSharper disable once UnassignedField.Compiler
         private static readonly BitmapImage _imgStruct = ImageHelper.LoadBitmap(Global.ImgStruct);
@@ -134,6 +134,7 @@ namespace miRobotEditor.Controls.TextEditor
         {
             try
             {
+                _toolTip = new ToolTip();
                 ChangeCommandBindings();
                 InitializeComponent();
                 CompletionDataProviders = new List<ICompletionDataProvider>()
