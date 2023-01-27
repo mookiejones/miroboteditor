@@ -192,6 +192,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
+    <Compile Include="Controls\TextEditor\Views\CountToVisibilityHiddenConverter.cs" />
+    <Compile Include="Controls\TextEditor\Views\GotoLineView.cs" />
+    <Compile Include="Controls\TextEditor\Views\Msg.cs" />
+    <Compile Include="Controls\TextEditor\Views\MsgTypeToResourceConverter.cs" />
     <Compile Include="Languages\AbstractLanguageClass.cs" />
     <Compile Include="Languages\Data\AbstractVariableClass.cs" />
     <Compile Include="Languages\ILanguageClass.cs" />
