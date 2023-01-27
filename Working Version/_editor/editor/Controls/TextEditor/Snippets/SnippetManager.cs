@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using GalaSoft.MvvmLight.Messaging;
 using ICSharpCode.AvalonEdit.Snippets;
 using miRobotEditor.Enums;
 using miRobotEditor.Messages;

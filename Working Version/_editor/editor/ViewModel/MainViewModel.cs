@@ -9,9 +9,6 @@ using System.Windows.Shell;
 using AvalonDock.Layout;
 using ControlzEx.Theming;
 using CommunityToolkit.Mvvm.ComponentModel;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using MahApps.Metro;
 using Microsoft.Win32;
 using miRobotEditor.Abstract;
 using miRobotEditor.Classes;
@@ -22,6 +19,7 @@ using miRobotEditor.Languages;
 using miRobotEditor.Messages;
 using miRobotEditor.Windows;
 using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Input;
 
 namespace miRobotEditor.ViewModel
 {

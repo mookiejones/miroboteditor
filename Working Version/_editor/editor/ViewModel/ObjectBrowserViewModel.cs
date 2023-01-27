@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using CommonServiceLocator;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
@@ -25,7 +25,7 @@ namespace miRobotEditor.ViewModel
             set
             {
                 _selectedVariable = value;
-                var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 instance.OpenFile(value);
                 OnPropertyChanged(nameof(SelectedVariable));
             }
@@ -50,7 +50,7 @@ namespace miRobotEditor.ViewModel
             {
                 Description = @"Select Root Directory for Instance"
             };
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             var filename = instance.ActiveEditor.TextBox.Filename;
             if (Directory.Exists(filename))
             {
@@ -71,7 +71,7 @@ namespace miRobotEditor.ViewModel
 
         public ReadOnlyCollection<IVariable> GetVarForFile(string filename)
         {
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             var kukaViewModel = instance.ActiveEditor as KukaViewModel;
             ReadOnlyCollection<IVariable> result;
             if (kukaViewModel == null)

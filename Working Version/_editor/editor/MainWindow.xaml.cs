@@ -4,23 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
-using GalaSoft.MvvmLight.Messaging;
-using MahApps.Metro;
-using CommonServiceLocator;
 
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.Messages;
 using miRobotEditor.Properties;
-using miRobotEditor.ViewModel; 
-using Application = System.Windows.Application;
+using miRobotEditor.ViewModel;
 using DataFormats = System.Windows.DataFormats;
 using DragDropEffects = System.Windows.DragDropEffects;
 using DragEventArgs = System.Windows.DragEventArgs;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
-using ControlzEx.Theming;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace miRobotEditor
 {
@@ -53,7 +50,7 @@ namespace miRobotEditor
                 DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault<LayoutDocumentPane>();
             if (layoutDocumentPane != null && layoutDocumentPane.ChildrenCount == 0)
             {
-                var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 instance.AddNewFile();
             }
             ProcessArgs();
@@ -61,7 +58,7 @@ namespace miRobotEditor
 
         private static void OpenFile(string filename)
         {
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.Open(filename);
         }
 
@@ -88,7 +85,7 @@ namespace miRobotEditor
 
             foreach (var msg in array.Select(text => new WindowMessage("File Dropped",  text, MessageType.Information)))
             {
-                Messenger.Default.Send(msg);
+                WeakReferenceMessenger.Default.Send(msg);
             }
         }
 
@@ -152,7 +149,7 @@ namespace miRobotEditor
             }
             Settings.Default.Save();
             SaveLayout();
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.IsClosing = true;
             App.Application?.Shutdown();
         }
@@ -165,7 +162,7 @@ namespace miRobotEditor
 
 
             var msg = new WindowMessage("Application Loaded", "Application Loaded", MessageType.Information);
-            Messenger.Default.Send<IMessage>(msg);
+            WeakReferenceMessenger.Default.Send<IMessage>(msg);
         }
 
         private void SaveLayout()

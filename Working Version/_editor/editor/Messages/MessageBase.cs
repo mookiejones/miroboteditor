@@ -6,8 +6,10 @@ using miRobotEditor.Utilities;
 
 namespace miRobotEditor.Messages
 {
-    public class MessageBase : GalaSoft.MvvmLight.Messaging.MessageBase, IMessage
+    public class MessageBase :   IMessage
     {
+
+        protected MessageBase() { }
         protected MessageBase(string title, string description, MessageType icon, bool force = false)
         {
             Title = title;
@@ -16,7 +18,7 @@ namespace miRobotEditor.Messages
             ForceActivation = force;
         }
 
-        public BitmapImage Icon { get; private set; }
+        public BitmapImage Icon { get;  set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public bool ForceActivation { get; set; }

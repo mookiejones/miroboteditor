@@ -2,7 +2,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Windows.Data;
-using GalaSoft.MvvmLight.Messaging;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;

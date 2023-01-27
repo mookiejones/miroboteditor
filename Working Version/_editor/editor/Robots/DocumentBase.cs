@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using ICSharpCode.AvalonEdit.Editing;
-using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Abstract;
 using miRobotEditor.Controls.TextEditor;
 using miRobotEditor.Interfaces;

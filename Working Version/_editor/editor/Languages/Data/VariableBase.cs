@@ -2,8 +2,6 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
- 
-using CommonServiceLocator;
 
 using miRobotEditor.Abstract;
 using miRobotEditor.Enums;
@@ -71,7 +69,7 @@ namespace miRobotEditor.Classes
             if (workerArgs != null)
             {
                 var bitmapImage = ImageHelper.LoadBitmap(workerArgs.IconPath);
-                var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 var fileLanguage = instance.ActiveEditor.FileLanguage;
                 var match = VariableHelper.FindMatches(workerArgs.Lang.XYZRegex, workerArgs.Filename);
                 var fileNameWithoutExtension =
@@ -99,7 +97,7 @@ namespace miRobotEditor.Classes
         {
             var list = new List<IVariable>();
             var bitmapImage = ImageHelper.LoadBitmap(iconpath);
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             var fileLanguage = instance.ActiveEditor.FileLanguage;
             var match = VariableHelper.FindMatches(regex, filename);
             var fileNameWithoutExtension =

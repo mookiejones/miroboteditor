@@ -10,12 +10,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using CommonServiceLocator;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Folding; 
+using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls.TextEditor;
 using miRobotEditor.Enums;
@@ -643,7 +642,7 @@ namespace miRobotEditor.Abstract
             // Dispose of Background worker
             _bw = null;
             //TODO Open Variable Monitor
-            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var main = Ioc.Default.GetRequiredService<MainViewModel>();
             main.EnableIO = File.Exists(_kukaCon);
             IOModel = new IOViewModel(_kukaCon);
         }
@@ -707,7 +706,7 @@ namespace miRobotEditor.Abstract
                 OnPropertyChanged(nameof(Positions));
                 BWProgressVisibility = Visibility.Collapsed;
 
-                var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 instance.EnableIO = File.Exists(_kukaCon);
                 IOModel = new IOViewModel(_kukaCon);
                 return variableMembers;

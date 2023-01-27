@@ -1,7 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
-using CommonServiceLocator;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 namespace miRobotEditor.ViewModel
@@ -141,13 +141,13 @@ namespace miRobotEditor.ViewModel
 
         private static void FindNext()
         {
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.ActiveEditor.TextBox.FindText();
         }
 
         private static void Replace()
         {
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.ActiveEditor.TextBox.ReplaceText();
         }
 

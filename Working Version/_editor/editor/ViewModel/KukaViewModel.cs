@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using GalaSoft.MvvmLight.Command;
+using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Abstract;
 using miRobotEditor.Classes;
 using miRobotEditor.Controls;

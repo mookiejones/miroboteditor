@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using ICSharpCode.AvalonEdit.Document;
 using miRobotEditor.Interfaces;
-using CSITextAnchor = ICSharpCode.AvalonEdit.Document.ITextAnchor;
 using ITextAnchor = miRobotEditor.Interfaces.ITextAnchor;
 
 namespace miRobotEditor.Classes

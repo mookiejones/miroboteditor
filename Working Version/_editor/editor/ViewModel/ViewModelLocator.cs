@@ -10,9 +10,7 @@
 */
 
 using System.Diagnostics.CodeAnalysis;
-using CommonServiceLocator;
-using CommunityToolkit.Mvvm.ComponentModel;
-using GalaSoft.MvvmLight.Ioc;  
+using CommunityToolkit.Mvvm.DependencyInjection;
 using miRobotEditor.Model;
 
 namespace miRobotEditor.ViewModel
@@ -36,9 +34,9 @@ namespace miRobotEditor.ViewModel
             SimpleIoc.Default.Register<MainViewModel>(true);
         }
 
-        public ObjectBrowserViewModel ObjectBrowser => ServiceLocator.Current.GetInstance<ObjectBrowserViewModel>();
+        public ObjectBrowserViewModel ObjectBrowser => Ioc.Default.GetRequiredService<ObjectBrowserViewModel>();
 
-        public StatusBarViewModel StatusBar => ServiceLocator.Current.GetInstance<StatusBarViewModel>();
+        public StatusBarViewModel StatusBar => Ioc.Default.GetRequiredService<StatusBarViewModel>();
 
         /// <summary>
         ///     Gets the Main property.
@@ -46,7 +44,7 @@ namespace miRobotEditor.ViewModel
         [SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public MainViewModel Main => Ioc.Default.GetRequiredService<MainViewModel>();
 
         /// <summary>
         ///     Cleans up all the resources.

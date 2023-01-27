@@ -1,7 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
-using CommonServiceLocator;
-using GalaSoft.MvvmLight.Command; 
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 using miRobotEditor.Enums;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
@@ -37,7 +37,7 @@ namespace miRobotEditor.Languages
         {
             Instance = this;
             DefaultPane = DefaultToolPane.Right;
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             _filename = instance.ActiveEditor.FilePath;
             base.Width = 619;
             base.Height = 506;
@@ -52,7 +52,7 @@ namespace miRobotEditor.Languages
                 {
                     _items =
                         (_listItems =
-                            ServiceLocator.Current.GetInstance<ObjectBrowserViewModel>()
+                            Ioc.Default.GetRequiredService<ObjectBrowserViewModel>()
                                 .GetVarForFile(KUKA.GetDatFileName(_filename)));
                 }
                 return _items;

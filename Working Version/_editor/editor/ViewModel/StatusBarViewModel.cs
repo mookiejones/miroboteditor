@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
-using GalaSoft.MvvmLight.Command;
-using miRobotEditor.Classes;
+using CommunityToolkit.Mvvm.Input;
 using Mookie.WPF;
 
 namespace miRobotEditor.ViewModel

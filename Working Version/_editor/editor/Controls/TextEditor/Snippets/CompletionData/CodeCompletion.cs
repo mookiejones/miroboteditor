@@ -1,10 +1,10 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Media;
-using CommonServiceLocator;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Editing; 
+using ICSharpCode.AvalonEdit.Editing;
 using miRobotEditor.Interfaces;
 using miRobotEditor.ViewModel;
 
@@ -45,7 +45,7 @@ namespace miRobotEditor.Classes
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
             var text = instance.ActiveEditor.TextBox.FindWord();
             var offset = completionSegment.Offset - text.Length;
             textArea.Document.Replace(offset, text.Length, Text);

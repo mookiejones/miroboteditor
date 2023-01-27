@@ -15,8 +15,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -849,7 +849,7 @@ namespace miRobotEditor.Controls.TextEditor
             catch (Exception ex)
             {
                 var msg = new ErrorMessage("Editor.ChangeIndent", ex);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 
@@ -915,7 +915,7 @@ namespace miRobotEditor.Controls.TextEditor
                 catch (IOException ex)
                 {
                     var msg = new ErrorMessage("File is locked!", ex);
-                    Messenger.Default.Send<IMessage>(msg);
+                    WeakReferenceMessenger.Default.Send<IMessage>(msg);
                     return true;
                 }
                 finally
@@ -962,11 +962,10 @@ namespace miRobotEditor.Controls.TextEditor
                     var msg = new OutputWindowMessage
                     {
                         Title = "File Saved",
-                        Description = Filename,
-                        Icon = null
+                        Description = Filename, 
                     };
 
-                    Messenger.Default.Send<IMessage>(msg);
+                    WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 }
             }
         }
@@ -1021,7 +1020,7 @@ namespace miRobotEditor.Controls.TextEditor
             {
                 var msg = new ErrorMessage(string.Format("Could not load Syntax Highlighting for {0}", Filename), ex,
                     MessageType.Error);
-                Messenger.Default.Send<IMessage>(msg);
+                WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 

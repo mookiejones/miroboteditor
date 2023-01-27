@@ -9,9 +9,8 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
-using GalaSoft.MvvmLight.Messaging;
-using CommonServiceLocator;
-
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Win32;
 using miRobotEditor.Classes;
 using miRobotEditor.Enums;
@@ -313,7 +312,7 @@ namespace miRobotEditor.Controls
                 {
                     if (File.Exists(filepath))
                     {
-                        var instance = ServiceLocator.Current.GetInstance<MainViewModel>();
+                        var instance = Ioc.Default.GetRequiredService<MainViewModel>();
                         instance.Open(filepath);
                     }
                     else
@@ -424,7 +423,7 @@ namespace miRobotEditor.Controls
                 catch (Exception ex)
                 {
                     var msg = new ErrorMessage("RecentFileList.ApplicationAttributes", ex, MessageType.Error);
-                    Messenger.Default.Send<IMessage>(msg);
+                    WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 }
             }
 
