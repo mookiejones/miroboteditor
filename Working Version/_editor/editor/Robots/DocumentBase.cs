@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using ICSharpCode.AvalonEdit.Editing;
+using ICSharpCode.AvalonEdit.Folding;
 using miRobotEditor.Abstract;
 using miRobotEditor.Controls.TextEditor;
 using miRobotEditor.Interfaces;
@@ -31,9 +33,19 @@ namespace miRobotEditor.Classes
 
         public abstract void Close();
 
-        public abstract void Load(string filepath);
+        public abstract void Load(string filePath);
 
-        public void SelectText(IVariable variable) => throw new NotImplementedException();
+        public void SelectText(IVariable variable)
+        {
+            if (variable.Name == null) throw new ArgumentNullException(nameof(variable));
+
+            //TODO Need to find out if this will work from Global Variables. Only Tested so far for Local Variable Window
+
+            // Is Offset of textbox greater than desired value?
+            var enoughLines = TextBox.Text.Length >= variable.Offset;
+            if (enoughLines)
+                    TextBox.SelectText(variable);
+        }
 
         private void InitializeControl()
         {
