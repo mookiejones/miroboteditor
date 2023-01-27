@@ -7,7 +7,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <DataGrid IsReadOnly="True" 
-                  Style="{StaticResource DataGridStyle}"                  
+
+                                            Style="{StaticResource ObjectBrowserDataGrid}"
                   ItemsSource="{Binding}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />

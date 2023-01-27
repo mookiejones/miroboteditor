@@ -332,3 +332,7 @@ C:\Programming\miroboteditor\Working Version\_editor\editor\bin\Debug\System.Mem
 C:\Programming\miroboteditor\Working Version\_editor\editor\bin\Debug\System.Numerics.Vectors.xml
 C:\Programming\miroboteditor\Working Version\_editor\editor\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Programming\miroboteditor\Working Version\_editor\editor\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Programming\miroboteditor\Working Version\_editor\editor\bin\Debug\Mookie.WPF.dll
+C:\Programming\miroboteditor\Working Version\_editor\editor\bin\Debug\Mookie.WPF.pdb
+C:\Programming\miroboteditor\Working Version\_editor\editor\bin\Debug\Mookie.WPF.xml
+C:\Programming\miroboteditor\Working Version\_editor\editor\obj\Debug\Assets\Templates\Templates.ObjectBrowserView.baml

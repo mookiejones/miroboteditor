@@ -6,8 +6,16 @@
              xmlns:controls="clr-namespace:miRobotEditor.Controls"
              xmlns:controls1="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:classes="clr-namespace:miRobotEditor.Classes"
+             xmlns:utilities="clr-namespace:Mookie.WPF.Utilities;assembly=Mookie.WPF"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/miRobotEditor;component/Assets/Templates/Templates.ObjectBrowserView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
      
     <Grid DataContext="{Binding Main.ActiveEditor.FileLanguage, IsAsync=True, NotifyOnSourceUpdated=True, Source={StaticResource Locator}}">
 
@@ -24,23 +32,34 @@
 
                 </Style>
             </TabControl.Resources>
+           
             <TabItem Header="Functions" >
-                <DataGrid IsReadOnly="True"  ItemsSource="{Binding Functions}">
+                <DataGrid IsReadOnly="True"
+                          
+                      
+                          
+                          ItemsSource="{Binding Functions}" 
+                          Style="{StaticResource ObjectBrowserDataGrid}"    >
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Width="Auto" IsReadOnly="True">
+                        <DataGridTemplateColumn Width="Auto" IsReadOnly="True" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Height="16" Width="16" Source="{Binding Icon}"
-                                           d:DataContext="{d:DesignInstance classes:Variable}" />
+                                    <Image Height="16" Width="16" Source="{Binding Icon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Type" Binding="{Binding Type}" />
+                        <DataGridTextColumn Header="Name" 
+
+                                            Binding="{Binding Name}"/>
+
+
+                        <DataGridTextColumn  Header="Type" Binding="{Binding Type}" />
                         <DataGridTextColumn Header="Path" Width="*" Binding="{Binding Path}" />
                     </DataGrid.Columns>
                 </DataGrid>
-            </TabItem >
+            </TabItem>
+
+
             <TabItem Header="Fields">
                 <controls:VisualVariableControl DataContext="{Binding Fields}" />
             </TabItem>

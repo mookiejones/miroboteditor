@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
+                          xmlns:utilities="clr-namespace:Mookie.WPF.Utilities;assembly=Mookie.WPF"
+
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -27,7 +29,10 @@
     <Grid>
         <DataGrid x:Name="VisualVariable" IsReadOnly="True"                    
                   ToolTipOpening="ToolTip_Opening" ItemsSource="{Binding}"
-                  MouseDoubleClick="OnMouseDoubleClick">
+                  MouseDoubleClick="OnMouseDoubleClick"
+                  Style="{StaticResource ObjectBrowserDataGrid}" 
+                          
+                  >
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>

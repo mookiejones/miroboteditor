@@ -676,12 +676,10 @@ namespace miRobotEditor.ViewModel
             ActiveEditor = _files.Last();
         }
 
-        public void LoadFile(IList<string> args)
+        public void LoadFile(IEnumerable<string> args)
         {
-            for (var i = 1; i < args.Count; i++)
-            {
-                Open(args[i]);
-            }
+            foreach (var arg in args)
+                Open(arg); 
         }
 
         private void ChangeViewAs(object param)

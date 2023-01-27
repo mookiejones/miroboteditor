@@ -18,6 +18,7 @@ using miRobotEditor.Windows;
 using CommonServiceLocator;
 
 using MessageBox = System.Windows.MessageBox;
+using Mookie.WPF;
 
 namespace miRobotEditor
 {
@@ -34,7 +35,7 @@ namespace miRobotEditor
             DispatcherHelper.Initialize();
         }
 
-        public bool SignalExternalCommandLineArgs(IList<string> args)
+        public bool SignalExternalCommandLineArgs(IEnumerable<string> args)
         {
             MainWindow.Activate();
             var main = ServiceLocator.Current.GetInstance<MainViewModel>();

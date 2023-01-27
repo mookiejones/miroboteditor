@@ -12,8 +12,7 @@
 using System.Diagnostics.CodeAnalysis;
 using CommonServiceLocator;
 using CommunityToolkit.Mvvm.ComponentModel;
-using GalaSoft.MvvmLight.Ioc; 
-using miRobotEditor.Design;
+using GalaSoft.MvvmLight.Ioc;  
 using miRobotEditor.Model;
 
 namespace miRobotEditor.ViewModel

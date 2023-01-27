@@ -241,8 +241,6 @@
     <Compile Include="Controls\TextEditor\Indentation\IndentationStrategy.cs" />
     <Compile Include="UI\LayoutInitializer.cs" />
     <Compile Include="Utilities\LogWriter.cs" />
-    <Compile Include="NativeMethods.cs" />
-    <Compile Include="SingleInstance.cs" />
     <Compile Include="Controls\TextEditor\TextSourceAdapter.cs" />
     <Compile Include="Utilities\TraceWriter.cs" />
     <Compile Include="Languages\Data\Variable.cs" />
@@ -446,6 +444,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Assets\Templates\Templates.ObjectBrowserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FileInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -646,7 +648,6 @@
     <Compile Include="Converters\TextOptionsConverter.cs" />
     <Compile Include="Converters\VariableToFunctionConverter.cs" />
     <Compile Include="Converters\WidthConverter.cs" />
-    <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Enums\CartesianEnum.cs" />
     <Compile Include="Enums\DefaultToolPane.cs" />
     <Compile Include="Enums\MsgIcon.cs" />
@@ -674,7 +675,6 @@
     <Compile Include="Interfaces\IBookmarkMargin.cs" />
     <Compile Include="Interfaces\IEditor.cs" />
     <Compile Include="Interfaces\IImage.cs" />
-    <Compile Include="Interfaces\ISingleInstanceApp.cs" />
     <Compile Include="Interfaces\ITextBuffer.cs" />
     <Compile Include="Interfaces\ITextBufferVersion.cs" />
     <Compile Include="Interfaces\IVariable.cs" />
@@ -855,6 +855,12 @@
     <Content Include="Images\kuka.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Mookie.WPF\Mookie.WPF\Mookie.WPF.csproj">
+      <Project>{FF1440EF-5228-4D05-B0E0-1A04A2140EB9}</Project>
+      <Name>Mookie.WPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets')" />
